@@ -11,4 +11,65 @@
 
 ---
 
+## 테이블 상세 정보
+
+### ZEDT25_LFA1
+
+**Key 필드:** `MANDT, LIFNR`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `NAME1` | CHAR | 30 | Name |
+| `LAND1` | CHAR | 3 | Country Key |
+| `KTOKK` | CHAR | 4 | ##### |
+| `STCD1` | CHAR | 16 | Tax Number 1 |
+| `STCD2` | CHAR | 11 | Tax Number 2 |
+
+*... 외 1개 필드*
+
+**데이터 타입:** CHAR(7), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zedt25_lfa1.html)
+
+---
+
+### ZEDT25_LFB1
+
+**Key 필드:** `MANDT, LIFNR, BUKRS`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `LOEVM` | CHAR | 1 | Deletion Indicator |
+| `AKONT` | CHAR | 10 | - |
+| `ZTERM` | CHAR | 4 | - |
+
+**데이터 타입:** CHAR(5), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zedt25_lfb1.html)
+
+---
+
+### ZEDT25_LFM1
+
+**Key 필드:** `MANDT, LIFNR, EKORG`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `EKGRP` | CHAR | 3 | Purchasing Group |
+| `LOEVM` | CHAR | 1 | Deletion Indicator |
+| `WAERS` | CUKY | 5 | Currency Key |
+| `MWSKZ` | CHAR | 2 | ### |
+
+**데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
+
+📄 [전체 테이블 구조 보기](zedt25_lfm1.html)
+
+---
+
 > 💡 **팁**: 각 테이블명을 클릭하면 상세한 테이블 구조를 확인할 수 있습니다.

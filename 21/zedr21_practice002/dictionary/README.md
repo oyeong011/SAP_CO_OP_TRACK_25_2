@@ -11,4 +11,76 @@
 
 ---
 
+## 테이블 상세 정보
+
+### ZEDT21_001
+
+**Key 필드:** `MANDT, ZCODE21, ZPERNR21`
+
+**INCLUDE 구조:** ZEDS21_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZKNAME21` | CHAR | 10 | - |
+| `ZENAME21` | CHAR | 10 | - |
+| `ZGUBUN21` | CHAR | 1 | - |
+| `ZTEL21` | CHAR | 16 | - |
+| `CRNAME` | CHAR | 12 | Created By |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zedt21_001.html)
+
+---
+
+### ZEDT21_002
+
+**Key 필드:** `MANDT, ZCODE21, ZPERNR21`
+
+**INCLUDE 구조:** ZEDS21_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZMAJOR21` | CHAR | 10 | - |
+| `ZMNAME21` | CHAR | 20 | ### |
+| `ZMGUBUN21` | CHAR | 1 | - |
+| `ZSUM21` | CURR | 13 | - |
+| `ZWAERS21` | CUKY | 5 | Currency Key |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1), CURR(1)
+
+📄 [전체 테이블 구조 보기](zedt21_002.html)
+
+---
+
+### ZEDT21_004
+
+**Key 필드:** `MANDT, ZCODE21, ZPERNR21, ZSCHOOL21, ZSEM21, ZEXAM21`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZMAJOR21` | CHAR | 10 | - |
+| `ZMNAME21` | CHAR | 20 | ### |
+| `ZSUM21` | CURR | 13 | - |
+| `ZWAERS21` | CUKY | 5 | - |
+| `ZGRADE21` | CHAR | 1 | - |
+
+*... 외 2개 필드*
+
+**데이터 타입:** CHAR(9), CURR(2), CLNT(1), CUKY(1)
+
+📄 [전체 테이블 구조 보기](zedt21_004.html)
+
+---
+
 > 💡 **팁**: 각 테이블명을 클릭하면 상세한 테이블 구조를 확인할 수 있습니다.

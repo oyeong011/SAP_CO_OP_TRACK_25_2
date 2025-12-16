@@ -11,4 +11,78 @@
 
 ---
 
+## 테이블 상세 정보
+
+### ZEDT12_001
+
+**Key 필드:** `MANDT, ZCODE, ZPERNR`
+
+**INCLUDE 구조:** ZEDS12_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZKNAME` | CHAR | 20 | - |
+| `ZENAME` | CHAR | 20 | - |
+| `ZGENDER` | CHAR | 1 | - |
+| `ZTEL` | CHAR | 16 | - |
+| `CRNAME` | CHAR | 12 | Created By |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zedt12_001.html)
+
+---
+
+### ZEDT12_002
+
+**Key 필드:** `MANDT, ZCODE, ZPERNR`
+
+**INCLUDE 구조:** ZEDS12_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZMAJOR` | CHAR | 1 | - |
+| `ZMNAME` | CHAR | 20 | ### |
+| `ZMGUBUN` | CHAR | 1 | - |
+| `ZSUM` | CURR | 13 | Amount in local currency |
+| `ZWAERS` | CUKY | 5 | - |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1), CURR(1)
+
+📄 [전체 테이블 구조 보기](zedt12_002.html)
+
+---
+
+### ZEDT12_004
+
+**Key 필드:** `MANDT, ZCODE, ZPERNR, ZSCHOOL, ZSEM, ZEXAM`
+
+**INCLUDE 구조:** ZEDS12_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZMAJOR` | CHAR | 1 | - |
+| `ZMNAME` | CHAR | 20 | ### |
+| `ZSUM` | CURR | 13 | - |
+| `ZWAERS` | CUKY | 5 | Currency Key |
+| `ZGRADE` | CHAR | 1 | - |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(11), CURR(2), DATS(2), TIMS(2), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zedt12_004.html)
+
+---
+
 > 💡 **팁**: 각 테이블명을 클릭하면 상세한 테이블 구조를 확인할 수 있습니다.

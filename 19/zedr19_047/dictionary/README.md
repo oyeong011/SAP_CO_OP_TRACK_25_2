@@ -13,4 +13,116 @@
 
 ---
 
+## 테이블 상세 정보
+
+### ZEDT19_102
+
+**Key 필드:** `MANDT, ZPERNR, ZDEPCODE, DATBI, DATAB`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZDEPRANK` | CHAR | 1 | - |
+| `ZEDATE` | DATS | 8 | - |
+| `ZQDATE` | DATS | 8 | - |
+| `ZQFLAG` | CHAR | 1 | - |
+| `CRNAME` | CHAR | 12 | Created By |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(6), DATS(6), TIMS(2), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zedt19_102.html)
+
+---
+
+### ZEDT19_103
+
+**Key 필드:** `MANDT, ZPERNR`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZPNAME` | CHAR | 10 | - |
+| `ZGENDER` | CHAR | 1 | - |
+| `ZADDRESS` | CHAR | 20 | - |
+| `CRNAME19` | CHAR | 12 | Created By |
+| `CRDATE` | DATS | 8 | Creation date |
+
+*... 외 4개 필드*
+
+**데이터 타입:** CHAR(6), DATS(2), TIMS(2), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zedt19_103.html)
+
+---
+
+### ZEDT19_104
+
+**Key 필드:** `MANDT, ZPERNR, ZDEPCODE`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZYEAR` | NUMC | 4 | - |
+| `DATABI` | DATS | 8 | Valid To Date |
+| `DATAB` | DATS | 8 | Valid-From Date |
+| `ZRANK` | CHAR | 1 | - |
+| `CRNAME` | CHAR | 12 | Created By |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(5), DATS(4), TIMS(2), CLNT(1), NUMC(1)
+
+📄 [전체 테이블 구조 보기](zedt19_104.html)
+
+---
+
+### ZEDT19_105
+
+**Key 필드:** `MANDT, ZPERNR, ZYEAR`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZMON01` | DEC | 17 | 1### |
+| `ZMON02` | DEC | 17 | 2### |
+| `ZMON03` | DEC | 17 | 3### |
+| `ZMON04` | DEC | 17 | 4### |
+| `ZMON05` | DEC | 17 | 5### |
+
+*... 외 5개 필드*
+
+**데이터 타입:** DEC(12), CHAR(3), DATS(2), TIMS(2), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zedt19_105.html)
+
+---
+
+### ZEDT19_106
+
+**Key 필드:** `MANDT, ZPERNR, ZYEAR, DATBI, DATAB`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZSALARY` | DEC | 17 | - |
+| `ZBANKCODE` | CHAR | 3 | - |
+| `ZACCOUNT` | CHAR | 20 | - |
+| `CRNAME` | CHAR | 12 | Created By |
+| `CRDATE` | DATS | 8 | Creation date |
+
+*... 외 3개 필드*
+
+**데이터 타입:** CHAR(5), DATS(4), CLNT(1), NUMC(1), DEC(1)
+
+📄 [전체 테이블 구조 보기](zedt19_106.html)
+
+---
+
 > 💡 **팁**: 각 테이블명을 클릭하면 상세한 테이블 구조를 확인할 수 있습니다.

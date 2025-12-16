@@ -11,4 +11,74 @@
 
 ---
 
+## 테이블 상세 정보
+
+### ZEDT19_0001
+
+**Key 필드:** `ZCODE, ZPERNR`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZKNAME` | CHAR | 20 | ZKNAME19 |
+| `ZENAME` | CHAR | 20 | ZENAME19 |
+| `ZGENDER` | CHAR | 1 | ZGENDER19 |
+| `ZTEL` | CHAR | 16 | ZTEL19 |
+| `ZSUM` | CURR | 13 | - |
+
+*... 외 3개 필드*
+
+**데이터 타입:** CHAR(9), CURR(1)
+
+📄 [전체 테이블 구조 보기](zedt19_0001.html)
+
+---
+
+### ZEDT19_002
+
+**Key 필드:** `MANDT, ZCODE, ZPERNR`
+
+**INCLUDE 구조:** ZEDS19_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZMAJOR` | CHAR | 1 | - |
+| `ZMNAME` | CHAR | 20 | ### |
+| `ZMGUBUN` | CHAR | 1 | - |
+| `ZSUM` | CURR | 13 | - |
+| `ZWARES` | CUKY | 5 | - |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1), CURR(1)
+
+📄 [전체 테이블 구조 보기](zedt19_002.html)
+
+---
+
+### ZEDT19_004
+
+**Key 필드:** `MANDT, ZCODE, ZPERNR, ZSCHOOL, ZSEM, ZEXAM`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZMAJOR` | CHAR | 1 | - |
+| `ZMNAME` | CHAR | 20 | ### |
+| `ZSUM` | CURR | 13 | - |
+| `ZWARES` | CUKY | 5 | - |
+| `ZGRADE` | CHAR | 1 | - |
+
+*... 외 2개 필드*
+
+**데이터 타입:** CHAR(9), CLNT(1), CURR(1), CUKY(1), INT8(1)
+
+📄 [전체 테이블 구조 보기](zedt19_004.html)
+
+---
+
 > 💡 **팁**: 각 테이블명을 클릭하면 상세한 테이블 구조를 확인할 수 있습니다.

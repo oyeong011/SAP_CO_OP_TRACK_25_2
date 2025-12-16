@@ -11,4 +11,71 @@
 
 ---
 
+## 테이블 상세 정보
+
+### ZLFA1_09
+
+**설명:** #### ###(## ###)
+
+**Key 필드:** `MANDT, LIFNR`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `NAME1` | CHAR | 35 | Name 1 |
+| `LAND1` | CHAR | 3 | Country Key |
+| `KTOKK` | CHAR | 4 | - |
+| `STCD1` | CHAR | 16 | - |
+| `STCD2` | CHAR | 11 | - |
+
+*... 외 1개 필드*
+
+**데이터 타입:** CHAR(7), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zlfa1_09.html)
+
+---
+
+### ZLFB1_09
+
+**설명:** #### ###(####)
+
+**Key 필드:** `MANDT, LIFNR, BUKRS`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `LOEVM` | CHAR | 1 | Deletion Flag for Master Record (Company Code Level) |
+| `AKONT` | CHAR | 10 | ###### #### |
+| `ZTERM` | CHAR | 4 | - |
+
+**데이터 타입:** CHAR(5), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zlfb1_09.html)
+
+---
+
+### ZLFM1_09
+
+**설명:** #### ### ### #### ###
+
+**Key 필드:** `MANDT, LIFNR, EKORG`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `EKGRP` | CHAR | 3 | - |
+| `LOEVM` | CHAR | 1 | Delete flag for vendor at purchasing level |
+| `WAERS` | CUKY | 5 | Purchase order currency |
+| `MWSKZ` | CHAR | 2 | - |
+
+**데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
+
+📄 [전체 테이블 구조 보기](zlfm1_09.html)
+
+---
+
 > 💡 **팁**: 각 테이블명을 클릭하면 상세한 테이블 구조를 확인할 수 있습니다.

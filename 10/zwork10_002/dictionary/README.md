@@ -10,4 +10,45 @@
 
 ---
 
+## 테이블 상세 정보
+
+### ZEDT10_000
+
+**Key 필드:** `MANDT, ZCODE, ZPERNR`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZKNAME` | CHAR | 10 | ## ## |
+| `ZENAME` | CHAR | 10 | - |
+| `ZGENDER` | CHAR | 1 | - |
+| `ZTEL` | CHAR | 16 | - |
+
+**데이터 타입:** CHAR(6), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zedt10_000.html)
+
+---
+
+### ZTCURR10
+
+**Key 필드:** `MANDT, KURST, FCURR, TCURR, GDATU`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `UKURS` | DEC | 9 | Exchange Rate |
+| `FFACT` | DEC | 9 | Ratio for the "from" currency units |
+| `TFACT` | DEC | 9 | Ratio for the "to" currency units |
+| `ERNAM` | CHAR | 12 | Name of Person Who Created the Object |
+| `ERDAT` | DATS | 8 | Date on Which Record Was Created |
+
+**데이터 타입:** CHAR(3), DEC(3), CUKY(2), CLNT(1), DATS(1)
+
+📄 [전체 테이블 구조 보기](ztcurr10.html)
+
+---
+
 > 💡 **팁**: 각 테이블명을 클릭하면 상세한 테이블 구조를 확인할 수 있습니다.

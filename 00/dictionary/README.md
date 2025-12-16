@@ -21,4 +21,310 @@
 
 ---
 
+## 테이블 상세 정보
+
+### ZEDS00_001
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `MANDT` | CLNT | 3 | Client |
+| `ZCODE` | CHAR | 10 | - |
+| `ZPERNR` | CHAR | 10 | - |
+| `ZKNAME` | CHAR | 20 | - |
+| `ZENAME` | CHAR | 20 | - |
+
+*... 외 2개 필드*
+
+**데이터 타입:** CHAR(6), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zeds00_001.html)
+
+---
+
+### ZEDS00_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `CRNAME` | CHAR | 12 | Created By |
+| `CRDATE` | DATS | 8 | Creation date |
+| `CRZEIT` | TIMS | 6 | Time created |
+| `AENAME` | CHAR | 12 | Last Changed By |
+| `AEDATE` | DATS | 8 | Date of Last Change |
+
+*... 외 1개 필드*
+
+**데이터 타입:** CHAR(2), DATS(2), TIMS(2)
+
+📄 [전체 테이블 구조 보기](zeds00_002.html)
+
+---
+
+### ZEDT00_001
+
+**Key 필드:** `MANDT, ZCODE, ZPERNR`
+
+**INCLUDE 구조:** ZEDS00_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZKNAME` | CHAR | 20 | - |
+| `ZENAME` | CHAR | 20 | - |
+| `ZGENDER` | CHAR | 1 | - |
+| `ZTEL` | CHAR | 16 | - |
+| `CRNAME` | CHAR | 12 | Created By |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zedt00_001.html)
+
+---
+
+### ZEDT00_002
+
+**Key 필드:** `MANDT, ZCODE, ZPERNR`
+
+**INCLUDE 구조:** ZEDS00_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZMAJOR` | CHAR | 1 | - |
+| `ZMNAME` | CHAR | 20 | ### |
+| `ZMGUBUN` | CHAR | 1 | - |
+| `ZSUM` | CURR | 13 | - |
+| `ZWAERS` | CUKY | 5 | Currency Key |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1), CURR(1)
+
+📄 [전체 테이블 구조 보기](zedt00_002.html)
+
+---
+
+### ZEDT00_004
+
+**Key 필드:** `MANDT, ZCODE, ZPERNR, ZSCHOOL, ZSEM, ZEXAM`
+
+**INCLUDE 구조:** ZEDS00_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZMAJOR` | CHAR | 1 | - |
+| `ZMNAME` | CHAR | 20 | ### |
+| `ZSUM` | CURR | 13 | - |
+| `ZWAERS` | CUKY | 5 | Currency Key |
+| `ZGRADE` | CHAR | 1 | - |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(11), CURR(2), DATS(2), TIMS(2), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zedt00_004.html)
+
+---
+
+### ZEDT00_100
+
+**Key 필드:** `MANDT, ZORDNO, ZIDCODE, ZMATNR`
+
+**INCLUDE 구조:** ZEDS00_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZMTART` | CHAR | 3 | - |
+| `ZMATNAME` | CHAR | 20 | ### |
+| `ZVOLUM` | CHAR | 3 | - |
+| `VOLUM` | QUAN | 13 | Volume |
+| `VRKME` | UNIT | 3 | Sales Unit |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(11), DATS(4), CURR(3), TIMS(2), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zedt00_100.html)
+
+---
+
+### ZEDT00_101
+
+**Key 필드:** `MANDT, ZORDNO, ZIDCODE, ZMATNR`
+
+**INCLUDE 구조:** ZEDS00_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZMTART` | CHAR | 3 | - |
+| `ZMATNAME` | CHAR | 20 | ### |
+| `ZVOLUM` | CHAR | 3 | - |
+| `VOLUM` | QUAN | 13 | Volume |
+| `VRKME` | UNIT | 3 | Sales Unit |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(11), DATS(4), TIMS(2), CLNT(1), QUAN(1)
+
+📄 [전체 테이블 구조 보기](zedt00_101.html)
+
+---
+
+### ZEDT00_102
+
+**Key 필드:** `MANDT, ZPERNR, ZDEPCODE, DATBI, DATAB`
+
+**INCLUDE 구조:** ZEDS00_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZDEPRANK` | CHAR | 1 | - |
+| `ZEDATE` | DATS | 8 | - |
+| `ZQDATE` | DATS | 8 | - |
+| `ZQFLAG` | CHAR | 1 | - |
+| `CRNAME` | CHAR | 12 | Created By |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(6), DATS(6), TIMS(2), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zedt00_102.html)
+
+---
+
+### ZEDT00_103
+
+**Key 필드:** `MANDT, ZPERNR`
+
+**INCLUDE 구조:** ZEDS00_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZPNAME` | CHAR | 10 | - |
+| `ZGENDER` | CHAR | 1 | - |
+| `ZADDRESS` | CHAR | 20 | - |
+| `CRNAME` | CHAR | 12 | Created By |
+| `CRDATE` | DATS | 8 | Creation date |
+
+*... 외 4개 필드*
+
+**데이터 타입:** CHAR(6), DATS(2), TIMS(2), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zedt00_103.html)
+
+---
+
+### ZEDT00_104
+
+**Key 필드:** `MANDT, ZPERNR, ZDEPCODE, ZYEAR, DATBI, DATAB`
+
+**INCLUDE 구조:** ZEDS00_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZRANK` | CHAR | 1 | - |
+| `CRNAME` | CHAR | 12 | Created By |
+| `CRDATE` | DATS | 8 | Creation date |
+| `CRZEIT` | TIMS | 6 | Time created |
+| `AENAME` | CHAR | 12 | Last Changed By |
+
+*... 외 2개 필드*
+
+**데이터 타입:** CHAR(5), DATS(4), TIMS(2), CLNT(1), NUMC(1)
+
+📄 [전체 테이블 구조 보기](zedt00_104.html)
+
+---
+
+### ZEDT00_105
+
+**Key 필드:** `MANDT, ZPERNR, ZYEAR`
+
+**INCLUDE 구조:** ZEDS00_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZMON01` | CURR | 13 | 1### |
+| `ZMON02` | CURR | 13 | 2### |
+| `ZMON03` | CURR | 13 | 3### |
+| `ZMON04` | CURR | 13 | 4### |
+| `ZMON05` | CURR | 13 | 5### |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CURR(12), CHAR(3), DATS(2), TIMS(2), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zedt00_105.html)
+
+---
+
+### ZEDT00_106
+
+**Key 필드:** `MANDT, ZPERNR, ZYEAR, DATBI, DATAB`
+
+**INCLUDE 구조:** ZEDS00_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZSALARY` | CURR | 10 | Salary |
+| `ZBANKCODE` | CHAR | 3 | - |
+| `ZACCOUNT` | CHAR | 20 | - |
+| `CRNAME` | CHAR | 12 | Created By |
+| `CRDATE` | DATS | 8 | Creation date |
+
+*... 외 4개 필드*
+
+**데이터 타입:** CHAR(5), DATS(4), TIMS(2), CLNT(1), NUMC(1)
+
+📄 [전체 테이블 구조 보기](zedt00_106.html)
+
+---
+
+### ZEDT00_200
+
+**Key 필드:** `MANDT, WERKS, LGORT, ZMATNR`
+
+**INCLUDE 구조:** ZEDS00_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZMATNAME` | CHAR | 20 | ### |
+| `MTART` | CHAR | 4 | Material Type |
+| `STPRS` | CURR | 11 | Standard price |
+| `WAERS` | CUKY | 5 | Currency Key |
+| `MENGE` | QUAN | 13 | Quantity |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(7), DATS(2), TIMS(2), CLNT(1), CURR(1)
+
+📄 [전체 테이블 구조 보기](zedt00_200.html)
+
+---
+
 > 💡 **팁**: 각 테이블명을 클릭하면 상세한 테이블 구조를 확인할 수 있습니다.

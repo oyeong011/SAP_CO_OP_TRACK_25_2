@@ -11,4 +11,61 @@
 
 ---
 
+## 테이블 상세 정보
+
+### ZEDT10_1004
+
+**Key 필드:** `MANDT, ZCODE, ZPERNR, ZSCHOOL, ZSEM, ZEXAM`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZMAJOR` | CHAR | 10 | - |
+| `ZMNAME` | CHAR | 40 | ### |
+| `ZSUM` | CURR | 12 | - |
+| `ZWAERS` | CUKY | 5 | Currency Key |
+| `ZGRADE` | CHAR | 1 | - |
+
+*... 외 2개 필드*
+
+**데이터 타입:** CHAR(7), INT1(2), CURR(2), CLNT(1), CUKY(1)
+
+📄 [전체 테이블 구조 보기](zedt10_1004.html)
+
+---
+
+### ZEDT10_T001
+
+**Key 필드:** `MANDT, BUKRS`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `BUTXT` | CHAR | 25 | Name of Company Code or Company |
+| `LAND1` | CHAR | 3 | Country Key |
+
+**데이터 타입:** CHAR(3), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zedt10_t001.html)
+
+---
+
+### ZEDT10_T001L
+
+**Key 필드:** `MANDT, WERKS, LGORT`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `LGOBE` | CHAR | 16 | Description of Storage Location |
+
+**데이터 타입:** CHAR(3), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zedt10_t001l.html)
+
+---
+
 > 💡 **팁**: 각 테이블명을 클릭하면 상세한 테이블 구조를 확인할 수 있습니다.

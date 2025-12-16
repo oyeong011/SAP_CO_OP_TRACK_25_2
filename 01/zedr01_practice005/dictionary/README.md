@@ -5,7 +5,33 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT01_001](zedt01_001.html) | - | 18 | .INCLUDE, MANDT, ZCODE ... (+1) |
+| [ZEDT01_001](zedt01_001.html) | - | 18 | MANDT, ZCODE, ZPERNR |
+
+---
+
+## 테이블 상세 정보
+
+### ZEDT01_001
+
+**Key 필드:** `MANDT, ZCODE, ZPERNR`
+
+**INCLUDE 구조:** ZEDS01_001_01, ZEDS01_001_02, ZEDS01_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZKNAME` | CHAR | 20 | - |
+| `ZENAME` | CHAR | 20 | - |
+| `ZGENDER` | CHAR | 1 | - |
+| `ZTEL` | CHAR | 16 | - |
+| `CRNAME` | CHAR | 12 | Created By |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zedt01_001.html)
 
 ---
 

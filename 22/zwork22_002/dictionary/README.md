@@ -9,4 +9,26 @@
 
 ---
 
+## 테이블 상세 정보
+
+### ZTCURR22
+
+**Key 필드:** `MANDT, KURST, FCURR, TCURR, GDATU`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `UKURS` | DEC | 9 | Exchange Rate |
+| `FFACT` | DEC | 9 | Ratio for the "from" currency units |
+| `TFACT` | DEC | 9 | Ratio for the "to" currency units |
+| `CRNAME` | CHAR | 12 | - |
+| `CRDATE` | DATS | 8 | - |
+
+**데이터 타입:** CHAR(3), DEC(3), CUKY(2), CLNT(1), DATS(1)
+
+📄 [전체 테이블 구조 보기](ztcurr22.html)
+
+---
+
 > 💡 **팁**: 각 테이블명을 클릭하면 상세한 테이블 구조를 확인할 수 있습니다.

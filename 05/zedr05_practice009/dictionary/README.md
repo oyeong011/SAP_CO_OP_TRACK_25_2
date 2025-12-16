@@ -36,4 +36,580 @@
 
 ---
 
+## 테이블 상세 정보
+
+### ZBKPF_05
+
+**Key 필드:** `MANDT, BUKRS, BELNR, GJAHR`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `BLART` | CHAR | 2 | Document type |
+| `BLDAT` | DATS | 8 | Document Date in Document |
+| `BUDAT` | DATS | 8 | Posting Date in the Document |
+| `WAERS` | CUKY | 5 | Currency Key |
+| `AWKEY` | CHAR | 10 | Accounting Document Number |
+
+**데이터 타입:** CHAR(4), DATS(2), CLNT(1), NUMC(1), CUKY(1)
+
+📄 [전체 테이블 구조 보기](zbkpf_05.html)
+
+---
+
+### ZBSEG_05
+
+**Key 필드:** `MANDT, BUKRS, BELNR, GJAHR, BUZEI`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `HKONT` | CHAR | 10 | General Ledger Account |
+| `SHKZG` | CHAR | 1 | Debit/Credit Indicator |
+| `DMBTR` | CURR | 13 | Amount in local currency |
+| `MENGE` | QUAN | 13 | Quantity |
+| `MEINS` | UNIT | 3 | Base Unit of Measure |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(9), NUMC(3), CLNT(1), CURR(1), QUAN(1)
+
+📄 [전체 테이블 구조 보기](zbseg_05.html)
+
+---
+
+### ZBSIK_05
+
+**Key 필드:** `MANDT, BUKRS, LIFNR, GJAHR, BELNR`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `BLDAT` | DATS | 8 | Document Date in Document |
+| `BUDAT` | DATS | 8 | Posting Date in the Document |
+| `WAERS` | CUKY | 5 | Currency Key |
+| `BLART` | CHAR | 2 | Document type |
+| `SHKZG` | CHAR | 1 | Debit/Credit Indicator |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(9), DATS(3), CURR(2), CLNT(1), NUMC(1)
+
+📄 [전체 테이블 구조 보기](zbsik_05.html)
+
+---
+
+### ZEDS05_001
+
+**INCLUDE 구조:** ZEDS05_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZPERNR` | CHAR | 10 | - |
+| `ZCODE` | CHAR | 10 | - |
+| `ZKNAME` | CHAR | 20 | - |
+| `ZENAME` | CHAR | 20 | - |
+| `ZGENDER` | CHAR | 1 | - |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(8), DATS(2), TIMS(2)
+
+📄 [전체 테이블 구조 보기](zeds05_001.html)
+
+---
+
+### ZEDS05_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `CRNAME` | CHAR | 12 | Created By |
+| `CRDATE` | DATS | 8 | Creation date |
+| `CRZEIT` | TIMS | 6 | Time created |
+| `AENAME` | CHAR | 12 | Name of person who changed object |
+| `AEDATE` | DATS | 8 | Date of Last Change |
+
+*... 외 1개 필드*
+
+**데이터 타입:** CHAR(2), DATS(2), TIMS(2)
+
+📄 [전체 테이블 구조 보기](zeds05_002.html)
+
+---
+
+### ZEDS05_TUITION_REP
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `STUDENT_ID` | CHAR | 10 | - |
+| `STUDENT_INFO` | STRG | 0 | - |
+| `MAJOR_NAME` | CHAR | 40 | - |
+| `TUITION_ORIGIN` | DEC | 13 | - |
+| `DISCOUNT_AMT` | DEC | 13 | - |
+
+*... 외 4개 필드*
+
+**데이터 타입:** CHAR(3), DEC(3), INT4(2), STRG(1)
+
+📄 [전체 테이블 구조 보기](zeds05_tuition_rep.html)
+
+---
+
+### ZEDT05_102
+
+**Key 필드:** `ZPERNR, ZDEPCODE, DATBI, DATAB`
+
+**INCLUDE 구조:** ZEDS05_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZDEPRANK` | CHAR | 1 | - |
+| `ZEDATE` | DATS | 8 | - |
+| `ZQDATE` | DATS | 8 | - |
+| `ZQFLAG` | CHAR | 1 | - |
+| `CRNAME` | CHAR | 12 | Created By |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(6), DATS(6), TIMS(2)
+
+📄 [전체 테이블 구조 보기](zedt05_102.html)
+
+---
+
+### ZEDT05_103
+
+**Key 필드:** `ZPERNR`
+
+**INCLUDE 구조:** ZEDS05_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZPNAME` | CHAR | 10 | - |
+| `ZGENDER` | CHAR | 1 | - |
+| `ZADDRESS` | CHAR | 20 | - |
+| `CRNAME` | CHAR | 12 | Created By |
+| `CRDATE` | DATS | 8 | Creation date |
+
+*... 외 4개 필드*
+
+**데이터 타입:** CHAR(6), DATS(2), TIMS(2)
+
+📄 [전체 테이블 구조 보기](zedt05_103.html)
+
+---
+
+### ZEDT05_104
+
+**Key 필드:** `ZPERNR, ZDEPCODE, ZYEAR, DATBI, DATAB`
+
+**INCLUDE 구조:** ZEDS05_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZRANK` | CHAR | 1 | - |
+| `CRNAME` | CHAR | 12 | Created By |
+| `CRDATE` | DATS | 8 | Creation date |
+| `CRZEIT` | TIMS | 6 | Time created |
+| `AENAME` | CHAR | 12 | Name of person who changed object |
+
+*... 외 2개 필드*
+
+**데이터 타입:** CHAR(5), DATS(4), TIMS(2), NUMC(1)
+
+📄 [전체 테이블 구조 보기](zedt05_104.html)
+
+---
+
+### ZEDT05_106
+
+📄 [전체 테이블 구조 보기](zedt05_106.html)
+
+---
+
+### ZEDT05_MAJOR_MST
+
+**Key 필드:** `MANDT, MAJOR_CODE`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `MAJOR_NAME` | CHAR | 40 | ### |
+| `TUITION` | CURR | 13 | - |
+| `WAERS` | CUKY | 5 | Currency Key |
+
+**데이터 타입:** CHAR(2), CLNT(1), CURR(1), CUKY(1)
+
+📄 [전체 테이블 구조 보기](zedt05_major_mst.html)
+
+---
+
+### ZEDT05_SCH
+
+**Key 필드:** `MANDT, STUDENT_ID`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `SCHOLAR_TYPE` | CHAR | 1 | ## ## |
+| `DISCOUNT_RATE` | DEC | 3 | ## ### (#: 0.30) |
+
+**데이터 타입:** CHAR(2), CLNT(1), DEC(1)
+
+📄 [전체 테이블 구조 보기](zedt05_sch.html)
+
+---
+
+### ZEDT05_STINFO
+
+**Key 필드:** `MANDT, STUDENT_ID`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `MAJOR_CODE` | CHAR | 10 | ## ## |
+| `STUDENT_NAME` | CHAR | 20 | ## ## |
+| `GENDER` | CHAR | 1 | - |
+| `ADMISSION_DATE` | DATS | 8 | ### |
+| `REG_TIME` | TIMS | 6 | ## ## ## |
+
+*... 외 1개 필드*
+
+**데이터 타입:** CHAR(4), CLNT(1), DATS(1), TIMS(1), STRG(1)
+
+📄 [전체 테이블 구조 보기](zedt05_stinfo.html)
+
+---
+
+### ZEKGRP_05
+
+**Key 필드:** `EKGRP`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `BEZEI` | CHAR | 25 | Name of the controlling area |
+
+**데이터 타입:** CHAR(2)
+
+📄 [전체 테이블 구조 보기](zekgrp_05.html)
+
+---
+
+### ZEKKO_05
+
+**Key 필드:** `MANDT, EBELN`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `BUKRS` | CHAR | 4 | Company Code |
+| `EKGRP` | CHAR | 3 | Purchasing Group |
+| `EKORG` | CHAR | 4 | Purchasing Organization |
+| `LIFNR` | CHAR | 10 | Account Number of Vendor or Creditor |
+| `BEDAT` | DATS | 8 | Purchase Order Date |
+
+*... 외 1개 필드*
+
+**데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
+
+📄 [전체 테이블 구조 보기](zekko_05.html)
+
+---
+
+### ZEKPO_05
+
+**Key 필드:** `MANDT, EBELN, EBELP`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `MATNR` | CHAR | 10 | - |
+| `MAKTX` | CHAR | 40 | Material Description |
+| `MENGE` | QUAN | 13 | Quantity |
+| `MEINS` | UNIT | 3 | Base Unit of Measure |
+| `PRDAT` | DATS | 8 | Date of last forecast |
+
+*... 외 4개 필드*
+
+**데이터 타입:** CHAR(5), UNIT(2), CLNT(1), NUMC(1), QUAN(1)
+
+📄 [전체 테이블 구조 보기](zekpo_05.html)
+
+---
+
+### ZLFA1_05
+
+**Key 필드:** `MANDT, LIFNR`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `NAME1` | CHAR | 30 | Name |
+| `LAND1` | CHAR | 3 | Country Key |
+| `KTOKK` | CHAR | 4 | ##### |
+| `STCD1` | CHAR | 16 | Tax Number 1 |
+| `STCD2` | CHAR | 11 | Tax Number 2 |
+
+*... 외 1개 필드*
+
+**데이터 타입:** CHAR(7), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zlfa1_05.html)
+
+---
+
+### ZLFB1_05
+
+**Key 필드:** `MANDT, LIFNR, BUKRS`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `LOEVM` | CHAR | 1 | Deletion Indicator |
+| `AKONT` | CHAR | 10 | - |
+| `ZTERM` | CHAR | 4 | - |
+
+**데이터 타입:** CHAR(5), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zlfb1_05.html)
+
+---
+
+### ZLFM1_05
+
+**Key 필드:** `MANDT, LIFNR, EKORG`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `EKGRP` | CHAR | 3 | Purchasing Group |
+| `LOEVM` | CHAR | 1 | Deletion Indicator |
+| `WAERS` | CUKY | 5 | Currency Key |
+| `MWSKZ` | CHAR | 2 | ### |
+
+**데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
+
+📄 [전체 테이블 구조 보기](zlfm1_05.html)
+
+---
+
+### ZMARA05
+
+**Key 필드:** `MANDT, ZWERKS, ZLGORT, ZMATNR`
+
+**INCLUDE 구조:** ZEDS05_002
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZMATNAME` | CHAR | 20 | ### |
+| `ZMTART` | CHAR | 4 | - |
+| `ZMODEL` | CHAR | 10 | - |
+| `STPRS` | CURR | 11 | Standard price |
+| `WAERS` | CUKY | 5 | Currency Key |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1), CURR(1)
+
+📄 [전체 테이블 구조 보기](zmara05.html)
+
+---
+
+### ZMKPF_05
+
+**Key 필드:** `MANDT, MBLNR, MJAHR`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `BLART` | CHAR | 2 | Document type |
+| `BLDAT` | DATS | 8 | Document Date in Document |
+| `BUDAT` | DATS | 8 | Posting Date in the Document |
+
+**데이터 타입:** CHAR(2), DATS(2), CLNT(1), NUMC(1)
+
+📄 [전체 테이블 구조 보기](zmkpf_05.html)
+
+---
+
+### ZMSEG_05
+
+**Key 필드:** `MANDT, MBLNR, MJAHR, ZEILE`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `MATNR` | CHAR | 10 | - |
+| `ZWERKS` | CHAR | 4 | ### |
+| `ZLGORT` | CHAR | 4 | - |
+| `LIFNR` | CHAR | 10 | Vendor's account number |
+| `WAERS` | CUKY | 5 | Currency Key |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(10), NUMC(3), CLNT(1), CUKY(1), QUAN(1)
+
+📄 [전체 테이블 구조 보기](zmseg_05.html)
+
+---
+
+### ZPDT19_005
+
+**Key 필드:** `MANDT, EBELN, EBELP`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `ZMATNR` | CHAR | 10 | - |
+| `ZMATNAME` | CHAR | 20 | ### |
+| `MENGE` | QUAN | 13 | Purchase Order Quantity |
+| `MEINS` | UNIT | 3 | Purchase Order Unit of Measure |
+| `PRDAT` | DATS | 8 | Date of last forecast |
+
+*... 외 3개 필드*
+
+**데이터 타입:** CHAR(5), CLNT(1), NUMC(1), QUAN(1), UNIT(1)
+
+📄 [전체 테이블 구조 보기](zpdt19_005.html)
+
+---
+
+### ZPRO07_005
+
+**Key 필드:** `MANDT, EBELN, EBELP`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `MATNR` | CHAR | 18 | Material Number |
+| `MAKTX` | CHAR | 40 | Material Description |
+| `MENGE` | QUAN | 13 | Purchase Order Quantity |
+| `MEINS` | UNIT | 3 | Purchase Order Unit of Measure |
+| `BPRME` | CURR | 11 | Standard price |
+
+*... 외 3개 필드*
+
+**데이터 타입:** CHAR(5), CLNT(1), NUMC(1), QUAN(1), UNIT(1)
+
+📄 [전체 테이블 구조 보기](zpro07_005.html)
+
+---
+
+### ZPRO11_005
+
+**Key 필드:** `MANDT, EBELN, EBELP`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `MATNR` | CHAR | 18 | Material Number |
+| `MAKTX` | CHAR | 40 | Material Description |
+| `MENGE` | QUAN | 13 | Purchase Order Quantity |
+| `MEINS` | UNIT | 3 | Purchase Order Unit of Measure |
+| `BPRME` | CURR | 11 | Standard price |
+
+*... 외 3개 필드*
+
+**데이터 타입:** CHAR(5), CLNT(1), NUMC(1), QUAN(1), UNIT(1)
+
+📄 [전체 테이블 구조 보기](zpro11_005.html)
+
+---
+
+### ZRBKP_05
+
+**Key 필드:** `MANDT, BELNR, GJAHR`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `BLART` | CHAR | 2 | Document type |
+| `BLDAT` | DATS | 8 | Document Date in Document |
+| `BUDAT` | DATS | 8 | Posting Date in the Document |
+| `BUKRS` | CHAR | 4 | Company Code |
+| `LIFNR` | CHAR | 10 | Account Number of Vendor or Creditor |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(12), NUMC(2), DATS(2), CURR(2), CLNT(1)
+
+📄 [전체 테이블 구조 보기](zrbkp_05.html)
+
+---
+
+### ZRSEG_05
+
+**Key 필드:** `MANDT, BELNR, GJAHR, BUZEI`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `EBELN` | CHAR | 10 | Purchasing Document Number |
+| `EBELP` | NUMC | 5 | Item Number of Purchasing Document |
+| `MATNR` | CHAR | 10 | - |
+| `BUKRS` | CHAR | 4 | Company Code |
+| `TXZ01` | CHAR | 20 | ### |
+
+*... 외 5개 필드*
+
+**데이터 타입:** CHAR(11), NUMC(5), CURR(2), QUAN(2), UNIT(2)
+
+📄 [전체 테이블 구조 보기](zrseg_05.html)
+
+---
+
+### ZTCURR05
+
+**Key 필드:** `MANDT, KURST, FCURR, TCURR, GDATU`
+
+**주요 필드:**
+
+| 필드명 | 데이터 타입 | 길이 | 설명 |
+|--------|------------|------|------|
+| `UKURS` | DEC | 9 | Exchange Rate |
+| `FFACT` | DEC | 9 | Ratio for the "from" currency units |
+| `TFACT` | DEC | 9 | Ratio for the "to" currency units |
+| `ERNAM` | CHAR | 12 | Name of Person Who Created the Object |
+| `ERDAT` | DATS | 8 | Date on Which Record Was Created |
+
+**데이터 타입:** CHAR(3), DEC(3), CUKY(2), CLNT(1), DATS(1)
+
+📄 [전체 테이블 구조 보기](ztcurr05.html)
+
+---
+
 > 💡 **팁**: 각 테이블명을 클릭하면 상세한 테이블 구조를 확인할 수 있습니다.
