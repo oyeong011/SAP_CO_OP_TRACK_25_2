@@ -5,10 +5,10 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT11_0000](zedt11_0000.html) | - | 9 | MANDT, ZCODE11 |
-| [ZLFM1_11](zlfm1_11.html) | - | 9 | MANDT, LIFNR, EKORG |
-| [ZPRO07_011](zpro07_011.html) | - | 1 | MANDT |
-| [ZTCURR11](ztcurr11.html) | - | 8 | MANDT, KURST, FCURR ... (+2) |
+| [ZEDT11_0000](zedt11_0000.md) 📄 [HTML](zedt11_0000.html) | - | 9 | MANDT, ZCODE11 |
+| [ZLFM1_11](zlfm1_11.md) 📄 [HTML](zlfm1_11.html) | - | 9 | MANDT, LIFNR, EKORG |
+| [ZPRO07_011](zpro07_011.md) 📄 [HTML](zpro07_011.html) | - | 1 | MANDT |
+| [ZTCURR11](ztcurr11.md) 📄 [HTML](ztcurr11.html) | - | 8 | MANDT, KURST, FCURR ... (+2) |
 
 ---
 
@@ -30,7 +30,7 @@
 
 **데이터 타입:** CHAR(6), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt11_0000.html)
+📋 [마크다운으로 보기](zedt11_0000.md) | 📄 [HTML로 보기](zedt11_0000.html)
 
 ---
 
@@ -49,7 +49,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zlfm1_11.html)
+📋 [마크다운으로 보기](zlfm1_11.md) | 📄 [HTML로 보기](zlfm1_11.html)
 
 ---
 
@@ -59,7 +59,7 @@
 
 **데이터 타입:** CLNT(1)
 
-📄 [전체 테이블 구조 보기](zpro07_011.html)
+📋 [마크다운으로 보기](zpro07_011.md) | 📄 [HTML로 보기](zpro07_011.html)
 
 ---
 
@@ -77,7 +77,7 @@
 
 **데이터 타입:** DEC(3), CHAR(2), CUKY(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](ztcurr11.html)
+📋 [마크다운으로 보기](ztcurr11.md) | 📄 [HTML로 보기](ztcurr11.html)
 
 ---
 

@@ -5,17 +5,17 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZBKPF_05](zbkpf_05.html) | - | 9 | MANDT, BUKRS, BELNR ... (+1) |
-| [ZBSEG_05](zbseg_05.html) | - | 18 | MANDT, BUKRS, BELNR ... (+2) |
-| [ZBSIK_05](zbsik_05.html) | - | 19 | MANDT, BUKRS, LIFNR ... (+2) |
-| [ZEKKO_05](zekko_05.html) | - | 8 | MANDT, EBELN |
-| [ZEKPO_05](zekpo_05.html) | - | 21 | MANDT, EBELN, EBELP |
-| [ZLFA1_05](zlfa1_05.html) | - | 14 | MANDT, LIFNR |
-| [ZLFB1_05](zlfb1_05.html) | - | 34 | MANDT, LIFNR, BUKRS |
-| [ZMKPF_05](zmkpf_05.html) | - | 6 | MANDT, MBLNR, MJAHR |
-| [ZMSEG_05](zmseg_05.html) | - | 29 | MANDT, MBLNR, MJAHR ... (+1) |
-| [ZRBKP_05](zrbkp_05.html) | - | 49 | MANDT, BELNR, GJAHR |
-| [ZRSEG_05](zrseg_05.html) | - | 39 | MANDT, BELNR, GJAHR ... (+1) |
+| [ZBKPF_05](zbkpf_05.md) 📄 [HTML](zbkpf_05.html) | - | 9 | MANDT, BUKRS, BELNR ... (+1) |
+| [ZBSEG_05](zbseg_05.md) 📄 [HTML](zbseg_05.html) | - | 18 | MANDT, BUKRS, BELNR ... (+2) |
+| [ZBSIK_05](zbsik_05.md) 📄 [HTML](zbsik_05.html) | - | 19 | MANDT, BUKRS, LIFNR ... (+2) |
+| [ZEKKO_05](zekko_05.md) 📄 [HTML](zekko_05.html) | - | 8 | MANDT, EBELN |
+| [ZEKPO_05](zekpo_05.md) 📄 [HTML](zekpo_05.html) | - | 21 | MANDT, EBELN, EBELP |
+| [ZLFA1_05](zlfa1_05.md) 📄 [HTML](zlfa1_05.html) | - | 14 | MANDT, LIFNR |
+| [ZLFB1_05](zlfb1_05.md) 📄 [HTML](zlfb1_05.html) | - | 34 | MANDT, LIFNR, BUKRS |
+| [ZMKPF_05](zmkpf_05.md) 📄 [HTML](zmkpf_05.html) | - | 6 | MANDT, MBLNR, MJAHR |
+| [ZMSEG_05](zmseg_05.md) 📄 [HTML](zmseg_05.html) | - | 29 | MANDT, MBLNR, MJAHR ... (+1) |
+| [ZRBKP_05](zrbkp_05.md) 📄 [HTML](zrbkp_05.html) | - | 49 | MANDT, BELNR, GJAHR |
+| [ZRSEG_05](zrseg_05.md) 📄 [HTML](zrseg_05.html) | - | 39 | MANDT, BELNR, GJAHR ... (+1) |
 
 ---
 
@@ -37,7 +37,7 @@
 
 **데이터 타입:** CHAR(4), DATS(2), CLNT(1), NUMC(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zbkpf_05.html)
+📋 [마크다운으로 보기](zbkpf_05.md) | 📄 [HTML로 보기](zbkpf_05.html)
 
 ---
 
@@ -59,7 +59,7 @@
 
 **데이터 타입:** CHAR(9), NUMC(3), CLNT(1), CURR(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zbseg_05.html)
+📋 [마크다운으로 보기](zbseg_05.md) | 📄 [HTML로 보기](zbseg_05.html)
 
 ---
 
@@ -81,7 +81,7 @@
 
 **데이터 타입:** CHAR(9), DATS(3), CURR(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zbsik_05.html)
+📋 [마크다운으로 보기](zbsik_05.md) | 📄 [HTML로 보기](zbsik_05.html)
 
 ---
 
@@ -103,7 +103,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zekko_05.html)
+📋 [마크다운으로 보기](zekko_05.md) | 📄 [HTML로 보기](zekko_05.html)
 
 ---
 
@@ -125,7 +125,7 @@
 
 **데이터 타입:** CHAR(5), UNIT(2), CLNT(1), NUMC(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zekpo_05.html)
+📋 [마크다운으로 보기](zekpo_05.md) | 📄 [HTML로 보기](zekpo_05.html)
 
 ---
 
@@ -147,7 +147,7 @@
 
 **데이터 타입:** CHAR(7), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zlfa1_05.html)
+📋 [마크다운으로 보기](zlfa1_05.md) | 📄 [HTML로 보기](zlfa1_05.html)
 
 ---
 
@@ -165,7 +165,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zlfb1_05.html)
+📋 [마크다운으로 보기](zlfb1_05.md) | 📄 [HTML로 보기](zlfb1_05.html)
 
 ---
 
@@ -183,7 +183,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zmkpf_05.html)
+📋 [마크다운으로 보기](zmkpf_05.md) | 📄 [HTML로 보기](zmkpf_05.html)
 
 ---
 
@@ -205,7 +205,7 @@
 
 **데이터 타입:** CHAR(10), NUMC(3), CLNT(1), CUKY(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zmseg_05.html)
+📋 [마크다운으로 보기](zmseg_05.md) | 📄 [HTML로 보기](zmseg_05.html)
 
 ---
 
@@ -227,7 +227,7 @@
 
 **데이터 타입:** CHAR(12), NUMC(2), DATS(2), CURR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zrbkp_05.html)
+📋 [마크다운으로 보기](zrbkp_05.md) | 📄 [HTML로 보기](zrbkp_05.html)
 
 ---
 
@@ -249,7 +249,7 @@
 
 **데이터 타입:** CHAR(11), NUMC(5), CURR(2), QUAN(2), UNIT(2)
 
-📄 [전체 테이블 구조 보기](zrseg_05.html)
+📋 [마크다운으로 보기](zrseg_05.md) | 📄 [HTML로 보기](zrseg_05.html)
 
 ---
 

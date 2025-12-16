@@ -5,7 +5,7 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZMARA24](zmara24.html) | - | 32 | MANDT, WERKS, LGORT ... (+1) |
+| [ZMARA24](zmara24.md) 📄 [HTML](zmara24.html) | - | 32 | MANDT, WERKS, LGORT ... (+1) |
 
 ---
 
@@ -31,7 +31,7 @@
 
 **데이터 타입:** CHAR(7), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zmara24.html)
+📋 [마크다운으로 보기](zmara24.md) | 📄 [HTML로 보기](zmara24.html)
 
 ---
 

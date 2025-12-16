@@ -5,22 +5,22 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDS14_001](zeds14_001.html) | - | 14 | - |
-| [ZEDS14_002](zeds14_002.html) | - | 6 | - |
-| [ZEDT14_001](zedt14_001.html) | - | 16 | MANDT, ZCODE, ZPERNR |
-| [ZEDT14_002](zedt14_002.html) | - | 22 | MANDT, ZPERNR, ZCODE |
-| [ZEDT14_004](zedt14_004.html) | - | 19 | MANDT, ZCODE, ZPERNR ... (+3) |
-| [ZEKKO_14](zekko_14.html) | - | 15 | MANDT, EBELN |
-| [ZEKPO_14](zekpo_14.html) | - | 20 | MANDT, EBELN, EBELP |
-| [ZLFA1_14](zlfa1_14.html) | - | 21 | MANDT, LIFNR |
-| [ZLFB1_14](zlfb1_14.html) | - | 13 | MANDT, LIFNR, BUKRS |
-| [ZLFM1_14](zlfm1_14.html) | - | 19 | MANDT, LIFNR, EKORG |
-| [ZMARA_14](zmara_14.html) | - | 17 | MANDT, WERKS, LGORT ... (+1) |
-| [ZMKPF_14](zmkpf_14.html) | - | 15 | MANDT, MBLNR, MJAHR |
-| [ZMSEG_14](zmseg_14.html) | - | 27 | MANDT, MBLNR, MJAHR ... (+1) |
-| [ZRBKP_14](zrbkp_14.html) | - | 39 | MANDT, BELNR, GJAHR |
-| [ZRSEG_14](zrseg_14.html) | - | 24 | MANDT, BELNR, GJAHR ... (+1) |
-| [ZTCURR14](ztcurr14.html) | - | 10 | MANDT, KURST, FCURR ... (+2) |
+| [ZEDS14_001](zeds14_001.md) 📄 [HTML](zeds14_001.html) | - | 14 | - |
+| [ZEDS14_002](zeds14_002.md) 📄 [HTML](zeds14_002.html) | - | 6 | - |
+| [ZEDT14_001](zedt14_001.md) 📄 [HTML](zedt14_001.html) | - | 16 | MANDT, ZCODE, ZPERNR |
+| [ZEDT14_002](zedt14_002.md) 📄 [HTML](zedt14_002.html) | - | 22 | MANDT, ZPERNR, ZCODE |
+| [ZEDT14_004](zedt14_004.md) 📄 [HTML](zedt14_004.html) | - | 19 | MANDT, ZCODE, ZPERNR ... (+3) |
+| [ZEKKO_14](zekko_14.md) 📄 [HTML](zekko_14.html) | - | 15 | MANDT, EBELN |
+| [ZEKPO_14](zekpo_14.md) 📄 [HTML](zekpo_14.html) | - | 20 | MANDT, EBELN, EBELP |
+| [ZLFA1_14](zlfa1_14.md) 📄 [HTML](zlfa1_14.html) | - | 21 | MANDT, LIFNR |
+| [ZLFB1_14](zlfb1_14.md) 📄 [HTML](zlfb1_14.html) | - | 13 | MANDT, LIFNR, BUKRS |
+| [ZLFM1_14](zlfm1_14.md) 📄 [HTML](zlfm1_14.html) | - | 19 | MANDT, LIFNR, EKORG |
+| [ZMARA_14](zmara_14.md) 📄 [HTML](zmara_14.html) | - | 17 | MANDT, WERKS, LGORT ... (+1) |
+| [ZMKPF_14](zmkpf_14.md) 📄 [HTML](zmkpf_14.html) | - | 15 | MANDT, MBLNR, MJAHR |
+| [ZMSEG_14](zmseg_14.md) 📄 [HTML](zmseg_14.html) | - | 27 | MANDT, MBLNR, MJAHR ... (+1) |
+| [ZRBKP_14](zrbkp_14.md) 📄 [HTML](zrbkp_14.html) | - | 39 | MANDT, BELNR, GJAHR |
+| [ZRSEG_14](zrseg_14.md) 📄 [HTML](zrseg_14.html) | - | 24 | MANDT, BELNR, GJAHR ... (+1) |
+| [ZTCURR14](ztcurr14.md) 📄 [HTML](ztcurr14.html) | - | 10 | MANDT, KURST, FCURR ... (+2) |
 
 ---
 
@@ -42,7 +42,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zeds14_001.html)
+📋 [마크다운으로 보기](zeds14_001.md) | 📄 [HTML로 보기](zeds14_001.html)
 
 ---
 
@@ -62,7 +62,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zeds14_002.html)
+📋 [마크다운으로 보기](zeds14_002.md) | 📄 [HTML로 보기](zeds14_002.html)
 
 ---
 
@@ -86,7 +86,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt14_001.html)
+📋 [마크다운으로 보기](zedt14_001.md) | 📄 [HTML로 보기](zedt14_001.html)
 
 ---
 
@@ -110,7 +110,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zedt14_002.html)
+📋 [마크다운으로 보기](zedt14_002.md) | 📄 [HTML로 보기](zedt14_002.html)
 
 ---
 
@@ -132,7 +132,7 @@
 
 **데이터 타입:** CHAR(9), CURR(2), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt14_004.html)
+📋 [마크다운으로 보기](zedt14_004.md) | 📄 [HTML로 보기](zedt14_004.html)
 
 ---
 
@@ -156,7 +156,7 @@
 
 **데이터 타입:** CHAR(7), DATS(3), TIMS(2), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zekko_14.html)
+📋 [마크다운으로 보기](zekko_14.md) | 📄 [HTML로 보기](zekko_14.html)
 
 ---
 
@@ -180,7 +180,7 @@
 
 **데이터 타입:** CHAR(8), DATS(3), UNIT(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zekpo_14.html)
+📋 [마크다운으로 보기](zekpo_14.md) | 📄 [HTML로 보기](zekpo_14.html)
 
 ---
 
@@ -204,7 +204,7 @@
 
 **데이터 타입:** CHAR(9), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zlfa1_14.html)
+📋 [마크다운으로 보기](zlfa1_14.md) | 📄 [HTML로 보기](zlfa1_14.html)
 
 ---
 
@@ -228,7 +228,7 @@
 
 **데이터 타입:** CHAR(7), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zlfb1_14.html)
+📋 [마크다운으로 보기](zlfb1_14.md) | 📄 [HTML로 보기](zlfb1_14.html)
 
 ---
 
@@ -252,7 +252,7 @@
 
 **데이터 타입:** CHAR(7), DATS(2), TIMS(2), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zlfm1_14.html)
+📋 [마크다운으로 보기](zlfm1_14.md) | 📄 [HTML로 보기](zlfm1_14.html)
 
 ---
 
@@ -276,7 +276,7 @@
 
 **데이터 타입:** CHAR(7), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zmara_14.html)
+📋 [마크다운으로 보기](zmara_14.md) | 📄 [HTML로 보기](zmara_14.html)
 
 ---
 
@@ -300,7 +300,7 @@
 
 **데이터 타입:** CHAR(6), DATS(4), TIMS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zmkpf_14.html)
+📋 [마크다운으로 보기](zmkpf_14.md) | 📄 [HTML로 보기](zmkpf_14.html)
 
 ---
 
@@ -324,7 +324,7 @@
 
 **데이터 타입:** CHAR(12), NUMC(3), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zmseg_14.html)
+📋 [마크다운으로 보기](zmseg_14.md) | 📄 [HTML로 보기](zmseg_14.html)
 
 ---
 
@@ -348,7 +348,7 @@
 
 **데이터 타입:** CHAR(14), DATS(4), NUMC(2), CURR(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zrbkp_14.html)
+📋 [마크다운으로 보기](zrbkp_14.md) | 📄 [HTML로 보기](zrbkp_14.html)
 
 ---
 
@@ -372,7 +372,7 @@
 
 **데이터 타입:** CHAR(9), NUMC(3), UNIT(2), CURR(2), DATS(2)
 
-📄 [전체 테이블 구조 보기](zrseg_14.html)
+📋 [마크다운으로 보기](zrseg_14.md) | 📄 [HTML로 보기](zrseg_14.html)
 
 ---
 
@@ -392,7 +392,7 @@
 
 **데이터 타입:** CHAR(3), DEC(3), CUKY(2), CLNT(1), DATS(1)
 
-📄 [전체 테이블 구조 보기](ztcurr14.html)
+📋 [마크다운으로 보기](ztcurr14.md) | 📄 [HTML로 보기](ztcurr14.html)
 
 ---
 

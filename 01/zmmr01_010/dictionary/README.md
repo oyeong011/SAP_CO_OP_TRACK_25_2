@@ -5,12 +5,12 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEKKO01](zekko01.html) | - | 17 | MANDT, EBELN |
-| [ZEKPO01](zekpo01.html) | - | 20 | MANDT, EBELN, EBELP ... (+1) |
-| [ZLFA1_01](zlfa1_01.html) | - | 10 | MANDT, LIFNR |
-| [ZLFB1_01](zlfb1_01.html) | - | 10 | MANDT, LIFNR |
-| [ZLFM1_01](zlfm1_01.html) | - | 14 | MANDT, LIFNR |
-| [ZMAT01](zmat01.html) | - | 42 | MANDT, WERKS, LGORT ... (+1) |
+| [ZEKKO01](zekko01.md) 📄 [HTML](zekko01.html) | - | 17 | MANDT, EBELN |
+| [ZEKPO01](zekpo01.md) 📄 [HTML](zekpo01.html) | - | 20 | MANDT, EBELN, EBELP ... (+1) |
+| [ZLFA1_01](zlfa1_01.md) 📄 [HTML](zlfa1_01.html) | - | 10 | MANDT, LIFNR |
+| [ZLFB1_01](zlfb1_01.md) 📄 [HTML](zlfb1_01.html) | - | 10 | MANDT, LIFNR |
+| [ZLFM1_01](zlfm1_01.md) 📄 [HTML](zlfm1_01.html) | - | 14 | MANDT, LIFNR |
+| [ZMAT01](zmat01.md) 📄 [HTML](zmat01.html) | - | 42 | MANDT, WERKS, LGORT ... (+1) |
 
 ---
 
@@ -36,7 +36,7 @@
 
 **데이터 타입:** CHAR(9), DATS(3), TIMS(2), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zekko01.html)
+📋 [마크다운으로 보기](zekko01.md) | 📄 [HTML로 보기](zekko01.html)
 
 ---
 
@@ -58,7 +58,7 @@
 
 **데이터 타입:** CHAR(7), UNIT(2), CURR(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zekpo01.html)
+📋 [마크다운으로 보기](zekpo01.md) | 📄 [HTML로 보기](zekpo01.html)
 
 ---
 
@@ -80,7 +80,7 @@
 
 **데이터 타입:** CHAR(9), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zlfa1_01.html)
+📋 [마크다운으로 보기](zlfa1_01.md) | 📄 [HTML로 보기](zlfa1_01.html)
 
 ---
 
@@ -102,7 +102,7 @@
 
 **데이터 타입:** CHAR(7), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zlfb1_01.html)
+📋 [마크다운으로 보기](zlfb1_01.md) | 📄 [HTML로 보기](zlfb1_01.html)
 
 ---
 
@@ -122,7 +122,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zlfm1_01.html)
+📋 [마크다운으로 보기](zlfm1_01.md) | 📄 [HTML로 보기](zlfm1_01.html)
 
 ---
 
@@ -146,7 +146,7 @@
 
 **데이터 타입:** CHAR(14), CURR(2), UNIT(2), DATS(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zmat01.html)
+📋 [마크다운으로 보기](zmat01.md) | 📄 [HTML로 보기](zmat01.html)
 
 ---
 

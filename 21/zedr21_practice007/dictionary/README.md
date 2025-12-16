@@ -5,12 +5,12 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT21_101](zedt21_101.html) | - | 38 | MANDT, ZORDNO21, ZIDCODE21 ... (+2) |
-| [ZEDT21_102](zedt21_102.html) | - | 30 | MANDT, ZPERNR21, ZDEPCODE21 ... (+2) |
-| [ZEDT21_103](zedt21_103.html) | - | 12 | MANDT, ZPERNR21 |
-| [ZEDT21_104](zedt21_104.html) | - | 25 | MANDT, ZPERNR21, ZDEPCODE21 ... (+3) |
-| [ZEDT21_105](zedt21_105.html) | - | 22 | MANDT, ZPERNR21, ZYEAR21 |
-| [ZEDT21_106](zedt21_106.html) | - | 20 | MANDT, ZPERNR21, ZYEAR21 ... (+2) |
+| [ZEDT21_101](zedt21_101.md) 📄 [HTML](zedt21_101.html) | - | 38 | MANDT, ZORDNO21, ZIDCODE21 ... (+2) |
+| [ZEDT21_102](zedt21_102.md) 📄 [HTML](zedt21_102.html) | - | 30 | MANDT, ZPERNR21, ZDEPCODE21 ... (+2) |
+| [ZEDT21_103](zedt21_103.md) 📄 [HTML](zedt21_103.html) | - | 12 | MANDT, ZPERNR21 |
+| [ZEDT21_104](zedt21_104.md) 📄 [HTML](zedt21_104.html) | - | 25 | MANDT, ZPERNR21, ZDEPCODE21 ... (+3) |
+| [ZEDT21_105](zedt21_105.md) 📄 [HTML](zedt21_105.html) | - | 22 | MANDT, ZPERNR21, ZYEAR21 |
+| [ZEDT21_106](zedt21_106.md) 📄 [HTML](zedt21_106.html) | - | 20 | MANDT, ZPERNR21, ZYEAR21 ... (+2) |
 
 ---
 
@@ -34,7 +34,7 @@
 
 **데이터 타입:** CHAR(11), DATS(4), TIMS(2), CLNT(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt21_101.html)
+📋 [마크다운으로 보기](zedt21_101.md) | 📄 [HTML로 보기](zedt21_101.html)
 
 ---
 
@@ -56,7 +56,7 @@
 
 **데이터 타입:** CHAR(6), DATS(6), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt21_102.html)
+📋 [마크다운으로 보기](zedt21_102.md) | 📄 [HTML로 보기](zedt21_102.html)
 
 ---
 
@@ -80,7 +80,7 @@
 
 **데이터 타입:** CHAR(6), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt21_103.html)
+📋 [마크다운으로 보기](zedt21_103.md) | 📄 [HTML로 보기](zedt21_103.html)
 
 ---
 
@@ -104,7 +104,7 @@
 
 **데이터 타입:** CHAR(5), DATS(4), TIMS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt21_104.html)
+📋 [마크다운으로 보기](zedt21_104.md) | 📄 [HTML로 보기](zedt21_104.html)
 
 ---
 
@@ -128,7 +128,7 @@
 
 **데이터 타입:** CURR(12), CHAR(3), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt21_105.html)
+📋 [마크다운으로 보기](zedt21_105.md) | 📄 [HTML로 보기](zedt21_105.html)
 
 ---
 
@@ -152,7 +152,7 @@
 
 **데이터 타입:** CHAR(5), DATS(4), TIMS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt21_106.html)
+📋 [마크다운으로 보기](zedt21_106.md) | 📄 [HTML로 보기](zedt21_106.html)
 
 ---
 

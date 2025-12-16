@@ -5,12 +5,12 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT06_EKKO](zedt06_ekko.html) | - | 8 | MANDT, EBELN, BUKRS ... (+1) |
-| [ZEDT06_EKPO](zedt06_ekpo.html) | - | 11 | MANDT, EBELN, EBELP |
-| [ZEDT06_LFA1](zedt06_lfa1.html) | - | 22 | MANDT, LIFNR |
-| [ZEDT06_LFB1](zedt06_lfb1.html) | - | 41 | MANDT, LIFNR, BUKRS |
-| [ZEDT06_LFM1](zedt06_lfm1.html) | - | 21 | MANDT, LIFNR |
-| [ZEDT06_MAT](zedt06_mat.html) | - | 40 | MANDT, WERKS, LGORT ... (+1) |
+| [ZEDT06_EKKO](zedt06_ekko.md) 📄 [HTML](zedt06_ekko.html) | - | 8 | MANDT, EBELN, BUKRS ... (+1) |
+| [ZEDT06_EKPO](zedt06_ekpo.md) 📄 [HTML](zedt06_ekpo.html) | - | 11 | MANDT, EBELN, EBELP |
+| [ZEDT06_LFA1](zedt06_lfa1.md) 📄 [HTML](zedt06_lfa1.html) | - | 22 | MANDT, LIFNR |
+| [ZEDT06_LFB1](zedt06_lfb1.md) 📄 [HTML](zedt06_lfb1.html) | - | 41 | MANDT, LIFNR, BUKRS |
+| [ZEDT06_LFM1](zedt06_lfm1.md) 📄 [HTML](zedt06_lfm1.html) | - | 21 | MANDT, LIFNR |
+| [ZEDT06_MAT](zedt06_mat.md) 📄 [HTML](zedt06_mat.html) | - | 40 | MANDT, WERKS, LGORT ... (+1) |
 
 ---
 
@@ -31,7 +31,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt06_ekko.html)
+📋 [마크다운으로 보기](zedt06_ekko.md) | 📄 [HTML로 보기](zedt06_ekko.html)
 
 ---
 
@@ -53,7 +53,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), NUMC(1), QUAN(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](zedt06_ekpo.html)
+📋 [마크다운으로 보기](zedt06_ekpo.md) | 📄 [HTML로 보기](zedt06_ekpo.html)
 
 ---
 
@@ -77,7 +77,7 @@
 
 **데이터 타입:** CHAR(9), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt06_lfa1.html)
+📋 [마크다운으로 보기](zedt06_lfa1.md) | 📄 [HTML로 보기](zedt06_lfa1.html)
 
 ---
 
@@ -101,7 +101,7 @@
 
 **데이터 타입:** CHAR(7), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt06_lfb1.html)
+📋 [마크다운으로 보기](zedt06_lfb1.md) | 📄 [HTML로 보기](zedt06_lfb1.html)
 
 ---
 
@@ -125,7 +125,7 @@
 
 **데이터 타입:** CHAR(7), DATS(2), TIMS(2), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt06_lfm1.html)
+📋 [마크다운으로 보기](zedt06_lfm1.md) | 📄 [HTML로 보기](zedt06_lfm1.html)
 
 ---
 
@@ -149,7 +149,7 @@
 
 **데이터 타입:** CHAR(8), DATS(3), QUAN(2), UNIT(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zedt06_mat.html)
+📋 [마크다운으로 보기](zedt06_mat.md) | 📄 [HTML로 보기](zedt06_mat.html)
 
 ---
 

@@ -5,12 +5,12 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT17_EKKO](zedt17_ekko.html) | - | 15 | MANDT, EBELN |
-| [ZEDT17_EKPO](zedt17_ekpo.html) | - | 33 | MANDT, EBELN, EBELP |
-| [ZEDT17_LFM1](zedt17_lfm1.html) | - | 21 | MANDT, LIFNR, EKORG |
-| [ZEDT17_MSEG](zedt17_mseg.html) | - | 40 | MANDT, MBLNR, MJAHR ... (+1) |
-| [ZEDT17_RBKP](zedt17_rbkp.html) | - | 32 | MANDT, BELNR, GJAHR |
-| [ZEDT17_RSEG](zedt17_rseg.html) | - | 40 | MANDT, BELNR, GJAHR ... (+1) |
+| [ZEDT17_EKKO](zedt17_ekko.md) 📄 [HTML](zedt17_ekko.html) | - | 15 | MANDT, EBELN |
+| [ZEDT17_EKPO](zedt17_ekpo.md) 📄 [HTML](zedt17_ekpo.html) | - | 33 | MANDT, EBELN, EBELP |
+| [ZEDT17_LFM1](zedt17_lfm1.md) 📄 [HTML](zedt17_lfm1.html) | - | 21 | MANDT, LIFNR, EKORG |
+| [ZEDT17_MSEG](zedt17_mseg.md) 📄 [HTML](zedt17_mseg.html) | - | 40 | MANDT, MBLNR, MJAHR ... (+1) |
+| [ZEDT17_RBKP](zedt17_rbkp.md) 📄 [HTML](zedt17_rbkp.html) | - | 32 | MANDT, BELNR, GJAHR |
+| [ZEDT17_RSEG](zedt17_rseg.md) 📄 [HTML](zedt17_rseg.html) | - | 40 | MANDT, BELNR, GJAHR ... (+1) |
 
 ---
 
@@ -36,7 +36,7 @@
 
 **데이터 타입:** CHAR(7), DATS(3), TIMS(2), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt17_ekko.html)
+📋 [마크다운으로 보기](zedt17_ekko.md) | 📄 [HTML로 보기](zedt17_ekko.html)
 
 ---
 
@@ -60,7 +60,7 @@
 
 **데이터 타입:** CHAR(7), DATS(3), UNIT(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt17_ekpo.html)
+📋 [마크다운으로 보기](zedt17_ekpo.md) | 📄 [HTML로 보기](zedt17_ekpo.html)
 
 ---
 
@@ -84,7 +84,7 @@
 
 **데이터 타입:** CHAR(7), DATS(2), TIMS(2), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt17_lfm1.html)
+📋 [마크다운으로 보기](zedt17_lfm1.md) | 📄 [HTML로 보기](zedt17_lfm1.html)
 
 ---
 
@@ -108,7 +108,7 @@
 
 **데이터 타입:** CHAR(11), NUMC(3), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt17_mseg.html)
+📋 [마크다운으로 보기](zedt17_mseg.md) | 📄 [HTML로 보기](zedt17_mseg.html)
 
 ---
 
@@ -132,7 +132,7 @@
 
 **데이터 타입:** CHAR(9), DATS(5), TIMS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt17_rbkp.html)
+📋 [마크다운으로 보기](zedt17_rbkp.md) | 📄 [HTML로 보기](zedt17_rbkp.html)
 
 ---
 
@@ -156,7 +156,7 @@
 
 **데이터 타입:** CHAR(9), NUMC(3), CURR(2), DATS(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zedt17_rseg.html)
+📋 [마크다운으로 보기](zedt17_rseg.md) | 📄 [HTML로 보기](zedt17_rseg.html)
 
 ---
 

@@ -5,12 +5,12 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEKKO_12](zekko_12.html) | - | 8 | MANDT, EBELN |
-| [ZEKPO_12](zekpo_12.html) | - | 17 | MANDT, EBELN, EBELP ... (+1) |
-| [ZLFA1_12](zlfa1_12.html) | - | 15 | MANDT, LIFNR |
-| [ZLFB1_12](zlfb1_12.html) | - | 34 | MANDT, LIFNR |
-| [ZLFM1_12](zlfm1_12.html) | - | 14 | MANDT, LIFNR |
-| [ZMARA_12](zmara_12.html) | - | 30 | MANDT, WERKS, LGORT ... (+1) |
+| [ZEKKO_12](zekko_12.md) 📄 [HTML](zekko_12.html) | - | 8 | MANDT, EBELN |
+| [ZEKPO_12](zekpo_12.md) 📄 [HTML](zekpo_12.html) | - | 17 | MANDT, EBELN, EBELP ... (+1) |
+| [ZLFA1_12](zlfa1_12.md) 📄 [HTML](zlfa1_12.html) | - | 15 | MANDT, LIFNR |
+| [ZLFB1_12](zlfb1_12.md) 📄 [HTML](zlfb1_12.html) | - | 34 | MANDT, LIFNR |
+| [ZLFM1_12](zlfm1_12.md) 📄 [HTML](zlfm1_12.html) | - | 14 | MANDT, LIFNR |
+| [ZMARA_12](zmara_12.md) 📄 [HTML](zmara_12.html) | - | 30 | MANDT, WERKS, LGORT ... (+1) |
 
 ---
 
@@ -34,7 +34,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zekko_12.html)
+📋 [마크다운으로 보기](zekko_12.md) | 📄 [HTML로 보기](zekko_12.html)
 
 ---
 
@@ -56,7 +56,7 @@
 
 **데이터 타입:** CHAR(6), CLNT(1), NUMC(1), QUAN(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zekpo_12.html)
+📋 [마크다운으로 보기](zekpo_12.md) | 📄 [HTML로 보기](zekpo_12.html)
 
 ---
 
@@ -78,7 +78,7 @@
 
 **데이터 타입:** CHAR(7), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zlfa1_12.html)
+📋 [마크다운으로 보기](zlfa1_12.md) | 📄 [HTML로 보기](zlfa1_12.html)
 
 ---
 
@@ -97,7 +97,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zlfb1_12.html)
+📋 [마크다운으로 보기](zlfb1_12.md) | 📄 [HTML로 보기](zlfb1_12.html)
 
 ---
 
@@ -117,7 +117,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zlfm1_12.html)
+📋 [마크다운으로 보기](zlfm1_12.md) | 📄 [HTML로 보기](zlfm1_12.html)
 
 ---
 
@@ -141,7 +141,7 @@
 
 **데이터 타입:** CHAR(7), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zmara_12.html)
+📋 [마크다운으로 보기](zmara_12.md) | 📄 [HTML로 보기](zmara_12.html)
 
 ---
 

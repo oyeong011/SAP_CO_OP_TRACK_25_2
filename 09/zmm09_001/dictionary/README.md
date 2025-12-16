@@ -5,9 +5,9 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZLFA1_09](zlfa1_09.html) | #### ###(## ###) | 15 | MANDT, LIFNR |
-| [ZLFB1_09](zlfb1_09.html) | #### ###(####) | 37 | MANDT, LIFNR, BUKRS |
-| [ZLFM1_09](zlfm1_09.html) | #### ### ### #### ### | 23 | MANDT, LIFNR, EKORG |
+| [ZLFA1_09](zlfa1_09.md) 📄 [HTML](zlfa1_09.html) | #### ###(## ###) | 15 | MANDT, LIFNR |
+| [ZLFB1_09](zlfb1_09.md) 📄 [HTML](zlfb1_09.html) | #### ###(####) | 37 | MANDT, LIFNR, BUKRS |
+| [ZLFM1_09](zlfm1_09.md) 📄 [HTML](zlfm1_09.html) | #### ### ### #### ### | 23 | MANDT, LIFNR, EKORG |
 
 ---
 
@@ -33,7 +33,7 @@
 
 **데이터 타입:** CHAR(7), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zlfa1_09.html)
+📋 [마크다운으로 보기](zlfa1_09.md) | 📄 [HTML로 보기](zlfa1_09.html)
 
 ---
 
@@ -53,7 +53,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zlfb1_09.html)
+📋 [마크다운으로 보기](zlfb1_09.md) | 📄 [HTML로 보기](zlfb1_09.html)
 
 ---
 
@@ -74,7 +74,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zlfm1_09.html)
+📋 [마크다운으로 보기](zlfm1_09.md) | 📄 [HTML로 보기](zlfm1_09.html)
 
 ---
 

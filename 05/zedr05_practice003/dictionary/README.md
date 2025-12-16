@@ -5,9 +5,9 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT05_003](zedt05_003.html) | - | 3 | MANDT, ZMGUBUN |
-| [ZEDT05_100](zedt05_100.html) | - | 47 | MANDT, ZORDNO, ZIDCODE ... (+1) |
-| [ZEDT05_101](zedt05_101.html) | - | 44 | MANDT, ZORDNO, ZIDCODE ... (+1) |
+| [ZEDT05_003](zedt05_003.md) 📄 [HTML](zedt05_003.html) | - | 3 | MANDT, ZMGUBUN |
+| [ZEDT05_100](zedt05_100.md) 📄 [HTML](zedt05_100.html) | - | 47 | MANDT, ZORDNO, ZIDCODE ... (+1) |
+| [ZEDT05_101](zedt05_101.md) 📄 [HTML](zedt05_101.html) | - | 44 | MANDT, ZORDNO, ZIDCODE ... (+1) |
 
 ---
 
@@ -25,7 +25,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt05_003.html)
+📋 [마크다운으로 보기](zedt05_003.md) | 📄 [HTML로 보기](zedt05_003.html)
 
 ---
 
@@ -49,7 +49,7 @@
 
 **데이터 타입:** CHAR(11), DATS(4), CURR(3), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt05_100.html)
+📋 [마크다운으로 보기](zedt05_100.md) | 📄 [HTML로 보기](zedt05_100.html)
 
 ---
 
@@ -73,7 +73,7 @@
 
 **데이터 타입:** CHAR(11), DATS(4), TIMS(2), CLNT(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt05_101.html)
+📋 [마크다운으로 보기](zedt05_101.md) | 📄 [HTML로 보기](zedt05_101.html)
 
 ---
 

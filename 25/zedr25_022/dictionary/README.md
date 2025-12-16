@@ -5,20 +5,20 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDS25_001](zeds25_001.html) | - | 9 | - |
-| [ZEDT25_001](zedt25_001.html) | - | 16 | MANDT, ZCODE, ZPERNR |
-| [ZEDT25_LFA1](zedt25_lfa1.html) | - | 14 | MANDT, LIFNR |
-| [ZEDT25_LFB1](zedt25_lfb1.html) | - | 33 | MANDT, LIFNR, BUKRS |
-| [ZEDT25_LFM1](zedt25_lfm1.html) | - | 14 | MANDT, LIFNR, EKORG |
-| [ZEDT25_ZEKKO](zedt25_zekko.html) | - | 8 | MANDT, EBELN |
-| [ZEDT25_ZEKPO](zedt25_zekpo.html) | - | 16 | MANDT, EBELN, EBELP |
-| [ZEDT25_ZMKPF](zedt25_zmkpf.html) | - | 6 | MANDT, MBLNR, MJAHR |
-| [ZEDT25_ZMSEG](zedt25_zmseg.html) | - | 24 | MANDT, MBLNR, MJAHR ... (+1) |
-| [ZEDT25_ZRBKP](zedt25_zrbkp.html) | - | 48 | MANDT, BELNR, GJAHR |
-| [ZEDT25_ZRSEG](zedt25_zrseg.html) | - | 34 | MANDT, BELNR, GJAHR ... (+1) |
-| [ZEDT25_ZTERM](zedt25_zterm.html) | - | 14 | MANDT, ZTERM |
-| [ZMARA25](zmara25.html) | - | 26 | MANDT, WERKS, LGORT ... (+1) |
-| [ZTCURR25](ztcurr25.html) | - | 10 | MANDT, KURST, FCURR ... (+2) |
+| [ZEDS25_001](zeds25_001.md) 📄 [HTML](zeds25_001.html) | - | 9 | - |
+| [ZEDT25_001](zedt25_001.md) 📄 [HTML](zedt25_001.html) | - | 16 | MANDT, ZCODE, ZPERNR |
+| [ZEDT25_LFA1](zedt25_lfa1.md) 📄 [HTML](zedt25_lfa1.html) | - | 14 | MANDT, LIFNR |
+| [ZEDT25_LFB1](zedt25_lfb1.md) 📄 [HTML](zedt25_lfb1.html) | - | 33 | MANDT, LIFNR, BUKRS |
+| [ZEDT25_LFM1](zedt25_lfm1.md) 📄 [HTML](zedt25_lfm1.html) | - | 14 | MANDT, LIFNR, EKORG |
+| [ZEDT25_ZEKKO](zedt25_zekko.md) 📄 [HTML](zedt25_zekko.html) | - | 8 | MANDT, EBELN |
+| [ZEDT25_ZEKPO](zedt25_zekpo.md) 📄 [HTML](zedt25_zekpo.html) | - | 16 | MANDT, EBELN, EBELP |
+| [ZEDT25_ZMKPF](zedt25_zmkpf.md) 📄 [HTML](zedt25_zmkpf.html) | - | 6 | MANDT, MBLNR, MJAHR |
+| [ZEDT25_ZMSEG](zedt25_zmseg.md) 📄 [HTML](zedt25_zmseg.html) | - | 24 | MANDT, MBLNR, MJAHR ... (+1) |
+| [ZEDT25_ZRBKP](zedt25_zrbkp.md) 📄 [HTML](zedt25_zrbkp.html) | - | 48 | MANDT, BELNR, GJAHR |
+| [ZEDT25_ZRSEG](zedt25_zrseg.md) 📄 [HTML](zedt25_zrseg.html) | - | 34 | MANDT, BELNR, GJAHR ... (+1) |
+| [ZEDT25_ZTERM](zedt25_zterm.md) 📄 [HTML](zedt25_zterm.html) | - | 14 | MANDT, ZTERM |
+| [ZMARA25](zmara25.md) 📄 [HTML](zmara25.html) | - | 26 | MANDT, WERKS, LGORT ... (+1) |
+| [ZTCURR25](ztcurr25.md) 📄 [HTML](ztcurr25.html) | - | 10 | MANDT, KURST, FCURR ... (+2) |
 
 ---
 
@@ -40,7 +40,7 @@
 
 **데이터 타입:** CHAR(6), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zeds25_001.html)
+📋 [마크다운으로 보기](zeds25_001.md) | 📄 [HTML로 보기](zeds25_001.html)
 
 ---
 
@@ -64,7 +64,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt25_001.html)
+📋 [마크다운으로 보기](zedt25_001.md) | 📄 [HTML로 보기](zedt25_001.html)
 
 ---
 
@@ -86,7 +86,7 @@
 
 **데이터 타입:** CHAR(7), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt25_lfa1.html)
+📋 [마크다운으로 보기](zedt25_lfa1.md) | 📄 [HTML로 보기](zedt25_lfa1.html)
 
 ---
 
@@ -104,7 +104,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt25_lfb1.html)
+📋 [마크다운으로 보기](zedt25_lfb1.md) | 📄 [HTML로 보기](zedt25_lfb1.html)
 
 ---
 
@@ -123,7 +123,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt25_lfm1.html)
+📋 [마크다운으로 보기](zedt25_lfm1.md) | 📄 [HTML로 보기](zedt25_lfm1.html)
 
 ---
 
@@ -145,7 +145,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt25_zekko.html)
+📋 [마크다운으로 보기](zedt25_zekko.md) | 📄 [HTML로 보기](zedt25_zekko.html)
 
 ---
 
@@ -167,7 +167,7 @@
 
 **데이터 타입:** CHAR(5), UNIT(2), CLNT(1), NUMC(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt25_zekpo.html)
+📋 [마크다운으로 보기](zedt25_zekpo.md) | 📄 [HTML로 보기](zedt25_zekpo.html)
 
 ---
 
@@ -185,7 +185,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt25_zmkpf.html)
+📋 [마크다운으로 보기](zedt25_zmkpf.md) | 📄 [HTML로 보기](zedt25_zmkpf.html)
 
 ---
 
@@ -207,7 +207,7 @@
 
 **데이터 타입:** CHAR(10), NUMC(3), CLNT(1), CUKY(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt25_zmseg.html)
+📋 [마크다운으로 보기](zedt25_zmseg.md) | 📄 [HTML로 보기](zedt25_zmseg.html)
 
 ---
 
@@ -229,7 +229,7 @@
 
 **데이터 타입:** CHAR(12), NUMC(2), DATS(2), CURR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt25_zrbkp.html)
+📋 [마크다운으로 보기](zedt25_zrbkp.md) | 📄 [HTML로 보기](zedt25_zrbkp.html)
 
 ---
 
@@ -251,7 +251,7 @@
 
 **데이터 타입:** CHAR(11), NUMC(5), CURR(2), QUAN(2), UNIT(2)
 
-📄 [전체 테이블 구조 보기](zedt25_zrseg.html)
+📋 [마크다운으로 보기](zedt25_zrseg.md) | 📄 [HTML로 보기](zedt25_zrseg.html)
 
 ---
 
@@ -267,7 +267,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt25_zterm.html)
+📋 [마크다운으로 보기](zedt25_zterm.md) | 📄 [HTML로 보기](zedt25_zterm.html)
 
 ---
 
@@ -291,7 +291,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zmara25.html)
+📋 [마크다운으로 보기](zmara25.md) | 📄 [HTML로 보기](zmara25.html)
 
 ---
 
@@ -311,7 +311,7 @@
 
 **데이터 타입:** CHAR(3), DEC(3), CUKY(2), CLNT(1), DATS(1)
 
-📄 [전체 테이블 구조 보기](ztcurr25.html)
+📋 [마크다운으로 보기](ztcurr25.md) | 📄 [HTML로 보기](ztcurr25.html)
 
 ---
 

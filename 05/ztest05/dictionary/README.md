@@ -5,8 +5,8 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEKKO_05](zekko_05.html) | - | 8 | MANDT, EBELN |
-| [ZEKPO_05](zekpo_05.html) | - | 21 | MANDT, EBELN, EBELP |
+| [ZEKKO_05](zekko_05.md) 📄 [HTML](zekko_05.html) | - | 8 | MANDT, EBELN |
+| [ZEKPO_05](zekpo_05.md) 📄 [HTML](zekpo_05.html) | - | 21 | MANDT, EBELN, EBELP |
 
 ---
 
@@ -30,7 +30,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zekko_05.html)
+📋 [마크다운으로 보기](zekko_05.md) | 📄 [HTML로 보기](zekko_05.html)
 
 ---
 
@@ -52,7 +52,7 @@
 
 **데이터 타입:** CHAR(5), UNIT(2), CLNT(1), NUMC(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zekpo_05.html)
+📋 [마크다운으로 보기](zekpo_05.md) | 📄 [HTML로 보기](zekpo_05.html)
 
 ---
 

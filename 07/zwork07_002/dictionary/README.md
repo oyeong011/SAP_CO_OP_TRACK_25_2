@@ -5,9 +5,9 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT07_000](zedt07_000.html) | - | 9 | MANDT, ZCODE07, ZPERNR07 |
-| [ZPRO11_007](zpro11_007.html) | - | 19 | MANDT, MBLNR, MJAHR ... (+1) |
-| [ZTCURR07](ztcurr07.html) | - | 8 | MANDT, KURST, FCURR ... (+2) |
+| [ZEDT07_000](zedt07_000.md) 📄 [HTML](zedt07_000.html) | - | 9 | MANDT, ZCODE07, ZPERNR07 |
+| [ZPRO11_007](zpro11_007.md) 📄 [HTML](zpro11_007.html) | - | 19 | MANDT, MBLNR, MJAHR ... (+1) |
+| [ZTCURR07](ztcurr07.md) 📄 [HTML](ztcurr07.html) | - | 8 | MANDT, KURST, FCURR ... (+2) |
 
 ---
 
@@ -28,7 +28,7 @@
 
 **데이터 타입:** CHAR(6), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt07_000.html)
+📋 [마크다운으로 보기](zedt07_000.md) | 📄 [HTML로 보기](zedt07_000.html)
 
 ---
 
@@ -50,7 +50,7 @@
 
 **데이터 타입:** CHAR(9), NUMC(3), CLNT(1), CUKY(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zpro11_007.html)
+📋 [마크다운으로 보기](zpro11_007.md) | 📄 [HTML로 보기](zpro11_007.html)
 
 ---
 
@@ -68,7 +68,7 @@
 
 **데이터 타입:** DEC(3), CHAR(2), CUKY(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](ztcurr07.html)
+📋 [마크다운으로 보기](ztcurr07.md) | 📄 [HTML로 보기](ztcurr07.html)
 
 ---
 

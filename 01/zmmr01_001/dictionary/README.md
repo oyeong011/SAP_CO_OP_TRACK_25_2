@@ -5,9 +5,9 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZLFA1_01](zlfa1_01.html) | - | 10 | MANDT, LIFNR |
-| [ZLFB1_01](zlfb1_01.html) | - | 10 | MANDT, LIFNR |
-| [ZLFM1_01](zlfm1_01.html) | - | 14 | MANDT, LIFNR |
+| [ZLFA1_01](zlfa1_01.md) 📄 [HTML](zlfa1_01.html) | - | 10 | MANDT, LIFNR |
+| [ZLFB1_01](zlfb1_01.md) 📄 [HTML](zlfb1_01.html) | - | 10 | MANDT, LIFNR |
+| [ZLFM1_01](zlfm1_01.md) 📄 [HTML](zlfm1_01.html) | - | 14 | MANDT, LIFNR |
 
 ---
 
@@ -31,7 +31,7 @@
 
 **데이터 타입:** CHAR(9), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zlfa1_01.html)
+📋 [마크다운으로 보기](zlfa1_01.md) | 📄 [HTML로 보기](zlfa1_01.html)
 
 ---
 
@@ -53,7 +53,7 @@
 
 **데이터 타입:** CHAR(7), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zlfb1_01.html)
+📋 [마크다운으로 보기](zlfb1_01.md) | 📄 [HTML로 보기](zlfb1_01.html)
 
 ---
 
@@ -73,7 +73,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zlfm1_01.html)
+📋 [마크다운으로 보기](zlfm1_01.md) | 📄 [HTML로 보기](zlfm1_01.html)
 
 ---
 

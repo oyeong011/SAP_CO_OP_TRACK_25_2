@@ -5,10 +5,10 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT16_EKKO](zedt16_ekko.html) | - | 8 | MANDT, EBELN |
-| [ZEDT16_EKPO](zedt16_ekpo.html) | - | 26 | MANDT, EBELN, EBELP |
-| [ZEDT16_MKPF](zedt16_mkpf.html) | - | 6 | MANDT, MBLNR, MJAHR |
-| [ZEDT16_MSEG](zedt16_mseg.html) | - | 41 | MANDT, MBLNR, MJAHR ... (+1) |
+| [ZEDT16_EKKO](zedt16_ekko.md) 📄 [HTML](zedt16_ekko.html) | - | 8 | MANDT, EBELN |
+| [ZEDT16_EKPO](zedt16_ekpo.md) 📄 [HTML](zedt16_ekpo.html) | - | 26 | MANDT, EBELN, EBELP |
+| [ZEDT16_MKPF](zedt16_mkpf.md) 📄 [HTML](zedt16_mkpf.html) | - | 6 | MANDT, MBLNR, MJAHR |
+| [ZEDT16_MSEG](zedt16_mseg.md) 📄 [HTML](zedt16_mseg.html) | - | 41 | MANDT, MBLNR, MJAHR ... (+1) |
 
 ---
 
@@ -32,7 +32,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt16_ekko.html)
+📋 [마크다운으로 보기](zedt16_ekko.md) | 📄 [HTML로 보기](zedt16_ekko.html)
 
 ---
 
@@ -54,7 +54,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), NUMC(1), QUAN(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](zedt16_ekpo.html)
+📋 [마크다운으로 보기](zedt16_ekpo.md) | 📄 [HTML로 보기](zedt16_ekpo.html)
 
 ---
 
@@ -72,7 +72,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt16_mkpf.html)
+📋 [마크다운으로 보기](zedt16_mkpf.md) | 📄 [HTML로 보기](zedt16_mkpf.html)
 
 ---
 
@@ -96,7 +96,7 @@
 
 **데이터 타입:** CHAR(11), NUMC(3), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt16_mseg.html)
+📋 [마크다운으로 보기](zedt16_mseg.md) | 📄 [HTML로 보기](zedt16_mseg.html)
 
 ---
 

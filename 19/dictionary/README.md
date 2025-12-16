@@ -5,35 +5,35 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZBKPF19](zbkpf19.html) | - | 17 | BUKRS, LIFNR, GJAHR ... (+1) |
-| [ZBSEG19](zbseg19.html) | - | 22 | BUKRS, LIFNR, GJAHR ... (+1) |
-| [ZEDS19_001](zeds19_001.html) | - | 14 | - |
-| [ZEDS19_002](zeds19_002.html) | - | 6 | - |
-| [ZEDT19_0000](zedt19_0000.html) | - | 9 | MANDT, ZCODE19 |
-| [ZEDT19_0001](zedt19_0001.html) | - | 18 | ZCODE, ZPERNR |
-| [ZEDT19_001](zedt19_001.html) | - | 17 | MANDT, ZCODE19, ZPERNR19 |
-| [ZEDT19_002](zedt19_002.html) | - | 22 | MANDT, ZCODE, ZPERNR |
-| [ZEDT19_003](zedt19_003.html) | Search hlep zedt19_002-ZGUBUN data | 3 | MANDT, ZMGUBUN |
-| [ZEDT19_004](zedt19_004.html) | - | 34 | MANDT, ZCODE, ZPERNR ... (+3) |
-| [ZEDT19_100](zedt19_100.html) | - | 36 | MANDT, ZORDNO, ZIDCODE ... (+1) |
-| [ZEDT19_101](zedt19_101.html) | - | 32 | MANDT, ZORDNO, ZIDCODE ... (+1) |
-| [ZEDT19_102](zedt19_102.html) | - | 30 | MANDT, ZPERNR, ZDEPCODE ... (+2) |
-| [ZEDT19_103](zedt19_103.html) | - | 13 | MANDT, ZPERNR |
-| [ZEDT19_104](zedt19_104.html) | - | 24 | MANDT, ZPERNR, ZDEPCODE |
-| [ZEDT19_105](zedt19_105.html) | - | 21 | MANDT, ZPERNR, ZYEAR |
-| [ZEDT19_106](zedt19_106.html) | - | 18 | MANDT, ZPERNR, ZYEAR ... (+2) |
-| [ZEDT19_200](zedt19_200.html) | - | 24 | MANDT, ZWERKS, ZLGORT ... (+1) |
-| [ZMKPF19](zmkpf19.html) | - | 6 | MANDT, MBLNR, MJAHR |
-| [ZMSEG19](zmseg19.html) | - | 27 | MANDT, MBLNR, MJAHR ... (+1) |
-| [ZPDT19_001](zpdt19_001.html) | - | 14 | LIFNR |
-| [ZPDT19_002](zpdt19_002.html) | - | 31 | LIFNR, BUKRS |
-| [ZPDT19_003](zpdt19_003.html) | - | 13 | LIFNR, EKORG |
-| [ZPDT19_004](zpdt19_004.html) | - | 8 | MANDT, EBELN |
-| [ZPDT19_005](zpdt19_005.html) | - | 18 | MANDT, EBELN, EBELP |
-| [ZPDT19_006](zpdt19_006.html) | - | 23 | BUKRS, LIFNR, GJAHR ... (+1) |
-| [ZRBKP19](zrbkp19.html) | - | 9 | MANDT, BELNR, GJAHR |
-| [ZRSEG19](zrseg19.html) | - | 22 | MANDT, BELNR, GJAHR ... (+1) |
-| [ZTCURR19](ztcurr19.html) | - | 10 | MANDT, KURST, FCURR ... (+2) |
+| [ZBKPF19](zbkpf19.md) 📄 [HTML](zbkpf19.html) | - | 17 | BUKRS, LIFNR, GJAHR ... (+1) |
+| [ZBSEG19](zbseg19.md) 📄 [HTML](zbseg19.html) | - | 22 | BUKRS, LIFNR, GJAHR ... (+1) |
+| [ZEDS19_001](zeds19_001.md) 📄 [HTML](zeds19_001.html) | - | 14 | - |
+| [ZEDS19_002](zeds19_002.md) 📄 [HTML](zeds19_002.html) | - | 6 | - |
+| [ZEDT19_0000](zedt19_0000.md) 📄 [HTML](zedt19_0000.html) | - | 9 | MANDT, ZCODE19 |
+| [ZEDT19_0001](zedt19_0001.md) 📄 [HTML](zedt19_0001.html) | - | 18 | ZCODE, ZPERNR |
+| [ZEDT19_001](zedt19_001.md) 📄 [HTML](zedt19_001.html) | - | 17 | MANDT, ZCODE19, ZPERNR19 |
+| [ZEDT19_002](zedt19_002.md) 📄 [HTML](zedt19_002.html) | - | 22 | MANDT, ZCODE, ZPERNR |
+| [ZEDT19_003](zedt19_003.md) 📄 [HTML](zedt19_003.html) | Search hlep zedt19_002-ZGUBUN data | 3 | MANDT, ZMGUBUN |
+| [ZEDT19_004](zedt19_004.md) 📄 [HTML](zedt19_004.html) | - | 34 | MANDT, ZCODE, ZPERNR ... (+3) |
+| [ZEDT19_100](zedt19_100.md) 📄 [HTML](zedt19_100.html) | - | 36 | MANDT, ZORDNO, ZIDCODE ... (+1) |
+| [ZEDT19_101](zedt19_101.md) 📄 [HTML](zedt19_101.html) | - | 32 | MANDT, ZORDNO, ZIDCODE ... (+1) |
+| [ZEDT19_102](zedt19_102.md) 📄 [HTML](zedt19_102.html) | - | 30 | MANDT, ZPERNR, ZDEPCODE ... (+2) |
+| [ZEDT19_103](zedt19_103.md) 📄 [HTML](zedt19_103.html) | - | 13 | MANDT, ZPERNR |
+| [ZEDT19_104](zedt19_104.md) 📄 [HTML](zedt19_104.html) | - | 24 | MANDT, ZPERNR, ZDEPCODE |
+| [ZEDT19_105](zedt19_105.md) 📄 [HTML](zedt19_105.html) | - | 21 | MANDT, ZPERNR, ZYEAR |
+| [ZEDT19_106](zedt19_106.md) 📄 [HTML](zedt19_106.html) | - | 18 | MANDT, ZPERNR, ZYEAR ... (+2) |
+| [ZEDT19_200](zedt19_200.md) 📄 [HTML](zedt19_200.html) | - | 24 | MANDT, ZWERKS, ZLGORT ... (+1) |
+| [ZMKPF19](zmkpf19.md) 📄 [HTML](zmkpf19.html) | - | 6 | MANDT, MBLNR, MJAHR |
+| [ZMSEG19](zmseg19.md) 📄 [HTML](zmseg19.html) | - | 27 | MANDT, MBLNR, MJAHR ... (+1) |
+| [ZPDT19_001](zpdt19_001.md) 📄 [HTML](zpdt19_001.html) | - | 14 | LIFNR |
+| [ZPDT19_002](zpdt19_002.md) 📄 [HTML](zpdt19_002.html) | - | 31 | LIFNR, BUKRS |
+| [ZPDT19_003](zpdt19_003.md) 📄 [HTML](zpdt19_003.html) | - | 13 | LIFNR, EKORG |
+| [ZPDT19_004](zpdt19_004.md) 📄 [HTML](zpdt19_004.html) | - | 8 | MANDT, EBELN |
+| [ZPDT19_005](zpdt19_005.md) 📄 [HTML](zpdt19_005.html) | - | 18 | MANDT, EBELN, EBELP |
+| [ZPDT19_006](zpdt19_006.md) 📄 [HTML](zpdt19_006.html) | - | 23 | BUKRS, LIFNR, GJAHR ... (+1) |
+| [ZRBKP19](zrbkp19.md) 📄 [HTML](zrbkp19.html) | - | 9 | MANDT, BELNR, GJAHR |
+| [ZRSEG19](zrseg19.md) 📄 [HTML](zrseg19.html) | - | 22 | MANDT, BELNR, GJAHR ... (+1) |
+| [ZTCURR19](ztcurr19.md) 📄 [HTML](ztcurr19.html) | - | 10 | MANDT, KURST, FCURR ... (+2) |
 
 ---
 
@@ -57,7 +57,7 @@
 
 **데이터 타입:** CHAR(7), DATS(3), NUMC(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zbkpf19.html)
+📋 [마크다운으로 보기](zbkpf19.md) | 📄 [HTML로 보기](zbkpf19.html)
 
 ---
 
@@ -79,7 +79,7 @@
 
 **데이터 타입:** CHAR(9), DATS(3), NUMC(1), CUKY(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zbseg19.html)
+📋 [마크다운으로 보기](zbseg19.md) | 📄 [HTML로 보기](zbseg19.html)
 
 ---
 
@@ -99,7 +99,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zeds19_001.html)
+📋 [마크다운으로 보기](zeds19_001.md) | 📄 [HTML로 보기](zeds19_001.html)
 
 ---
 
@@ -119,7 +119,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zeds19_002.html)
+📋 [마크다운으로 보기](zeds19_002.md) | 📄 [HTML로 보기](zeds19_002.html)
 
 ---
 
@@ -139,7 +139,7 @@
 
 **데이터 타입:** CHAR(6), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt19_0000.html)
+📋 [마크다운으로 보기](zedt19_0000.md) | 📄 [HTML로 보기](zedt19_0000.html)
 
 ---
 
@@ -161,7 +161,7 @@
 
 **데이터 타입:** CHAR(9), CURR(1)
 
-📄 [전체 테이블 구조 보기](zedt19_0001.html)
+📋 [마크다운으로 보기](zedt19_0001.md) | 📄 [HTML로 보기](zedt19_0001.html)
 
 ---
 
@@ -185,7 +185,7 @@
 
 **데이터 타입:** CHAR(9), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt19_001.html)
+📋 [마크다운으로 보기](zedt19_001.md) | 📄 [HTML로 보기](zedt19_001.html)
 
 ---
 
@@ -209,7 +209,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zedt19_002.html)
+📋 [마크다운으로 보기](zedt19_002.md) | 📄 [HTML로 보기](zedt19_002.html)
 
 ---
 
@@ -227,7 +227,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt19_003.html)
+📋 [마크다운으로 보기](zedt19_003.md) | 📄 [HTML로 보기](zedt19_003.html)
 
 ---
 
@@ -249,7 +249,7 @@
 
 **데이터 타입:** CHAR(9), CLNT(1), CURR(1), CUKY(1), INT8(1)
 
-📄 [전체 테이블 구조 보기](zedt19_004.html)
+📋 [마크다운으로 보기](zedt19_004.md) | 📄 [HTML로 보기](zedt19_004.html)
 
 ---
 
@@ -271,7 +271,7 @@
 
 **데이터 타입:** CHAR(11), DATS(4), CURR(3), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt19_100.html)
+📋 [마크다운으로 보기](zedt19_100.md) | 📄 [HTML로 보기](zedt19_100.html)
 
 ---
 
@@ -293,7 +293,7 @@
 
 **데이터 타입:** CHAR(11), DATS(4), TIMS(2), CLNT(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt19_101.html)
+📋 [마크다운으로 보기](zedt19_101.md) | 📄 [HTML로 보기](zedt19_101.html)
 
 ---
 
@@ -315,7 +315,7 @@
 
 **데이터 타입:** CHAR(6), DATS(6), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt19_102.html)
+📋 [마크다운으로 보기](zedt19_102.md) | 📄 [HTML로 보기](zedt19_102.html)
 
 ---
 
@@ -337,7 +337,7 @@
 
 **데이터 타입:** CHAR(6), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt19_103.html)
+📋 [마크다운으로 보기](zedt19_103.md) | 📄 [HTML로 보기](zedt19_103.html)
 
 ---
 
@@ -359,7 +359,7 @@
 
 **데이터 타입:** CHAR(5), DATS(4), TIMS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt19_104.html)
+📋 [마크다운으로 보기](zedt19_104.md) | 📄 [HTML로 보기](zedt19_104.html)
 
 ---
 
@@ -381,7 +381,7 @@
 
 **데이터 타입:** DEC(12), CHAR(3), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt19_105.html)
+📋 [마크다운으로 보기](zedt19_105.md) | 📄 [HTML로 보기](zedt19_105.html)
 
 ---
 
@@ -403,7 +403,7 @@
 
 **데이터 타입:** CHAR(5), DATS(4), CLNT(1), NUMC(1), DEC(1)
 
-📄 [전체 테이블 구조 보기](zedt19_106.html)
+📋 [마크다운으로 보기](zedt19_106.md) | 📄 [HTML로 보기](zedt19_106.html)
 
 ---
 
@@ -427,7 +427,7 @@
 
 **데이터 타입:** CHAR(7), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zedt19_200.html)
+📋 [마크다운으로 보기](zedt19_200.md) | 📄 [HTML로 보기](zedt19_200.html)
 
 ---
 
@@ -445,7 +445,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zmkpf19.html)
+📋 [마크다운으로 보기](zmkpf19.md) | 📄 [HTML로 보기](zmkpf19.html)
 
 ---
 
@@ -467,7 +467,7 @@
 
 **데이터 타입:** CHAR(9), NUMC(3), CURR(2), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zmseg19.html)
+📋 [마크다운으로 보기](zmseg19.md) | 📄 [HTML로 보기](zmseg19.html)
 
 ---
 
@@ -489,7 +489,7 @@
 
 **데이터 타입:** CHAR(7)
 
-📄 [전체 테이블 구조 보기](zpdt19_001.html)
+📋 [마크다운으로 보기](zpdt19_001.md) | 📄 [HTML로 보기](zpdt19_001.html)
 
 ---
 
@@ -507,7 +507,7 @@
 
 **데이터 타입:** CHAR(5)
 
-📄 [전체 테이블 구조 보기](zpdt19_002.html)
+📋 [마크다운으로 보기](zpdt19_002.md) | 📄 [HTML로 보기](zpdt19_002.html)
 
 ---
 
@@ -526,7 +526,7 @@
 
 **데이터 타입:** CHAR(5), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zpdt19_003.html)
+📋 [마크다운으로 보기](zpdt19_003.md) | 📄 [HTML로 보기](zpdt19_003.html)
 
 ---
 
@@ -548,7 +548,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zpdt19_004.html)
+📋 [마크다운으로 보기](zpdt19_004.md) | 📄 [HTML로 보기](zpdt19_004.html)
 
 ---
 
@@ -570,7 +570,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), NUMC(1), QUAN(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](zpdt19_005.html)
+📋 [마크다운으로 보기](zpdt19_005.md) | 📄 [HTML로 보기](zpdt19_005.html)
 
 ---
 
@@ -592,7 +592,7 @@
 
 **데이터 타입:** CHAR(9), DATS(3), CURR(2), NUMC(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zpdt19_006.html)
+📋 [마크다운으로 보기](zpdt19_006.md) | 📄 [HTML로 보기](zpdt19_006.html)
 
 ---
 
@@ -614,7 +614,7 @@
 
 **데이터 타입:** CHAR(4), DATS(2), CLNT(1), NUMC(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zrbkp19.html)
+📋 [마크다운으로 보기](zrbkp19.md) | 📄 [HTML로 보기](zrbkp19.html)
 
 ---
 
@@ -636,7 +636,7 @@
 
 **데이터 타입:** CHAR(8), NUMC(2), CURR(2), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zrseg19.html)
+📋 [마크다운으로 보기](zrseg19.md) | 📄 [HTML로 보기](zrseg19.html)
 
 ---
 
@@ -656,7 +656,7 @@
 
 **데이터 타입:** CHAR(3), DEC(3), CUKY(2), CLNT(1), DATS(1)
 
-📄 [전체 테이블 구조 보기](ztcurr19.html)
+📋 [마크다운으로 보기](ztcurr19.md) | 📄 [HTML로 보기](ztcurr19.html)
 
 ---
 

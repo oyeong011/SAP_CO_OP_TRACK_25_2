@@ -5,10 +5,10 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDS11_001](zeds11_001.html) | - | 7 | - |
-| [ZEDS11_002](zeds11_002.html) | - | 6 | - |
-| [ZEDT11_100](zedt11_100.html) | - | 42 | MANDT, ZORDNO, ZIDCODE ... (+1) |
-| [ZEDT11_101](zedt11_101.html) | - | 39 | MANDT, ZORDNO, ZIDCODE ... (+1) |
+| [ZEDS11_001](zeds11_001.md) 📄 [HTML](zeds11_001.html) | - | 7 | - |
+| [ZEDS11_002](zeds11_002.md) 📄 [HTML](zeds11_002.html) | - | 6 | - |
+| [ZEDT11_100](zedt11_100.md) 📄 [HTML](zedt11_100.html) | - | 42 | MANDT, ZORDNO, ZIDCODE ... (+1) |
+| [ZEDT11_101](zedt11_101.md) 📄 [HTML](zedt11_101.html) | - | 39 | MANDT, ZORDNO, ZIDCODE ... (+1) |
 
 ---
 
@@ -30,7 +30,7 @@
 
 **데이터 타입:** CHAR(6), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zeds11_001.html)
+📋 [마크다운으로 보기](zeds11_001.md) | 📄 [HTML로 보기](zeds11_001.html)
 
 ---
 
@@ -50,7 +50,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zeds11_002.html)
+📋 [마크다운으로 보기](zeds11_002.md) | 📄 [HTML로 보기](zeds11_002.html)
 
 ---
 
@@ -74,7 +74,7 @@
 
 **데이터 타입:** CHAR(11), DATS(4), CURR(3), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt11_100.html)
+📋 [마크다운으로 보기](zedt11_100.md) | 📄 [HTML로 보기](zedt11_100.html)
 
 ---
 
@@ -98,7 +98,7 @@
 
 **데이터 타입:** CHAR(11), DATS(4), TIMS(2), CLNT(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt11_101.html)
+📋 [마크다운으로 보기](zedt11_101.md) | 📄 [HTML로 보기](zedt11_101.html)
 
 ---
 

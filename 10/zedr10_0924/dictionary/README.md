@@ -5,9 +5,9 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT10_001](zedt10_001.html) | - | 16 | MANDT, ZCODE, ZPERNR |
-| [ZEDT10_T024](zedt10_t024.html) | - | 3 | MANDT, EKGRP |
-| [ZEDT10_T024E](zedt10_t024e.html) | - | 4 | MANDT, EKORG |
+| [ZEDT10_001](zedt10_001.md) 📄 [HTML](zedt10_001.html) | - | 16 | MANDT, ZCODE, ZPERNR |
+| [ZEDT10_T024](zedt10_t024.md) 📄 [HTML](zedt10_t024.html) | - | 3 | MANDT, EKGRP |
+| [ZEDT10_T024E](zedt10_t024e.md) 📄 [HTML](zedt10_t024e.html) | - | 4 | MANDT, EKORG |
 
 ---
 
@@ -33,7 +33,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_001.html)
+📋 [마크다운으로 보기](zedt10_001.md) | 📄 [HTML로 보기](zedt10_001.html)
 
 ---
 
@@ -49,7 +49,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_t024.html)
+📋 [마크다운으로 보기](zedt10_t024.md) | 📄 [HTML로 보기](zedt10_t024.html)
 
 ---
 
@@ -66,7 +66,7 @@
 
 **데이터 타입:** CHAR(3), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_t024e.html)
+📋 [마크다운으로 보기](zedt10_t024e.md) | 📄 [HTML로 보기](zedt10_t024e.html)
 
 ---
 

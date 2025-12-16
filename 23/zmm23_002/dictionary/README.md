@@ -5,10 +5,10 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [Z23EKKO](z23ekko.html) | - | 8 | MANDT, EBELN |
-| [Z23EKPO](z23ekpo.html) | - | 19 | MANDT, EBELN, EBELP |
-| [Z23LFA1](z23lfa1.html) | - | 15 | MANDT, LIFNR |
-| [Z23MARA](z23mara.html) | - | 21 | MANDT, WERKS, LGORT ... (+1) |
+| [Z23EKKO](z23ekko.md) 📄 [HTML](z23ekko.html) | - | 8 | MANDT, EBELN |
+| [Z23EKPO](z23ekpo.md) 📄 [HTML](z23ekpo.html) | - | 19 | MANDT, EBELN, EBELP |
+| [Z23LFA1](z23lfa1.md) 📄 [HTML](z23lfa1.html) | - | 15 | MANDT, LIFNR |
+| [Z23MARA](z23mara.md) 📄 [HTML](z23mara.html) | - | 21 | MANDT, WERKS, LGORT ... (+1) |
 
 ---
 
@@ -32,7 +32,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](z23ekko.html)
+📋 [마크다운으로 보기](z23ekko.md) | 📄 [HTML로 보기](z23ekko.html)
 
 ---
 
@@ -54,7 +54,7 @@
 
 **데이터 타입:** CHAR(6), CLNT(1), NUMC(1), QUAN(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](z23ekpo.html)
+📋 [마크다운으로 보기](z23ekpo.md) | 📄 [HTML로 보기](z23ekpo.html)
 
 ---
 
@@ -76,7 +76,7 @@
 
 **데이터 타입:** CHAR(7), CLNT(1)
 
-📄 [전체 테이블 구조 보기](z23lfa1.html)
+📋 [마크다운으로 보기](z23lfa1.md) | 📄 [HTML로 보기](z23lfa1.html)
 
 ---
 
@@ -98,7 +98,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CURR(1), CUKY(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](z23mara.html)
+📋 [마크다운으로 보기](z23mara.md) | 📄 [HTML로 보기](z23mara.html)
 
 ---
 

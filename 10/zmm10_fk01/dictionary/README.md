@@ -5,9 +5,9 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT10_LFA1](zedt10_lfa1.html) | - | 8 | MANDT, LIFNR |
-| [ZEDT10_LFB1](zedt10_lfb1.html) | - | 8 | MANDT, LIFNR, BUKRS |
-| [ZEDT10_LFM1](zedt10_lfm1.html) | - | 9 | MANDT, LIFNR, EKORG |
+| [ZEDT10_LFA1](zedt10_lfa1.md) 📄 [HTML](zedt10_lfa1.html) | - | 8 | MANDT, LIFNR |
+| [ZEDT10_LFB1](zedt10_lfb1.md) 📄 [HTML](zedt10_lfb1.html) | - | 8 | MANDT, LIFNR, BUKRS |
+| [ZEDT10_LFM1](zedt10_lfm1.md) 📄 [HTML](zedt10_lfm1.html) | - | 9 | MANDT, LIFNR, EKORG |
 
 ---
 
@@ -31,7 +31,7 @@
 
 **데이터 타입:** CHAR(7), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_lfa1.html)
+📋 [마크다운으로 보기](zedt10_lfa1.md) | 📄 [HTML로 보기](zedt10_lfa1.html)
 
 ---
 
@@ -49,7 +49,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_lfb1.html)
+📋 [마크다운으로 보기](zedt10_lfb1.md) | 📄 [HTML로 보기](zedt10_lfb1.html)
 
 ---
 
@@ -68,7 +68,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt10_lfm1.html)
+📋 [마크다운으로 보기](zedt10_lfm1.md) | 📄 [HTML로 보기](zedt10_lfm1.html)
 
 ---
 

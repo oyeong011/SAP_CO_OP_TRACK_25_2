@@ -5,8 +5,8 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT06_EKKO](zedt06_ekko.html) | - | 8 | MANDT, EBELN, BUKRS ... (+1) |
-| [ZEDT06_EKPO](zedt06_ekpo.html) | - | 11 | MANDT, EBELN, EBELP |
+| [ZEDT06_EKKO](zedt06_ekko.md) 📄 [HTML](zedt06_ekko.html) | - | 8 | MANDT, EBELN, BUKRS ... (+1) |
+| [ZEDT06_EKPO](zedt06_ekpo.md) 📄 [HTML](zedt06_ekpo.html) | - | 11 | MANDT, EBELN, EBELP |
 
 ---
 
@@ -27,7 +27,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt06_ekko.html)
+📋 [마크다운으로 보기](zedt06_ekko.md) | 📄 [HTML로 보기](zedt06_ekko.html)
 
 ---
 
@@ -49,7 +49,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), NUMC(1), QUAN(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](zedt06_ekpo.html)
+📋 [마크다운으로 보기](zedt06_ekpo.md) | 📄 [HTML로 보기](zedt06_ekpo.html)
 
 ---
 

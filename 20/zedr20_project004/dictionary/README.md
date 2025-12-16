@@ -5,19 +5,19 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT20_BKPF](zedt20_bkpf.html) | - | 9 | MANDT, BUKRS, BELNR ... (+1) |
-| [ZEDT20_BSEG](zedt20_bseg.html) | - | 17 | MANDT, BUKRS, BELNR ... (+2) |
-| [ZEDT20_BSIK](zedt20_bsik.html) | - | 19 | MANDT, BUKRS, LIFNR ... (+2) |
-| [ZEDT20_EKKO](zedt20_ekko.html) | - | 8 | MANDT, EBELN |
-| [ZEDT20_EKPO](zedt20_ekpo.html) | - | 11 | MANDT, EBELN, EBELP |
-| [ZEDT20_LFA1](zedt20_lfa1.html) | - | 14 | MANDT, LIFNR |
-| [ZEDT20_LFB1](zedt20_lfb1.html) | - | 34 | MANDT, LIFNR, BUKRS |
-| [ZEDT20_LFM1](zedt20_lfm1.html) | - | 14 | MANDT, LIFNR |
-| [ZEDT20_MARA](zedt20_mara.html) | - | 7 | MANDT, MATNR |
-| [ZEDT20_MKPF](zedt20_mkpf.html) | - | 6 | MANDT, MBLNR, MJAHR |
-| [ZEDT20_MSEG](zedt20_mseg.html) | - | 22 | MANDT, MBLNR, MJAHR ... (+1) |
-| [ZEDT20_RBKP](zedt20_rbkp.html) | - | 9 | MANDT, BELNR, GJAHR |
-| [ZEDT20_RSEG](zedt20_rseg.html) | - | 22 | MANDT, BELNR, GJAHR ... (+1) |
+| [ZEDT20_BKPF](zedt20_bkpf.md) 📄 [HTML](zedt20_bkpf.html) | - | 9 | MANDT, BUKRS, BELNR ... (+1) |
+| [ZEDT20_BSEG](zedt20_bseg.md) 📄 [HTML](zedt20_bseg.html) | - | 17 | MANDT, BUKRS, BELNR ... (+2) |
+| [ZEDT20_BSIK](zedt20_bsik.md) 📄 [HTML](zedt20_bsik.html) | - | 19 | MANDT, BUKRS, LIFNR ... (+2) |
+| [ZEDT20_EKKO](zedt20_ekko.md) 📄 [HTML](zedt20_ekko.html) | - | 8 | MANDT, EBELN |
+| [ZEDT20_EKPO](zedt20_ekpo.md) 📄 [HTML](zedt20_ekpo.html) | - | 11 | MANDT, EBELN, EBELP |
+| [ZEDT20_LFA1](zedt20_lfa1.md) 📄 [HTML](zedt20_lfa1.html) | - | 14 | MANDT, LIFNR |
+| [ZEDT20_LFB1](zedt20_lfb1.md) 📄 [HTML](zedt20_lfb1.html) | - | 34 | MANDT, LIFNR, BUKRS |
+| [ZEDT20_LFM1](zedt20_lfm1.md) 📄 [HTML](zedt20_lfm1.html) | - | 14 | MANDT, LIFNR |
+| [ZEDT20_MARA](zedt20_mara.md) 📄 [HTML](zedt20_mara.html) | - | 7 | MANDT, MATNR |
+| [ZEDT20_MKPF](zedt20_mkpf.md) 📄 [HTML](zedt20_mkpf.html) | - | 6 | MANDT, MBLNR, MJAHR |
+| [ZEDT20_MSEG](zedt20_mseg.md) 📄 [HTML](zedt20_mseg.html) | - | 22 | MANDT, MBLNR, MJAHR ... (+1) |
+| [ZEDT20_RBKP](zedt20_rbkp.md) 📄 [HTML](zedt20_rbkp.html) | - | 9 | MANDT, BELNR, GJAHR |
+| [ZEDT20_RSEG](zedt20_rseg.md) 📄 [HTML](zedt20_rseg.html) | - | 22 | MANDT, BELNR, GJAHR ... (+1) |
 
 ---
 
@@ -39,7 +39,7 @@
 
 **데이터 타입:** CHAR(4), DATS(2), CLNT(1), NUMC(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt20_bkpf.html)
+📋 [마크다운으로 보기](zedt20_bkpf.md) | 📄 [HTML로 보기](zedt20_bkpf.html)
 
 ---
 
@@ -61,7 +61,7 @@
 
 **데이터 타입:** CHAR(8), NUMC(3), CLNT(1), CURR(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt20_bseg.html)
+📋 [마크다운으로 보기](zedt20_bseg.md) | 📄 [HTML로 보기](zedt20_bseg.html)
 
 ---
 
@@ -83,7 +83,7 @@
 
 **데이터 타입:** CHAR(9), DATS(3), CURR(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt20_bsik.html)
+📋 [마크다운으로 보기](zedt20_bsik.md) | 📄 [HTML로 보기](zedt20_bsik.html)
 
 ---
 
@@ -105,7 +105,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt20_ekko.html)
+📋 [마크다운으로 보기](zedt20_ekko.md) | 📄 [HTML로 보기](zedt20_ekko.html)
 
 ---
 
@@ -127,7 +127,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), NUMC(1), QUAN(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](zedt20_ekpo.html)
+📋 [마크다운으로 보기](zedt20_ekpo.md) | 📄 [HTML로 보기](zedt20_ekpo.html)
 
 ---
 
@@ -149,7 +149,7 @@
 
 **데이터 타입:** CHAR(7), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt20_lfa1.html)
+📋 [마크다운으로 보기](zedt20_lfa1.md) | 📄 [HTML로 보기](zedt20_lfa1.html)
 
 ---
 
@@ -167,7 +167,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt20_lfb1.html)
+📋 [마크다운으로 보기](zedt20_lfb1.md) | 📄 [HTML로 보기](zedt20_lfb1.html)
 
 ---
 
@@ -187,7 +187,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt20_lfm1.html)
+📋 [마크다운으로 보기](zedt20_lfm1.md) | 📄 [HTML로 보기](zedt20_lfm1.html)
 
 ---
 
@@ -207,7 +207,7 @@
 
 **데이터 타입:** CHAR(3), CLNT(1), UNIT(1), CURR(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt20_mara.html)
+📋 [마크다운으로 보기](zedt20_mara.md) | 📄 [HTML로 보기](zedt20_mara.html)
 
 ---
 
@@ -225,7 +225,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt20_mkpf.html)
+📋 [마크다운으로 보기](zedt20_mkpf.md) | 📄 [HTML로 보기](zedt20_mkpf.html)
 
 ---
 
@@ -247,7 +247,7 @@
 
 **데이터 타입:** CHAR(10), NUMC(3), CLNT(1), CUKY(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt20_mseg.html)
+📋 [마크다운으로 보기](zedt20_mseg.md) | 📄 [HTML로 보기](zedt20_mseg.html)
 
 ---
 
@@ -269,7 +269,7 @@
 
 **데이터 타입:** CHAR(4), DATS(2), CLNT(1), NUMC(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt20_rbkp.html)
+📋 [마크다운으로 보기](zedt20_rbkp.md) | 📄 [HTML로 보기](zedt20_rbkp.html)
 
 ---
 
@@ -291,7 +291,7 @@
 
 **데이터 타입:** CHAR(7), NUMC(3), CURR(2), CLNT(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt20_rseg.html)
+📋 [마크다운으로 보기](zedt20_rseg.md) | 📄 [HTML로 보기](zedt20_rseg.html)
 
 ---
 

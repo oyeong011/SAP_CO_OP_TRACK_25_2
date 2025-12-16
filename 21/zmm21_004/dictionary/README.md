@@ -5,17 +5,17 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEKKO21](zekko21.html) | - | 8 | MANDT, EBELN |
-| [ZEKPO21](zekpo21.html) | - | 11 | MANDT, EBELN, EBELP |
-| [ZLFA1_21](zlfa1_21.html) | - | 14 | MANDT, LIFNR |
-| [ZLFB1_21](zlfb1_21.html) | - | 34 | MANDT, LIFNR |
-| [ZLFM1_21](zlfm1_21.html) | - | 14 | MANDT, LIFNR |
-| [ZLIFNR_21](zlifnr_21.html) | - | 8 | MANDT, LIFNR |
-| [ZMKPF21](zmkpf21.html) | - | 6 | MANDT, MBLNR, MJAHR |
-| [ZMSEG21](zmseg21.html) | - | 19 | MANDT, MBLNR, MJAHR ... (+1) |
-| [ZRBKP21](zrbkp21.html) | - | 6 | MANDT, BELNR, GJAHR |
-| [ZRSEG21](zrseg21.html) | - | 21 | MANDT, BELNR, GJAHR ... (+1) |
-| [ZTCURR21](ztcurr21.html) | - | 10 | MANDT, KURST, FCURR ... (+2) |
+| [ZEKKO21](zekko21.md) 📄 [HTML](zekko21.html) | - | 8 | MANDT, EBELN |
+| [ZEKPO21](zekpo21.md) 📄 [HTML](zekpo21.html) | - | 11 | MANDT, EBELN, EBELP |
+| [ZLFA1_21](zlfa1_21.md) 📄 [HTML](zlfa1_21.html) | - | 14 | MANDT, LIFNR |
+| [ZLFB1_21](zlfb1_21.md) 📄 [HTML](zlfb1_21.html) | - | 34 | MANDT, LIFNR |
+| [ZLFM1_21](zlfm1_21.md) 📄 [HTML](zlfm1_21.html) | - | 14 | MANDT, LIFNR |
+| [ZLIFNR_21](zlifnr_21.md) 📄 [HTML](zlifnr_21.html) | - | 8 | MANDT, LIFNR |
+| [ZMKPF21](zmkpf21.md) 📄 [HTML](zmkpf21.html) | - | 6 | MANDT, MBLNR, MJAHR |
+| [ZMSEG21](zmseg21.md) 📄 [HTML](zmseg21.html) | - | 19 | MANDT, MBLNR, MJAHR ... (+1) |
+| [ZRBKP21](zrbkp21.md) 📄 [HTML](zrbkp21.html) | - | 6 | MANDT, BELNR, GJAHR |
+| [ZRSEG21](zrseg21.md) 📄 [HTML](zrseg21.html) | - | 21 | MANDT, BELNR, GJAHR ... (+1) |
+| [ZTCURR21](ztcurr21.md) 📄 [HTML](ztcurr21.html) | - | 10 | MANDT, KURST, FCURR ... (+2) |
 
 ---
 
@@ -39,7 +39,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zekko21.html)
+📋 [마크다운으로 보기](zekko21.md) | 📄 [HTML로 보기](zekko21.html)
 
 ---
 
@@ -61,7 +61,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), NUMC(1), QUAN(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](zekpo21.html)
+📋 [마크다운으로 보기](zekpo21.md) | 📄 [HTML로 보기](zekpo21.html)
 
 ---
 
@@ -83,7 +83,7 @@
 
 **데이터 타입:** CHAR(7), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zlfa1_21.html)
+📋 [마크다운으로 보기](zlfa1_21.md) | 📄 [HTML로 보기](zlfa1_21.html)
 
 ---
 
@@ -102,7 +102,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zlfb1_21.html)
+📋 [마크다운으로 보기](zlfb1_21.md) | 📄 [HTML로 보기](zlfb1_21.html)
 
 ---
 
@@ -122,7 +122,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zlfm1_21.html)
+📋 [마크다운으로 보기](zlfm1_21.md) | 📄 [HTML로 보기](zlfm1_21.html)
 
 ---
 
@@ -141,7 +141,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zlifnr_21.html)
+📋 [마크다운으로 보기](zlifnr_21.md) | 📄 [HTML로 보기](zlifnr_21.html)
 
 ---
 
@@ -159,7 +159,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zmkpf21.html)
+📋 [마크다운으로 보기](zmkpf21.md) | 📄 [HTML로 보기](zmkpf21.html)
 
 ---
 
@@ -181,7 +181,7 @@
 
 **데이터 타입:** CHAR(9), NUMC(3), CLNT(1), CUKY(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zmseg21.html)
+📋 [마크다운으로 보기](zmseg21.md) | 📄 [HTML로 보기](zmseg21.html)
 
 ---
 
@@ -199,7 +199,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zrbkp21.html)
+📋 [마크다운으로 보기](zrbkp21.md) | 📄 [HTML로 보기](zrbkp21.html)
 
 ---
 
@@ -221,7 +221,7 @@
 
 **데이터 타입:** CHAR(8), NUMC(3), UNIT(3), CURR(3), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zrseg21.html)
+📋 [마크다운으로 보기](zrseg21.md) | 📄 [HTML로 보기](zrseg21.html)
 
 ---
 
@@ -241,7 +241,7 @@
 
 **데이터 타입:** CHAR(3), DEC(3), CUKY(2), CLNT(1), DATS(1)
 
-📄 [전체 테이블 구조 보기](ztcurr21.html)
+📋 [마크다운으로 보기](ztcurr21.md) | 📄 [HTML로 보기](ztcurr21.html)
 
 ---
 

@@ -5,10 +5,10 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT08_EKKO](zedt08_ekko.html) | - | 15 | MANDT, EBELN, BUKRS ... (+1) |
-| [ZEDT08_EKPO](zedt08_ekpo.html) | - | 18 | MANDT, EBELN, EBELP |
-| [ZEDT08_MKRF](zedt08_mkrf.html) | - | 13 | MANDT, MBLNR, MJAHR |
-| [ZEDT08_MSEG](zedt08_mseg.html) | - | 19 | MANDT, MBLNR, MJAHR ... (+1) |
+| [ZEDT08_EKKO](zedt08_ekko.md) 📄 [HTML](zedt08_ekko.html) | - | 15 | MANDT, EBELN, BUKRS ... (+1) |
+| [ZEDT08_EKPO](zedt08_ekpo.md) 📄 [HTML](zedt08_ekpo.html) | - | 18 | MANDT, EBELN, EBELP |
+| [ZEDT08_MKRF](zedt08_mkrf.md) 📄 [HTML](zedt08_mkrf.html) | - | 13 | MANDT, MBLNR, MJAHR |
+| [ZEDT08_MSEG](zedt08_mseg.md) 📄 [HTML](zedt08_mseg.html) | - | 19 | MANDT, MBLNR, MJAHR ... (+1) |
 
 ---
 
@@ -34,7 +34,7 @@
 
 **데이터 타입:** CHAR(7), DATS(3), TIMS(2), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt08_ekko.html)
+📋 [마크다운으로 보기](zedt08_ekko.md) | 📄 [HTML로 보기](zedt08_ekko.html)
 
 ---
 
@@ -58,7 +58,7 @@
 
 **데이터 타입:** CHAR(7), DATS(3), TIMS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt08_ekpo.html)
+📋 [마크다운으로 보기](zedt08_ekpo.md) | 📄 [HTML로 보기](zedt08_ekpo.html)
 
 ---
 
@@ -82,7 +82,7 @@
 
 **데이터 타입:** CHAR(4), DATS(4), TIMS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt08_mkrf.html)
+📋 [마크다운으로 보기](zedt08_mkrf.md) | 📄 [HTML로 보기](zedt08_mkrf.html)
 
 ---
 
@@ -104,7 +104,7 @@
 
 **데이터 타입:** CHAR(9), NUMC(3), CLNT(1), CUKY(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt08_mseg.html)
+📋 [마크다운으로 보기](zedt08_mseg.md) | 📄 [HTML로 보기](zedt08_mseg.html)
 
 ---
 

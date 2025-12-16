@@ -5,10 +5,10 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [Z23EKKO](z23ekko.html) | - | 8 | MANDT, EBELN |
-| [Z23EKPO](z23ekpo.html) | - | 19 | MANDT, EBELN, EBELP |
-| [Z23MKPF](z23mkpf.html) | - | 6 | MANDT, MBLNR, MJAHR |
-| [Z23MSEG](z23mseg.html) | - | 26 | MANDT, MBLNR, MJAHR ... (+1) |
+| [Z23EKKO](z23ekko.md) 📄 [HTML](z23ekko.html) | - | 8 | MANDT, EBELN |
+| [Z23EKPO](z23ekpo.md) 📄 [HTML](z23ekpo.html) | - | 19 | MANDT, EBELN, EBELP |
+| [Z23MKPF](z23mkpf.md) 📄 [HTML](z23mkpf.html) | - | 6 | MANDT, MBLNR, MJAHR |
+| [Z23MSEG](z23mseg.md) 📄 [HTML](z23mseg.html) | - | 26 | MANDT, MBLNR, MJAHR ... (+1) |
 
 ---
 
@@ -32,7 +32,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](z23ekko.html)
+📋 [마크다운으로 보기](z23ekko.md) | 📄 [HTML로 보기](z23ekko.html)
 
 ---
 
@@ -54,7 +54,7 @@
 
 **데이터 타입:** CHAR(6), CLNT(1), NUMC(1), QUAN(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](z23ekpo.html)
+📋 [마크다운으로 보기](z23ekpo.md) | 📄 [HTML로 보기](z23ekpo.html)
 
 ---
 
@@ -72,7 +72,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](z23mkpf.html)
+📋 [마크다운으로 보기](z23mkpf.md) | 📄 [HTML로 보기](z23mkpf.html)
 
 ---
 
@@ -94,7 +94,7 @@
 
 **데이터 타입:** CHAR(10), NUMC(4), CLNT(1), CUKY(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](z23mseg.html)
+📋 [마크다운으로 보기](z23mseg.md) | 📄 [HTML로 보기](z23mseg.html)
 
 ---
 

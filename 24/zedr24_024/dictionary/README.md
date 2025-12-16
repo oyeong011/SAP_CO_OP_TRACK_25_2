@@ -5,10 +5,10 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDS24_001](zeds24_001.html) | - | 9 | - |
-| [ZEDS24_002](zeds24_002.html) | - | 6 | - |
-| [ZEDT24_001](zedt24_001.html) | - | 16 | MANDT, ZCODE, ZPERNR |
-| [ZEDT24_002](zedt24_002.html) | - | 31 | MANDT, ZCODE, ZPERNR |
+| [ZEDS24_001](zeds24_001.md) 📄 [HTML](zeds24_001.html) | - | 9 | - |
+| [ZEDS24_002](zeds24_002.md) 📄 [HTML](zeds24_002.html) | - | 6 | - |
+| [ZEDT24_001](zedt24_001.md) 📄 [HTML](zedt24_001.html) | - | 16 | MANDT, ZCODE, ZPERNR |
+| [ZEDT24_002](zedt24_002.md) 📄 [HTML](zedt24_002.html) | - | 31 | MANDT, ZCODE, ZPERNR |
 
 ---
 
@@ -30,7 +30,7 @@
 
 **데이터 타입:** CHAR(6), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zeds24_001.html)
+📋 [마크다운으로 보기](zeds24_001.md) | 📄 [HTML로 보기](zeds24_001.html)
 
 ---
 
@@ -50,7 +50,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zeds24_002.html)
+📋 [마크다운으로 보기](zeds24_002.md) | 📄 [HTML로 보기](zeds24_002.html)
 
 ---
 
@@ -74,7 +74,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt24_001.html)
+📋 [마크다운으로 보기](zedt24_001.md) | 📄 [HTML로 보기](zedt24_001.html)
 
 ---
 
@@ -98,7 +98,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zedt24_002.html)
+📋 [마크다운으로 보기](zedt24_002.md) | 📄 [HTML로 보기](zedt24_002.html)
 
 ---
 

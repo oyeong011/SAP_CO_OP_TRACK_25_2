@@ -5,51 +5,51 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDS10_001](zeds10_001.html) | - | 9 | - |
-| [ZEDS10_002](zeds10_002.html) | - | 6 | - |
-| [ZEDT10_000](zedt10_000.html) | - | 9 | MANDT, ZCODE, ZPERNR |
-| [ZEDT10_001](zedt10_001.html) | - | 16 | MANDT, ZCODE, ZPERNR |
-| [ZEDT10_002](zedt10_002.html) | - | 22 | MANDT, ZCODE, ZPERNR |
-| [ZEDT10_003](zedt10_003.html) | - | 3 | MANDT, ZMGUBUN |
-| [ZEDT10_004](zedt10_004.html) | - | 32 | MANDT, ZCODE, ZPERNR ... (+3) |
-| [ZEDT10_100](zedt10_100.html) | - | 42 | MANDT, ZORDNO, ZIDCODE ... (+1) |
-| [ZEDT10_1000](zedt10_1000.html) | - | 9 | MANDT, ZMAJOR, ZMNAME |
-| [ZEDT10_1002](zedt10_1002.html) | - | 20 | MANDT, ZCODE, ZPERNR |
-| [ZEDT10_1004](zedt10_1004.html) | - | 34 | MANDT, ZCODE, ZPERNR ... (+3) |
-| [ZEDT10_101](zedt10_101.html) | - | 39 | MANDT, ZORDNO, ZIDCODE ... (+1) |
-| [ZEDT10_102](zedt10_102.html) | - | 31 | MANDT, ZPERNR, ZDEPCODE ... (+2) |
-| [ZEDT10_103](zedt10_103.html) | - | 14 | MANDT, ZPERNR |
-| [ZEDT10_104](zedt10_104.html) | - | 25 | MANDT, ZPERNR, ZDEPCODE ... (+3) |
-| [ZEDT10_105](zedt10_105.html) | - | 23 | MANDT, ZPERNR |
-| [ZEDT10_106](zedt10_106.html) | - | 21 | MANDT, ZPERNR, ZYEAR ... (+2) |
-| [ZEDT10_AKONT](zedt10_akont.html) | - | 4 | MANDT, AKONT, SPRAS |
-| [ZEDT10_BSIK](zedt10_bsik.html) | - | 25 | MANDT, BUKRS, LIFNR ... (+3) |
-| [ZEDT10_EKBE](zedt10_ekbe.html) | - | 40 | MANDT, EBELN, EBELP ... (+5) |
-| [ZEDT10_EKKO](zedt10_ekko.html) | - | 8 | MANDT, EBELN |
-| [ZEDT10_EKPO](zedt10_ekpo.html) | - | 15 | MANDT, EBELN, EBELP |
-| [ZEDT10_LFA1](zedt10_lfa1.html) | - | 8 | MANDT, LIFNR |
-| [ZEDT10_LFB1](zedt10_lfb1.html) | - | 8 | MANDT, LIFNR, BUKRS |
-| [ZEDT10_LFM1](zedt10_lfm1.html) | - | 9 | MANDT, LIFNR, EKORG |
-| [ZEDT10_MAJOR_MST](zedt10_major_mst.html) | - | 11 | MANDT, MAJOR_CODE |
-| [ZEDT10_MKPF](zedt10_mkpf.html) | - | 8 | MANDT, MBLNR, MJAHR |
-| [ZEDT10_MODEL](zedt10_model.html) | - | 3 | MANDT, ZMODEL |
-| [ZEDT10_MSEG](zedt10_mseg.html) | - | 21 | MANDT, MBLNR, MJAHR ... (+1) |
-| [ZEDT10_MTART](zedt10_mtart.html) | - | 3 | MANDT, MTART |
-| [ZEDT10_MWSKZ](zedt10_mwskz.html) | - | 6 | MANDT, MWSKZ, SPRAS |
-| [ZEDT10_RBKP](zedt10_rbkp.html) | - | 20 | MANDT, BELNR, GJAHR |
-| [ZEDT10_RSEG](zedt10_rseg.html) | - | 25 | MANDT, BELNR, GJAHR ... (+1) |
-| [ZEDT10_SCHOLAR](zedt10_scholar.html) | - | 6 | MANDT, STUDENT_ID |
-| [ZEDT10_STUDINFO](zedt10_studinfo.html) | - | 8 | MANDT, STUDENT_ID |
-| [ZEDT10_T001](zedt10_t001.html) | - | 4 | MANDT, BUKRS |
-| [ZEDT10_T001L](zedt10_t001l.html) | - | 4 | MANDT, WERKS, LGORT |
-| [ZEDT10_T003](zedt10_t003.html) | - | 7 | MANDT, BLART |
-| [ZEDT10_T024](zedt10_t024.html) | - | 3 | MANDT, EKGRP |
-| [ZEDT10_T024E](zedt10_t024e.html) | - | 4 | MANDT, EKORG |
-| [ZEDT10_T077K](zedt10_t077k.html) | - | 4 | MANDT, KTOKK, SPRAS |
-| [ZEDT10_TVKO](zedt10_tvko.html) | - | 4 | MANDT, EKORG |
-| [ZEDT10_ZTERM](zedt10_zterm.html) | - | 4 | MANDT, ZTERM, SPRAS |
+| [ZEDS10_001](zeds10_001.md) 📄 [HTML](zeds10_001.html) | - | 9 | - |
+| [ZEDS10_002](zeds10_002.md) 📄 [HTML](zeds10_002.html) | - | 6 | - |
+| [ZEDT10_000](zedt10_000.md) 📄 [HTML](zedt10_000.html) | - | 9 | MANDT, ZCODE, ZPERNR |
+| [ZEDT10_001](zedt10_001.md) 📄 [HTML](zedt10_001.html) | - | 16 | MANDT, ZCODE, ZPERNR |
+| [ZEDT10_002](zedt10_002.md) 📄 [HTML](zedt10_002.html) | - | 22 | MANDT, ZCODE, ZPERNR |
+| [ZEDT10_003](zedt10_003.md) 📄 [HTML](zedt10_003.html) | - | 3 | MANDT, ZMGUBUN |
+| [ZEDT10_004](zedt10_004.md) 📄 [HTML](zedt10_004.html) | - | 32 | MANDT, ZCODE, ZPERNR ... (+3) |
+| [ZEDT10_100](zedt10_100.md) 📄 [HTML](zedt10_100.html) | - | 42 | MANDT, ZORDNO, ZIDCODE ... (+1) |
+| [ZEDT10_1000](zedt10_1000.md) 📄 [HTML](zedt10_1000.html) | - | 9 | MANDT, ZMAJOR, ZMNAME |
+| [ZEDT10_1002](zedt10_1002.md) 📄 [HTML](zedt10_1002.html) | - | 20 | MANDT, ZCODE, ZPERNR |
+| [ZEDT10_1004](zedt10_1004.md) 📄 [HTML](zedt10_1004.html) | - | 34 | MANDT, ZCODE, ZPERNR ... (+3) |
+| [ZEDT10_101](zedt10_101.md) 📄 [HTML](zedt10_101.html) | - | 39 | MANDT, ZORDNO, ZIDCODE ... (+1) |
+| [ZEDT10_102](zedt10_102.md) 📄 [HTML](zedt10_102.html) | - | 31 | MANDT, ZPERNR, ZDEPCODE ... (+2) |
+| [ZEDT10_103](zedt10_103.md) 📄 [HTML](zedt10_103.html) | - | 14 | MANDT, ZPERNR |
+| [ZEDT10_104](zedt10_104.md) 📄 [HTML](zedt10_104.html) | - | 25 | MANDT, ZPERNR, ZDEPCODE ... (+3) |
+| [ZEDT10_105](zedt10_105.md) 📄 [HTML](zedt10_105.html) | - | 23 | MANDT, ZPERNR |
+| [ZEDT10_106](zedt10_106.md) 📄 [HTML](zedt10_106.html) | - | 21 | MANDT, ZPERNR, ZYEAR ... (+2) |
+| [ZEDT10_AKONT](zedt10_akont.md) 📄 [HTML](zedt10_akont.html) | - | 4 | MANDT, AKONT, SPRAS |
+| [ZEDT10_BSIK](zedt10_bsik.md) 📄 [HTML](zedt10_bsik.html) | - | 25 | MANDT, BUKRS, LIFNR ... (+3) |
+| [ZEDT10_EKBE](zedt10_ekbe.md) 📄 [HTML](zedt10_ekbe.html) | - | 40 | MANDT, EBELN, EBELP ... (+5) |
+| [ZEDT10_EKKO](zedt10_ekko.md) 📄 [HTML](zedt10_ekko.html) | - | 8 | MANDT, EBELN |
+| [ZEDT10_EKPO](zedt10_ekpo.md) 📄 [HTML](zedt10_ekpo.html) | - | 15 | MANDT, EBELN, EBELP |
+| [ZEDT10_LFA1](zedt10_lfa1.md) 📄 [HTML](zedt10_lfa1.html) | - | 8 | MANDT, LIFNR |
+| [ZEDT10_LFB1](zedt10_lfb1.md) 📄 [HTML](zedt10_lfb1.html) | - | 8 | MANDT, LIFNR, BUKRS |
+| [ZEDT10_LFM1](zedt10_lfm1.md) 📄 [HTML](zedt10_lfm1.html) | - | 9 | MANDT, LIFNR, EKORG |
+| [ZEDT10_MAJOR_MST](zedt10_major_mst.md) 📄 [HTML](zedt10_major_mst.html) | - | 11 | MANDT, MAJOR_CODE |
+| [ZEDT10_MKPF](zedt10_mkpf.md) 📄 [HTML](zedt10_mkpf.html) | - | 8 | MANDT, MBLNR, MJAHR |
+| [ZEDT10_MODEL](zedt10_model.md) 📄 [HTML](zedt10_model.html) | - | 3 | MANDT, ZMODEL |
+| [ZEDT10_MSEG](zedt10_mseg.md) 📄 [HTML](zedt10_mseg.html) | - | 21 | MANDT, MBLNR, MJAHR ... (+1) |
+| [ZEDT10_MTART](zedt10_mtart.md) 📄 [HTML](zedt10_mtart.html) | - | 3 | MANDT, MTART |
+| [ZEDT10_MWSKZ](zedt10_mwskz.md) 📄 [HTML](zedt10_mwskz.html) | - | 6 | MANDT, MWSKZ, SPRAS |
+| [ZEDT10_RBKP](zedt10_rbkp.md) 📄 [HTML](zedt10_rbkp.html) | - | 20 | MANDT, BELNR, GJAHR |
+| [ZEDT10_RSEG](zedt10_rseg.md) 📄 [HTML](zedt10_rseg.html) | - | 25 | MANDT, BELNR, GJAHR ... (+1) |
+| [ZEDT10_SCHOLAR](zedt10_scholar.md) 📄 [HTML](zedt10_scholar.html) | - | 6 | MANDT, STUDENT_ID |
+| [ZEDT10_STUDINFO](zedt10_studinfo.md) 📄 [HTML](zedt10_studinfo.html) | - | 8 | MANDT, STUDENT_ID |
+| [ZEDT10_T001](zedt10_t001.md) 📄 [HTML](zedt10_t001.html) | - | 4 | MANDT, BUKRS |
+| [ZEDT10_T001L](zedt10_t001l.md) 📄 [HTML](zedt10_t001l.html) | - | 4 | MANDT, WERKS, LGORT |
+| [ZEDT10_T003](zedt10_t003.md) 📄 [HTML](zedt10_t003.html) | - | 7 | MANDT, BLART |
+| [ZEDT10_T024](zedt10_t024.md) 📄 [HTML](zedt10_t024.html) | - | 3 | MANDT, EKGRP |
+| [ZEDT10_T024E](zedt10_t024e.md) 📄 [HTML](zedt10_t024e.html) | - | 4 | MANDT, EKORG |
+| [ZEDT10_T077K](zedt10_t077k.md) 📄 [HTML](zedt10_t077k.html) | - | 4 | MANDT, KTOKK, SPRAS |
+| [ZEDT10_TVKO](zedt10_tvko.md) 📄 [HTML](zedt10_tvko.html) | - | 4 | MANDT, EKORG |
+| [ZEDT10_ZTERM](zedt10_zterm.md) 📄 [HTML](zedt10_zterm.html) | - | 4 | MANDT, ZTERM, SPRAS |
 | [ZMARA10](zmara10.html) | - | 0 | - |
-| [ZTCURR10](ztcurr10.html) | - | 10 | MANDT, KURST, FCURR ... (+2) |
+| [ZTCURR10](ztcurr10.md) 📄 [HTML](ztcurr10.html) | - | 10 | MANDT, KURST, FCURR ... (+2) |
 
 ---
 
@@ -71,7 +71,7 @@
 
 **데이터 타입:** CHAR(6), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zeds10_001.html)
+📋 [마크다운으로 보기](zeds10_001.md) | 📄 [HTML로 보기](zeds10_001.html)
 
 ---
 
@@ -91,7 +91,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zeds10_002.html)
+📋 [마크다운으로 보기](zeds10_002.md) | 📄 [HTML로 보기](zeds10_002.html)
 
 ---
 
@@ -110,7 +110,7 @@
 
 **데이터 타입:** CHAR(6), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_000.html)
+📋 [마크다운으로 보기](zedt10_000.md) | 📄 [HTML로 보기](zedt10_000.html)
 
 ---
 
@@ -134,7 +134,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_001.html)
+📋 [마크다운으로 보기](zedt10_001.md) | 📄 [HTML로 보기](zedt10_001.html)
 
 ---
 
@@ -158,7 +158,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zedt10_002.html)
+📋 [마크다운으로 보기](zedt10_002.md) | 📄 [HTML로 보기](zedt10_002.html)
 
 ---
 
@@ -174,7 +174,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_003.html)
+📋 [마크다운으로 보기](zedt10_003.md) | 📄 [HTML로 보기](zedt10_003.html)
 
 ---
 
@@ -196,7 +196,7 @@
 
 **데이터 타입:** CHAR(9), CURR(2), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt10_004.html)
+📋 [마크다운으로 보기](zedt10_004.md) | 📄 [HTML로 보기](zedt10_004.html)
 
 ---
 
@@ -220,7 +220,7 @@
 
 **데이터 타입:** CHAR(11), DATS(4), CURR(3), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_100.html)
+📋 [마크다운으로 보기](zedt10_100.md) | 📄 [HTML로 보기](zedt10_100.html)
 
 ---
 
@@ -230,7 +230,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_1000.html)
+📋 [마크다운으로 보기](zedt10_1000.md) | 📄 [HTML로 보기](zedt10_1000.html)
 
 ---
 
@@ -254,7 +254,7 @@
 
 **데이터 타입:** CHAR(6), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zedt10_1002.html)
+📋 [마크다운으로 보기](zedt10_1002.md) | 📄 [HTML로 보기](zedt10_1002.html)
 
 ---
 
@@ -276,7 +276,7 @@
 
 **데이터 타입:** CHAR(7), INT1(2), CURR(2), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt10_1004.html)
+📋 [마크다운으로 보기](zedt10_1004.md) | 📄 [HTML로 보기](zedt10_1004.html)
 
 ---
 
@@ -300,7 +300,7 @@
 
 **데이터 타입:** CHAR(11), DATS(4), TIMS(2), CLNT(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt10_101.html)
+📋 [마크다운으로 보기](zedt10_101.md) | 📄 [HTML로 보기](zedt10_101.html)
 
 ---
 
@@ -324,7 +324,7 @@
 
 **데이터 타입:** CHAR(6), DATS(6), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_102.html)
+📋 [마크다운으로 보기](zedt10_102.md) | 📄 [HTML로 보기](zedt10_102.html)
 
 ---
 
@@ -348,7 +348,7 @@
 
 **데이터 타입:** CHAR(6), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_103.html)
+📋 [마크다운으로 보기](zedt10_103.md) | 📄 [HTML로 보기](zedt10_103.html)
 
 ---
 
@@ -372,7 +372,7 @@
 
 **데이터 타입:** CHAR(5), DATS(4), TIMS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt10_104.html)
+📋 [마크다운으로 보기](zedt10_104.md) | 📄 [HTML로 보기](zedt10_104.html)
 
 ---
 
@@ -396,7 +396,7 @@
 
 **데이터 타입:** CURR(12), CHAR(3), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_105.html)
+📋 [마크다운으로 보기](zedt10_105.md) | 📄 [HTML로 보기](zedt10_105.html)
 
 ---
 
@@ -420,7 +420,7 @@
 
 **데이터 타입:** CHAR(5), DATS(4), TIMS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt10_106.html)
+📋 [마크다운으로 보기](zedt10_106.md) | 📄 [HTML로 보기](zedt10_106.html)
 
 ---
 
@@ -436,7 +436,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1), LANG(1)
 
-📄 [전체 테이블 구조 보기](zedt10_akont.html)
+📋 [마크다운으로 보기](zedt10_akont.md) | 📄 [HTML로 보기](zedt10_akont.html)
 
 ---
 
@@ -460,7 +460,7 @@
 
 **데이터 타입:** CHAR(9), DATS(5), NUMC(2), CURR(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zedt10_bsik.html)
+📋 [마크다운으로 보기](zedt10_bsik.md) | 📄 [HTML로 보기](zedt10_bsik.html)
 
 ---
 
@@ -482,7 +482,7 @@
 
 **데이터 타입:** CHAR(6), NUMC(4), CUKY(2), CLNT(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_ekbe.html)
+📋 [마크다운으로 보기](zedt10_ekbe.md) | 📄 [HTML로 보기](zedt10_ekbe.html)
 
 ---
 
@@ -504,7 +504,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt10_ekko.html)
+📋 [마크다운으로 보기](zedt10_ekko.md) | 📄 [HTML로 보기](zedt10_ekko.html)
 
 ---
 
@@ -526,7 +526,7 @@
 
 **데이터 타입:** CHAR(6), UNIT(2), CLNT(1), NUMC(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt10_ekpo.html)
+📋 [마크다운으로 보기](zedt10_ekpo.md) | 📄 [HTML로 보기](zedt10_ekpo.html)
 
 ---
 
@@ -548,7 +548,7 @@
 
 **데이터 타입:** CHAR(7), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_lfa1.html)
+📋 [마크다운으로 보기](zedt10_lfa1.md) | 📄 [HTML로 보기](zedt10_lfa1.html)
 
 ---
 
@@ -566,7 +566,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_lfb1.html)
+📋 [마크다운으로 보기](zedt10_lfb1.md) | 📄 [HTML로 보기](zedt10_lfb1.html)
 
 ---
 
@@ -585,7 +585,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt10_lfm1.html)
+📋 [마크다운으로 보기](zedt10_lfm1.md) | 📄 [HTML로 보기](zedt10_lfm1.html)
 
 ---
 
@@ -603,7 +603,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1), CURR(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt10_major_mst.html)
+📋 [마크다운으로 보기](zedt10_major_mst.md) | 📄 [HTML로 보기](zedt10_major_mst.html)
 
 ---
 
@@ -623,7 +623,7 @@
 
 **데이터 타입:** CHAR(4), DATS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt10_mkpf.html)
+📋 [마크다운으로 보기](zedt10_mkpf.md) | 📄 [HTML로 보기](zedt10_mkpf.html)
 
 ---
 
@@ -639,7 +639,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_model.html)
+📋 [마크다운으로 보기](zedt10_model.md) | 📄 [HTML로 보기](zedt10_model.html)
 
 ---
 
@@ -661,7 +661,7 @@
 
 **데이터 타입:** CHAR(10), NUMC(4), CLNT(1), CUKY(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt10_mseg.html)
+📋 [마크다운으로 보기](zedt10_mseg.md) | 📄 [HTML로 보기](zedt10_mseg.html)
 
 ---
 
@@ -677,7 +677,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_mtart.html)
+📋 [마크다운으로 보기](zedt10_mtart.md) | 📄 [HTML로 보기](zedt10_mtart.html)
 
 ---
 
@@ -695,7 +695,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1), LANG(1), CURR(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt10_mwskz.html)
+📋 [마크다운으로 보기](zedt10_mwskz.md) | 📄 [HTML로 보기](zedt10_mwskz.html)
 
 ---
 
@@ -719,7 +719,7 @@
 
 **데이터 타입:** CHAR(8), DATS(4), CURR(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_rbkp.html)
+📋 [마크다운으로 보기](zedt10_rbkp.md) | 📄 [HTML로 보기](zedt10_rbkp.html)
 
 ---
 
@@ -743,7 +743,7 @@
 
 **데이터 타입:** CHAR(8), NUMC(3), CURR(3), DATS(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zedt10_rseg.html)
+📋 [마크다운으로 보기](zedt10_rseg.md) | 📄 [HTML로 보기](zedt10_rseg.html)
 
 ---
 
@@ -760,7 +760,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1), DEC(1)
 
-📄 [전체 테이블 구조 보기](zedt10_scholar.html)
+📋 [마크다운으로 보기](zedt10_scholar.md) | 📄 [HTML로 보기](zedt10_scholar.html)
 
 ---
 
@@ -782,7 +782,7 @@
 
 **데이터 타입:** CHAR(4), CLNT(1), DATS(1), TIMS(1), STRG(1)
 
-📄 [전체 테이블 구조 보기](zedt10_studinfo.html)
+📋 [마크다운으로 보기](zedt10_studinfo.md) | 📄 [HTML로 보기](zedt10_studinfo.html)
 
 ---
 
@@ -799,7 +799,7 @@
 
 **데이터 타입:** CHAR(3), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_t001.html)
+📋 [마크다운으로 보기](zedt10_t001.md) | 📄 [HTML로 보기](zedt10_t001.html)
 
 ---
 
@@ -815,7 +815,7 @@
 
 **데이터 타입:** CHAR(3), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_t001l.html)
+📋 [마크다운으로 보기](zedt10_t001l.md) | 📄 [HTML로 보기](zedt10_t001l.html)
 
 ---
 
@@ -833,7 +833,7 @@
 
 **데이터 타입:** CHAR(4), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_t003.html)
+📋 [마크다운으로 보기](zedt10_t003.md) | 📄 [HTML로 보기](zedt10_t003.html)
 
 ---
 
@@ -849,7 +849,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_t024.html)
+📋 [마크다운으로 보기](zedt10_t024.md) | 📄 [HTML로 보기](zedt10_t024.html)
 
 ---
 
@@ -866,7 +866,7 @@
 
 **데이터 타입:** CHAR(3), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_t024e.html)
+📋 [마크다운으로 보기](zedt10_t024e.md) | 📄 [HTML로 보기](zedt10_t024e.html)
 
 ---
 
@@ -882,7 +882,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1), LANG(1)
 
-📄 [전체 테이블 구조 보기](zedt10_t077k.html)
+📋 [마크다운으로 보기](zedt10_t077k.md) | 📄 [HTML로 보기](zedt10_t077k.html)
 
 ---
 
@@ -899,7 +899,7 @@
 
 **데이터 타입:** CHAR(3), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_tvko.html)
+📋 [마크다운으로 보기](zedt10_tvko.md) | 📄 [HTML로 보기](zedt10_tvko.html)
 
 ---
 
@@ -915,7 +915,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1), LANG(1)
 
-📄 [전체 테이블 구조 보기](zedt10_zterm.html)
+📋 [마크다운으로 보기](zedt10_zterm.md) | 📄 [HTML로 보기](zedt10_zterm.html)
 
 ---
 
@@ -941,7 +941,7 @@
 
 **데이터 타입:** CHAR(3), DEC(3), CUKY(2), CLNT(1), DATS(1)
 
-📄 [전체 테이블 구조 보기](ztcurr10.html)
+📋 [마크다운으로 보기](ztcurr10.md) | 📄 [HTML로 보기](ztcurr10.html)
 
 ---
 

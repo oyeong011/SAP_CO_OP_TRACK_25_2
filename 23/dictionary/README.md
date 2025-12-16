@@ -5,30 +5,30 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [Z23EKKO](z23ekko.html) | - | 8 | MANDT, EBELN |
-| [Z23EKPO](z23ekpo.html) | - | 19 | MANDT, EBELN, EBELP |
-| [Z23LFA1](z23lfa1.html) | - | 15 | MANDT, LIFNR |
-| [Z23LFB1](z23lfb1.html) | - | 34 | MANDT, LIFNR |
-| [Z23LFM1](z23lfm1.html) | - | 14 | MANDT, LIFNR |
-| [Z23MARA](z23mara.html) | - | 21 | MANDT, WERKS, LGORT ... (+1) |
-| [Z23MKPF](z23mkpf.html) | - | 6 | MANDT, MBLNR, MJAHR |
-| [Z23MSEG](z23mseg.html) | - | 26 | MANDT, MBLNR, MJAHR ... (+1) |
-| [Z23RBKP](z23rbkp.html) | - | 31 | MANDT, BELNR, GJAHR |
-| [Z23RSEG](z23rseg.html) | - | 15 | MANDT, BELNR, GJAHR ... (+3) |
-| [ZEDS23_001](zeds23_001.html) | - | 6 | - |
-| [ZEDT23_000](zedt23_000.html) | - | 9 | MANDT, ZCODE |
-| [ZEDT23_001](zedt23_001.html) | - | 16 | MANDT, ZCODE, ZPERNR |
-| [ZEDT23_002](zedt23_002.html) | - | 26 | MANDT, ZCODE, ZPERNR |
-| [ZEDT23_003](zedt23_003.html) | - | 5 | MANDT, ZMGUBUN |
-| [ZEDT23_004](zedt23_004.html) | - | 29 | MANDT, ZCODE, ZPERNR ... (+3) |
-| [ZEDT23_100](zedt23_100.html) | - | 44 | MANDT, ZORDNO, ZIDCODE ... (+1) |
-| [ZEDT23_101](zedt23_101.html) | - | 42 | MANDT, ZORDNO, ZIDCODE ... (+1) |
-| [ZEDT23_102](zedt23_102.html) | - | 31 | MANDT, ZPERNR, ZDEPCODE ... (+2) |
-| [ZEDT23_103](zedt23_103.html) | - | 14 | MANDT, ZPERNR |
-| [ZEDT23_104](zedt23_104.html) | - | 25 | MANDT, ZPERNR, ZDEPCODE ... (+3) |
-| [ZEDT23_105](zedt23_105.html) | - | 22 | MANDT, ZPERNR, ZYEAR |
-| [ZEDT23_106](zedt23_106.html) | - | 20 | MANDT, ZPERNR, ZYEAR ... (+2) |
-| [ZTCURR23](ztcurr23.html) | - | 15 | MANDT, KURST, FCURR ... (+2) |
+| [Z23EKKO](z23ekko.md) 📄 [HTML](z23ekko.html) | - | 8 | MANDT, EBELN |
+| [Z23EKPO](z23ekpo.md) 📄 [HTML](z23ekpo.html) | - | 19 | MANDT, EBELN, EBELP |
+| [Z23LFA1](z23lfa1.md) 📄 [HTML](z23lfa1.html) | - | 15 | MANDT, LIFNR |
+| [Z23LFB1](z23lfb1.md) 📄 [HTML](z23lfb1.html) | - | 34 | MANDT, LIFNR |
+| [Z23LFM1](z23lfm1.md) 📄 [HTML](z23lfm1.html) | - | 14 | MANDT, LIFNR |
+| [Z23MARA](z23mara.md) 📄 [HTML](z23mara.html) | - | 21 | MANDT, WERKS, LGORT ... (+1) |
+| [Z23MKPF](z23mkpf.md) 📄 [HTML](z23mkpf.html) | - | 6 | MANDT, MBLNR, MJAHR |
+| [Z23MSEG](z23mseg.md) 📄 [HTML](z23mseg.html) | - | 26 | MANDT, MBLNR, MJAHR ... (+1) |
+| [Z23RBKP](z23rbkp.md) 📄 [HTML](z23rbkp.html) | - | 31 | MANDT, BELNR, GJAHR |
+| [Z23RSEG](z23rseg.md) 📄 [HTML](z23rseg.html) | - | 15 | MANDT, BELNR, GJAHR ... (+3) |
+| [ZEDS23_001](zeds23_001.md) 📄 [HTML](zeds23_001.html) | - | 6 | - |
+| [ZEDT23_000](zedt23_000.md) 📄 [HTML](zedt23_000.html) | - | 9 | MANDT, ZCODE |
+| [ZEDT23_001](zedt23_001.md) 📄 [HTML](zedt23_001.html) | - | 16 | MANDT, ZCODE, ZPERNR |
+| [ZEDT23_002](zedt23_002.md) 📄 [HTML](zedt23_002.html) | - | 26 | MANDT, ZCODE, ZPERNR |
+| [ZEDT23_003](zedt23_003.md) 📄 [HTML](zedt23_003.html) | - | 5 | MANDT, ZMGUBUN |
+| [ZEDT23_004](zedt23_004.md) 📄 [HTML](zedt23_004.html) | - | 29 | MANDT, ZCODE, ZPERNR ... (+3) |
+| [ZEDT23_100](zedt23_100.md) 📄 [HTML](zedt23_100.html) | - | 44 | MANDT, ZORDNO, ZIDCODE ... (+1) |
+| [ZEDT23_101](zedt23_101.md) 📄 [HTML](zedt23_101.html) | - | 42 | MANDT, ZORDNO, ZIDCODE ... (+1) |
+| [ZEDT23_102](zedt23_102.md) 📄 [HTML](zedt23_102.html) | - | 31 | MANDT, ZPERNR, ZDEPCODE ... (+2) |
+| [ZEDT23_103](zedt23_103.md) 📄 [HTML](zedt23_103.html) | - | 14 | MANDT, ZPERNR |
+| [ZEDT23_104](zedt23_104.md) 📄 [HTML](zedt23_104.html) | - | 25 | MANDT, ZPERNR, ZDEPCODE ... (+3) |
+| [ZEDT23_105](zedt23_105.md) 📄 [HTML](zedt23_105.html) | - | 22 | MANDT, ZPERNR, ZYEAR |
+| [ZEDT23_106](zedt23_106.md) 📄 [HTML](zedt23_106.html) | - | 20 | MANDT, ZPERNR, ZYEAR ... (+2) |
+| [ZTCURR23](ztcurr23.md) 📄 [HTML](ztcurr23.html) | - | 15 | MANDT, KURST, FCURR ... (+2) |
 
 ---
 
@@ -52,7 +52,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](z23ekko.html)
+📋 [마크다운으로 보기](z23ekko.md) | 📄 [HTML로 보기](z23ekko.html)
 
 ---
 
@@ -74,7 +74,7 @@
 
 **데이터 타입:** CHAR(6), CLNT(1), NUMC(1), QUAN(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](z23ekpo.html)
+📋 [마크다운으로 보기](z23ekpo.md) | 📄 [HTML로 보기](z23ekpo.html)
 
 ---
 
@@ -96,7 +96,7 @@
 
 **데이터 타입:** CHAR(7), CLNT(1)
 
-📄 [전체 테이블 구조 보기](z23lfa1.html)
+📋 [마크다운으로 보기](z23lfa1.md) | 📄 [HTML로 보기](z23lfa1.html)
 
 ---
 
@@ -115,7 +115,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1)
 
-📄 [전체 테이블 구조 보기](z23lfb1.html)
+📋 [마크다운으로 보기](z23lfb1.md) | 📄 [HTML로 보기](z23lfb1.html)
 
 ---
 
@@ -135,7 +135,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](z23lfm1.html)
+📋 [마크다운으로 보기](z23lfm1.md) | 📄 [HTML로 보기](z23lfm1.html)
 
 ---
 
@@ -157,7 +157,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CURR(1), CUKY(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](z23mara.html)
+📋 [마크다운으로 보기](z23mara.md) | 📄 [HTML로 보기](z23mara.html)
 
 ---
 
@@ -175,7 +175,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](z23mkpf.html)
+📋 [마크다운으로 보기](z23mkpf.md) | 📄 [HTML로 보기](z23mkpf.html)
 
 ---
 
@@ -197,7 +197,7 @@
 
 **데이터 타입:** CHAR(10), NUMC(4), CLNT(1), CUKY(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](z23mseg.html)
+📋 [마크다운으로 보기](z23mseg.md) | 📄 [HTML로 보기](z23mseg.html)
 
 ---
 
@@ -219,7 +219,7 @@
 
 **데이터 타입:** CHAR(11), NUMC(2), DATS(2), CURR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](z23rbkp.html)
+📋 [마크다운으로 보기](z23rbkp.md) | 📄 [HTML로 보기](z23rbkp.html)
 
 ---
 
@@ -241,7 +241,7 @@
 
 **데이터 타입:** CHAR(7), NUMC(3), CURR(2), CLNT(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](z23rseg.html)
+📋 [마크다운으로 보기](z23rseg.md) | 📄 [HTML로 보기](z23rseg.html)
 
 ---
 
@@ -261,7 +261,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zeds23_001.html)
+📋 [마크다운으로 보기](zeds23_001.md) | 📄 [HTML로 보기](zeds23_001.html)
 
 ---
 
@@ -281,7 +281,7 @@
 
 **데이터 타입:** CHAR(6), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt23_000.html)
+📋 [마크다운으로 보기](zedt23_000.md) | 📄 [HTML로 보기](zedt23_000.html)
 
 ---
 
@@ -305,7 +305,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt23_001.html)
+📋 [마크다운으로 보기](zedt23_001.md) | 📄 [HTML로 보기](zedt23_001.html)
 
 ---
 
@@ -329,7 +329,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zedt23_002.html)
+📋 [마크다운으로 보기](zedt23_002.md) | 📄 [HTML로 보기](zedt23_002.html)
 
 ---
 
@@ -345,7 +345,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt23_003.html)
+📋 [마크다운으로 보기](zedt23_003.md) | 📄 [HTML로 보기](zedt23_003.html)
 
 ---
 
@@ -367,7 +367,7 @@
 
 **데이터 타입:** CHAR(9), CURR(2), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt23_004.html)
+📋 [마크다운으로 보기](zedt23_004.md) | 📄 [HTML로 보기](zedt23_004.html)
 
 ---
 
@@ -391,7 +391,7 @@
 
 **데이터 타입:** CHAR(11), DATS(4), CURR(3), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt23_100.html)
+📋 [마크다운으로 보기](zedt23_100.md) | 📄 [HTML로 보기](zedt23_100.html)
 
 ---
 
@@ -415,7 +415,7 @@
 
 **데이터 타입:** CHAR(11), DATS(4), TIMS(2), CLNT(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt23_101.html)
+📋 [마크다운으로 보기](zedt23_101.md) | 📄 [HTML로 보기](zedt23_101.html)
 
 ---
 
@@ -439,7 +439,7 @@
 
 **데이터 타입:** CHAR(6), DATS(6), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt23_102.html)
+📋 [마크다운으로 보기](zedt23_102.md) | 📄 [HTML로 보기](zedt23_102.html)
 
 ---
 
@@ -463,7 +463,7 @@
 
 **데이터 타입:** CHAR(6), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt23_103.html)
+📋 [마크다운으로 보기](zedt23_103.md) | 📄 [HTML로 보기](zedt23_103.html)
 
 ---
 
@@ -487,7 +487,7 @@
 
 **데이터 타입:** CHAR(5), DATS(4), TIMS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt23_104.html)
+📋 [마크다운으로 보기](zedt23_104.md) | 📄 [HTML로 보기](zedt23_104.html)
 
 ---
 
@@ -511,7 +511,7 @@
 
 **데이터 타입:** CURR(12), CHAR(3), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt23_105.html)
+📋 [마크다운으로 보기](zedt23_105.md) | 📄 [HTML로 보기](zedt23_105.html)
 
 ---
 
@@ -535,7 +535,7 @@
 
 **데이터 타입:** CHAR(5), DATS(4), TIMS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt23_106.html)
+📋 [마크다운으로 보기](zedt23_106.md) | 📄 [HTML로 보기](zedt23_106.html)
 
 ---
 
@@ -559,7 +559,7 @@
 
 **데이터 타입:** CHAR(4), DEC(3), CUKY(2), DATS(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](ztcurr23.html)
+📋 [마크다운으로 보기](ztcurr23.md) | 📄 [HTML로 보기](ztcurr23.html)
 
 ---
 

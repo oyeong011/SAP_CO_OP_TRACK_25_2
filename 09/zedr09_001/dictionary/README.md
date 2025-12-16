@@ -5,8 +5,8 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT09_001](zedt09_001.html) | - | 16 | MANDT, ZCODE, ZPERNR |
-| [ZTT_ZEDT09_001](ztt_zedt09_001.html) | function zed09_calculate# # ### ##### | 2 | - |
+| [ZEDT09_001](zedt09_001.md) 📄 [HTML](zedt09_001.html) | - | 16 | MANDT, ZCODE, ZPERNR |
+| [ZTT_ZEDT09_001](ztt_zedt09_001.md) 📄 [HTML](ztt_zedt09_001.html) | function zed09_calculate# # ### ##### | 2 | - |
 
 ---
 
@@ -32,7 +32,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt09_001.html)
+📋 [마크다운으로 보기](zedt09_001.md) | 📄 [HTML로 보기](zedt09_001.html)
 
 ---
 
@@ -40,7 +40,7 @@
 
 **설명:** function zed09_calculate# # ### #####
 
-📄 [전체 테이블 구조 보기](ztt_zedt09_001.html)
+📋 [마크다운으로 보기](ztt_zedt09_001.md) | 📄 [HTML로 보기](ztt_zedt09_001.html)
 
 ---
 

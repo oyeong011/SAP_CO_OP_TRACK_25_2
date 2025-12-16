@@ -5,14 +5,14 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT10_BSIK](zedt10_bsik.html) | - | 25 | MANDT, BUKRS, LIFNR ... (+3) |
-| [ZEDT10_EKBE](zedt10_ekbe.html) | - | 40 | MANDT, EBELN, EBELP ... (+5) |
-| [ZEDT10_EKKO](zedt10_ekko.html) | - | 8 | MANDT, EBELN |
-| [ZEDT10_EKPO](zedt10_ekpo.html) | - | 15 | MANDT, EBELN, EBELP |
-| [ZEDT10_LFM1](zedt10_lfm1.html) | - | 9 | MANDT, LIFNR, EKORG |
-| [ZEDT10_MWSKZ](zedt10_mwskz.html) | - | 6 | MANDT, MWSKZ, SPRAS |
-| [ZEDT10_RBKP](zedt10_rbkp.html) | - | 20 | MANDT, BELNR, GJAHR |
-| [ZEDT10_RSEG](zedt10_rseg.html) | - | 25 | MANDT, BELNR, GJAHR ... (+1) |
+| [ZEDT10_BSIK](zedt10_bsik.md) 📄 [HTML](zedt10_bsik.html) | - | 25 | MANDT, BUKRS, LIFNR ... (+3) |
+| [ZEDT10_EKBE](zedt10_ekbe.md) 📄 [HTML](zedt10_ekbe.html) | - | 40 | MANDT, EBELN, EBELP ... (+5) |
+| [ZEDT10_EKKO](zedt10_ekko.md) 📄 [HTML](zedt10_ekko.html) | - | 8 | MANDT, EBELN |
+| [ZEDT10_EKPO](zedt10_ekpo.md) 📄 [HTML](zedt10_ekpo.html) | - | 15 | MANDT, EBELN, EBELP |
+| [ZEDT10_LFM1](zedt10_lfm1.md) 📄 [HTML](zedt10_lfm1.html) | - | 9 | MANDT, LIFNR, EKORG |
+| [ZEDT10_MWSKZ](zedt10_mwskz.md) 📄 [HTML](zedt10_mwskz.html) | - | 6 | MANDT, MWSKZ, SPRAS |
+| [ZEDT10_RBKP](zedt10_rbkp.md) 📄 [HTML](zedt10_rbkp.html) | - | 20 | MANDT, BELNR, GJAHR |
+| [ZEDT10_RSEG](zedt10_rseg.md) 📄 [HTML](zedt10_rseg.html) | - | 25 | MANDT, BELNR, GJAHR ... (+1) |
 
 ---
 
@@ -38,7 +38,7 @@
 
 **데이터 타입:** CHAR(9), DATS(5), NUMC(2), CURR(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zedt10_bsik.html)
+📋 [마크다운으로 보기](zedt10_bsik.md) | 📄 [HTML로 보기](zedt10_bsik.html)
 
 ---
 
@@ -60,7 +60,7 @@
 
 **데이터 타입:** CHAR(6), NUMC(4), CUKY(2), CLNT(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_ekbe.html)
+📋 [마크다운으로 보기](zedt10_ekbe.md) | 📄 [HTML로 보기](zedt10_ekbe.html)
 
 ---
 
@@ -82,7 +82,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt10_ekko.html)
+📋 [마크다운으로 보기](zedt10_ekko.md) | 📄 [HTML로 보기](zedt10_ekko.html)
 
 ---
 
@@ -104,7 +104,7 @@
 
 **데이터 타입:** CHAR(6), UNIT(2), CLNT(1), NUMC(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt10_ekpo.html)
+📋 [마크다운으로 보기](zedt10_ekpo.md) | 📄 [HTML로 보기](zedt10_ekpo.html)
 
 ---
 
@@ -123,7 +123,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt10_lfm1.html)
+📋 [마크다운으로 보기](zedt10_lfm1.md) | 📄 [HTML로 보기](zedt10_lfm1.html)
 
 ---
 
@@ -141,7 +141,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1), LANG(1), CURR(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt10_mwskz.html)
+📋 [마크다운으로 보기](zedt10_mwskz.md) | 📄 [HTML로 보기](zedt10_mwskz.html)
 
 ---
 
@@ -165,7 +165,7 @@
 
 **데이터 타입:** CHAR(8), DATS(4), CURR(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_rbkp.html)
+📋 [마크다운으로 보기](zedt10_rbkp.md) | 📄 [HTML로 보기](zedt10_rbkp.html)
 
 ---
 
@@ -189,7 +189,7 @@
 
 **데이터 타입:** CHAR(8), NUMC(3), CURR(3), DATS(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zedt10_rseg.html)
+📋 [마크다운으로 보기](zedt10_rseg.md) | 📄 [HTML로 보기](zedt10_rseg.html)
 
 ---
 

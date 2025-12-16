@@ -5,20 +5,20 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZBKPF01](zbkpf01.html) | - | 26 | MANDT, BUKRS, BELNR ... (+1) |
-| [ZBSEG01](zbseg01.html) | - | 29 | MANDT, BUKRS, BELNR ... (+2) |
-| [ZEKKO01](zekko01.html) | - | 17 | MANDT, EBELN |
-| [ZEKPO01](zekpo01.html) | - | 20 | MANDT, EBELN, EBELP ... (+1) |
-| [ZLFA1_01](zlfa1_01.html) | - | 10 | MANDT, LIFNR |
-| [ZLFB1_01](zlfb1_01.html) | - | 10 | MANDT, LIFNR |
-| [ZLFM1_01](zlfm1_01.html) | - | 14 | MANDT, LIFNR |
-| [ZMAT01](zmat01.html) | - | 42 | MANDT, WERKS, LGORT ... (+1) |
-| [ZMKPF01](zmkpf01.html) | - | 18 | MANDT, MBLNR |
-| [ZMSEG01](zmseg01.html) | - | 27 | MANDT, MBLNR, MJAHR ... (+1) |
-| [ZRBKP01](zrbkp01.html) | - | 38 | MANDT, BELNR, GJAHR |
-| [ZRSEG01](zrseg01.html) | - | 32 | MANDT, BELNR, GJAHR ... (+1) |
-| [ZSKA1_01](zska1_01.html) | - | 15 | MANDT, KTOPL, KTOSL ... (+2) |
-| [ZTAXCODE01](ztaxcode01.html) | - | 8 | MANDT, MWSKZ |
+| [ZBKPF01](zbkpf01.md) 📄 [HTML](zbkpf01.html) | - | 26 | MANDT, BUKRS, BELNR ... (+1) |
+| [ZBSEG01](zbseg01.md) 📄 [HTML](zbseg01.html) | - | 29 | MANDT, BUKRS, BELNR ... (+2) |
+| [ZEKKO01](zekko01.md) 📄 [HTML](zekko01.html) | - | 17 | MANDT, EBELN |
+| [ZEKPO01](zekpo01.md) 📄 [HTML](zekpo01.html) | - | 20 | MANDT, EBELN, EBELP ... (+1) |
+| [ZLFA1_01](zlfa1_01.md) 📄 [HTML](zlfa1_01.html) | - | 10 | MANDT, LIFNR |
+| [ZLFB1_01](zlfb1_01.md) 📄 [HTML](zlfb1_01.html) | - | 10 | MANDT, LIFNR |
+| [ZLFM1_01](zlfm1_01.md) 📄 [HTML](zlfm1_01.html) | - | 14 | MANDT, LIFNR |
+| [ZMAT01](zmat01.md) 📄 [HTML](zmat01.html) | - | 42 | MANDT, WERKS, LGORT ... (+1) |
+| [ZMKPF01](zmkpf01.md) 📄 [HTML](zmkpf01.html) | - | 18 | MANDT, MBLNR |
+| [ZMSEG01](zmseg01.md) 📄 [HTML](zmseg01.html) | - | 27 | MANDT, MBLNR, MJAHR ... (+1) |
+| [ZRBKP01](zrbkp01.md) 📄 [HTML](zrbkp01.html) | - | 38 | MANDT, BELNR, GJAHR |
+| [ZRSEG01](zrseg01.md) 📄 [HTML](zrseg01.html) | - | 32 | MANDT, BELNR, GJAHR ... (+1) |
+| [ZSKA1_01](zska1_01.md) 📄 [HTML](zska1_01.html) | - | 15 | MANDT, KTOPL, KTOSL ... (+2) |
+| [ZTAXCODE01](ztaxcode01.md) 📄 [HTML](ztaxcode01.html) | - | 8 | MANDT, MWSKZ |
 
 ---
 
@@ -44,7 +44,7 @@
 
 **데이터 타입:** CHAR(10), DATS(5), TIMS(3), NUMC(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zbkpf01.html)
+📋 [마크다운으로 보기](zbkpf01.md) | 📄 [HTML로 보기](zbkpf01.html)
 
 ---
 
@@ -66,7 +66,7 @@
 
 **데이터 타입:** CHAR(12), NUMC(2), CURR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zbseg01.html)
+📋 [마크다운으로 보기](zbseg01.md) | 📄 [HTML로 보기](zbseg01.html)
 
 ---
 
@@ -90,7 +90,7 @@
 
 **데이터 타입:** CHAR(9), DATS(3), TIMS(2), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zekko01.html)
+📋 [마크다운으로 보기](zekko01.md) | 📄 [HTML로 보기](zekko01.html)
 
 ---
 
@@ -112,7 +112,7 @@
 
 **데이터 타입:** CHAR(7), UNIT(2), CURR(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zekpo01.html)
+📋 [마크다운으로 보기](zekpo01.md) | 📄 [HTML로 보기](zekpo01.html)
 
 ---
 
@@ -134,7 +134,7 @@
 
 **데이터 타입:** CHAR(9), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zlfa1_01.html)
+📋 [마크다운으로 보기](zlfa1_01.md) | 📄 [HTML로 보기](zlfa1_01.html)
 
 ---
 
@@ -156,7 +156,7 @@
 
 **데이터 타입:** CHAR(7), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zlfb1_01.html)
+📋 [마크다운으로 보기](zlfb1_01.md) | 📄 [HTML로 보기](zlfb1_01.html)
 
 ---
 
@@ -176,7 +176,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zlfm1_01.html)
+📋 [마크다운으로 보기](zlfm1_01.md) | 📄 [HTML로 보기](zlfm1_01.html)
 
 ---
 
@@ -200,7 +200,7 @@
 
 **데이터 타입:** CHAR(14), CURR(2), UNIT(2), DATS(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zmat01.html)
+📋 [마크다운으로 보기](zmat01.md) | 📄 [HTML로 보기](zmat01.html)
 
 ---
 
@@ -224,7 +224,7 @@
 
 **데이터 타입:** CHAR(7), DATS(4), TIMS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zmkpf01.html)
+📋 [마크다운으로 보기](zmkpf01.md) | 📄 [HTML로 보기](zmkpf01.html)
 
 ---
 
@@ -246,7 +246,7 @@
 
 **데이터 타입:** CHAR(13), NUMC(5), CLNT(1), QUAN(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](zmseg01.html)
+📋 [마크다운으로 보기](zmseg01.md) | 📄 [HTML로 보기](zmseg01.html)
 
 ---
 
@@ -270,7 +270,7 @@
 
 **데이터 타입:** CHAR(11), DATS(4), NUMC(2), CURR(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zrbkp01.html)
+📋 [마크다운으로 보기](zrbkp01.md) | 📄 [HTML로 보기](zrbkp01.html)
 
 ---
 
@@ -292,7 +292,7 @@
 
 **데이터 타입:** CHAR(12), NUMC(4), UNIT(3), QUAN(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zrseg01.html)
+📋 [마크다운으로 보기](zrseg01.md) | 📄 [HTML로 보기](zrseg01.html)
 
 ---
 
@@ -312,7 +312,7 @@
 
 **데이터 타입:** CHAR(9), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zska1_01.html)
+📋 [마크다운으로 보기](zska1_01.md) | 📄 [HTML로 보기](zska1_01.html)
 
 ---
 
@@ -328,7 +328,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](ztaxcode01.html)
+📋 [마크다운으로 보기](ztaxcode01.md) | 📄 [HTML로 보기](ztaxcode01.html)
 
 ---
 

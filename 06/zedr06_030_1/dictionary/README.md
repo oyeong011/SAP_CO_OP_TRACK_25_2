@@ -5,23 +5,23 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDS06_001](zeds06_001.html) | - | 9 | - |
-| [ZEDS06_002](zeds06_002.html) | - | 6 | - |
-| [ZEDT06_000](zedt06_000.html) | - | 9 | MANDT, ZCODE |
-| [ZEDT06_BKPF](zedt06_bkpf.html) | - | 23 | MANDT, BELNR, GJAHR ... (+1) |
-| [ZEDT06_BSEG](zedt06_bseg.html) | - | 24 | MANDT, BELNR, GJAHR ... (+1) |
-| [ZEDT06_EKKO](zedt06_ekko.html) | - | 8 | MANDT, EBELN, BUKRS ... (+1) |
-| [ZEDT06_EKPO](zedt06_ekpo.html) | - | 11 | MANDT, EBELN, EBELP |
-| [ZEDT06_LFA1](zedt06_lfa1.html) | - | 22 | MANDT, LIFNR |
-| [ZEDT06_LFB1](zedt06_lfb1.html) | - | 41 | MANDT, LIFNR, BUKRS |
-| [ZEDT06_LFM1](zedt06_lfm1.html) | - | 21 | MANDT, LIFNR |
-| [ZEDT06_MAT](zedt06_mat.html) | - | 40 | MANDT, WERKS, LGORT ... (+1) |
-| [ZEDT06_MKPF](zedt06_mkpf.html) | - | 14 | MANDT, MBLNR |
-| [ZEDT06_MSEG](zedt06_mseg.html) | - | 32 | MANDT, MBLNR, MJAHR ... (+1) |
-| [ZPDT19_006](zpdt19_006.html) | - | 23 | BUKRS, LIFNR, GJAHR ... (+1) |
-| [ZPRO07_006](zpro07_006.html) | - | 6 | MANDT, MBLNR, MJAHR |
-| [ZPRO11_006](zpro11_006.html) | - | 6 | MANDT, MBLNR, MJAHR |
-| [ZTCURR06](ztcurr06.html) | - | 10 | MANDT, KURST, FCURR ... (+2) |
+| [ZEDS06_001](zeds06_001.md) 📄 [HTML](zeds06_001.html) | - | 9 | - |
+| [ZEDS06_002](zeds06_002.md) 📄 [HTML](zeds06_002.html) | - | 6 | - |
+| [ZEDT06_000](zedt06_000.md) 📄 [HTML](zedt06_000.html) | - | 9 | MANDT, ZCODE |
+| [ZEDT06_BKPF](zedt06_bkpf.md) 📄 [HTML](zedt06_bkpf.html) | - | 23 | MANDT, BELNR, GJAHR ... (+1) |
+| [ZEDT06_BSEG](zedt06_bseg.md) 📄 [HTML](zedt06_bseg.html) | - | 24 | MANDT, BELNR, GJAHR ... (+1) |
+| [ZEDT06_EKKO](zedt06_ekko.md) 📄 [HTML](zedt06_ekko.html) | - | 8 | MANDT, EBELN, BUKRS ... (+1) |
+| [ZEDT06_EKPO](zedt06_ekpo.md) 📄 [HTML](zedt06_ekpo.html) | - | 11 | MANDT, EBELN, EBELP |
+| [ZEDT06_LFA1](zedt06_lfa1.md) 📄 [HTML](zedt06_lfa1.html) | - | 22 | MANDT, LIFNR |
+| [ZEDT06_LFB1](zedt06_lfb1.md) 📄 [HTML](zedt06_lfb1.html) | - | 41 | MANDT, LIFNR, BUKRS |
+| [ZEDT06_LFM1](zedt06_lfm1.md) 📄 [HTML](zedt06_lfm1.html) | - | 21 | MANDT, LIFNR |
+| [ZEDT06_MAT](zedt06_mat.md) 📄 [HTML](zedt06_mat.html) | - | 40 | MANDT, WERKS, LGORT ... (+1) |
+| [ZEDT06_MKPF](zedt06_mkpf.md) 📄 [HTML](zedt06_mkpf.html) | - | 14 | MANDT, MBLNR |
+| [ZEDT06_MSEG](zedt06_mseg.md) 📄 [HTML](zedt06_mseg.html) | - | 32 | MANDT, MBLNR, MJAHR ... (+1) |
+| [ZPDT19_006](zpdt19_006.md) 📄 [HTML](zpdt19_006.html) | - | 23 | BUKRS, LIFNR, GJAHR ... (+1) |
+| [ZPRO07_006](zpro07_006.md) 📄 [HTML](zpro07_006.html) | - | 6 | MANDT, MBLNR, MJAHR |
+| [ZPRO11_006](zpro11_006.md) 📄 [HTML](zpro11_006.html) | - | 6 | MANDT, MBLNR, MJAHR |
+| [ZTCURR06](ztcurr06.md) 📄 [HTML](ztcurr06.html) | - | 10 | MANDT, KURST, FCURR ... (+2) |
 
 ---
 
@@ -43,7 +43,7 @@
 
 **데이터 타입:** CHAR(6), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zeds06_001.html)
+📋 [마크다운으로 보기](zeds06_001.md) | 📄 [HTML로 보기](zeds06_001.html)
 
 ---
 
@@ -63,7 +63,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zeds06_002.html)
+📋 [마크다운으로 보기](zeds06_002.md) | 📄 [HTML로 보기](zeds06_002.html)
 
 ---
 
@@ -83,7 +83,7 @@
 
 **데이터 타입:** CHAR(6), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt06_000.html)
+📋 [마크다운으로 보기](zedt06_000.md) | 📄 [HTML로 보기](zedt06_000.html)
 
 ---
 
@@ -107,7 +107,7 @@
 
 **데이터 타입:** CHAR(7), DATS(4), NUMC(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt06_bkpf.html)
+📋 [마크다운으로 보기](zedt06_bkpf.md) | 📄 [HTML로 보기](zedt06_bkpf.html)
 
 ---
 
@@ -131,7 +131,7 @@
 
 **데이터 타입:** CHAR(6), NUMC(3), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt06_bseg.html)
+📋 [마크다운으로 보기](zedt06_bseg.md) | 📄 [HTML로 보기](zedt06_bseg.html)
 
 ---
 
@@ -150,7 +150,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt06_ekko.html)
+📋 [마크다운으로 보기](zedt06_ekko.md) | 📄 [HTML로 보기](zedt06_ekko.html)
 
 ---
 
@@ -172,7 +172,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), NUMC(1), QUAN(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](zedt06_ekpo.html)
+📋 [마크다운으로 보기](zedt06_ekpo.md) | 📄 [HTML로 보기](zedt06_ekpo.html)
 
 ---
 
@@ -196,7 +196,7 @@
 
 **데이터 타입:** CHAR(9), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt06_lfa1.html)
+📋 [마크다운으로 보기](zedt06_lfa1.md) | 📄 [HTML로 보기](zedt06_lfa1.html)
 
 ---
 
@@ -220,7 +220,7 @@
 
 **데이터 타입:** CHAR(7), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt06_lfb1.html)
+📋 [마크다운으로 보기](zedt06_lfb1.md) | 📄 [HTML로 보기](zedt06_lfb1.html)
 
 ---
 
@@ -244,7 +244,7 @@
 
 **데이터 타입:** CHAR(7), DATS(2), TIMS(2), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt06_lfm1.html)
+📋 [마크다운으로 보기](zedt06_lfm1.md) | 📄 [HTML로 보기](zedt06_lfm1.html)
 
 ---
 
@@ -268,7 +268,7 @@
 
 **데이터 타입:** CHAR(8), DATS(3), QUAN(2), UNIT(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zedt06_mat.html)
+📋 [마크다운으로 보기](zedt06_mat.md) | 📄 [HTML로 보기](zedt06_mat.html)
 
 ---
 
@@ -292,7 +292,7 @@
 
 **데이터 타입:** CHAR(4), DATS(4), TIMS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt06_mkpf.html)
+📋 [마크다운으로 보기](zedt06_mkpf.md) | 📄 [HTML로 보기](zedt06_mkpf.html)
 
 ---
 
@@ -314,7 +314,7 @@
 
 **데이터 타입:** CHAR(9), NUMC(3), CLNT(1), CUKY(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt06_mseg.html)
+📋 [마크다운으로 보기](zedt06_mseg.md) | 📄 [HTML로 보기](zedt06_mseg.html)
 
 ---
 
@@ -336,7 +336,7 @@
 
 **데이터 타입:** CHAR(9), DATS(3), CURR(2), NUMC(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zpdt19_006.html)
+📋 [마크다운으로 보기](zpdt19_006.md) | 📄 [HTML로 보기](zpdt19_006.html)
 
 ---
 
@@ -354,7 +354,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zpro07_006.html)
+📋 [마크다운으로 보기](zpro07_006.md) | 📄 [HTML로 보기](zpro07_006.html)
 
 ---
 
@@ -372,7 +372,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zpro11_006.html)
+📋 [마크다운으로 보기](zpro11_006.md) | 📄 [HTML로 보기](zpro11_006.html)
 
 ---
 
@@ -392,7 +392,7 @@
 
 **데이터 타입:** CHAR(3), DEC(3), CUKY(2), CLNT(1), DATS(1)
 
-📄 [전체 테이블 구조 보기](ztcurr06.html)
+📋 [마크다운으로 보기](ztcurr06.md) | 📄 [HTML로 보기](ztcurr06.html)
 
 ---
 

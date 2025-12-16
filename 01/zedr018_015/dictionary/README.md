@@ -5,11 +5,11 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDS018_001](zeds018_001.html) | - | 6 | - |
-| [ZEDS018_002](zeds018_002.html) | - | 6 | - |
-| [ZEDT018_001](zedt018_001.html) | - | 14 | MANDT, ZCODE, ZPERNR |
-| [ZEDT018_100](zedt018_100.html) | - | 40 | MANDT, ZORDNO, ZIDCODE ... (+1) |
-| [ZEDT018_101](zedt018_101.html) | - | 39 | MANDT, ZORDNO, ZIDCODE ... (+1) |
+| [ZEDS018_001](zeds018_001.md) 📄 [HTML](zeds018_001.html) | - | 6 | - |
+| [ZEDS018_002](zeds018_002.md) 📄 [HTML](zeds018_002.html) | - | 6 | - |
+| [ZEDT018_001](zedt018_001.md) 📄 [HTML](zedt018_001.html) | - | 14 | MANDT, ZCODE, ZPERNR |
+| [ZEDT018_100](zedt018_100.md) 📄 [HTML](zedt018_100.html) | - | 40 | MANDT, ZORDNO, ZIDCODE ... (+1) |
+| [ZEDT018_101](zedt018_101.md) 📄 [HTML](zedt018_101.html) | - | 39 | MANDT, ZORDNO, ZIDCODE ... (+1) |
 
 ---
 
@@ -31,7 +31,7 @@
 
 **데이터 타입:** CHAR(6)
 
-📄 [전체 테이블 구조 보기](zeds018_001.html)
+📋 [마크다운으로 보기](zeds018_001.md) | 📄 [HTML로 보기](zeds018_001.html)
 
 ---
 
@@ -51,7 +51,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zeds018_002.html)
+📋 [마크다운으로 보기](zeds018_002.md) | 📄 [HTML로 보기](zeds018_002.html)
 
 ---
 
@@ -75,7 +75,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt018_001.html)
+📋 [마크다운으로 보기](zedt018_001.md) | 📄 [HTML로 보기](zedt018_001.html)
 
 ---
 
@@ -99,7 +99,7 @@
 
 **데이터 타입:** CHAR(11), DATS(4), CURR(3), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt018_100.html)
+📋 [마크다운으로 보기](zedt018_100.md) | 📄 [HTML로 보기](zedt018_100.html)
 
 ---
 
@@ -123,7 +123,7 @@
 
 **데이터 타입:** CHAR(11), DATS(4), TIMS(2), CLNT(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt018_101.html)
+📋 [마크다운으로 보기](zedt018_101.md) | 📄 [HTML로 보기](zedt018_101.html)
 
 ---
 

@@ -5,11 +5,11 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT17_EKKO](zedt17_ekko.html) | - | 15 | MANDT, EBELN |
-| [ZEDT17_EKPO](zedt17_ekpo.html) | - | 33 | MANDT, EBELN, EBELP |
-| [ZEDT17_LFA1](zedt17_lfa1.html) | - | 21 | MANDT, LIFNR |
-| [ZEDT17_LFM1](zedt17_lfm1.html) | - | 21 | MANDT, LIFNR, EKORG |
-| [ZMARA17](zmara17.html) | - | 37 | MANDT, ZWERKS, ZLGORT ... (+1) |
+| [ZEDT17_EKKO](zedt17_ekko.md) 📄 [HTML](zedt17_ekko.html) | - | 15 | MANDT, EBELN |
+| [ZEDT17_EKPO](zedt17_ekpo.md) 📄 [HTML](zedt17_ekpo.html) | - | 33 | MANDT, EBELN, EBELP |
+| [ZEDT17_LFA1](zedt17_lfa1.md) 📄 [HTML](zedt17_lfa1.html) | - | 21 | MANDT, LIFNR |
+| [ZEDT17_LFM1](zedt17_lfm1.md) 📄 [HTML](zedt17_lfm1.html) | - | 21 | MANDT, LIFNR, EKORG |
+| [ZMARA17](zmara17.md) 📄 [HTML](zmara17.html) | - | 37 | MANDT, ZWERKS, ZLGORT ... (+1) |
 
 ---
 
@@ -35,7 +35,7 @@
 
 **데이터 타입:** CHAR(7), DATS(3), TIMS(2), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt17_ekko.html)
+📋 [마크다운으로 보기](zedt17_ekko.md) | 📄 [HTML로 보기](zedt17_ekko.html)
 
 ---
 
@@ -59,7 +59,7 @@
 
 **데이터 타입:** CHAR(7), DATS(3), UNIT(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt17_ekpo.html)
+📋 [마크다운으로 보기](zedt17_ekpo.md) | 📄 [HTML로 보기](zedt17_ekpo.html)
 
 ---
 
@@ -83,7 +83,7 @@
 
 **데이터 타입:** CHAR(9), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt17_lfa1.html)
+📋 [마크다운으로 보기](zedt17_lfa1.md) | 📄 [HTML로 보기](zedt17_lfa1.html)
 
 ---
 
@@ -107,7 +107,7 @@
 
 **데이터 타입:** CHAR(7), DATS(2), TIMS(2), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt17_lfm1.html)
+📋 [마크다운으로 보기](zedt17_lfm1.md) | 📄 [HTML로 보기](zedt17_lfm1.html)
 
 ---
 
@@ -131,7 +131,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zmara17.html)
+📋 [마크다운으로 보기](zmara17.md) | 📄 [HTML로 보기](zmara17.html)
 
 ---
 

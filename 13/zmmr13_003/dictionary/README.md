@@ -5,11 +5,11 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEKKO_13](zekko_13.html) | - | 11 | MANDT, EBELN |
-| [ZEKPO_13](zekpo_13.html) | - | 29 | MANDT, EBELN, EBELP ... (+1) |
-| [ZMARA_13](zmara_13.html) | - | 32 | MANDT, WERKS, LGORT ... (+1) |
-| [ZMKPF_13](zmkpf_13.html) | - | 6 | MANDT, MBLNR, MJAHR |
-| [ZMSEG_13](zmseg_13.html) | - | 36 | MANDT, MBLNR, MJAHR ... (+1) |
+| [ZEKKO_13](zekko_13.md) 📄 [HTML](zekko_13.html) | - | 11 | MANDT, EBELN |
+| [ZEKPO_13](zekpo_13.md) 📄 [HTML](zekpo_13.html) | - | 29 | MANDT, EBELN, EBELP ... (+1) |
+| [ZMARA_13](zmara_13.md) 📄 [HTML](zmara_13.html) | - | 32 | MANDT, WERKS, LGORT ... (+1) |
+| [ZMKPF_13](zmkpf_13.md) 📄 [HTML](zmkpf_13.html) | - | 6 | MANDT, MBLNR, MJAHR |
+| [ZMSEG_13](zmseg_13.md) 📄 [HTML](zmseg_13.html) | - | 36 | MANDT, MBLNR, MJAHR ... (+1) |
 
 ---
 
@@ -33,7 +33,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zekko_13.html)
+📋 [마크다운으로 보기](zekko_13.md) | 📄 [HTML로 보기](zekko_13.html)
 
 ---
 
@@ -55,7 +55,7 @@
 
 **데이터 타입:** CHAR(7), QUAN(2), UNIT(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zekpo_13.html)
+📋 [마크다운으로 보기](zekpo_13.md) | 📄 [HTML로 보기](zekpo_13.html)
 
 ---
 
@@ -79,7 +79,7 @@
 
 **데이터 타입:** CHAR(7), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zmara_13.html)
+📋 [마크다운으로 보기](zmara_13.md) | 📄 [HTML로 보기](zmara_13.html)
 
 ---
 
@@ -97,7 +97,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zmkpf_13.html)
+📋 [마크다운으로 보기](zmkpf_13.md) | 📄 [HTML로 보기](zmkpf_13.html)
 
 ---
 
@@ -119,7 +119,7 @@
 
 **데이터 타입:** CHAR(11), NUMC(6), CLNT(1), CUKY(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zmseg_13.html)
+📋 [마크다운으로 보기](zmseg_13.md) | 📄 [HTML로 보기](zmseg_13.html)
 
 ---
 

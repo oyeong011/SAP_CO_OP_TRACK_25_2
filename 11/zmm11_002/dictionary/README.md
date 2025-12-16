@@ -5,10 +5,10 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZMM11_MAT_MST](zmm11_mat_mst.html) | - | 23 | MANDT, ZWERKS, ZLGORT ... (+1) |
-| [ZMM11_ORG_MST](zmm11_org_mst.html) | - | 14 | MANDT, LIFNR, EKORG |
-| [ZMM11_PO_HEAD](zmm11_po_head.html) | - | 8 | MANDT, EBELN |
-| [ZMM11_PO_ITEM](zmm11_po_item.html) | - | 11 | MANDT, EBELN, EBELP |
+| [ZMM11_MAT_MST](zmm11_mat_mst.md) 📄 [HTML](zmm11_mat_mst.html) | - | 23 | MANDT, ZWERKS, ZLGORT ... (+1) |
+| [ZMM11_ORG_MST](zmm11_org_mst.md) 📄 [HTML](zmm11_org_mst.html) | - | 14 | MANDT, LIFNR, EKORG |
+| [ZMM11_PO_HEAD](zmm11_po_head.md) 📄 [HTML](zmm11_po_head.html) | - | 8 | MANDT, EBELN |
+| [ZMM11_PO_ITEM](zmm11_po_item.md) 📄 [HTML](zmm11_po_item.html) | - | 11 | MANDT, EBELN, EBELP |
 
 ---
 
@@ -34,7 +34,7 @@
 
 **데이터 타입:** CHAR(7), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zmm11_mat_mst.html)
+📋 [마크다운으로 보기](zmm11_mat_mst.md) | 📄 [HTML로 보기](zmm11_mat_mst.html)
 
 ---
 
@@ -53,7 +53,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zmm11_org_mst.html)
+📋 [마크다운으로 보기](zmm11_org_mst.md) | 📄 [HTML로 보기](zmm11_org_mst.html)
 
 ---
 
@@ -75,7 +75,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zmm11_po_head.html)
+📋 [마크다운으로 보기](zmm11_po_head.md) | 📄 [HTML로 보기](zmm11_po_head.html)
 
 ---
 
@@ -97,7 +97,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), NUMC(1), QUAN(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](zmm11_po_item.html)
+📋 [마크다운으로 보기](zmm11_po_item.md) | 📄 [HTML로 보기](zmm11_po_item.html)
 
 ---
 

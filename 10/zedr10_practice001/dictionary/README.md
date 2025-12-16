@@ -5,9 +5,9 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT10_1004](zedt10_1004.html) | - | 34 | MANDT, ZCODE, ZPERNR ... (+3) |
-| [ZEDT10_T001](zedt10_t001.html) | - | 4 | MANDT, BUKRS |
-| [ZEDT10_T001L](zedt10_t001l.html) | - | 4 | MANDT, WERKS, LGORT |
+| [ZEDT10_1004](zedt10_1004.md) 📄 [HTML](zedt10_1004.html) | - | 34 | MANDT, ZCODE, ZPERNR ... (+3) |
+| [ZEDT10_T001](zedt10_t001.md) 📄 [HTML](zedt10_t001.html) | - | 4 | MANDT, BUKRS |
+| [ZEDT10_T001L](zedt10_t001l.md) 📄 [HTML](zedt10_t001l.html) | - | 4 | MANDT, WERKS, LGORT |
 
 ---
 
@@ -31,7 +31,7 @@
 
 **데이터 타입:** CHAR(7), INT1(2), CURR(2), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt10_1004.html)
+📋 [마크다운으로 보기](zedt10_1004.md) | 📄 [HTML로 보기](zedt10_1004.html)
 
 ---
 
@@ -48,7 +48,7 @@
 
 **데이터 타입:** CHAR(3), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_t001.html)
+📋 [마크다운으로 보기](zedt10_t001.md) | 📄 [HTML로 보기](zedt10_t001.html)
 
 ---
 
@@ -64,7 +64,7 @@
 
 **데이터 타입:** CHAR(3), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_t001l.html)
+📋 [마크다운으로 보기](zedt10_t001l.md) | 📄 [HTML로 보기](zedt10_t001l.html)
 
 ---
 

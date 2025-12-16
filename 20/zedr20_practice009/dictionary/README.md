@@ -5,10 +5,10 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT20_102](zedt20_102.html) | - | 31 | MANDT, ZPERNR, ZDEPCODE ... (+2) |
-| [ZEDT20_103](zedt20_103.html) | - | 14 | MANDT, ZPERNR |
-| [ZEDT20_104](zedt20_104.html) | - | 25 | MANDT, ZPERNR, ZDEPCODE ... (+3) |
-| [ZEDT20_106](zedt20_106.html) | - | 20 | MANDT, ZPERNR, ZYEAR ... (+2) |
+| [ZEDT20_102](zedt20_102.md) 📄 [HTML](zedt20_102.html) | - | 31 | MANDT, ZPERNR, ZDEPCODE ... (+2) |
+| [ZEDT20_103](zedt20_103.md) 📄 [HTML](zedt20_103.html) | - | 14 | MANDT, ZPERNR |
+| [ZEDT20_104](zedt20_104.md) 📄 [HTML](zedt20_104.html) | - | 25 | MANDT, ZPERNR, ZDEPCODE ... (+3) |
+| [ZEDT20_106](zedt20_106.md) 📄 [HTML](zedt20_106.html) | - | 20 | MANDT, ZPERNR, ZYEAR ... (+2) |
 
 ---
 
@@ -34,7 +34,7 @@
 
 **데이터 타입:** CHAR(6), DATS(6), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt20_102.html)
+📋 [마크다운으로 보기](zedt20_102.md) | 📄 [HTML로 보기](zedt20_102.html)
 
 ---
 
@@ -58,7 +58,7 @@
 
 **데이터 타입:** CHAR(6), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt20_103.html)
+📋 [마크다운으로 보기](zedt20_103.md) | 📄 [HTML로 보기](zedt20_103.html)
 
 ---
 
@@ -82,7 +82,7 @@
 
 **데이터 타입:** CHAR(5), DATS(4), TIMS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt20_104.html)
+📋 [마크다운으로 보기](zedt20_104.md) | 📄 [HTML로 보기](zedt20_104.html)
 
 ---
 
@@ -106,7 +106,7 @@
 
 **데이터 타입:** CHAR(5), DATS(4), TIMS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt20_106.html)
+📋 [마크다운으로 보기](zedt20_106.md) | 📄 [HTML로 보기](zedt20_106.html)
 
 ---
 

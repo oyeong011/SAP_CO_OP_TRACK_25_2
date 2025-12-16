@@ -5,27 +5,27 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDS018_001](zeds018_001.html) | - | 6 | - |
-| [ZEDS018_002](zeds018_002.html) | - | 6 | - |
-| [ZEDT018_001](zedt018_001.html) | - | 14 | MANDT, ZCODE, ZPERNR |
-| [ZEDT018_002](zedt018_002.html) | - | 16 | MANDT, ZCODE, ZPERNR |
-| [ZEDT018_003](zedt018_003.html) | - | 3 | MANDT, ZMGUBUN |
-| [ZEDT018_100](zedt018_100.html) | - | 40 | MANDT, ZORDNO, ZIDCODE ... (+1) |
-| [ZEDT018_101](zedt018_101.html) | - | 39 | MANDT, ZORDNO, ZIDCODE ... (+1) |
-| [ZEDT18_102](zedt18_102.html) | - | 16 | MANDT, ZPERNR, ZDEPCODE ... (+2) |
-| [ZEDT18_103](zedt18_103.html) | - | 12 | MANDT, ZPERNR |
-| [ZEDT18_104](zedt18_104.html) | - | 14 | MANDT, ZPERNR, ZDEPCODE ... (+3) |
-| [ZEDT18_105](zedt18_105.html) | - | 22 | MANDT, ZPERNR, ZYEAR |
-| [ZEDT18_106](zedt18_106.html) | - | 15 | MANDT, ZPERNR, ZYEAR ... (+2) |
-| [ZEKKO_18](zekko_18.html) | - | 8 | MANDT, EBELN |
-| [ZEKPO_18](zekpo_18.html) | - | 25 | MANDT, EBELN, EBELP |
-| [ZLFA1_18](zlfa1_18.html) | - | 14 | MANDT, LIFNR |
-| [ZLFB1_18](zlfb1_18.html) | - | 34 | MANDT, LIFNR, BUKRS |
-| [ZLFM1_18](zlfm1_18.html) | - | 14 | MANDT, LIFNR, EKORG |
-| [ZMARA_18](zmara_18.html) | - | 30 | MANDT, WERKS, LGORT ... (+1) |
-| [ZMKPF_18](zmkpf_18.html) | - | 6 | MANDT, MBLNR, MJAHR |
-| [ZMSEG_18](zmseg_18.html) | - | 26 | MANDT, MBLNR, MJAHR ... (+1) |
-| [ZTCURR18](ztcurr18.html) | - | 10 | MANDT, KURST, FCURR ... (+2) |
+| [ZEDS018_001](zeds018_001.md) 📄 [HTML](zeds018_001.html) | - | 6 | - |
+| [ZEDS018_002](zeds018_002.md) 📄 [HTML](zeds018_002.html) | - | 6 | - |
+| [ZEDT018_001](zedt018_001.md) 📄 [HTML](zedt018_001.html) | - | 14 | MANDT, ZCODE, ZPERNR |
+| [ZEDT018_002](zedt018_002.md) 📄 [HTML](zedt018_002.html) | - | 16 | MANDT, ZCODE, ZPERNR |
+| [ZEDT018_003](zedt018_003.md) 📄 [HTML](zedt018_003.html) | - | 3 | MANDT, ZMGUBUN |
+| [ZEDT018_100](zedt018_100.md) 📄 [HTML](zedt018_100.html) | - | 40 | MANDT, ZORDNO, ZIDCODE ... (+1) |
+| [ZEDT018_101](zedt018_101.md) 📄 [HTML](zedt018_101.html) | - | 39 | MANDT, ZORDNO, ZIDCODE ... (+1) |
+| [ZEDT18_102](zedt18_102.md) 📄 [HTML](zedt18_102.html) | - | 16 | MANDT, ZPERNR, ZDEPCODE ... (+2) |
+| [ZEDT18_103](zedt18_103.md) 📄 [HTML](zedt18_103.html) | - | 12 | MANDT, ZPERNR |
+| [ZEDT18_104](zedt18_104.md) 📄 [HTML](zedt18_104.html) | - | 14 | MANDT, ZPERNR, ZDEPCODE ... (+3) |
+| [ZEDT18_105](zedt18_105.md) 📄 [HTML](zedt18_105.html) | - | 22 | MANDT, ZPERNR, ZYEAR |
+| [ZEDT18_106](zedt18_106.md) 📄 [HTML](zedt18_106.html) | - | 15 | MANDT, ZPERNR, ZYEAR ... (+2) |
+| [ZEKKO_18](zekko_18.md) 📄 [HTML](zekko_18.html) | - | 8 | MANDT, EBELN |
+| [ZEKPO_18](zekpo_18.md) 📄 [HTML](zekpo_18.html) | - | 25 | MANDT, EBELN, EBELP |
+| [ZLFA1_18](zlfa1_18.md) 📄 [HTML](zlfa1_18.html) | - | 14 | MANDT, LIFNR |
+| [ZLFB1_18](zlfb1_18.md) 📄 [HTML](zlfb1_18.html) | - | 34 | MANDT, LIFNR, BUKRS |
+| [ZLFM1_18](zlfm1_18.md) 📄 [HTML](zlfm1_18.html) | - | 14 | MANDT, LIFNR, EKORG |
+| [ZMARA_18](zmara_18.md) 📄 [HTML](zmara_18.html) | - | 30 | MANDT, WERKS, LGORT ... (+1) |
+| [ZMKPF_18](zmkpf_18.md) 📄 [HTML](zmkpf_18.html) | - | 6 | MANDT, MBLNR, MJAHR |
+| [ZMSEG_18](zmseg_18.md) 📄 [HTML](zmseg_18.html) | - | 26 | MANDT, MBLNR, MJAHR ... (+1) |
+| [ZTCURR18](ztcurr18.md) 📄 [HTML](ztcurr18.html) | - | 10 | MANDT, KURST, FCURR ... (+2) |
 
 ---
 
@@ -47,7 +47,7 @@
 
 **데이터 타입:** CHAR(6)
 
-📄 [전체 테이블 구조 보기](zeds018_001.html)
+📋 [마크다운으로 보기](zeds018_001.md) | 📄 [HTML로 보기](zeds018_001.html)
 
 ---
 
@@ -67,7 +67,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zeds018_002.html)
+📋 [마크다운으로 보기](zeds018_002.md) | 📄 [HTML로 보기](zeds018_002.html)
 
 ---
 
@@ -91,7 +91,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt018_001.html)
+📋 [마크다운으로 보기](zedt018_001.md) | 📄 [HTML로 보기](zedt018_001.html)
 
 ---
 
@@ -115,7 +115,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zedt018_002.html)
+📋 [마크다운으로 보기](zedt018_002.md) | 📄 [HTML로 보기](zedt018_002.html)
 
 ---
 
@@ -131,7 +131,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt018_003.html)
+📋 [마크다운으로 보기](zedt018_003.md) | 📄 [HTML로 보기](zedt018_003.html)
 
 ---
 
@@ -155,7 +155,7 @@
 
 **데이터 타입:** CHAR(11), DATS(4), CURR(3), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt018_100.html)
+📋 [마크다운으로 보기](zedt018_100.md) | 📄 [HTML로 보기](zedt018_100.html)
 
 ---
 
@@ -179,7 +179,7 @@
 
 **데이터 타입:** CHAR(11), DATS(4), TIMS(2), CLNT(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt018_101.html)
+📋 [마크다운으로 보기](zedt018_101.md) | 📄 [HTML로 보기](zedt018_101.html)
 
 ---
 
@@ -203,7 +203,7 @@
 
 **데이터 타입:** CHAR(6), DATS(6), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt18_102.html)
+📋 [마크다운으로 보기](zedt18_102.md) | 📄 [HTML로 보기](zedt18_102.html)
 
 ---
 
@@ -227,7 +227,7 @@
 
 **데이터 타입:** CHAR(6), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt18_103.html)
+📋 [마크다운으로 보기](zedt18_103.md) | 📄 [HTML로 보기](zedt18_103.html)
 
 ---
 
@@ -251,7 +251,7 @@
 
 **데이터 타입:** CHAR(5), DATS(4), TIMS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt18_104.html)
+📋 [마크다운으로 보기](zedt18_104.md) | 📄 [HTML로 보기](zedt18_104.html)
 
 ---
 
@@ -275,7 +275,7 @@
 
 **데이터 타입:** CURR(12), CHAR(3), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt18_105.html)
+📋 [마크다운으로 보기](zedt18_105.md) | 📄 [HTML로 보기](zedt18_105.html)
 
 ---
 
@@ -299,7 +299,7 @@
 
 **데이터 타입:** CHAR(5), DATS(4), TIMS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt18_106.html)
+📋 [마크다운으로 보기](zedt18_106.md) | 📄 [HTML로 보기](zedt18_106.html)
 
 ---
 
@@ -321,7 +321,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zekko_18.html)
+📋 [마크다운으로 보기](zekko_18.md) | 📄 [HTML로 보기](zekko_18.html)
 
 ---
 
@@ -343,7 +343,7 @@
 
 **데이터 타입:** CHAR(6), UNIT(2), CLNT(1), NUMC(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zekpo_18.html)
+📋 [마크다운으로 보기](zekpo_18.md) | 📄 [HTML로 보기](zekpo_18.html)
 
 ---
 
@@ -365,7 +365,7 @@
 
 **데이터 타입:** CHAR(7), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zlfa1_18.html)
+📋 [마크다운으로 보기](zlfa1_18.md) | 📄 [HTML로 보기](zlfa1_18.html)
 
 ---
 
@@ -383,7 +383,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zlfb1_18.html)
+📋 [마크다운으로 보기](zlfb1_18.md) | 📄 [HTML로 보기](zlfb1_18.html)
 
 ---
 
@@ -402,7 +402,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zlfm1_18.html)
+📋 [마크다운으로 보기](zlfm1_18.md) | 📄 [HTML로 보기](zlfm1_18.html)
 
 ---
 
@@ -426,7 +426,7 @@
 
 **데이터 타입:** CHAR(7), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zmara_18.html)
+📋 [마크다운으로 보기](zmara_18.md) | 📄 [HTML로 보기](zmara_18.html)
 
 ---
 
@@ -444,7 +444,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zmkpf_18.html)
+📋 [마크다운으로 보기](zmkpf_18.md) | 📄 [HTML로 보기](zmkpf_18.html)
 
 ---
 
@@ -466,7 +466,7 @@
 
 **데이터 타입:** CHAR(8), NUMC(4), CLNT(1), CUKY(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zmseg_18.html)
+📋 [마크다운으로 보기](zmseg_18.md) | 📄 [HTML로 보기](zmseg_18.html)
 
 ---
 
@@ -486,7 +486,7 @@
 
 **데이터 타입:** CHAR(3), DEC(3), CUKY(2), CLNT(1), DATS(1)
 
-📄 [전체 테이블 구조 보기](ztcurr18.html)
+📋 [마크다운으로 보기](ztcurr18.md) | 📄 [HTML로 보기](ztcurr18.html)
 
 ---
 

@@ -5,9 +5,9 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZPRO11_001](zpro11_001.html) | - | 14 | MANDT, LIFNR |
-| [ZPRO11_002](zpro11_002.html) | - | 34 | MANDT, LIFNR, BUKRS |
-| [ZPRO11_003](zpro11_003.html) | - | 14 | MANDT, LIFNR, EKORG |
+| [ZPRO11_001](zpro11_001.md) 📄 [HTML](zpro11_001.html) | - | 14 | MANDT, LIFNR |
+| [ZPRO11_002](zpro11_002.md) 📄 [HTML](zpro11_002.html) | - | 34 | MANDT, LIFNR, BUKRS |
+| [ZPRO11_003](zpro11_003.md) 📄 [HTML](zpro11_003.html) | - | 14 | MANDT, LIFNR, EKORG |
 
 ---
 
@@ -31,7 +31,7 @@
 
 **데이터 타입:** CHAR(7), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zpro11_001.html)
+📋 [마크다운으로 보기](zpro11_001.md) | 📄 [HTML로 보기](zpro11_001.html)
 
 ---
 
@@ -49,7 +49,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zpro11_002.html)
+📋 [마크다운으로 보기](zpro11_002.md) | 📄 [HTML로 보기](zpro11_002.html)
 
 ---
 
@@ -68,7 +68,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zpro11_003.html)
+📋 [마크다운으로 보기](zpro11_003.md) | 📄 [HTML로 보기](zpro11_003.html)
 
 ---
 

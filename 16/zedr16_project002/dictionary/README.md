@@ -5,12 +5,12 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT16_200](zedt16_200.html) | - | 34 | MANDT, WERKS, LGORT ... (+1) |
-| [ZEDT16_EKKO](zedt16_ekko.html) | - | 8 | MANDT, EBELN |
-| [ZEDT16_EKPO](zedt16_ekpo.html) | - | 26 | MANDT, EBELN, EBELP |
-| [ZEDT16_LFA1](zedt16_lfa1.html) | - | 15 | MANDT, LIFNR |
-| [ZEDT16_LFB1](zedt16_lfb1.html) | - | 34 | MANDT, LIFNR, BUKRS |
-| [ZEDT16_LFM1](zedt16_lfm1.html) | - | 14 | MANDT, LIFNR, EKORG |
+| [ZEDT16_200](zedt16_200.md) 📄 [HTML](zedt16_200.html) | - | 34 | MANDT, WERKS, LGORT ... (+1) |
+| [ZEDT16_EKKO](zedt16_ekko.md) 📄 [HTML](zedt16_ekko.html) | - | 8 | MANDT, EBELN |
+| [ZEDT16_EKPO](zedt16_ekpo.md) 📄 [HTML](zedt16_ekpo.html) | - | 26 | MANDT, EBELN, EBELP |
+| [ZEDT16_LFA1](zedt16_lfa1.md) 📄 [HTML](zedt16_lfa1.html) | - | 15 | MANDT, LIFNR |
+| [ZEDT16_LFB1](zedt16_lfb1.md) 📄 [HTML](zedt16_lfb1.html) | - | 34 | MANDT, LIFNR, BUKRS |
+| [ZEDT16_LFM1](zedt16_lfm1.md) 📄 [HTML](zedt16_lfm1.html) | - | 14 | MANDT, LIFNR, EKORG |
 
 ---
 
@@ -36,7 +36,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zedt16_200.html)
+📋 [마크다운으로 보기](zedt16_200.md) | 📄 [HTML로 보기](zedt16_200.html)
 
 ---
 
@@ -58,7 +58,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt16_ekko.html)
+📋 [마크다운으로 보기](zedt16_ekko.md) | 📄 [HTML로 보기](zedt16_ekko.html)
 
 ---
 
@@ -80,7 +80,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), NUMC(1), QUAN(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](zedt16_ekpo.html)
+📋 [마크다운으로 보기](zedt16_ekpo.md) | 📄 [HTML로 보기](zedt16_ekpo.html)
 
 ---
 
@@ -102,7 +102,7 @@
 
 **데이터 타입:** CHAR(7), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt16_lfa1.html)
+📋 [마크다운으로 보기](zedt16_lfa1.md) | 📄 [HTML로 보기](zedt16_lfa1.html)
 
 ---
 
@@ -120,7 +120,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt16_lfb1.html)
+📋 [마크다운으로 보기](zedt16_lfb1.md) | 📄 [HTML로 보기](zedt16_lfb1.html)
 
 ---
 
@@ -139,7 +139,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt16_lfm1.html)
+📋 [마크다운으로 보기](zedt16_lfm1.md) | 📄 [HTML로 보기](zedt16_lfm1.html)
 
 ---
 

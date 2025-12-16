@@ -1,0 +1,21 @@
+# Table: ZMM11_MAT_MST
+
+| Row | Field name | Position | Key | Data element | Domain | Datatype | Length | Lowercase | Domain text |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | MANDT | 1 | X | MANDT | MANDT | CLNT | 3 |  | Client |
+| 2 | ZWERKS | 2 | X | ZWERKS11 | ZWERKS11 | CHAR | 4 |  | -# |
+| 3 | ZLGORT | 3 | X | LGORT_D | LGORT | CHAR | 4 |  | Storage Location |
+| 4 | ZMATNR | 4 | X | ZMATNR11 | ZMATNR11 | CHAR | 10 |  | - |
+| 5 | ZMATNAME | 5 |  | ZMATNAME11 | ZMATNAME11 | CHAR | 20 |  | -# |
+| 6 | ZMTART | 6 |  | ZMTART11 | ZMTART11 | CHAR | 3 |  | - |
+| 7 | STPRS | 7 |  | STPRS | WERT11V | CURR | 11 |  | Standard price |
+| 8 | WAERS | 8 |  | WAERS | WAERS | CUKY | 5 |  | Currency Key |
+| 9 | MENGE | 9 |  | MENGE_D | MENG13 | QUAN | 13 |  | Quantity |
+| 10 | MEINS | 10 |  | MEINS | MEINS | UNIT | 3 | X | Base Unit of Measure |
+| 11 | .INCLUDE | 11 |  | ZEDS11_002 |  |  | 0 |  | - |
+| 12 | CRNAME | 12 |  | CRNAM | USNAM | CHAR | 12 |  | Created By |
+| 13 | CRDATE | 13 |  | CRDAT | DATUM | DATS | 8 |  | Creation date |
+| 14 | CRZEIT | 14 |  | CEPLUZEIT | TIMES | TIMS | 6 |  | Time created |
+| 15 | AENAME | 15 |  | AENAM | USNAM | CHAR | 12 |  | Name of person who changed object |
+| 16 | AEDATE | 16 |  | AEDAT | DATUM | DATS | 8 |  | Date of Last Change |
+| 17 | AEZEIT | 17 |  | AEZEIT | UHRZT | TIMS | 6 |  | Time of Change |

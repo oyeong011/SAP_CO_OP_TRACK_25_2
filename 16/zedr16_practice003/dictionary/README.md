@@ -5,8 +5,8 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT16_100](zedt16_100.html) | - | 53 | MANDT, ZORDNO, ZIDCODE ... (+1) |
-| [ZEDT16_101](zedt16_101.html) | - | 50 | MANDT, ZORDNO, ZIDCODE ... (+1) |
+| [ZEDT16_100](zedt16_100.md) 📄 [HTML](zedt16_100.html) | - | 53 | MANDT, ZORDNO, ZIDCODE ... (+1) |
+| [ZEDT16_101](zedt16_101.md) 📄 [HTML](zedt16_101.html) | - | 50 | MANDT, ZORDNO, ZIDCODE ... (+1) |
 
 ---
 
@@ -32,7 +32,7 @@
 
 **데이터 타입:** CHAR(11), DATS(4), CURR(3), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt16_100.html)
+📋 [마크다운으로 보기](zedt16_100.md) | 📄 [HTML로 보기](zedt16_100.html)
 
 ---
 
@@ -56,7 +56,7 @@
 
 **데이터 타입:** CHAR(11), DATS(4), TIMS(2), CLNT(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt16_101.html)
+📋 [마크다운으로 보기](zedt16_101.md) | 📄 [HTML로 보기](zedt16_101.html)
 
 ---
 

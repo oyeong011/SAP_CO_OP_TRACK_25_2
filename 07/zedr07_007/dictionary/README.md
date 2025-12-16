@@ -5,7 +5,7 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZPRO07_007](zpro07_007.html) | - | 19 | MANDT, MBLNR, MJAHR ... (+1) |
+| [ZPRO07_007](zpro07_007.md) 📄 [HTML](zpro07_007.html) | - | 19 | MANDT, MBLNR, MJAHR ... (+1) |
 
 ---
 
@@ -29,7 +29,7 @@
 
 **데이터 타입:** CHAR(9), NUMC(3), CLNT(1), CUKY(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zpro07_007.html)
+📋 [마크다운으로 보기](zpro07_007.md) | 📄 [HTML로 보기](zpro07_007.html)
 
 ---
 

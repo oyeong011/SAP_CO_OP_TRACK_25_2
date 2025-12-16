@@ -5,9 +5,9 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT19_0001](zedt19_0001.html) | - | 18 | ZCODE, ZPERNR |
-| [ZEDT19_002](zedt19_002.html) | - | 22 | MANDT, ZCODE, ZPERNR |
-| [ZEDT19_004](zedt19_004.html) | - | 34 | MANDT, ZCODE, ZPERNR ... (+3) |
+| [ZEDT19_0001](zedt19_0001.md) 📄 [HTML](zedt19_0001.html) | - | 18 | ZCODE, ZPERNR |
+| [ZEDT19_002](zedt19_002.md) 📄 [HTML](zedt19_002.html) | - | 22 | MANDT, ZCODE, ZPERNR |
+| [ZEDT19_004](zedt19_004.md) 📄 [HTML](zedt19_004.html) | - | 34 | MANDT, ZCODE, ZPERNR ... (+3) |
 
 ---
 
@@ -31,7 +31,7 @@
 
 **데이터 타입:** CHAR(9), CURR(1)
 
-📄 [전체 테이블 구조 보기](zedt19_0001.html)
+📋 [마크다운으로 보기](zedt19_0001.md) | 📄 [HTML로 보기](zedt19_0001.html)
 
 ---
 
@@ -55,7 +55,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zedt19_002.html)
+📋 [마크다운으로 보기](zedt19_002.md) | 📄 [HTML로 보기](zedt19_002.html)
 
 ---
 
@@ -77,7 +77,7 @@
 
 **데이터 타입:** CHAR(9), CLNT(1), CURR(1), CUKY(1), INT8(1)
 
-📄 [전체 테이블 구조 보기](zedt19_004.html)
+📋 [마크다운으로 보기](zedt19_004.md) | 📄 [HTML로 보기](zedt19_004.html)
 
 ---
 

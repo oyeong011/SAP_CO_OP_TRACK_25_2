@@ -5,10 +5,10 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZMKPF19](zmkpf19.html) | - | 6 | MANDT, MBLNR, MJAHR |
-| [ZMSEG19](zmseg19.html) | - | 27 | MANDT, MBLNR, MJAHR ... (+1) |
-| [ZPDT19_002](zpdt19_002.html) | - | 31 | LIFNR, BUKRS |
-| [ZPDT19_005](zpdt19_005.html) | - | 18 | MANDT, EBELN, EBELP |
+| [ZMKPF19](zmkpf19.md) 📄 [HTML](zmkpf19.html) | - | 6 | MANDT, MBLNR, MJAHR |
+| [ZMSEG19](zmseg19.md) 📄 [HTML](zmseg19.html) | - | 27 | MANDT, MBLNR, MJAHR ... (+1) |
+| [ZPDT19_002](zpdt19_002.md) 📄 [HTML](zpdt19_002.html) | - | 31 | LIFNR, BUKRS |
+| [ZPDT19_005](zpdt19_005.md) 📄 [HTML](zpdt19_005.html) | - | 18 | MANDT, EBELN, EBELP |
 
 ---
 
@@ -28,7 +28,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zmkpf19.html)
+📋 [마크다운으로 보기](zmkpf19.md) | 📄 [HTML로 보기](zmkpf19.html)
 
 ---
 
@@ -50,7 +50,7 @@
 
 **데이터 타입:** CHAR(9), NUMC(3), CURR(2), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zmseg19.html)
+📋 [마크다운으로 보기](zmseg19.md) | 📄 [HTML로 보기](zmseg19.html)
 
 ---
 
@@ -68,7 +68,7 @@
 
 **데이터 타입:** CHAR(5)
 
-📄 [전체 테이블 구조 보기](zpdt19_002.html)
+📋 [마크다운으로 보기](zpdt19_002.md) | 📄 [HTML로 보기](zpdt19_002.html)
 
 ---
 
@@ -90,7 +90,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), NUMC(1), QUAN(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](zpdt19_005.html)
+📋 [마크다운으로 보기](zpdt19_005.md) | 📄 [HTML로 보기](zpdt19_005.html)
 
 ---
 

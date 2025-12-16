@@ -5,12 +5,12 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT20_EKKO](zedt20_ekko.html) | - | 8 | MANDT, EBELN |
-| [ZEDT20_EKPO](zedt20_ekpo.html) | - | 11 | MANDT, EBELN, EBELP |
-| [ZEDT20_LFA1](zedt20_lfa1.html) | - | 14 | MANDT, LIFNR |
-| [ZEDT20_MARA](zedt20_mara.html) | - | 7 | MANDT, MATNR |
-| [ZEDT20_MKPF](zedt20_mkpf.html) | - | 6 | MANDT, MBLNR, MJAHR |
-| [ZEDT20_MSEG](zedt20_mseg.html) | - | 22 | MANDT, MBLNR, MJAHR ... (+1) |
+| [ZEDT20_EKKO](zedt20_ekko.md) 📄 [HTML](zedt20_ekko.html) | - | 8 | MANDT, EBELN |
+| [ZEDT20_EKPO](zedt20_ekpo.md) 📄 [HTML](zedt20_ekpo.html) | - | 11 | MANDT, EBELN, EBELP |
+| [ZEDT20_LFA1](zedt20_lfa1.md) 📄 [HTML](zedt20_lfa1.html) | - | 14 | MANDT, LIFNR |
+| [ZEDT20_MARA](zedt20_mara.md) 📄 [HTML](zedt20_mara.html) | - | 7 | MANDT, MATNR |
+| [ZEDT20_MKPF](zedt20_mkpf.md) 📄 [HTML](zedt20_mkpf.html) | - | 6 | MANDT, MBLNR, MJAHR |
+| [ZEDT20_MSEG](zedt20_mseg.md) 📄 [HTML](zedt20_mseg.html) | - | 22 | MANDT, MBLNR, MJAHR ... (+1) |
 
 ---
 
@@ -34,7 +34,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt20_ekko.html)
+📋 [마크다운으로 보기](zedt20_ekko.md) | 📄 [HTML로 보기](zedt20_ekko.html)
 
 ---
 
@@ -56,7 +56,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), NUMC(1), QUAN(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](zedt20_ekpo.html)
+📋 [마크다운으로 보기](zedt20_ekpo.md) | 📄 [HTML로 보기](zedt20_ekpo.html)
 
 ---
 
@@ -78,7 +78,7 @@
 
 **데이터 타입:** CHAR(7), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt20_lfa1.html)
+📋 [마크다운으로 보기](zedt20_lfa1.md) | 📄 [HTML로 보기](zedt20_lfa1.html)
 
 ---
 
@@ -98,7 +98,7 @@
 
 **데이터 타입:** CHAR(3), CLNT(1), UNIT(1), CURR(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt20_mara.html)
+📋 [마크다운으로 보기](zedt20_mara.md) | 📄 [HTML로 보기](zedt20_mara.html)
 
 ---
 
@@ -116,7 +116,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt20_mkpf.html)
+📋 [마크다운으로 보기](zedt20_mkpf.md) | 📄 [HTML로 보기](zedt20_mkpf.html)
 
 ---
 
@@ -138,7 +138,7 @@
 
 **데이터 타입:** CHAR(10), NUMC(3), CLNT(1), CUKY(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt20_mseg.html)
+📋 [마크다운으로 보기](zedt20_mseg.md) | 📄 [HTML로 보기](zedt20_mseg.html)
 
 ---
 

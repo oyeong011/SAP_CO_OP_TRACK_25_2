@@ -5,11 +5,11 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT21_200](zedt21_200.html) | - | 23 | MANDT, ZWERKS, ZLGORT ... (+1) |
-| [ZEKKO21](zekko21.html) | - | 8 | MANDT, EBELN |
-| [ZEKPO21](zekpo21.html) | - | 11 | MANDT, EBELN, EBELP |
-| [ZLFB1_21](zlfb1_21.html) | - | 34 | MANDT, LIFNR |
-| [ZLFM1_21](zlfm1_21.html) | - | 14 | MANDT, LIFNR |
+| [ZEDT21_200](zedt21_200.md) 📄 [HTML](zedt21_200.html) | - | 23 | MANDT, ZWERKS, ZLGORT ... (+1) |
+| [ZEKKO21](zekko21.md) 📄 [HTML](zekko21.html) | - | 8 | MANDT, EBELN |
+| [ZEKPO21](zekpo21.md) 📄 [HTML](zekpo21.html) | - | 11 | MANDT, EBELN, EBELP |
+| [ZLFB1_21](zlfb1_21.md) 📄 [HTML](zlfb1_21.html) | - | 34 | MANDT, LIFNR |
+| [ZLFM1_21](zlfm1_21.md) 📄 [HTML](zlfm1_21.html) | - | 14 | MANDT, LIFNR |
 
 ---
 
@@ -35,7 +35,7 @@
 
 **데이터 타입:** CHAR(7), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zedt21_200.html)
+📋 [마크다운으로 보기](zedt21_200.md) | 📄 [HTML로 보기](zedt21_200.html)
 
 ---
 
@@ -57,7 +57,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zekko21.html)
+📋 [마크다운으로 보기](zekko21.md) | 📄 [HTML로 보기](zekko21.html)
 
 ---
 
@@ -79,7 +79,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), NUMC(1), QUAN(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](zekpo21.html)
+📋 [마크다운으로 보기](zekpo21.md) | 📄 [HTML로 보기](zekpo21.html)
 
 ---
 
@@ -98,7 +98,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zlfb1_21.html)
+📋 [마크다운으로 보기](zlfb1_21.md) | 📄 [HTML로 보기](zlfb1_21.html)
 
 ---
 
@@ -118,7 +118,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zlfm1_21.html)
+📋 [마크다운으로 보기](zlfm1_21.md) | 📄 [HTML로 보기](zlfm1_21.html)
 
 ---
 

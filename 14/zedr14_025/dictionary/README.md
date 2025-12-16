@@ -5,7 +5,7 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT00_002](zedt00_002.html) | - | 22 | MANDT, ZCODE, ZPERNR |
+| [ZEDT00_002](zedt00_002.md) 📄 [HTML](zedt00_002.html) | - | 22 | MANDT, ZCODE, ZPERNR |
 
 ---
 
@@ -31,7 +31,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zedt00_002.html)
+📋 [마크다운으로 보기](zedt00_002.md) | 📄 [HTML로 보기](zedt00_002.html)
 
 ---
 

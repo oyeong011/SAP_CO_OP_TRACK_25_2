@@ -5,12 +5,12 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT03_BSIK](zedt03_bsik.html) | - | 21 | MANDT, BUKRS, LIFNR ... (+2) |
-| [ZEDT03_EKKO](zedt03_ekko.html) | - | 8 | MANDT, EBELN |
-| [ZEDT03_EKPO](zedt03_ekpo.html) | - | 11 | MANDT, EBELN, EBELP |
-| [ZEDT03_LFM1](zedt03_lfm1.html) | - | 14 | MANDT, LIFNR, EKORG |
-| [ZEDT03_RBKP](zedt03_rbkp.html) | - | 13 | MANDT, BELNR, GJAHR |
-| [ZEDT03_RSEG](zedt03_rseg.html) | - | 15 | MANDT, BELNR, GJAHR ... (+1) |
+| [ZEDT03_BSIK](zedt03_bsik.md) 📄 [HTML](zedt03_bsik.html) | - | 21 | MANDT, BUKRS, LIFNR ... (+2) |
+| [ZEDT03_EKKO](zedt03_ekko.md) 📄 [HTML](zedt03_ekko.html) | - | 8 | MANDT, EBELN |
+| [ZEDT03_EKPO](zedt03_ekpo.md) 📄 [HTML](zedt03_ekpo.html) | - | 11 | MANDT, EBELN, EBELP |
+| [ZEDT03_LFM1](zedt03_lfm1.md) 📄 [HTML](zedt03_lfm1.html) | - | 14 | MANDT, LIFNR, EKORG |
+| [ZEDT03_RBKP](zedt03_rbkp.md) 📄 [HTML](zedt03_rbkp.html) | - | 13 | MANDT, BELNR, GJAHR |
+| [ZEDT03_RSEG](zedt03_rseg.md) 📄 [HTML](zedt03_rseg.html) | - | 15 | MANDT, BELNR, GJAHR ... (+1) |
 
 ---
 
@@ -34,7 +34,7 @@
 
 **데이터 타입:** CHAR(10), DATS(4), CURR(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt03_bsik.html)
+📋 [마크다운으로 보기](zedt03_bsik.md) | 📄 [HTML로 보기](zedt03_bsik.html)
 
 ---
 
@@ -56,7 +56,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt03_ekko.html)
+📋 [마크다운으로 보기](zedt03_ekko.md) | 📄 [HTML로 보기](zedt03_ekko.html)
 
 ---
 
@@ -78,7 +78,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), NUMC(1), QUAN(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](zedt03_ekpo.html)
+📋 [마크다운으로 보기](zedt03_ekpo.md) | 📄 [HTML로 보기](zedt03_ekpo.html)
 
 ---
 
@@ -97,7 +97,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt03_lfm1.html)
+📋 [마크다운으로 보기](zedt03_lfm1.md) | 📄 [HTML로 보기](zedt03_lfm1.html)
 
 ---
 
@@ -119,7 +119,7 @@
 
 **데이터 타입:** CHAR(5), NUMC(2), DATS(2), CURR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt03_rbkp.html)
+📋 [마크다운으로 보기](zedt03_rbkp.md) | 📄 [HTML로 보기](zedt03_rbkp.html)
 
 ---
 
@@ -141,7 +141,7 @@
 
 **데이터 타입:** CHAR(6), NUMC(3), CLNT(1), QUAN(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](zedt03_rseg.html)
+📋 [마크다운으로 보기](zedt03_rseg.md) | 📄 [HTML로 보기](zedt03_rseg.html)
 
 ---
 

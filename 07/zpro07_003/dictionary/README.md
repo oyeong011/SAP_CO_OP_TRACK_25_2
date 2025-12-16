@@ -5,10 +5,10 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZPRO07_004](zpro07_004.html) | - | 8 | MANDT, EBELN |
-| [ZPRO07_005](zpro07_005.html) | - | 11 | MANDT, EBELN, EBELP |
-| [ZPRO07_006](zpro07_006.html) | - | 6 | MANDT, MBLNR, MJAHR |
-| [ZPRO07_007](zpro07_007.html) | - | 19 | MANDT, MBLNR, MJAHR ... (+1) |
+| [ZPRO07_004](zpro07_004.md) 📄 [HTML](zpro07_004.html) | - | 8 | MANDT, EBELN |
+| [ZPRO07_005](zpro07_005.md) 📄 [HTML](zpro07_005.html) | - | 11 | MANDT, EBELN, EBELP |
+| [ZPRO07_006](zpro07_006.md) 📄 [HTML](zpro07_006.html) | - | 6 | MANDT, MBLNR, MJAHR |
+| [ZPRO07_007](zpro07_007.md) 📄 [HTML](zpro07_007.html) | - | 19 | MANDT, MBLNR, MJAHR ... (+1) |
 
 ---
 
@@ -32,7 +32,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), DATS(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zpro07_004.html)
+📋 [마크다운으로 보기](zpro07_004.md) | 📄 [HTML로 보기](zpro07_004.html)
 
 ---
 
@@ -54,7 +54,7 @@
 
 **데이터 타입:** CHAR(5), CLNT(1), NUMC(1), QUAN(1), UNIT(1)
 
-📄 [전체 테이블 구조 보기](zpro07_005.html)
+📋 [마크다운으로 보기](zpro07_005.md) | 📄 [HTML로 보기](zpro07_005.html)
 
 ---
 
@@ -72,7 +72,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zpro07_006.html)
+📋 [마크다운으로 보기](zpro07_006.md) | 📄 [HTML로 보기](zpro07_006.html)
 
 ---
 
@@ -94,7 +94,7 @@
 
 **데이터 타입:** CHAR(9), NUMC(3), CLNT(1), CUKY(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zpro07_007.html)
+📋 [마크다운으로 보기](zpro07_007.md) | 📄 [HTML로 보기](zpro07_007.html)
 
 ---
 

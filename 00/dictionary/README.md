@@ -5,19 +5,19 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDS00_001](zeds00_001.html) | - | 9 | - |
-| [ZEDS00_002](zeds00_002.html) | - | 6 | - |
-| [ZEDT00_001](zedt00_001.html) | - | 16 | MANDT, ZCODE, ZPERNR |
-| [ZEDT00_002](zedt00_002.html) | - | 22 | MANDT, ZCODE, ZPERNR |
-| [ZEDT00_004](zedt00_004.html) | - | 39 | MANDT, ZCODE, ZPERNR ... (+3) |
-| [ZEDT00_100](zedt00_100.html) | - | 42 | MANDT, ZORDNO, ZIDCODE ... (+1) |
-| [ZEDT00_101](zedt00_101.html) | - | 39 | MANDT, ZORDNO, ZIDCODE ... (+1) |
-| [ZEDT00_102](zedt00_102.html) | - | 29 | MANDT, ZPERNR, ZDEPCODE ... (+2) |
-| [ZEDT00_103](zedt00_103.html) | - | 14 | MANDT, ZPERNR |
-| [ZEDT00_104](zedt00_104.html) | - | 20 | MANDT, ZPERNR, ZDEPCODE ... (+3) |
-| [ZEDT00_105](zedt00_105.html) | - | 22 | MANDT, ZPERNR, ZYEAR |
-| [ZEDT00_106](zedt00_106.html) | - | 20 | MANDT, ZPERNR, ZYEAR ... (+2) |
-| [ZEDT00_200](zedt00_200.html) | - | 17 | MANDT, WERKS, LGORT ... (+1) |
+| [ZEDS00_001](zeds00_001.md) 📄 [HTML](zeds00_001.html) | - | 9 | - |
+| [ZEDS00_002](zeds00_002.md) 📄 [HTML](zeds00_002.html) | - | 6 | - |
+| [ZEDT00_001](zedt00_001.md) 📄 [HTML](zedt00_001.html) | - | 16 | MANDT, ZCODE, ZPERNR |
+| [ZEDT00_002](zedt00_002.md) 📄 [HTML](zedt00_002.html) | - | 22 | MANDT, ZCODE, ZPERNR |
+| [ZEDT00_004](zedt00_004.md) 📄 [HTML](zedt00_004.html) | - | 39 | MANDT, ZCODE, ZPERNR ... (+3) |
+| [ZEDT00_100](zedt00_100.md) 📄 [HTML](zedt00_100.html) | - | 42 | MANDT, ZORDNO, ZIDCODE ... (+1) |
+| [ZEDT00_101](zedt00_101.md) 📄 [HTML](zedt00_101.html) | - | 39 | MANDT, ZORDNO, ZIDCODE ... (+1) |
+| [ZEDT00_102](zedt00_102.md) 📄 [HTML](zedt00_102.html) | - | 29 | MANDT, ZPERNR, ZDEPCODE ... (+2) |
+| [ZEDT00_103](zedt00_103.md) 📄 [HTML](zedt00_103.html) | - | 14 | MANDT, ZPERNR |
+| [ZEDT00_104](zedt00_104.md) 📄 [HTML](zedt00_104.html) | - | 20 | MANDT, ZPERNR, ZDEPCODE ... (+3) |
+| [ZEDT00_105](zedt00_105.md) 📄 [HTML](zedt00_105.html) | - | 22 | MANDT, ZPERNR, ZYEAR |
+| [ZEDT00_106](zedt00_106.md) 📄 [HTML](zedt00_106.html) | - | 20 | MANDT, ZPERNR, ZYEAR ... (+2) |
+| [ZEDT00_200](zedt00_200.md) 📄 [HTML](zedt00_200.html) | - | 17 | MANDT, WERKS, LGORT ... (+1) |
 
 ---
 
@@ -39,7 +39,7 @@
 
 **데이터 타입:** CHAR(6), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zeds00_001.html)
+📋 [마크다운으로 보기](zeds00_001.md) | 📄 [HTML로 보기](zeds00_001.html)
 
 ---
 
@@ -59,7 +59,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zeds00_002.html)
+📋 [마크다운으로 보기](zeds00_002.md) | 📄 [HTML로 보기](zeds00_002.html)
 
 ---
 
@@ -83,7 +83,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt00_001.html)
+📋 [마크다운으로 보기](zedt00_001.md) | 📄 [HTML로 보기](zedt00_001.html)
 
 ---
 
@@ -107,7 +107,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zedt00_002.html)
+📋 [마크다운으로 보기](zedt00_002.md) | 📄 [HTML로 보기](zedt00_002.html)
 
 ---
 
@@ -131,7 +131,7 @@
 
 **데이터 타입:** CHAR(11), CURR(2), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt00_004.html)
+📋 [마크다운으로 보기](zedt00_004.md) | 📄 [HTML로 보기](zedt00_004.html)
 
 ---
 
@@ -155,7 +155,7 @@
 
 **데이터 타입:** CHAR(11), DATS(4), CURR(3), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt00_100.html)
+📋 [마크다운으로 보기](zedt00_100.md) | 📄 [HTML로 보기](zedt00_100.html)
 
 ---
 
@@ -179,7 +179,7 @@
 
 **데이터 타입:** CHAR(11), DATS(4), TIMS(2), CLNT(1), QUAN(1)
 
-📄 [전체 테이블 구조 보기](zedt00_101.html)
+📋 [마크다운으로 보기](zedt00_101.md) | 📄 [HTML로 보기](zedt00_101.html)
 
 ---
 
@@ -203,7 +203,7 @@
 
 **데이터 타입:** CHAR(6), DATS(6), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt00_102.html)
+📋 [마크다운으로 보기](zedt00_102.md) | 📄 [HTML로 보기](zedt00_102.html)
 
 ---
 
@@ -227,7 +227,7 @@
 
 **데이터 타입:** CHAR(6), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt00_103.html)
+📋 [마크다운으로 보기](zedt00_103.md) | 📄 [HTML로 보기](zedt00_103.html)
 
 ---
 
@@ -251,7 +251,7 @@
 
 **데이터 타입:** CHAR(5), DATS(4), TIMS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt00_104.html)
+📋 [마크다운으로 보기](zedt00_104.md) | 📄 [HTML로 보기](zedt00_104.html)
 
 ---
 
@@ -275,7 +275,7 @@
 
 **데이터 타입:** CURR(12), CHAR(3), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt00_105.html)
+📋 [마크다운으로 보기](zedt00_105.md) | 📄 [HTML로 보기](zedt00_105.html)
 
 ---
 
@@ -299,7 +299,7 @@
 
 **데이터 타입:** CHAR(5), DATS(4), TIMS(2), CLNT(1), NUMC(1)
 
-📄 [전체 테이블 구조 보기](zedt00_106.html)
+📋 [마크다운으로 보기](zedt00_106.md) | 📄 [HTML로 보기](zedt00_106.html)
 
 ---
 
@@ -323,7 +323,7 @@
 
 **데이터 타입:** CHAR(7), DATS(2), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zedt00_200.html)
+📋 [마크다운으로 보기](zedt00_200.md) | 📄 [HTML로 보기](zedt00_200.html)
 
 ---
 

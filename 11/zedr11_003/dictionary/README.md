@@ -5,7 +5,7 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT11_003](zedt11_003.html) | search help zedt11_002-ZMGUBUN data | 6 | MANDT, ZMGUBUN |
+| [ZEDT11_003](zedt11_003.md) 📄 [HTML](zedt11_003.html) | search help zedt11_002-ZMGUBUN data | 6 | MANDT, ZMGUBUN |
 
 ---
 
@@ -25,7 +25,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt11_003.html)
+📋 [마크다운으로 보기](zedt11_003.md) | 📄 [HTML로 보기](zedt11_003.html)
 
 ---
 

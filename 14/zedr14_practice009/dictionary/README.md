@@ -5,11 +5,11 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT14_102](zedt14_102.html) | - | 16 | MANDT, ZPERNR, ZDEPCODE ... (+2) |
-| [ZEDT14_103](zedt14_103.html) | - | 12 | MANDT, ZPERNR |
-| [ZEDT14_104](zedt14_104.html) | - | 14 | MANDT, ZPERNR, ZDEPCODE ... (+3) |
-| [ZEDT14_105](zedt14_105.html) | - | 22 | MANDT, ZPERNR, ZYEAR |
-| [ZEDT14_106](zedt14_106.html) | - | 15 | MANDT, ZPERNR, ZYEAR ... (+2) |
+| [ZEDT14_102](zedt14_102.md) 📄 [HTML](zedt14_102.html) | - | 16 | MANDT, ZPERNR, ZDEPCODE ... (+2) |
+| [ZEDT14_103](zedt14_103.md) 📄 [HTML](zedt14_103.html) | - | 12 | MANDT, ZPERNR |
+| [ZEDT14_104](zedt14_104.md) 📄 [HTML](zedt14_104.html) | - | 14 | MANDT, ZPERNR, ZDEPCODE ... (+3) |
+| [ZEDT14_105](zedt14_105.md) 📄 [HTML](zedt14_105.html) | - | 22 | MANDT, ZPERNR, ZYEAR |
+| [ZEDT14_106](zedt14_106.md) 📄 [HTML](zedt14_106.html) | - | 15 | MANDT, ZPERNR, ZYEAR ... (+2) |
 
 ---
 
@@ -35,7 +35,7 @@
 
 **데이터 타입:** CHAR(6), DATS(6), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt14_102.html)
+📋 [마크다운으로 보기](zedt14_102.md) | 📄 [HTML로 보기](zedt14_102.html)
 
 ---
 
@@ -59,7 +59,7 @@
 
 **데이터 타입:** CHAR(6), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt14_103.html)
+📋 [마크다운으로 보기](zedt14_103.md) | 📄 [HTML로 보기](zedt14_103.html)
 
 ---
 
@@ -83,7 +83,7 @@
 
 **데이터 타입:** CHAR(5), DATS(4), TIMS(2), CLNT(1), INT4(1)
 
-📄 [전체 테이블 구조 보기](zedt14_104.html)
+📋 [마크다운으로 보기](zedt14_104.md) | 📄 [HTML로 보기](zedt14_104.html)
 
 ---
 
@@ -107,7 +107,7 @@
 
 **데이터 타입:** CURR(12), CHAR(4), DATS(2), TIMS(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt14_105.html)
+📋 [마크다운으로 보기](zedt14_105.md) | 📄 [HTML로 보기](zedt14_105.html)
 
 ---
 
@@ -131,7 +131,7 @@
 
 **데이터 타입:** CHAR(6), DATS(4), TIMS(2), CLNT(1), CURR(1)
 
-📄 [전체 테이블 구조 보기](zedt14_106.html)
+📋 [마크다운으로 보기](zedt14_106.md) | 📄 [HTML로 보기](zedt14_106.html)
 
 ---
 

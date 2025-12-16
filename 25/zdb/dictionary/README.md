@@ -5,9 +5,9 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT25_ZRBKP](zedt25_zrbkp.html) | - | 48 | MANDT, BELNR, GJAHR |
-| [ZEDT25_ZRSEG](zedt25_zrseg.html) | - | 34 | MANDT, BELNR, GJAHR ... (+1) |
-| [ZEDT25_ZTERM](zedt25_zterm.html) | - | 14 | MANDT, ZTERM |
+| [ZEDT25_ZRBKP](zedt25_zrbkp.md) 📄 [HTML](zedt25_zrbkp.html) | - | 48 | MANDT, BELNR, GJAHR |
+| [ZEDT25_ZRSEG](zedt25_zrseg.md) 📄 [HTML](zedt25_zrseg.html) | - | 34 | MANDT, BELNR, GJAHR ... (+1) |
+| [ZEDT25_ZTERM](zedt25_zterm.md) 📄 [HTML](zedt25_zterm.html) | - | 14 | MANDT, ZTERM |
 
 ---
 
@@ -31,7 +31,7 @@
 
 **데이터 타입:** CHAR(12), NUMC(2), DATS(2), CURR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt25_zrbkp.html)
+📋 [마크다운으로 보기](zedt25_zrbkp.md) | 📄 [HTML로 보기](zedt25_zrbkp.html)
 
 ---
 
@@ -53,7 +53,7 @@
 
 **데이터 타입:** CHAR(11), NUMC(5), CURR(2), QUAN(2), UNIT(2)
 
-📄 [전체 테이블 구조 보기](zedt25_zrseg.html)
+📋 [마크다운으로 보기](zedt25_zrseg.md) | 📄 [HTML로 보기](zedt25_zrseg.html)
 
 ---
 
@@ -69,7 +69,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt25_zterm.html)
+📋 [마크다운으로 보기](zedt25_zterm.md) | 📄 [HTML로 보기](zedt25_zterm.html)
 
 ---
 

@@ -5,7 +5,7 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT19_003](zedt19_003.html) | Search hlep zedt19_002-ZGUBUN data | 3 | MANDT, ZMGUBUN |
+| [ZEDT19_003](zedt19_003.md) 📄 [HTML](zedt19_003.html) | Search hlep zedt19_002-ZGUBUN data | 3 | MANDT, ZMGUBUN |
 
 ---
 
@@ -25,7 +25,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt19_003.html)
+📋 [마크다운으로 보기](zedt19_003.md) | 📄 [HTML로 보기](zedt19_003.html)
 
 ---
 

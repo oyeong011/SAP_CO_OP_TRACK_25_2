@@ -5,9 +5,9 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDS07_001](zeds07_001.html) | - | 14 | - |
-| [ZEDS07_002](zeds07_002.html) | - | 6 | - |
-| [ZEDT07_004](zedt07_004.html) | - | 34 | MANDT, ZCODE, ZPERNR ... (+3) |
+| [ZEDS07_001](zeds07_001.md) 📄 [HTML](zeds07_001.html) | - | 14 | - |
+| [ZEDS07_002](zeds07_002.md) 📄 [HTML](zeds07_002.html) | - | 6 | - |
+| [ZEDT07_004](zedt07_004.md) 📄 [HTML](zedt07_004.html) | - | 34 | MANDT, ZCODE, ZPERNR ... (+3) |
 
 ---
 
@@ -29,7 +29,7 @@
 
 **데이터 타입:** CHAR(8), DATS(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zeds07_001.html)
+📋 [마크다운으로 보기](zeds07_001.md) | 📄 [HTML로 보기](zeds07_001.html)
 
 ---
 
@@ -49,7 +49,7 @@
 
 **데이터 타입:** CHAR(2), DATS(2), TIMS(2)
 
-📄 [전체 테이블 구조 보기](zeds07_002.html)
+📋 [마크다운으로 보기](zeds07_002.md) | 📄 [HTML로 보기](zeds07_002.html)
 
 ---
 
@@ -71,7 +71,7 @@
 
 **데이터 타입:** CHAR(10), CLNT(1), CURR(1), CUKY(1)
 
-📄 [전체 테이블 구조 보기](zedt07_004.html)
+📋 [마크다운으로 보기](zedt07_004.md) | 📄 [HTML로 보기](zedt07_004.html)
 
 ---
 

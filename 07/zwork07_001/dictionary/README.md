@@ -5,7 +5,7 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZTCURR07](ztcurr07.html) | - | 8 | MANDT, KURST, FCURR ... (+2) |
+| [ZTCURR07](ztcurr07.md) 📄 [HTML](ztcurr07.html) | - | 8 | MANDT, KURST, FCURR ... (+2) |
 
 ---
 
@@ -25,7 +25,7 @@
 
 **데이터 타입:** DEC(3), CHAR(2), CUKY(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](ztcurr07.html)
+📋 [마크다운으로 보기](ztcurr07.md) | 📄 [HTML로 보기](ztcurr07.html)
 
 ---
 

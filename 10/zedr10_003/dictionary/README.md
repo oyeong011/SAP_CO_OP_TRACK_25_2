@@ -5,8 +5,8 @@
 
 | 테이블명 | 설명 | 필드 수 | Key 필드 |
 |---------|------|---------|----------|
-| [ZEDT10_003](zedt10_003.html) | - | 3 | MANDT, ZMGUBUN |
-| [ZEDT10_T003](zedt10_t003.html) | - | 7 | MANDT, BLART |
+| [ZEDT10_003](zedt10_003.md) 📄 [HTML](zedt10_003.html) | - | 3 | MANDT, ZMGUBUN |
+| [ZEDT10_T003](zedt10_t003.md) 📄 [HTML](zedt10_t003.html) | - | 7 | MANDT, BLART |
 
 ---
 
@@ -24,7 +24,7 @@
 
 **데이터 타입:** CHAR(2), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_003.html)
+📋 [마크다운으로 보기](zedt10_003.md) | 📄 [HTML로 보기](zedt10_003.html)
 
 ---
 
@@ -42,7 +42,7 @@
 
 **데이터 타입:** CHAR(4), CLNT(1)
 
-📄 [전체 테이블 구조 보기](zedt10_t003.html)
+📋 [마크다운으로 보기](zedt10_t003.md) | 📄 [HTML로 보기](zedt10_t003.html)
 
 ---
 
