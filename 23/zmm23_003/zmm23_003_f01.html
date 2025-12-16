@@ -1,0 +1,320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM23_003_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM23_003_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM23_003_F01<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+FORM GET_PO.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_SUM&nbsp;TYPE&nbsp;Z23EKPO-MENGE.&nbsp;"#####&nbsp;##<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_EKKO.<br />
+&nbsp;&nbsp;GV_FLAG&nbsp;=&nbsp;'0'.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;GS_EKKO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23EKKO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;EBELN&nbsp;EQ&nbsp;GV_EBELN.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GS_EKKO&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;##&nbsp;#######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_FLAG&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_EKPO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23EKPO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;EBELN&nbsp;EQ&nbsp;GV_EBELN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;WERKS&nbsp;EQ&nbsp;GV_WERKS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ELIKZ&nbsp;NE&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_EKPO[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;OK_CODE&nbsp;EQ&nbsp;'ADD'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_FLAG&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;OK_CODE&nbsp;EQ&nbsp;'CREA'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_EKPO.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_EKPO&nbsp;INTO&nbsp;GS_EKPO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;LV_SUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SUM(&nbsp;MENGE&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;LV_SUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23MSEG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;EBELN&nbsp;EQ&nbsp;GS_EKPO-EBELN&nbsp;&nbsp;"PO##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;EBELP&nbsp;EQ&nbsp;GS_EKPO-EBELP&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;WERKS&nbsp;EQ&nbsp;GS_EKPO-WERKS&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;MATNR&nbsp;EQ&nbsp;GS_EKPO-MATNR.&nbsp;&nbsp;"####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_EKPO-MENGE_R&nbsp;=&nbsp;GS_EKPO-MENGE&nbsp;-&nbsp;LV_SUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_EKPO&nbsp;FROM&nbsp;GS_EKPO.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+FORM SAVE_MIGO.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_MKPF&nbsp;TYPE&nbsp;Z23MKPF,&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSEG&nbsp;TYPE&nbsp;Z23MSEG,&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MAX_MBLNR&nbsp;TYPE&nbsp;MBLNR,&nbsp;&nbsp;"######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_SUM&nbsp;TYPE&nbsp;Z23MSEG-MENGE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_CNT&nbsp;TYPE&nbsp;I.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;MAX(&nbsp;MBLNR&nbsp;)&nbsp;INTO&nbsp;LV_MAX_MBLNR&nbsp;FROM&nbsp;Z23MKPF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;######&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;LV_MAX_MBLNR&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_MAX_MBLNR&nbsp;=&nbsp;'4999999999'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;LV_MAX_MBLNR&nbsp;=&nbsp;LV_MAX_MBLNR&nbsp;+&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####(MKPF)&nbsp;##<br />
+&nbsp;&nbsp;LV_MKPF-MBLNR&nbsp;=&nbsp;LV_MAX_MBLNR.&nbsp;&nbsp;&nbsp;"######<br />
+&nbsp;&nbsp;LV_MKPF-MJAHR&nbsp;=&nbsp;GV_BUDAT+0(4).&nbsp;&nbsp;"####(####&nbsp;##)<br />
+&nbsp;&nbsp;LV_MKPF-BLART&nbsp;=&nbsp;'WE'.&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;LV_MKPF-BLDAT&nbsp;=&nbsp;GS_EKKO-BEDAT.&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;LV_MKPF-BUDAT&nbsp;=&nbsp;GV_BUDAT.&nbsp;"###<br />
+&nbsp;&nbsp;"MODIFY&nbsp;Z23MKPF&nbsp;FROM&nbsp;LV_MKPF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;#####(MSEG)&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_EKPO.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;NUM&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;1.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_EKPO&nbsp;INTO&nbsp;GS_EKPO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_EKPO-ZCHECK&nbsp;EQ&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSEG-MBLNR&nbsp;=&nbsp;LV_MKPF-MBLNR.&nbsp;&nbsp;"######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSEG-MJAHR&nbsp;=&nbsp;GV_BUDAT+0(4).&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSEG-ZEILE&nbsp;=&nbsp;NUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSEG-MATNR&nbsp;=&nbsp;GS_EKPO-MATNR.&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSEG-MAKTX&nbsp;=&nbsp;GS_EKPO-MAKTX.&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSEG-WERKS&nbsp;=&nbsp;GS_EKPO-WERKS.&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSEG-LGORT&nbsp;=&nbsp;GS_EKPO-LGORT.&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSEG-LIFNR&nbsp;=&nbsp;GS_EKKO-LIFNR.&nbsp;&nbsp;"#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSEG-WAERS&nbsp;=&nbsp;GS_EKKO-WAERS.&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSEG-MENGE&nbsp;=&nbsp;GS_EKPO-MENGE_I.&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSEG-MEINS&nbsp;=&nbsp;GS_EKPO-MEINS.&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSEG-EBELN&nbsp;=&nbsp;GS_EKPO-EBELN.&nbsp;&nbsp;"######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSEG-EBELP&nbsp;=&nbsp;GS_EKPO-EBELP.&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSEG-BUKRS&nbsp;=&nbsp;GS_EKKO-BUKRS.&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSEG-GJAHR&nbsp;=&nbsp;GV_BUDAT+0(4).&nbsp;&nbsp;"####&nbsp;(#&nbsp;####)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"LV_MSEG-BELNR&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"LV_MSEG-SHKZG&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSEG-DMBTR&nbsp;=&nbsp;GS_EKPO-MENGE_I&nbsp;*&nbsp;GS_EKPO-STPRS.&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"LV_MSEG-BWART&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;Z23MSEG&nbsp;FROM&nbsp;LV_MSEG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"INSERT&nbsp;Z23MSEG&nbsp;FROM&nbsp;LV_MSEG.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_CNT&nbsp;=&nbsp;LV_CNT&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;PO##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_ELIKZ&nbsp;USING&nbsp;GS_EKPO.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;LV_MSEG,&nbsp;GS_EKPO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NUM&nbsp;=&nbsp;NUM&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LV_CNT&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;Z23MKPF&nbsp;FROM&nbsp;LV_MKPF.&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;#######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+FORM CHECK_ELIKZ USING P_EKPO LIKE GS_EKPO.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_SUM&nbsp;TYPE&nbsp;Z23MSEG-MENGE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO&nbsp;LIKE&nbsp;Z23EKPO.<br />
+&nbsp;&nbsp;LV_SUM&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;LV_EKPO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23EKPO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;EBELN&nbsp;EQ&nbsp;P_EKPO-EBELN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;EBELP&nbsp;EQ&nbsp;P_EKPO-EBELP.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SUM(&nbsp;MENGE&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;LV_SUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23MSEG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;EBELN&nbsp;EQ&nbsp;P_EKPO-EBELN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;EBELP&nbsp;EQ&nbsp;P_EKPO-EBELP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"AND&nbsp;MATNR&nbsp;EQ&nbsp;P_EKPO-MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"AND&nbsp;WERKS&nbsp;EQ&nbsp;P_EKPO-WERKS.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LV_SUM&nbsp;EQ&nbsp;LV_EKPO-MENGE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO-ELIKZ&nbsp;=&nbsp;'X'.&nbsp;&nbsp;"#######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;Z23EKPO&nbsp;FROM&nbsp;LV_EKPO.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+FORM GET_MIGO.<br />
+&nbsp;&nbsp;GV_FLAG&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_MSEG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23MSEG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;EBELN&nbsp;EQ&nbsp;GV_EBELN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;WERKS&nbsp;EQ&nbsp;GV_WERKS.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_MSEG[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;OK_CODE&nbsp;EQ&nbsp;'SCH'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_FLAG&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;OK_CODE&nbsp;EQ&nbsp;'DEL'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+FORM REMOVE_MIGO.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_SUM&nbsp;TYPE&nbsp;Z23MSEG-MENGE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO&nbsp;LIKE&nbsp;Z23EKPO.<br />
+<br />
+&nbsp;&nbsp;"#####&nbsp;##&nbsp;##.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_MSEG&nbsp;INTO&nbsp;GS_MSEG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_MSEG-ZCHECK&nbsp;EQ&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;LV_EKPO,&nbsp;LV_SUM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;FROM&nbsp;Z23MSEG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;MBLNR&nbsp;EQ&nbsp;GS_MSEG-MBLNR&nbsp;&nbsp;"######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;MJAHR&nbsp;EQ&nbsp;GS_MSEG-MJAHR&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;EBELN&nbsp;EQ&nbsp;GS_MSEG-EBELN&nbsp;&nbsp;"######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;EBELP&nbsp;EQ&nbsp;GS_MSEG-EBELP.&nbsp;"####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"PO###&nbsp;#####&nbsp;#######&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;LV_EKPO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23EKPO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;EBELN&nbsp;EQ&nbsp;GS_MSEG-EBELN&nbsp;&nbsp;"PO&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;EBELP&nbsp;EQ&nbsp;GS_MSEG-EBELP&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;WERKS&nbsp;EQ&nbsp;GS_MSEG-WERKS&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;LGORT&nbsp;EQ&nbsp;GS_MSEG-LGORT.&nbsp;"####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SUM(&nbsp;MENGE&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;LV_SUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23MSEG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;EBELN&nbsp;EQ&nbsp;GS_MSEG-EBELN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;MATNR&nbsp;EQ&nbsp;GS_MSEG-MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;WERKS&nbsp;EQ&nbsp;GS_MSEG-WERKS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;EBELP&nbsp;EQ&nbsp;GS_MSEG-EBELP.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LV_SUM&nbsp;NE&nbsp;LV_EKPO-MENGE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO-ELIKZ&nbsp;=&nbsp;''.&nbsp;&nbsp;"#######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;Z23EKPO&nbsp;FROM&nbsp;LV_EKPO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_MSEG.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;REMOVE_MKPF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;#######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_MIGO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+<br />
+ENDFORM.<br />
+<br />
+"#### ## ## ##<br />
+FORM REMOVE_MKPF.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LT_MKPF&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;Z23MKPF.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;MBLNR&nbsp;MJAHR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23MKPF<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;LT_MKPF.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_MKPF&nbsp;INTO&nbsp;DATA(LS_MKPF).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(*)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23MSEG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;MBLNR&nbsp;EQ&nbsp;LS_MKPF-MBLNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;MJAHR&nbsp;EQ&nbsp;LS_MKPF-MJAHR.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-DBCNT&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;FROM&nbsp;Z23MKPF<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;MBLNR&nbsp;EQ&nbsp;LS_MKPF-MBLNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;MJAHR&nbsp;EQ&nbsp;LS_MKPF-MJAHR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

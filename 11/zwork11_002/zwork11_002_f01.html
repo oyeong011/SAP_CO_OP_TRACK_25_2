@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZWORK11_002_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZWORK11_002_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;ZWORK11_002_F01<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+FORM set_init.<br />
+&nbsp;&nbsp;p_date&nbsp;=&nbsp;sy-datum.<br />
+ENDFORM.<br />
+<br />
+FORM get_data.<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_gdatu&nbsp;TYPE&nbsp;ztcurr11-gdatu.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1.&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;lv_gdatu&nbsp;=&nbsp;p_date.<br />
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_list<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ztcurr11&nbsp;WHERE&nbsp;gdatu&nbsp;=&nbsp;lv_gdatu.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2.&nbsp;###&nbsp;###&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;gt_list&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:&nbsp;lv_num&nbsp;TYPE&nbsp;n&nbsp;LENGTH&nbsp;8.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_num&nbsp;=&nbsp;99999999&nbsp;-&nbsp;p_date.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_gdatu&nbsp;=&nbsp;lv_num.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_list<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ztcurr11&nbsp;WHERE&nbsp;gdatu&nbsp;=&nbsp;lv_gdatu.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+FORM set_add_info.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_list&nbsp;INTO&nbsp;gs_list.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_list-uname&nbsp;=&nbsp;sy-uname.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_list-cdate&nbsp;=&nbsp;sy-datum.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;gt_list&nbsp;FROM&nbsp;gs_list.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+FORM init_alv.<br />
+&nbsp;&nbsp;IF&nbsp;go_container&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_container&nbsp;EXPORTING&nbsp;container_name&nbsp;=&nbsp;'CON1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_grid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;i_parent&nbsp;=&nbsp;go_container.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_fcat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_grid-&gt;set_table_for_first_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;it_outtab&nbsp;=&nbsp;gt_list&nbsp;it_fieldcatalog&nbsp;=&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;refresh_alv.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+FORM set_fcat.<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_pos&nbsp;TYPE&nbsp;i.<br />
+&nbsp;&nbsp;DEFINE&nbsp;_add.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;add&nbsp;1&nbsp;to&nbsp;lv_pos.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat-col_pos&nbsp;&nbsp;&nbsp;=&nbsp;lv_pos.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;&1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat-coltext&nbsp;&nbsp;&nbsp;=&nbsp;&2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;&3&nbsp;is&nbsp;not&nbsp;initial.&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;&3.&nbsp;endif.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;append&nbsp;gs_fcat&nbsp;to&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;END-OF-DEFINITION.<br />
+<br />
+&nbsp;&nbsp;_add&nbsp;'KURST'&nbsp;&nbsp;'####'&nbsp;&nbsp;0.<br />
+&nbsp;&nbsp;_add&nbsp;'FCURR'&nbsp;&nbsp;'####'&nbsp;&nbsp;0.<br />
+&nbsp;&nbsp;_add&nbsp;'TCURR'&nbsp;&nbsp;'####'&nbsp;&nbsp;0.<br />
+&nbsp;&nbsp;_add&nbsp;'GDATU'&nbsp;&nbsp;'####'&nbsp;&nbsp;0.<br />
+&nbsp;&nbsp;_add&nbsp;'UKURS'&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15.<br />
+&nbsp;&nbsp;_add&nbsp;'FFACT'&nbsp;&nbsp;'####'&nbsp;&nbsp;0.<br />
+&nbsp;&nbsp;_add&nbsp;'TFACT'&nbsp;&nbsp;'####'&nbsp;&nbsp;0.<br />
+&nbsp;&nbsp;_add&nbsp;'UNAME'&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;12.<br />
+&nbsp;&nbsp;_add&nbsp;'CDATE'&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;10.<br />
+ENDFORM.<br />
+<br />
+FORM refresh_alv.<br />
+&nbsp;&nbsp;DATA&nbsp;ls_stbl&nbsp;TYPE&nbsp;lvc_s_stbl.<br />
+&nbsp;&nbsp;ls_stbl-row&nbsp;=&nbsp;'X'.&nbsp;ls_stbl-col&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;go_grid-&gt;refresh_table_display(&nbsp;is_stable&nbsp;=&nbsp;ls_stbl&nbsp;).<br />
+ENDFORM.<br />
+<br />
+" =========================================================<br />
+"  [PDF ##] ## ##(ZWORK07) ## + ## ## ##<br />
+" =========================================================<br />
+FORM process_download.<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_save_dir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_pdf_path&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_excel_path&nbsp;&nbsp;&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_filename&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1.&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;cl_gui_frontend_services=&gt;directory_browse<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;selected_folder&nbsp;=&nbsp;lv_save_dir.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;lv_save_dir&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'#######.'&nbsp;TYPE&nbsp;'S'.&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2.&nbsp;###&nbsp;##&nbsp;(##&nbsp;##)<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;[##&nbsp;##]&nbsp;####&nbsp;2#(\\)#&nbsp;##&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;lv_filename&nbsp;=&nbsp;|\\Rate_{&nbsp;sy-uzeit&nbsp;}|.<br />
+<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;lv_save_dir&nbsp;lv_filename&nbsp;'.pdf'&nbsp;&nbsp;INTO&nbsp;lv_pdf_path.<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;lv_save_dir&nbsp;lv_filename&nbsp;'.xlsx'&nbsp;INTO&nbsp;lv_excel_path.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;3.&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;execute_ole_logic&nbsp;USING&nbsp;lv_pdf_path&nbsp;lv_excel_path.<br />
+<br />
+&nbsp;&nbsp;MESSAGE&nbsp;|##&nbsp;##:&nbsp;{&nbsp;lv_pdf_path&nbsp;}|&nbsp;TYPE&nbsp;'S'.<br />
+ENDFORM.<br />
+<br />
+FORM execute_ole_logic USING p_pdf_path p_xls_path.<br />
+&nbsp;&nbsp;DATA:&nbsp;lo_excel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ole2_object,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_workbooks&nbsp;TYPE&nbsp;ole2_object,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_workbook&nbsp;&nbsp;TYPE&nbsp;ole2_object,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_sheet&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ole2_object,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_pagesetup&nbsp;TYPE&nbsp;ole2_object,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_usedrange&nbsp;TYPE&nbsp;ole2_object,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_columns&nbsp;&nbsp;&nbsp;TYPE&nbsp;ole2_object.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1.&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;lo_excel&nbsp;'EXCEL.APPLICATION'.<br />
+&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;lo_excel&nbsp;'Visible'&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;lo_excel&nbsp;'DisplayAlerts'&nbsp;=&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2.&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_excel&nbsp;'Workbooks'&nbsp;=&nbsp;lo_workbooks.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_workbooks&nbsp;'Add'&nbsp;=&nbsp;lo_workbook.<br />
+&nbsp;&nbsp;GET&nbsp;PROPERTY&nbsp;OF&nbsp;lo_excel&nbsp;'ActiveSheet'&nbsp;=&nbsp;lo_sheet.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;3.&nbsp;###&nbsp;##&nbsp;(##)<br />
+&nbsp;&nbsp;GET&nbsp;PROPERTY&nbsp;OF&nbsp;lo_sheet&nbsp;'PageSetup'&nbsp;=&nbsp;lo_pagesetup.<br />
+&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;lo_pagesetup&nbsp;'Orientation'&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;FREE&nbsp;OBJECT&nbsp;lo_pagesetup.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;4.&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_cell&nbsp;USING&nbsp;lo_sheet&nbsp;1&nbsp;1&nbsp;'####'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_cell&nbsp;USING&nbsp;lo_sheet&nbsp;1&nbsp;2&nbsp;'####'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_cell&nbsp;USING&nbsp;lo_sheet&nbsp;1&nbsp;3&nbsp;'####'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_cell&nbsp;USING&nbsp;lo_sheet&nbsp;1&nbsp;4&nbsp;'####'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_cell&nbsp;USING&nbsp;lo_sheet&nbsp;1&nbsp;5&nbsp;'##'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_cell&nbsp;USING&nbsp;lo_sheet&nbsp;1&nbsp;6&nbsp;'####'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_cell&nbsp;USING&nbsp;lo_sheet&nbsp;1&nbsp;7&nbsp;'####'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_cell&nbsp;USING&nbsp;lo_sheet&nbsp;1&nbsp;8&nbsp;'###'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_cell&nbsp;USING&nbsp;lo_sheet&nbsp;1&nbsp;9&nbsp;'###'.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;5.&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_row&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_date_str&nbsp;TYPE&nbsp;char10.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_list&nbsp;INTO&nbsp;gs_list.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_list-uname&nbsp;IS&nbsp;INITIAL.&nbsp;gs_list-uname&nbsp;=&nbsp;sy-uname.&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_list-cdate&nbsp;IS&nbsp;INITIAL.&nbsp;gs_list-cdate&nbsp;=&nbsp;sy-datum.&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;lv_date_str.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;gs_list-cdate(4)&nbsp;'.'&nbsp;gs_list-cdate+4(2)&nbsp;'.'&nbsp;gs_list-cdate+6(2)&nbsp;INTO&nbsp;lv_date_str.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_cell&nbsp;USING&nbsp;lo_sheet&nbsp;lv_row&nbsp;1&nbsp;gs_list-kurst.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_cell&nbsp;USING&nbsp;lo_sheet&nbsp;lv_row&nbsp;2&nbsp;gs_list-fcurr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_cell&nbsp;USING&nbsp;lo_sheet&nbsp;lv_row&nbsp;3&nbsp;gs_list-tcurr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_cell&nbsp;USING&nbsp;lo_sheet&nbsp;lv_row&nbsp;4&nbsp;gs_list-gdatu.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_cell&nbsp;USING&nbsp;lo_sheet&nbsp;lv_row&nbsp;5&nbsp;gs_list-ukurs.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_cell&nbsp;USING&nbsp;lo_sheet&nbsp;lv_row&nbsp;6&nbsp;gs_list-ffact.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_cell&nbsp;USING&nbsp;lo_sheet&nbsp;lv_row&nbsp;7&nbsp;gs_list-tfact.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_cell&nbsp;USING&nbsp;lo_sheet&nbsp;lv_row&nbsp;8&nbsp;gs_list-uname.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_cell&nbsp;USING&nbsp;lo_sheet&nbsp;lv_row&nbsp;9&nbsp;lv_date_str.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;1&nbsp;TO&nbsp;lv_row.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;6.&nbsp;AutoFit<br />
+&nbsp;&nbsp;GET&nbsp;PROPERTY&nbsp;OF&nbsp;lo_sheet&nbsp;'UsedRange'&nbsp;=&nbsp;lo_usedrange.<br />
+&nbsp;&nbsp;GET&nbsp;PROPERTY&nbsp;OF&nbsp;lo_usedrange&nbsp;'Columns'&nbsp;=&nbsp;lo_columns.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_columns&nbsp;'AutoFit'.<br />
+&nbsp;&nbsp;FREE&nbsp;OBJECT&nbsp;lo_columns.<br />
+&nbsp;&nbsp;FREE&nbsp;OBJECT&nbsp;lo_usedrange.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;7.&nbsp;###&nbsp;(##&nbsp;##&nbsp;##)<br />
+&nbsp;&nbsp;DATA:&nbsp;lo_range&nbsp;&nbsp;TYPE&nbsp;ole2_object,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_border&nbsp;TYPE&nbsp;ole2_object,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_idx&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;(1)&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_sheet&nbsp;'Range'&nbsp;=&nbsp;lo_range&nbsp;EXPORTING&nbsp;#1&nbsp;=&nbsp;'A1'&nbsp;#2&nbsp;=&nbsp;'I1'.<br />
+&nbsp;&nbsp;DO&nbsp;5&nbsp;TIMES.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_idx&nbsp;=&nbsp;sy-index&nbsp;+&nbsp;6.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_range&nbsp;'Borders'&nbsp;=&nbsp;lo_border&nbsp;EXPORTING&nbsp;#1&nbsp;=&nbsp;lv_idx.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;lo_border&nbsp;'LineStyle'&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;ENDDO.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;(2)&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_start_cell&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_end_cell&nbsp;&nbsp;&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_last_row&nbsp;&nbsp;&nbsp;TYPE&nbsp;i.<br />
+<br />
+&nbsp;&nbsp;lv_last_row&nbsp;=&nbsp;lv_row&nbsp;-&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;lv_last_row&nbsp;&gt;=&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_start_cell&nbsp;=&nbsp;'A2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_end_cell&nbsp;&nbsp;&nbsp;=&nbsp;|I{&nbsp;lv_last_row&nbsp;}|.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_sheet&nbsp;'Range'&nbsp;=&nbsp;lo_range&nbsp;EXPORTING&nbsp;#1&nbsp;=&nbsp;lv_start_cell&nbsp;#2&nbsp;=&nbsp;lv_end_cell.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DO&nbsp;5&nbsp;TIMES.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_idx&nbsp;=&nbsp;sy-index&nbsp;+&nbsp;6.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_range&nbsp;'Borders'&nbsp;=&nbsp;lo_border&nbsp;EXPORTING&nbsp;#1&nbsp;=&nbsp;lv_idx.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;lo_border&nbsp;'LineStyle'&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDDO.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;FREE&nbsp;OBJECT:&nbsp;lo_range,&nbsp;lo_border.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;8.&nbsp;PDF&nbsp;####&nbsp;(##&nbsp;##&nbsp;##)<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_workbook&nbsp;'ExportAsFixedFormat'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#1&nbsp;=&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;xlTypePDF<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#2&nbsp;=&nbsp;p_pdf_path.&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+<br />
+&nbsp;&nbsp;"&nbsp;9.&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_workbook&nbsp;'Close'&nbsp;EXPORTING&nbsp;#1&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_excel&nbsp;'Quit'.<br />
+<br />
+&nbsp;&nbsp;FREE&nbsp;OBJECT:&nbsp;lo_workbook,&nbsp;lo_workbooks,&nbsp;lo_sheet,&nbsp;lo_excel.<br />
+ENDFORM.<br />
+<br />
+FORM set_cell USING p_sheet p_row p_col p_val.<br />
+&nbsp;&nbsp;DATA:&nbsp;lo_cell&nbsp;TYPE&nbsp;ole2_object.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;p_sheet&nbsp;'Cells'&nbsp;=&nbsp;lo_cell&nbsp;EXPORTING&nbsp;#1&nbsp;=&nbsp;p_row&nbsp;#2&nbsp;=&nbsp;p_col.<br />
+&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;lo_cell&nbsp;'Value'&nbsp;=&nbsp;p_val.<br />
+&nbsp;&nbsp;FREE&nbsp;OBJECT&nbsp;lo_cell.<br />
+" ### [## ##] ## ENDFORM# ### PBO ### #####.<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

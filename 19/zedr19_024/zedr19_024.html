@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR19_024</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR19_024</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR19_024<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR19_024.<br />
+<br />
+"### ### ## (#### ## ###)<br />
+DATA GT_GRADE TYPE STANDARD TABLE OF ZEDT19_004 WITH DEFAULT KEY.<br />
+<br />
+"Work Area ##<br />
+DATA GS_GRADE TYPE ZEDT19_004.<br />
+<br />
+"### ###(GT_GRADE)# #### # ## ##<br />
+SELECT * FROM ZEDT19_004 INTO CORRESPONDING FIELDS OF TABLE GT_GRADE.<br />
+<br />
+"##### ## #### ## ## ####(?)<br />
+DATA : lv_all_a TYPE abap_bool, "## ## # ## A ## ### (####)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_base_amt&nbsp;TYPE&nbsp;ZEDT19_004-ZSUM,&nbsp;"###&nbsp;###&nbsp;###&nbsp;(######&nbsp;#####&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_pay_amt&nbsp;TYPE&nbsp;ZEDT19_004-ZAMOUNT,&nbsp;"##&nbsp;###(##&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_rep_idx&nbsp;TYPE&nbsp;SY-TABIX,&nbsp;"###(=##&nbsp;#&nbsp;#)&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_zflag&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;4,&nbsp;"####('X'&nbsp;##&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_total&nbsp;TYPE&nbsp;ZEDT19_004-ZAMOUNT.&nbsp;"##&nbsp;##<br />
+<br />
+"## # ##<br />
+SORT GT_GRADE BY ZCODE ZEXAM.<br />
+"## ## (####, ##### ###)<br />
+DELETE ADJACENT DUPLICATES FROM GT_GRADE COMPARING ZCODE ZEXAM.<br />
+<br />
+LOOP AT GT_GRADE INTO GS_GRADE.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;NEW&nbsp;ZCODE.&nbsp;"ZCODE##&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_zflag&nbsp;=&nbsp;'&nbsp;'.&nbsp;"#####&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_all_a&nbsp;=&nbsp;abap_true.&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_base_amt&nbsp;=&nbsp;GS_GRADE-ZSUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_rep_idx&nbsp;=&nbsp;SY-TABIX.&nbsp;"###&nbsp;=&nbsp;#&nbsp;#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_all_a&nbsp;=&nbsp;abap_false.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"SY-TABIX&nbsp;=&nbsp;##&nbsp;###&nbsp;##&nbsp;##&nbsp;##&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_pay_amt&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;"#&nbsp;#####&nbsp;A#&nbsp;###&nbsp;false.<br />
+&nbsp;&nbsp;IF&nbsp;GS_GRADE-ZGRADE&nbsp;&lt;&gt;&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_all_a&nbsp;=&nbsp;abap_false.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;lv_base_amt&nbsp;=&nbsp;GS_GRADE-ZSUM.&nbsp;"###&nbsp;###&nbsp;##&nbsp;##<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;lv_all_a&nbsp;=&nbsp;abap_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_zflag&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;###&nbsp;##,&nbsp;##&nbsp;##&nbsp;###&nbsp;GS_GRADE-ZSCHOOL#&nbsp;##&nbsp;#&nbsp;#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_GRADE-ZSCHOOL&nbsp;=&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_pay_amt&nbsp;=&nbsp;lv_base_amt&nbsp;*&nbsp;80&nbsp;/&nbsp;100.&nbsp;"##&nbsp;20%&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_pay_amt&nbsp;=&nbsp;lv_base_amt&nbsp;*&nbsp;90&nbsp;/&nbsp;100.&nbsp;"####&nbsp;10%&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_pay_amt&nbsp;=&nbsp;lv_base_amt.&nbsp;"##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;END&nbsp;OF&nbsp;ZCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;lv_all_a&nbsp;=&nbsp;abap_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_zflag&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;###&nbsp;##,&nbsp;##&nbsp;##&nbsp;###&nbsp;GS_GRADE-ZSCHOOL#&nbsp;##&nbsp;#&nbsp;#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_GRADE-ZSCHOOL&nbsp;=&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_pay_amt&nbsp;=&nbsp;lv_base_amt&nbsp;*&nbsp;80&nbsp;/&nbsp;100.&nbsp;"##&nbsp;20%&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_pay_amt&nbsp;=&nbsp;lv_base_amt&nbsp;*&nbsp;90&nbsp;/&nbsp;100.&nbsp;"####&nbsp;10%&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_pay_amt&nbsp;=&nbsp;lv_base_amt.&nbsp;"##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"#####&nbsp;GT_GRADE##&nbsp;#&nbsp;###&nbsp;###&nbsp;##&nbsp;##&nbsp;lv_rep_idx#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"lv_rep_idx&nbsp;:&nbsp;AT&nbsp;NEW&nbsp;ZCODE.##&nbsp;###&nbsp;####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_GRADE&nbsp;INTO&nbsp;DATA(ls_rep)&nbsp;INDEX&nbsp;lv_rep_idx.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0."###&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_rep-ZFLAG&nbsp;=&nbsp;lv_zflag.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_rep-ZAMOUNT&nbsp;=&nbsp;lv_pay_amt.&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_rep-ZSUM&nbsp;=&nbsp;lv_base_amt.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"#####&nbsp;####(?)#&nbsp;#&nbsp;####&nbsp;#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_GRADE&nbsp;FROM&nbsp;ls_rep&nbsp;INDEX&nbsp;lv_rep_idx.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;###&nbsp;#####&nbsp;#&nbsp;##&nbsp;GT_GRADE#&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_total&nbsp;=&nbsp;lv_total&nbsp;+&nbsp;lv_pay_amt.<br />
+<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+ENDLOOP.<br />
+<br />
+"### ### GT_GRADE## ZCODE# #### ## ##### #<br />
+DELETE ADJACENT DUPLICATES FROM GT_GRADE COMPARING ZCODE.<br />
+<br />
+"### ##(ZCODE## ######)<br />
+SORT GT_GRADE BY ZCODE.<br />
+<br />
+LOOP AT GT_GRADE INTO GS_GRADE.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;FIRST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'####',&nbsp;15&nbsp;'##',&nbsp;35&nbsp;'####',&nbsp;50&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;GS_GRADE-ZCODE&nbsp;UNDER&nbsp;'####',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_GRADE-ZMNAME&nbsp;UNDER&nbsp;'##',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_GRADE-ZFlAG&nbsp;UNDER&nbsp;'####',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_GRADE-ZAMOUNT&nbsp;CURRENCY&nbsp;'KRW'&nbsp;UNDER&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ULINE.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;LAST.<br />
+&nbsp;&nbsp;ULINE.<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'##',&nbsp;50&nbsp;lv_total&nbsp;CURRENCY&nbsp;'KRW'.<br />
+&nbsp;&nbsp;ULINE.<br />
+&nbsp;&nbsp;ENDAT.<br />
+ENDLOOP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

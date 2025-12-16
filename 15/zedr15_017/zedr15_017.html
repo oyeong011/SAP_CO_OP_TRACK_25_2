@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR15_017</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR15_017</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR15_017<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR15_017.<br />
+<br />
+TABLES : ZEDT00_001.<br />
+<br />
+DATA : BEGIN OF GS_STUDENT.<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt00_001/dictionary-zedt00_001.html">ZEDT00_001</a>.<br />
+&nbsp;&nbsp;DATA:&nbsp;END&nbsp;OF&nbsp;GS_STUDENT.<br />
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*SELECT-OPTIONS&nbsp;:&nbsp;S_ZCODE&nbsp;FOR&nbsp;ZEDT00_001-ZCODE.<br />
+*PARAMETERS&nbsp;:&nbsp;P_ZGEN&nbsp;LIKE&nbsp;ZEDT00_001-ZGENDER.<br />
+<br />
+*"##&nbsp;##&nbsp;###<br />
+*SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;B1&nbsp;WITH&nbsp;FRAME.<br />
+*&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_ZCODE&nbsp;FOR&nbsp;ZEDT00_001-ZCODE.<br />
+*SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;B1.<br />
+*SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;B2&nbsp;WITH&nbsp;FRAME.<br />
+*&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_ZGEN&nbsp;LIKE&nbsp;ZEDT00_001-ZGENDER.<br />
+*SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;B2.<br />
+*<br />
+*SELECT&nbsp;*&nbsp;FROM&nbsp;ZEDT00_001<br />
+*&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_STUDENT<br />
+*&nbsp;&nbsp;WHERE&nbsp;ZCODE&nbsp;IN&nbsp;S_ZCODE&nbsp;"&nbsp;S_ZCODE&nbsp;##&nbsp;#&nbsp;##&nbsp;##&nbsp;#&nbsp;####&nbsp;####&nbsp;IN##<br />
+*&nbsp;&nbsp;AND&nbsp;ZGENDER&nbsp;=&nbsp;P_ZGEN.<br />
+*<br />
+*IF&nbsp;GT_STUDENT[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+*&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_STUDENT.<br />
+*&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_STUDENT&nbsp;INTO&nbsp;GS_STUDENT.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;GS_STUDENT-ZCODE,&nbsp;GS_STUDENT-ZKNAME.<br />
+*&nbsp;&nbsp;ENDLOOP.<br />
+*ELSE.<br />
+*&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'#####'.<br />
+*ENDIF.<br />
+<br />
+   </div>
+   <div class="code">
+"1) DEFAULT ### ##<br />
+   </div>
+   <div class="codeComment">
+*SELECT-OPTIONS&nbsp;:&nbsp;S_ZCODE&nbsp;FOR&nbsp;ZEDT00_001-ZCODE&nbsp;DEFAULT&nbsp;'SSU-01'&nbsp;SIGN&nbsp;I&nbsp;OPTION&nbsp;EQ.<br />
+*"SELECT-OPTIONS&nbsp;:&nbsp;S_ZCODE&nbsp;FOR&nbsp;ZEDT00_001-ZCODE&nbsp;DEFAULT&nbsp;'SSU-01'&nbsp;SIGN&nbsp;E&nbsp;OPTION&nbsp;EQ.<br />
+*"SELECT-OPTIONS&nbsp;:&nbsp;S_ZCODE&nbsp;FOR&nbsp;ZEDT00_001-ZCODE&nbsp;DEFAULT&nbsp;'SSU-01'&nbsp;TO&nbsp;'SSU-99'&nbsp;SIGN&nbsp;I&nbsp;OPTION&nbsp;BT.<br />
+*"SELECT-OPTIONS&nbsp;:&nbsp;S_ZCODE&nbsp;FOR&nbsp;ZEDT00_001-ZCODE&nbsp;DEFAULT&nbsp;'SSU-01'&nbsp;TO&nbsp;'SSU-99'&nbsp;SIGN&nbsp;E&nbsp;OPTION&nbsp;BT.<br />
+*PARAMETERS&nbsp;:&nbsp;P_ZGEN&nbsp;LIKE&nbsp;ZEDT00_001-ZGENDER.<br />
+<br />
+   </div>
+   <div class="code">
+"2) NO INTERVALS : #### #### ##<br />
+   </div>
+   <div class="codeComment">
+*SELECT-OPTIONS&nbsp;:&nbsp;S_ZCODE&nbsp;FOR&nbsp;ZEDT00_001-ZCODE&nbsp;DEFAULT&nbsp;'SSU-01'&nbsp;NO&nbsp;INTERVALS.<br />
+*PARAMETERS&nbsp;:&nbsp;P_ZGEN&nbsp;LIKE&nbsp;ZEDT00_001-ZGENDER.<br />
+<br />
+*"3)&nbsp;NO-EXTENSION&nbsp;:&nbsp;&nbsp;MULTIPLE&nbsp;SELECTIONS###&nbsp;##<br />
+*SELECT-OPTIONS&nbsp;:&nbsp;S_ZCODE&nbsp;FOR&nbsp;ZEDT00_001-ZCODE&nbsp;DEFAULT&nbsp;'SSU-01'&nbsp;NO&nbsp;INTERVALS&nbsp;NO-EXTENSION.<br />
+*PARAMETERS&nbsp;:&nbsp;P_ZGEN&nbsp;LIKE&nbsp;ZEDT00_001-ZGENDER.<br />
+<br />
+*"4)&nbsp;VISIBLE&nbsp;LENGTH&nbsp;:&nbsp;##&nbsp;##<br />
+*SELECT-OPTIONS&nbsp;:&nbsp;S_ZCODE&nbsp;FOR&nbsp;ZEDT00_001-ZCODE&nbsp;DEFAULT&nbsp;'SSU-01'&nbsp;VISIBLE&nbsp;LENGTH&nbsp;3.<br />
+*PARAMETERS&nbsp;:&nbsp;P_ZGEN&nbsp;LIKE&nbsp;ZEDT00_001-ZGENDER.<br />
+<br />
+*"5)&nbsp;MODIF&nbsp;ID&nbsp;:&nbsp;####&nbsp;###&nbsp;##&nbsp;##&nbsp;##&nbsp;##&nbsp;###<br />
+*SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;B1&nbsp;WITH&nbsp;FRAME.<br />
+*&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_ZCODE&nbsp;FOR&nbsp;ZEDT00_001-ZCODE.<br />
+*&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_ZGEN&nbsp;LIKE&nbsp;ZEDT00_001-ZGENDER.<br />
+*SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;B1.<br />
+*SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;B2&nbsp;WITH&nbsp;FRAME.<br />
+*&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_CH1&nbsp;AS&nbsp;CHECKBOX&nbsp;DEFAULT&nbsp;'X'&nbsp;MODIF&nbsp;ID&nbsp;M1.&nbsp;"###&nbsp;##&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_CH2&nbsp;AS&nbsp;CHECKBOX&nbsp;MODIF&nbsp;ID&nbsp;M2.<br />
+*SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;B2.<br />
+*<br />
+*AT&nbsp;SELECTION-SCREEN&nbsp;OUTPUT.&nbsp;"##&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'M2'.&nbsp;"##&nbsp;####&nbsp;SCREEN##&nbsp;GROUP1#&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"SCREEN-INPUT&nbsp;=&nbsp;'0'.&nbsp;"####&nbsp;##&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"SCREEN-ACTIVE&nbsp;=&nbsp;'0'.&nbsp;"###&nbsp;##&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"SCREEN-REQUIRED&nbsp;=&nbsp;'1'.&nbsp;"###&nbsp;#&nbsp;##&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-OUTPUT&nbsp;=&nbsp;'0'.&nbsp;"##&nbsp;##&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+*&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+   </div>
+   <div class="code">
+"6) USERCOMMAND : ### ## ### ## ## ####<br />
+   </div>
+   <div class="codeComment">
+*SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;B1&nbsp;WITH&nbsp;FRAME.<br />
+*&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_ZCODE&nbsp;FOR&nbsp;ZEDT00_001-ZCODE.<br />
+*&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_ZPERNR&nbsp;LIKE&nbsp;ZEDT00_001-ZPERNR&nbsp;MODIF&nbsp;ID&nbsp;M1.<br />
+*&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_ZGEN&nbsp;LIKE&nbsp;ZEDT00_001-ZGENDER&nbsp;MODIF&nbsp;ID&nbsp;M2.<br />
+*SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;B1.<br />
+*SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;B2&nbsp;WITH&nbsp;FRAME.<br />
+*&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_CH1&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R1&nbsp;DEFAULT&nbsp;'X'&nbsp;USER-COMMAND&nbsp;UC1.<br />
+*&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_CH2&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R1.<br />
+*SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;B2.<br />
+*<br />
+*AT&nbsp;SELECTION-SCREEN&nbsp;OUTPUT.&nbsp;"##&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'M2'.&nbsp;"##&nbsp;####&nbsp;SCREEN##&nbsp;GROUP1#&nbsp;##<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_R1&nbsp;=&nbsp;'X'.<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'1'.<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;P_R2&nbsp;=&nbsp;'X'.<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'0'.<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"SCREEN-INTENSIFIED&nbsp;=&nbsp;'1'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"SCREEN-DISPLAY_3D&nbsp;=&nbsp;'1'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-INVISIBLE&nbsp;=&nbsp;'1'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+*&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+   </div>
+   <div class="code">
+"7)SEARCH HELP<br />
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_ZCODE&nbsp;FOR&nbsp;ZEDT00_001-ZCODE.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_ZPERNR&nbsp;LIKE&nbsp;ZEDT00_001-ZPERNR&nbsp;MODIF&nbsp;ID&nbsp;M1.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_ZGEN&nbsp;LIKE&nbsp;ZEDT00_001-ZGENDER&nbsp;MATCHCODE&nbsp;OBJECT&nbsp;ZSH15_001&nbsp;MODIF&nbsp;ID&nbsp;M2.<br />
+SELECTION-SCREEN END OF BLOCK B1.<br />
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_CH1&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R1&nbsp;DEFAULT&nbsp;'X'&nbsp;USER-COMMAND&nbsp;UC1.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_CH2&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R1.<br />
+SELECTION-SCREEN END OF BLOCK B2.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

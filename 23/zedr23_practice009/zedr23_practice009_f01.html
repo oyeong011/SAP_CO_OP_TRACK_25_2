@@ -1,0 +1,951 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR23_PRACTICE009_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR23_PRACTICE009_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDR23_PRACTICE009_F01<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+FORM SET_INIT.<br />
+&nbsp;&nbsp;S_DATE-SIGN&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;S_DATE-OPTION&nbsp;=&nbsp;'EQ'.<br />
+&nbsp;&nbsp;"S_DATE-LOW&nbsp;=&nbsp;SY-DATUM+0(6)&nbsp;&&&nbsp;'01'.<br />
+&nbsp;&nbsp;S_DATE-LOW&nbsp;=&nbsp;Z_LASTDAY.<br />
+&nbsp;&nbsp;APPEND&nbsp;S_DATE.<br />
+<br />
+ENDFORM.<br />
+<br />
+FORM GET_DATE USING PV_DATE TYPE SY-DATUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;PV_LASTDAY&nbsp;TYPE&nbsp;SY-DATUM.<br />
+&nbsp;&nbsp;DATA&nbsp;:LV_YEAR&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MONTH&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_NEXT_MONTH&nbsp;TYPE&nbsp;SY-DATUM.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;###&nbsp;#<br />
+&nbsp;&nbsp;LV_YEAR&nbsp;=&nbsp;PV_DATE+0(4).<br />
+&nbsp;&nbsp;LV_MONTH&nbsp;=&nbsp;PV_DATE+4(2).<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LV_MONTH&nbsp;=&nbsp;12.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_NEXT_MONTH&nbsp;=&nbsp;|{&nbsp;LV_YEAR&nbsp;+&nbsp;1&nbsp;}0101&nbsp;|.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_NEXT_MONTH&nbsp;=&nbsp;|{&nbsp;LV_YEAR&nbsp;}{&nbsp;LV_MONTH&nbsp;+&nbsp;1&nbsp;WIDTH&nbsp;=&nbsp;2&nbsp;PAD&nbsp;=&nbsp;'0'&nbsp;}01&nbsp;|.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;PV_LASTDAY&nbsp;=&nbsp;LV_NEXT_MONTH&nbsp;-&nbsp;1.<br />
+<br />
+ENDFORM.<br />
+<br />
+FORM CHECK.<br />
+&nbsp;&nbsp;IF&nbsp;S_DATE&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'#####&nbsp;###&nbsp;#####&nbsp;###.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;S_ZPERNR&nbsp;IS&nbsp;INITIAL&nbsp;AND&nbsp;S_DEP&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;##&nbsp;####&nbsp;#&nbsp;###&nbsp;###&nbsp;#####&nbsp;###.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;S_DEP[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;S_DEP&nbsp;INTO&nbsp;DATA(line).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GR_ZDEPCODE&nbsp;WITH&nbsp;KEY&nbsp;low&nbsp;=&nbsp;line-low&nbsp;TRANSPORTING&nbsp;NO&nbsp;FIELDS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;##&nbsp;#######.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+<br />
+FORM GET_DATA.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;A~ZPERNR&nbsp;A~ZDEPCODE&nbsp;A~ZQFLAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;B~ZYEAR&nbsp;B~DATBI&nbsp;B~DATAB&nbsp;B~ZRANK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_01<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT23_102&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;&nbsp;&nbsp;JOIN&nbsp;ZEDT23_104&nbsp;AS&nbsp;B&nbsp;ON&nbsp;A~ZPERNR&nbsp;EQ&nbsp;B~ZPERNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~ZPERNR&nbsp;IN&nbsp;S_ZPERNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;(&nbsp;B~DATBI&nbsp;&lt;=&nbsp;S_DATE-LOW&nbsp;AND&nbsp;B~DATAB&nbsp;&gt;=&nbsp;S_DATE-LOW&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~ZDEPCODE&nbsp;IN&nbsp;S_DEP.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;A~ZPERNR&nbsp;A~ZDEPCODE&nbsp;A~ZQDATE&nbsp;A~ZQFLAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;B~ZYEAR&nbsp;B~DATBI&nbsp;B~DATAB&nbsp;B~ZSALARY&nbsp;B~ZBANKCODE&nbsp;B~ZACCOUNT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_02<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT23_102&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;&nbsp;&nbsp;JOIN&nbsp;ZEDT23_106&nbsp;AS&nbsp;B&nbsp;ON&nbsp;A~ZPERNR&nbsp;EQ&nbsp;B~ZPERNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~ZPERNR&nbsp;IN&nbsp;S_ZPERNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;(&nbsp;B~DATBI&nbsp;&lt;=&nbsp;S_DATE-LOW&nbsp;AND&nbsp;B~DATAB&nbsp;&gt;=&nbsp;S_DATE-LOW&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~ZDEPCODE&nbsp;IN&nbsp;S_DEP.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_02&nbsp;INTO&nbsp;DATA(line).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;line-ZQDATE&nbsp;IS&nbsp;NOT&nbsp;INITIAL&nbsp;AND&nbsp;line-ZQDATE&nbsp;&lt;&nbsp;S_DATE-LOW.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_02&nbsp;INDEX&nbsp;SY-TABIX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;A~ZPERNR&nbsp;A~ZDEPCODE&nbsp;A~DATBI&nbsp;A~DATAB<br />
+&nbsp;&nbsp;&nbsp;&nbsp;A~ZDEPRANK&nbsp;A~ZEDATE&nbsp;A~ZQDATE&nbsp;A~ZQFLAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;B~ZPNAME&nbsp;B~ZGENDER&nbsp;B~ZADDRESS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_03<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT23_102&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;&nbsp;&nbsp;JOIN&nbsp;ZEDT23_103&nbsp;AS&nbsp;B&nbsp;ON&nbsp;A~ZPERNR&nbsp;EQ&nbsp;B~ZPERNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~ZPERNR&nbsp;IN&nbsp;S_ZPERNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;(&nbsp;A~DATBI&nbsp;&lt;=&nbsp;S_DATE-LOW&nbsp;AND&nbsp;A~DATAB&nbsp;&gt;=&nbsp;S_DATE-LOW&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~ZDEPCODE&nbsp;IN&nbsp;S_DEP.<br />
+<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_01[]&nbsp;IS&nbsp;INITIAL&nbsp;AND&nbsp;GT_02[]&nbsp;IS&nbsp;INITIAL&nbsp;AND&nbsp;GT_03[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+FORM REMOVE_QUIT.<br />
+&nbsp;&nbsp;IF&nbsp;P_CHECK&nbsp;NE&nbsp;TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_01&nbsp;INTO&nbsp;DATA(line1).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;line1-ZQFLAG&nbsp;EQ&nbsp;TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_01&nbsp;INDEX&nbsp;SY-TABIX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_02&nbsp;INTO&nbsp;DATA(line2).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;line2-ZQFLAG&nbsp;EQ&nbsp;TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_02&nbsp;INDEX&nbsp;SY-TABIX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_03&nbsp;INTO&nbsp;DATA(line3).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;line3-ZQFLAG&nbsp;EQ&nbsp;TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_03&nbsp;INDEX&nbsp;SY-TABIX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+FORM VAL_TO_DESC.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_01&nbsp;INTO&nbsp;DATA(line1).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;line1-ZDEPCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line1-ZDEPCODE_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0002'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line1-ZDEPCODE_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0003'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line1-ZDEPCODE_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0004'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line1-ZDEPCODE_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0005'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line1-ZDEPCODE_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0006'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line1-ZDEPCODE_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_01&nbsp;FROM&nbsp;line1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRANSPORTING&nbsp;ZDEPCODE_STR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZPERNR&nbsp;EQ&nbsp;line1-ZPERNR.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_02&nbsp;INTO&nbsp;DATA(line2).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;line2-ZBANKCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line2-ZBANKCODE_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'002'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line2-ZBANKCODE_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'003'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line2-ZBANKCODE_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'004'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line2-ZBANKCODE_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'005'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line2-ZBANKCODE_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;line2-ZBANKCODE&nbsp;&lt;=&nbsp;010&nbsp;AND&nbsp;line2-ZBANKCODE&nbsp;&gt;=&nbsp;001.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line2-ZWAERS&nbsp;=&nbsp;'KRW'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_02&nbsp;FROM&nbsp;line2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRANSPORTING&nbsp;ZBANKCODE_STR&nbsp;ZWAERS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZPERNR&nbsp;EQ&nbsp;line2-ZPERNR.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_03&nbsp;INTO&nbsp;DATA(line3).&nbsp;"##,&nbsp;##,&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;line3-ZDEPCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZDEPCODE_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0002'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZDEPCODE_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0003'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZDEPCODE_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0004'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZDEPCODE_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0005'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZDEPCODE_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0006'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZDEPCODE_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;line3-ZDEPRANK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZDEPRANK_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZLIGHT&nbsp;=&nbsp;YELLOW.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'B'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZDEPRANK_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZLIGHT&nbsp;=&nbsp;GREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'C'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZDEPRANK_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZLIGHT&nbsp;=&nbsp;GREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'D'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZDEPRANK_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZLIGHT&nbsp;=&nbsp;GREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZDEPRANK_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZLIGHT&nbsp;=&nbsp;GREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZDEPRANK_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZLIGHT&nbsp;=&nbsp;GREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'G'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZDEPRANK_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZLIGHT&nbsp;=&nbsp;GREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;line3-ZGENDER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'M'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZGENDER_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZGENDER_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;line3-ZQFLAG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line3-ZLIGHT&nbsp;=&nbsp;RED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_03&nbsp;FROM&nbsp;line3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRANSPORTING&nbsp;ZDEPCODE_STR&nbsp;ZDEPRANK_STR&nbsp;ZGENDER_STR&nbsp;ZLIGHT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZPERNR&nbsp;EQ&nbsp;line3-ZPERNR.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+<br />
+" DOCKER<br />
+" SPLITTER -&gt; [ GC_ROW1 ]<br />
+"               SPLITTER_ROW1 -&gt; [ CONTAINER1 ][ CONTAINER2 ]<br />
+" SPLITTER -&gt; [ GC_ROW2 ]<br />
+<br />
+FORM CREATE_OBJECT.<br />
+CREATE OBJECT GC_DOCKING<br />
+&nbsp;&nbsp;EXPORTING<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;PARENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;REPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-REPID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-DYNNR<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;SIDE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;DOCK_AT_LEFT<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;EXTENSION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2000<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;STYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lifetime_default<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;CAPTION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;METRIC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;RATIO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;NO_AUTODEF_PROGID_DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;CNTL_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;CNTL_SYSTEM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;CREATE_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME_DYNPRO_DYNPRO_LINK&nbsp;=&nbsp;5<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;6<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+IF SY-SUBRC &lt;&gt; 0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;MESSAGE&nbsp;ID&nbsp;SY-MSGID&nbsp;TYPE&nbsp;SY-MSGTY&nbsp;NUMBER&nbsp;SY-MSGNO<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;SY-MSGV1&nbsp;SY-MSGV2&nbsp;SY-MSGV3&nbsp;SY-MSGV4.<br />
+   </div>
+   <div class="code">
+ENDIF.<br />
+<br />
+CREATE OBJECT GC_SPLITTER<br />
+&nbsp;&nbsp;EXPORTING<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;LINK_DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;LINK_REPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;SHELLSTYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WIDTH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;HEIGHT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;METRIC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;cntl_metric_dynpro<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ALIGN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;15<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PARENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GC_DOCKING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ROWS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COLUMNS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;NO_AUTODEF_PROGID_DYNNR&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;CNTL_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;CNTL_SYSTEM_ERROR&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+IF SY-SUBRC &lt;&gt; 0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;MESSAGE&nbsp;ID&nbsp;SY-MSGID&nbsp;TYPE&nbsp;SY-MSGTY&nbsp;NUMBER&nbsp;SY-MSGNO<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;SY-MSGV1&nbsp;SY-MSGV2&nbsp;SY-MSGV3&nbsp;SY-MSGV4.<br />
+   </div>
+   <div class="code">
+ENDIF.<br />
+<br />
+CALL METHOD GC_SPLITTER-&gt;GET_CONTAINER<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COLUMN&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;RECEIVING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONTAINER&nbsp;=&nbsp;GC_ROW1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+CALL METHOD GC_SPLITTER-&gt;GET_CONTAINER<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COLUMN&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;RECEIVING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONTAINER&nbsp;=&nbsp;GC_ROW2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+<br />
+<br />
+"""""""""## # ##""""""""""<br />
+<br />
+CREATE OBJECT GC_SPLITTER_ROW1<br />
+&nbsp;&nbsp;EXPORTING<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;LINK_DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;LINK_REPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;SHELLSTYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WIDTH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;HEIGHT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;METRIC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;cntl_metric_dynpro<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ALIGN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;15<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PARENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GC_ROW1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ROWS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COLUMNS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;NO_AUTODEF_PROGID_DYNNR&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;CNTL_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;CNTL_SYSTEM_ERROR&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+IF SY-SUBRC &lt;&gt; 0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;MESSAGE&nbsp;ID&nbsp;SY-MSGID&nbsp;TYPE&nbsp;SY-MSGTY&nbsp;NUMBER&nbsp;SY-MSGNO<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;SY-MSGV1&nbsp;SY-MSGV2&nbsp;SY-MSGV3&nbsp;SY-MSGV4.<br />
+   </div>
+   <div class="code">
+ENDIF.<br />
+<br />
+CALL METHOD GC_SPLITTER_ROW1-&gt;GET_CONTAINER<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COLUMN&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;RECEIVING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONTAINER&nbsp;=&nbsp;GC_CONTAINER1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+<br />
+CALL METHOD GC_SPLITTER_ROW1-&gt;GET_CONTAINER<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COLUMN&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;RECEIVING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONTAINER&nbsp;=&nbsp;GC_CONTAINER2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+<br />
+""""""""" GRID ## """"""""""""<br />
+CREATE OBJECT GC_GRID1<br />
+&nbsp;&nbsp;EXPORTING<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;I_SHELLSTYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_LIFETIME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;I_PARENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GC_CONTAINER1<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;I_APPL_EVENTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;space<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_PARENTDBG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_APPLOGPARENT&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_GRAPHICSPARENT&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_FCAT_COMPLETE&nbsp;&nbsp;&nbsp;=&nbsp;SPACE<br />
+*&nbsp;&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_CREATE&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_INIT&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_LINK&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ERROR_DP_CREATE&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+IF SY-SUBRC &lt;&gt; 0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;MESSAGE&nbsp;ID&nbsp;SY-MSGID&nbsp;TYPE&nbsp;SY-MSGTY&nbsp;NUMBER&nbsp;SY-MSGNO<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;SY-MSGV1&nbsp;SY-MSGV2&nbsp;SY-MSGV3&nbsp;SY-MSGV4.<br />
+   </div>
+   <div class="code">
+ENDIF.<br />
+<br />
+CREATE OBJECT GC_GRID2<br />
+&nbsp;&nbsp;EXPORTING<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;I_SHELLSTYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_LIFETIME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;I_PARENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GC_CONTAINER2<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;I_APPL_EVENTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;space<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_PARENTDBG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_APPLOGPARENT&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_GRAPHICSPARENT&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_FCAT_COMPLETE&nbsp;&nbsp;&nbsp;=&nbsp;SPACE<br />
+*&nbsp;&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_CREATE&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_INIT&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_LINK&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ERROR_DP_CREATE&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+IF SY-SUBRC &lt;&gt; 0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;MESSAGE&nbsp;ID&nbsp;SY-MSGID&nbsp;TYPE&nbsp;SY-MSGTY&nbsp;NUMBER&nbsp;SY-MSGNO<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;SY-MSGV1&nbsp;SY-MSGV2&nbsp;SY-MSGV3&nbsp;SY-MSGV4.<br />
+   </div>
+   <div class="code">
+ENDIF.<br />
+<br />
+CREATE OBJECT GC_GRID3<br />
+&nbsp;&nbsp;EXPORTING<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;I_SHELLSTYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_LIFETIME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;I_PARENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GC_ROW2<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;I_APPL_EVENTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;space<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_PARENTDBG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_APPLOGPARENT&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_GRAPHICSPARENT&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_FCAT_COMPLETE&nbsp;&nbsp;&nbsp;=&nbsp;SPACE<br />
+*&nbsp;&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_CREATE&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_INIT&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_LINK&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ERROR_DP_CREATE&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+IF SY-SUBRC &lt;&gt; 0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;MESSAGE&nbsp;ID&nbsp;SY-MSGID&nbsp;TYPE&nbsp;SY-MSGTY&nbsp;NUMBER&nbsp;SY-MSGNO<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;SY-MSGV1&nbsp;SY-MSGV2&nbsp;SY-MSGV3&nbsp;SY-MSGV4.<br />
+   </div>
+   <div class="code">
+ENDIF.<br />
+<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+"DATA : GS_FIELDCAT TYPE LVC_S_FCAT.<br />
+"DATA : GT_FIELDCAT1 TYPE LVC_T_FCAT.<br />
+"DATA : GT_FIELDCAT2 TYPE LVC_T_FCAT.<br />
+"DATA : GT_FIELDCAT3 TYPE LVC_T_FCAT.<br />
+FORM FIELD_CATALOG.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CONTAINER1_FIELD.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CONTAINER2_FIELD.<br />
+&nbsp;&nbsp;PERFORM&nbsp;GC_ROW2_FIELD.<br />
+ENDFORM.<br />
+<br />
+FORM CONTAINER1_FIELD.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT,&nbsp;GT_FIELDCAT1.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-EMPHASIZE&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT1.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZDEPCODE_STR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT1.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZYEAR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT1.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'DATBI'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT1.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'DATAB'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT1.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZRANK'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT1.<br />
+ENDFORM.<br />
+<br />
+FORM CONTAINER2_FIELD.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT,&nbsp;GT_FIELDCAT2.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-EMPHASIZE&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT2.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZYEAR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT2.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'DATBI'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT2.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'DATAB'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT2.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZSALARY'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-CFIELDNAME&nbsp;=&nbsp;'ZWAERS'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-DO_SUM&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT2.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZBANKCODE_STR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT2.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZACCOUNT'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT2.<br />
+<br />
+ENDFORM.<br />
+<br />
+FORM GC_ROW2_FIELD.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT,&nbsp;GT_FIELDCAT3.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZLIGHT'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-ICON&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT3.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT3.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZPNAME'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT3.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZDEPCODE_STR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT3.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'DATBI'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT3.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'DATAB'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT3.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZDEPRANK_STR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT3.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZGENDER_STR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT3.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;9.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZEDATE'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT3.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZADDRESS'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT3.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_CHECK&nbsp;EQ&nbsp;TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;11.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZQDATE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT3.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;12.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZQFLAG'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT3.<br />
+&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+FORM ALV_LAYOUT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_LAYOUT.<br />
+&nbsp;&nbsp;GS_LAYOUT-ZEBRA&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;GS_LAYOUT-CWIDTH_OPT&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;GS_LAYOUT-TOTALS_BEF&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_VARIANT.<br />
+&nbsp;&nbsp;GS_VARIANT-REPORT&nbsp;=&nbsp;SY-REPID.<br />
+&nbsp;&nbsp;GS_VARIANT-USERNAME&nbsp;=&nbsp;SY-UNAME.<br />
+<br />
+ENDFORM.<br />
+<br />
+"DATA : GS_SORT TYPE LVC_S_SORT.<br />
+"DATA : GT_SORT1 TYPE LVC_T_SORT.<br />
+"DATA : GT_SORT2 TYPE LVC_T_SORT.<br />
+"DATA : GT_SORT3 TYPE LVC_T_SORT.<br />
+FORM ALV_SORT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CONTAINER1_SORT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CONTAINER2_SORT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;GC_ROW2_SORT.<br />
+ENDFORM.<br />
+<br />
+FORM CONTAINER1_SORT.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_SORT,&nbsp;GT_SORT1.<br />
+&nbsp;&nbsp;GS_SORT-SPOS&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;GS_SORT-FIELDNAME&nbsp;=&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;GS_SORT-UP&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_SORT&nbsp;TO&nbsp;GT_SORT1.<br />
+ENDFORM.<br />
+<br />
+FORM CONTAINER2_SORT.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_SORT,&nbsp;GT_SORT2.<br />
+&nbsp;&nbsp;GS_SORT-SPOS&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;GS_SORT-FIELDNAME&nbsp;=&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;GS_SORT-UP&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_SORT&nbsp;TO&nbsp;GT_SORT2.<br />
+ENDFORM.<br />
+<br />
+FORM GC_ROW2_SORT.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_SORT,&nbsp;GT_SORT3.<br />
+&nbsp;&nbsp;GS_SORT-SPOS&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;GS_SORT-FIELDNAME&nbsp;=&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;GS_SORT-UP&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_SORT&nbsp;TO&nbsp;GT_SORT3.<br />
+ENDFORM.<br />
+<br />
+"DATA : GC_GRID1 TYPE REF TO CL_GUI_ALV_GRID.<br />
+"DATA : GC_GRID2 TYPE REF TO CL_GUI_ALV_GRID.<br />
+"DATA : GC_GRID3 TYPE REF TO CL_GUI_ALV_GRID.<br />
+FORM CALL_ALV.<br />
+CALL METHOD GC_GRID1-&gt;SET_TABLE_FOR_FIRST_DISPLAY<br />
+&nbsp;&nbsp;EXPORTING<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;I_BUFFER_ACTIVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_BYPASSING_BUFFER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_CONSISTENCY_CHECK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_STRUCTURE_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IS_VARIANT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_VARIANT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;I_SAVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'A'<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;I_DEFAULT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_LAYOUT<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;IS_PRINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IT_SPECIAL_GROUPS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IT_TOOLBAR_EXCLUDING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IT_HYPERLINK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IT_ALV_GRAPHICS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IT_EXCEPT_QINFO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IR_SALV_ADAPTER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IT_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_01<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCATALOG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_FIELDCAT1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IT_SORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_SORT1<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;IT_FILTER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INVALID_PARAMETER_COMBINATION&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;PROGRAM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;TOO_MANY_LINES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+IF SY-SUBRC &lt;&gt; 0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Implement&nbsp;suitable&nbsp;error&nbsp;handling&nbsp;here<br />
+   </div>
+   <div class="code">
+ENDIF.<br />
+<br />
+<br />
+<br />
+CALL METHOD GC_GRID2-&gt;SET_TABLE_FOR_FIRST_DISPLAY<br />
+&nbsp;&nbsp;EXPORTING<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;I_BUFFER_ACTIVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_BYPASSING_BUFFER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_CONSISTENCY_CHECK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_STRUCTURE_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IS_VARIANT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_VARIANT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;I_SAVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'A'<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;I_DEFAULT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_LAYOUT<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;IS_PRINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IT_SPECIAL_GROUPS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IT_TOOLBAR_EXCLUDING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IT_HYPERLINK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IT_ALV_GRAPHICS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IT_EXCEPT_QINFO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IR_SALV_ADAPTER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IT_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_02<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCATALOG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_FIELDCAT2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IT_SORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_SORT1<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;IT_FILTER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INVALID_PARAMETER_COMBINATION&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;PROGRAM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;TOO_MANY_LINES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+IF SY-SUBRC &lt;&gt; 0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Implement&nbsp;suitable&nbsp;error&nbsp;handling&nbsp;here<br />
+   </div>
+   <div class="code">
+ENDIF.<br />
+<br />
+CALL METHOD GC_GRID3-&gt;SET_TABLE_FOR_FIRST_DISPLAY<br />
+&nbsp;&nbsp;EXPORTING<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;I_BUFFER_ACTIVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_BYPASSING_BUFFER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_CONSISTENCY_CHECK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_STRUCTURE_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IS_VARIANT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_VARIANT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;I_SAVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'A'<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;I_DEFAULT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_LAYOUT<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;IS_PRINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IT_SPECIAL_GROUPS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IT_TOOLBAR_EXCLUDING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IT_HYPERLINK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IT_ALV_GRAPHICS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IT_EXCEPT_QINFO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IR_SALV_ADAPTER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IT_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_03<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCATALOG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_FIELDCAT3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IT_SORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_SORT1<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;IT_FILTER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INVALID_PARAMETER_COMBINATION&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;PROGRAM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;TOO_MANY_LINES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+IF SY-SUBRC &lt;&gt; 0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Implement&nbsp;suitable&nbsp;error&nbsp;handling&nbsp;here<br />
+   </div>
+   <div class="code">
+ENDIF.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

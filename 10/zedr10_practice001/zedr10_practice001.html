@@ -1,0 +1,323 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR10_PRACTICE001</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR10_PRACTICE001</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR10_PRACTICE001<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR10_PRACTICE001.<br />
+<br />
+" ### ##<br />
+DATA: LINER(100) TYPE C VALUE '-------------------------------------------------------------------------------------'.<br />
+<br />
+" ZEDT10_004# TYPE## #### ## ###<br />
+   </div>
+   <div class="codeComment">
+*TYPES:&nbsp;BEGIN&nbsp;OF&nbsp;TS_ZEDT10_004,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ZCODE&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT10_004-ZCODE,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;ZPERNR&nbsp;&nbsp;TYPE&nbsp;ZEDT10_004-ZPERNR,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ZSCHOOL&nbsp;TYPE&nbsp;ZEDT10_004-ZSCHOOL,&nbsp;&nbsp;"&nbsp;####<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;ZSEM&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT10_004-ZSEM,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;ZEXAM&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT10_004-ZEXAM,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;ZMAJOR&nbsp;&nbsp;TYPE&nbsp;ZEDT10_004-ZMAJOR,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ZMNAME&nbsp;&nbsp;TYPE&nbsp;ZEDT10_004-ZMNAME,&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ZSUM&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT10_004-ZSUM,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;ZWAERS&nbsp;&nbsp;TYPE&nbsp;ZEDT10_004-ZWAERS,&nbsp;&nbsp;&nbsp;"&nbsp;CURRENCY&nbsp;KEY<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ZGRADE&nbsp;&nbsp;TYPE&nbsp;ZEDT10_004-ZGRADE,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ZFLAG&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT10_004-ZFLAG,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ZAMOUNT&nbsp;TYPE&nbsp;ZEDT10_004-ZAMOUNT,&nbsp;&nbsp;"&nbsp;####&nbsp;##.<br />
+*END&nbsp;OF&nbsp;TS_ZEDT10_004.<br />
+<br />
+   </div>
+   <div class="code">
+" HEADER# INTERNAL TABLE ##<br />
+DATA: GS_GRADE TYPE ZEDT10_1004,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_GRADE&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_GRADE&nbsp;WITH&nbsp;NON-UNIQUE&nbsp;KEY&nbsp;ZCODE.<br />
+<br />
+" #### ####.<br />
+SELECT * FROM ZEDT10_1004<br />
+INTO CORRESPONDING FIELDS OF TABLE GT_GRADE.<br />
+<br />
+SORT GT_GRADE.<br />
+<br />
+" #### ##. ## ## ## ### ##.<br />
+DATA: GV_SUM TYPE I.<br />
+<br />
+" ## FLAG<br />
+DATA: GV_GRADE_ZFLAG TYPE XFELD.<br />
+<br />
+" END FLAG<br />
+DATA: GV_END_FLAG TYPE XFELD.<br />
+DATA: GV_MIN_GRADE TYPE ZEDT10_1004-ZGRADE.<br />
+<br />
+DATA: LV_INT TYPE I.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*LOOP&nbsp;AT&nbsp;GT_GRADE&nbsp;INTO&nbsp;GS_GRADE.<br />
+*&nbsp;&nbsp;AT&nbsp;FIRST.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;LINER.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;'|&nbsp;####&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;####&nbsp;|&nbsp;&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;LINER.<br />
+*&nbsp;&nbsp;ENDAT.<br />
+*<br />
+**&nbsp;##&nbsp;##&nbsp;----------------------------<br />
+*&nbsp;&nbsp;"&nbsp;##&nbsp;1:&nbsp;###&nbsp;##&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;AT&nbsp;NEW&nbsp;ZCODE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GV_GRADE_ZFLAG&nbsp;=&nbsp;'X'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GV_MIN_GRADE&nbsp;=&nbsp;'Z'.&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;ENDAT.<br />
+*<br />
+*&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;####<br />
+*&nbsp;&nbsp;IF&nbsp;GS_GRADE-ZGRADE&nbsp;&lt;&nbsp;GV_MIN_GRADE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GV_MIN_GRADE&nbsp;=&nbsp;GS_GRADE-ZGRADE.<br />
+*&nbsp;&nbsp;ENDIF.<br />
+*<br />
+*&nbsp;&nbsp;AT&nbsp;END&nbsp;OF&nbsp;ZCODE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;A#&nbsp;##&nbsp;###<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GV_MIN_GRADE&nbsp;=&nbsp;'A'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_GRADE_ZFLAG&nbsp;=&nbsp;'X'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_GRADE_ZFLAG&nbsp;=&nbsp;''.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_GRADE&nbsp;FROM&nbsp;GS_GRADE<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRANSPORTING&nbsp;ZFLAG&nbsp;ZAMOUNT<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZCODE&nbsp;=&nbsp;GS_GRADE-ZCODE.<br />
+*&nbsp;&nbsp;ENDAT.<br />
+**&nbsp;#.&nbsp;##&nbsp;##&nbsp;----------------------------<br />
+*<br />
+**&nbsp;#&nbsp;ZCODE&nbsp;##&nbsp;------------------------<br />
+*&nbsp;&nbsp;"&nbsp;DEPERATED:&nbsp;~FLAG&nbsp;#&nbsp;####&nbsp;##~<br />
+*&nbsp;&nbsp;IF&nbsp;GV_END_FLAG&nbsp;=&nbsp;'X'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;##&nbsp;##&nbsp;-------------------------<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;'|'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;GS_GRADE-ZCODE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;'|'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;GS_GRADE-ZMNAME.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;'|&nbsp;&nbsp;&nbsp;'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;GV_GRADE_ZFLAG.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;'&nbsp;&nbsp;&nbsp;&nbsp;|'.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;##&nbsp;----------------------<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;LV_INT&nbsp;=&nbsp;GS_GRADE-ZSUM.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;###&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GV_GRADE_ZFLAG&nbsp;=&nbsp;'X'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;20#&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_GRADE-ZSCHOOL&nbsp;=&nbsp;'A'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_INT&nbsp;=&nbsp;LV_INT&nbsp;*&nbsp;80.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;LV_INT.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;10#&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_INT&nbsp;=&nbsp;LV_INT&nbsp;*&nbsp;90.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;LV_INT.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_INT&nbsp;=&nbsp;LV_INT&nbsp;*&nbsp;100.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;LV_INT.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;'&nbsp;&nbsp;&nbsp;|'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;LINER.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#.&nbsp;###&nbsp;##&nbsp;##&nbsp;----------------------<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GV_SUM&nbsp;=&nbsp;GV_SUM&nbsp;+&nbsp;LV_INT.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#.&nbsp;#&nbsp;##&nbsp;##&nbsp;-------------------------<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;INTERNAL&nbsp;TABLE&nbsp;MODIFY&nbsp;##&nbsp;-----------<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GS_GRADE-ZFLAG&nbsp;=&nbsp;GV_GRADE_ZFLAG.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;MOVE&nbsp;LV_INT&nbsp;TO&nbsp;GS_GRADE-ZAMOUNT.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_GRADE&nbsp;FROM&nbsp;GS_GRADE<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRANSPORTING&nbsp;ZFLAG&nbsp;ZAMOUNT<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZCODE&nbsp;=&nbsp;GS_GRADE-ZCODE.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#.&nbsp;INTERNAL&nbsp;TABLE&nbsp;MODIFY&nbsp;##&nbsp;-----------<br />
+*<br />
+*&nbsp;&nbsp;ENDIF.<br />
+**&nbsp;#.&nbsp;#&nbsp;ZCODE&nbsp;##&nbsp;------------------------<br />
+*<br />
+*&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;####&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;AT&nbsp;LAST.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;'|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;GV_SUM.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;'&nbsp;&nbsp;|'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;LINER.<br />
+*&nbsp;&nbsp;ENDAT.<br />
+*<br />
+*&nbsp;&nbsp;CLEAR&nbsp;GS_GRADE.<br />
+*ENDLOOP.<br />
+*<br />
+*"&nbsp;SORT&nbsp;#&nbsp;##&nbsp;###&nbsp;##<br />
+*SORT&nbsp;GT_GRADE.<br />
+*DELETE&nbsp;ADJACENT&nbsp;DUPLICATES&nbsp;FROM&nbsp;GT_GRADE.<br />
+<br />
+   </div>
+   <div class="code">
+" ## ###<br />
+LOOP AT GT_GRADE INTO GS_GRADE.<br />
+&nbsp;&nbsp;AT&nbsp;FIRST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;LINER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;'|&nbsp;####&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;####&nbsp;|&nbsp;&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;LINER.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##&nbsp;##&nbsp;----------------------------<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;"&nbsp;ZCODE&nbsp;##&nbsp;###&nbsp;FLAG&nbsp;###<br />
+&nbsp;&nbsp;AT&nbsp;NEW&nbsp;ZCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;FLAG&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_GRADE_ZFLAG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_END_FLAG&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;A#&nbsp;###&nbsp;###&nbsp;###.<br />
+&nbsp;&nbsp;IF&nbsp;GS_GRADE-ZGRADE&nbsp;&lt;&gt;&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_GRADE_ZFLAG&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;###<br />
+&nbsp;&nbsp;AT&nbsp;END&nbsp;OF&nbsp;ZCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_END_FLAG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ENDAT.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;#.&nbsp;##&nbsp;##&nbsp;----------------------------<br />
+<br />
+*&nbsp;#&nbsp;ZCODE&nbsp;##&nbsp;------------------------<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;"&nbsp;DEPERATED:&nbsp;~FLAG&nbsp;#&nbsp;####&nbsp;##~<br />
+&nbsp;&nbsp;IF&nbsp;GV_END_FLAG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;##&nbsp;##&nbsp;-------------------------<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;GS_GRADE-ZCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;GS_GRADE-ZMNAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;'|&nbsp;&nbsp;&nbsp;'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;GV_GRADE_ZFLAG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;'&nbsp;&nbsp;&nbsp;&nbsp;|'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;##&nbsp;----------------------<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_INT&nbsp;=&nbsp;GS_GRADE-zsum.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GV_GRADE_ZFLAG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;20#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_GRADE-ZSCHOOL&nbsp;=&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_int&nbsp;=&nbsp;lv_int&nbsp;*&nbsp;80.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;lv_int.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;10#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_int&nbsp;=&nbsp;lv_int&nbsp;*&nbsp;90.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;lv_int.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;else.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_int&nbsp;=&nbsp;lv_int&nbsp;*&nbsp;100.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write:&nbsp;lv_int.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;'&nbsp;&nbsp;&nbsp;|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;LINER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#.&nbsp;###&nbsp;##&nbsp;##&nbsp;----------------------<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_SUM&nbsp;=&nbsp;GV_SUM&nbsp;+&nbsp;LV_INT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#.&nbsp;#&nbsp;##&nbsp;##&nbsp;-------------------------<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;INTERNAL&nbsp;TABLE&nbsp;MODIFY&nbsp;##&nbsp;-----------<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_GRADE-ZFLAG&nbsp;=&nbsp;GV_GRADE_ZFLAG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_GRADE-ZAMOUNT&nbsp;=&nbsp;LV_INT&nbsp;/&nbsp;100.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_GRADE&nbsp;FROM&nbsp;GS_GRADE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRANSPORTING&nbsp;ZFLAG&nbsp;ZAMOUNT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZCODE&nbsp;=&nbsp;GS_GRADE-ZCODE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#.&nbsp;INTERNAL&nbsp;TABLE&nbsp;MODIFY&nbsp;##&nbsp;-----------<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;#.&nbsp;#&nbsp;ZCODE&nbsp;##&nbsp;------------------------<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;AT&nbsp;LAST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;'|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;GV_SUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;'&nbsp;&nbsp;|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;LINER.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_GRADE.<br />
+ENDLOOP.<br />
+<br />
+" SORT # ## ### ##<br />
+SORT GT_GRADE.<br />
+DELETE adjacent duplicates from GT_GRADE.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM18_002_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM18_002_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM18_002_TOP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES: ZEKKO_18, ZEKPO_18, ZLFM1_18, ZMARA_18. " ZMARA_18 ## (###)<br />
+<br />
+DATA: GV_MODE    TYPE CHAR1.    " 'C' = CREATE, 'D' = DISPLAY<br />
+DATA: OK_CODE    TYPE SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_OK_CODE&nbsp;TYPE&nbsp;SY-UCOMM.<br />
+<br />
+" 1. ## ###<br />
+DATA: BEGIN OF GS_EKKO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;ZEKKO_18-EBELN,&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUKRS&nbsp;TYPE&nbsp;ZEKKO_18-BUKRS,&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKGRP&nbsp;TYPE&nbsp;ZEKKO_18-EKGRP,&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKORG&nbsp;TYPE&nbsp;ZEKKO_18-EKORG,&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;ZEKKO_18-LIFNR,&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BEDAT&nbsp;TYPE&nbsp;ZEKKO_18-BEDAT,&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;ZEKKO_18-WAERS,&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_EKKO.<br />
+<br />
+DATA: GT_EKKO LIKE TABLE OF GS_EKKO.<br />
+<br />
+" 2. ### ### (ALV ###)<br />
+DATA: BEGIN OF GS_EKPO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;ZEKPO_18-EBELN,&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELP&nbsp;TYPE&nbsp;ZEKPO_18-EBELP,&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;ZEKPO_18-MATNR,&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAKTX&nbsp;TYPE&nbsp;ZEKPO_18-MAKTX,&nbsp;"&nbsp;##&nbsp;##&nbsp;(####&nbsp;###&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MENGE&nbsp;TYPE&nbsp;ZEKPO_18-MENGE,&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;TYPE&nbsp;ZEKPO_18-MEINS,&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NETPR&nbsp;TYPE&nbsp;ZEKPO_18-NETPR,&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPRME&nbsp;TYPE&nbsp;ZEKPO_18-BPRME,&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRDAT&nbsp;TYPE&nbsp;ZEKPO_18-PRDAT,&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;TYPE&nbsp;ZEKPO_18-WERKS,&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LGORT&nbsp;TYPE&nbsp;ZEKPO_18-LGORT,&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MWSKZ&nbsp;TYPE&nbsp;ZEKPO_18-MWSKZ,&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;ZEKKO_18-WAERS,&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_EKPO.<br />
+<br />
+DATA: GT_EKPO LIKE TABLE OF GS_EKPO.<br />
+<br />
+" 3. ### ### ### (DB ## ## ## ##!)<br />
+DATA: GT_DEL_EKPO LIKE TABLE OF GS_EKPO.<br />
+<br />
+" 4. ALV ## ##<br />
+" ### ####<br />
+DATA: GO_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER.<br />
+<br />
+" ALV ###<br />
+DATA: GO_GRID TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+" ## #### (## ##, ##, ## ##)<br />
+DATA: GT_FIELDCAT TYPE LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT&nbsp;TYPE&nbsp;LVC_S_FCAT.<br />
+<br />
+" ####<br />
+DATA: GS_LAYOUT   TYPE LVC_S_LAYO.<br />
+<br />
+" ##<br />
+DATA: GT_SORT TYPE LVC_T_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SORT&nbsp;TYPE&nbsp;LVC_S_SORT.<br />
+<br />
+" #### ## ##<br />
+DATA: GS_VARIANT  TYPE DISVARIANT.<br />
+<br />
+" 5. ## ## (LOOP ## # ##)<br />
+FIELD-SYMBOLS: &lt;FS_EKPO&gt; LIKE LINE OF GT_EKPO.<br />
+<br />
+DATA : GO_EVENT TYPE REF TO EVENT.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

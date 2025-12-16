@@ -1,0 +1,351 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZPROJECT17_004_F02</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZPROJECT17_004_F02</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZPROJECT17_004_F02<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+FORM create_object_0200 .<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;go_container_200&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_container_200<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;container_name&nbsp;=&nbsp;'CC_ALV_200'.&nbsp;&nbsp;"&nbsp;Screen&nbsp;0200&nbsp;Custom&nbsp;Control<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_alv_200<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_parent&nbsp;=&nbsp;go_container_200.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+FORM get_data_for_display_0200 .<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gt_iv_disp.<br />
+&nbsp;&nbsp;REFRESH&nbsp;gt_iv_disp.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;p_ebeln&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;p_werks&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;SELECT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;a~belnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;a~gjahr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;b~buzei<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;b~ebeln<br />
+&nbsp;&nbsp;&nbsp;&nbsp;b~ebelp<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;a~lifnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;a~waers<br />
+&nbsp;&nbsp;&nbsp;&nbsp;a~budat<br />
+&nbsp;&nbsp;&nbsp;&nbsp;a~bktxt<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;b~zmatnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;b~maktx<br />
+&nbsp;&nbsp;&nbsp;&nbsp;b~zwerks<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;b~menge<br />
+&nbsp;&nbsp;&nbsp;&nbsp;b~meins<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;b~wrbtr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;b~wmwst<br />
+&nbsp;&nbsp;&nbsp;&nbsp;b~mwskz<br />
+&nbsp;&nbsp;&nbsp;&nbsp;b~shkzg<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_iv_disp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt17_rbkp&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt17_rseg&nbsp;AS&nbsp;b<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;b~belnr&nbsp;=&nbsp;a~belnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;b~gjahr&nbsp;=&nbsp;a~gjahr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;b~ebeln&nbsp;&nbsp;=&nbsp;p_ebeln<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;b~zwerks&nbsp;=&nbsp;p_werks.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_iv_disp&nbsp;INTO&nbsp;gs_iv_disp.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_iv_disp-tot_amt&nbsp;=&nbsp;gs_iv_disp-wrbtr&nbsp;+&nbsp;gs_iv_disp-wmwst.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;gt_iv_disp&nbsp;FROM&nbsp;gs_iv_disp&nbsp;INDEX&nbsp;sy-tabix.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+FORM build_fcat_0200 .<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gt_fcat_200.<br />
+&nbsp;&nbsp;REFRESH&nbsp;gt_fcat_200.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat_0200&nbsp;USING&nbsp;'L_CHECK'&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'X'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat_0200&nbsp;USING&nbsp;'BELNR'&nbsp;&nbsp;&nbsp;'####'&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat_0200&nbsp;USING&nbsp;'GJAHR'&nbsp;&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat_0200&nbsp;USING&nbsp;'BUZEI'&nbsp;&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;''.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat_0200&nbsp;USING&nbsp;'BUDAT'&nbsp;&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat_0200&nbsp;USING&nbsp;'EBELN'&nbsp;&nbsp;&nbsp;'####'&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat_0200&nbsp;USING&nbsp;'EBELP'&nbsp;&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat_0200&nbsp;USING&nbsp;'LIFNR'&nbsp;&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;''.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat_0200&nbsp;USING&nbsp;'ZMATNR'&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat_0200&nbsp;USING&nbsp;'MAKTX'&nbsp;&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat_0200&nbsp;USING&nbsp;'ZWERKS'&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;''.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat_0200&nbsp;USING&nbsp;'MENGE'&nbsp;&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat_0200&nbsp;USING&nbsp;'MEINS'&nbsp;&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;''.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat_0200&nbsp;USING&nbsp;'WAERS'&nbsp;&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat_0200&nbsp;USING&nbsp;'WRBTR'&nbsp;&nbsp;&nbsp;'####'&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat_0200&nbsp;USING&nbsp;'WMWST'&nbsp;&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat_0200&nbsp;USING&nbsp;'TOT_AMT'&nbsp;'###'&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat_0200&nbsp;USING&nbsp;'MWSKZ'&nbsp;&nbsp;&nbsp;'####'&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat_0200&nbsp;USING&nbsp;'BKTXT'&nbsp;&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;''.<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+FORM add_fcat_0200 USING    p_fieldname TYPE lvc_fname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_coltext&nbsp;&nbsp;&nbsp;TYPE&nbsp;scrtext_l<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_edit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat_200.<br />
+&nbsp;&nbsp;gs_fcat_200-fieldname&nbsp;=&nbsp;p_fieldname.<br />
+&nbsp;&nbsp;gs_fcat_200-coltext&nbsp;&nbsp;&nbsp;=&nbsp;p_coltext.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;p_fieldname.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'L_CHECK'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-checkbox&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-edit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-outputlen&nbsp;=&nbsp;3.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'BELNR'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-outputlen&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'GJAHR'&nbsp;OR&nbsp;'BUZEI'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-outputlen&nbsp;=&nbsp;4.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'BUDAT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-outputlen&nbsp;=&nbsp;10.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'EBELN'&nbsp;OR&nbsp;'LIFNR'&nbsp;OR&nbsp;'ZMATNR'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-outputlen&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'EBELP'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-outputlen&nbsp;=&nbsp;4.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'MAKTX'&nbsp;OR&nbsp;'BKTXT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-outputlen&nbsp;=&nbsp;20.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'ZWERKS'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-outputlen&nbsp;=&nbsp;6.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'MENGE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-ref_table&nbsp;&nbsp;=&nbsp;'ZEDT17_RSEG'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-ref_field&nbsp;&nbsp;=&nbsp;'MENGE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-qfieldname&nbsp;=&nbsp;'MEINS'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-outputlen&nbsp;&nbsp;=&nbsp;8.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'MEINS'&nbsp;OR&nbsp;'WAERS'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-outputlen&nbsp;=&nbsp;4.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'WRBTR'&nbsp;OR&nbsp;'WMWST'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-ref_table&nbsp;&nbsp;=&nbsp;'ZEDT17_RSEG'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-ref_field&nbsp;&nbsp;=&nbsp;'WRBTR'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-cfieldname&nbsp;=&nbsp;'WAERS'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-outputlen&nbsp;&nbsp;=&nbsp;12.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'TOT_AMT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-outputlen&nbsp;&nbsp;=&nbsp;12.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'MWSKZ'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat_200-outputlen&nbsp;=&nbsp;6.<br />
+<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat_200&nbsp;TO&nbsp;gt_fcat_200.<br />
+<br />
+ENDFORM.<br />
+FORM alv_display_0200 .<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;gt_fcat_200&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;build_fcat_0200.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_layout_200.<br />
+&nbsp;&nbsp;gs_layout_200-zebra&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_alv_200-&gt;set_table_for_first_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_layout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_layout_200<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_fieldcatalog&nbsp;=&nbsp;gt_fcat_200<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_outtab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_iv_disp.<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+FORM refresh_alv_0200 .<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;go_alv_200&nbsp;IS&nbsp;BOUND.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_alv_200-&gt;refresh_table_display(&nbsp;).<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CANCEL_INVOICE_DOCUMENT_0200<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;##&nbsp;##&nbsp;X&nbsp;####,&nbsp;delete##&nbsp;##&nbsp;(####&nbsp;#&nbsp;form&nbsp;###&nbsp;##&nbsp;####&nbsp;insert)<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM cancel_invoice_document_0200 .<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lt_sel&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;ty_iv_disp,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_sel&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ty_iv_disp,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_answer&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_cnt&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_msg&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;char80.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1)&nbsp;ALV&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;go_alv_200&nbsp;IS&nbsp;BOUND.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_alv_200-&gt;check_changed_data.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2)&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;lt_sel.<br />
+&nbsp;&nbsp;REFRESH&nbsp;lt_sel.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_iv_disp&nbsp;INTO&nbsp;gs_iv_disp&nbsp;WHERE&nbsp;l_check&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_iv_disp&nbsp;TO&nbsp;lt_sel.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;lt_sel&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;###&nbsp;#####.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;3)&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'POPUP_TO_CONFIRM'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;titlebar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'####'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_question&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'###&nbsp;#####&nbsp;##(##)######?'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_button_1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'#'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_button_2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'###'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_cancel_button&nbsp;=&nbsp;'&nbsp;'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;answer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lv_answer.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;lv_answer&nbsp;&lt;&gt;&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;4)&nbsp;###&nbsp;##(RSEG)&nbsp;+&nbsp;##&nbsp;#&nbsp;##(RBKP)&nbsp;##<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;lt_sel&nbsp;INTO&nbsp;ls_sel.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;4-1)&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;FROM&nbsp;zedt17_rseg<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;belnr&nbsp;=&nbsp;ls_sel-belnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;gjahr&nbsp;=&nbsp;ls_sel-gjahr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;buzei&nbsp;=&nbsp;ls_sel-buzei.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ROLLBACK&nbsp;WORK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;###&nbsp;##&nbsp;#&nbsp;###&nbsp;######.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;4-2)&nbsp;##&nbsp;###&nbsp;##&nbsp;####&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;lv_cnt.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(&nbsp;*&nbsp;)&nbsp;INTO&nbsp;lv_cnt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt17_rseg<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;belnr&nbsp;=&nbsp;ls_sel-belnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;gjahr&nbsp;=&nbsp;ls_sel-gjahr.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;lv_cnt&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;FROM&nbsp;zedt17_rbkp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;belnr&nbsp;=&nbsp;ls_sel-belnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;gjahr&nbsp;=&nbsp;ls_sel-gjahr.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ROLLBACK&nbsp;WORK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;##&nbsp;##&nbsp;#&nbsp;###&nbsp;######.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;COMMIT&nbsp;WORK&nbsp;AND&nbsp;WAIT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;5)&nbsp;###/####<br />
+&nbsp;&nbsp;PERFORM&nbsp;get_data_for_display_0200.<br />
+&nbsp;&nbsp;PERFORM&nbsp;refresh_alv_0200.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;6)&nbsp;##&nbsp;###(###&nbsp;##&nbsp;####&nbsp;##)<br />
+&nbsp;&nbsp;CLEAR&nbsp;lv_msg.<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;'##'&nbsp;ls_sel-belnr&nbsp;'#&nbsp;#######.'&nbsp;INTO&nbsp;lv_msg&nbsp;SEPARATED&nbsp;BY&nbsp;space.<br />
+&nbsp;&nbsp;MESSAGE&nbsp;lv_msg&nbsp;TYPE&nbsp;'S'.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

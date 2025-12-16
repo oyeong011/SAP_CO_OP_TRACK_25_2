@@ -1,0 +1,765 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR02_PRACTICE007</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR02_PRACTICE007</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR02_PRACTICE007<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR02_PRACTICE007 MESSAGE-ID ZMED02. "### ##<br />
+<br />
+"### ####<br />
+TABLES : ZEDT02_102, ZEDT02_103, ZEDT02_104, ZEDT02_105, ZEDT02_106.<br />
+<br />
+"ZEDT02_105# #### ## ### ### ##<br />
+DATA: BEGIN OF GS_SALARY.<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt02_105/dictionary-zedt02_105.html">ZEDT02_105</a>.<br />
+DATA : END OF GS_SALARY.<br />
+DATA : GT_SALARY LIKE TABLE OF GS_SALARY.<br />
+<br />
+"#### ### ### ## #### ## ### ### ##<br />
+DATA: BEGIN OF GS_EMP_INFO,<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT02_102-ZPERNR,&nbsp;"####<br />
+&nbsp;&nbsp;ZPNAME&nbsp;LIKE&nbsp;ZEDT02_103-ZPNAME,&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPCODE&nbsp;LIKE&nbsp;ZEDT02_102-ZDEPCODE,&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPRANK&nbsp;LIKE&nbsp;ZEDT02_102-ZDEPRANK,&nbsp;"####<br />
+&nbsp;&nbsp;ZEDATE&nbsp;LIKE&nbsp;ZEDT02_102-ZEDATE,&nbsp;"###<br />
+&nbsp;&nbsp;ZQFLAG&nbsp;LIKE&nbsp;ZEDT02_102-ZQFLAG,&nbsp;"####<br />
+&nbsp;&nbsp;ZGENDER&nbsp;LIKE&nbsp;ZEDT02_103-ZGENDER,&nbsp;"##<br />
+&nbsp;&nbsp;ZADDRESS&nbsp;LIKE&nbsp;ZEDT02_103-ZADDRESS,&nbsp;"##<br />
+&nbsp;&nbsp;ZBANKCODE&nbsp;LIKE&nbsp;ZEDT02_106-ZBANKCODE,&nbsp;"####<br />
+&nbsp;&nbsp;ZACCOUNT&nbsp;LIKE&nbsp;ZEDT02_106-ZACCOUNT,&nbsp;"####<br />
+&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT02_102-DATBI,&nbsp;"####_FR<br />
+&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT02_102-DATAB,&nbsp;"####_TO<br />
+&nbsp;&nbsp;ZQDATE&nbsp;LIKE&nbsp;ZEDT02_102-ZQDATE,&nbsp;"####<br />
+END OF GS_EMP_INFO.<br />
+DATA : GT_EMP_INFO LIKE TABLE OF GS_EMP_INFO.<br />
+<br />
+"#### #### ### ### ##<br />
+DATA: BEGIN OF GS_EMP_INFO_OUTPUT,<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT02_102-ZPERNR,&nbsp;"####<br />
+&nbsp;&nbsp;ZPNAME&nbsp;LIKE&nbsp;ZEDT02_103-ZPNAME,&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPCODE&nbsp;LIKE&nbsp;ZEDT02_102-ZDEPCODE,&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPNAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,&nbsp;"###<br />
+&nbsp;&nbsp;ZDEPRANKNAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,&nbsp;"###<br />
+&nbsp;&nbsp;ZEDATE&nbsp;LIKE&nbsp;ZEDT02_102-ZEDATE,&nbsp;"###<br />
+&nbsp;&nbsp;ZQFLAG&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,&nbsp;"####<br />
+&nbsp;&nbsp;ZGENDER&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,&nbsp;"##<br />
+&nbsp;&nbsp;ZADDRESS&nbsp;LIKE&nbsp;ZEDT02_103-ZADDRESS,&nbsp;"##<br />
+&nbsp;&nbsp;ZBANKCODE&nbsp;LIKE&nbsp;ZEDT02_106-ZBANKCODE,&nbsp;"####<br />
+&nbsp;&nbsp;ZBANKNAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,&nbsp;"###<br />
+&nbsp;&nbsp;ZACCOUNT&nbsp;LIKE&nbsp;ZEDT02_106-ZACCOUNT,&nbsp;"####<br />
+END OF GS_EMP_INFO_OUTPUT.<br />
+DATA : GT_EMP_INFO_OUTPUT LIKE TABLE OF GS_EMP_INFO_OUTPUT.<br />
+<br />
+"## ### ### #### ## ### ### ##<br />
+DATA: BEGIN OF GS_SAL_PAY,<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT02_102-ZPERNR,&nbsp;"####<br />
+&nbsp;&nbsp;ZPNAME&nbsp;LIKE&nbsp;ZEDT02_103-ZPNAME,&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPCODE&nbsp;LIKE&nbsp;ZEDT02_102-ZDEPCODE,&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPRANK&nbsp;LIKE&nbsp;ZEDT02_102-ZDEPRANK,&nbsp;"####<br />
+&nbsp;&nbsp;ZEDATE&nbsp;LIKE&nbsp;ZEDT02_102-ZEDATE,&nbsp;"###<br />
+&nbsp;&nbsp;ZSALARY&nbsp;LIKE&nbsp;ZEDT02_106-ZSALARY,&nbsp;"####<br />
+&nbsp;&nbsp;ZRANK&nbsp;LIKE&nbsp;ZEDT02_104-ZRANK,&nbsp;"####<br />
+&nbsp;&nbsp;ZYEAR&nbsp;LIKE&nbsp;ZEDT02_104-ZYEAR,&nbsp;"##<br />
+&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT02_102-DATBI,&nbsp;"####_FR<br />
+&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT02_102-DATAB,&nbsp;"####_TO<br />
+END OF GS_SAL_PAY.<br />
+DATA : GT_SAL_PAY LIKE TABLE OF GS_SAL_PAY.<br />
+<br />
+"## ### ### #### ## ### ### ##<br />
+DATA: BEGIN OF GS_EVAL_RESULT,<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT02_102-ZPERNR,&nbsp;"####<br />
+&nbsp;&nbsp;ZPNAME&nbsp;LIKE&nbsp;ZEDT02_103-ZPNAME,&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPCODE&nbsp;LIKE&nbsp;ZEDT02_102-ZDEPCODE,&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPRANK&nbsp;LIKE&nbsp;ZEDT02_102-ZDEPRANK,&nbsp;"####<br />
+&nbsp;&nbsp;ZEDATE&nbsp;LIKE&nbsp;ZEDT02_102-ZEDATE,&nbsp;"###<br />
+&nbsp;&nbsp;ZSALARY&nbsp;LIKE&nbsp;ZEDT02_106-ZSALARY,&nbsp;"####<br />
+&nbsp;&nbsp;ZRANK&nbsp;LIKE&nbsp;ZEDT02_104-ZRANK,&nbsp;"####<br />
+&nbsp;&nbsp;ZMON&nbsp;LIKE&nbsp;ZEDT02_105-ZMON01,&nbsp;"N###<br />
+END OF GS_EVAL_RESULT.<br />
+DATA : GT_EVAL_RESULT LIKE TABLE OF GS_EVAL_RESULT.<br />
+<br />
+"## ## #### ### ### ##<br />
+DATA: BEGIN OF GS_EVAL_RESULT_OUTPUT,<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT02_102-ZPERNR,&nbsp;"####<br />
+&nbsp;&nbsp;ZPNAME&nbsp;LIKE&nbsp;ZEDT02_103-ZPNAME,&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPCODE&nbsp;LIKE&nbsp;ZEDT02_102-ZDEPCODE,&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPNAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,&nbsp;"###<br />
+&nbsp;&nbsp;ZDEPRANKNAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,&nbsp;"###<br />
+&nbsp;&nbsp;ZEDATE&nbsp;LIKE&nbsp;ZEDT02_102-ZEDATE,&nbsp;"###<br />
+&nbsp;&nbsp;ZSALARY&nbsp;LIKE&nbsp;ZEDT02_106-ZSALARY,&nbsp;"####<br />
+&nbsp;&nbsp;ZRANK&nbsp;LIKE&nbsp;ZEDT02_104-ZRANK,&nbsp;"####<br />
+&nbsp;&nbsp;ZMON&nbsp;LIKE&nbsp;ZEDT02_105-ZMON01,&nbsp;"N####<br />
+END OF GS_EVAL_RESULT_OUTPUT.<br />
+DATA : GT_EVAL_RESULT_OUTPUT LIKE TABLE OF GS_EVAL_RESULT_OUTPUT.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_ZPERNR&nbsp;FOR&nbsp;ZEDT02_102-ZPERNR.&nbsp;"####<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_DATE&nbsp;FOR&nbsp;SY-DATUM&nbsp;MODIF&nbsp;ID&nbsp;M1.&nbsp;"##<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_DEPCO&nbsp;TYPE&nbsp;ZEDT02_102-ZDEPCODE&nbsp;MODIF&nbsp;ID&nbsp;M1.&nbsp;"####<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_YEAR&nbsp;TYPE&nbsp;GJAHR&nbsp;MODIF&nbsp;ID&nbsp;M2&nbsp;DEFAULT&nbsp;SY-DATUM(4).&nbsp;"##<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_MONTH&nbsp;TYPE&nbsp;MONAT&nbsp;MODIF&nbsp;ID&nbsp;M2&nbsp;DEFAULT&nbsp;SY-DATUM+4(2).&nbsp;"#<br />
+SELECTION-SCREEN END OF BLOCK B1.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_EMP&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R1&nbsp;DEFAULT&nbsp;'X'&nbsp;USER-COMMAND&nbsp;UC1.&nbsp;"####<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_SAL&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R1.&nbsp;"####<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_EVAL&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R1.&nbsp;"####<br />
+SELECTION-SCREEN END OF BLOCK B2.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B3 WITH FRAME.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_RE&nbsp;AS&nbsp;CHECKBOX&nbsp;DEFAULT&nbsp;'X'&nbsp;MODIF&nbsp;ID&nbsp;M1.&nbsp;"####<br />
+SELECTION-SCREEN END OF BLOCK B3.<br />
+<br />
+RANGES : GR_DEPCODE FOR ZEDT02_102-ZDEPCODE, "####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GR_OFFICE&nbsp;FOR&nbsp;ZEDT02_102-ZQFLAG.&nbsp;"####<br />
+<br />
+DATA: GV_LAST_DAY TYPE SY-DATUM. "## ## ### #<br />
+DATA: GV_SUBRC TYPE I. "UPDATE ### ## ##<br />
+DATA: GS_FIELDCAT TYPE SLIS_FIELDCAT_ALV. "###### ###<br />
+DATA: GT_FIELDCAT TYPE SLIS_T_FIELDCAT_ALV. "###### ###<br />
+DATA : GS_LAYOUT TYPE SLIS_LAYOUT_ALV. "ALV ####<br />
+DATA: GS_SORT TYPE SLIS_SORTINFO_ALV. "ALV SORT ###<br />
+DATA: GT_SORT TYPE SLIS_T_SORTINFO_ALV. "ALV SORT ###<br />
+<br />
+CONSTANTS: GC_A_BONUS TYPE BSEG-DMBTR VALUE 500, "##### A# # ### 5##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_ALV_RIGHT_ALIGN&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;1&nbsp;VALUE&nbsp;'R',&nbsp;"######&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_ALV_CURRENCY&nbsp;TYPE&nbsp;SLIS_FIELDCAT_ALV-CURRENCY&nbsp;VALUE&nbsp;'KRW'.&nbsp;"##&nbsp;####&nbsp;##<br />
+<br />
+INITIALIZATION. "### ##<br />
+S_DATE-LOW = '20250101'.<br />
+CONCATENATE P_YEAR P_MONTH '01' INTO GV_LAST_DAY.<br />
+CALL FUNCTION 'LAST_DAY_OF_MONTHS' "### # ##<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DAY_IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GV_LAST_DAY<br />
+&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;LAST_DAY_OF_MONTH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GV_LAST_DAY.<br />
+S_DATE-HIGH = GV_LAST_DAY.<br />
+APPEND S_DATE.<br />
+<br />
+AT SELECTION-SCREEN.<br />
+&nbsp;&nbsp;IF&nbsp;P_EMP&nbsp;=&nbsp;'X'.&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;S_DATE&nbsp;IS&nbsp;INITIAL.&nbsp;"###&nbsp;###&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E000.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;P_SAL&nbsp;=&nbsp;'X'&nbsp;OR&nbsp;P_EVAL&nbsp;=&nbsp;'X'.&nbsp;"####&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_YEAR&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;P_MONTH&nbsp;IS&nbsp;INITIAL.&nbsp;"#&nbsp;##&nbsp;#&nbsp;#&nbsp;####&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E000.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+AT SELECTION-SCREEN OUTPUT.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'M1'.&nbsp;"####-&gt;##,&nbsp;####,&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_EMP&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;P_SAL&nbsp;=&nbsp;'X'&nbsp;OR&nbsp;P_EVAL&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'M2'.&nbsp;"####,&nbsp;####-&gt;##,&nbsp;#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_EMP&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;P_SAL&nbsp;=&nbsp;'X'&nbsp;OR&nbsp;P_EVAL&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+START-OF-SELECTION.<br />
+IF P_EMP = 'X'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_EMP_DATA&nbsp;.&nbsp;"####&nbsp;###&nbsp;###&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;MODIFY_EMP_DATA&nbsp;USING&nbsp;GT_EMP_INFO.&nbsp;"####&nbsp;###&nbsp;##&nbsp;####&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;ALV_DISPLAY_EMP&nbsp;.&nbsp;"####&nbsp;####&nbsp;##<br />
+ELSEIF P_SAL = 'X'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_EVAL_DATA.&nbsp;"#####&nbsp;#####&nbsp;###&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;UPDATE_SALARY&nbsp;CHANGING&nbsp;GV_SUBRC.&nbsp;"###&nbsp;####&nbsp;ZEDT02_105#&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;GV_SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S002.&nbsp;"###<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E003.&nbsp;"###<br />
+&nbsp;&nbsp;ENDIF.<br />
+ELSEIF P_EVAL = 'X'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_EVAL_DATA.<br />
+&nbsp;&nbsp;PERFORM&nbsp;MODIFY_EVAL_DATA.&nbsp;"####&nbsp;###&nbsp;##&nbsp;####&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;ALV_DISPLAY_EVAL.&nbsp;"####&nbsp;####&nbsp;##<br />
+<br />
+ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_EMP_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+FORM GET_EMP_DATA .<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_DEPCO&nbsp;IS&nbsp;NOT&nbsp;INITIAL.&nbsp;"#####&nbsp;###&nbsp;###&nbsp;#####&nbsp;####&nbsp;####&nbsp;###&nbsp;RANGE&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GR_DEPCODE-OPTION&nbsp;=&nbsp;'EQ'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GR_DEPCODE-LOW&nbsp;=&nbsp;P_DEPCO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GR_DEPCODE-SIGN&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GR_DEPCODE.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_RE&nbsp;=&nbsp;'X'.&nbsp;"#####&nbsp;#####&nbsp;####&nbsp;####&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GR_OFFICE-OPTION&nbsp;=&nbsp;'NE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GR_OFFICE-SIGN&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GR_OFFICE-LOW&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GR_OFFICE.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;A~ZPERNR&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~ZPNAME&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZDEPCODE&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZDEPRANK&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZEDATE&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZQFLAG&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~ZGENDER&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~ZADDRESS&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~ZBANKCODE&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~ZACCOUNT&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~DATBI&nbsp;"####_FR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~DATAB&nbsp;"####_TO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZQDATE&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_EMP_INFO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT02_102&nbsp;AS&nbsp;A&nbsp;"####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;ZEDT02_103&nbsp;AS&nbsp;B&nbsp;ON&nbsp;A~ZPERNR&nbsp;=&nbsp;B~ZPERNR&nbsp;"####-####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;ZEDT02_106&nbsp;AS&nbsp;C&nbsp;ON&nbsp;A~ZPERNR&nbsp;=&nbsp;C~ZPERNR.&nbsp;"####&nbsp;###<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_EMP_INFO&nbsp;WHERE&nbsp;ZDEPCODE&nbsp;NOT&nbsp;IN&nbsp;GR_DEPCODE.&nbsp;"#####&nbsp;####&nbsp;##,&nbsp;###&nbsp;###&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_EMP_INFO&nbsp;WHERE&nbsp;ZQFLAG&nbsp;NOT&nbsp;IN&nbsp;GR_OFFICE.&nbsp;"####&nbsp;###&nbsp;###&nbsp;X,&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_EMP_INFO&nbsp;WHERE&nbsp;DATAB&nbsp;&lt;&nbsp;S_DATE-LOW.&nbsp;"##&nbsp;##&nbsp;#####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_EMP_INFO&nbsp;WHERE&nbsp;DATBI&nbsp;&gt;&nbsp;S_DATE-HIGH.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_EMP_INFO&nbsp;WHERE&nbsp;ZPERNR&nbsp;NOT&nbsp;IN&nbsp;S_ZPERNR.&nbsp;"#####&nbsp;####&nbsp;##,&nbsp;###&nbsp;##&nbsp;##&nbsp;##&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_EMP_INFO&nbsp;WHERE&nbsp;ZQDATE&nbsp;IS&nbsp;NOT&nbsp;INITIAL&nbsp;AND&nbsp;ZQDATE&nbsp;&gt;=&nbsp;S_DATE-LOW&nbsp;AND&nbsp;ZQDATE&nbsp;&lt;=&nbsp;S_DATE-HIGH.&nbsp;"##&nbsp;##&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GT_EMP_INFO&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S001&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.&nbsp;"###&nbsp;####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;MODIFY_EMP_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM MODIFY_EMP_DATA USING GT_EMP_INFO LIKE GT_EMP_INFO.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_EMP_INFO&nbsp;INTO&nbsp;GS_EMP_INFO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_EMP_INFO_OUTPUT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_EMP_INFO_OUTPUT-ZPERNR&nbsp;=&nbsp;GS_EMP_INFO-ZPERNR.&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_EMP_INFO_OUTPUT-ZPNAME&nbsp;=&nbsp;GS_EMP_INFO-ZPNAME.&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_EMP_INFO_OUTPUT-ZDEPCODE&nbsp;=&nbsp;GS_EMP_INFO-ZDEPCODE.&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE:&nbsp;GS_EMP_INFO_OUTPUT-ZDEPCODE.&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0001'.&nbsp;GS_EMP_INFO_OUTPUT-ZDEPNAME&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0002'.&nbsp;GS_EMP_INFO_OUTPUT-ZDEPNAME&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0003'.&nbsp;GS_EMP_INFO_OUTPUT-ZDEPNAME&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0004'.&nbsp;GS_EMP_INFO_OUTPUT-ZDEPNAME&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0005'.&nbsp;GS_EMP_INFO_OUTPUT-ZDEPNAME&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0006'.&nbsp;GS_EMP_INFO_OUTPUT-ZDEPNAME&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE:&nbsp;GS_EMP_INFO-ZDEPRANK.&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'A'.&nbsp;GS_EMP_INFO_OUTPUT-ZDEPRANKNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'B'.&nbsp;GS_EMP_INFO_OUTPUT-ZDEPRANKNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'C'.&nbsp;GS_EMP_INFO_OUTPUT-ZDEPRANKNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'D'.&nbsp;GS_EMP_INFO_OUTPUT-ZDEPRANKNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'E'.&nbsp;GS_EMP_INFO_OUTPUT-ZDEPRANKNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'F'.&nbsp;GS_EMP_INFO_OUTPUT-ZDEPRANKNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'G'.&nbsp;GS_EMP_INFO_OUTPUT-ZDEPRANKNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_EMP_INFO_OUTPUT-ZEDATE&nbsp;=&nbsp;GS_EMP_INFO-ZEDATE.&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE:&nbsp;GS_EMP_INFO-ZQFLAG.&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'X'.&nbsp;GS_EMP_INFO_OUTPUT-ZQFLAG&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.&nbsp;GS_EMP_INFO_OUTPUT-ZQFLAG&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;:&nbsp;GS_EMP_INFO-ZGENDER.&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'M'.&nbsp;GS_EMP_INFO_OUTPUT-ZGENDER&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'F'.&nbsp;GS_EMP_INFO_OUTPUT-ZGENDER&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_EMP_INFO_OUTPUT-ZADDRESS&nbsp;=&nbsp;GS_EMP_INFO-ZADDRESS.&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_EMP_INFO_OUTPUT-ZBANKCODE&nbsp;=&nbsp;GS_EMP_INFO-ZBANKCODE.&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;:&nbsp;GS_EMP_INFO-ZBANKCODE.&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'001'.&nbsp;GS_EMP_INFO_OUTPUT-ZBANKNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'002'.&nbsp;GS_EMP_INFO_OUTPUT-ZBANKNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'003'.&nbsp;GS_EMP_INFO_OUTPUT-ZBANKNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'004'.&nbsp;GS_EMP_INFO_OUTPUT-ZBANKNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'005'.&nbsp;GS_EMP_INFO_OUTPUT-ZBANKNAME&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_EMP_INFO_OUTPUT-ZACCOUNT&nbsp;=&nbsp;GS_EMP_INFO-ZACCOUNT.&nbsp;"####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_EMP_INFO_OUTPUT&nbsp;TO&nbsp;GT_EMP_INFO_OUTPUT.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_DISPLAY_EMP<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_DISPLAY_EMP.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT,&nbsp;GT_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-KEY&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZPNAME'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-KEY&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZDEPCODE'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZDEPNAME'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZDEPRANKNAME'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZEDATE'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZQFLAG'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZGENDER'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;9.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZADDRESS'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZBANKCODE'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;11.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZBANKNAME'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;11.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZACCOUNT'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;GS_LAYOUT-ZEBRA&nbsp;=&nbsp;'X'.&nbsp;"##&nbsp;##&nbsp;##&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;GS_SORT-SPOS&nbsp;=&nbsp;'1'.&nbsp;"####<br />
+&nbsp;&nbsp;GS_SORT-FIELDNAME&nbsp;=&nbsp;'ZPERNR'.&nbsp;"#####&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;GS_SORT-UP&nbsp;=&nbsp;'X'.&nbsp;"####<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_SORT&nbsp;TO&nbsp;GT_SORT.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'REUSE_ALV_GRID_DISPLAY'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_LAYOUT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_FIELDCAT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_SORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_SORT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_EMP_INFO_OUTPUT.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;UPDATE_SALARY<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM UPDATE_SALARY CHANGING GV_SUBRC TYPE I.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_SAL&nbsp;TYPE&nbsp;BSEG-DMBTR.&nbsp;"###&nbsp;##&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;DATA:&nbsp;ZMON(6).&nbsp;"##&nbsp;###&nbsp;###&nbsp;##&nbsp;##&nbsp;(#:&nbsp;ZMON10)<br />
+&nbsp;&nbsp;FIELD-SYMBOLS:&nbsp;&lt;FS1&gt;&nbsp;LIKE&nbsp;GS_SALARY,&nbsp;"GS_SALARY&nbsp;###&nbsp;###&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;FS2&gt;&nbsp;TYPE&nbsp;ANY.&nbsp;"GS_SALARY#&nbsp;##&nbsp;ZMON&nbsp;###&nbsp;###&nbsp;####<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_SAL_PAY&nbsp;INTO&nbsp;GS_SAL_PAY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;GS_SALARY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_SAL&nbsp;=&nbsp;GS_SAL_PAY-ZSALARY&nbsp;/&nbsp;12.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_SAL_PAY-ZRANK&nbsp;=&nbsp;'A'.&nbsp;"#####&nbsp;A#&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_SAL&nbsp;=&nbsp;LV_SAL&nbsp;+&nbsp;GC_A_BONUS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;LV_SAL&nbsp;&lt;&gt;&nbsp;0.&nbsp;"###&nbsp;0#&nbsp;####&nbsp;LOOP#&nbsp;##&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT02_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;GS_SALARY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZPERNR&nbsp;=&nbsp;GS_SAL_PAY-ZPERNR&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZYEAR&nbsp;&nbsp;=&nbsp;GS_SAL_PAY-ZYEAR.&nbsp;"##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_SALARY-AENAME&nbsp;=&nbsp;SY-UNAME.&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_SALARY-AEDATE&nbsp;=&nbsp;SY-DATUM.&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_SALARY-AEZEIT&nbsp;=&nbsp;SY-UZEIT.&nbsp;"####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;GS_SALARY&nbsp;TO&nbsp;&lt;FS1&gt;.&nbsp;"GS_SALARY#&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;'ZMON'&nbsp;P_MONTH&nbsp;INTO&nbsp;ZMON.&nbsp;"ZMON10&nbsp;##&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;COMPONENT&nbsp;ZMON&nbsp;OF&nbsp;STRUCTURE&nbsp;&lt;FS1&gt;&nbsp;TO&nbsp;&lt;FS2&gt;.&nbsp;"###&nbsp;####&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;FS2&gt;&nbsp;=&nbsp;LV_SAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;ZEDT02_105&nbsp;FROM&nbsp;GS_SALARY.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_SUBRC&nbsp;=&nbsp;SY-SUBRC.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.&nbsp;"####&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_EVAL_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_EVAL_DATA.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_FIRST_DAY&nbsp;TYPE&nbsp;DATUM,&nbsp;"##&nbsp;##&nbsp;##&nbsp;###&nbsp;#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_LAST_DAY&nbsp;TYPE&nbsp;DATUM.&nbsp;"##&nbsp;##&nbsp;##&nbsp;###&nbsp;#<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;P_YEAR&nbsp;P_MONTH&nbsp;'01'&nbsp;INTO&nbsp;LV_FIRST_DAY.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'LAST_DAY_OF_MONTHS'&nbsp;"####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DAY_IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_FIRST_DAY<br />
+&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;LAST_DAY_OF_MONTH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_LAST_DAY.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;A~ZPERNR&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~ZPNAME&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZDEPCODE&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZDEPRANK&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZEDATE&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D~ZSALARY&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~ZRANK&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~ZYEAR&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~DATBI&nbsp;"####_FR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~DATAB&nbsp;"####_TO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_SAL_PAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT02_102&nbsp;AS&nbsp;A&nbsp;"####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;ZEDT02_103&nbsp;AS&nbsp;B&nbsp;ON&nbsp;A~ZPERNR&nbsp;=&nbsp;B~ZPERNR&nbsp;"####-####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;ZEDT02_104&nbsp;AS&nbsp;C&nbsp;ON&nbsp;A~ZPERNR&nbsp;=&nbsp;C~ZPERNR&nbsp;"####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;ZEDT02_106&nbsp;AS&nbsp;D&nbsp;ON&nbsp;A~ZPERNR&nbsp;=&nbsp;D~ZPERNR.&nbsp;"####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_SAL_PAY&nbsp;WHERE&nbsp;ZYEAR&nbsp;&lt;&gt;&nbsp;P_YEAR.&nbsp;"ZYEAR&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_SAL_PAY&nbsp;WHERE&nbsp;ZPERNR&nbsp;NOT&nbsp;IN&nbsp;S_ZPERNR.&nbsp;"ZPERNR&nbsp;####&nbsp;##&nbsp;##&nbsp;###&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_SAL_PAY&nbsp;WHERE&nbsp;DATBI&nbsp;&gt;&nbsp;LV_FIRST_DAY.&nbsp;"###&nbsp;###&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_SAL_PAY&nbsp;WHERE&nbsp;DATAB&nbsp;&lt;=&nbsp;LV_LAST_DAY.&nbsp;"#####&nbsp;###&nbsp;###&nbsp;###&nbsp;##<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_SAL_PAY&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S001&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.&nbsp;"###&nbsp;###&nbsp;###&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_EVAL&nbsp;=&nbsp;'X'.&nbsp;"####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;ZEDT02_105&nbsp;"#&nbsp;SELECT###&nbsp;###&nbsp;ZPERNR#&nbsp;ZYEAR#&nbsp;ZEDT02_105##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;GT_SALARY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;ALL&nbsp;ENTRIES&nbsp;IN&nbsp;GT_SAL_PAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZPERNR&nbsp;=&nbsp;GT_SAL_PAY-ZPERNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZYEAR&nbsp;=&nbsp;P_YEAR.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_SAL_PAY&nbsp;INTO&nbsp;GS_SAL_PAY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_EVAL_RESULT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_SALARY&nbsp;INTO&nbsp;GS_SALARY&nbsp;WITH&nbsp;KEY&nbsp;ZPERNR&nbsp;=&nbsp;GS_SAL_PAY-ZPERNR.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_SAL_PAY&nbsp;TO&nbsp;GS_EVAL_RESULT.&nbsp;"####-&gt;######&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;P_MONTH.&nbsp;"##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'01'.&nbsp;GS_EVAL_RESULT-ZMON&nbsp;=&nbsp;GS_SALARY-ZMON01.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'02'.&nbsp;GS_EVAL_RESULT-ZMON&nbsp;=&nbsp;GS_SALARY-ZMON02.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'03'.&nbsp;GS_EVAL_RESULT-ZMON&nbsp;=&nbsp;GS_SALARY-ZMON03.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'04'.&nbsp;GS_EVAL_RESULT-ZMON&nbsp;=&nbsp;GS_SALARY-ZMON04.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'05'.&nbsp;GS_EVAL_RESULT-ZMON&nbsp;=&nbsp;GS_SALARY-ZMON05.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'06'.&nbsp;GS_EVAL_RESULT-ZMON&nbsp;=&nbsp;GS_SALARY-ZMON06.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'07'.&nbsp;GS_EVAL_RESULT-ZMON&nbsp;=&nbsp;GS_SALARY-ZMON07.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'08'.&nbsp;GS_EVAL_RESULT-ZMON&nbsp;=&nbsp;GS_SALARY-ZMON08.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'09'.&nbsp;GS_EVAL_RESULT-ZMON&nbsp;=&nbsp;GS_SALARY-ZMON09.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'10'.&nbsp;GS_EVAL_RESULT-ZMON&nbsp;=&nbsp;GS_SALARY-ZMON10.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'11'.&nbsp;GS_EVAL_RESULT-ZMON&nbsp;=&nbsp;GS_SALARY-ZMON11.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'12'.&nbsp;GS_EVAL_RESULT-ZMON&nbsp;=&nbsp;GS_SALARY-ZMON12.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_EVAL_RESULT-ZMON&nbsp;=&nbsp;0&nbsp;OR&nbsp;GS_EVAL_RESULT-ZMON&nbsp;IS&nbsp;INITIAL.&nbsp;"###&nbsp;#####&nbsp;0##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_EVAL_RESULT&nbsp;TO&nbsp;GT_EVAL_RESULT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GT_EVAL_RESULT&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S001&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.&nbsp;"###&nbsp;####&nbsp;###&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;MODIFY_EVAL_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM MODIFY_EVAL_DATA.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_EVAL_RESULT&nbsp;INTO&nbsp;GS_EVAL_RESULT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_EVAL_RESULT_OUTPUT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_EVAL_RESULT_OUTPUT-ZPERNR&nbsp;=&nbsp;GS_EVAL_RESULT-ZPERNR.&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_EVAL_RESULT_OUTPUT-ZPNAME&nbsp;=&nbsp;GS_EVAL_RESULT-ZPNAME.&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_EVAL_RESULT_OUTPUT-ZDEPCODE&nbsp;=&nbsp;GS_EVAL_RESULT-ZDEPCODE.&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE:&nbsp;GS_EVAL_RESULT_OUTPUT-ZDEPCODE.&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0001'.&nbsp;GS_EVAL_RESULT_OUTPUT-ZDEPNAME&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0002'.&nbsp;GS_EVAL_RESULT_OUTPUT-ZDEPNAME&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0003'.&nbsp;GS_EVAL_RESULT_OUTPUT-ZDEPNAME&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0004'.&nbsp;GS_EVAL_RESULT_OUTPUT-ZDEPNAME&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0005'.&nbsp;GS_EVAL_RESULT_OUTPUT-ZDEPNAME&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0006'.&nbsp;GS_EVAL_RESULT_OUTPUT-ZDEPNAME&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE:&nbsp;GS_EVAL_RESULT-ZDEPRANK.&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'A'.&nbsp;GS_EVAL_RESULT_OUTPUT-ZDEPRANKNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'B'.&nbsp;GS_EVAL_RESULT_OUTPUT-ZDEPRANKNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'C'.&nbsp;GS_EVAL_RESULT_OUTPUT-ZDEPRANKNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'D'.&nbsp;GS_EVAL_RESULT_OUTPUT-ZDEPRANKNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'E'.&nbsp;GS_EVAL_RESULT_OUTPUT-ZDEPRANKNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'F'.&nbsp;GS_EVAL_RESULT_OUTPUT-ZDEPRANKNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'G'.&nbsp;GS_EVAL_RESULT_OUTPUT-ZDEPRANKNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_EVAL_RESULT_OUTPUT-ZEDATE&nbsp;=&nbsp;GS_EVAL_RESULT-ZEDATE.&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_EVAL_RESULT_OUTPUT-ZSALARY&nbsp;=&nbsp;GS_EVAL_RESULT-ZSALARY.&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_EVAL_RESULT_OUTPUT-ZRANK&nbsp;=&nbsp;GS_EVAL_RESULT-ZRANK.&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_EVAL_RESULT_OUTPUT-ZMON&nbsp;=&nbsp;GS_EVAL_RESULT-ZMON.&nbsp;"N###<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_EVAL_RESULT_OUTPUT&nbsp;TO&nbsp;GT_EVAL_RESULT_OUTPUT.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_DISPLAY_EVAL<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_DISPLAY_EVAL.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_MON_FIELD_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10.&nbsp;"##&nbsp;###&nbsp;###&nbsp;##<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT,&nbsp;GT_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-KEY&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZPNAME'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-KEY&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZDEPCODE'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZDEPNAME'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZDEPRANKNAME'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZEDATE'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZSALARY'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-JUST&nbsp;=&nbsp;GC_ALV_RIGHT_ALIGN.<br />
+&nbsp;&nbsp;GS_FIELDCAT-DO_SUM&nbsp;=&nbsp;'X'.&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;GS_FIELDCAT-CURRENCY&nbsp;=&nbsp;GC_ALV_CURRENCY.<br />
+&nbsp;&nbsp;GS_FIELDCAT-OUTPUTLEN&nbsp;=&nbsp;20.&nbsp;"#&nbsp;##&nbsp;20<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZRANK'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;9.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZMON'.<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;P_MONTH&nbsp;'#####'&nbsp;INTO&nbsp;LV_MON_FIELD_NAME.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;LV_MON_FIELD_NAME.<br />
+&nbsp;&nbsp;GS_FIELDCAT-JUST&nbsp;=&nbsp;GC_ALV_RIGHT_ALIGN.<br />
+&nbsp;&nbsp;GS_FIELDCAT-DO_SUM&nbsp;=&nbsp;'X'.&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;GS_FIELDCAT-CURRENCY&nbsp;=&nbsp;GC_ALV_CURRENCY.<br />
+&nbsp;&nbsp;GS_FIELDCAT-OUTPUTLEN&nbsp;=&nbsp;20.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;GS_LAYOUT-ZEBRA&nbsp;=&nbsp;'X'.&nbsp;"##&nbsp;##&nbsp;##&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;GS_SORT-SPOS&nbsp;=&nbsp;'1'.&nbsp;"####<br />
+&nbsp;&nbsp;GS_SORT-FIELDNAME&nbsp;=&nbsp;'ZPERNR'.&nbsp;"ZPERNR#&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;GS_SORT-UP&nbsp;=&nbsp;'X'.&nbsp;"####<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_SORT&nbsp;TO&nbsp;GT_SORT.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'REUSE_ALV_GRID_DISPLAY'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_LAYOUT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_FIELDCAT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_SORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_SORT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_EVAL_RESULT_OUTPUT.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.&nbsp;"##&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,650 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZWORK05_002_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZWORK05_002_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZWORK05_002_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form GET_DATA .<br />
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;ZTCURR05&nbsp;INTO&nbsp;TABLE&nbsp;GT_200<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;GDATU&nbsp;=&nbsp;P_DATE.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_200&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I001.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_200&nbsp;INTO&nbsp;GS_200.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GS_200-ERNAM&nbsp;=&nbsp;SY-UNAME.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GS_200-ERDAT&nbsp;=&nbsp;SY-DATUM.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_200&nbsp;FROM&nbsp;GS_200.<br />
+*&nbsp;&nbsp;ENDLOOP.<br />
+   </div>
+   <div class="code">
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CHECK_DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form CHECK_DATA .<br />
+&nbsp;&nbsp;IF&nbsp;P_DATE&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I000.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CREATE_OBJECT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form CREATE_OBJECT .<br />
+&nbsp;&nbsp;create&nbsp;object&nbsp;GO_CONTAINER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTAINER_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'AREA'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exceptions<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_SYSTEM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CREATE_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME_DYNPRO_DYNPRO_LINK&nbsp;=&nbsp;5.<br />
+<br />
+&nbsp;&nbsp;if&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;ID&nbsp;SY-MSGID&nbsp;TYPE&nbsp;SY-MSGTY&nbsp;NUMBER&nbsp;SY-MSGNO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;SY-MSGV1&nbsp;SY-MSGV2&nbsp;SY-MSGV3&nbsp;SY-MSGV4.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;create&nbsp;object&nbsp;GO_ALV_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_PARENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GO_CONTAINER.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_event_handler.<br />
+<br />
+&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;go_event_handler-&gt;handle_toolbar&nbsp;FOR&nbsp;go_alv_grid.<br />
+&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;go_event_handler-&gt;handle_user_command&nbsp;FOR&nbsp;go_alv_grid.<br />
+<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;FIELD_CATALOG<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form FIELD_CATALOG .<br />
+<br />
+&nbsp;&nbsp;REFRESH&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'KURST'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-OUTPUTLEN&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'FCURR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-OUTPUTLEN&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'TCURR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-OUTPUTLEN&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'GDATU'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-OUTPUTLEN&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'UKURS'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-OUTPUTLEN&nbsp;=&nbsp;15.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'FFACT'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'########'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-OUTPUTLEN&nbsp;=&nbsp;18.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'TFACT'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'########'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-OUTPUTLEN&nbsp;=&nbsp;18.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ERNAM'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-OUTPUTLEN&nbsp;=&nbsp;12.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ERDAT'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-OUTPUTLEN&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;9.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_LAYOUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form ALV_LAYOUT .<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_LAYOUT.<br />
+&nbsp;&nbsp;GS_LAYOUT-ZEBRA&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;GS_LAYOUT-CWIDTH_OPT&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;GS_LAYOUT-SEL_MODE&nbsp;=&nbsp;'A'.<br />
+&nbsp;&nbsp;GS_LAYOUT-GRID_TITLE&nbsp;=&nbsp;'##&nbsp;##&nbsp;##'.<br />
+&nbsp;&nbsp;GS_LAYOUT-NO_ROWMARK&nbsp;=&nbsp;''.<br />
+<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CALL_ALV<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form CALL_ALV .<br />
+&nbsp;&nbsp;call&nbsp;method&nbsp;GO_ALV_GRID-&gt;SET_TABLE_FOR_FIRST_DISPLAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_LAYOUT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;changing<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_200<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCATALOG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_FIELDCAT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exceptions<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INVALID_PARAMETER_COMBINATION&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PROGRAM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TOO_MANY_LINES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4.<br />
+<br />
+&nbsp;&nbsp;if&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;ID&nbsp;SY-MSGID&nbsp;TYPE&nbsp;SY-MSGTY&nbsp;NUMBER&nbsp;SY-MSGNO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;SY-MSGV1&nbsp;SY-MSGV2&nbsp;SY-MSGV3&nbsp;SY-MSGV4.<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;PDF_DOWNLOAD<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form PDF_DOWNLOAD .<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;GT_200&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1.&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_TEMP_DIRECTORY.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2.&nbsp;###&nbsp;####<br />
+&nbsp;&nbsp;PERFORM&nbsp;DOWNLOAD_TEMPLATE.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;3.&nbsp;Excel&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;OPEN_EXCEL_TEMPLATE.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;4.&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;FILL_EXCEL_LINE.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;5.&nbsp;PDF#&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;SAVE_AS_PDF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;6.&nbsp;Excel&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;CLOSE_EXCEL.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;7.&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;DELETE_FILE.<br />
+<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_TEMP_DIRECTORY<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form GET_TEMP_DIRECTORY .<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;GET_TEMP_DIRECTORY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEMP_DIR&nbsp;=&nbsp;GV_DIRECTORY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GV_DIRECTORY&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_DIRECTORY&nbsp;=&nbsp;'C:\TEMP'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;Excel&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;GV_DIRECTORY&nbsp;'\excel_template.xlsx'&nbsp;INTO&nbsp;GV_TEMPLATE_PATH.<br />
+<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;DIRECTORY_BROWSE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form DIRECTORY_BROWSE .<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_PDF_DIRECTORY&nbsp;TYPE&nbsp;STRING.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;PDF&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;DIRECTORY_BROWSE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTED_FOLDER&nbsp;=&nbsp;LV_PDF_DIRECTORY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LV_PDF_DIRECTORY&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'PDF&nbsp;##&nbsp;###&nbsp;#####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;PDF&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_DATE_STR(8)&nbsp;TYPE&nbsp;C.<br />
+&nbsp;&nbsp;WRITE&nbsp;P_DATE&nbsp;TO&nbsp;LV_DATE_STR.<br />
+&nbsp;&nbsp;CONDENSE&nbsp;LV_DATE_STR&nbsp;NO-GAPS.<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;LV_PDF_DIRECTORY&nbsp;'\EXCHANGERATE_'&nbsp;LV_DATE_STR&nbsp;'.pdf'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;GV_PDF_PATH.<br />
+<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;DOWNLOAD_TEMPLATE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form DOWNLOAD_TEMPLATE .<br />
+&nbsp;&nbsp;DATA:&nbsp;LS_WWWDATA&nbsp;TYPE&nbsp;WWWDATA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_KEY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;WWWDATATAB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_FILE&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;RLGRAP-FILENAME.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;STRING#&nbsp;CHAR&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;LV_FILE&nbsp;=&nbsp;GV_TEMPLATE_PATH.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'WS_FILE_DELETE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_FILE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;SMW0##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*&nbsp;FROM&nbsp;WWWDATA&nbsp;INTO&nbsp;LS_WWWDATA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;OBJID&nbsp;=&nbsp;'ZEXCHANGE_TEMPLATE'.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;##&nbsp;#&nbsp;####.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;KEY&nbsp;##<br />
+&nbsp;&nbsp;LS_KEY-RELID&nbsp;=&nbsp;LS_WWWDATA-RELID.<br />
+&nbsp;&nbsp;LS_KEY-OBJID&nbsp;=&nbsp;LS_WWWDATA-OBJID.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;PC#&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'DOWNLOAD_WEB_OBJECT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KEY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LS_KEY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DESTINATION&nbsp;=&nbsp;LV_FILE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_RC<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LV_RC&nbsp;&lt;&gt;&nbsp;0&nbsp;OR&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;####&nbsp;##'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GV_TEMPLATE_PATH.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;OPEN_EXCEL_TEMPLATE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form OPEN_EXCEL_TEMPLATE.<br />
+&nbsp;&nbsp;DATA:&nbsp;LO_BOOKS&nbsp;&nbsp;TYPE&nbsp;OLE2_OBJECT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LO_SHEETS&nbsp;TYPE&nbsp;OLE2_OBJECT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;Excel&nbsp;######&nbsp;##<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_EXCEL&nbsp;'Excel.Application'.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GO_EXCEL&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'Excel&nbsp;##&nbsp;##&nbsp;##'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;Excel&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;GO_EXCEL&nbsp;'Visible'&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;GO_EXCEL&nbsp;'DisplayAlerts'&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;"&nbsp;Workbooks&nbsp;###&nbsp;####<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_EXCEL&nbsp;'Workbooks'&nbsp;=&nbsp;LO_BOOKS.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;GV_TEMPLATE_PATH&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;LO_BOOKS&nbsp;'Open'&nbsp;=&nbsp;GO_WORKBOOK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;#1&nbsp;=&nbsp;GV_TEMPLATE_PATH.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;##&nbsp;#&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;LO_BOOKS&nbsp;'Add'&nbsp;=&nbsp;GO_WORKBOOK.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GO_WORKBOOK&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'Workbook&nbsp;##&nbsp;##'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_EXCEL&nbsp;'Quit'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;OBJECT&nbsp;GO_EXCEL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;#&nbsp;##&nbsp;####&nbsp;####<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_WORKBOOK&nbsp;'Sheets'&nbsp;=&nbsp;LO_SHEETS.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;LO_SHEETS&nbsp;'Item'&nbsp;=&nbsp;GO_WORKSHEET<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;#1&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;FREE&nbsp;OBJECT:&nbsp;LO_BOOKS,&nbsp;LO_SHEETS.<br />
+<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;FILL_EXCEL_LINE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form FILL_EXCEL_LINE.<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_DATE_GDATU(10)&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_DATE_ERDAT(10)&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_GDATU_OUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_GDATU_CLEAN(8)&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ERDAT_STR(8)&nbsp;&nbsp;&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LO_COLUMNS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;OLE2_OBJECT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LO_RANGE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;OLE2_OBJECT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;Cells&nbsp;##&nbsp;####<br />
+&nbsp;&nbsp;GET&nbsp;PROPERTY&nbsp;OF&nbsp;GO_WORKSHEET&nbsp;'Cells'&nbsp;=&nbsp;GO_CELLS.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_EXCEL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;1&nbsp;'####'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_EXCEL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;2&nbsp;'####'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_EXCEL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;3&nbsp;'####'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_EXCEL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;4&nbsp;'####'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_EXCEL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;5&nbsp;'##'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_EXCEL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;6&nbsp;'########'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_EXCEL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;7&nbsp;'########'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_EXCEL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;8&nbsp;'###'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_EXCEL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;9&nbsp;'###'.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;LV_ROW&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_200&nbsp;INTO&nbsp;GS_200.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ERDAT&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;LV_DATE_ERDAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_200-ERDAT&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ERDAT_STR&nbsp;=&nbsp;GS_200-ERDAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;LV_ERDAT_STR+0(4)&nbsp;'-'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ERDAT_STR+4(2)&nbsp;'-'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ERDAT_STR+6(2)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;LV_DATE_ERDAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_EXCEL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;1&nbsp;GS_200-KURST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_EXCEL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;2&nbsp;GS_200-FCURR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_EXCEL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;3&nbsp;GS_200-TCURR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_EXCEL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;4&nbsp;GS_200-GDATU.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_EXCEL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;5&nbsp;GS_200-UKURS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_EXCEL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;6&nbsp;GS_200-FFACT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_EXCEL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;7&nbsp;GS_200-TFACT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_EXCEL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;8&nbsp;GS_200-ERNAM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_EXCEL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;9&nbsp;LV_DATE_ERDAT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_ROW&nbsp;=&nbsp;LV_ROW&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_WORKSHEET&nbsp;'UsedRange'&nbsp;=&nbsp;LO_RANGE.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;LO_RANGE&nbsp;'Columns'&nbsp;=&nbsp;LO_COLUMNS.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;LO_COLUMNS&nbsp;'AutoFit'.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;FREE&nbsp;OBJECT:&nbsp;LO_COLUMNS,&nbsp;LO_RANGE.<br />
+<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_EXCEL_CELL<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form SET_EXCEL_CELL using P_ROW     TYPE I<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_COL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_VALUE&nbsp;&nbsp;&nbsp;TYPE&nbsp;ANY.<br />
+&nbsp;&nbsp;DATA:&nbsp;LO_CELL&nbsp;TYPE&nbsp;OLE2_OBJECT.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_CELLS&nbsp;'Item'&nbsp;=&nbsp;LO_CELL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#1&nbsp;=&nbsp;P_ROW<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#2&nbsp;=&nbsp;P_COL.<br />
+<br />
+&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;LO_CELL&nbsp;'Value'&nbsp;=&nbsp;P_VALUE.<br />
+<br />
+&nbsp;&nbsp;FREE&nbsp;OBJECT&nbsp;LO_CELL.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SAVE_AS_PDF<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form SAVE_AS_PDF.<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_SUBRC&nbsp;TYPE&nbsp;SY-SUBRC.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;PDF&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;DIRECTORY_BROWSE.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;PDF#&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_WORKBOOK&nbsp;'ExportAsFixedFormat'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#1&nbsp;=&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;xlTypePDF&nbsp;=&nbsp;0<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#2&nbsp;=&nbsp;GV_PDF_PATH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Filename<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#3&nbsp;=&nbsp;0.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Quality:&nbsp;xlQualityStandard&nbsp;=&nbsp;0<br />
+<br />
+&nbsp;&nbsp;LV_SUBRC&nbsp;=&nbsp;SY-SUBRC.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LV_SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'POPUP_TO_INFORM'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TITEL&nbsp;=&nbsp;'PDF&nbsp;##&nbsp;##'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TXT1&nbsp;&nbsp;=&nbsp;'PDF&nbsp;###&nbsp;#######.'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TXT2&nbsp;&nbsp;=&nbsp;GV_PDF_PATH.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'PDF&nbsp;##&nbsp;##'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CLOSE_EXCEL<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form CLOSE_EXCEL.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;Cells&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;GO_CELLS&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;OBJECT&nbsp;GO_CELLS.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;Worksheet&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;GO_WORKSHEET&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;OBJECT&nbsp;GO_WORKSHEET.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;Workbook&nbsp;##&nbsp;(####&nbsp;##)<br />
+&nbsp;&nbsp;IF&nbsp;GO_WORKBOOK&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_WORKBOOK&nbsp;'Close'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;#1&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;OBJECT&nbsp;GO_WORKBOOK.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;Excel&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;GO_EXCEL&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_EXCEL&nbsp;'Quit'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;OBJECT&nbsp;GO_EXCEL.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;DELETE_FILE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form DELETE_FILE.<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_RC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_EXIST&nbsp;&nbsp;TYPE&nbsp;ABAP_BOOL.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GV_TEMPLATE_PATH&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;FILE_EXIST<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GV_TEMPLATE_PATH<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RECEIVING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RESULT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_EXIST<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LV_EXIST&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;FILE_DELETE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILENAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GV_TEMPLATE_PATH<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_RC<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE_DELETE_FAILED&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_NO_GUI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE_NOT_FOUND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ACCESS_DENIED&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNKNOWN_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;6<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NOT_SUPPORTED_BY_GUI&nbsp;=&nbsp;7<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRONG_PARAMETER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;8<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;9.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;###&nbsp;#######.'&nbsp;TYPE&nbsp;'S'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+endform.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

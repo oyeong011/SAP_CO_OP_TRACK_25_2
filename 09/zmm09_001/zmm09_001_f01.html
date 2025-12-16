@@ -1,0 +1,553 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM09_001_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM09_001_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM09_001_F01<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CONTROL_SCREEN<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+" ####(P_R1) ### -&gt; ####(P_BUKRS), ####(P_KTOKK)<br />
+" ####(P_R2) ### -&gt; #####(P_LIFNR), ####(P_BUKRS) ####<br />
+FORM CONTROL_SCREEN .<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_R1&nbsp;=&nbsp;'X'.&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'S'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;P_R2&nbsp;=&nbsp;'X'.&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'S'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;VALID_INPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM VALID_INPUT .<br />
+&nbsp;&nbsp;IF&nbsp;P_R1&nbsp;=&nbsp;'X'.&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_BUKR_C&nbsp;=&nbsp;''&nbsp;OR&nbsp;P_KTOKK&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'#####&nbsp;#####&nbsp;########.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;P_R2&nbsp;=&nbsp;'X'.&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_LIFNR&nbsp;=&nbsp;''&nbsp;OR&nbsp;P_BUKR_S&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'######&nbsp;#####&nbsp;########.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SAVE_DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SAVE_DATA .<br />
+&nbsp;&nbsp;"SNRO&nbsp;###&nbsp;##&nbsp;####<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_SNRO&nbsp;CHANGING&nbsp;GV_LIFNR.<br />
+<br />
+&nbsp;&nbsp;"###&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;SAVE_VENDER&nbsp;USING&nbsp;GV_LIFNR.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_SNRO<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_SNRO  CHANGING P_GV_LIFNR.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'NUMBER_GET_NEXT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NR_RANGE_NR&nbsp;=&nbsp;'01'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBJECT&nbsp;=&nbsp;'ZLIFNR09'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NUMBER&nbsp;=&nbsp;P_GV_LIFNR.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SAVE_VENDER<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SAVE_VENDER USING P_GV_LIFNR.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_LFA1,&nbsp;GS_LFB1,&nbsp;GS_LFM1.<br />
+<br />
+&nbsp;&nbsp;"#####&nbsp;###<br />
+&nbsp;&nbsp;GS_LFA1-MANDT&nbsp;=&nbsp;SY-MANDT.<br />
+&nbsp;&nbsp;GS_LFA1-LIFNR&nbsp;=&nbsp;P_GV_LIFNR.<br />
+&nbsp;&nbsp;GS_LFA1-NAME1&nbsp;=&nbsp;GF_NAME1.<br />
+&nbsp;&nbsp;GS_LFA1-LAND1&nbsp;=&nbsp;GF_LAND1.<br />
+&nbsp;&nbsp;GS_LFA1-KTOKK&nbsp;=&nbsp;P_KTOKK.&nbsp;"###&nbsp;#####&nbsp;####&nbsp;####<br />
+&nbsp;&nbsp;GS_LFA1-STCD1&nbsp;=&nbsp;GF_STCD1.<br />
+&nbsp;&nbsp;GS_LFA1-STCD2&nbsp;=&nbsp;GF_STCD2.<br />
+&nbsp;&nbsp;GS_LFA1-STRAS&nbsp;=&nbsp;GF_STRAS.<br />
+<br />
+&nbsp;&nbsp;"####&nbsp;###<br />
+&nbsp;&nbsp;GS_LFB1-MANDT&nbsp;=&nbsp;SY-MANDT.<br />
+&nbsp;&nbsp;GS_LFB1-LIFNR&nbsp;=&nbsp;P_GV_LIFNR.<br />
+&nbsp;&nbsp;GS_LFB1-BUKRS&nbsp;=&nbsp;P_BUKR_C.&nbsp;"###&nbsp;#####&nbsp;####&nbsp;####<br />
+&nbsp;&nbsp;GS_LFB1-LOEVM&nbsp;=&nbsp;''.&nbsp;"#####&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;GS_LFB1-AKONT&nbsp;=&nbsp;GF_AKONT.<br />
+&nbsp;&nbsp;GS_LFB1-ZTERM&nbsp;=&nbsp;GF_ZTERM.<br />
+<br />
+&nbsp;&nbsp;"####&nbsp;###<br />
+&nbsp;&nbsp;GS_LFM1-MANDT&nbsp;=&nbsp;SY-MANDT.<br />
+&nbsp;&nbsp;GS_LFM1-LIFNR&nbsp;=&nbsp;P_GV_LIFNR.<br />
+&nbsp;&nbsp;GS_LFM1-EKORG&nbsp;=&nbsp;ZLFM1_09-EKORG.<br />
+&nbsp;&nbsp;GS_LFM1-EKGRP&nbsp;=&nbsp;ZLFM1_09-EKGRP.<br />
+&nbsp;&nbsp;GS_LFM1-LOEVM&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;GS_LFM1-WAERS&nbsp;=&nbsp;GF_WAERS.<br />
+&nbsp;&nbsp;GS_LFM1-MWSKZ&nbsp;=&nbsp;GF_MWSKZ.<br />
+<br />
+&nbsp;&nbsp;"####&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;INSERT&nbsp;INTO&nbsp;ZLFA1_09&nbsp;VALUES&nbsp;GS_LFA1.<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'#####&nbsp;####'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ROLLBACK&nbsp;WORK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;INSERT&nbsp;INTO&nbsp;ZLFB1_09&nbsp;VALUES&nbsp;GS_LFB1.<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'#######&nbsp;####'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ROLLBACK&nbsp;WORK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;INSERT&nbsp;INTO&nbsp;ZLFM1_09&nbsp;VALUES&nbsp;GS_LFM1.<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;####'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ROLLBACK&nbsp;WORK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"#####&nbsp;###&nbsp;##&nbsp;####<br />
+&nbsp;&nbsp;MESSAGE&nbsp;|###&nbsp;{&nbsp;P_GV_LIFNR&nbsp;}&nbsp;#&nbsp;#######|&nbsp;TYPE&nbsp;'I'.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_DATA  USING    P_LIFNR     "#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_BUKR_S.&nbsp;&nbsp;&nbsp;"####<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;FROM&nbsp;ZLFA1_09&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;ZLFB1_09&nbsp;AS&nbsp;b<br />
+&nbsp;&nbsp;ON&nbsp;a~LIFNR&nbsp;=&nbsp;b~LIFNR<br />
+&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;ZLFM1_09&nbsp;AS&nbsp;c<br />
+&nbsp;&nbsp;ON&nbsp;a~LIFNR&nbsp;=&nbsp;c~LIFNR<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_ALV<br />
+&nbsp;&nbsp;WHERE&nbsp;a~LIFNR&nbsp;=&nbsp;P_LIFNR&nbsp;"#####&nbsp;###<br />
+&nbsp;&nbsp;AND&nbsp;b~BUKRS&nbsp;=&nbsp;P_BUKR_S.&nbsp;"####&nbsp;###<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_ALV&nbsp;INTO&nbsp;GS_ALV.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;REFRESH<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM REFRESH .<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LS_STABLE&nbsp;TYPE&nbsp;LVC_S_STBL.<br />
+<br />
+&nbsp;&nbsp;LS_STABLE-ROW&nbsp;=&nbsp;'X'.&nbsp;"####&nbsp;usercommand&nbsp;##&nbsp;###&nbsp;#,&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;LS_STABLE-COL&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GC_GRID-&gt;REFRESH_TABLE_DISPLAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_STABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LS_STABLE.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CREATE_OBJECT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CREATE_OBJECT .<br />
+&nbsp;&nbsp;"docking&nbsp;#####&nbsp;grid&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GC_DOCKING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-REPID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-DYNNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXTENSION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2000.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GC_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_PARENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GC_DOCKING.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CALL_ALV<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CALL_ALV .<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GC_GRID-&gt;SET_TABLE_FOR_FIRST_DISPLAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_VARIANT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_VARIANT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_SAVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'A'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_LAYOUT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_ALV<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCATALOG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_FIELDCAT.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;FIELD_CATALOG<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM FIELD_CATALOG .<br />
+&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT,&nbsp;GT_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'LIFNR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'#####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'NAME1'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'LAND1'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'KTOKK'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+IF GS_ALV-KTOKK = '3000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'STCD1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-EDIT&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-OUTPUTLEN&nbsp;=&nbsp;20.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+ENDIF.<br />
+<br />
+IF GS_ALV-KTOKK &lt;&gt; '2000' AND GS_ALV-KTOKK &lt;&gt; '3000'.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'STCD2'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'#####'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-EDIT&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;GS_FIELDCAT-OUTPUTLEN&nbsp;=&nbsp;15.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+ENDIF.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'STRAS'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'BUKRS'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;9.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'AKONT'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZTERM'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;11.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'EKORG'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;12.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'EKGRP'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;13.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'WAERS'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'######'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;14.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'MWSKZ'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_LAYOUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_LAYOUT .<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_LAYOUT,&nbsp;GS_VARIANT.<br />
+<br />
+&nbsp;&nbsp;GS_LAYOUT-ZEBRA&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;GS_VARIANT-REPORT&nbsp;=&nbsp;SY-REPID.<br />
+&nbsp;&nbsp;GS_VARIANT-USERNAME&nbsp;=&nbsp;SY-UNAME.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CLASS_EVENT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CLASS_EVENT .<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_EVENT.<br />
+<br />
+&nbsp;&nbsp;"#####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GC_GRID-&gt;REGISTER_EDIT_EVENT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_EVENT_ID&nbsp;=&nbsp;CL_GUI_ALV_GRID=&gt;MC_EVT_MODIFIED.<br />
+<br />
+&nbsp;&nbsp;"######&nbsp;##<br />
+&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;GO_EVENT-&gt;HANDLER_DATA_CHANGED&nbsp;FOR&nbsp;GC_GRID.<br />
+&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;GO_EVENT-&gt;HANDLER_DATA_CHANGED_FINISHED&nbsp;FOR&nbsp;GC_GRID.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_HANDLER_DATA_CHANGED<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_HANDLER_DATA_CHANGED  USING    P_ER_DATA_CHANGED TYPE REF TO CL_ALV_CHANGED_DATA_PROTOCOL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_E_ONF4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_E_ONF4_BEFORE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_E_ONF4_AFTER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_E_UCOMM.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LS_MODI&nbsp;TYPE&nbsp;LVC_S_MODI,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_VALUE&nbsp;TYPE&nbsp;STRING.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;P_ER_DATA_CHANGED-&gt;MT_GOOD_CELLS&nbsp;INTO&nbsp;LS_MODI.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_ALV.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ALV&nbsp;INTO&nbsp;GS_ALV&nbsp;INDEX&nbsp;LS_MODI-ROW_ID.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"######&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LS_MODI-FIELDNAME&nbsp;=&nbsp;'STCD2'&nbsp;OR&nbsp;LS_MODI-FIELDNAME&nbsp;=&nbsp;'STCD1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_VALUE&nbsp;=&nbsp;LS_MODI-VALUE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;STRLEN(&nbsp;LV_VALUE&nbsp;)&nbsp;=&nbsp;0.&nbsp;"#&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"alv#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;P_ER_DATA_CHANGED-&gt;ADD_PROTOCOL_ENTRY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_MSGID&nbsp;=&nbsp;'ZMED09'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_MSGTY&nbsp;=&nbsp;'E'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_MSGNO&nbsp;=&nbsp;'020'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_FIELDNAME&nbsp;=&nbsp;LS_MODI-FIELDNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_ROW_ID&nbsp;=&nbsp;LS_MODI-ROW_ID.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;-&nbsp;16####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LS_MODI-FIELDNAME&nbsp;=&nbsp;'STCD1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_VALUE&nbsp;=&nbsp;LS_MODI-VALUE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;STRLEN(&nbsp;LV_VALUE&nbsp;)&nbsp;&gt;&nbsp;16.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"alv#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;P_ER_DATA_CHANGED-&gt;ADD_PROTOCOL_ENTRY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_MSGID&nbsp;=&nbsp;'ZMED09'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_MSGTY&nbsp;=&nbsp;'E'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_MSGNO&nbsp;=&nbsp;'022'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_FIELDNAME&nbsp;=&nbsp;LS_MODI-FIELDNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_ROW_ID&nbsp;=&nbsp;LS_MODI-ROW_ID.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"#####&nbsp;-&nbsp;11####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LS_MODI-FIELDNAME&nbsp;=&nbsp;'STCD2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_VALUE&nbsp;=&nbsp;LS_MODI-VALUE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;STRLEN(&nbsp;LV_VALUE&nbsp;)&nbsp;&gt;&nbsp;11.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"alv#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;P_ER_DATA_CHANGED-&gt;ADD_PROTOCOL_ENTRY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_MSGID&nbsp;=&nbsp;'ZMED09'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_MSGTY&nbsp;=&nbsp;'E'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_MSGNO&nbsp;=&nbsp;'023'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_FIELDNAME&nbsp;=&nbsp;LS_MODI-FIELDNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_ROW_ID&nbsp;=&nbsp;LS_MODI-ROW_ID.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_DATA_CHANGED_FINISHED<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_DATA_CHANGED_FINISHED  USING    P_E_MODIFIED<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ET_GOOD_CELLS&nbsp;TYPE&nbsp;LVC_T_MODI.<br />
+&nbsp;&nbsp;MESSAGE&nbsp;'#####&nbsp;#######.&nbsp;###&nbsp;#####.'&nbsp;TYPE&nbsp;'S'.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;INIT_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM INIT_DATA .<br />
+&nbsp;&nbsp;GF_KTOKK&nbsp;=&nbsp;P_KTOKK.<br />
+<br />
+&nbsp;&nbsp;"####&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;GF_NAME1&nbsp;=&nbsp;'###&nbsp;###'.<br />
+&nbsp;&nbsp;GF_LAND1&nbsp;=&nbsp;'KR'.<br />
+&nbsp;&nbsp;GF_STCD1&nbsp;=&nbsp;'01012345678'.&nbsp;"####<br />
+&nbsp;&nbsp;GF_STCD2&nbsp;=&nbsp;'123-45-6789'.&nbsp;"#####<br />
+&nbsp;&nbsp;GF_STRAS&nbsp;=&nbsp;'###&nbsp;###&nbsp;###'.<br />
+<br />
+&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZLFB1_09-AKONT&nbsp;=&nbsp;'2100001010'.<br />
+&nbsp;&nbsp;ZLFB1_09-ZTERM&nbsp;=&nbsp;'M001'.<br />
+<br />
+&nbsp;&nbsp;"####&nbsp;/&nbsp;####<br />
+&nbsp;&nbsp;ZLFM1_09-EKORG&nbsp;=&nbsp;'1000'.<br />
+&nbsp;&nbsp;ZLFM1_09-EKGRP&nbsp;=&nbsp;'101'.<br />
+&nbsp;&nbsp;GF_WAERS&nbsp;=&nbsp;'KRW'.<br />
+&nbsp;&nbsp;ZLFM1_09-MWSKZ&nbsp;=&nbsp;'V1'.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

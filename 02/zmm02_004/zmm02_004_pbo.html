@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM02_004_PBO</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM02_004_PBO</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM02_004_PBO<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;STATUS_0100&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE STATUS_0100 OUTPUT.<br />
+&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'STATUS&nbsp;0100'.<br />
+&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;'T100'.<br />
+ENDMODULE.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;SET_DATA_100&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE SET_DATA_100 OUTPUT.<br />
+&nbsp;&nbsp;IF&nbsp;GC_GRID&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;G_BLDAT&nbsp;=&nbsp;P_BUDAT.&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;G_BUDAT&nbsp;=&nbsp;P_BUDAT.&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;G_WAERS&nbsp;=&nbsp;GS_EKKO-WAERS.&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;G_BUKRS&nbsp;=&nbsp;GS_EKKO-BUKRS.&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;G_MWSKZ&nbsp;=&nbsp;GS_LFM1-MWSKZ.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;G_MWSKZ_OLD&nbsp;=&nbsp;GS_LFM1-MWSKZ.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;G_BUPLA&nbsp;=&nbsp;1000.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;G_SECCO&nbsp;=&nbsp;1000.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;G_LIGHT&nbsp;=&nbsp;'@0A@'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;G_WAERS_OUT&nbsp;=&nbsp;G_WAERS.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDMODULE.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;SET_ALV&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE SET_ALV_100 OUTPUT.<br />
+&nbsp;&nbsp;IF&nbsp;GC_CUSTOM&nbsp;IS&nbsp;INITIAL.&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CREATE_OBJECT&nbsp;USING&nbsp;'CON1'&nbsp;CHANGING&nbsp;GC_CUSTOM&nbsp;GC_GRID.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;FIELD_CATALOG_100.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;ALV_LAYOUT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;ALV_SORT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CLASS_EVENT&nbsp;CHANGING&nbsp;GC_GRID&nbsp;GO_EVENT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CALL_ALV&nbsp;USING&nbsp;GC_GRID&nbsp;CHANGING&nbsp;GT_FIELDCAT&nbsp;GT_PO.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;REFRESH&nbsp;USING&nbsp;GC_GRID.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDMODULE.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;STATUS_0200&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE STATUS_0200 OUTPUT.<br />
+&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'STATUS&nbsp;0200'.<br />
+&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;'T200'.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GC_CUSTOM&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_RSEG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_RBKP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CREATE_OBJECT&nbsp;USING&nbsp;'CON1'&nbsp;CHANGING&nbsp;GC_CUSTOM&nbsp;GC_GRID.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;FIELD_CATALOG_200.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;ALV_LAYOUT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;ALV_SORT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CLASS_EVENT&nbsp;CHANGING&nbsp;GC_GRID&nbsp;GO_EVENT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CALL_ALV&nbsp;USING&nbsp;GC_GRID&nbsp;CHANGING&nbsp;GT_FIELDCAT&nbsp;GT_RBKP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;PERFORM&nbsp;REFRESH&nbsp;USING&nbsp;GC_GRID.<br />
+ENDMODULE.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;STATUS_0300&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE STATUS_0300 OUTPUT.<br />
+&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'STATUS&nbsp;0300'.<br />
+&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;'T300'.<br />
+ENDMODULE.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;SET_DATA_300&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE SET_DATA_300 OUTPUT.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_PO_300&nbsp;INTO&nbsp;GS_PO&nbsp;INDEX&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0&nbsp;AND&nbsp;GS_PO-BELNR&nbsp;=&nbsp;GV_BELNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##&nbsp;##&nbsp;####&nbsp;#&nbsp;###&nbsp;####&nbsp;###&nbsp;#&nbsp;#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_GT_PO_300.<br />
+<br />
+ENDMODULE.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;SET_ALV_300&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE SET_ALV_300 OUTPUT.<br />
+&nbsp;&nbsp;IF&nbsp;GC_CUSTOM300&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CREATE_OBJECT&nbsp;USING&nbsp;'CON2'&nbsp;CHANGING&nbsp;GC_CUSTOM300&nbsp;GC_GRID300.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CLASS_EVENT&nbsp;CHANGING&nbsp;GC_GRID300&nbsp;GO_EVENT300.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;FIELD_CATALOG_300.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;ALV_LAYOUT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;ALV_SORT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CALL_ALV&nbsp;USING&nbsp;GC_GRID300&nbsp;CHANGING&nbsp;GT_FIELDCAT&nbsp;GT_PO_300.<br />
+&nbsp;&nbsp;PERFORM&nbsp;REFRESH&nbsp;USING&nbsp;GC_GRID300.<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&SPWIZARD:&nbsp;OUTPUT&nbsp;MODULE&nbsp;FOR&nbsp;TS&nbsp;'TS_HEAD'.&nbsp;DO&nbsp;NOT&nbsp;CHANGE&nbsp;THIS&nbsp;LINE!<br />
+*&SPWIZARD:&nbsp;SETS&nbsp;ACTIVE&nbsp;TAB<br />
+   </div>
+   <div class="code">
+MODULE TS_HEAD_ACTIVE_TAB_SET OUTPUT.<br />
+&nbsp;&nbsp;TS_HEAD-ACTIVETAB&nbsp;=&nbsp;G_TS_HEAD-PRESSED_TAB.<br />
+&nbsp;&nbsp;CASE&nbsp;G_TS_HEAD-PRESSED_TAB.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;C_TS_HEAD-TAB1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_TS_HEAD-SUBSCREEN&nbsp;=&nbsp;'0101'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;C_TS_HEAD-TAB2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_TS_HEAD-SUBSCREEN&nbsp;=&nbsp;'0102'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+   </div>
+   <div class="codeComment">
+*&SPWIZARD:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DO&nbsp;NOTHING<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDCASE.<br />
+ENDMODULE.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

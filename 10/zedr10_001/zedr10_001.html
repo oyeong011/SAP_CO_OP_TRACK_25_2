@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR10_001</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR10_001</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR10_001<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR10_001.<br />
+<br />
+DATA : gv_num1 type p value '1234',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_num2&nbsp;type&nbsp;p&nbsp;DECIMALS&nbsp;2&nbsp;VALUE&nbsp;'12.34'.<br />
+<br />
+DATA: gv_num3 TYPE i VALUE 1234.<br />
+<br />
+DATA: gv_num4 TYPE N VALUE 1234,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_num5&nbsp;TYPE&nbsp;N&nbsp;LENGTH&nbsp;2&nbsp;VALUE&nbsp;1234,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_num6&nbsp;TYPE&nbsp;N&nbsp;LENGTH&nbsp;3&nbsp;VALUE&nbsp;1234,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_num7&nbsp;TYPE&nbsp;N&nbsp;LENGTH&nbsp;4&nbsp;VALUE&nbsp;1234.<br />
+<br />
+WRITE: gv_num1,/ gv_num2,/ gv_num3,/ gv_num4,/ gv_num5,/ gv_num6,/ gv_num7.<br />
+<br />
+ULINE /.<br />
+" text ## ##<br />
+<br />
+DATA: gv_text1 VALUE 'A',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_text2&nbsp;LENGTH&nbsp;3&nbsp;type&nbsp;C&nbsp;VALUE&nbsp;'ABC',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_text3(5)&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'ABCDE',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_text4&nbsp;TYPE&nbsp;STRING&nbsp;VALUE&nbsp;'ABCDE',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_len&nbsp;TYPE&nbsp;i.<br />
+<br />
+DATA: gv_time TYPE T.<br />
+<br />
+DATA: gv_date TYPE D.<br />
+<br />
+gv_time = SY-UZEIT.<br />
+gv_date = SY-DATUM.<br />
+gv_len = STRLEN( gv_text3 ).<br />
+<br />
+WRITE:/ gv_text1.<br />
+WRITE:/ gv_text2.<br />
+WRITE:/ gv_text3.<br />
+WRITE:/ gv_text4.<br />
+WRITE:/ gv_len.<br />
+WRITE:/ gv_time.<br />
+WRITE:/ gv_date.<br />
+<br />
+ULINE /.<br />
+" replace ##<br />
+<br />
+DATA: text1 TYPE STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text2(4)&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text3(4)&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'A'.<br />
+<br />
+text1 = 'A B A P'.<br />
+text2 = 'BBAP'.<br />
+<br />
+" REPLACE "text" in "replaced text" with "replacing text"<br />
+" replaced text### ### text# replacing text# ## # replaced text# ##<br />
+" REPLACE OF text3 IN text1 WITH text2. " BBAP B A P ##<br />
+REPLACE ALL OCCURRENCES OF text3 IN text1 WITH text2. " BBAP B BBAP P ##<br />
+" all occurrences ### ## ##<br />
+WRITE : text1.<br />
+<br />
+ULINE /.<br />
+" translate : #### ## ##<br />
+<br />
+DATA: text4 TYPE STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text5(4)&nbsp;TYPE&nbsp;C.<br />
+<br />
+text4 = 'ABAP'.<br />
+text5 = 'abap'.<br />
+<br />
+TRANSLATE text4 TO LOWER CASE.<br />
+TRANSLATE text5 TO UPPER CASE.<br />
+<br />
+WRITE:/ text4.<br />
+WRITE:/ text5.<br />
+<br />
+ULINE /.<br />
+" shift : #### ## ## ##<br />
+<br />
+text1 = ' ABAP'.<br />
+text2 = ' ABAP'. " 4### ### ### ### ###<br />
+<br />
+SHIFT text1.<br />
+SHIFT text2.<br />
+WRITE:/ text1.<br />
+WRITE:/ text2. " ABA ##<br />
+<br />
+ULINE /.<br />
+" concatenate ##, ###<br />
+<br />
+text1 = 'AB'.<br />
+text2 = 'AP'.<br />
+<br />
+CONCATENATE text1 text2 INTO text3. " text3 = text1 + text2<br />
+WRITE:/ text1. " AB<br />
+WRITE:/ text2. " AP<br />
+WRITE:/ text3. " ABAP<br />
+<br />
+ULINE /.<br />
+" split ##<br />
+<br />
+text1 = 'A+BA+P'.<br />
+" text1# #### ## ## ### +# #### ## #### text2# ### #### text3# ##<br />
+SPLIT text1 AT '+' INTO text2 text3.<br />
+WRITE: text1,/ text2,/ text3.<br />
+<br />
+ULINE /.<br />
+" type ##<br />
+TYPES T_HELLO(20) TYPE C.   " ### ## ##<br />
+DATA gv_text11 TYPE T_HELLO.<br />
+DATA gv_text12 LIKE gv_text11. " data object## ## ####<br />
+<br />
+gv_text11 = '#####'.<br />
+gv_text12 = '#####'.<br />
+<br />
+WRITE: gv_text11.<br />
+WRITE:/ gv_text12.<br />
+<br />
+ULINE /.<br />
+" ### ##<br />
+<br />
+TYPES: BEGIN OF T_ZEDT00, " #### ###<br />
+&nbsp;zcode&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,<br />
+&nbsp;zkname&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;zename&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;END&nbsp;OF&nbsp;T_ZEDT00.<br />
+<br />
+"### ##<br />
+DATA: gs_zedt00 TYPE T_ZEDT00.<br />
+<br />
+gs_zedt00-zcode = 'SSU-01'.<br />
+gs_zedt00-zkname = '###'.<br />
+gs_zedt00-ZENAME = 'DONG'. " ### member # #### ####.<br />
+<br />
+WRITE: gs_zedt00-zcode.<br />
+WRITE:/ gs_zedt00-zkname.<br />
+WRITE:/ gs_zedt00-zename.<br />
+<br />
+ULINE /.<br />
+" nest struct ##<br />
+TYPES: BEGIN OF T_ZEDT00_2.<br />
+&nbsp;&nbsp;INCLUDE&nbsp;TYPE&nbsp;T_ZEDT00.&nbsp;"&nbsp;include&nbsp;##&nbsp;##&nbsp;###.<br />
+&nbsp;&nbsp;TYPES:&nbsp;title&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grade&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;1,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;T_ZEDT00_2.<br />
+<br />
+" ### ####<br />
+DATA: gs_zedt01 TYPE T_ZEDT00_2.<br />
+<br />
+gs_zedt01-zcode = 'ssu-01'.<br />
+gs_zedt01-zkname = '###'.<br />
+gs_zedt01-zename = 'DONG'.<br />
+gs_zedt01-title = '####'.<br />
+gs_zedt01-grade = '3'.<br />
+<br />
+WRITE: gs_zedt01-zcode.<br />
+WRITE:/ gs_zedt01-zkname.<br />
+WRITE:/ gs_zedt01-zename.<br />
+WRITE:/ gs_zedt01-title.<br />
+WRITE:/ gs_zedt01-grade.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

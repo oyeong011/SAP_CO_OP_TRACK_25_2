@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR25_PRACTICE001</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR25_PRACTICE001</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR25_PRACTICE001<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+Report ZEDR25_PRACTICE001.<br />
+<br />
+" #### ### ##<br />
+TABLES : ZEDT25_004.<br />
+<br />
+" 1. ##### ## ###### ##<br />
+"   #### ##<br />
+TYPES : BEGIN OF ssu_student,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zcode&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt25_004-zcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmajor&nbsp;&nbsp;TYPE&nbsp;zedt25_004-zmajor,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmname&nbsp;&nbsp;TYPE&nbsp;zedt25_004-zmname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zschool&nbsp;TYPE&nbsp;zedt25_004-zschool,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgrade&nbsp;&nbsp;TYPE&nbsp;zedt25_004-zgrade,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zflag&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt25_004-zflag,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zsum&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt25_004-zsum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zamount&nbsp;TYPE&nbsp;zedt25_004-zamount,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zwaers&nbsp;&nbsp;TYPE&nbsp;zedt25_004-zwaers,<br />
+END OF ssu_student.<br />
+<br />
+"   ### ## # ## ##<br />
+DATA : gs_student TYPE ssu_student. " ### ##<br />
+DATA : gt_student TYPE TABLE OF ssu_student. " ### ### ##<br />
+<br />
+"   ## ## ### ## ### ###<br />
+DATA: BEGIN OF gs_check_flag,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zcode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt25_004-zcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;all_a_flag&nbsp;TYPE&nbsp;c,&nbsp;"&nbsp;##&nbsp;###&nbsp;'A'##&nbsp;####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_check_flag.<br />
+DATA gt_check_flag LIKE STANDARD TABLE OF gs_check_flag.<br />
+<br />
+"   # #### ### ## ##<br />
+DATA gv_total_amount TYPE zedt25_004-zamount.<br />
+<br />
+"   #### ### ## ## ##<br />
+DATA lv_amount TYPE p DECIMALS 2.<br />
+<br />
+" 2. ### ###<br />
+SELECT * FROM ZEDT25_004<br />
+INTO CORRESPONDING FIELDS OF TABLE gt_student.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;####&nbsp;##<br />
+SORT gt_student BY zcode.<br />
+<br />
+" 3~6. A ## LOOP#<br />
+LOOP AT gt_student INTO gs_student.<br />
+&nbsp;&nbsp;"&nbsp;AT&nbsp;NEW:&nbsp;#####&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;AT&nbsp;NEW&nbsp;zcode.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_check_flag-all_a_flag&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;##&nbsp;A#&nbsp;####&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;A#&nbsp;##&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;gs_student-zgrade&nbsp;&lt;&gt;&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;gs_check_flag-all_a_flag.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;END&nbsp;OF&nbsp;zcode.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_check_flag-zcode&nbsp;=&nbsp;gs_student-zcode.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_check_flag&nbsp;TO&nbsp;gt_check_flag.<br />
+&nbsp;&nbsp;ENDAT.<br />
+ENDLOOP.<br />
+<br />
+" 7. ### ## # ## ##<br />
+LOOP AT gt_student INTO gs_student.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_student-zamount&nbsp;=&nbsp;gs_student-zsum.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##&nbsp;A##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_student-zgrade&nbsp;=&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_student-zflag&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;20%&nbsp;##,&nbsp;####&nbsp;10%&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_student-zschool&nbsp;=&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_amount&nbsp;=&nbsp;gs_student-zsum&nbsp;*&nbsp;'0.8'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_student-zamount&nbsp;=&nbsp;lv_amount.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;gs_student-zschool&nbsp;=&nbsp;'B'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_amount&nbsp;=&nbsp;gs_student-zsum&nbsp;*&nbsp;'0.9'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_student-zamount&nbsp;=&nbsp;lv_amount.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;clear<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;gs_student-zflag.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_student-zamount&nbsp;=&nbsp;gs_student-zsum.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"MODIFY###&nbsp;##&nbsp;###&nbsp;###&nbsp;#&nbsp;####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;gt_student&nbsp;FROM&nbsp;gs_student&nbsp;INDEX&nbsp;sy-tabix.<br />
+ENDLOOP.<br />
+<br />
+<br />
+" 9., 11. ## ### ##,  #### # ## # ## ##<br />
+SORT gt_student BY zcode zamount DESCENDING.<br />
+DELETE ADJACENT DUPLICATES FROM gt_student COMPARING zcode.<br />
+<br />
+" 12. ##<br />
+LOOP AT gt_student INTO gs_student.<br />
+&nbsp;&nbsp;AT&nbsp;FIRST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'-----------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'|',&nbsp;'####',&nbsp;14&nbsp;'|',&nbsp;'###',&nbsp;&nbsp;35&nbsp;'|',&nbsp;'####',&nbsp;&nbsp;48&nbsp;'|',&nbsp;'####',&nbsp;&nbsp;65&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'-----------------------------------------------------------------'.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'|',&nbsp;gs_student-zcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14&nbsp;'|',&nbsp;gs_student-zmname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;35&nbsp;'|',&nbsp;gs_student-zflag&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;48&nbsp;'|',&nbsp;gs_student-zamount&nbsp;CURRENCY&nbsp;'KRW'&nbsp;DECIMALS&nbsp;0,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;65&nbsp;'|'.<br />
+<br />
+&nbsp;&nbsp;gv_total_amount&nbsp;=&nbsp;gv_total_amount&nbsp;+&nbsp;gs_student-zamount.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AT&nbsp;LAST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'-----------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'|',&nbsp;'##',&nbsp;&nbsp;48&nbsp;'|',&nbsp;gv_total_amount&nbsp;CURRENCY&nbsp;'KRW'&nbsp;DECIMALS&nbsp;0,&nbsp;&nbsp;65&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'-----------------------------------------------------------------'.<br />
+&nbsp;&nbsp;ENDAT.<br />
+ENDLOOP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

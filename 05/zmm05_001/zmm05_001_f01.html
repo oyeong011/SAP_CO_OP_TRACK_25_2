@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM05_001_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM05_001_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM05_001_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SELECTION_SCREEN<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+FORM SELECTION_SCREEN .<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_CRE&nbsp;=&nbsp;C_X.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'M2'.&nbsp;"&nbsp;####(LIFNR)&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;P_VIEW&nbsp;=&nbsp;C_X.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'M1'.&nbsp;"&nbsp;####(KTOKK)&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;PREPARE_CREATE_MODE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form PREPARE_CREATE_MODE .<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GV_LIFNR,&nbsp;GV_NAME1,&nbsp;GV_LAND1,&nbsp;GV_STCD1,&nbsp;GV_STCD2,&nbsp;GV_STRAS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_AKONT,&nbsp;GV_ZTERM,&nbsp;GV_EKORG,&nbsp;GV_EKGRP,&nbsp;GV_WAERS,&nbsp;GV_MWSKZ.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_MAX_LIFNR&nbsp;TYPE&nbsp;ZLFA1_05-LIFNR.<br />
+&nbsp;&nbsp;GV_KTOKK&nbsp;=&nbsp;P_KTOKK.<br />
+&nbsp;&nbsp;GV_BUKRS&nbsp;=&nbsp;P_BUKRS.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;MAX(&nbsp;LIFNR&nbsp;)&nbsp;INTO&nbsp;LV_MAX_LIFNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZLFA1_05.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LV_MAX_LIFNR&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_LIFNR&nbsp;=&nbsp;'1000000000'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_LIFNR&nbsp;=&nbsp;LV_MAX_LIFNR&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;ENDIF.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*form&nbsp;GET_DATA&nbsp;.<br />
+*&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;NAME1&nbsp;LAND1&nbsp;KTOKK&nbsp;STCD1&nbsp;STCD2&nbsp;STRAS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;(GV_NAME1,&nbsp;GV_LAND1,&nbsp;GV_KTOKK,&nbsp;GV_STCD1,&nbsp;GV_STCD2,&nbsp;GV_STRAS)<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZLFA1_05<br />
+*&nbsp;&nbsp;WHERE&nbsp;LIFNR&nbsp;=&nbsp;P_LIFNR.<br />
+*<br />
+*&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GV_LIFNR&nbsp;=&nbsp;P_LIFNR.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;AKONT&nbsp;ZTERM<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;(GV_AKONT,&nbsp;GV_ZTERM)<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZLFB1_05<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;LIFNR&nbsp;=&nbsp;P_LIFNR<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;BUKRS&nbsp;=&nbsp;P_BUKRS.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;EKORG&nbsp;EKGRP&nbsp;WAERS&nbsp;MWSKZ<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;(GV_EKORG,&nbsp;GV_EKGRP,&nbsp;GV_WAERS,&nbsp;GV_MWSKZ)<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZLFM1_05<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;LIFNR&nbsp;=&nbsp;P_LIFNR.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;ELSE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;####&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+*&nbsp;&nbsp;&nbsp;ENDIF.<br />
+*endform.<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CALL_F4_HELP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CALL_F4_HELP USING P_RETFIELD  TYPE C<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DYNPFIELD&nbsp;TYPE&nbsp;C<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PT_VALUES&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LT_RETURN&nbsp;LIKE&nbsp;DDSHRETVAL&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'F4IF_INT_TABLE_VALUE_REQUEST'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETFIELD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_RETFIELD&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;####&nbsp;ITAB#&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNPPROG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-REPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;####&nbsp;ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNPNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNPROFIELD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_DYNPFIELD&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WINDOW_TITLE&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'#####'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE_ORG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'S'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE_TAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;PT_VALUES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN_TAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_RETURN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARAMETER_ERROR&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO_VALUES_FOUND&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+<br />
+ENDFORM.<br />
+FORM GET_DATA .<br />
+<br />
+&nbsp;&nbsp;"---&nbsp;#&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;p_lifnr&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;###&nbsp;#####.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;p_bukrs&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'#####&nbsp;#####.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"---&nbsp;#&nbsp;###&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;name1&nbsp;land1&nbsp;ktokk&nbsp;stcd1&nbsp;stcd2&nbsp;stras<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;(gv_name1,&nbsp;gv_land1,&nbsp;gv_ktokk,&nbsp;gv_stcd1,&nbsp;gv_stcd2,&nbsp;gv_stras)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zLFA1_05<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;lifnr&nbsp;=&nbsp;p_lifnr.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+&nbsp;&nbsp;"---&nbsp;#&nbsp;#####&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;akont&nbsp;zterm<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;(gv_akont,&nbsp;gv_zterm)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zLFB1_05<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;lifnr&nbsp;=&nbsp;p_lifnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;bukrs&nbsp;=&nbsp;p_bukrs.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;#####&nbsp;####&nbsp;####&nbsp;##&nbsp;####.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"---&nbsp;#&nbsp;####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;ekorg&nbsp;ekgrp&nbsp;waers&nbsp;mwskz<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;(gv_ekorg,&nbsp;gv_ekgrp,&nbsp;gv_waers,&nbsp;gv_mwskz)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zLFM1_05<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;lifnr&nbsp;=&nbsp;p_lifnr.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;####&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;GV_LIFNR&nbsp;=&nbsp;P_LIFNR.<br />
+&nbsp;&nbsp;GV_BUKRS&nbsp;=&nbsp;P_BUKRS.<br />
+<br />
+<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CHECK_PARAM<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form CHECK_PARAM .<br />
+&nbsp;&nbsp;IF&nbsp;P_BUKRS&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I000.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;P_KTOKK&nbsp;IS&nbsp;INITIAL&nbsp;and&nbsp;P_LIFNR&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I000.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+endform.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

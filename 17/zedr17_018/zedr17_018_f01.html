@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR17_018_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR17_018_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDR17_018_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_INIT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form set_init .<br />
+&nbsp;&nbsp;s_zcode-low&nbsp;=&nbsp;'SSU-01'.<br />
+&nbsp;&nbsp;s_zcode-high&nbsp;=&nbsp;'SSU-99'.<br />
+&nbsp;&nbsp;append&nbsp;s_zcode.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form get_data .<br />
+&nbsp;&nbsp;select&nbsp;*&nbsp;from&nbsp;zedt17_001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;into&nbsp;corresponding&nbsp;fields&nbsp;of&nbsp;table&nbsp;gt_student<br />
+&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;zcode&nbsp;in&nbsp;s_zcode.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;FIELD_CATALOG<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form field_catalog .<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat,&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZCOLOR'.<br />
+&nbsp;&nbsp;gs_fieldcat-seltext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fieldcat-icon&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat.<br />
+<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;2.&nbsp;"&nbsp;coll_pos#&nbsp;###&nbsp;output&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZCODE'.<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;#######&nbsp;###&nbsp;###&nbsp;dump&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;"&nbsp;alv&nbsp;###&nbsp;########&nbsp;######&nbsp;###&nbsp;##&nbsp;##&nbsp;###&nbsp;##.<br />
+&nbsp;&nbsp;gs_fieldcat-seltext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;"&nbsp;_m#&nbsp;medium&nbsp;##.&nbsp;##&nbsp;###&nbsp;#&nbsp;##&nbsp;#&nbsp;(s,&nbsp;l#&nbsp;##)<br />
+&nbsp;&nbsp;"&nbsp;sltext_s&nbsp;=&nbsp;short,&nbsp;sltext_m&nbsp;=&nbsp;medium,&nbsp;sltext_l&nbsp;=&nbsp;large<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;gs_fieldcat-key&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;#&nbsp;###&nbsp;##&nbsp;-&gt;&nbsp;###&nbsp;#####&nbsp;###<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;gs_fieldcat-icon&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;icon&nbsp;##&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;gs_fieldcat-just&nbsp;=&nbsp;'L'.&nbsp;"&nbsp;##&nbsp;##&nbsp;(L#,&nbsp;R#,&nbsp;C##)<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;gs_fieldcat-seltext_m&nbsp;=&nbsp;'####'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;gs_fieldcat-key&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;#&nbsp;###&nbsp;##&nbsp;-&gt;&nbsp;###&nbsp;#####&nbsp;###<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;gs_fieldcat-just&nbsp;=&nbsp;'C'.&nbsp;"&nbsp;##&nbsp;##&nbsp;(L#,&nbsp;R#,&nbsp;C##)<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZKNAME'.<br />
+&nbsp;&nbsp;gs_fieldcat-seltext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZENAME'.<br />
+&nbsp;&nbsp;gs_fieldcat-seltext_m&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZGENDER'.<br />
+&nbsp;&nbsp;gs_fieldcat-seltext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZMNAME'.<br />
+&nbsp;&nbsp;gs_fieldcat-seltext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fieldcat-just&nbsp;=&nbsp;'R'.&nbsp;"&nbsp;##&nbsp;##&nbsp;(L#,&nbsp;R#,&nbsp;C##)<br />
+&nbsp;&nbsp;gs_fieldcat-no_out&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZMNAME'.<br />
+&nbsp;&nbsp;gs_fieldcat-seltext_m&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat.<br />
+<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_LAYOUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form alv_layout .<br />
+&nbsp;&nbsp;gs_layout-no_colhead&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;alv&nbsp;##&nbsp;##&nbsp;##&nbsp;-&gt;&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;gs_layout-zebra&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;##&nbsp;###&nbsp;##&nbsp;###&nbsp;-&gt;&nbsp;###&nbsp;##&nbsp;##.&nbsp;#&nbsp;#&nbsp;####&nbsp;##&nbsp;#&nbsp;#<br />
+&nbsp;&nbsp;gs_layout-no_vline&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;no&nbsp;vertial&nbsp;line.&nbsp;grid#&nbsp;###&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;gs_layout-no_hline&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;no&nbsp;horizontal&nbsp;line.&nbsp;grid#&nbsp;###&nbsp;#####&nbsp;##.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;gs_layout-edit&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;##&nbsp;##&nbsp;####.&nbsp;#######&nbsp;edit##&nbsp;##&nbsp;###.<br />
+*&nbsp;&nbsp;gs_layout-totals_before_items&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;##&nbsp;###&nbsp;#&nbsp;#&nbsp;###&nbsp;##<br />
+   </div>
+   <div class="code">
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_SORT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form alv_sort .<br />
+&nbsp;&nbsp;gs_sort-spos&nbsp;=&nbsp;1.&nbsp;"&nbsp;##&nbsp;####<br />
+&nbsp;&nbsp;gs_sort-fieldname&nbsp;=&nbsp;'ZCODE'.&nbsp;"&nbsp;###&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;gs_sort-up&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;####&nbsp;####&nbsp;##<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;gs_sort-down&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;####&nbsp;####&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;gs_sort-subtot&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;append&nbsp;gs_sort&nbsp;to&nbsp;gt_sort.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_DISPLAY<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form alv_display .<br />
+&nbsp;call&nbsp;function&nbsp;'REUSE_ALV_GRID_DISPLAY'<br />
+&nbsp;exporting<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;i_structure_name&nbsp;=&nbsp;'zedt17_001'<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;it_fieldcat&nbsp;=&nbsp;gt_fieldcat<br />
+&nbsp;&nbsp;&nbsp;is_layout&nbsp;=&nbsp;gs_layout<br />
+&nbsp;&nbsp;&nbsp;it_sort&nbsp;=&nbsp;gt_sort<br />
+&nbsp;tables<br />
+&nbsp;&nbsp;&nbsp;t_outtab&nbsp;=&nbsp;gt_student.<br />
+endform.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

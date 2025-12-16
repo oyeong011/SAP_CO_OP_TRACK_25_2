@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR20_000</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR20_000</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR20_000<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR20_000.<br />
+<br />
+TABLES: ZEDT20_001.<br />
+<br />
+DATA: BEGIN OF GS_STUDENT.<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt20_001/dictionary-zedt20_001.html">ZEDT20_001</a>.<br />
+&nbsp;&nbsp;DATA:&nbsp;ZGRADE&nbsp;TYPE&nbsp;ZEDT20_004-ZGRADE.<br />
+&nbsp;&nbsp;DATA:&nbsp;END&nbsp;OF&nbsp;GS_STUDENT.<br />
+DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*PARAMETERS:&nbsp;P_ZPERNR&nbsp;LIKE&nbsp;ZEDT20_001-ZPERNR.<br />
+*<br />
+*<br />
+*<br />
+*SELECT&nbsp;ZKNAME<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZTEL<br />
+*&nbsp;&nbsp;FROM&nbsp;ZEDT20_001<br />
+*&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_STUDENT<br />
+*&nbsp;&nbsp;WHERE&nbsp;ZPERNR&nbsp;=&nbsp;P_ZPERNR.<br />
+*<br />
+*LOOP&nbsp;AT&nbsp;GT_STUDENT&nbsp;INTO&nbsp;GS_STUDENT.<br />
+*&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;GS_STUDENT-ZKNAME,&nbsp;GS_STUDENT-ZTEL.<br />
+*ENDLOOP.<br />
+<br />
+*SELECT-OPTIONS:&nbsp;S_ZCODE&nbsp;FOR&nbsp;ZEDT20_001-ZCODE.<br />
+*<br />
+*SELECT&nbsp;ZCODE<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGRADE<br />
+*&nbsp;&nbsp;FROM&nbsp;ZEDT20_004<br />
+*&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_STUDENT<br />
+*&nbsp;&nbsp;WHERE&nbsp;ZCODE&nbsp;IN&nbsp;S_ZCODE.<br />
+*<br />
+*LOOP&nbsp;AT&nbsp;GT_STUDENT&nbsp;INTO&nbsp;GS_STUDENT.<br />
+*&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;GS_STUDENT-ZCODE,&nbsp;GS_STUDENT-ZGRADE.<br />
+*ENDLOOP.<br />
+<br />
+*PARAMETERS:&nbsp;P_ZCODE&nbsp;LIKE&nbsp;ZEDT20_001-ZCODE.<br />
+*PARAMETERS:&nbsp;P_ZKNAME&nbsp;LIKE&nbsp;ZEDT20_001-ZKNAME.<br />
+*PARAMETERS:&nbsp;P_ZGENDER&nbsp;LIKE&nbsp;ZEDT20_001-ZGENDER.<br />
+*PARAMETERS:&nbsp;P_ZTEL&nbsp;LIKE&nbsp;ZEDT20_001-ZTEL.<br />
+*<br />
+*GS_STUDENT-ZCODE&nbsp;=&nbsp;P_ZCODE.<br />
+*GS_STUDENT-ZKNAME&nbsp;=&nbsp;P_ZKNAME.<br />
+*GS_STUDENT-ZGENDER&nbsp;=&nbsp;P_ZGENDER.<br />
+*GS_STUDENT-ZTEL&nbsp;=&nbsp;P_ZTEL.<br />
+*<br />
+*INSERT&nbsp;ZEDT20_001&nbsp;FROM&nbsp;GS_STUDENT.<br />
+<br />
+   </div>
+   <div class="code">
+DATA: GV_START(10),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_END(10),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_TODAY(8).<br />
+<br />
+GV_TODAY = SY-DATUM.<br />
+<br />
+CALL FUNCTION 'RP_LAST_DAY_OF_MONTHS'<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;day_in&nbsp;=&nbsp;GV_TODAY<br />
+&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;last_day_of_month&nbsp;=&nbsp;GV_TODAY.<br />
+<br />
+CONCATENATE GV_TODAY+0(4) '.' GV_TODAY+4(2) '.01' INTO GV_START.<br />
+CONCATENATE GV_END+0(4) '.' GV_END+4(2) '.' GV_END+6(2) INTO GV_END.<br />
+<br />
+WRITE: GV_START, GV_END.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

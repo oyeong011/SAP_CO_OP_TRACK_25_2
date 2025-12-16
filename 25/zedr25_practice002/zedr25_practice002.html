@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR25_PRACTICE002</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR25_PRACTICE002</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR25_PRACTICE002<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR25_PRACTICE002.<br />
+<br />
+CONSTANTS : C_RATE TYPE i VALUE 100.<br />
+DATA : GV_MSUM TYPE i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_FSUM&nbsp;TYPE&nbsp;i.<br />
+<br />
+" 1. ## ### (ZEDT25_001)<br />
+DATA : BEGIN OF GS_STUDENT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCODE&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT25_001-ZCODE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZKNAME&nbsp;&nbsp;TYPE&nbsp;ZEDT25_001-ZKNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZTEL&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT25_001-ZTEL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGENDER&nbsp;TYPE&nbsp;ZEDT25_001-ZGENDER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_STUDENT.<br />
+<br />
+" 2. ## ### (ZEDT25_002)<br />
+DATA : BEGIN OF GS_MAJOR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCODE&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT25_002-ZCODE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZPERNR&nbsp;&nbsp;TYPE&nbsp;ZEDT25_002-ZPERNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMAJOR&nbsp;&nbsp;TYPE&nbsp;ZEDT25_002-ZMAJOR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_MAJOR.<br />
+<br />
+" 3. ## ### (ZEDT25_004)<br />
+DATA : BEGIN OF GS_SCORE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCODE&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT25_004-ZCODE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMAJOR&nbsp;&nbsp;TYPE&nbsp;ZEDT25_004-ZMAJOR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSUM&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT25_004-ZSUM,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGRADE&nbsp;&nbsp;TYPE&nbsp;ZEDT25_004-ZGRADE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_SCORE.<br />
+<br />
+" 4. ## ###<br />
+DATA : BEGIN OF GS_RESULT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT25_001-ZCODE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZKNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT25_001-ZKNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZTEL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT25_001-ZTEL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMAJOR_TXT&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZNOTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_RESULT.<br />
+<br />
+" 5. ## ###<br />
+DATA : BEGIN OF GS_GENDER_SUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSEX&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT25_001-ZGENDER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZAMOUNT&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_GENDER_SUM.<br />
+<br />
+" ## ###<br />
+DATA : GT_STUDENT    LIKE TABLE OF GS_STUDENT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_MAJOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_MAJOR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_SCORE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_SCORE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_RESULT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_RESULT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_GENDER_SUM&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_GENDER_SUM.<br />
+<br />
+" 2. ### ####<br />
+SELECT * FROM ZEDT25_001 INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT.<br />
+SELECT * FROM ZEDT25_002 INTO CORRESPONDING FIELDS OF TABLE GT_MAJOR.<br />
+SELECT * FROM ZEDT25_004 INTO CORRESPONDING FIELDS OF TABLE GT_SCORE.<br />
+<br />
+SORT GT_STUDENT BY ZCODE.<br />
+SORT GT_MAJOR   BY ZCODE.<br />
+SORT GT_SCORE   BY ZCODE ZSUM ASCENDING.<br />
+DELETE ADJACENT DUPLICATES FROM GT_SCORE COMPARING ZCODE.<br />
+<br />
+" 3. ## ##<br />
+LOOP AT GT_SCORE INTO GS_SCORE.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GS_RESULT,&nbsp;GS_STUDENT,&nbsp;GS_MAJOR.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;READ<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_STUDENT&nbsp;INTO&nbsp;GS_STUDENT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_SCORE-ZCODE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BINARY&nbsp;SEARCH.<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_STUDENT&nbsp;TO&nbsp;GS_RESULT.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MAJOR&nbsp;INTO&nbsp;GS_MAJOR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_SCORE-ZCODE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BINARY&nbsp;SEARCH.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0&nbsp;AND&nbsp;GS_MAJOR-ZMAJOR&nbsp;&lt;&gt;&nbsp;GS_SCORE-ZMAJOR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_RESULT-ZMAJOR_TXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;GS_SCORE-ZGRADE&nbsp;=&nbsp;'D'&nbsp;OR&nbsp;GS_SCORE-ZGRADE&nbsp;=&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_RESULT-ZNOTE&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_RESULT-ZNOTE.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;DATA&nbsp;L_GENDER_SUM&nbsp;LIKE&nbsp;GS_GENDER_SUM.<br />
+&nbsp;&nbsp;L_GENDER_SUM-ZSEX&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_STUDENT-ZGENDER.<br />
+&nbsp;&nbsp;L_GENDER_SUM-ZAMOUNT&nbsp;=&nbsp;GS_SCORE-ZSUM.&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;COLLECT&nbsp;L_GENDER_SUM&nbsp;INTO&nbsp;GT_GENDER_SUM.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_RESULT&nbsp;TO&nbsp;GT_RESULT.<br />
+ENDLOOP.<br />
+<br />
+" 4. ##<br />
+LOOP AT GT_RESULT INTO GS_RESULT.<br />
+&nbsp;&nbsp;AT&nbsp;FIRST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;(83).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|',&nbsp;(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(14)&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(15)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(10)&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CENTERED,&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;(83).<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|',&nbsp;(10)&nbsp;GS_RESULT-ZCODE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(14)&nbsp;GS_RESULT-ZKNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(10)&nbsp;GS_RESULT-ZMAJOR_TXT&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(15)&nbsp;GS_RESULT-ZTEL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(10)&nbsp;GS_RESULT-ZNOTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CENTERED,&nbsp;'|'.<br />
+<br />
+&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;(83).<br />
+ENDLOOP.<br />
+<br />
+" 5. ## ## ##<br />
+SKIP 1.<br />
+READ TABLE GT_GENDER_SUM INTO GS_GENDER_SUM WITH KEY ZSEX = 'M'.<br />
+IF SY-SUBRC = 0.<br />
+&nbsp;&nbsp;GV_MSUM&nbsp;=&nbsp;GS_GENDER_SUM-ZAMOUNT&nbsp;*&nbsp;C_RATE.<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'###&nbsp;#&nbsp;##&nbsp;:&nbsp;',&nbsp;GV_MSUM.<br />
+ENDIF.<br />
+<br />
+READ TABLE GT_GENDER_SUM INTO GS_GENDER_SUM WITH KEY ZSEX = 'F'.<br />
+IF SY-SUBRC = 0.<br />
+&nbsp;&nbsp;GV_FSUM&nbsp;=&nbsp;GS_GENDER_SUM-ZAMOUNT&nbsp;*&nbsp;C_RATE.<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'###&nbsp;#&nbsp;##&nbsp;:&nbsp;',&nbsp;GV_FSUM.<br />
+ENDIF.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

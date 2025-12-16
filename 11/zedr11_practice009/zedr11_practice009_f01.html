@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR11_PRACTICE009_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR11_PRACTICE009_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;ZEDR11_PRACTICE009_F01<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+FORM init_dates.<br />
+&nbsp;&nbsp;IF&nbsp;s_date[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_date-low&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-datum(6)&nbsp;&&&nbsp;'01'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_date-sign&nbsp;&nbsp;&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_date-option&nbsp;=&nbsp;'EQ'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'RP_LAST_DAY_OF_MONTHS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;day_in&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;s_date-low<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last_day_of_month&nbsp;=&nbsp;s_date-low.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;s_date.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+FORM check_input.<br />
+&nbsp;&nbsp;"&nbsp;[##]&nbsp;##&nbsp;###&nbsp;##&nbsp;##&nbsp;(1&nbsp;-&gt;&nbsp;0000000001)<br />
+&nbsp;&nbsp;IF&nbsp;s_emp[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;s_emp.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;s_emp-low&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'CONVERSION_EXIT_ALPHA_INPUT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;input&nbsp;=&nbsp;s_emp-low&nbsp;IMPORTING&nbsp;output&nbsp;=&nbsp;s_emp-low.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;s_emp-high&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'CONVERSION_EXIT_ALPHA_INPUT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;input&nbsp;=&nbsp;s_emp-high&nbsp;IMPORTING&nbsp;output&nbsp;=&nbsp;s_emp-high.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;s_emp.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;###&nbsp;##&nbsp;###&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;"&nbsp;IF&nbsp;s_date&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;i000&nbsp;WITH&nbsp;'#####&nbsp;#####.'.&nbsp;STOP.<br />
+&nbsp;&nbsp;"&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;r_stat,&nbsp;r_stat[].<br />
+&nbsp;&nbsp;r_stat-sign&nbsp;&nbsp;&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;r_stat-option&nbsp;=&nbsp;'EQ'.<br />
+&nbsp;&nbsp;r_stat-low&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;space.<br />
+&nbsp;&nbsp;APPEND&nbsp;r_stat.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;p_ret&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;r_stat-low&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;r_stat.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+FORM select_data.<br />
+&nbsp;&nbsp;"&nbsp;1.&nbsp;##&nbsp;##&nbsp;##&nbsp;(ZEDT07_...&nbsp;###&nbsp;##)<br />
+&nbsp;&nbsp;SELECT&nbsp;a~zpernr&nbsp;a~zdeprank&nbsp;a~zdepcode&nbsp;a~datbi&nbsp;a~datab&nbsp;a~zedate&nbsp;a~zqdate&nbsp;a~zqflag<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~zpname&nbsp;b~zgender&nbsp;b~zaddress<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_emp_m<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt07_102&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;zedt07_103&nbsp;AS&nbsp;b&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;b~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;a~zpernr&nbsp;IN&nbsp;s_emp.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;[##]&nbsp;###&nbsp;###&nbsp;##&nbsp;###&nbsp;###&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;AND&nbsp;a~zdepcode&nbsp;IN&nbsp;s_dep<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;AND&nbsp;(&nbsp;datab&nbsp;&lt;=&nbsp;s_date-low&nbsp;AND&nbsp;datbi&nbsp;&gt;=&nbsp;s_date-low&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;AND&nbsp;zqflag&nbsp;IN&nbsp;r_stat.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;gt_emp_m[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;2.&nbsp;##&nbsp;##&nbsp;##&nbsp;(ZEDT07_106)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;zedt07_106<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_pay<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;ALL&nbsp;ENTRIES&nbsp;IN&nbsp;gt_emp_m<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;gt_emp_m-zpernr.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;3.&nbsp;##&nbsp;##&nbsp;##&nbsp;(ZEDT07_104)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;zedt07_104<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_score<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;ALL&nbsp;ENTRIES&nbsp;IN&nbsp;gt_emp_m<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;&nbsp;&nbsp;=&nbsp;gt_emp_m-zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zdepcode&nbsp;=&nbsp;gt_emp_m-zdepcode.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+FORM process_data.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_emp_m,&nbsp;gs_emp_out,&nbsp;gs_pay,&nbsp;gs_pay_out,&nbsp;gs_score,&nbsp;gs_score_out.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1.&nbsp;Main&nbsp;Data<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_emp_m&nbsp;INTO&nbsp;gs_emp_m.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;gs_emp_m&nbsp;TO&nbsp;gs_emp_out.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_desc&nbsp;USING&nbsp;'ZDEPCODE'&nbsp;gs_emp_m-zdepcode&nbsp;CHANGING&nbsp;gs_emp_out-dep_txt.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_desc&nbsp;USING&nbsp;'ZDEPRANK'&nbsp;gs_emp_m-zdeprank&nbsp;CHANGING&nbsp;gs_emp_out-rank_txt.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_emp_out-gen_txt&nbsp;=&nbsp;COND&nbsp;#(&nbsp;WHEN&nbsp;gs_emp_m-zgender&nbsp;=&nbsp;'M'&nbsp;THEN&nbsp;'##'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;gs_emp_m-zgender&nbsp;=&nbsp;'F'&nbsp;THEN&nbsp;'##'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE&nbsp;gs_emp_m-zgender&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_emp_m-zqflag&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_emp_out-icon&nbsp;=&nbsp;'@0A@'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_emp_out-icon&nbsp;=&nbsp;COND&nbsp;#(&nbsp;WHEN&nbsp;gs_emp_m-zdeprank&nbsp;=&nbsp;'A'&nbsp;THEN&nbsp;'@09@'&nbsp;ELSE&nbsp;'@08@'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_emp_out&nbsp;TO&nbsp;gt_emp_out.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2.&nbsp;Pay&nbsp;Data<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_pay&nbsp;INTO&nbsp;gs_pay.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;gs_pay&nbsp;TO&nbsp;gs_pay_out.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_desc&nbsp;USING&nbsp;'ZBANKCODE'&nbsp;gs_pay-zbankcode&nbsp;CHANGING&nbsp;gs_pay_out-bank_txt.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_pay-zbankcode&nbsp;BETWEEN&nbsp;'001'&nbsp;AND&nbsp;'010'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_pay_out-waers&nbsp;=&nbsp;'KRW'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_pay_out&nbsp;TO&nbsp;gt_pay_out.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;3.&nbsp;Score&nbsp;Data<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_score&nbsp;INTO&nbsp;gs_score.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;gs_score&nbsp;TO&nbsp;gs_score_out.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_desc&nbsp;USING&nbsp;'ZDEPCODE'&nbsp;gs_score-zdepcode&nbsp;CHANGING&nbsp;gs_score_out-dep_txt.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_score_out&nbsp;TO&nbsp;gt_score_out.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+FORM get_desc USING p_type p_code CHANGING p_name.<br />
+&nbsp;&nbsp;CASE&nbsp;p_type.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'ZDEPCODE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;p_code.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0001'.&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0002'.&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0003'.&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0004'.&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0005'.&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0006'.&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'ZDEPRANK'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;p_code.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'A'.&nbsp;p_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'B'.&nbsp;p_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'C'.&nbsp;p_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'D'.&nbsp;p_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'E'.&nbsp;p_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'F'.&nbsp;p_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'G'.&nbsp;p_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'ZBANKCODE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;p_code.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'001'.&nbsp;p_name&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'002'.&nbsp;p_name&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'003'.&nbsp;p_name&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'004'.&nbsp;p_name&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'005'.&nbsp;p_name&nbsp;=&nbsp;'#####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+<br />
+FORM show_progress USING p_text.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'SAPGUI_PROGRESS_INDICATOR'&nbsp;EXPORTING&nbsp;text&nbsp;=&nbsp;p_text.<br />
+ENDFORM.<br />
+<br />
+FORM create_object.<br />
+&nbsp;&nbsp;IF&nbsp;go_dock&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_dock<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;repid&nbsp;=&nbsp;sy-repid&nbsp;dynnr&nbsp;=&nbsp;sy-dynnr&nbsp;extension&nbsp;=&nbsp;2000.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_split_vert<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;parent&nbsp;=&nbsp;go_dock&nbsp;rows&nbsp;=&nbsp;2&nbsp;columns&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;go_c_top&nbsp;=&nbsp;go_split_vert-&gt;get_container(&nbsp;row&nbsp;=&nbsp;1&nbsp;column&nbsp;=&nbsp;1&nbsp;).<br />
+&nbsp;&nbsp;go_c_bot&nbsp;=&nbsp;go_split_vert-&gt;get_container(&nbsp;row&nbsp;=&nbsp;2&nbsp;column&nbsp;=&nbsp;1&nbsp;).<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_split_hori<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;parent&nbsp;=&nbsp;go_c_bot&nbsp;rows&nbsp;=&nbsp;1&nbsp;columns&nbsp;=&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;go_c_bot_l&nbsp;=&nbsp;go_split_hori-&gt;get_container(&nbsp;row&nbsp;=&nbsp;1&nbsp;column&nbsp;=&nbsp;1&nbsp;).<br />
+&nbsp;&nbsp;go_c_bot_r&nbsp;=&nbsp;go_split_hori-&gt;get_container(&nbsp;row&nbsp;=&nbsp;1&nbsp;column&nbsp;=&nbsp;2&nbsp;).<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_alv_top&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;i_parent&nbsp;=&nbsp;go_c_top.<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_alv_bot_l&nbsp;EXPORTING&nbsp;i_parent&nbsp;=&nbsp;go_c_bot_l.<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_alv_bot_r&nbsp;EXPORTING&nbsp;i_parent&nbsp;=&nbsp;go_c_bot_r.<br />
+ENDFORM.<br />
+<br />
+FORM set_field_cat.<br />
+&nbsp;&nbsp;DEFINE&nbsp;_add_fcat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat-col_pos&nbsp;&nbsp;&nbsp;=&nbsp;&1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;&2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat-coltext&nbsp;&nbsp;&nbsp;=&nbsp;&3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;&4.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat-key&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&5.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat-icon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&6.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat-do_sum&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&7.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat-no_out&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&8.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;[##]&nbsp;####&nbsp;'0'&nbsp;##&nbsp;##&nbsp;(1&nbsp;-&gt;&nbsp;0000000001)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;&2&nbsp;EQ&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fcat-convexit&nbsp;=&nbsp;'&nbsp;'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;append&nbsp;gs_fcat&nbsp;to&nbsp;&9.<br />
+&nbsp;&nbsp;END-OF-DEFINITION.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1.&nbsp;Top&nbsp;Grid<br />
+&nbsp;&nbsp;_add_fcat&nbsp;1&nbsp;&nbsp;'ICON'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;'X'&nbsp;''&nbsp;''&nbsp;gt_fcat_t.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;2&nbsp;&nbsp;'ZPERNR'&nbsp;&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;10&nbsp;&nbsp;'X'&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;''&nbsp;gt_fcat_t.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;3&nbsp;&nbsp;'ZPNAME'&nbsp;&nbsp;&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;''&nbsp;gt_fcat_t.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;4&nbsp;&nbsp;'DEP_TXT'&nbsp;&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;''&nbsp;gt_fcat_t.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;5&nbsp;&nbsp;'DATBI'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;''&nbsp;gt_fcat_t.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;6&nbsp;&nbsp;'DATAB'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;''&nbsp;gt_fcat_t.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;7&nbsp;&nbsp;'RANK_TXT'&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;''&nbsp;gt_fcat_t.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;8&nbsp;&nbsp;'GEN_TXT'&nbsp;&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;''&nbsp;gt_fcat_t.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;9&nbsp;&nbsp;'ZEDATE'&nbsp;&nbsp;&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;''&nbsp;gt_fcat_t.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;10&nbsp;'ZADDRESS'&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;''&nbsp;gt_fcat_t.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;p_ret&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;_add_fcat&nbsp;11&nbsp;'ZQDATE'&nbsp;'###'&nbsp;10&nbsp;''&nbsp;''&nbsp;''&nbsp;''&nbsp;gt_fcat_t.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;_add_fcat&nbsp;12&nbsp;'ZQFLAG'&nbsp;'##'&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;''&nbsp;''&nbsp;''&nbsp;''&nbsp;gt_fcat_t.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2.&nbsp;Bot-Right<br />
+&nbsp;&nbsp;_add_fcat&nbsp;1&nbsp;&nbsp;'ZPERNR'&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;10&nbsp;&nbsp;'X'&nbsp;''&nbsp;''&nbsp;&nbsp;''&nbsp;&nbsp;gt_fcat_br.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;2&nbsp;&nbsp;'ZYEAR'&nbsp;&nbsp;&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;''&nbsp;&nbsp;''&nbsp;&nbsp;gt_fcat_br.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;3&nbsp;&nbsp;'DATBI'&nbsp;&nbsp;&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;''&nbsp;&nbsp;''&nbsp;&nbsp;gt_fcat_br.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;4&nbsp;&nbsp;'DATAB'&nbsp;&nbsp;&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;''&nbsp;&nbsp;''&nbsp;&nbsp;gt_fcat_br.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;5&nbsp;&nbsp;'ZSALARY'&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;'X'&nbsp;''&nbsp;&nbsp;gt_fcat_br.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;6&nbsp;&nbsp;'WAERS'&nbsp;&nbsp;&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;''&nbsp;&nbsp;'X'&nbsp;gt_fcat_br.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;7&nbsp;&nbsp;'BANK_TXT'&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;15&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;''&nbsp;&nbsp;''&nbsp;&nbsp;gt_fcat_br.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;8&nbsp;&nbsp;'ZACCOUNT'&nbsp;'####'&nbsp;&nbsp;20&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;''&nbsp;&nbsp;''&nbsp;&nbsp;gt_fcat_br.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;3.&nbsp;Bot-Left<br />
+&nbsp;&nbsp;_add_fcat&nbsp;1&nbsp;&nbsp;'ZPERNR'&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;10&nbsp;&nbsp;'X'&nbsp;''&nbsp;''&nbsp;&nbsp;''&nbsp;&nbsp;gt_fcat_bl.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;2&nbsp;&nbsp;'DEP_TXT'&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;''&nbsp;&nbsp;''&nbsp;&nbsp;gt_fcat_bl.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;3&nbsp;&nbsp;'ZYEAR'&nbsp;&nbsp;&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;''&nbsp;&nbsp;''&nbsp;&nbsp;gt_fcat_bl.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;4&nbsp;&nbsp;'DATBI'&nbsp;&nbsp;&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;''&nbsp;&nbsp;''&nbsp;&nbsp;gt_fcat_bl.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;5&nbsp;&nbsp;'DATAB'&nbsp;&nbsp;&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;''&nbsp;&nbsp;''&nbsp;&nbsp;gt_fcat_bl.<br />
+&nbsp;&nbsp;_add_fcat&nbsp;6&nbsp;&nbsp;'ZRANK'&nbsp;&nbsp;&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;''&nbsp;''&nbsp;&nbsp;''&nbsp;&nbsp;gt_fcat_bl.<br />
+ENDFORM.<br />
+<br />
+FORM set_layout.<br />
+&nbsp;&nbsp;gs_layout-zebra&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;gs_layout-totals_bef&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;gs_variant-report&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-repid.<br />
+ENDFORM.<br />
+<br />
+FORM set_sort.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_sort,&nbsp;gt_sort.<br />
+&nbsp;&nbsp;gs_sort-spos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;gs_sort-fieldname&nbsp;=&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;gs_sort-up&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_sort&nbsp;TO&nbsp;gt_sort.<br />
+ENDFORM.<br />
+<br />
+FORM display_alv.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_alv_top-&gt;set_table_for_first_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;is_layout&nbsp;=&nbsp;gs_layout&nbsp;is_variant&nbsp;=&nbsp;gs_variant&nbsp;i_save&nbsp;=&nbsp;'A'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&nbsp;it_outtab&nbsp;=&nbsp;gt_emp_out&nbsp;it_fieldcatalog&nbsp;=&nbsp;gt_fcat_t&nbsp;it_sort&nbsp;=&nbsp;gt_sort.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_alv_bot_l-&gt;set_table_for_first_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;is_layout&nbsp;=&nbsp;gs_layout&nbsp;is_variant&nbsp;=&nbsp;gs_variant&nbsp;i_save&nbsp;=&nbsp;'A'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&nbsp;it_outtab&nbsp;=&nbsp;gt_score_out&nbsp;it_fieldcatalog&nbsp;=&nbsp;gt_fcat_bl&nbsp;it_sort&nbsp;=&nbsp;gt_sort.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_alv_bot_r-&gt;set_table_for_first_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;is_layout&nbsp;=&nbsp;gs_layout&nbsp;is_variant&nbsp;=&nbsp;gs_variant&nbsp;i_save&nbsp;=&nbsp;'A'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&nbsp;it_outtab&nbsp;=&nbsp;gt_pay_out&nbsp;it_fieldcatalog&nbsp;=&nbsp;gt_fcat_br&nbsp;it_sort&nbsp;=&nbsp;gt_sort.<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

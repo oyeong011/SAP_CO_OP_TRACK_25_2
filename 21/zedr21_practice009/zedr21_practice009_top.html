@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR21_PRACTICE009_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR21_PRACTICE009_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;ZEDR21_PRACTICE009_TOP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES : ZEDT21_102, ZEDT21_103.<br />
+TABLES : ZEDT21_104.<br />
+TABLES : ZEDT21_106.<br />
+<br />
+<br />
+<br />
+CONSTANTS : C_X TYPE CHAR1 VALUE 'X'.<br />
+CONSTANTS : C_A TYPE CHAR1 VALUE 'A'.<br />
+<br />
+RANGES : R_FG FOR ZEDT21_102-ZQFLAG21.<br />
+"==========================EMPLOYEE INFO ===================================================<br />
+DATA : BEGIN OF GS_EMPLOYEE,<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT21_102-ZPERNR21,<br />
+&nbsp;&nbsp;ZPNAME&nbsp;LIKE&nbsp;ZEDT21_103-ZPNAME21,<br />
+&nbsp;&nbsp;ZDEPCODE&nbsp;LIKE&nbsp;ZEDT21_102-ZDEPCODE21,<br />
+&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT21_102-DATBI,<br />
+&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT21_102-DATAB,<br />
+&nbsp;&nbsp;ZDEPRANK&nbsp;LIKE&nbsp;ZEDT21_104-ZRANK21,<br />
+&nbsp;&nbsp;ZGENDER&nbsp;LIKE&nbsp;ZEDT21_103-ZGENDER21,<br />
+&nbsp;&nbsp;ZEDATE&nbsp;LIKE&nbsp;ZEDT21_102-ZEDATE21,<br />
+&nbsp;&nbsp;ZQDATE&nbsp;LIKE&nbsp;ZEDT21_102-ZQDATE21,<br />
+&nbsp;&nbsp;ZQFLAG&nbsp;LIKE&nbsp;ZEDT21_102-ZQFLAG21,<br />
+&nbsp;&nbsp;ZADDRESS&nbsp;LIKE&nbsp;ZEDT21_103-ZADDRESS21,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_EMPLOYEE.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;GT_EMPLOYEE&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_EMPLOYEE.<br />
+<br />
+"============================EMPLOYEE INFORMATION ALV ====================================<br />
+DATA : BEGIN OF GS_EMPLOYEE_INFO,<br />
+&nbsp;&nbsp;ICON&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;4,<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT21_102-ZPERNR21,<br />
+&nbsp;&nbsp;ZPNAME&nbsp;LIKE&nbsp;ZEDT21_103-ZPNAME21,<br />
+&nbsp;&nbsp;ZDEPCODE_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,<br />
+&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT21_102-DATBI,<br />
+&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT21_102-DATAB,<br />
+&nbsp;&nbsp;ZRANK_NAME&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;8,<br />
+&nbsp;&nbsp;ZGENDER_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;4,<br />
+&nbsp;&nbsp;ZEDATE&nbsp;LIKE&nbsp;ZEDT21_102-ZEDATE21,<br />
+&nbsp;&nbsp;ZQDATE&nbsp;LIKE&nbsp;ZEDT21_102-ZQDATE21,<br />
+&nbsp;&nbsp;ZQFLAG&nbsp;LIKE&nbsp;ZEDT21_102-ZQFLAG21,<br />
+&nbsp;&nbsp;ZADDRESS&nbsp;LIKE&nbsp;ZEDT21_103-ZADDRESS21,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_EMPLOYEE_INFO.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;GT_EMPLOYEE_INFO&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_EMPLOYEE_INFO.<br />
+<br />
+<br />
+&nbsp;&nbsp;"=======================SALARY=============================================<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;BEGIN&nbsp;OF&nbsp;GS_SALARY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT21_106-ZPERNR21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZYEAR&nbsp;LIKE&nbsp;ZEDT21_106-ZYEAR21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT21_106-DATBI,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT21_106-DATAB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZSALARY&nbsp;LIKE&nbsp;ZEDT21_106-ZSALARY21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZBANKCODE&nbsp;LIKE&nbsp;ZEDT21_106-ZBANKCODE21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZACCOUNT&nbsp;LIKE&nbsp;ZEDT21_106-ZACCOUNT21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_SALARY.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;GT_SALARY&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_SALARY.<br />
+<br />
+<br />
+&nbsp;"=======================================SALARY&nbsp;INFO&nbsp;=============================<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;BEGIN&nbsp;OF&nbsp;GS_SALARY_INFO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT21_106-ZPERNR21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZYEAR&nbsp;LIKE&nbsp;ZEDT21_106-ZYEAR21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT21_106-DATBI,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT21_106-DATAB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZSALARY&nbsp;LIKE&nbsp;ZEDT21_106-ZSALARY21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZWAERS&nbsp;TYPE&nbsp;WAERS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZBANK_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZACCOUNT&nbsp;LIKE&nbsp;ZEDT21_106-ZACCOUNT21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_SALARY_INFO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;GT_SALARY_INFO&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_SALARY_INFO.<br />
+<br />
+<br />
+"============================ASSESS================================================<br />
+<br />
+DATA : BEGIN OF GS_ASSESS,<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT21_104-ZPERNR21,<br />
+&nbsp;&nbsp;ZDEPCODE&nbsp;LIKE&nbsp;ZEDT21_104-ZDEPCODE21,<br />
+&nbsp;&nbsp;ZYEAR&nbsp;LIKE&nbsp;ZEDT21_104-ZYEAR21,<br />
+&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT21_104-DATBI,<br />
+&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT21_104-DATAB,<br />
+&nbsp;&nbsp;ZRANK&nbsp;LIKE&nbsp;ZEDT21_104-ZRANK21,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_ASSESS.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;GT_ASSESS&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_ASSESS.<br />
+<br />
+<br />
+&nbsp;&nbsp;"====================================ASSESS&nbsp;INFO&nbsp;====================================<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;BEGIN&nbsp;OF&nbsp;GS_ASSESS_INFO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT21_104-ZPERNR21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZDEPCODE_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZYEAR&nbsp;LIKE&nbsp;ZEDT21_104-ZYEAR21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT21_104-DATBI,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT21_104-DATAB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZRANK&nbsp;LIKE&nbsp;ZEDT21_104-ZRANK21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_ASSESS_INFO.<br />
+&nbsp;&nbsp;DATA&nbsp;GT_ASSESS_INFO&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_ASSESS_INFO.<br />
+<br />
+&nbsp;"=====================================ALV,&nbsp;FIELD&nbsp;CAT&nbsp;RELATED&nbsp;DATA=======================<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;OK_CODE&nbsp;TYPE&nbsp;SY-UCOMM.<br />
+<br />
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA : GC_SPLITTER TYPE REF TO CL_GUI_SPLITTER_CONTAINER.<br />
+DATA : GC_SPLITTER2 TYPE REF TO CL_GUI_SPLITTER_CONTAINER.<br />
+DATA : GC_CONTAINER1 TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GC_CONTAINER2 TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GC_CONTAINER3 TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GC_CONTAINER4 TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GC_GRID1 TYPE REF TO CL_GUI_ALV_GRID.<br />
+DATA : GC_GRID2 TYPE REF TO CL_GUI_ALV_GRID.<br />
+DATA : GC_GRID3 TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT1&nbsp;TYPE&nbsp;LVC_T_FCAT.<br />
+DATA : GT_FIELDCAT2 TYPE LVC_T_FCAT.<br />
+DATA : GT_FIELDCAT3 TYPE LVC_T_FCAT.<br />
+<br />
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.<br />
+<br />
+DATA : GS_SORT TYPE LVC_S_SORT .<br />
+DATA : GT_SORT1 TYPE LVC_T_SORT.<br />
+DATA : GT_SORT2 TYPE LVC_T_SORT.<br />
+DATA : GT_SORT3 TYPE LVC_T_SORT.<br />
+<br />
+DATA : GS_VARIANT TYPE DISVARIANT.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

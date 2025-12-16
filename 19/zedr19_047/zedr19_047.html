@@ -1,0 +1,960 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR19_047</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR19_047</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR19_PRACTICE006<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR19_PRACTICE006 MESSAGE-ID ZMED19.<br />
+<br />
+TABLES : ZEDT19_102, ZEDT19_103, ZEDT19_104, ZEDT19_105, ZEDT19_106.<br />
+<br />
+"========================================================<br />
+" ##/###<br />
+"========================================================<br />
+CONSTANTS : C_X TYPE CHAR1 VALUE 'X'.<br />
+RANGES    : R_FLAG FOR ZEDT19_102-ZQFLAG.           "##/## ### RANGE (## 5)<br />
+<br />
+"========================================================<br />
+" ##<br />
+"========================================================<br />
+TYPES : TY_DEPT  TYPE C LENGTH 20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TY_YEAR&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;4,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TY_MONTH&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;2.<br />
+<br />
+"========================================================<br />
+" ## ##<br />
+"========================================================<br />
+DATA : lv_year   TYPE c LENGTH 4,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_month&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_text&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first_day&nbsp;TYPE&nbsp;d,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last_day&nbsp;&nbsp;TYPE&nbsp;d,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_year(4),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_mon&nbsp;&nbsp;TYPE&nbsp;n&nbsp;LENGTH&nbsp;2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_check&nbsp;TYPE&nbsp;char1.<br />
+<br />
+"========================================================<br />
+" ######/### ### (#### ##, ## 3)<br />
+"========================================================<br />
+"#### JOIN ##<br />
+TYPES: BEGIN OF ty_pernr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpernr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_102-zpernr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_103-zpname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdepcode&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_102-zdepcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdeprank&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_102-zdeprank,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zedate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_102-zedate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zqflag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_102-zqflag,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zqdate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT19_102-ZQDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgender&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_103-zgender,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zaddress&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_103-zaddress,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zbankcode&nbsp;&nbsp;TYPE&nbsp;zedt19_106-zbankcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zaccount&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_106-zaccount,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ty_pernr.<br />
+<br />
+DATA : gs_pernr TYPE ty_pernr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_pernr&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;ty_pernr&nbsp;WITH&nbsp;EMPTY&nbsp;KEY.<br />
+<br />
+"#### ALV# (###/## ##)<br />
+TYPES: BEGIN OF ty_pernr_alv,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpernr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_102-zpernr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_103-zpname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdepcode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_102-zdepcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdepcode_name&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdeprank_name&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;6,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zedate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_102-zedate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zqflag_name&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;4,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgender_name&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;4,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zaddress&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_103-zaddress,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zbankcode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_106-zbankcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zbank_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zaccount&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_106-zaccount,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ty_pernr_alv.<br />
+<br />
+DATA : gs_pernr_alv TYPE ty_pernr_alv,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_pernr_alv&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;ty_pernr_alv&nbsp;WITH&nbsp;EMPTY&nbsp;KEY.<br />
+<br />
+"#### ##<br />
+TYPES: BEGIN OF ty_salary,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpernr&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_102-zpernr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zqdate&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_102-zqdate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zqflag&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_102-zqflag,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zsalary&nbsp;&nbsp;TYPE&nbsp;zedt19_106-zsalary,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##(CURR)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpay&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_106-zsalary,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##(CURR)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zrank&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_104-zrank,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ty_salary.<br />
+<br />
+DATA : gs_salary TYPE ty_salary,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_salary&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;ty_salary&nbsp;WITH&nbsp;EMPTY&nbsp;KEY.<br />
+<br />
+"#### ##/ALV<br />
+TYPES: BEGIN OF ty_assess,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpernr&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_102-zpernr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpname&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_103-zpname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdepcode&nbsp;TYPE&nbsp;zedt19_102-zdepcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdeprank&nbsp;TYPE&nbsp;zedt19_102-zdeprank,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zedate&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_102-zedate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zsalary&nbsp;&nbsp;TYPE&nbsp;zedt19_106-zsalary,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zrank&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_104-zrank,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ty_assess.<br />
+<br />
+DATA : gs_assess TYPE ty_assess,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_assess&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;ty_assess&nbsp;WITH&nbsp;EMPTY&nbsp;KEY.<br />
+<br />
+TYPES: BEGIN OF ty_assess_alv,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpernr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_102-zpernr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_103-zpname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdepcode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_102-zdepcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdepcode_name&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdeprank_name&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;6,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zedate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_102-zedate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zsalary&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_106-zsalary,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zrank&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_104-zrank,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_105-zmon01,&nbsp;"#&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ty_assess_alv.<br />
+<br />
+DATA : gs_assess_alv TYPE ty_assess_alv,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_assess_alv&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;ty_assess_alv&nbsp;WITH&nbsp;EMPTY&nbsp;KEY.<br />
+<br />
+"========================================================<br />
+" ALV (######/####/##) - ##12<br />
+"========================================================<br />
+TYPE-POOLS: slis.<br />
+DATA : gs_fieldcat TYPE slis_fieldcat_alv,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_fieldcat&nbsp;TYPE&nbsp;slis_t_fieldcat_alv,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_layout&nbsp;&nbsp;&nbsp;TYPE&nbsp;slis_layout_alv,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_sort&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;slis_sortinfo_alv,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_sort&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;slis_t_sortinfo_alv.<br />
+<br />
+"========================================================<br />
+" #### - ## 13<br />
+"========================================================<br />
+" ####<br />
+SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;s_zpernr&nbsp;FOR&nbsp;zedt19_102-zpernr&nbsp;MODIF&nbsp;ID&nbsp;m1.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;s_date&nbsp;&nbsp;&nbsp;FOR&nbsp;zedt19_102-zedate&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;m1.&nbsp;"##(####&nbsp;###&nbsp;##)<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;p_dept&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT19_102-ZDEPCODE&nbsp;MODIF&nbsp;ID&nbsp;M1.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;s_dept&nbsp;&nbsp;&nbsp;FOR&nbsp;zedt19_102-zdepcode&nbsp;NO-DISPLAY&nbsp;MODIF&nbsp;ID&nbsp;m1.&nbsp;"##&nbsp;Range&nbsp;(####)<br />
+SELECTION-SCREEN END OF BLOCK b1.<br />
+<br />
+" ####<br />
+SELECTION-SCREEN BEGIN OF BLOCK b2 WITH FRAME.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;s_zper&nbsp;FOR&nbsp;zedt19_102-zpernr&nbsp;MODIF&nbsp;ID&nbsp;m2.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;p_year&nbsp;LIKE&nbsp;zedt19_105-zyear&nbsp;DEFAULT&nbsp;sy-datum+0(4)&nbsp;MODIF&nbsp;ID&nbsp;m2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_mon&nbsp;&nbsp;TYPE&nbsp;TY_MONTH&nbsp;&nbsp;DEFAULT&nbsp;sy-datum+4(2)&nbsp;MODIF&nbsp;ID&nbsp;m2.<br />
+SELECTION-SCREEN END OF BLOCK b2.<br />
+<br />
+" ####<br />
+SELECTION-SCREEN BEGIN OF BLOCK b3 WITH FRAME.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;s_zperr&nbsp;FOR&nbsp;zedt19_102-zpernr&nbsp;MODIF&nbsp;ID&nbsp;m3.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;p_year3&nbsp;LIKE&nbsp;zedt19_105-zyear&nbsp;DEFAULT&nbsp;sy-datum+0(4)&nbsp;MODIF&nbsp;ID&nbsp;m3,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_mon3&nbsp;&nbsp;TYPE&nbsp;TY_MONTH&nbsp;DEFAULT&nbsp;sy-datum+4(2)&nbsp;MODIF&nbsp;ID&nbsp;m3.<br />
+SELECTION-SCREEN END OF BLOCK b3.<br />
+<br />
+" #####<br />
+SELECTION-SCREEN BEGIN OF BLOCK b4 WITH FRAME.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;p_r1&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;r1&nbsp;DEFAULT&nbsp;'X'&nbsp;USER-COMMAND&nbsp;uc1,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_r2&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;r1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_r3&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;r1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+SELECTION-SCREEN END OF BLOCK b4.<br />
+<br />
+" #### ####<br />
+SELECTION-SCREEN BEGIN OF BLOCK b5 WITH FRAME.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;p_ch1&nbsp;AS&nbsp;CHECKBOX&nbsp;DEFAULT&nbsp;'X'&nbsp;MODIF&nbsp;ID&nbsp;m1.&nbsp;"####<br />
+SELECTION-SCREEN END OF BLOCK b5.<br />
+"========================================================<br />
+" INITIALIZATION : ## ##<br />
+"========================================================<br />
+INITIALIZATION.<br />
+&nbsp;&nbsp;lv_year&nbsp;&nbsp;=&nbsp;sy-datum+0(4).<br />
+&nbsp;&nbsp;lv_month&nbsp;=&nbsp;sy-datum+4(2).<br />
+<br />
+&nbsp;&nbsp;first_day&nbsp;=&nbsp;sy-datum(6)&nbsp;&&&nbsp;'01'.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'RP_LAST_DAY_OF_MONTHS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;day_in&nbsp;=&nbsp;first_day<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;last_day_of_month&nbsp;=&nbsp;last_day.<br />
+<br />
+&nbsp;&nbsp;s_date&nbsp;=&nbsp;VALUE&nbsp;#(&nbsp;sign&nbsp;=&nbsp;'I'&nbsp;option&nbsp;=&nbsp;'BT'&nbsp;low&nbsp;=&nbsp;first_day&nbsp;high&nbsp;=&nbsp;last_day&nbsp;).<br />
+&nbsp;&nbsp;APPEND&nbsp;s_date.<br />
+<br />
+"========================================================<br />
+" ## ## ## (##/##) - ## 11(### ##), 13<br />
+"========================================================<br />
+AT SELECTION-SCREEN OUTPUT.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;screen.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;screen-group1&nbsp;=&nbsp;'M1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;COND&nbsp;#(&nbsp;WHEN&nbsp;p_r1&nbsp;=&nbsp;c_x&nbsp;THEN&nbsp;1&nbsp;ELSE&nbsp;0&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;screen-group1&nbsp;=&nbsp;'M2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;COND&nbsp;#(&nbsp;WHEN&nbsp;p_r2&nbsp;=&nbsp;c_x&nbsp;THEN&nbsp;1&nbsp;ELSE&nbsp;0&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_r2&nbsp;=&nbsp;c_x&nbsp;AND&nbsp;(&nbsp;screen-name&nbsp;=&nbsp;'P_YEAR'&nbsp;OR&nbsp;screen-name&nbsp;=&nbsp;'P_MON'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-required&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;screen-group1&nbsp;=&nbsp;'M3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;COND&nbsp;#(&nbsp;WHEN&nbsp;p_r3&nbsp;=&nbsp;c_x&nbsp;THEN&nbsp;1&nbsp;ELSE&nbsp;0&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_r3&nbsp;=&nbsp;c_x&nbsp;AND&nbsp;(&nbsp;screen-name&nbsp;=&nbsp;'P_YEAR3'&nbsp;OR&nbsp;screen-name&nbsp;=&nbsp;'P_MON3'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-required&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;screen.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+"========================================================<br />
+" ## ## (## ###) - ## 11<br />
+"========================================================<br />
+AT SELECTION-SCREEN.<br />
+&nbsp;&nbsp;IF&nbsp;p_r1&nbsp;=&nbsp;c_x&nbsp;AND&nbsp;s_date[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;e000(zmed19)&nbsp;WITH&nbsp;'###&nbsp;#####.'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;IF&nbsp;p_r2&nbsp;=&nbsp;c_x&nbsp;AND&nbsp;(&nbsp;p_year&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;p_mon&nbsp;IS&nbsp;INITIAL&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;e000(zmed19)&nbsp;WITH&nbsp;'###&nbsp;##&nbsp;##&nbsp;#####.'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;IF&nbsp;p_r3&nbsp;=&nbsp;c_x&nbsp;AND&nbsp;(&nbsp;p_year3&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;p_mon3&nbsp;IS&nbsp;INITIAL&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;e000(zmed19)&nbsp;WITH&nbsp;'###&nbsp;##&nbsp;##&nbsp;#####.'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+"========================================================<br />
+" MAIN<br />
+"========================================================<br />
+START-OF-SELECTION.<br />
+&nbsp;&nbsp;PERFORM&nbsp;debug_r1_pack.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_globals.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;p_r1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;build_flag_range.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"R_FLAG&nbsp;##&nbsp;(##&nbsp;5)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;select_data_r1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gt_pernr&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;i001(zmed19)&nbsp;WITH&nbsp;'####&nbsp;####.'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;10:&nbsp;EXIT&nbsp;1#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;modify_data_r1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;alv_display_r1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;p_r2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;select_data_r2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gt_salary&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;i001(zmed19)&nbsp;WITH&nbsp;'##&nbsp;###&nbsp;####.'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STOP.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;10:&nbsp;STOP&nbsp;1#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;modify_data_r2.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;p_r3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;select_data_r3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gt_assess&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;i001(zmed19)&nbsp;WITH&nbsp;'##&nbsp;####&nbsp;####.'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;1&nbsp;=&nbsp;0.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;10:&nbsp;CHECK&nbsp;1#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;modify_data_r3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;alv_display_r3.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+"========================================================<br />
+" ## ##<br />
+"========================================================<br />
+FORM set_globals.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gv_year,&nbsp;gv_mon,&nbsp;gv_check.<br />
+&nbsp;&nbsp;gv_year&nbsp;=&nbsp;CONV&nbsp;#(&nbsp;sy-datum+0(4)&nbsp;).<br />
+&nbsp;&nbsp;gv_mon&nbsp;&nbsp;=&nbsp;sy-datum+4(2).<br />
+ENDFORM.<br />
+<br />
+"========================================================<br />
+" R_FLAG ## (##/##)<br />
+"========================================================<br />
+FORM build_flag_range.<br />
+&nbsp;&nbsp;CLEAR&nbsp;r_flag.<br />
+&nbsp;&nbsp;APPEND&nbsp;VALUE&nbsp;#(&nbsp;sign&nbsp;=&nbsp;'I'&nbsp;option&nbsp;=&nbsp;'EQ'&nbsp;low&nbsp;=&nbsp;space&nbsp;)&nbsp;TO&nbsp;r_flag.<br />
+&nbsp;&nbsp;IF&nbsp;p_ch1&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;VALUE&nbsp;#(&nbsp;sign&nbsp;=&nbsp;'I'&nbsp;option&nbsp;=&nbsp;'EQ'&nbsp;low&nbsp;=&nbsp;c_x&nbsp;)&nbsp;TO&nbsp;r_flag.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+"========================================================<br />
+" [R1] #### ## (JOIN # 4, ## 4)<br />
+"========================================================<br />
+FORM select_data_r1.<br />
+&nbsp;&nbsp;"&nbsp;p_dept&nbsp;###&nbsp;s_dept&nbsp;Range#&nbsp;##&nbsp;##&nbsp;(##&nbsp;##)<br />
+&nbsp;&nbsp;IF&nbsp;p_dept&nbsp;IS&nbsp;NOT&nbsp;INITIAL&nbsp;AND&nbsp;s_dept[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_dept-sign&nbsp;&nbsp;&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_dept-option&nbsp;=&nbsp;'EQ'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_dept-low&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;p_dept.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;s_dept.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;1)&nbsp;##/##&nbsp;##&nbsp;###&nbsp;#<br />
+&nbsp;&nbsp;IF&nbsp;s_zpernr[]&nbsp;IS&nbsp;INITIAL&nbsp;AND&nbsp;s_dept[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;a~zpernr,&nbsp;b~zpname,&nbsp;a~zdepcode,&nbsp;a~zdeprank,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~zedate,&nbsp;a~zqflag,&nbsp;a~zqdate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~zgender,&nbsp;b~zaddress&nbsp;AS&nbsp;zaddress,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c~zbankcode,&nbsp;c~zaccount<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@gt_pernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt19_102&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_103&nbsp;AS&nbsp;b&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;b~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_106&nbsp;AS&nbsp;c&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;c~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;(&nbsp;a~datab&nbsp;=&nbsp;'00000000'&nbsp;OR&nbsp;a~datab&nbsp;&lt;=&nbsp;@s_date-high&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;(&nbsp;a~datbi&nbsp;=&nbsp;'00000000'&nbsp;OR&nbsp;a~datbi&nbsp;&gt;=&nbsp;@s_date-low&nbsp;&nbsp;).<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;2)&nbsp;###&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;ELSEIF&nbsp;s_zpernr[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;a~zpernr,&nbsp;b~zpname,&nbsp;a~zdepcode,&nbsp;a~zdeprank,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~zedate,&nbsp;a~zqflag,&nbsp;a~zqdate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~zgender,&nbsp;b~zaddress&nbsp;AS&nbsp;zaddress,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c~zbankcode,&nbsp;c~zaccount<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@gt_pernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt19_102&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_103&nbsp;AS&nbsp;b&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;b~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_106&nbsp;AS&nbsp;c&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;c~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;a~zdepcode&nbsp;IN&nbsp;@s_dept<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;(&nbsp;a~datab&nbsp;=&nbsp;'00000000'&nbsp;OR&nbsp;a~datab&nbsp;&lt;=&nbsp;@s_date-high&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;(&nbsp;a~datbi&nbsp;=&nbsp;'00000000'&nbsp;OR&nbsp;a~datbi&nbsp;&gt;=&nbsp;@s_date-low&nbsp;&nbsp;).<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;3)&nbsp;###&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;ELSEIF&nbsp;s_dept[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;a~zpernr,&nbsp;b~zpname,&nbsp;a~zdepcode,&nbsp;a~zdeprank,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~zedate,&nbsp;a~zqflag,&nbsp;a~zqdate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~zgender,&nbsp;b~zaddress&nbsp;AS&nbsp;zaddress,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c~zbankcode,&nbsp;c~zaccount<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@gt_pernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt19_102&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_103&nbsp;AS&nbsp;b&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;b~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_106&nbsp;AS&nbsp;c&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;c~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;a~zpernr&nbsp;IN&nbsp;@s_zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;(&nbsp;a~datab&nbsp;=&nbsp;'00000000'&nbsp;OR&nbsp;a~datab&nbsp;&lt;=&nbsp;@s_date-high&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;(&nbsp;a~datbi&nbsp;=&nbsp;'00000000'&nbsp;OR&nbsp;a~datbi&nbsp;&gt;=&nbsp;@s_date-low&nbsp;&nbsp;).<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;4)&nbsp;##+##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;a~zpernr,&nbsp;b~zpname,&nbsp;a~zdepcode,&nbsp;a~zdeprank,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~zedate,&nbsp;a~zqflag,&nbsp;a~zqdate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~zgender,&nbsp;b~zaddress&nbsp;AS&nbsp;zaddress,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c~zbankcode,&nbsp;c~zaccount<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@gt_pernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt19_102&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_103&nbsp;AS&nbsp;b&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;b~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_106&nbsp;AS&nbsp;c&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;c~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;a~zpernr&nbsp;&nbsp;IN&nbsp;@s_zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;a~zdepcode&nbsp;IN&nbsp;@s_dept<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;(&nbsp;a~datab&nbsp;=&nbsp;'00000000'&nbsp;OR&nbsp;a~datab&nbsp;&lt;=&nbsp;@s_date-high&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;(&nbsp;a~datbi&nbsp;=&nbsp;'00000000'&nbsp;OR&nbsp;a~datbi&nbsp;&gt;=&nbsp;@s_date-low&nbsp;&nbsp;).<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##/##&nbsp;##(####)<br />
+&nbsp;&nbsp;IF&nbsp;p_ch1&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;#&nbsp;####&nbsp;(####&nbsp;##&nbsp;##&nbsp;#&nbsp;###&nbsp;###&nbsp;##&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;gt_pernr&nbsp;WHERE&nbsp;zqflag&nbsp;=&nbsp;c_x<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zqdate&nbsp;IS&nbsp;NOT&nbsp;INITIAL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zqdate&nbsp;&lt;=&nbsp;s_date-high.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;#&nbsp;####&nbsp;(####&nbsp;##&nbsp;##&nbsp;##&nbsp;###&nbsp;###)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;gt_pernr&nbsp;WHERE&nbsp;NOT&nbsp;(&nbsp;zqflag&nbsp;=&nbsp;c_x<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zqdate&nbsp;IS&nbsp;NOT&nbsp;INITIAL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zqdate&nbsp;&lt;=&nbsp;s_date-high&nbsp;).<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;###&nbsp;#<br />
+   </div>
+   <div class="code">
+FORM debug_r1_pack.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_vld&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_flag_sp&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_flag_x&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_flag_y&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_flag_in&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_j103&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_j106&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_jboth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1)&nbsp;102&nbsp;##<br />
+&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;INTO&nbsp;@lv_all&nbsp;FROM&nbsp;zedt19_102.<br />
+&nbsp;&nbsp;MESSAGE&nbsp;|1)&nbsp;102##:&nbsp;{&nbsp;lv_all&nbsp;}|&nbsp;TYPE&nbsp;'I'.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2)&nbsp;####&nbsp;##&nbsp;(DATAB&nbsp;#&nbsp;HIGH&nbsp;&nbsp;AND&nbsp;&nbsp;DATBI&nbsp;#&nbsp;LOW)<br />
+&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;INTO&nbsp;@lv_vld<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt19_102<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;datab&nbsp;&lt;=&nbsp;@s_date-high<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;datbi&nbsp;&gt;=&nbsp;@s_date-low.<br />
+&nbsp;&nbsp;MESSAGE&nbsp;|2)&nbsp;####:&nbsp;{&nbsp;lv_vld&nbsp;}|&nbsp;TYPE&nbsp;'I'.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;3)&nbsp;###&nbsp;##&nbsp;(####&nbsp;##&nbsp;#)<br />
+&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;INTO&nbsp;@lv_flag_sp&nbsp;FROM&nbsp;zedt19_102<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;datab&nbsp;&lt;=&nbsp;@s_date-high&nbsp;AND&nbsp;datbi&nbsp;&gt;=&nbsp;@s_date-low&nbsp;AND&nbsp;zqflag&nbsp;=&nbsp;@space.<br />
+&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;INTO&nbsp;@lv_flag_x&nbsp;&nbsp;FROM&nbsp;zedt19_102<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;datab&nbsp;&lt;=&nbsp;@s_date-high&nbsp;AND&nbsp;datbi&nbsp;&gt;=&nbsp;@s_date-low&nbsp;AND&nbsp;zqflag&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;INTO&nbsp;@lv_flag_y&nbsp;&nbsp;FROM&nbsp;zedt19_102<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;datab&nbsp;&lt;=&nbsp;@s_date-high&nbsp;AND&nbsp;datbi&nbsp;&gt;=&nbsp;@s_date-low&nbsp;AND&nbsp;zqflag&nbsp;=&nbsp;'Y'.<br />
+&nbsp;&nbsp;MESSAGE&nbsp;|3)&nbsp;###(#/X/Y):&nbsp;{&nbsp;lv_flag_sp&nbsp;}&nbsp;/&nbsp;{&nbsp;lv_flag_x&nbsp;}&nbsp;/&nbsp;{&nbsp;lv_flag_y&nbsp;}|&nbsp;TYPE&nbsp;'I'.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;4)&nbsp;R_FLAG&nbsp;##&nbsp;##&nbsp;(build_flag_range&nbsp;#&nbsp;##)<br />
+&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;INTO&nbsp;@lv_flag_in<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt19_102<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;datab&nbsp;&lt;=&nbsp;@s_date-high<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;datbi&nbsp;&gt;=&nbsp;@s_date-low<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zqflag&nbsp;IN&nbsp;@r_flag.<br />
+&nbsp;&nbsp;MESSAGE&nbsp;|4)&nbsp;R_FLAG##:&nbsp;{&nbsp;lv_flag_in&nbsp;}|&nbsp;TYPE&nbsp;'I'.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;5)&nbsp;JOIN&nbsp;##&nbsp;##&nbsp;(#####&nbsp;##)<br />
+&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;INTO&nbsp;@lv_j103<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt19_102&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_103&nbsp;AS&nbsp;b&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;b~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;a~datab&nbsp;&lt;=&nbsp;@s_date-high&nbsp;AND&nbsp;a~datbi&nbsp;&gt;=&nbsp;@s_date-low.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;INTO&nbsp;@lv_j106<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt19_102&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_106&nbsp;AS&nbsp;c&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;c~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;a~datab&nbsp;&lt;=&nbsp;@s_date-high&nbsp;AND&nbsp;a~datbi&nbsp;&gt;=&nbsp;@s_date-low.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;INTO&nbsp;@lv_jboth<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt19_102&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_103&nbsp;AS&nbsp;b&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;b~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_106&nbsp;AS&nbsp;c&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;c~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;a~datab&nbsp;&lt;=&nbsp;@s_date-high&nbsp;AND&nbsp;a~datbi&nbsp;&gt;=&nbsp;@s_date-low.<br />
+&nbsp;&nbsp;MESSAGE&nbsp;|5)&nbsp;JOIN(#103/#106/##):&nbsp;{&nbsp;lv_j103&nbsp;}&nbsp;/&nbsp;{&nbsp;lv_j106&nbsp;}&nbsp;/&nbsp;{&nbsp;lv_jboth&nbsp;}|&nbsp;TYPE&nbsp;'I'.<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+"========================================================<br />
+" [R1] ## ##<br />
+"========================================================<br />
+FORM modify_data_r1.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_pernr&nbsp;INTO&nbsp;gs_pernr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;gs_pernr_alv.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;gs_pernr&nbsp;TO&nbsp;gs_pernr_alv.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;make_depcode&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;gs_pernr_alv-zdepcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_pernr_alv-zdepcode_name.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;make_rank&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;gs_pernr-zdeprank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_pernr_alv-zdeprank_name.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_pernr-zqflag&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_pernr_alv-zqflag_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_ch1&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_pernr_alv-zqflag_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_pernr-zgender&nbsp;=&nbsp;'M'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_pernr_alv-zgender_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;gs_pernr-zgender&nbsp;=&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_pernr_alv-zgender_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;make_bankcode&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;gs_pernr-zbankcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_pernr_alv-zbank_name.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_pernr_alv&nbsp;TO&nbsp;gt_pernr_alv.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+<br />
+"========================================================<br />
+" [R1] ALV ##<br />
+"========================================================<br />
+FORM alv_display_r1.<br />
+&nbsp;&nbsp;PERFORM&nbsp;field_catalog_r1.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_layout.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_sort.<br />
+&nbsp;&nbsp;PERFORM&nbsp;call_alv&nbsp;USING&nbsp;gt_pernr_alv.<br />
+ENDFORM.<br />
+<br />
+"========================================================<br />
+" [R2] #### ## ## (##/##/## ##)<br />
+"========================================================<br />
+FORM select_data_r2.<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_first&nbsp;TYPE&nbsp;d,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_last&nbsp;&nbsp;TYPE&nbsp;d.<br />
+<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;p_year&nbsp;p_mon&nbsp;'01'&nbsp;INTO&nbsp;lv_first.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'RP_LAST_DAY_OF_MONTHS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;day_in&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lv_first<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;last_day_of_month&nbsp;=&nbsp;lv_last.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;s_zper[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;a~zpernr&nbsp;a~zqdate&nbsp;a~zqflag&nbsp;c~zsalary&nbsp;b~zrank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_salary<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt19_102&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_104&nbsp;AS&nbsp;b&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;b~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_106&nbsp;AS&nbsp;c&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;c~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;b~zyear&nbsp;=&nbsp;p_year<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;c~zyear&nbsp;=&nbsp;p_year<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;(&nbsp;a~zqflag&nbsp;&lt;&gt;&nbsp;c_x&nbsp;OR&nbsp;a~zqdate&nbsp;&gt;&nbsp;lv_last&nbsp;).<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;a~zpernr&nbsp;a~zqdate&nbsp;a~zqflag&nbsp;c~zsalary&nbsp;b~zrank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_salary<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt19_102&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_104&nbsp;AS&nbsp;b&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;b~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_106&nbsp;AS&nbsp;c&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;c~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;a~zpernr&nbsp;IN&nbsp;s_zper<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;b~zyear&nbsp;&nbsp;=&nbsp;p_year<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;c~zyear&nbsp;&nbsp;=&nbsp;p_year<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;(&nbsp;a~zqflag&nbsp;&lt;&gt;&nbsp;c_x&nbsp;OR&nbsp;a~zqdate&nbsp;&gt;&nbsp;lv_last&nbsp;).<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+<br />
+"========================================================<br />
+" [R2] ## ##/####<br />
+"========================================================<br />
+FORM modify_data_r2.<br />
+&nbsp;&nbsp;DATA&nbsp;lv_date6(6).<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;p_year&nbsp;p_mon&nbsp;INTO&nbsp;lv_date6.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_salary&nbsp;INTO&nbsp;gs_salary.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_salary-zqflag&nbsp;=&nbsp;c_x&nbsp;AND&nbsp;gs_salary-zqdate&nbsp;IS&nbsp;NOT&nbsp;INITIAL&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;substring(&nbsp;val&nbsp;=&nbsp;gs_salary-zqdate&nbsp;off&nbsp;=&nbsp;0&nbsp;len&nbsp;=&nbsp;6&nbsp;)&nbsp;&lt;=&nbsp;lv_date6.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_salary-zpay&nbsp;=&nbsp;gs_salary-zsalary&nbsp;/&nbsp;CONV&nbsp;zedt19_106-zsalary(&nbsp;12&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_salary-zrank&nbsp;=&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_salary-zpay&nbsp;=&nbsp;gs_salary-zpay&nbsp;+&nbsp;'500.00'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"5##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;gs_salary-zpay&nbsp;&lt;&gt;&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;update_pay&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_year&nbsp;p_mon<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_salary-zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_salary-zpay<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&nbsp;gv_check.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gv_check&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;i002(zmed19)&nbsp;WITH&nbsp;'####&nbsp;##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STOP.&nbsp;&nbsp;&nbsp;"##&nbsp;#&nbsp;#&nbsp;1####&nbsp;##&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;MESSAGE&nbsp;i003(zmed19)&nbsp;WITH&nbsp;'###&nbsp;#######.'.<br />
+ENDFORM.<br />
+<br />
+"========================================================<br />
+" [R2] UPDATE_PAY (CASE# # ##, #### ##)<br />
+"========================================================<br />
+FORM update_pay USING    pv_year  TYPE zedt19_105-zyear<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_mon&nbsp;&nbsp;&nbsp;TYPE&nbsp;TY_MONTH<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_zpernr&nbsp;TYPE&nbsp;zedt19_105-zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_zpay&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_105-zmon01<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;pv_check&nbsp;TYPE&nbsp;char1.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;lv_subrc&nbsp;TYPE&nbsp;sy-subrc.<br />
+&nbsp;&nbsp;CLEAR&nbsp;pv_check.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;pv_mon.<br />
+&nbsp;&nbsp;WHEN&nbsp;'01'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;zmon01&nbsp;=&nbsp;@p_zpay,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aedate&nbsp;=&nbsp;@sy-datum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aezeit&nbsp;&nbsp;=&nbsp;@sy-uzeit,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aename&nbsp;=&nbsp;@sy-uname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zyear&nbsp;&nbsp;=&nbsp;@pv_year.<br />
+<br />
+&nbsp;&nbsp;WHEN&nbsp;'02'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;zmon02&nbsp;=&nbsp;@p_zpay,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aedate&nbsp;=&nbsp;@sy-datum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aezeit&nbsp;&nbsp;=&nbsp;@sy-uzeit,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aename&nbsp;=&nbsp;@sy-uname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zyear&nbsp;&nbsp;=&nbsp;@pv_year.<br />
+<br />
+&nbsp;&nbsp;WHEN&nbsp;'03'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;zmon03&nbsp;=&nbsp;@p_zpay,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aedate&nbsp;=&nbsp;@sy-datum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aezeit&nbsp;&nbsp;=&nbsp;@sy-uzeit,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aename&nbsp;=&nbsp;@sy-uname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zyear&nbsp;&nbsp;=&nbsp;@pv_year.<br />
+<br />
+&nbsp;&nbsp;WHEN&nbsp;'04'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;zmon04&nbsp;=&nbsp;@p_zpay,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aedate&nbsp;=&nbsp;@sy-datum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aezeit&nbsp;&nbsp;=&nbsp;@sy-uzeit,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aename&nbsp;=&nbsp;@sy-uname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zyear&nbsp;&nbsp;=&nbsp;@pv_year.<br />
+<br />
+&nbsp;&nbsp;WHEN&nbsp;'05'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;zmon05&nbsp;=&nbsp;@p_zpay,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aedate&nbsp;=&nbsp;@sy-datum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aezeit&nbsp;&nbsp;=&nbsp;@sy-uzeit,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aename&nbsp;=&nbsp;@sy-uname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zyear&nbsp;&nbsp;=&nbsp;@pv_year.<br />
+<br />
+&nbsp;&nbsp;WHEN&nbsp;'06'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;zmon06&nbsp;=&nbsp;@p_zpay,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aedate&nbsp;=&nbsp;@sy-datum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aezeit&nbsp;&nbsp;=&nbsp;@sy-uzeit,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aename&nbsp;=&nbsp;@sy-uname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zyear&nbsp;&nbsp;=&nbsp;@pv_year.<br />
+<br />
+&nbsp;&nbsp;WHEN&nbsp;'07'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;zmon07&nbsp;=&nbsp;@p_zpay,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aedate&nbsp;=&nbsp;@sy-datum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aezeit&nbsp;&nbsp;=&nbsp;@sy-uzeit,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aename&nbsp;=&nbsp;@sy-uname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zyear&nbsp;&nbsp;=&nbsp;@pv_year.<br />
+<br />
+&nbsp;&nbsp;WHEN&nbsp;'08'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;zmon08&nbsp;=&nbsp;@p_zpay,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aedate&nbsp;=&nbsp;@sy-datum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aezeit&nbsp;&nbsp;=&nbsp;@sy-uzeit,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aename&nbsp;=&nbsp;@sy-uname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zyear&nbsp;&nbsp;=&nbsp;@pv_year.<br />
+<br />
+&nbsp;&nbsp;WHEN&nbsp;'09'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;zmon09&nbsp;=&nbsp;@p_zpay,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aedate&nbsp;=&nbsp;@sy-datum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aezeit&nbsp;&nbsp;=&nbsp;@sy-uzeit,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aename&nbsp;=&nbsp;@sy-uname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zyear&nbsp;&nbsp;=&nbsp;@pv_year.<br />
+<br />
+&nbsp;&nbsp;WHEN&nbsp;'10'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;zmon10&nbsp;=&nbsp;@p_zpay,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aedate&nbsp;=&nbsp;@sy-datum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aezeit&nbsp;&nbsp;=&nbsp;@sy-uzeit,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aename&nbsp;=&nbsp;@sy-uname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zyear&nbsp;&nbsp;=&nbsp;@pv_year.<br />
+<br />
+&nbsp;&nbsp;WHEN&nbsp;'11'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;zmon11&nbsp;=&nbsp;@p_zpay,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aedate&nbsp;=&nbsp;@sy-datum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aezeit&nbsp;&nbsp;=&nbsp;@sy-uzeit,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aename&nbsp;=&nbsp;@sy-uname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zyear&nbsp;&nbsp;=&nbsp;@pv_year.<br />
+<br />
+&nbsp;&nbsp;WHEN&nbsp;'12'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;zmon12&nbsp;=&nbsp;@p_zpay,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aedate&nbsp;=&nbsp;@sy-datum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aezeit&nbsp;&nbsp;=&nbsp;@sy-uzeit,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aename&nbsp;=&nbsp;@sy-uname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zyear&nbsp;&nbsp;=&nbsp;@pv_year.<br />
+ENDCASE.<br />
+<br />
+<br />
+&nbsp;&nbsp;lv_subrc&nbsp;=&nbsp;sy-subrc.<br />
+&nbsp;&nbsp;IF&nbsp;lv_subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;pv_check&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+"========================================================<br />
+" [R3] #### ## (JOIN # 4)<br />
+"========================================================<br />
+FORM select_data_r3.<br />
+&nbsp;&nbsp;IF&nbsp;s_zperr[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;a~zpernr,&nbsp;b~zpname,&nbsp;a~zdepcode,&nbsp;a~zdeprank,&nbsp;a~zedate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d~zsalary,&nbsp;c~zrank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@gt_assess<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt19_102&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_103&nbsp;AS&nbsp;b&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;b~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_104&nbsp;AS&nbsp;c&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;c~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_106&nbsp;AS&nbsp;d&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;d~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;c~zyear&nbsp;=&nbsp;@p_year3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;d~zyear&nbsp;=&nbsp;@p_year3.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;a~zpernr,&nbsp;b~zpname,&nbsp;a~zdepcode,&nbsp;a~zdeprank,&nbsp;a~zedate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d~zsalary,&nbsp;c~zrank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@gt_assess<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt19_102&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_103&nbsp;AS&nbsp;b&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;b~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_104&nbsp;AS&nbsp;c&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;c~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt19_106&nbsp;AS&nbsp;d&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;d~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;a~zpernr&nbsp;IN&nbsp;@s_zperr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;c~zyear&nbsp;=&nbsp;@p_year3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;d~zyear&nbsp;=&nbsp;@p_year3.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+"========================================================<br />
+" [R3] ##/### ##<br />
+"========================================================<br />
+FORM modify_data_r3.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_assess&nbsp;INTO&nbsp;gs_assess.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;gs_assess_alv.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;gs_assess&nbsp;TO&nbsp;gs_assess_alv.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_pay&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;p_year3&nbsp;p_mon3&nbsp;gs_assess_alv-zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_assess_alv-zmon.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_assess_alv-zmon&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;make_depcode&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;gs_assess_alv-zdepcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_assess_alv-zdepcode_name.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;make_rank&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;gs_assess-zdeprank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_assess_alv-zdeprank_name.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_assess_alv&nbsp;TO&nbsp;gt_assess_alv.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+"========================================================<br />
+" [R3] ALV ##<br />
+"========================================================<br />
+FORM alv_display_r3.<br />
+&nbsp;&nbsp;PERFORM&nbsp;field_catalog_r3.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_layout.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_sort.<br />
+&nbsp;&nbsp;PERFORM&nbsp;call_alv&nbsp;USING&nbsp;gt_assess_alv.<br />
+ENDFORM.<br />
+<br />
+"========================================================<br />
+" GET_PAY : ## ## ## (CASE# 12##)<br />
+"========================================================<br />
+FORM get_pay USING    pv_year  TYPE zedt19_105-zyear<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_mon&nbsp;&nbsp;&nbsp;TYPE&nbsp;ty_month<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_zpernr&nbsp;TYPE&nbsp;zedt19_105-zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;p_zmon&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_105-zmon01.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;pv_mon.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'01'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;zmon01&nbsp;INTO&nbsp;@p_zmon&nbsp;FROM&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr&nbsp;AND&nbsp;zyear&nbsp;=&nbsp;@pv_year.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'02'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;zmon02&nbsp;INTO&nbsp;@p_zmon&nbsp;FROM&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr&nbsp;AND&nbsp;zyear&nbsp;=&nbsp;@pv_year.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'03'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;zmon03&nbsp;INTO&nbsp;@p_zmon&nbsp;FROM&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr&nbsp;AND&nbsp;zyear&nbsp;=&nbsp;@pv_year.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'04'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;zmon04&nbsp;INTO&nbsp;@p_zmon&nbsp;FROM&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr&nbsp;AND&nbsp;zyear&nbsp;=&nbsp;@pv_year.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'05'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;zmon05&nbsp;INTO&nbsp;@p_zmon&nbsp;FROM&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr&nbsp;AND&nbsp;zyear&nbsp;=&nbsp;@pv_year.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'06'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;zmon06&nbsp;INTO&nbsp;@p_zmon&nbsp;FROM&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr&nbsp;AND&nbsp;zyear&nbsp;=&nbsp;@pv_year.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'07'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;zmon07&nbsp;INTO&nbsp;@p_zmon&nbsp;FROM&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr&nbsp;AND&nbsp;zyear&nbsp;=&nbsp;@pv_year.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'08'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;zmon08&nbsp;INTO&nbsp;@p_zmon&nbsp;FROM&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr&nbsp;AND&nbsp;zyear&nbsp;=&nbsp;@pv_year.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'09'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;zmon09&nbsp;INTO&nbsp;@p_zmon&nbsp;FROM&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr&nbsp;AND&nbsp;zyear&nbsp;=&nbsp;@pv_year.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'10'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;zmon10&nbsp;INTO&nbsp;@p_zmon&nbsp;FROM&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr&nbsp;AND&nbsp;zyear&nbsp;=&nbsp;@pv_year.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'11'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;zmon11&nbsp;INTO&nbsp;@p_zmon&nbsp;FROM&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr&nbsp;AND&nbsp;zyear&nbsp;=&nbsp;@pv_year.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'12'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;zmon12&nbsp;INTO&nbsp;@p_zmon&nbsp;FROM&nbsp;zedt19_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;@p_zpernr&nbsp;AND&nbsp;zyear&nbsp;=&nbsp;@pv_year.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDFORM.<br />
+<br />
+"========================================================<br />
+" ##/##/## ### ## (USING/CHANGING ##, ## 7)<br />
+"========================================================<br />
+FORM make_depcode USING    p_zdepcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;p_name.<br />
+&nbsp;&nbsp;CASE&nbsp;p_zdepcode.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0001'.&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0002'.&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0003'.&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0004'.&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0005'.&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0006'.&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+<br />
+FORM make_rank USING    p_rank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;p_rank_name.<br />
+&nbsp;&nbsp;CASE&nbsp;p_rank.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'A'.&nbsp;p_rank_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'B'.&nbsp;p_rank_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'C'.&nbsp;p_rank_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'D'.&nbsp;p_rank_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'E'.&nbsp;p_rank_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'F'.&nbsp;p_rank_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'G'.&nbsp;p_rank_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+<br />
+FORM make_bankcode USING    p_bankcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;p_bankname.<br />
+&nbsp;&nbsp;CASE&nbsp;p_bankcode.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'001'.&nbsp;p_bankname&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'002'.&nbsp;p_bankname&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'003'.&nbsp;p_bankname&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'004'.&nbsp;p_bankname&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'005'.&nbsp;p_bankname&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+<br />
+"========================================================<br />
+" ALV: ######/####/##/## (## 12)<br />
+"========================================================<br />
+FORM field_catalog_r1.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;1&nbsp;&nbsp;'ZPERNR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;'X'&nbsp;&nbsp;0&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;2&nbsp;&nbsp;'ZPNAME'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;3&nbsp;&nbsp;'ZDEPCODE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;4&nbsp;&nbsp;'ZDEPCODE_NAME'&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;5&nbsp;&nbsp;'ZDEPRANK_NAME'&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;6&nbsp;&nbsp;'ZEDATE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;10&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;7&nbsp;&nbsp;'ZQFLAG_NAME'&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;8&nbsp;&nbsp;'ZGENDER_NAME'&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;9&nbsp;&nbsp;'ZADDRESS'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;10&nbsp;'ZBANKCODE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;11&nbsp;'ZBANK_NAME'&nbsp;&nbsp;&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;12&nbsp;'ZACCOUNT'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;&nbsp;''.<br />
+ENDFORM.<br />
+<br />
+FORM field_catalog_r3.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;1&nbsp;'ZPERNR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;'X'&nbsp;0&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;2&nbsp;'ZPNAME'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;''&nbsp;&nbsp;0&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;3&nbsp;'ZDEPCODE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;''&nbsp;&nbsp;0&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;4&nbsp;'ZDEPCODE_NAME'&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;0&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;5&nbsp;'ZDEPRANK_NAME'&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;''&nbsp;&nbsp;0&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;6&nbsp;'ZEDATE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;''&nbsp;10&nbsp;''&nbsp;&nbsp;&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;7&nbsp;'ZSALARY'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;''&nbsp;20&nbsp;'KRW'&nbsp;'X'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;8&nbsp;'ZRANK'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;''&nbsp;&nbsp;0&nbsp;&nbsp;''&nbsp;&nbsp;&nbsp;''.<br />
+<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;p_mon3&nbsp;'####'&nbsp;INTO&nbsp;l_text.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;9&nbsp;'ZMON'&nbsp;l_text&nbsp;''&nbsp;20&nbsp;'KRW'&nbsp;'X'.<br />
+ENDFORM.<br />
+<br />
+FORM add_fcat USING iv_pos iv_fname iv_text iv_key iv_len iv_curr iv_sum.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;&nbsp;&nbsp;=&nbsp;iv_pos.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;iv_fname.<br />
+&nbsp;&nbsp;gs_fieldcat-seltext_m&nbsp;=&nbsp;iv_text.<br />
+&nbsp;&nbsp;gs_fieldcat-key&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;iv_key.<br />
+&nbsp;&nbsp;IF&nbsp;iv_len&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;iv_len.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;IF&nbsp;iv_curr&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-currency&nbsp;=&nbsp;iv_curr.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;IF&nbsp;iv_sum&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-do_sum&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+ENDFORM.<br />
+<br />
+FORM set_layout.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_layout.<br />
+&nbsp;&nbsp;gs_layout-zebra&nbsp;=&nbsp;c_x.<br />
+ENDFORM.<br />
+<br />
+FORM set_sort.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gt_sort.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_sort.<br />
+&nbsp;&nbsp;gs_sort-spos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;gs_sort-fieldname&nbsp;=&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;gs_sort-up&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_sort&nbsp;TO&nbsp;gt_sort.<br />
+ENDFORM.<br />
+<br />
+FORM call_alv USING pt_alv TYPE STANDARD TABLE.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'REUSE_ALV_GRID_DISPLAY'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_fieldcat&nbsp;=&nbsp;gt_fieldcat<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_layout&nbsp;&nbsp;&nbsp;=&nbsp;gs_layout<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_sort&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_sort<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t_outtab&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;pt_alv.<br />
+ENDFORM.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;Hard&nbsp;coded<br />
+*&nbsp;&nbsp;&nbsp;1)&nbsp;102##:<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

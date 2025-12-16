@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR10_0911</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR10_0911</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR10_0911<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR10_0911.<br />
+<br />
+TYPES: BEGIN OF T_STUDENT,<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt10_001/dictionary-zedt10_001.html">ZEDT10_001</a>.<br />
+&nbsp;&nbsp;TYPES:&nbsp;ZGNAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;T_STUDENT.<br />
+<br />
+DATA: GS_STUDENT TYPE T_STUDENT.<br />
+DATA: GT_ORI_STUDENT LIKE TABLE OF ZEDT10_001,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_STUDENT&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_STUDENT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;NON-UNIQUE&nbsp;KEY&nbsp;INCLUDE-ZCODE.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;KEY&nbsp;##&nbsp;#####&nbsp;MODIFY&nbsp;TABLE&nbsp;####<br />
+<br />
+" # ### ## #### # ## ####.<br />
+SELECT *<br />
+&nbsp;&nbsp;FROM&nbsp;ZEDT10_001<br />
+&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@GT_ORI_STUDENT.<br />
+<br />
+READ TABLE GT_ORI_STUDENT INTO GS_STUDENT INDEX 1.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+READ TABLE GT_ORI_STUDENT INTO GS_STUDENT INDEX 2.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+" ### APPEND ##<br />
+   </div>
+   <div class="codeComment">
+*GS_STUDENT-INCLUDE-ZGENDER&nbsp;=&nbsp;'F'.<br />
+*APPEND&nbsp;GS_STUDENT&nbsp;TO&nbsp;GT_STUDENT.<br />
+*BREAK-POINT.<br />
+   </div>
+   <div class="code">
+" MODIFY # ## ###<br />
+" INCLUDE ### KEY #### ### #### ### ##. WHERE## ######.<br />
+GS_STUDENT-INCLUDE-ZGENDER = 'F'.<br />
+" #### KEY ## #### ##<br />
+MODIFY TABLE GT_STUDENT FROM GS_STUDENT.<br />
+" KEY ## ###### ### ## ##<br />
+" TRANSPORTING INCLUDE-ZGENDER WHERE INCLUDE-ZCODE = GS_STUDENT-INCLUDE-ZCODE.<br />
+<br />
+READ TABLE GT_ORI_STUDENT INTO GS_STUDENT INDEX 3.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+GS_STUDENT-INCLUDE-ZGENDER = 'N'.<br />
+MODIFY GT_STUDENT FROM GS_STUDENT TRANSPORTING INCLUDE-ZGENDER<br />
+WHERE INCLUDE-ZCODE = GS_STUDENT-INCLUDE-ZCODE.<br />
+<br />
+&nbsp;"&nbsp;##&nbsp;##<br />
+<br />
+CLEAR GS_STUDENT.<br />
+LOOP AT GT_STUDENT INTO GS_STUDENT.<br />
+&nbsp;&nbsp;IF&nbsp;GS_STUDENT-INCLUDE-ZGENDER&nbsp;=&nbsp;'M'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_STUDENT-ZGNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;'##'.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;GS_STUDENT-INCLUDE-ZGENDER&nbsp;=&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_STUDENT-ZGNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;'##'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_STUDENT-ZGNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;'##'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;MODIFY&nbsp;GT_STUDENT&nbsp;FROM&nbsp;GS_STUDENT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;CLEAR&nbsp;GS_STUDENT.<br />
+*&nbsp;&nbsp;BREAK-POINT.<br />
+   </div>
+   <div class="code">
+ENDLOOP.<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*BREAK-POINT.<br />
+<br />
+   </div>
+   <div class="code">
+ULINE /.<br />
+" INTERNAL TALBE DELETE<br />
+<br />
+" # ### ## #### # ## ####.<br />
+MOVE GT_ORI_STUDENT[] TO GT_STUDENT[].<br />
+<br />
+" ## ###<br />
+LOOP AT GT_STUDENT INTO GS_STUDENT.<br />
+&nbsp;&nbsp;IF&nbsp;GS_STUDENT-INCLUDE-ZGENDER&nbsp;&lt;&gt;&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;TABLE&nbsp;GT_STUDENT&nbsp;FROM&nbsp;GS_STUDENT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;'##&nbsp;##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;GS_STUDENT-INCLUDE-ZCODE,&nbsp;GS_STUDENT-INCLUDE-ZKNAME,&nbsp;GS_STUDENT-INCLUDE-ZGENDER.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDLOOP.<br />
+<br />
+" # ### ## #### # ## ####.<br />
+MOVE GT_ORI_STUDENT[] TO GT_STUDENT[].<br />
+<br />
+" WHERE #### # ## ##<br />
+" ### ## ##<br />
+DELETE GT_STUDENT WHERE INCLUDE-ZGENDER ='F'.<br />
+<br />
+IF SY-SUBRC = 0.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_STUDENT&nbsp;INTO&nbsp;GS_STUDENT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;GS_STUDENT-INCLUDE-ZCODE,&nbsp;GS_STUDENT-INCLUDE-ZKNAME,&nbsp;GS_STUDENT-INCLUDE-ZGENDER.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDIF.<br />
+<br />
+<br />
+ULINE /.<br />
+" # ### ## #### # ## ####.<br />
+MOVE GT_ORI_STUDENT[] TO GT_STUDENT[].<br />
+<br />
+" ### ### # ##.<br />
+READ TABLE GT_STUDENT INTO GS_STUDENT INDEX 10.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+READ TABLE GT_STUDENT INTO GS_STUDENT INDEX 5.<br />
+GS_STUDENT-INCLUDE-ZTEL = '01099998888'.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+SORT GT_STUDENT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*LOOP&nbsp;AT&nbsp;GT_STUDENT&nbsp;INTO&nbsp;GS_STUDENT.<br />
+*&nbsp;&nbsp;WRITE:/&nbsp;GS_STUDENT-INCLUDE-ZCODE,&nbsp;GS_STUDENT-INCLUDE-ZKNAME.<br />
+*ENDLOOP.<br />
+*ULINE.<br />
+<br />
+   </div>
+   <div class="code">
+" ### ### ## ## '10'## ###<br />
+DELETE ADJACENT DUPLICATES FROM GT_STUDENT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*LOOP&nbsp;AT&nbsp;GT_STUDENT&nbsp;INTO&nbsp;GS_STUDENT.<br />
+*&nbsp;&nbsp;WRITE:/&nbsp;GS_STUDENT-INCLUDE-ZCODE,&nbsp;GS_STUDENT-INCLUDE-ZKNAME.<br />
+*ENDLOOP.<br />
+*ULINE.<br />
+<br />
+   </div>
+   <div class="code">
+" ### ### #### '5'## ###<br />
+DELETE ADJACENT DUPLICATES FROM GT_STUDENT COMPARING INCLUDE-ZCODE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*LOOP&nbsp;AT&nbsp;GT_STUDENT&nbsp;INTO&nbsp;GS_STUDENT.<br />
+*&nbsp;&nbsp;WRITE:/&nbsp;GS_STUDENT-INCLUDE-ZCODE,&nbsp;GS_STUDENT-INCLUDE-ZKNAME.<br />
+*ENDLOOP.<br />
+*ULINE.<br />
+<br />
+   </div>
+   <div class="code">
+BREAK-POINT.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

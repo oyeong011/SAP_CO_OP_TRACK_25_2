@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR20_012</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR20_012</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR20_012<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR20_012.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*DATA:&nbsp;GS_STUDENT&nbsp;TYPE&nbsp;ZEDT20_001.<br />
+*DATA:&nbsp;GT_STUDENT&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_STUDENT.<br />
+*<br />
+*DATA:&nbsp;BEGIN&nbsp;OF&nbsp;GS_MAJOR,<br />
+*&nbsp;&nbsp;ZCODE&nbsp;LIKE&nbsp;ZEDT20_001-ZCODE,<br />
+*&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT20_001-ZPERNR,<br />
+*&nbsp;&nbsp;ZMNAME&nbsp;LIKE&nbsp;ZEDT20_001-ZMNAME,<br />
+*END&nbsp;OF&nbsp;GS_MAJOR.<br />
+*DATA:&nbsp;GT_MAJOR&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_MAJOR&nbsp;WITH&nbsp;NON-UNIQUE&nbsp;KEY&nbsp;ZCODE.<br />
+*<br />
+*CLEAR:&nbsp;GT_STUDENT,&nbsp;GS_STUDENT,&nbsp;GT_MAJOR,&nbsp;GS_MAJOR.<br />
+*GS_STUDENT-ZPERNR&nbsp;=&nbsp;'0000000001'.<br />
+*GS_STUDENT-ZCODE&nbsp;=&nbsp;'SSU-01'.<br />
+*GS_STUDENT-ZKNAME&nbsp;=&nbsp;'###'.<br />
+*GS_STUDENT-ZENAME&nbsp;=&nbsp;'DONG'.<br />
+*GS_STUDENT-ZGENDER&nbsp;=&nbsp;'M'.<br />
+*GS_STUDENT-ZTEL&nbsp;=&nbsp;'01011112222'.<br />
+*APPEND&nbsp;GS_STUDENT&nbsp;TO&nbsp;GT_STUDENT.<br />
+*<br />
+*"GS_MAJOR-ZPERNR&nbsp;=&nbsp;'0000000001'.<br />
+*GS_MAJOR-ZCODE&nbsp;=&nbsp;'SSU-01'.<br />
+*GS_MAJOR-ZMNAME&nbsp;=&nbsp;'####'.<br />
+*APPEND&nbsp;GS_MAJOR&nbsp;TO&nbsp;GT_MAJOR.<br />
+*<br />
+*LOOP&nbsp;AT&nbsp;GT_STUDENT&nbsp;INTO&nbsp;GS_STUDENT.<br />
+*&nbsp;&nbsp;CLEAR:&nbsp;GS_MAJOR.<br />
+*&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_STUDENT&nbsp;TO&nbsp;GS_MAJOR.<br />
+*&nbsp;&nbsp;"READ&nbsp;TABLE&nbsp;GT_MAJOR&nbsp;FROM&nbsp;GS_MAJOR&nbsp;INTO&nbsp;GS_MAJOR.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;READ&nbsp;##<br />
+*<br />
+*&nbsp;&nbsp;"READ&nbsp;TABLE&nbsp;GT_MAJOR&nbsp;WITH&nbsp;TABLE&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_STUDENT-ZCODE&nbsp;&nbsp;&nbsp;"&nbsp;TABLE&nbsp;KEY#&nbsp;###&nbsp;READ<br />
+*&nbsp;&nbsp;"INTO&nbsp;GS_MAJOR.<br />
+*<br />
+**&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MAJOR&nbsp;WITH&nbsp;KEY&nbsp;ZPERNR&nbsp;=&nbsp;GS_STUDENT-ZPERNR<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCODE&nbsp;=&nbsp;GS_STUDENT-ZCODE<br />
+**&nbsp;&nbsp;INTO&nbsp;GS_MAJOR.&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;WORK&nbsp;AREA&nbsp;##<br />
+*<br />
+**&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MAJOR&nbsp;WITH&nbsp;KEY&nbsp;ZPERNR&nbsp;=&nbsp;GS_STUDENT-ZCODE&nbsp;INTO&nbsp;GS_MAJOR<br />
+**&nbsp;&nbsp;COMPARING&nbsp;ZCODE.&nbsp;&nbsp;&nbsp;"&nbsp;GS_MAJOR#&nbsp;GS_MAJOR#&nbsp;ZCODE#&nbsp;###&nbsp;##&nbsp;#&nbsp;##<br />
+*<br />
+*&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MAJOR&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_STUDENT-ZCODE&nbsp;INTO&nbsp;GS_MAJOR<br />
+*&nbsp;&nbsp;TRANSPORTING&nbsp;ZMNAME.<br />
+*<br />
+**&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MAJOR&nbsp;INTO&nbsp;GS_MAJOR&nbsp;INDEX&nbsp;SY-TABIX.<br />
+*&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;GS_STUDENT-ZCODE,&nbsp;GS_STUDENT-ZKNAME,&nbsp;GS_MAJOR-ZMNAME.<br />
+*&nbsp;&nbsp;ELSE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;'####&nbsp;####&nbsp;#####.'.<br />
+*&nbsp;&nbsp;ENDIF.<br />
+*ENDLOOP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

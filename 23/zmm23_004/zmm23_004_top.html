@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM23_004_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM23_004_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM23_004_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+DATA : OK_CODE TYPE SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_DYNNR&nbsp;TYPE&nbsp;SY-DYNNR&nbsp;VALUE&nbsp;'0101'.<br />
+<br />
+DATA : GV_FLAG TYPE C LENGTH 1 VALUE '0'.<br />
+<br />
+"SELECTION-SCREEN FUNCTION KEY 1.  " SCREEN 200# '####'<br />
+"SELECTION-SCREEN FUNCTION KEY 2.  " SCREEN 300# '####'<br />
+CONTROLS CTR_200 TYPE TABLEVIEW USING SCREEN '0200'.  "####<br />
+CONTROLS CTR_300 TYPE TABLEVIEW USING SCREEN '0300'.  "####<br />
+CONTROLS TAB_200 TYPE TABSTRIP.   "<br />
+<br />
+" #### - SUBSCREEN 101<br />
+" #### - SUBSCREN 102<br />
+DATA : GV_EBELN TYPE Z23RSEG-EBELN,   "####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_WERKS&nbsp;TYPE&nbsp;Z23RSEG-WERKS,&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_BUDAT&nbsp;TYPE&nbsp;Z23RBKP-BUDAT.&nbsp;&nbsp;&nbsp;&nbsp;"#####(###)<br />
+<br />
+" PO ##<br />
+DATA : GS_EKKO TYPE Z23EKKO.<br />
+<br />
+" PO ###<br />
+DATA : BEGIN OF GS_EKPO,<br />
+&nbsp;&nbsp;ZCHECK&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;1,<br />
+&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;Z23EKPO-EBELN,&nbsp;"######<br />
+&nbsp;&nbsp;EBELP&nbsp;TYPE&nbsp;Z23EKPO-EBELP,&nbsp;"##<br />
+&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;Z23EKPO-MATNR,&nbsp;"####<br />
+&nbsp;&nbsp;MAKTX&nbsp;TYPE&nbsp;Z23EKPO-MAKTX,&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;MENGE&nbsp;TYPE&nbsp;Z23EKPO-MENGE,&nbsp;&nbsp;"PO##<br />
+&nbsp;&nbsp;MEINS&nbsp;TYPE&nbsp;Z23EKPO-MEINS,&nbsp;"##<br />
+&nbsp;&nbsp;STPRS&nbsp;TYPE&nbsp;Z23EKPO-STPRS,&nbsp;"##<br />
+&nbsp;&nbsp;WRBTR&nbsp;TYPE&nbsp;Z23RSEG-WRBTR,&nbsp;"####&nbsp;(INPUT)<br />
+&nbsp;&nbsp;PRDAT&nbsp;TYPE&nbsp;Z23EKPO-PRDAT,&nbsp;"###<br />
+&nbsp;&nbsp;WERKS&nbsp;TYPE&nbsp;Z23EKPO-WERKS,&nbsp;"###<br />
+&nbsp;&nbsp;LGORT&nbsp;TYPE&nbsp;Z23EKPO-LGORT,"####<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_EKPO.<br />
+DATA : GT_EKPO LIKE TABLE OF GS_EKPO.<br />
+<br />
+DATA : GS_RBKP TYPE Z23RBKP.<br />
+<br />
+<br />
+" ## ###<br />
+DATA : BEGIN OF GS_RSEG,<br />
+&nbsp;&nbsp;ZCHECK&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;1,&nbsp;"##<br />
+&nbsp;&nbsp;BELNR&nbsp;TYPE&nbsp;Z23RSEG-BELNR,&nbsp;"######<br />
+&nbsp;&nbsp;GJAHR&nbsp;TYPE&nbsp;Z23RSEG-GJAHR,&nbsp;"####<br />
+&nbsp;&nbsp;BUZEI&nbsp;TYPE&nbsp;Z23RSEG-BUZEI,<br />
+&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;Z23RSEG-EBELN,&nbsp;"######<br />
+&nbsp;&nbsp;"EBELP&nbsp;TYPE&nbsp;Z23RSEG-EBELP,&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;"MATNR&nbsp;TYPE&nbsp;Z23RSEG-MATNR,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;"TXZ01&nbsp;TYPE&nbsp;Z23RSEG-TXZ01,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;WERKS&nbsp;TYPE&nbsp;Z23RSEG-WERKS,&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;"WRBTR&nbsp;TYPE&nbsp;Z23RSEG-WRBTR,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;"WMWST&nbsp;TYPE&nbsp;Z23RSEG-WMWST,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;"MENGE&nbsp;TYPE&nbsp;Z23RSEG-MENGE,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;"BSTME&nbsp;TYPE&nbsp;Z23RSEG-BSTME,&nbsp;&nbsp;"##<br />
+&nbsp;"&nbsp;MWSKZ&nbsp;TYPE&nbsp;Z23RSEG-MWSKZ,&nbsp;"####<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_RSEG.<br />
+DATA : GT_RSEG LIKE TABLE OF GS_RSEG.<br />
+<br />
+DATA : BEGIN OF GS_RBKP_ITAB,<br />
+&nbsp;&nbsp;ZCHECK&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;1,&nbsp;"##<br />
+&nbsp;&nbsp;BELNR&nbsp;TYPE&nbsp;Z23RBKP-BELNR,&nbsp;&nbsp;"######<br />
+&nbsp;&nbsp;GJAHR&nbsp;TYPE&nbsp;Z23RBKP-GJAHR,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;BLDAT&nbsp;TYPE&nbsp;Z23RBKP-BLDAT,&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;BUDAT&nbsp;TYPE&nbsp;Z23RBKP-BUDAT,&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;BUKRS&nbsp;TYPE&nbsp;Z23RBKP-BUKRS,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;Z23RBKP-LIFNR,&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;BKTXT&nbsp;TYPE&nbsp;Z23RBKP-BKTXT,&nbsp;&nbsp;"#####<br />
+&nbsp;&nbsp;RMWWR&nbsp;TYPE&nbsp;Z23RBKP-RMWWR,&nbsp;&nbsp;"#####<br />
+&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;Z23RBKP-WAERS,&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_RBKP_ITAB.<br />
+DATA : GT_RBKP_ITAB LIKE TABLE OF GS_RBKP_ITAB.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

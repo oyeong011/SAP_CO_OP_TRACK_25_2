@@ -1,0 +1,544 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR23_PRACTICE003</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR23_PRACTICE003</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR23_PRACTICE003<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR23_PRACTICE003.<br />
+<br />
+<br />
+CONSTANTS : TRUE TYPE C LENGTH 1 VALUE 'X'.<br />
+<br />
+TABLES : ZEDT23_100.<br />
+TABLES : ZEDT23_101.<br />
+<br />
+DATA : ZFIRST_DAY TYPE SY-DATUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZLAST_DAY&nbsp;TYPE&nbsp;SY-DATUM.<br />
+<br />
+<br />
+" ### 100 Itable<br />
+DATA : BEGIN OF GS_ZEDT100,<br />
+&nbsp;&nbsp;ZORDNO&nbsp;LIKE&nbsp;ZEDT23_100-ZORDNO,<br />
+&nbsp;&nbsp;ZIDCODE&nbsp;LIKE&nbsp;ZEDT23_100-ZIDCODE,<br />
+&nbsp;&nbsp;ZMATNR&nbsp;LIKE&nbsp;ZEDT23_100-ZMATNR,<br />
+&nbsp;&nbsp;ZMATNAME&nbsp;LIKE&nbsp;ZEDT23_100-ZMATNAME,<br />
+&nbsp;&nbsp;ZMTART&nbsp;LIKE&nbsp;ZEDT23_100-ZMTART,<br />
+&nbsp;&nbsp;ZVOLUM&nbsp;LIKE&nbsp;ZEDT23_100-ZVOLUM,<br />
+&nbsp;&nbsp;VRKME&nbsp;LIKE&nbsp;ZEDT23_100-VRKME,<br />
+&nbsp;&nbsp;ZNSAMT&nbsp;LIKE&nbsp;ZEDT23_100-ZNSAMT,<br />
+&nbsp;&nbsp;ZSLAMT&nbsp;LIKE&nbsp;ZEDT23_100-ZSLAMT,<br />
+&nbsp;&nbsp;ZDCAMT&nbsp;LIKE&nbsp;ZEDT23_100-ZDCAMT,<br />
+&nbsp;&nbsp;ZSALE_FG&nbsp;LIKE&nbsp;ZEDT23_100-ZSALE_FG,<br />
+&nbsp;&nbsp;ZJDATE&nbsp;LIKE&nbsp;ZEDT23_100-ZJDATE,<br />
+&nbsp;&nbsp;ZRET_FG&nbsp;LIKE&nbsp;ZEDT23_100-ZRET_FG,<br />
+&nbsp;&nbsp;ZRDATE&nbsp;LIKE&nbsp;ZEDT23_100-ZRDATE,<br />
+&nbsp;&nbsp;ZMTART_STR&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;ZSALE_FG_STR&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;ZRET_FG_STR&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;ZRDATE_STR&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_ZEDT100.<br />
+DATA : GT_ZEDT100 LIKE TABLE OF GS_ZEDT100.<br />
+<br />
+" ### 101 ITable<br />
+DATA : BEGIN OF GS_ZEDT101,<br />
+&nbsp;&nbsp;ZORDNO&nbsp;LIKE&nbsp;ZEDT23_101-ZORDNO,<br />
+&nbsp;&nbsp;ZIDCODE&nbsp;LIKE&nbsp;ZEDT23_101-ZIDCODE,<br />
+&nbsp;&nbsp;ZMATNR&nbsp;LIKE&nbsp;ZEDT23_101-ZMATNR,<br />
+&nbsp;&nbsp;ZMATNAME&nbsp;LIKE&nbsp;ZEDT23_101-ZMATNAME,<br />
+&nbsp;&nbsp;ZMTART&nbsp;LIKE&nbsp;ZEDT23_101-ZMTART,<br />
+&nbsp;&nbsp;ZVOLUM&nbsp;LIKE&nbsp;ZEDT23_101-ZVOLUM,<br />
+&nbsp;&nbsp;VRKME&nbsp;LIKE&nbsp;ZEDT23_101-VRKME,<br />
+&nbsp;&nbsp;ZSLAMT&nbsp;LIKE&nbsp;ZEDT23_101-ZSLAMT,<br />
+&nbsp;&nbsp;ZDFLAG&nbsp;LIKE&nbsp;ZEDT23_101-ZDFLAG,<br />
+&nbsp;&nbsp;ZDGUBUN&nbsp;LIKE&nbsp;ZEDT23_101-ZDGUBUN,<br />
+&nbsp;&nbsp;ZDDATE&nbsp;LIKE&nbsp;ZEDT23_101-ZDDATE,<br />
+&nbsp;&nbsp;ZRDATE&nbsp;LIKE&nbsp;ZEDT23_101-ZRDATE,<br />
+&nbsp;&nbsp;ZFLAG&nbsp;LIKE&nbsp;ZEDT23_101-ZFLAG,<br />
+&nbsp;&nbsp;ZMTART_STR&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;ZDFLAG_STR&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;ZDGUBUN_STR&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;ZRDATE_STR&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_ZEDT101.<br />
+DATA : GT_ZEDT101 LIKE TABLE OF GS_ZEDT101.<br />
+<br />
+DATA : MAX_ORDNO TYPE ZEDT23_100-ZORDNO.<br />
+SELECT MAX( ZORDNO ) INTO MAX_ORDNO FROM ZEDT23_100.<br />
+DATA : MAX_ID TYPE ZEDT23_100-ZIDCODE.<br />
+SELECT MAX( ZIDCODE ) INTO MAX_ID FROM ZEDT23_100.<br />
+DATA : MAX_MATNR TYPE ZEDT23_100-ZMATNR.<br />
+SELECT MAX( ZMATNR ) INTO MAX_MATNR FROM ZEDT23_100.<br />
+<br />
+<br />
+RANGES : GR_ZIDCODE FOR ZEDT23_100-ZIDCODE.<br />
+&nbsp;&nbsp;GR_ZIDCODE-SIGN&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;GR_ZIDCODE-OPTION&nbsp;=&nbsp;'BT'.<br />
+&nbsp;&nbsp;GR_ZIDCODE-LOW&nbsp;=&nbsp;'SSU-00'.<br />
+&nbsp;&nbsp;GR_ZIDCODE-HIGH&nbsp;=&nbsp;MAX_ID.<br />
+&nbsp;&nbsp;APPEND&nbsp;GR_ZIDCODE.<br />
+<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_ORDNO&nbsp;FOR&nbsp;ZEDT23_100-ZORDNO.&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_IDCODE&nbsp;FOR&nbsp;ZEDT23_100-ZIDCODE&nbsp;NO&nbsp;INTERVALS&nbsp;NO-EXTENSION.&nbsp;"##ID<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_MATNR&nbsp;FOR&nbsp;ZEDT23_100-ZMATNR.&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_JDATE&nbsp;FOR&nbsp;ZEDT23_100-ZJDATE&nbsp;MODIF&nbsp;ID&nbsp;M1.&nbsp;&nbsp;"####(####)<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_DDATE&nbsp;FOR&nbsp;ZEDT23_101-ZDDATE&nbsp;MODIF&nbsp;ID&nbsp;M2.&nbsp;&nbsp;"####<br />
+SELECTION-SCREEN END OF BLOCK B1.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_R1&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R1&nbsp;USER-COMMAND&nbsp;UC1&nbsp;DEFAULT&nbsp;'X'.&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_R2&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R1.&nbsp;"####<br />
+SELECTION-SCREEN END OF BLOCK B2.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B3 WITH FRAME.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_CHECK&nbsp;AS&nbsp;CHECKBOX&nbsp;DEFAULT&nbsp;TRUE.&nbsp;"######<br />
+SELECTION-SCREEN END OF BLOCK B3.<br />
+<br />
+INITIALIZATION.<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_DATE.<br />
+&nbsp;&nbsp;S_JDATE-LOW&nbsp;=&nbsp;ZFIRST_DAY.<br />
+&nbsp;&nbsp;S_JDATE-HIGH&nbsp;=&nbsp;ZLAST_DAY.<br />
+&nbsp;&nbsp;S_JDATE-SIGN&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;APPEND&nbsp;S_JDATE.<br />
+&nbsp;&nbsp;S_DDATE-LOW&nbsp;=&nbsp;ZFIRST_DAY.<br />
+&nbsp;&nbsp;S_DDATE-HIGH&nbsp;=&nbsp;ZLAST_DAY.<br />
+&nbsp;&nbsp;S_DDATE-SIGN&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;APPEND&nbsp;S_DDATE.<br />
+<br />
+<br />
+AT SELECTION-SCREEN OUTPUT.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'M2'.&nbsp;&nbsp;"####"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_R1&nbsp;=&nbsp;TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;P_R2&nbsp;=&nbsp;TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'M1'.&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_R1&nbsp;=&nbsp;TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;P_R2&nbsp;=&nbsp;TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+START-OF-SELECTION.<br />
+" ## ID # ## # # #<br />
+&nbsp;&nbsp;IF&nbsp;S_IDCODE[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;S_IDCODE&nbsp;INTO&nbsp;DATA(line).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GR_ZIDCODE&nbsp;WITH&nbsp;KEY&nbsp;low&nbsp;=&nbsp;line-low&nbsp;TRANSPORTING&nbsp;NO&nbsp;FIELDS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;##&nbsp;##&nbsp;ID&nbsp;###.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_R1&nbsp;EQ&nbsp;TRUE.&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_100DATA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;VALUE_TO_DSCRIPT_100.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;WRITE_100DATA.<br />
+&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;IF&nbsp;P_R2&nbsp;EQ&nbsp;TRUE.&nbsp;&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_101DATA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;VALUE_TO_DSCRIPT_101.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;WRITE_101DATA.<br />
+&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+FORM GET_DATE.<br />
+&nbsp;&nbsp;DATA&nbsp;:LV_YEAR&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MONTH&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_NEXT_MONTH&nbsp;TYPE&nbsp;SY-DATUM.<br />
+<br />
+&nbsp;&nbsp;ZFIRST_DAY&nbsp;=&nbsp;SY-DATUM.<br />
+&nbsp;&nbsp;ZFIRST_DAY+6(2)&nbsp;=&nbsp;'01'.<br />
+<br />
+&nbsp;&nbsp;LV_YEAR&nbsp;=&nbsp;ZFIRST_DAY+0(4).<br />
+&nbsp;&nbsp;LV_MONTH&nbsp;=&nbsp;ZFIRST_DAY+4(2).<br />
+&nbsp;&nbsp;IF&nbsp;LV_MONTH&nbsp;=&nbsp;12.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_NEXT_MONTH&nbsp;=&nbsp;|{&nbsp;LV_YEAR&nbsp;+&nbsp;1&nbsp;}0101&nbsp;|.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_NEXT_MONTH&nbsp;=&nbsp;|{&nbsp;LV_YEAR&nbsp;}{&nbsp;LV_MONTH&nbsp;+&nbsp;1&nbsp;WIDTH&nbsp;=&nbsp;2&nbsp;PAD&nbsp;=&nbsp;'0'&nbsp;}01&nbsp;|.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ZLAST_DAY&nbsp;=&nbsp;LV_NEXT_MONTH&nbsp;-&nbsp;1.<br />
+<br />
+ENDFORM.<br />
+<br />
+" Search ### ## DATA ####<br />
+FORM GET_100DATA.<br />
+&nbsp;&nbsp;IF&nbsp;P_CHECK&nbsp;EQ&nbsp;TRUE.&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;ZEDT23_100<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_ZEDT100<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZORDNO&nbsp;IN&nbsp;S_ORDNO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZIDCODE&nbsp;IN&nbsp;S_IDCODE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZMATNR&nbsp;IN&nbsp;S_MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZJDATE&nbsp;IN&nbsp;S_JDATE.<br />
+&nbsp;&nbsp;ELSE.&nbsp;"####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;ZEDT23_100<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_ZEDT100<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZORDNO&nbsp;IN&nbsp;S_ORDNO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZIDCODE&nbsp;IN&nbsp;S_IDCODE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZMATNR&nbsp;IN&nbsp;S_MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;(&nbsp;(&nbsp;ZJDATE&nbsp;IN&nbsp;S_JDATE&nbsp;)&nbsp;AND&nbsp;(&nbsp;ZSALE_FG&nbsp;EQ&nbsp;1&nbsp;)&nbsp;).<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+" Search ### ## DATA ####<br />
+FORM GET_101DATA.<br />
+&nbsp;&nbsp;IF&nbsp;P_CHECK&nbsp;EQ&nbsp;TRUE.&nbsp;&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;ZEDT23_101<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_ZEDT101<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZORDNO&nbsp;IN&nbsp;S_ORDNO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZIDCODE&nbsp;IN&nbsp;S_IDCODE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZMATNR&nbsp;IN&nbsp;S_MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZDDATE&nbsp;IN&nbsp;S_DDATE.<br />
+&nbsp;&nbsp;ELSE.&nbsp;"####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;ZEDT23_101<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_ZEDT101<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZORDNO&nbsp;IN&nbsp;S_ORDNO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZIDCODE&nbsp;IN&nbsp;S_IDCODE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZMATNR&nbsp;IN&nbsp;S_MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;(&nbsp;(&nbsp;ZDDATE&nbsp;IN&nbsp;S_DDATE&nbsp;)&nbsp;AND&nbsp;(&nbsp;ZFLAG&nbsp;NE&nbsp;'X'&nbsp;)&nbsp;).<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+" ### ##<br />
+FORM WRITE_100DATA.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;'#######'.<br />
+&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;/01(160).<br />
+&nbsp;&nbsp;IF&nbsp;P_CHECK&nbsp;EQ&nbsp;TRUE.&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/01&nbsp;'|',&nbsp;02(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;'|',&nbsp;13(10)&nbsp;'ID'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;23&nbsp;'|',&nbsp;24(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;34&nbsp;'|',&nbsp;35(20)&nbsp;'###'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;55&nbsp;'|',&nbsp;56(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;76&nbsp;'|',&nbsp;77(5)&nbsp;'##'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;82&nbsp;'|',&nbsp;83(5)&nbsp;'##'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;88&nbsp;'|',&nbsp;89(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;99&nbsp;'|',&nbsp;100(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;110&nbsp;'|',&nbsp;111(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;121&nbsp;'|',&nbsp;122(5)&nbsp;'##'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;127&nbsp;'|',&nbsp;128(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;138&nbsp;'|',&nbsp;139(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;149&nbsp;'|',&nbsp;150(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;160&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;/01(160).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_ZEDT100&nbsp;INTO&nbsp;DATA(line).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/01&nbsp;'|',&nbsp;02(10)&nbsp;line-ZORDNO&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;'|',&nbsp;13(10)&nbsp;line-ZIDCODE&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;23&nbsp;'|',&nbsp;24(10)&nbsp;line-ZMATNR&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;34&nbsp;'|',&nbsp;35(20)&nbsp;line-ZMATNAME&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;55&nbsp;'|',&nbsp;56(10)&nbsp;line-ZMTART_STR&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;76&nbsp;'|',&nbsp;77(5)&nbsp;line-ZVOLUM&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;82&nbsp;'|',&nbsp;83(5)&nbsp;line-VRKME&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;88&nbsp;'|',&nbsp;89(10)&nbsp;line-ZNSAMT&nbsp;CENTERED&nbsp;CURRENCY&nbsp;'KRW',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;99&nbsp;'|',&nbsp;100(10)&nbsp;line-ZSLAMT&nbsp;CENTERED&nbsp;CURRENCY&nbsp;'KRW',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;110&nbsp;'|',&nbsp;111(10)&nbsp;line-ZDCAMT&nbsp;CENTERED&nbsp;CURRENCY&nbsp;'KRW',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;121&nbsp;'|',&nbsp;122(5)&nbsp;line-ZSALE_FG_STR&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;127&nbsp;'|',&nbsp;128(10)&nbsp;line-ZJDATE&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;138&nbsp;'|',&nbsp;139(10)&nbsp;line-ZRET_FG_STR&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;149&nbsp;'|',&nbsp;150(10)&nbsp;line-ZRDATE_STR&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;160&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;/01(160).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;ELSE.&nbsp;"####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/01&nbsp;'|',&nbsp;02(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;'|',&nbsp;13(10)&nbsp;'ID'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;23&nbsp;'|',&nbsp;24(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;34&nbsp;'|',&nbsp;35(20)&nbsp;'###'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;55&nbsp;'|',&nbsp;56(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;76&nbsp;'|',&nbsp;77(5)&nbsp;'##'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;82&nbsp;'|',&nbsp;83(5)&nbsp;'##'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;88&nbsp;'|',&nbsp;89(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;99&nbsp;'|',&nbsp;100(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;110&nbsp;'|',&nbsp;111(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;121&nbsp;'|',&nbsp;122(5)&nbsp;'##'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;127&nbsp;'|',&nbsp;128(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;138&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;/01(138).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_ZEDT100&nbsp;INTO&nbsp;DATA(line2).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/01&nbsp;'|',&nbsp;02(10)&nbsp;line2-ZORDNO&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;'|',&nbsp;13(10)&nbsp;line2-ZIDCODE&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;23&nbsp;'|',&nbsp;24(10)&nbsp;line2-ZMATNR&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;34&nbsp;'|',&nbsp;35(20)&nbsp;line2-ZMATNAME&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;55&nbsp;'|',&nbsp;56(10)&nbsp;line2-ZMTART_STR&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;76&nbsp;'|',&nbsp;77(5)&nbsp;line2-ZVOLUM&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;82&nbsp;'|',&nbsp;83(5)&nbsp;line2-VRKME&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;88&nbsp;'|',&nbsp;89(10)&nbsp;line2-ZNSAMT&nbsp;CENTERED&nbsp;CURRENCY&nbsp;'KRW',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;99&nbsp;'|',&nbsp;100(10)&nbsp;line2-ZSLAMT&nbsp;CENTERED&nbsp;CURRENCY&nbsp;'KRW',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;110&nbsp;'|',&nbsp;111(10)&nbsp;line2-ZDCAMT&nbsp;CENTERED&nbsp;CURRENCY&nbsp;'KRW',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;121&nbsp;'|',&nbsp;122(5)&nbsp;line2-ZSALE_FG_STR&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;127&nbsp;'|',&nbsp;128(10)&nbsp;line2-ZJDATE&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;138&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;/01(138).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+<br />
+FORM WRITE_101DATA.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;'#######'.<br />
+&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;/01(143).<br />
+&nbsp;&nbsp;IF&nbsp;P_CHECK&nbsp;EQ&nbsp;TRUE.&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/01&nbsp;'|',&nbsp;02(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;'|',&nbsp;13(10)&nbsp;'ID'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;23&nbsp;'|',&nbsp;24(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;34&nbsp;'|',&nbsp;35(20)&nbsp;'###'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;55&nbsp;'|',&nbsp;56(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;76&nbsp;'|',&nbsp;77(5)&nbsp;'##'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;82&nbsp;'|',&nbsp;83(5)&nbsp;'##'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;88&nbsp;'|',&nbsp;89(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;99&nbsp;'|',&nbsp;100(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;110&nbsp;'|',&nbsp;111(10)&nbsp;'##'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;121&nbsp;'|',&nbsp;122(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;132&nbsp;'|',&nbsp;133(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;143&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;/01(143).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_ZEDT101&nbsp;INTO&nbsp;DATA(line).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/01&nbsp;'|',&nbsp;02(10)&nbsp;line-ZORDNO&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;'|',&nbsp;13(10)&nbsp;line-ZIDCODE&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;23&nbsp;'|',&nbsp;24(10)&nbsp;line-ZMATNR&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;34&nbsp;'|',&nbsp;35(20)&nbsp;line-ZMATNAME&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;55&nbsp;'|',&nbsp;56(10)&nbsp;line-ZMTART_STR&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;76&nbsp;'|',&nbsp;77(5)&nbsp;line-ZVOLUM&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;82&nbsp;'|',&nbsp;83(5)&nbsp;line-VRKME&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;88&nbsp;'|',&nbsp;89(10)&nbsp;line-ZSLAMT&nbsp;CENTERED&nbsp;CURRENCY&nbsp;'KRW',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;99&nbsp;'|',&nbsp;100(10)&nbsp;line-ZDFLAG_STR&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;110&nbsp;'|',&nbsp;111(10)&nbsp;line-ZDGUBUN_STR&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;121&nbsp;'|',&nbsp;122(10)&nbsp;line-ZDDATE&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;132&nbsp;'|',&nbsp;133(10)&nbsp;line-ZRDATE_STR&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;143&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;/01(143).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;ELSE.&nbsp;"####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/01&nbsp;'|',&nbsp;02(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;'|',&nbsp;13(10)&nbsp;'ID'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;23&nbsp;'|',&nbsp;24(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;34&nbsp;'|',&nbsp;35(20)&nbsp;'###'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;55&nbsp;'|',&nbsp;56(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;76&nbsp;'|',&nbsp;77(5)&nbsp;'##'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;82&nbsp;'|',&nbsp;83(5)&nbsp;'##'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;88&nbsp;'|',&nbsp;89(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;99&nbsp;'|',&nbsp;100(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;110&nbsp;'|',&nbsp;111(10)&nbsp;'##'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;121&nbsp;'|',&nbsp;122(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;132&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;/01(132).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_ZEDT101&nbsp;INTO&nbsp;DATA(line2).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/01&nbsp;'|',&nbsp;02(10)&nbsp;line2-ZORDNO&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;'|',&nbsp;13(10)&nbsp;line2-ZIDCODE&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;23&nbsp;'|',&nbsp;24(10)&nbsp;line2-ZMATNR&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;34&nbsp;'|',&nbsp;35(20)&nbsp;line2-ZMATNAME&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;55&nbsp;'|',&nbsp;56(10)&nbsp;line2-ZMTART_STR&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;76&nbsp;'|',&nbsp;77(5)&nbsp;line2-ZVOLUM&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;82&nbsp;'|',&nbsp;83(5)&nbsp;line2-VRKME&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;88&nbsp;'|',&nbsp;89(10)&nbsp;line2-ZSLAMT&nbsp;CENTERED&nbsp;CURRENCY&nbsp;'KRW',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;99&nbsp;'|',&nbsp;100(10)&nbsp;line2-ZDFLAG_STR&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;110&nbsp;'|',&nbsp;111(10)&nbsp;line2-ZDGUBUN_STR&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;121&nbsp;'|',&nbsp;122(10)&nbsp;line2-ZDDATE&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;132&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;/01(132).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+" Value# Description## ### ##<br />
+FORM VALUE_TO_DSCRIPT_100.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_ZEDT100&nbsp;INTO&nbsp;DATA(line).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;line-ZMTART.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZMTART_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'002'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZMTART_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'003'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZMTART_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'004'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZMTART_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'005'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZMTART_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'006'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZMTART_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;line-ZSALE_FG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZSALE_FG_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZSALE_FG_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;line-ZRET_FG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZRET_FG_STR&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZRDATE_STR&nbsp;=&nbsp;line-ZRDATE+0(4)&nbsp;&&&nbsp;'.'&nbsp;&&&nbsp;line-ZRDATE+4(2)&nbsp;&&&nbsp;'.'&nbsp;&&&nbsp;line-ZRDATE+6(2).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZRET_FG_STR&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZRDATE_STR&nbsp;=&nbsp;line-ZRDATE+0(4)&nbsp;&&&nbsp;'.'&nbsp;&&&nbsp;line-ZRDATE+4(2)&nbsp;&&&nbsp;'.'&nbsp;&&&nbsp;line-ZRDATE+6(2).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZRET_FG_STR&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZRDATE_STR&nbsp;=&nbsp;line-ZRDATE+0(4)&nbsp;&&&nbsp;'.'&nbsp;&&&nbsp;line-ZRDATE+4(2)&nbsp;&&&nbsp;'.'&nbsp;&&&nbsp;line-ZRDATE+6(2).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.&nbsp;&nbsp;"####&nbsp;0000.00.00"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZRDATE_STR&nbsp;=&nbsp;'&nbsp;'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_ZEDT100&nbsp;FROM&nbsp;line<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TRANSPORTING&nbsp;ZMTART_STR&nbsp;ZSALE_FG_STR&nbsp;ZRET_FG_STR&nbsp;ZRDATE_STR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZORDNO&nbsp;=&nbsp;line-ZORDNO.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+<br />
+FORM VALUE_TO_DSCRIPT_101.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_ZEDT101&nbsp;INTO&nbsp;DATA(line).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;line-ZMTART.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZMTART_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'002'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZMTART_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'003'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZMTART_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'004'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZMTART_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'005'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZMTART_STR&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'006'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZMTART_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;line-ZDFLAG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZDFLAG_STR&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZDFLAG_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZDFLAG_STR&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;line-ZDGUBUN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZDGUBUN_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZDGUBUN_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZDGUBUN_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'4'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZDGUBUN_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'5'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZDGUBUN_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'6'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZDGUBUN_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'7'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZDGUBUN_STR&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;line-ZFLAG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZDFLAG_STR&nbsp;=&nbsp;'&nbsp;'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZRDATE_STR&nbsp;=&nbsp;line-ZRDATE+0(4)&nbsp;&&&nbsp;'.'&nbsp;&&&nbsp;line-ZRDATE+4(2)&nbsp;&&&nbsp;'.'&nbsp;&&&nbsp;line-ZRDATE+6(2).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line-ZRDATE_STR&nbsp;=&nbsp;'&nbsp;'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_ZEDT101&nbsp;FROM&nbsp;line<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TRANSPORTING&nbsp;ZMTART_STR&nbsp;ZDFLAG_STR&nbsp;ZDGUBUN_STR&nbsp;ZRDATE_STR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZORDNO&nbsp;=&nbsp;line-ZORDNO.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;Hard&nbsp;coded<br />
+*&nbsp;&nbsp;&nbsp;####&nbsp;##&nbsp;##&nbsp;ID&nbsp;###.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

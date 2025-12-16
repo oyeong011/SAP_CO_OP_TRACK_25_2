@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR02_018</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR02_018</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR02_018<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR02_018.<br />
+<br />
+"20250925 SUBROUTINE ##<br />
+<br />
+DATA : BEGIN OF GS_STUDENT.<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt02_001/dictionary-zedt02_001.html">ZEDT02_001</a>.<br />
+DATA: END OF GS_STUDENT.<br />
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.<br />
+<br />
+DATA: GV_ZCODE LIKE ZEDT02_001-ZCODE.<br />
+DATA: GV_ZKNAME LIKE ZEDT02_001-ZKNAME.<br />
+<br />
+"GV_ZC0DE = 'SSU-02'.<br />
+GS_STUDENT-ZCODE = 'SSU-02'.<br />
+<br />
+"PERFORM GET_DATA USING GV_ZCODE GV_ZKNAME. "Actual Parameter<br />
+"PERFORM GET_DATA USING GV_ZCODE CHANGING GV_ZKNAME. "USING: #### ##(### # # #) CHANGING: #### #### ##(### # # #)&lt;-### ##<br />
+"PERFORM GET_DATA USING GS_STUDENT.<br />
+"PERFORM GET_DATA USING GS_STUDENT GT_STUDENT.<br />
+   </div>
+   <div class="codeComment">
+*PERFORM&nbsp;GET_DATA&nbsp;USING&nbsp;GT_STUDENT.<br />
+   </div>
+   <div class="code">
+"PERFORM GET_DATA TABLES GT_STUDENT.<br />
+PERFORM GET_DATA CHANGING GT_STUDENT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*WRITE&nbsp;:&nbsp;/&nbsp;GV_ZCODE.<br />
+*WRITE&nbsp;:&nbsp;/&nbsp;GV_ZKNAME.<br />
+*WRITE:&nbsp;/&nbsp;GS_STUDENT-ZCODE.<br />
+*WRITE:&nbsp;/&nbsp;GS_STUDENT-ZKNAME.<br />
+   </div>
+   <div class="code">
+LOOP AT GT_STUDENT INTO GS_STUDENT.<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;GS_STUDENT-ZCODE,&nbsp;GS_STUDENT-ZKNAME.<br />
+ENDLOOP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+"FORM GET_DATA USING P_ZCODE P_ZKNAME. "USING Form Parameter(## #####) PASS BY REFERENCE<br />
+"FORM GET_DATA USING VALUE(P_ZCODE) P_ZKNAME. "USING VALUE “Actual Parameter ## Subroutine### ## ## ## ## ##-&gt;PASS BY VALUE<br />
+"FORM GET_DATA USING P_ZCODE TYPE C "## ### ## ###-&gt;### #### ## + ###### #####, ##, ### ## ### ####<br />
+"      CHANGING P_ZKNAME TYPE C. "CHANGING<br />
+"FORM GET_DATA USING P_ZCODE CHANGING VALUE(P_ZKNAME). "CHANGING VALUE<br />
+"FORM GET_DATA USING PS_STUDENT STRUCTURE GS_STUDENT. "### ## ### ##<br />
+   </div>
+   <div class="codeComment">
+*FORM&nbsp;GET_DATA&nbsp;USING&nbsp;PS_STUDENT&nbsp;STRUCTURE&nbsp;GS_STUDENT&nbsp;"STRUCTURE&nbsp;##&nbsp;LIKE&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PT_STUDENT&nbsp;LIKE&nbsp;GT_STUDENT.<br />
+*&nbsp;&nbsp;"WRITE&nbsp;:&nbsp;'PERFORM&nbsp;TEST'.<br />
+*&nbsp;&nbsp;"DATA&nbsp;:&nbsp;LV_ZCODE&nbsp;LIKE&nbsp;ZEDT02_001-ZCODE.&nbsp;"####&nbsp;#&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;"LV_ZCODE&nbsp;=&nbsp;'SSU-01'.<br />
+*<br />
+*&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;ZKNAME&nbsp;FROM&nbsp;ZEDT02_001<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;P_ZKNAME<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZCODE&nbsp;=&nbsp;P_ZCODE.<br />
+*<br />
+*&nbsp;&nbsp;P_ZKNAME&nbsp;=&nbsp;'TEST'.<br />
+*&nbsp;&nbsp;PS_STUDENT-ZCODE&nbsp;=&nbsp;'SSU-01'.<br />
+*<br />
+*&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;ZKNAME&nbsp;FROM&nbsp;ZEDT02_001<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;PS_STUDENT-ZKNAME<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZCODE&nbsp;=&nbsp;GS_STUDENT-ZCODE.<br />
+*&nbsp;&nbsp;APPEND&nbsp;PS_STUDENT&nbsp;TO&nbsp;PT_STUDENT.<br />
+*<br />
+*&nbsp;&nbsp;PS_STUDENT-ZCODE&nbsp;=&nbsp;'SSU-02'.<br />
+*<br />
+*&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;ZKNAME&nbsp;FROM&nbsp;ZEDT02_001<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;PS_STUDENT-ZKNAME<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZCODE&nbsp;=&nbsp;PS_STUDENT-ZCODE.<br />
+*&nbsp;&nbsp;APPEND&nbsp;PS_STUDENT&nbsp;TO&nbsp;PT_STUDENT.<br />
+*<br />
+*ENDFORM.<br />
+<br />
+   </div>
+   <div class="code">
+"## #### ## ### ## ####(## ### ##### ##)-&gt;###, #### ##<br />
+   </div>
+   <div class="codeComment">
+*FORM&nbsp;GET_DATA&nbsp;USING&nbsp;PT_STUDENT&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE.<br />
+   </div>
+   <div class="code">
+"FORM GET_DATA TABLES PT_STUDENT LIKE GT_STUDENT. "### # ##<br />
+FORM GET_DATA CHANGING PT_STUDENT LIKE GT_STUDENT.<br />
+&nbsp;&nbsp;DATA:&nbsp;LS_STUDENT&nbsp;LIKE&nbsp;GS_STUDENT.<br />
+<br />
+&nbsp;&nbsp;LS_STUDENT-ZCODE&nbsp;=&nbsp;'SSU-01'.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;ZKNAME&nbsp;FROM&nbsp;ZEDT02_001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;LS_STUDENT-ZKNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZCODE&nbsp;=&nbsp;LS_STUDENT-ZCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;LS_STUDENT&nbsp;TO&nbsp;PT_STUDENT.<br />
+<br />
+&nbsp;&nbsp;LS_STUDENT-ZCODE&nbsp;=&nbsp;'SSU-02'.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;ZKNAME&nbsp;FROM&nbsp;ZEDT02_001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;LS_STUDENT-ZKNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZCODE&nbsp;=&nbsp;LS_STUDENT-ZCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;LS_STUDENT&nbsp;TO&nbsp;PT_STUDENT.<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

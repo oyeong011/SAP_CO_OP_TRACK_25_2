@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR17_PRACTICE004</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR17_PRACTICE004</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR17_PRACTICE004<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR17_PRACTICE004.<br />
+<br />
+ranges : gr_zcode for  zedt17_001-zcode. " SSU-90 ~ SSU-99<br />
+<br />
+gr_zcode-sign = 'I'.<br />
+gr_zcode-option = 'BT'.<br />
+gr_zcode-low = 'SSU-90'.<br />
+gr_zcode-high = 'SSU-99'.<br />
+append gr_zcode.<br />
+<br />
+" ## ## ## (zedt17_001)<br />
+data : begin of gs_student.<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt17_001/dictionary-zedt17_001.html">zedt17_001</a>.<br />
+&nbsp;&nbsp;data&nbsp;:&nbsp;end&nbsp;of&nbsp;gs_student.<br />
+data : gt_student like table of gs_student.<br />
+<br />
+" 1) zedt00_001## ## ##<br />
+select * from zedt00_001<br />
+&nbsp;&nbsp;into&nbsp;corresponding&nbsp;fields&nbsp;of&nbsp;table&nbsp;gt_student<br />
+&nbsp;&nbsp;where&nbsp;zcode&nbsp;in&nbsp;gr_zcode.<br />
+<br />
+if sy-subrc &lt;&gt; 0.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'##&nbsp;####&nbsp;####'.<br />
+&nbsp;&nbsp;exit.<br />
+endif.<br />
+<br />
+" 2) zpernr alpha ## (### 0 ###)<br />
+loop at gt_student into gs_student.<br />
+&nbsp;&nbsp;call&nbsp;function&nbsp;'CONVERSION_EXIT_ALPHA_INPUT'<br />
+&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;input&nbsp;=&nbsp;gs_student-zpernr<br />
+&nbsp;&nbsp;importing<br />
+&nbsp;&nbsp;&nbsp;&nbsp;output&nbsp;=&nbsp;gs_student-zpernr.<br />
+&nbsp;&nbsp;modify&nbsp;gt_student&nbsp;from&nbsp;gs_student.<br />
+endloop.<br />
+<br />
+" ## LOOP ## ##<br />
+SORT gt_student BY zcode zpernr. " ##<br />
+DELETE ADJACENT DUPLICATES FROM gt_student<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COMPARING&nbsp;zcode&nbsp;zpernr.&nbsp;"&nbsp;##&nbsp;##<br />
+<br />
+" 2) zedt17_001# modify<br />
+modify zedt17_001 from table gt_student.<br />
+<br />
+write : / lines( gt_student ), '# ## # insert ##'.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

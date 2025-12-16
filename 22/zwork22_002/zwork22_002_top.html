@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZWORK22_002_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZWORK22_002_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZWORK22_002_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES : ZTCURR22.<br />
+<br />
+"ALV ###<br />
+"DATA : BEGIN OF GS_CURR_DIS,<br />
+"  KURST LIKE ZTCURR22-KURST,  "####<br />
+"  FCURR LIKE ZTCURR22-FCURR,  "####<br />
+"  TCURR LIKE ZTCURR22-TCURR,  "####<br />
+&nbsp;&nbsp;"GDATU&nbsp;LIKE&nbsp;ZTCURR22-GDATU,&nbsp;&nbsp;"####<br />
+"  UKURS LIKE ZTCURR22-UKURS,   "##<br />
+"  FFACT LIKE ZTCURR22-FFACT,  "########<br />
+"  TFACT LIKE ZTCURR22-TFACT,  "########<br />
+"  CRNAME TYPE SY-UNAME,       "###<br />
+"  CRDATE TYPE SY-DATUM,       "###<br />
+"END OF GS_CURR_DIS.<br />
+"DATA : GT_CURR_DIS LIKE TABLE OF GS_CURR_DIS.<br />
+<br />
+TYPES: BEGIN OF ty_curr_dis,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kurst&nbsp;&nbsp;TYPE&nbsp;ztcurr22-kurst,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fcurr&nbsp;&nbsp;TYPE&nbsp;ztcurr22-fcurr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tcurr&nbsp;&nbsp;TYPE&nbsp;ztcurr22-tcurr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gdatu&nbsp;&nbsp;TYPE&nbsp;ztcurr22-gdatu,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ukurs&nbsp;&nbsp;TYPE&nbsp;ztcurr22-ukurs,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ffact&nbsp;&nbsp;TYPE&nbsp;ztcurr22-ffact,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tfact&nbsp;&nbsp;TYPE&nbsp;ztcurr22-tfact,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;crname&nbsp;TYPE&nbsp;ztcurr22-crname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;crdate&nbsp;TYPE&nbsp;ztcurr22-crdate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ty_curr_dis.<br />
+DATA: gs_curr_dis TYPE ty_curr_dis.<br />
+DATA: gt_curr_dis TYPE TABLE OF ty_curr_dis.<br />
+<br />
+"OK##<br />
+DATA : OK_CODE TYPE SY-UCOMM.<br />
+<br />
+"### ####<br />
+DATA : GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER.<br />
+DATA: GC_GRID TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+DATA: GS_FIELDCAT TYPE LVC_S_FCAT.<br />
+DATA: GT_FIELDCAT TYPE LVC_T_FCAT.<br />
+<br />
+DATA: GS_LAYOUT TYPE LVC_S_LAYO.<br />
+<br />
+"PDF ### ## ##<br />
+DATA : GV_TEMP_DIR TYPE STRING."## ####<br />
+<br />
+DATA : GV_TEMPLATE_PATH TYPE STRING."##### ### ##<br />
+DATA : GV_EXCEL_PATH TYPE STRING."### ## ##<br />
+DATA : GV_PDF_PATH TYPE STRING. "PDF ## ##<br />
+<br />
+DATA : GV_TEMPLATE_RL TYPE RLGRAP-FILENAME."## ## ##<br />
+DATA : GV_PDF_PATH_RL TYPE RLGRAP-FILENAME."PDF ## ##<br />
+<br />
+CONSTANTS: GC_DEBUG TYPE C VALUE 'X'."####<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

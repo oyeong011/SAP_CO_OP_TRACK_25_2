@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR20_PROJECT004_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR20_PROJECT004_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDR20_PROJECT004_TOP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES: ZEDT20_MSEG, ZEDT20_MKPF.<br />
+CONTROLS: PACKAGE1 TYPE TABSTRIP.<br />
+DATA: GV_EXIT_FROM_POPUP(1) VALUE ''.<br />
+DATA: GV_CREDIT TYPE ZEDT20_BSEG-DMBTR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_DEBIT&nbsp;TYPE&nbsp;ZEDT20_BSEG-DMBTR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_TEMP_MWSKZ&nbsp;TYPE&nbsp;ZEDT20_LFM1-MWSKZ.<br />
+DATA: GV_SUBSCREEN TYPE SY-DYNNR VALUE '0101'.<br />
+CONSTANTS: C_YELLO TYPE ICON_D VALUE '@5D@',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_GREEN&nbsp;TYPE&nbsp;ICON_D&nbsp;VALUE&nbsp;'@5B@',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_RED&nbsp;TYPE&nbsp;ICON_d&nbsp;VALUE&nbsp;'@5C@'.<br />
+DATA: GV_TAX_RATE TYPE P LENGTH 2 DECIMALS 2.<br />
+<br />
+DATA: GO_EVENT TYPE REF TO EVENT.<br />
+" ALV ## ##<br />
+DATA: GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER,    " ALV### CUSTOM CONTAINER #### ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GC_GRID&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ALV&nbsp;###&nbsp;ALV&nbsp;GRID&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;OK_CODE&nbsp;TYPE&nbsp;SY-UCOMM,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;TOOLBAR&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT&nbsp;TYPE&nbsp;LVC_S_FCAT,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;######&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT&nbsp;TYPE&nbsp;LVC_T_FCAT,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;######&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GT_SORT&nbsp;TYPE&nbsp;LVC_T_SORT,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SORT&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_SORT&nbsp;TYPE&nbsp;LVC_S_SORT,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SORT&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_LAYOUT&nbsp;TYPE&nbsp;LVC_S_LAYO,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LAYOUT&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_VARIANT&nbsp;TYPE&nbsp;DISVARIANT.&nbsp;&nbsp;&nbsp;"&nbsp;LAYOUT&nbsp;####&nbsp;###<br />
+<br />
+DATA: GC_POPUP TYPE REF TO CL_GUI_CUSTOM_CONTAINER,    " ## ALV### CUSTOM CONTAINER #### ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_POPUP_GRID&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;ALV&nbsp;###&nbsp;ALV&nbsp;GRID&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_POPUP_FIELDCAT&nbsp;TYPE&nbsp;LVC_T_FCAT.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;######&nbsp;###<br />
+<br />
+DATA: BEGIN OF GS_COMMON_HEADER,<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;######&nbsp;######<br />
+&nbsp;&nbsp;EKGRP&nbsp;TYPE&nbsp;ZEDT20_EKKO-EKGRP,&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;BEDAT&nbsp;TYPE&nbsp;ZEDT20_EKKO-BEDAT,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###<br />
+&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;ZEDT20_EKKO-LIFNR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;NAME1&nbsp;TYPE&nbsp;ZEDT20_LFA1-NAME1,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;BUKRS&nbsp;TYPE&nbsp;ZEDT20_EKKO-BUKRS,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_COMMON_HEADER.<br />
+DATA: GT_COMMON_HEADER LIKE TABLE OF GS_COMMON_HEADER.<br />
+<br />
+DATA: BEGIN OF GS_AMOUNT_HEADER,<br />
+&nbsp;&nbsp;"&nbsp;#####&nbsp;#####&nbsp;#####?<br />
+&nbsp;&nbsp;ZAMOUNT&nbsp;TYPE&nbsp;ZEDT20_BSEG-DMBTR,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;ZEDT20_LFM1-WAERS,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;MWSKZ&nbsp;TYPE&nbsp;ZEDT20_LFM1-MWSKZ,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;ZMEMO(10),&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;####<br />
+&nbsp;&nbsp;ZBALANCE&nbsp;TYPE&nbsp;ZEDT20_BSEG-DMBTR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;ZCOLOR&nbsp;TYPE&nbsp;ICON_D,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_AMOUNT_HEADER.<br />
+DATA: GT_AMOUNT_HEADER LIKE TABLE OF GS_AMOUNT_HEADER.<br />
+<br />
+DATA: BEGIN OF GS_INVOICING,<br />
+&nbsp;&nbsp;ZCHECK&nbsp;TYPE&nbsp;C,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;EBELP&nbsp;TYPE&nbsp;ZEDT20_EKPO-EBELP,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;ZEDT20_EKPO-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;MAKTX&nbsp;TYPE&nbsp;ZEDT20_MARA-MAKTX,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;MENGE&nbsp;TYPE&nbsp;ZEDT20_EKPO-MENGE,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;POMENGE&nbsp;TYPE&nbsp;ZEDT20_EKPO-MENGE,&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;REMENGE&nbsp;TYPE&nbsp;ZEDT20_EKPO-MENGE,&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;MEINS&nbsp;TYPE&nbsp;ZEDT20_EKPO-MEINS,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;BPRME&nbsp;TYPE&nbsp;ZEDT20_EKPO-BPRME,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;ZEDT20_EKKO-WAERS,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;DMBTR&nbsp;TYPE&nbsp;ZEDT20_BSEG-DMBTR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;MWSTS&nbsp;TYPE&nbsp;ZEDT20_BSEG-DMBTR,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;ZAMNT&nbsp;TYPE&nbsp;ZEDT20_BSEG-DMBTR,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;LGORT&nbsp;TYPE&nbsp;ZEDT20_MSEG-LGORT,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_INVOICING.<br />
+DATA: GT_INVOICING LIKE TABLE OF GS_INVOICING.<br />
+<br />
+DATA: BEGIN OF GS_INVOICED,<br />
+&nbsp;&nbsp;ZCHECK&nbsp;TYPE&nbsp;C,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;EBELP&nbsp;TYPE&nbsp;ZEDT20_RSEG-EBELP,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;ZEDT20_RSEG-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;MAKTX&nbsp;TYPE&nbsp;ZEDT20_MARA-MAKTX,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;BELNR&nbsp;TYPE&nbsp;ZEDT20_RSEG-BELNR,&nbsp;&nbsp;&nbsp;"&nbsp;######<br />
+&nbsp;&nbsp;BUZEI&nbsp;TYPE&nbsp;ZEDT20_RSEG-BUZEI,&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;BLART&nbsp;TYPE&nbsp;ZEDT20_RBKP-BLART,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;BLDAT&nbsp;TYPE&nbsp;ZEDT20_RBKP-BLDAT,&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;POMENGE&nbsp;TYPE&nbsp;ZEDT20_RSEG-MENGE,&nbsp;&nbsp;&nbsp;"&nbsp;PO##<br />
+&nbsp;&nbsp;MENGE&nbsp;TYPE&nbsp;ZEDT20_RSEG-MENGE,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;MEINS&nbsp;TYPE&nbsp;ZEDT20_RSEG-MEINS,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;BPRME&nbsp;TYPE&nbsp;ZEDT20_RSEG-BPRME,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;ZEDT20_EKKO-WAERS,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;MWSKZ&nbsp;TYPE&nbsp;ZEDT20_RSEG-MWSKZ,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;DMBTR&nbsp;TYPE&nbsp;ZEDT20_BSEG-DMBTR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;MWSTS&nbsp;TYPE&nbsp;ZEDT20_BSEG-DMBTR,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;WRBTR&nbsp;TYPE&nbsp;ZEDT20_BSEG-DMBTR,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;LOEVM&nbsp;TYPE&nbsp;ZEDT20_RSEG-LOEVM,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;ZSTATUS(2),&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;LGORT&nbsp;TYPE&nbsp;ZEDT20_MSEG-LGORT,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_INVOICED.<br />
+DATA: GT_INVOICED LIKE TABLE OF GS_INVOICED.<br />
+<br />
+DATA: BEGIN OF GS_EBELN,<br />
+&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;ZEDT20_RSEG-EBELN,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_EBELN.<br />
+&nbsp;&nbsp;DATA:&nbsp;GT_EBELN&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_EBELN.<br />
+<br />
+DATA: BEGIN OF GS_PAYMENT,<br />
+&nbsp;&nbsp;BUKRS&nbsp;TYPE&nbsp;ZEDT20_BSIK-BUKRS,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;ZEDT20_BSIK-EBELN,&nbsp;&nbsp;&nbsp;"&nbsp;######<br />
+&nbsp;&nbsp;DMBTR&nbsp;TYPE&nbsp;ZEDT20_BSIK-DMBTR,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;MWSTS&nbsp;TYPE&nbsp;ZEDT20_BSIK-MWSTS,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;ZAMNT&nbsp;TYPE&nbsp;ZEDT20_BSIK-DMBTR,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;ZEDT20_BSIK-WAERS,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;MWSKZ&nbsp;TYPE&nbsp;ZEDT20_BSIK-MWSKZ,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;SGTXT&nbsp;TYPE&nbsp;ZEDT20_BSIK-SGTXT,&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;ZEDT20_BSIK-LIFNR,&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_PAYMENT.<br />
+&nbsp;&nbsp;DATA:&nbsp;GT_PAYMENT&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_PAYMENT.<br />
+<br />
+DATA: BEGIN OF GS_SIMULATION,<br />
+&nbsp;&nbsp;LINENUM&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;SHZKG&nbsp;TYPE&nbsp;ZEDT20_BSEG-SHZKG,&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;AKONT&nbsp;TYPE&nbsp;ZEDT20_LFB1-AKONT,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;ZMEMO(20),&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;DMBTR&nbsp;TYPE&nbsp;ZEDT20_BSIK-DMBTR,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;ZEDT20_BSIK-WAERS,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;ZEDT20_BSIK-EBELN,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;EBELP&nbsp;TYPE&nbsp;ZEDT20_EKPO-EBELP,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;SGTXT&nbsp;TYPE&nbsp;ZEDT20_BSIK-SGTXT,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_SIMULATION.<br />
+DATA: GT_SIMULATION LIKE TABLE OF GS_SIMULATION.<br />
+<br />
+DATA: BEGIN OF GS_RBKP.<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt20_rbkp/dictionary-zedt20_rbkp.html">ZEDT20_RBKP</a>.<br />
+&nbsp;&nbsp;DATA:&nbsp;END&nbsp;OF&nbsp;GS_RBKP.<br />
+DATA: GT_RBKP LIKE TABLE OF GS_RBKP.<br />
+<br />
+DATA: BEGIN OF GS_RSEG.<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt20_rseg/dictionary-zedt20_rseg.html">ZEDT20_RSEG</a>.<br />
+&nbsp;&nbsp;DATA:&nbsp;END&nbsp;OF&nbsp;GS_RSEG.<br />
+DATA: GT_RSEG LIKE TABLE OF GS_RSEG.<br />
+<br />
+DATA: BEGIN OF GS_BKPF.<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt20_bkpf/dictionary-zedt20_bkpf.html">ZEDT20_BKPF</a>.<br />
+&nbsp;&nbsp;DATA:&nbsp;END&nbsp;OF&nbsp;GS_BKPF.<br />
+DATA: GT_BKPF LIKE TABLE OF GS_BKPF.<br />
+<br />
+DATA: BEGIN OF GS_BSEG.<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt20_bseg/dictionary-zedt20_bseg.html">ZEDT20_BSEG</a>.<br />
+&nbsp;&nbsp;DATA:&nbsp;END&nbsp;OF&nbsp;GS_BSEG.<br />
+DATA: GT_BSEG LIKE TABLE OF GS_BSEG.<br />
+<br />
+DATA: BEGIN OF GS_BSIK.<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt20_bsik/dictionary-zedt20_bsik.html">ZEDT20_BSIK</a>.<br />
+&nbsp;&nbsp;DATA:&nbsp;END&nbsp;OF&nbsp;GS_BSIK.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

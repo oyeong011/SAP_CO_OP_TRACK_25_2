@@ -1,0 +1,826 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR07_PRACTICE008_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR07_PRACTICE008_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDR07_PRACTICE008_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_DATE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_DATE . "## & #### ###<br />
+&nbsp;&nbsp;IF&nbsp;s_zjdate[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_zjdate-low&nbsp;=&nbsp;sy-datum(6)&nbsp;&&&nbsp;'01'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_zjdate-high&nbsp;=&nbsp;sy-datum(6)&nbsp;&&&nbsp;'01'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_zjdate-sign&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_zjdate-option&nbsp;=&nbsp;'BT'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'LAST_DAY_OF_MONTHS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;day_in&nbsp;=&nbsp;s_zjdate-high<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last_day_of_month&nbsp;=&nbsp;s_zjdate-high.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;s_zjdate.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;s_zddate[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_zddate-low&nbsp;=&nbsp;sy-datum(6)&nbsp;&&&nbsp;'01'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_zddate-high&nbsp;=&nbsp;sy-datum(6)&nbsp;&&&nbsp;'01'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_zddate-sign&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_zddate-option&nbsp;=&nbsp;'BT'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'LAST_DAY_OF_MONTHS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;day_in&nbsp;=&nbsp;s_zddate-high<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last_day_of_month&nbsp;=&nbsp;s_zddate-high.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;s_zddate.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_SCREEN<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_SCREEN .<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;screen-group1&nbsp;=&nbsp;'M2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_r1&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;p_r2&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;screen-group1&nbsp;=&nbsp;'M1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_r1&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;p_r2&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CHECK_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CHECK_DATA .<br />
+&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;p_r1&nbsp;=&nbsp;C_X.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;s_zjdate&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;s_zordno&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I000.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;p_r2&nbsp;=&nbsp;C_X.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;s_zddate&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;s_zordno&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I000.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;p_r1&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;r_fg-sign&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;r_fg-option&nbsp;=&nbsp;'EQ'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;r_fg-low&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;r_fg.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_ch1&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;r_fg-low&nbsp;=&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;r_fg.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ELSEIF&nbsp;p_r2&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;r_zg-sign&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;r_zg-option&nbsp;=&nbsp;'EQ'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;r_zg-low&nbsp;=&nbsp;'&nbsp;'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;r_zg.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_ch1&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;r_zg-low&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;r_zg.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;PROGRESS_DISPLAY<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_0029&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM PROGRESS_DISPLAY  USING  p_text.<br />
+&nbsp;&nbsp;CHECK&nbsp;p_text&nbsp;&lt;&gt;&nbsp;''.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'SAPGUI_PROGRESS_INDICATOR'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text&nbsp;=&nbsp;p_text.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SELECT_R1<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SELECT_R1 .<br />
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;zedt07_100<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_order<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zordno&nbsp;IN&nbsp;s_zordno<br />
+&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;zidcode&nbsp;in&nbsp;s_zid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;zmatnr&nbsp;in&nbsp;s_zmatnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;zjdate&nbsp;in&nbsp;s_zjdate<br />
+&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;zsale_fg&nbsp;in&nbsp;r_fg.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;MODIFY_R1<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM MODIFY_R1 .<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_order,&nbsp;gs_order_print.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_order&nbsp;INTO&nbsp;gs_order.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;gs_order&nbsp;TO&nbsp;gs_order_print.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_text_by_code&nbsp;USING&nbsp;'ZMTART'&nbsp;gs_order-zmtart<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_order_print-zmat_name.&nbsp;"##&nbsp;##&nbsp;###<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_order-zsale_fg&nbsp;=&nbsp;'1'.&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_order_print-zsale_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_order_print-icon&nbsp;=&nbsp;'@08@'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;gs_order-zsale_fg&nbsp;=&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_order_print-zsale_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_order_print-icon&nbsp;=&nbsp;'@0A@'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_ch1&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_text_by_code&nbsp;USING&nbsp;'ZRET_FG'&nbsp;gs_order-zret_fg<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_order_print-zret_name.&nbsp;"##&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_order_print&nbsp;TO&nbsp;gt_order_print.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_order,&nbsp;gs_order_print.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SELECT_R2<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SELECT_R2 .<br />
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;zedt07_101<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_deli<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zordno&nbsp;IN&nbsp;s_zordno<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zidcode&nbsp;IN&nbsp;s_zid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zmatnr&nbsp;IN&nbsp;s_zmatnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zddate&nbsp;IN&nbsp;s_zddate<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zflag&nbsp;IN&nbsp;r_zg.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;MODIFY_R2<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM MODIFY_R2 .<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_deli,&nbsp;gs_deli_print.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_deli&nbsp;INTO&nbsp;gs_deli.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;gs_deli&nbsp;TO&nbsp;gs_deli_print.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_text_by_code&nbsp;USING&nbsp;'ZMTART'&nbsp;gs_deli-zmtart&nbsp;"##&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_deli_print-zmat_name.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_deli-zdflag&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_deli_print-zdflag_name&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;gs_deli-zdflag&nbsp;=&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_deli_print-zdflag_name&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_deli-zflag&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_deli_print-icon&nbsp;=&nbsp;'@0A@'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_deli_print-icon&nbsp;=&nbsp;'@08@'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_text_by_code&nbsp;USING&nbsp;'ZDGUBUN'&nbsp;gs_deli-zdgubun<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_deli_print-zdgubun_name.&nbsp;"##&nbsp;##&nbsp;###<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_deli_print&nbsp;TO&nbsp;gt_deli_print.&nbsp;"###<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_deli,&nbsp;gs_deli_print.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_TEXT_BY_CODE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_0276&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_GS_ORDER_ZMTART&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--P_GS_ORDER_PRINT_ZMAT_NAME&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_TEXT_BY_CODE  USING    p_domain TYPE c<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_code&nbsp;TYPE&nbsp;c<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;p_name&nbsp;TYPE&nbsp;c.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;p_domain.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'ZMTART'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;p_code.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'002'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'003'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'004'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'005'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'006'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'ZRET_FG'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;p_code.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_name&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_name&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_name&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'ZDGUBUN'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;p_code.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'4'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'5'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'6'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'7'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CREATE_OBJECT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_GC_DOCKING&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_GC_GRID_100&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CREATE_OBJECT  USING    P_DOCKING TYPE REF TO cl_gui_docking_container<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_GRID&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;P_DOCKING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-repid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-dynnr<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SIDE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;DOCK_AT_LEFT<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXTENSION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2000<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lifetime_default<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CAPTION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;METRIC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RATIO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO_AUTODEF_PROGID_DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_SYSTEM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CREATE_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME_DYNPRO_DYNPRO_LINK&nbsp;=&nbsp;5<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;6<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+<br />
+CREATE OBJECT P_GRID<br />
+&nbsp;&nbsp;EXPORTING<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;I_SHELLSTYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_LIFETIME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;I_PARENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;p_docking<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;I_APPL_EVENTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;space<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_PARENTDBG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_APPLOGPARENT&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_GRAPHICSPARENT&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;I_FCAT_COMPLETE&nbsp;&nbsp;&nbsp;=&nbsp;SPACE<br />
+*&nbsp;&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_CREATE&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_INIT&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_LINK&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ERROR_DP_CREATE&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;FIELD_CAT_0100<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM FIELD_CAT_0100 .<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat,&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ICON'.<br />
+&nbsp;&nbsp;gs_fieldcat-coltext&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fieldcat-icon&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZORDNO'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZIDCODE'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##ID'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZMATNR'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZMATNAME'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZMAT_NAME'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZVOLUM'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fieldcat-qfieldname&nbsp;=&nbsp;'VRKME'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'VRKME'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;9.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZNSAMT'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fieldcat-cfieldname&nbsp;=&nbsp;'ZWAERS'.<br />
+&nbsp;&nbsp;gs_fieldcat-do_sum&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZSLAMT'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fieldcat-cfieldname&nbsp;=&nbsp;'ZWAERS'.<br />
+&nbsp;&nbsp;gs_fieldcat-do_sum&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;11.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZDCAMT'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fieldcat-cfieldname&nbsp;=&nbsp;'ZWAERS'.<br />
+&nbsp;&nbsp;gs_fieldcat-do_sum&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;12.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZWAERS'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fieldcat-emphasize&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;13.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZSALE_NAME'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;14.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZJDATE'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;'10'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;p_ch1&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;15.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZRET_NAME'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;16.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZRDATE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;'10'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_SORT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_SORT .<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_sort,&nbsp;gt_sort.<br />
+<br />
+&nbsp;&nbsp;gs_sort-spos&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;gs_sort-fieldname&nbsp;=&nbsp;'ZIDCODE'.<br />
+&nbsp;&nbsp;gs_sort-up&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;gs_sort-subtot&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_sort&nbsp;TO&nbsp;gt_sort.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;LAYOUT_SET<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM LAYOUT_SET .<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_layout.<br />
+<br />
+&nbsp;&nbsp;gs_layout-zebra&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_variant.<br />
+&nbsp;&nbsp;gs_variant-report&nbsp;=&nbsp;sy-repid.<br />
+&nbsp;&nbsp;gs_variant-username&nbsp;=&nbsp;sy-uname.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CALL_ALV<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_GT_ORDER_PRINT[]&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_GC_GRID_100&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_GS_LAYOUT&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_GS_VARIANT&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CALL_ALV  USING    P_itab TYPE STANDARD TABLE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_GRID&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_LAYOUT&nbsp;TYPE&nbsp;lvc_s_layo<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_VARIANT&nbsp;TYPE&nbsp;disvariant.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;p_GRID-&gt;SET_TABLE_FOR_FIRST_DISPLAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_BUFFER_ACTIVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_BYPASSING_BUFFER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_CONSISTENCY_CHECK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_STRUCTURE_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_VARIANT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;p_variant<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_SAVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;c_a<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_DEFAULT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;p_layout<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_PRINT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_SPECIAL_GROUPS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_TOOLBAR_EXCLUDING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_HYPERLINK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_ALV_GRAPHICS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_EXCEPT_QINFO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IR_SALV_ADAPTER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;p_itab<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCATALOG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_fieldcat<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_SORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_sort<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FILTER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INVALID_PARAMETER_COMBINATION&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PROGRAM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TOO_MANY_LINES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;FIELD_CAT_0200<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM FIELD_CAT_0200 .<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat,&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ICON'.<br />
+&nbsp;&nbsp;gs_fieldcat-coltext&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fieldcat-icon&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZORDNO'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZIDCODE'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##ID'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZMATNR'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZMATNAME'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZMAT_NAME'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZVOLUM'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fieldcat-qfieldname&nbsp;=&nbsp;'VRKME'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'VRKME'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZSLAMT'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fieldcat-cfieldname&nbsp;=&nbsp;'ZWAERS'.<br />
+&nbsp;&nbsp;gs_fieldcat-do_sum&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;11.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZWAERS'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fieldcat-emphasize&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;12.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZDFLAG_NAME'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fieldcat-currency&nbsp;=&nbsp;'KRW'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;13.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZDGUBUN_NAME'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fieldcat-emphasize&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;14.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZDDATE'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;'10'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;p_ch1&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;15.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZRDATE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;'10'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;16.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZFLAG'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;'8'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-just&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-emphasize&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

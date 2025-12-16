@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM09_003_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM09_003_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM09_003_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+CONTROLS : TC_ITEMS TYPE TABLEVIEW USING SCREEN '0100'.<br />
+DATA : OK_CODE TYPE SY-UCOMM.<br />
+<br />
+<br />
+<br />
+"###100 ####<br />
+DATA : GF_MBLNR LIKE ZMKPF09-MBLNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_MJAHR&nbsp;LIKE&nbsp;ZMKPF09-MJAHR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_BLART&nbsp;LIKE&nbsp;ZMKPF09-BLART,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_BLDAT&nbsp;LIKE&nbsp;ZMKPF09-BLDAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_BUDAT&nbsp;LIKE&nbsp;ZMKPF09-BUDAT.<br />
+<br />
+DATA : GV_BELNR LIKE ZBKPF09-BELNR. "#### (##)<br />
+<br />
+"###100 #####<br />
+DATA : BEGIN OF GS_ITEM,<br />
+&nbsp;&nbsp;L_CHECK&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;1,&nbsp;"##&nbsp;(####)<br />
+&nbsp;&nbsp;EBELN&nbsp;LIKE&nbsp;ZEKKO_09-EBELN,&nbsp;"######<br />
+&nbsp;&nbsp;EBELP&nbsp;LIKE&nbsp;ZEKPO_09-EBELP,&nbsp;"##<br />
+&nbsp;&nbsp;LIFNR&nbsp;LIKE&nbsp;ZEKKO_09-LIFNR,&nbsp;"###<br />
+&nbsp;&nbsp;BEDAT&nbsp;LIKE&nbsp;ZEKKO_09-BEDAT,&nbsp;"###<br />
+&nbsp;&nbsp;MATNR&nbsp;LIKE&nbsp;ZEKPO_09-MATNR,&nbsp;"####<br />
+&nbsp;&nbsp;ZMATNAME&nbsp;LIKE&nbsp;ZMARA09-ZMATNAME,&nbsp;"###<br />
+&nbsp;&nbsp;MENGE&nbsp;LIKE&nbsp;ZEKPO_09-MENGE,&nbsp;"##&nbsp;(PO##)<br />
+&nbsp;&nbsp;MEINS&nbsp;LIKE&nbsp;ZEKPO_09-MEINS,&nbsp;"##<br />
+&nbsp;&nbsp;STPRS&nbsp;LIKE&nbsp;ZEKPO_09-STPRS,&nbsp;"##<br />
+&nbsp;&nbsp;WAERS&nbsp;LIKE&nbsp;ZEKKO_09-WAERS,&nbsp;"##<br />
+&nbsp;&nbsp;PRDAT&nbsp;LIKE&nbsp;ZEKPO_09-PRDAT,&nbsp;"###<br />
+&nbsp;&nbsp;WERKS&nbsp;LIKE&nbsp;ZEKPO_09-WERKS,&nbsp;"###<br />
+&nbsp;&nbsp;LGORT&nbsp;LIKE&nbsp;ZEKPO_09-LGORT,&nbsp;"####<br />
+&nbsp;&nbsp;GR_DONE&nbsp;TYPE&nbsp;MENGE_D,&nbsp;"##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;GR_REM&nbsp;TYPE&nbsp;MENGE_D,&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;GR_NOW&nbsp;TYPE&nbsp;MENGE_D,&nbsp;&nbsp;"##&nbsp;##&nbsp;##<br />
+END OF GS_ITEM.<br />
+DATA : GT_ITEM LIKE TABLE OF GS_ITEM.<br />
+<br />
+DATA : G_ONCE TYPE C LENGTH 1.<br />
+<br />
+"#### ##, ###<br />
+DATA : GS_MKPF TYPE ZMKPF09,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_MSEG&nbsp;TYPE&nbsp;ZMSEG09.<br />
+DATA : GT_MKPF LIKE TABLE OF GS_MKPF,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_MSEG&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_MSEG.<br />
+<br />
+"#### ##, ###<br />
+DATA : GS_BKPF TYPE ZBKPF09,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_BSEG&nbsp;TYPE&nbsp;ZBSEG09.<br />
+DATA : GT_BKPF LIKE TABLE OF GS_BKPF,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_BSEG&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_BSEG.<br />
+<br />
+<br />
+"#######<br />
+DATA : BEGIN OF GS_GOODS_LIST,<br />
+&nbsp;&nbsp;MBLNR&nbsp;LIKE&nbsp;ZMKPF09-MBLNR,&nbsp;"######<br />
+&nbsp;&nbsp;BUDAT&nbsp;LIKE&nbsp;ZMKPF09-BUDAT,&nbsp;"###<br />
+END OF GS_GOODS_LIST.<br />
+DATA : GT_GOODS_LIST LIKE TABLE OF GS_GOODS_LIST.<br />
+<br />
+DATA : BEGIN OF GS_GOODS_ALV,<br />
+&nbsp;&nbsp;DISP_TEXT&nbsp;TYPE&nbsp;CHAR200,<br />
+END OF GS_GOODS_ALV.<br />
+DATA : GT_GOODS_ALV LIKE TABLE OF GS_GOODS_ALV.<br />
+<br />
+"### ###<br />
+DATA : BEGIN OF GS_HEADER_ALV,<br />
+&nbsp;&nbsp;MBLNR&nbsp;LIKE&nbsp;ZMKPF09-MBLNR,&nbsp;"######<br />
+&nbsp;&nbsp;BLART&nbsp;LIKE&nbsp;ZMKPF09-BLART,&nbsp;"####<br />
+&nbsp;&nbsp;BLDAT&nbsp;LIKE&nbsp;ZMKPF09-BLDAT,&nbsp;"###<br />
+&nbsp;&nbsp;BUDAT&nbsp;LIKE&nbsp;ZMKPF09-BUDAT,&nbsp;"###<br />
+END OF GS_HEADER_ALV.<br />
+DATA : GT_HEADER_ALV LIKE TABLE OF GS_HEADER_ALV.<br />
+<br />
+"## #####<br />
+DATA : MBLNR_200 LIKE ZMKPF09-MBLNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BLART_200&nbsp;LIKE&nbsp;ZMKPF09-BLART,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BLDAT_200&nbsp;LIKE&nbsp;ZMKPF09-BLDAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUDAT_200&nbsp;LIKE&nbsp;ZMKPF09-BUDAT.<br />
+<br />
+DATA : BEGIN OF GS_ITEM_ALV,<br />
+&nbsp;&nbsp;LV_CHECK&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;1,&nbsp;"####&nbsp;(#####&nbsp;##)<br />
+&nbsp;&nbsp;CANCEL_TEXT&nbsp;TYPE&nbsp;STRING,&nbsp;"####&nbsp;###<br />
+&nbsp;&nbsp;ZEILE&nbsp;LIKE&nbsp;ZMSEG09-ZEILE,&nbsp;"##&nbsp;(PO####)<br />
+&nbsp;&nbsp;MATNR&nbsp;LIKE&nbsp;ZMSEG09-MATNR,&nbsp;"####<br />
+&nbsp;&nbsp;ZMATNAME&nbsp;LIKE&nbsp;ZMARA09-ZMATNAME,&nbsp;"###<br />
+&nbsp;&nbsp;MENGE&nbsp;LIKE&nbsp;ZMSEG09-MENGE,&nbsp;"##<br />
+&nbsp;&nbsp;MEINS&nbsp;LIKE&nbsp;ZMSEG09-MEINS,&nbsp;"##<br />
+&nbsp;&nbsp;WERKS&nbsp;LIKE&nbsp;ZMSEG09-WERKS,&nbsp;"###<br />
+&nbsp;&nbsp;LGORT&nbsp;LIKE&nbsp;ZMSEG09-LGORT,&nbsp;"####<br />
+&nbsp;&nbsp;BWART&nbsp;LIKE&nbsp;ZMSEG09-BWART,&nbsp;"####&nbsp;(###&nbsp;#####&nbsp;##)<br />
+&nbsp;&nbsp;LIFNR&nbsp;LIKE&nbsp;ZMSEG09-LIFNR,&nbsp;"#####&nbsp;(PO##&nbsp;##)<br />
+&nbsp;&nbsp;BUKRS&nbsp;LIKE&nbsp;ZMSEG09-BUKRS,&nbsp;"####&nbsp;(FI###&nbsp;##)<br />
+&nbsp;&nbsp;STYLE&nbsp;TYPE&nbsp;LVC_T_STYL,<br />
+END OF GS_ITEM_ALV.<br />
+DATA : GT_ITEM_ALV LIKE TABLE OF GS_ITEM_ALV.<br />
+<br />
+"alv ##<br />
+DATA : GC_CUSTOM_GOODS_LIST TYPE REF TO CL_GUI_CUSTOM_CONTAINER.<br />
+DATA : GC_GRID_GOODS_LIST TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT&nbsp;TYPE&nbsp;LVC_T_FCAT.<br />
+<br />
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.<br />
+<br />
+"item alv<br />
+DATA : GC_CUSTOM_GOODS_ITEM TYPE REF TO CL_GUI_CUSTOM_CONTAINER.<br />
+DATA : GC_GRID_GOODS_ITEM TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+"####<br />
+DATA : GT_TOOLBAR TYPE UI_FUNCTIONS.<br />
+<br />
+DATA : GO_EVENT TYPE REF TO EVENT.<br />
+<br />
+"### ### ### ##<br />
+TYPES : BEGIN OF TY_FI_LIST,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;BELNR&nbsp;TYPE&nbsp;BELNR_D,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;OBJTYPETXT&nbsp;TYPE&nbsp;STRING,<br />
+END OF TY_FI_LIST.<br />
+<br />
+DATA : GT_FI_LIST TYPE STANDARD TABLE OF TY_FI_LIST.<br />
+<br />
+"### 300#<br />
+DATA : GO_CONT_300 TYPE REF TO CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_ALV_300&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+<br />
+"### ## 300<br />
+DATA : GO_EVENT_300 TYPE REF TO EVENT.<br />
+<br />
+"### #### ID<br />
+DATA : GV_SEL_BELNR TYPE ZBKPF09-BELNR.<br />
+<br />
+"400# ###, ### #### ####<br />
+DATA : GT_SEL_MSEG TYPE STANDARD TABLE OF ZMSEG09.<br />
+<br />
+"400# ### ## ##<br />
+DATA : BEGIN OF GS_BKPF_400,<br />
+&nbsp;&nbsp;BELNR&nbsp;LIKE&nbsp;ZBKPF09-BELNR,&nbsp;"####<br />
+&nbsp;&nbsp;BUKRS&nbsp;LIKE&nbsp;ZBKPF09-BUKRS,&nbsp;"####<br />
+&nbsp;&nbsp;GJAHR&nbsp;LIKE&nbsp;ZBKPF09-GJAHR,&nbsp;"####<br />
+&nbsp;&nbsp;BLDAT&nbsp;LIKE&nbsp;ZBKPF09-BLDAT,&nbsp;"###<br />
+&nbsp;&nbsp;BUDAT&nbsp;LIKE&nbsp;ZBKPF09-BUDAT,&nbsp;"###<br />
+&nbsp;&nbsp;WAERS&nbsp;LIKE&nbsp;ZBKPF09-WAERS,&nbsp;"####<br />
+END OF GS_BKPF_400.<br />
+<br />
+"400# ### ### (get_besg##)<br />
+DATA : GS_BSEG_400 TYPE ZBSEG09,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_BSEG_400&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_BSEG_400.<br />
+<br />
+"400# ### ALV ## (modify_bseg##)<br />
+DATA : BEGIN OF GS_BSEG_400_ALV,<br />
+&nbsp;&nbsp;BUKRS&nbsp;LIKE&nbsp;ZBSEG09-BUKRS,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"CoCd<br />
+&nbsp;&nbsp;BUZEI&nbsp;LIKE&nbsp;ZBSEG09-BUZEI,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;BSCHL&nbsp;LIKE&nbsp;ZBSEG09-BSCHL,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"#&nbsp;(###)<br />
+&nbsp;&nbsp;KOART&nbsp;LIKE&nbsp;ZBSEG09-KOART,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"SG<br />
+&nbsp;&nbsp;SHKZG&nbsp;LIKE&nbsp;ZBSEG09-SHKZG,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##/##&nbsp;###<br />
+&nbsp;&nbsp;HKONT&nbsp;LIKE&nbsp;ZBSEG09-HKONT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;TXT1&nbsp;LIKE&nbsp;ZSKA109-TEXT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;HKONT2&nbsp;LIKE&nbsp;ZBSEG09-HKONT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"G/L&nbsp;##&nbsp;(####)<br />
+&nbsp;&nbsp;TXT2&nbsp;LIKE&nbsp;ZSKA109-TEXT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"G/L&nbsp;###&nbsp;(####)<br />
+&nbsp;&nbsp;DMBTR&nbsp;LIKE&nbsp;ZBSEG09-DMBTR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;PSWSL&nbsp;LIKE&nbsp;ZBSEG09-PSWSL,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;WRBTR&nbsp;LIKE&nbsp;ZBSEG09-WRBTR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"#&nbsp;##&nbsp;##&nbsp;##&nbsp;(####)<br />
+&nbsp;&nbsp;PSWSL2&nbsp;LIKE&nbsp;ZBSEG09-PSWSL,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##<br />
+END OF GS_BSEG_400_ALV.<br />
+DATA : GT_BSEG_400_ALV LIKE TABLE OF GS_BSEG_400_ALV.<br />
+<br />
+"400# ### ####, ALV, ######<br />
+DATA : GO_CONT_400 TYPE REF TO CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_ALV_400&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+<br />
+DATA : GS_FIELDCAT_400 TYPE LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT_400&nbsp;TYPE&nbsp;LVC_T_FCAT.<br />
+<br />
+DATA : GS_SORT_400 TYPE LVC_S_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_SORT_400&nbsp;TYPE&nbsp;LVC_T_SORT.<br />
+<br />
+DATA : GS_LATOUT_400 TYPE LVC_S_LAYO.<br />
+<br />
+"N : ##, R :###<br />
+DATA: GV_FI_VIEW_MODE TYPE C.<br />
+<br />
+"410 ### ####<br />
+TYPES: BEGIN OF TY_REV_BELNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BELNR&nbsp;TYPE&nbsp;ZBKPF09-BELNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_REV_BELNR.<br />
+<br />
+DATA: GT_REV_BELNR TYPE STANDARD TABLE OF TY_REV_BELNR.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*GT_REV_BELNR&nbsp;TYPE&nbsp;SORTED&nbsp;TABLE&nbsp;OF&nbsp;ZBKPF09-BELNR<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;UNIQUE&nbsp;KEY&nbsp;TABLE_LINE,<br />
+   </div>
+   <div class="code">
+DATA: GO_CONT_410  TYPE REF TO CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_ALV_410&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+<br />
+DATA : GO_EVENT_410 TYPE REF TO EVENT.<br />
+<br />
+DATA : GS_FCAT_410 TYPE LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FCAT_410&nbsp;TYPE&nbsp;LVC_T_FCAT.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

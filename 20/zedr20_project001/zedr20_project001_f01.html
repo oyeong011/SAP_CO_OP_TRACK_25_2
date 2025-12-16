@@ -1,0 +1,380 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR20_PROJECT001_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR20_PROJECT001_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDR20_PROJECT001_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_SCREEN<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_SCREEN .<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_R1&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'M1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'M3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_DATA .<br />
+&nbsp;&nbsp;SELECT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_MASTER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT20_LFA1&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;ZEDT20_LFB1&nbsp;AS&nbsp;B&nbsp;ON&nbsp;B~LIFNR&nbsp;=&nbsp;A~LIFNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;ZEDT20_LFM1&nbsp;AS&nbsp;C&nbsp;ON&nbsp;C~LIFNR&nbsp;=&nbsp;A~LIFNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~LIFNR&nbsp;=&nbsp;P_LIFNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;B~BUKRS&nbsp;=&nbsp;P_BUKRS.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CHECK_INPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CHECK_INPUT .<br />
+&nbsp;&nbsp;IF&nbsp;P_BUKRS&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;LEAVE&nbsp;LIST-PROCESSING.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_R1&nbsp;='X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_KTOKK&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;LIST-PROCESSING.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_LIFNR&nbsp;=''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;LIST-PROCESSING.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CHECK_AVAILABLE_BUKRS.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CHECK_AVAILABLE_KTOKK.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_DATA .<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MASTER&nbsp;INTO&nbsp;GS_MASTER&nbsp;INDEX&nbsp;1.<br />
+&nbsp;&nbsp;GV_LIFNR&nbsp;=&nbsp;GS_MASTER-LIFNR.<br />
+&nbsp;&nbsp;GV_NAME1&nbsp;=&nbsp;GS_MASTER-NAME1.<br />
+&nbsp;&nbsp;GV_LAND1&nbsp;=&nbsp;GS_MASTER-LAND1.<br />
+&nbsp;&nbsp;GV_KTOKK&nbsp;=&nbsp;GS_MASTER-KTOKK.<br />
+&nbsp;&nbsp;GV_STCD1&nbsp;=&nbsp;GS_MASTER-STCD1.<br />
+&nbsp;&nbsp;GV_STCD2&nbsp;=&nbsp;GS_MASTER-STCD2.<br />
+&nbsp;&nbsp;GV_STRAS&nbsp;=&nbsp;GS_MASTER-STRAS.<br />
+&nbsp;&nbsp;GV_BUKRS&nbsp;=&nbsp;GS_MASTER-BUKRS.<br />
+&nbsp;&nbsp;GV_AKONT&nbsp;=&nbsp;GS_MASTER-AKONT.<br />
+&nbsp;&nbsp;GV_ZTERM&nbsp;=&nbsp;GS_MASTER-ZTERM.<br />
+&nbsp;&nbsp;GV_EKORG&nbsp;=&nbsp;GS_MASTER-EKORG.<br />
+&nbsp;&nbsp;GV_EKGRP&nbsp;=&nbsp;GS_MASTER-EKGRP.<br />
+&nbsp;&nbsp;GV_WAERS&nbsp;=&nbsp;GS_MASTER-WAERS.<br />
+&nbsp;&nbsp;GV_MWSKZ&nbsp;=&nbsp;GS_MASTER-MWSKZ.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;NEW_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM NEW_DATA .<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GV_LIFNR,&nbsp;GV_NAME1,&nbsp;GV_LAND1,&nbsp;GV_STCD1,&nbsp;GV_STCD2,&nbsp;GV_STRAS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_AKONT,&nbsp;GV_ZTERM,&nbsp;GV_EKORG,&nbsp;GV_EKGRP,&nbsp;GV_WAERS,&nbsp;GV_MWSKZ.<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_LIFNR&nbsp;TYPE&nbsp;N&nbsp;LENGTH&nbsp;10.<br />
+&nbsp;&nbsp;GV_KTOKK&nbsp;=&nbsp;P_KTOKK.<br />
+&nbsp;&nbsp;GV_BUKRS&nbsp;=&nbsp;P_BUKRS.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;MAX(&nbsp;LIFNR&nbsp;)&nbsp;INTO&nbsp;GV_LIFNR&nbsp;FROM&nbsp;ZEDT20_LFA1.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GV_LIFNR&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_LIFNR&nbsp;=&nbsp;'1000000001'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE&nbsp;GV_LIFNR&nbsp;TO&nbsp;LV_LIFNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_LIFNR&nbsp;=&nbsp;LV_LIFNR&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE&nbsp;LV_LIFNR&nbsp;TO&nbsp;GV_LIFNR.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SAVE_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SAVE_DATA .<br />
+&nbsp;&nbsp;PERFORM&nbsp;CHECK_EMPTY_FIELD.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GS_LFA1.<br />
+&nbsp;&nbsp;GS_LFA1-LIFNR&nbsp;=&nbsp;GV_LIFNR.<br />
+&nbsp;&nbsp;GS_LFA1-NAME1&nbsp;=&nbsp;GV_NAME1.<br />
+&nbsp;&nbsp;GS_LFA1-LAND1&nbsp;=&nbsp;GV_LAND1.<br />
+&nbsp;&nbsp;GS_LFA1-KTOKK&nbsp;=&nbsp;GV_KTOKK.<br />
+&nbsp;&nbsp;GS_LFA1-STCD1&nbsp;=&nbsp;GV_STCD1.<br />
+&nbsp;&nbsp;GS_LFA1-STCD2&nbsp;=&nbsp;GV_STCD2.<br />
+&nbsp;&nbsp;GS_LFA1-STRAS&nbsp;=&nbsp;GV_STRAS.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_LFA1&nbsp;TO&nbsp;GT_LFA1.<br />
+&nbsp;&nbsp;MODIFY&nbsp;ZEDT20_LFA1&nbsp;FROM&nbsp;TABLE&nbsp;GT_LFA1.<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;100.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GS_LFB1.<br />
+&nbsp;&nbsp;GS_LFB1-LIFNR&nbsp;=&nbsp;GV_LIFNR.<br />
+&nbsp;&nbsp;GS_LFB1-BUKRS&nbsp;=&nbsp;GV_BUKRS.<br />
+&nbsp;&nbsp;GS_LFB1-AKONT&nbsp;=&nbsp;GV_AKONT.<br />
+&nbsp;&nbsp;GS_LFB1-ZTERM&nbsp;=&nbsp;GV_ZTERM.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_LFB1&nbsp;TO&nbsp;GT_LFB1.<br />
+&nbsp;&nbsp;MODIFY&nbsp;ZEDT20_LFB1&nbsp;FROM&nbsp;TABLE&nbsp;GT_LFB1.<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;100.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GS_LFM1.<br />
+&nbsp;&nbsp;GS_LFM1-LIFNR&nbsp;=&nbsp;GV_LIFNR.<br />
+&nbsp;&nbsp;GS_LFM1-EKORG&nbsp;=&nbsp;GV_EKORG.<br />
+&nbsp;&nbsp;GS_LFM1-EKGRP&nbsp;=&nbsp;GV_EKGRP.<br />
+&nbsp;&nbsp;GS_LFM1-WAERS&nbsp;=&nbsp;GV_WAERS.<br />
+&nbsp;&nbsp;GS_LFM1-MWSKZ&nbsp;=&nbsp;GV_MWSKZ.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_LFM1&nbsp;TO&nbsp;GT_LFM1.<br />
+&nbsp;&nbsp;MODIFY&nbsp;ZEDT20_LFM1&nbsp;FROM&nbsp;TABLE&nbsp;GT_LFM1.<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;100.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CHECK_EMPTY_FIELD<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CHECK_EMPTY_FIELD .<br />
+&nbsp;&nbsp;IF&nbsp;GV_LIFNR&nbsp;=&nbsp;''&nbsp;OR&nbsp;GV_NAME1&nbsp;=&nbsp;''&nbsp;OR&nbsp;GV_LAND1&nbsp;=&nbsp;''&nbsp;OR&nbsp;GV_KTOKK&nbsp;=&nbsp;''&nbsp;OR&nbsp;GV_STRAS&nbsp;=&nbsp;''&nbsp;OR&nbsp;GV_BUKRS&nbsp;=&nbsp;''<br />
+&nbsp;&nbsp;&nbsp;&nbsp;OR&nbsp;GV_AKONT&nbsp;=&nbsp;''&nbsp;OR&nbsp;GV_ZTERM&nbsp;=&nbsp;''&nbsp;OR&nbsp;GV_EKORG&nbsp;=&nbsp;''&nbsp;OR&nbsp;GV_EKGRP&nbsp;=&nbsp;''&nbsp;OR&nbsp;GV_WAERS&nbsp;=&nbsp;''&nbsp;OR&nbsp;GV_MWSKZ&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;###&nbsp;#####.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;SY-DYNNR.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;IF&nbsp;GV_KTOKK&nbsp;=&nbsp;'3000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GV_STCD1&nbsp;=&nbsp;''&nbsp;OR&nbsp;GV_STCD2&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;###&nbsp;#####.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;SY-DYNNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;GV_KTOKK&nbsp;NE&nbsp;'2000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GV_STCD2&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;###&nbsp;#####.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;SY-DYNNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CHECK_INITIAL<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CHECK_INITIAL .<br />
+&nbsp;&nbsp;IF&nbsp;GT_MASTER&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;LIST-PROCESSING.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CHECK_AVAILABLE_BUKRS<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CHECK_AVAILABLE_BUKRS .<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_BUKRS&nbsp;TYPE&nbsp;ZEDT20_T001-BUKRS.<br />
+&nbsp;&nbsp;SELECT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SINGLE&nbsp;BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT20_T001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;LV_BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;BUKRS&nbsp;=&nbsp;P_BUKRS.<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;##&nbsp;#######.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;LIST-PROCESSING.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CHECK_AVAILABLE_KTOKK<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CHECK_AVAILABLE_KTOKK .<br />
+&nbsp;&nbsp;IF&nbsp;P_KTOKK&nbsp;&lt;&gt;&nbsp;1000&nbsp;AND&nbsp;P_KTOKK&nbsp;&lt;&gt;&nbsp;2000&nbsp;AND&nbsp;P_KTOKK&nbsp;&lt;&gt;&nbsp;3000&nbsp;AND&nbsp;P_KTOKK&nbsp;&lt;&gt;&nbsp;4000&nbsp;AND&nbsp;P_KTOKK&nbsp;&lt;&gt;&nbsp;5000&nbsp;AND&nbsp;P_KTOKK&nbsp;&lt;&gt;&nbsp;9000.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;##&nbsp;#####&nbsp;#####.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;LIST-PROCESSING.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+FORM CALL_F4_HELP USING P_RETFIELD  TYPE C<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DYNPFIELD&nbsp;TYPE&nbsp;C<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PT_VALUES&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LT_RETURN&nbsp;LIKE&nbsp;DDSHRETVAL&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'F4IF_INT_TABLE_VALUE_REQUEST'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETFIELD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_RETFIELD&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;####&nbsp;ITAB#&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNPPROG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-REPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;####&nbsp;ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNPNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNPROFIELD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_DYNPFIELD&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WINDOW_TITLE&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'#####'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE_ORG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'S'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE_TAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;PT_VALUES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN_TAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_RETURN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARAMETER_ERROR&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO_VALUES_FOUND&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

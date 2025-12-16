@@ -1,0 +1,333 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM10_FK01_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM10_FK01_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM10_FK01_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_DATA .<br />
+&nbsp;&nbsp;IF&nbsp;PR_SEAR&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;###.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;GS_LFA1,&nbsp;GS_LFB1,&nbsp;GS_LFM1,&nbsp;GS_VENDER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*&nbsp;FROM&nbsp;ZEDT10_LFA1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;GS_LFA1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;LIFNR&nbsp;=&nbsp;P_LIFNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_LFA1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;##&nbsp;####.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*&nbsp;FROM&nbsp;ZEDT10_LFB1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;GS_LFB1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;LIFNR&nbsp;=&nbsp;GS_LFA1-LIFNR&nbsp;AND&nbsp;LOEVM&nbsp;NE&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_LFA1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_LFB1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;##&nbsp;####.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*&nbsp;FROM&nbsp;ZEDT10_LFM1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;GS_LFM1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;LIFNR&nbsp;=&nbsp;GS_LFA1-LIFNR&nbsp;AND&nbsp;LOEVM&nbsp;NE&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_LFA1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_LFB1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_LFM1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;##&nbsp;####.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;CLEAR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_LFA1&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_LFB1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_LFM1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;##&nbsp;####.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_VENDER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_LFA1&nbsp;TO&nbsp;GS_VENDER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_LFB1&nbsp;TO&nbsp;GS_VENDER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_LFM1&nbsp;TO&nbsp;GS_VENDER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_LIFNR&nbsp;=&nbsp;GS_VENDER-LIFNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_NAME1&nbsp;=&nbsp;GS_VENDER-NAME1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_LAND1&nbsp;=&nbsp;GS_VENDER-LAND1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_KTOKK&nbsp;=&nbsp;GS_VENDER-KTOKK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_STCD1&nbsp;=&nbsp;GS_VENDER-STCD1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_STCD2&nbsp;=&nbsp;GS_VENDER-STCD2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_STRAS&nbsp;=&nbsp;GS_VENDER-STRAS.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_BUKRS&nbsp;=&nbsp;GS_VENDER-BUKRS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_AKONT&nbsp;=&nbsp;GS_VENDER-AKONT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_ZTERM&nbsp;=&nbsp;GS_VENDER-ZTERM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_EKORG&nbsp;=&nbsp;GS_VENDER-EKORG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_EKGRP&nbsp;=&nbsp;GS_VENDER-EKGRP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_WAERS&nbsp;=&nbsp;GS_VENDER-WAERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_MWSKZ&nbsp;=&nbsp;GS_VENDER-MWSKZ.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:&nbsp;LV_NEXT_KEY&nbsp;TYPE&nbsp;ZEDT10_LFA1-LIFNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;MAX(&nbsp;LIFNR&nbsp;)&nbsp;INTO&nbsp;LV_NEXT_KEY&nbsp;FROM&nbsp;ZEDT10_LFA1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_NEXT_KEY&nbsp;=&nbsp;1000000000.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_NEXT_KEY&nbsp;=&nbsp;LV_NEXT_KEY&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_LIFNR&nbsp;=&nbsp;LV_NEXT_KEY.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SAVE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SAVE .<br />
+&nbsp;&nbsp;"&nbsp;1##:&nbsp;###&nbsp;##&nbsp;(##&nbsp;##&nbsp;4#)<br />
+&nbsp;&nbsp;IF&nbsp;GV_LIFNR&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E001&nbsp;WITH&nbsp;'LIFNR#&nbsp;#####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GV_NAME1&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E001&nbsp;WITH&nbsp;'#####&nbsp;#####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GV_KTOKK&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E001&nbsp;WITH&nbsp;'#####&nbsp;#####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2##:&nbsp;#####&nbsp;##&nbsp;##&nbsp;##&nbsp;(##&nbsp;##&nbsp;-&nbsp;1#)<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;CASE&nbsp;GV_KTOKK.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3000'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;3000:&nbsp;STCD1&nbsp;##&nbsp;(##ID)<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GV_STCD1&nbsp;IS&nbsp;INITIAL.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E001&nbsp;WITH&nbsp;'KTOKK=3000#&nbsp;##&nbsp;STCD1(##ID1)#&nbsp;#####'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;STCD2#&nbsp;###&nbsp;##&nbsp;##&nbsp;(##)<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2000'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;2000:&nbsp;STCD1#&nbsp;##,&nbsp;STCD2&nbsp;###<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GV_STCD2&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E001&nbsp;WITH&nbsp;'KTOKK=2000#&nbsp;##&nbsp;STCD2#&nbsp;##&nbsp;#####'.<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;####:&nbsp;STCD1,&nbsp;STCD2&nbsp;##&nbsp;####&nbsp;(##&nbsp;##)<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GV_STCD1&nbsp;IS&nbsp;NOT&nbsp;INITIAL&nbsp;OR&nbsp;GV_STCD2&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E001&nbsp;WITH&nbsp;'#&nbsp;#####&nbsp;##ID&nbsp;###&nbsp;#####'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+*&nbsp;&nbsp;ENDCASE.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;GS_VENDER-LIFNR&nbsp;&nbsp;=&nbsp;GV_LIFNR.<br />
+&nbsp;&nbsp;GS_VENDER-NAME1&nbsp;&nbsp;=&nbsp;GV_NAME1.<br />
+&nbsp;&nbsp;GS_VENDER-LAND1&nbsp;&nbsp;=&nbsp;GV_LAND1.<br />
+&nbsp;&nbsp;GS_VENDER-KTOKK&nbsp;&nbsp;=&nbsp;GV_KTOKK.<br />
+&nbsp;&nbsp;GS_VENDER-STCD1&nbsp;&nbsp;=&nbsp;GV_STCD1.<br />
+&nbsp;&nbsp;GS_VENDER-STCD2&nbsp;&nbsp;=&nbsp;GV_STCD2.<br />
+&nbsp;&nbsp;GS_VENDER-STRAS&nbsp;&nbsp;=&nbsp;GV_STRAS.<br />
+<br />
+&nbsp;&nbsp;GS_VENDER-BUKRS&nbsp;&nbsp;=&nbsp;GV_BUKRS.<br />
+&nbsp;&nbsp;GS_VENDER-AKONT&nbsp;&nbsp;=&nbsp;GV_AKONT.<br />
+&nbsp;&nbsp;GS_VENDER-ZTERM&nbsp;&nbsp;=&nbsp;GV_ZTERM.<br />
+<br />
+&nbsp;&nbsp;GS_VENDER-EKORG&nbsp;&nbsp;=&nbsp;GV_EKORG.<br />
+&nbsp;&nbsp;GS_VENDER-EKGRP&nbsp;&nbsp;=&nbsp;GV_EKGRP.<br />
+&nbsp;&nbsp;GS_VENDER-WAERS&nbsp;&nbsp;=&nbsp;GV_WAERS.<br />
+&nbsp;&nbsp;GS_VENDER-MWSKZ&nbsp;&nbsp;=&nbsp;GV_MWSKZ.<br />
+<br />
+&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_VENDER&nbsp;TO&nbsp;GS_LFA1.<br />
+&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_VENDER&nbsp;TO&nbsp;GS_LFB1.<br />
+&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_VENDER&nbsp;TO&nbsp;GS_LFM1.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;PR_CREA&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;INTO&nbsp;ZEDT10_LFA1&nbsp;VALUES&nbsp;GS_LFA1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E001&nbsp;WITH&nbsp;'LFA1&nbsp;INSERT&nbsp;##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ROLLBACK&nbsp;WORK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;INTO&nbsp;ZEDT10_LFB1&nbsp;VALUES&nbsp;GS_LFB1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E001&nbsp;WITH&nbsp;'LFB1&nbsp;INSERT&nbsp;##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ROLLBACK&nbsp;WORK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;INTO&nbsp;ZEDT10_LFM1&nbsp;VALUES&nbsp;GS_LFM1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E001&nbsp;WITH&nbsp;'LFM1&nbsp;INSERT&nbsp;##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ROLLBACK&nbsp;WORK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;PR_SEAR&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;ZEDT10_LFA1&nbsp;FROM&nbsp;GS_LFA1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;ZEDT10_LFB1&nbsp;FROM&nbsp;GS_LFB1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;ZEDT10_LFM1&nbsp;FROM&nbsp;GS_LFM1.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CHECK_PARAMETERS<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CHECK_PARAMETERS .<br />
+&nbsp;&nbsp;IF&nbsp;PR_CREA&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_BUKRS1&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;P_KTOKK&nbsp;IS&nbsp;&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E001.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_BUKRS&nbsp;=&nbsp;P_BUKRS1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_KTOKK&nbsp;=&nbsp;P_KTOKK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###.<br />
+<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_BUKRS2&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;P_LIFNR&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E001.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_LIFNR&nbsp;=&nbsp;P_LIFNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_BUKRS&nbsp;=&nbsp;P_BUKRS2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;CHECK_REQUIRED_FIELD<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;##&nbsp;#&nbsp;#####&nbsp;##&nbsp;##&nbsp;#&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CHECK_REQUIRED_FIELD.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##(0)##&nbsp;###<br />
+&nbsp;&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;GV_KTOKK.&nbsp;"&nbsp;(####&nbsp;####)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;3000:&nbsp;STCD1&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GV_STCD1&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'#####(STCD1)#&nbsp;##&nbsp;#####.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SY-SUBRC&nbsp;=&nbsp;4.&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;2000:&nbsp;STCD1,&nbsp;STCD2&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GV_STCD1&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;GV_STCD2&nbsp;IS&nbsp;INITIAL.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;2000#&nbsp;####1,2#&nbsp;##&nbsp;#####.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SY-SUBRC&nbsp;=&nbsp;4.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##:&nbsp;STCD2&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GV_STCD2&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'######(STCD2)#&nbsp;##&nbsp;#####.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SY-SUBRC&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

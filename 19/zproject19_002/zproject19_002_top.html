@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZPROJECT19_002_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZPROJECT19_002_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZPROJECT19_002_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES : ZPDT19_004, ZPDT19_005, ZPDT19_003, ZEDT19_200.<br />
+<br />
+CONSTANTS : C_X TYPE CHAR1 VALUE 'X'.<br />
+CONSTANTS : C_A TYPE CHAR1 VALUE 'A'.<br />
+<br />
+TYPES : BEGIN OF TY_001,<br />
+&nbsp;&nbsp;EBELP&nbsp;LIKE&nbsp;ZPDT19_005-EBELP,&nbsp;"##<br />
+&nbsp;&nbsp;ZMATNR&nbsp;LIKE&nbsp;ZPDT19_005-ZMATNR,&nbsp;"####<br />
+&nbsp;&nbsp;MENGE&nbsp;LIKE&nbsp;ZPDT19_005-MENGE,&nbsp;"##<br />
+&nbsp;&nbsp;MEINS&nbsp;LIKE&nbsp;ZPDT19_005-MEINS,&nbsp;"##<br />
+&nbsp;&nbsp;WAERS&nbsp;LIKE&nbsp;ZPDT19_004-WAERS,&nbsp;"##<br />
+&nbsp;&nbsp;ZMWSKZ&nbsp;LIKE&nbsp;ZPDT19_003-ZMWSKZ,&nbsp;"####<br />
+&nbsp;&nbsp;PRDAT&nbsp;LIKE&nbsp;ZPDT19_005-PRDAT,&nbsp;"###<br />
+&nbsp;&nbsp;ZWERKS&nbsp;LIKE&nbsp;ZPDT19_005-ZWERKS,&nbsp;"###<br />
+&nbsp;&nbsp;ZLGORT&nbsp;LIKE&nbsp;ZPDT19_005-ZLGORT,&nbsp;"####<br />
+&nbsp;&nbsp;LIFNR&nbsp;LIKE&nbsp;ZPDT19_004-LIFNR,<br />
+&nbsp;&nbsp;EBELN&nbsp;LIKE&nbsp;ZPDT19_004-EBELN,&nbsp;"######<br />
+&nbsp;&nbsp;ZMATNAME&nbsp;LIKE&nbsp;ZPDT19_005-ZMATNAME,&nbsp;"###<br />
+&nbsp;&nbsp;BUKRS&nbsp;LIKE&nbsp;ZPDT19_004-BUKRS,&nbsp;"####<br />
+&nbsp;&nbsp;BEDAT&nbsp;LIKE&nbsp;ZPDT19_004-BEDAT,&nbsp;"###<br />
+&nbsp;&nbsp;STPRS&nbsp;TYPE&nbsp;STPRS,&nbsp;"##<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_001.<br />
+<br />
+DATA : gs_001 TYPE ty_001.<br />
+DATA : gt_001 TYPE TABLE OF ty_001.<br />
+<br />
+DATA : gs_002 TYPE zpdt19_004.<br />
+DATA : GT_002 TYPE TABLE OF ZPDT19_004.<br />
+<br />
+DATA : GS_003 TYPE ZPDT19_005.<br />
+DATA : GT_003 TYPE TABLE OF ZPDT19_005.<br />
+<br />
+DATA : OK_CODE TYPE SY-UCOMM.<br />
+<br />
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+<br />
+DATA : GC_SPLITTER TYPE REF TO CL_GUI_SPLITTER_CONTAINER.<br />
+<br />
+DATA : GC_CONTAINER1 TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GC_CONTAINER2 TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GC_CONTAINER3 TYPE REF TO CL_GUI_CONTAINER.<br />
+<br />
+DATA : GC_GRID1 TYPE REF TO CL_GUI_ALV_GRID.<br />
+DATA : GC_GRID2 TYPE REF TO CL_GUI_ALV_GRID.<br />
+DATA : GC_GRID3 TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT1&nbsp;TYPE&nbsp;LVC_T_FCAT.<br />
+DATA : GT_FIELDCAT2 TYPE LVC_T_FCAT.<br />
+DATA : GT_FIELDCAT3 TYPE LVC_T_FCAT.<br />
+<br />
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.<br />
+<br />
+DATA : GS_SORT TYPE LVC_S_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_SORT&nbsp;TYPE&nbsp;LVC_T_SORT.<br />
+<br />
+DATA : GS_VARIANT TYPE DISVARIANT.<br />
+<br />
+DATA: gr_alv     TYPE REF TO cl_gui_alv_grid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gr_handler&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lcl_event_handler.<br />
+<br />
+" F4 ### ##<br />
+DATA: gt_f4 TYPE lvc_t_f4,   " ALV F4 ## ###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_f4&nbsp;TYPE&nbsp;lvc_s_f4.&nbsp;&nbsp;&nbsp;"&nbsp;ALV&nbsp;F4&nbsp;##<br />
+<br />
+DATA: lt_values TYPE TABLE OF ty_f4,  " ### # ###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_value&nbsp;&nbsp;TYPE&nbsp;ty_f4.<br />
+<br />
+DATA gv_f4_field TYPE fieldname.   " F4 ### ### ##<br />
+<br />
+DATA gv_f4_rowid TYPE i.         " F4# ## ALV row ##<br />
+<br />
+DATA: gv_waers  TYPE waers,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_zmwskz&nbsp;TYPE&nbsp;zmwskz19.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,609 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZWORK25_002_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZWORK25_002_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZWORK25_002_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CHECK_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CHECK_DATA.<br />
+&nbsp;&nbsp;IF&nbsp;P_DATE&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;###&nbsp;#####.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;LIST-PROCESSING.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_DATA.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LT_TEMP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;TY_DATA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_GDATU_NUM&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_NORMAL_NUM&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_NORMAL_STR&nbsp;TYPE&nbsp;CHAR8,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ANSWER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GT_DATA.&nbsp;REFRESH&nbsp;GT_DATA.<br />
+&nbsp;&nbsp;GV_DATE_SEARCH&nbsp;=&nbsp;P_DATE.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;SELECT&nbsp;MANDT&nbsp;KURST&nbsp;FCURR&nbsp;TCURR&nbsp;GDATU&nbsp;UKURS&nbsp;FFACT&nbsp;TFACT&nbsp;ERNAM&nbsp;ERDAT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZTCURR25<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;LT_TEMP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;GDATU&nbsp;=&nbsp;GV_DATE_SEARCH.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0&nbsp;OR&nbsp;LT_TEMP&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'POPUP_TO_CONFIRM'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TITLEBAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'###&nbsp;##'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT_QUESTION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'##&nbsp;###&nbsp;##&nbsp;###&nbsp;####&nbsp;####.'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT_BUTTON_1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'##'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ICON_BUTTON_1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'ICON_OKAY'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT_BUTTON_2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'##&nbsp;##'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT_BUTTON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'1'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DISPLAY_CANCEL_BUTTON&nbsp;=&nbsp;''<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ANSWER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_ANSWER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;LIST-PROCESSING.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_TEMP&nbsp;INTO&nbsp;DATA(LS_TEMP).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;####&nbsp;##&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_DATA&nbsp;TRANSPORTING&nbsp;NO&nbsp;FIELDS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;KURST&nbsp;=&nbsp;LS_TEMP-KURST<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FCURR&nbsp;=&nbsp;LS_TEMP-FCURR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TCURR&nbsp;=&nbsp;LS_TEMP-TCURR.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_DATA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;LS_TEMP&nbsp;TO&nbsp;GS_DATA.&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;ERNAM,&nbsp;ERDAT&nbsp;###<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;GDATU&nbsp;#&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_GDATU_NUM&nbsp;&nbsp;=&nbsp;GS_DATA-GDATU.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_NORMAL_NUM&nbsp;=&nbsp;99999999&nbsp;-&nbsp;LV_GDATU_NUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_NORMAL_STR&nbsp;=&nbsp;|{&nbsp;LV_NORMAL_NUM&nbsp;WIDTH&nbsp;=&nbsp;8&nbsp;PAD&nbsp;=&nbsp;'0'&nbsp;}|.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_DATA-VALID_FROM&nbsp;=&nbsp;LV_NORMAL_STR.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_DATA&nbsp;TO&nbsp;GT_DATA.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CREATE_ALV_OBJECT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CREATE_ALV_OBJECT .<br />
+&nbsp;&nbsp;IF&nbsp;GO_CONTAINER&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_CONTAINER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTAINER_NAME&nbsp;=&nbsp;'CNT_ALV'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_PARENT&nbsp;=&nbsp;GO_CONTAINER.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_ALV_CREATED&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_ALV_LAYOUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_ALV_LAYOUT .<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_LAYOUT.<br />
+&nbsp;&nbsp;GS_LAYOUT-ZEBRA&nbsp;&nbsp;=&nbsp;'X'.&nbsp;"###&nbsp;##<br />
+&nbsp;&nbsp;GS_LAYOUT-CWIDTH_OPT&nbsp;=&nbsp;'X'.&nbsp;"##&nbsp;##&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;GS_LAYOUT-SEL_MODE&nbsp;=&nbsp;'A'.&nbsp;"#&nbsp;##&nbsp;##<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_ALV_FIELDCAT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_ALV_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;REFRESH&nbsp;GT_FCAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1.&nbsp;####<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FCAT.<br />
+&nbsp;&nbsp;GS_FCAT-FIELDNAME&nbsp;=&nbsp;'KURST'.<br />
+&nbsp;&nbsp;GS_FCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FCAT-JUST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'C'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;GS_FCAT-OUTPUTLEN&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;GS_FCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FCAT&nbsp;TO&nbsp;GT_FCAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2.&nbsp;####<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FCAT.<br />
+&nbsp;&nbsp;GS_FCAT-FIELDNAME&nbsp;=&nbsp;'FCURR'.<br />
+&nbsp;&nbsp;GS_FCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FCAT-JUST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;GS_FCAT-OUTPUTLEN&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;GS_FCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FCAT&nbsp;TO&nbsp;GT_FCAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;3.&nbsp;####<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FCAT.<br />
+&nbsp;&nbsp;GS_FCAT-FIELDNAME&nbsp;=&nbsp;'TCURR'.<br />
+&nbsp;&nbsp;GS_FCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FCAT-JUST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;GS_FCAT-OUTPUTLEN&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;GS_FCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FCAT&nbsp;TO&nbsp;GT_FCAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;4.&nbsp;####&nbsp;(GDATU&nbsp;#&nbsp;###&nbsp;##&nbsp;##)<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FCAT.<br />
+&nbsp;&nbsp;GS_FCAT-FIELDNAME&nbsp;=&nbsp;'VALID_FROM'.<br />
+&nbsp;&nbsp;GS_FCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FCAT-JUST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;GS_FCAT-OUTPUTLEN&nbsp;=&nbsp;12.<br />
+&nbsp;&nbsp;GS_FCAT-EDIT_MASK&nbsp;=&nbsp;'____.__.__'.&nbsp;&nbsp;&nbsp;"&nbsp;YYYY.MM.DD&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;GS_FCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FCAT&nbsp;TO&nbsp;GT_FCAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;5.&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FCAT.<br />
+&nbsp;&nbsp;GS_FCAT-FIELDNAME&nbsp;=&nbsp;'UKURS'.<br />
+&nbsp;&nbsp;GS_FCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;GS_FCAT-JUST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'R'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;GS_FCAT-OUTPUTLEN&nbsp;=&nbsp;18.<br />
+&nbsp;&nbsp;GS_FCAT-DECIMALS_O&nbsp;=&nbsp;6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;6####<br />
+&nbsp;&nbsp;GS_FCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FCAT&nbsp;TO&nbsp;GT_FCAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;6.&nbsp;########<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FCAT.<br />
+&nbsp;&nbsp;GS_FCAT-FIELDNAME&nbsp;=&nbsp;'FFACT'.<br />
+&nbsp;&nbsp;GS_FCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'########'.<br />
+&nbsp;&nbsp;GS_FCAT-JUST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'R'.<br />
+&nbsp;&nbsp;GS_FCAT-OUTPUTLEN&nbsp;=&nbsp;12.<br />
+&nbsp;&nbsp;GS_FCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FCAT&nbsp;TO&nbsp;GT_FCAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;7.&nbsp;########&nbsp;(To&nbsp;Factor)<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FCAT.<br />
+&nbsp;&nbsp;GS_FCAT-FIELDNAME&nbsp;=&nbsp;'TFACT'.<br />
+&nbsp;&nbsp;GS_FCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'########'.<br />
+&nbsp;&nbsp;GS_FCAT-JUST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'R'.<br />
+&nbsp;&nbsp;GS_FCAT-OUTPUTLEN&nbsp;=&nbsp;12.<br />
+&nbsp;&nbsp;GS_FCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FCAT&nbsp;TO&nbsp;GT_FCAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;8.&nbsp;###<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FCAT.<br />
+&nbsp;&nbsp;GS_FCAT-FIELDNAME&nbsp;=&nbsp;'ERNAM'.<br />
+&nbsp;&nbsp;GS_FCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;GS_FCAT-JUST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;GS_FCAT-OUTPUTLEN&nbsp;=&nbsp;12.<br />
+&nbsp;&nbsp;GS_FCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FCAT&nbsp;TO&nbsp;GT_FCAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;9.&nbsp;###<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FCAT.<br />
+&nbsp;&nbsp;GS_FCAT-FIELDNAME&nbsp;=&nbsp;'ERDAT'.<br />
+&nbsp;&nbsp;GS_FCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;GS_FCAT-JUST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;GS_FCAT-OUTPUTLEN&nbsp;=&nbsp;12.<br />
+&nbsp;&nbsp;GS_FCAT-EDIT_MASK&nbsp;=&nbsp;'____.__.__'.&nbsp;&nbsp;&nbsp;"&nbsp;YYYY.MM.DD&nbsp;##<br />
+&nbsp;&nbsp;GS_FCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;9.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FCAT&nbsp;TO&nbsp;GT_FCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FCAT.<br />
+&nbsp;&nbsp;GS_FCAT-FIELDNAME&nbsp;=&nbsp;'GDATU'.<br />
+&nbsp;&nbsp;GS_FCAT-TECH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;#&nbsp;#<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FCAT&nbsp;TO&nbsp;GT_FCAT.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;DISPLAY_ALV<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DISPLAY_ALV.<br />
+&nbsp;&nbsp;"&nbsp;ALV&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;GO_CONTAINER&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CREATE_ALV_OBJECT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GO_GRID&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;#####&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;LINES(&nbsp;GT_FCAT&nbsp;)&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_ALV_FIELDCAT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;#####&nbsp;####&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;GS_LAYOUT&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_ALV_LAYOUT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_GRID-&gt;SET_TABLE_FOR_FIRST_DISPLAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_LAYOUT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_DATA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCATALOG&nbsp;=&nbsp;GT_FCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GV_ALV_CREATED.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;DOWNLOAD_PDF_OLE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DOWNLOAD_PDF_OLE.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_PATH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_OUTPUT_DIR&nbsp;&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_FULLPATH&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_PDF_PATH&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_FILENAME&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_DEFNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RANGE_STR&nbsp;&nbsp;&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ROW_STR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_DATE_NAME&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR8,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_DATE_DISP&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_SEPARATOR&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_FILE_EXISTS&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ACTION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_DEST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;RLGRAP-FILENAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_KEY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;WWWDATATAB.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_DATA&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'W'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;##&nbsp;(GET_TEMP_DIRECTORY&nbsp;+&nbsp;C:\Temp&nbsp;##)<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;GET_TEMP_DIRECTORY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEMP_DIR&nbsp;=&nbsp;LV_PATH<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LV_PATH&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_PATH&nbsp;=&nbsp;'C:\Temp'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;GET_FILE_SEPARATOR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE_SEPARATOR&nbsp;=&nbsp;LV_SEPARATOR.<br />
+<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;LV_PATH&nbsp;LV_SEPARATOR&nbsp;'EXCEL_TEMPLATE.XLSX'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;LV_FULLPATH.<br />
+&nbsp;&nbsp;LV_DEST&nbsp;=&nbsp;LV_FULLPATH.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;#&nbsp;SMW0&nbsp;###&nbsp;####<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'WS_FILE_DELETE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE&nbsp;&nbsp;&nbsp;=&nbsp;LV_DEST<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN&nbsp;=&nbsp;LV_RC<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;LS_KEY.<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;LS_KEY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;WWWDATA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;OBJID&nbsp;=&nbsp;'ZWORK25_TEMPLATE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;RELID&nbsp;=&nbsp;'MI'.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'SMW0#&nbsp;###(ZWORK25_TEMPLATE)#&nbsp;####.'&nbsp;TYPE&nbsp;'S'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'DOWNLOAD_WEB_OBJECT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KEY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LS_KEY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DESTINATION&nbsp;=&nbsp;LV_DEST.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##&nbsp;(OLE)<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_EXCEL&nbsp;'EXCEL.APPLICATION'.<br />
+&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;GO_EXCEL&nbsp;'VISIBLE'&nbsp;=&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_EXCEL&nbsp;'WORKBOOKS'&nbsp;=&nbsp;GO_WORKBOOK.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_WORKBOOK&nbsp;'OPEN'&nbsp;EXPORTING&nbsp;#1&nbsp;=&nbsp;LV_FULLPATH.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_EXCEL&nbsp;'WORKSHEETS'&nbsp;=&nbsp;GO_SHEET&nbsp;EXPORTING&nbsp;#1&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_SHEET&nbsp;'ACTIVATE'.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;###&nbsp;(FILL_CELL&nbsp;##)<br />
+&nbsp;&nbsp;LV_ROW&nbsp;=&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_DATA&nbsp;INTO&nbsp;GS_DATA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;FILL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;1&nbsp;GS_DATA-KURST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;FILL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;2&nbsp;GS_DATA-FCURR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;FILL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;3&nbsp;GS_DATA-TCURR.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;LV_DATE_DISP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;GS_DATA-VALID_FROM&nbsp;TO&nbsp;LV_DATE_DISP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;FILL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;4&nbsp;LV_DATE_DISP.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;FILL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;5&nbsp;GS_DATA-UKURS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;FILL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;6&nbsp;GS_DATA-FFACT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;FILL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;7&nbsp;GS_DATA-TFACT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;FILL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;8&nbsp;GS_DATA-ERNAM.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;LV_DATE_DISP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;GS_DATA-ERDAT&nbsp;TO&nbsp;LV_DATE_DISP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;FILL_CELL&nbsp;USING&nbsp;LV_ROW&nbsp;9&nbsp;LV_DATE_DISP.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_ROW&nbsp;=&nbsp;LV_ROW&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_SHEET&nbsp;'COLUMNS'&nbsp;=&nbsp;GO_RANGE.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_RANGE&nbsp;'AUTOFIT'.<br />
+<br />
+&nbsp;&nbsp;LV_ROW&nbsp;=&nbsp;LV_ROW&nbsp;-&nbsp;1.<br />
+&nbsp;&nbsp;LV_ROW_STR&nbsp;=&nbsp;LV_ROW.<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;'A1:I'&nbsp;LV_ROW_STR&nbsp;INTO&nbsp;LV_RANGE_STR.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_SHEET&nbsp;'RANGE'&nbsp;=&nbsp;GO_RANGE&nbsp;EXPORTING&nbsp;#1&nbsp;=&nbsp;LV_RANGE_STR.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_RANGE&nbsp;'BORDERS'&nbsp;=&nbsp;GO_BORDER.<br />
+&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;GO_BORDER&nbsp;'LINESTYLE'&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;PDF&nbsp;##&nbsp;####&nbsp;##&nbsp;(DIRECTORY_BROWSE)<br />
+&nbsp;&nbsp;LV_OUTPUT_DIR&nbsp;=&nbsp;LV_PATH.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;DIRECTORY_BROWSE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTED_FOLDER&nbsp;=&nbsp;LV_OUTPUT_DIR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LV_OUTPUT_DIR&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_WORKBOOK&nbsp;'CLOSE'&nbsp;EXPORTING&nbsp;#1&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_EXCEL&nbsp;&nbsp;&nbsp;&nbsp;'QUIT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;OBJECT:&nbsp;GO_BORDER,&nbsp;GO_RANGE,&nbsp;GO_CELL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_SHEET,&nbsp;GO_WORKBOOK,&nbsp;GO_EXCEL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'PDF&nbsp;##&nbsp;##&nbsp;###&nbsp;#######.'&nbsp;TYPE&nbsp;'S'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;LV_FILENAME&nbsp;=&nbsp;'EXCHANGERATE.PDF'.<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;LV_OUTPUT_DIR&nbsp;LV_SEPARATOR&nbsp;LV_FILENAME&nbsp;INTO&nbsp;LV_PDF_PATH.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;PDF&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;FILE_DELETE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILENAME&nbsp;=&nbsp;LV_PDF_PATH<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_RC<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;WAIT&nbsp;UP&nbsp;TO&nbsp;'1'&nbsp;SECONDS.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;PDF#&nbsp;##&nbsp;(EXPORTASFIXEDFORMAT)<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_SHEET&nbsp;'EXPORTASFIXEDFORMAT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;#1&nbsp;=&nbsp;0<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#2&nbsp;=&nbsp;LV_PDF_PATH.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_WORKBOOK&nbsp;'CLOSE'&nbsp;EXPORTING&nbsp;#1&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;CATCH&nbsp;CX_ROOT.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;GO_EXCEL&nbsp;'DISPLAYALERTS'&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_EXCEL&nbsp;'QUIT'.<br />
+&nbsp;&nbsp;CATCH&nbsp;CX_ROOT.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;WAIT&nbsp;UP&nbsp;TO&nbsp;'2'&nbsp;SECONDS.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;OBJECT:&nbsp;GO_BORDER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;OBJECT:&nbsp;GO_RANGE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;OBJECT:&nbsp;GO_CELL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;OBJECT:&nbsp;GO_SHEET.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;OBJECT:&nbsp;GO_WORKBOOK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;OBJECT:&nbsp;GO_EXCEL.<br />
+&nbsp;&nbsp;CATCH&nbsp;CX_ROOT.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;(##)<br />
+&nbsp;&nbsp;"&nbsp;PERFORM&nbsp;KILL_EXCEL_PROCESS.<br />
+<br />
+&nbsp;&nbsp;WAIT&nbsp;UP&nbsp;TO&nbsp;'3'&nbsp;SECONDS.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;##&nbsp;(###&nbsp;##)<br />
+&nbsp;&nbsp;PERFORM&nbsp;DELETE_TEMPLATE_FILE&nbsp;USING&nbsp;LV_FULLPATH.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;'PDF#&nbsp;'&nbsp;LV_PDF_PATH&nbsp;'&nbsp;#&nbsp;#######.'&nbsp;INTO&nbsp;LV_MSG.<br />
+&nbsp;&nbsp;MESSAGE&nbsp;LV_MSG&nbsp;TYPE&nbsp;'S'.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;DELETE_TEMPLATE_FILE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DELETE_TEMPLATE_FILE USING P_FILEPATH TYPE STRING.<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_RC&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RETRY&nbsp;TYPE&nbsp;I.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;###&nbsp;(##&nbsp;10#)<br />
+&nbsp;&nbsp;DO&nbsp;10&nbsp;TIMES.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_RETRY&nbsp;=&nbsp;SY-INDEX.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;FILE_DELETE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILENAME&nbsp;=&nbsp;P_FILEPATH<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_RC<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ACCESS_DENIED&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE_DELETE_FAILED&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_NO_GUI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NOT_SUPPORTED_BY_GUI&nbsp;=&nbsp;5<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;6.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LV_RC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LV_RETRY&nbsp;&lt;&nbsp;10.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAIT&nbsp;UP&nbsp;TO&nbsp;'1'&nbsp;SECONDS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDDO.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;FILL_CELL<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM FILL_CELL USING P_ROW P_COL P_VAL.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_SHEET&nbsp;'CELLS'&nbsp;=&nbsp;GO_CELL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;#1&nbsp;=&nbsp;P_ROW<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#2&nbsp;=&nbsp;P_COL.<br />
+<br />
+&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;GO_CELL&nbsp;'VALUE'&nbsp;=&nbsp;P_VAL.<br />
+<br />
+&nbsp;&nbsp;FREE&nbsp;OBJECT&nbsp;GO_CELL.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR09_015</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR09_015</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR09_015<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR09_015.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;=====================================================================<br />
+*&nbsp;INTERNAL&nbsp;TABLE&nbsp;##&nbsp;##&nbsp;5##<br />
+*&nbsp;##&nbsp;5##&nbsp;##&nbsp;#&nbsp;4##&nbsp;##&nbsp;##&nbsp;###,&nbsp;##&nbsp;#&nbsp;###&nbsp;##&nbsp;#&nbsp;##&nbsp;!!!<br />
+<br />
+*&nbsp;1.&nbsp;##&nbsp;READ&nbsp;##&nbsp;:&nbsp;###&nbsp;##&nbsp;####,&nbsp;##&nbsp;##<br />
+*&nbsp;2.&nbsp;TABLE&nbsp;KEY&nbsp;##&nbsp;:&nbsp;1##&nbsp;##&nbsp;##.&nbsp;####&nbsp;READ&nbsp;##&nbsp;######&nbsp;##&nbsp;##&nbsp;###,&nbsp;##&nbsp;##<br />
+*&nbsp;3.&nbsp;WORK&nbsp;AREA&nbsp;##&nbsp;:&nbsp;###&nbsp;####&nbsp;##,&nbsp;COMPARING&nbsp;/&nbsp;TRANSPORTING&nbsp;####&nbsp;##,###&nbsp;##<br />
+*&nbsp;4.&nbsp;INDEX&nbsp;##&nbsp;:&nbsp;##&nbsp;##&nbsp;##,&nbsp;##&nbsp;##<br />
+*&nbsp;5.&nbsp;BINARY&nbsp;SEARCH&nbsp;:&nbsp;##&nbsp;###&nbsp;##&nbsp;##,&nbsp;##&nbsp;##&nbsp;(####)<br />
+<br />
+*&nbsp;=====================================================================<br />
+<br />
+   </div>
+   <div class="code">
+"###### #### ###### ##<br />
+DATA : GS_STUDENT TYPE ZEDT09_001.<br />
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.<br />
+<br />
+<br />
+" #### #### ###### ##<br />
+DATA : BEGIN OF GS_MAJOR,<br />
+&nbsp;&nbsp;ZCODE&nbsp;TYPE&nbsp;ZEDT09_001-ZCODE,&nbsp;"####<br />
+&nbsp;&nbsp;ZPERNR&nbsp;TYPE&nbsp;ZEDT09_001-ZPERNR,&nbsp;"####<br />
+&nbsp;&nbsp;ZMNAME&nbsp;TYPE&nbsp;ZEDT09_002-ZMNAME,&nbsp;"###<br />
+END OF GS_MAJOR.<br />
+<br />
+" ## READ ### ######## # ##! (####, SYNTAX ### #### READ# ###!) &lt;- 1#### ## ####, 2#### ## #<br />
+DATA : GT_MAJOR LIKE TABLE OF GS_MAJOR WITH NON-UNIQUE KEY ZCODE.<br />
+<br />
+CLEAR : GS_STUDENT, GT_STUDENT, GS_MAJOR, GT_MAJOR.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##&nbsp;##&nbsp;#######&nbsp;####&nbsp;##<br />
+   </div>
+   <div class="code">
+GS_STUDENT-ZPERNR = '0000000001'.<br />
+GS_STUDENT-ZCODE = 'SSU-01'.<br />
+GS_STUDENT-ZKNAME = '###'.<br />
+GS_STUDENT-ZENAME = 'DONG'.<br />
+GS_STUDENT-ZGENDER = 'M'.<br />
+GS_STUDENT-ZTEL = '01011112222'.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+CLEAR : GS_STUDENT.<br />
+GS_STUDENT-ZPERNR = '0000000002'.<br />
+GS_STUDENT-ZCODE = 'SSU-02'.<br />
+GS_STUDENT-ZKNAME = '###'.<br />
+GS_STUDENT-ZENAME = 'HOON'.<br />
+GS_STUDENT-ZGENDER = 'M'.<br />
+GS_STUDENT-ZTEL = '01011112223'.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+GS_STUDENT-ZPERNR = '0000000003'.<br />
+GS_STUDENT-ZCODE = 'SSU-03'.<br />
+GS_STUDENT-ZKNAME = '##'.<br />
+GS_STUDENT-ZENAME = 'BIN'.<br />
+GS_STUDENT-ZGENDER = 'M'.<br />
+GS_STUDENT-ZTEL = '01011112224'.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+GS_STUDENT-ZPERNR = '0000000004'.<br />
+GS_STUDENT-ZCODE = 'SSU-04'.<br />
+GS_STUDENT-ZKNAME = '##'.<br />
+GS_STUDENT-ZENAME = 'JENNY'.<br />
+GS_STUDENT-ZGENDER = 'F'.<br />
+GS_STUDENT-ZTEL = '01011112225'.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+GS_STUDENT-ZPERNR = '0000000005'.<br />
+GS_STUDENT-ZCODE = 'SSU-05'.<br />
+GS_STUDENT-ZKNAME = '##'.<br />
+GS_STUDENT-ZENAME = 'KOOK'.<br />
+GS_STUDENT-ZGENDER = 'M'.<br />
+GS_STUDENT-ZTEL = '01011112226'.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;#&nbsp;######&nbsp;##&nbsp;###&nbsp;##<br />
+   </div>
+   <div class="code">
+GS_MAJOR-ZCODE = 'SSU-01'.<br />
+GS_MAJOR-ZPERNR = '0000000001'.<br />
+GS_MAJOR-ZMNAME = '####'.<br />
+APPEND GS_MAJOR TO GT_MAJOR.<br />
+<br />
+GS_MAJOR-ZCODE = 'SSU-02'.<br />
+GS_MAJOR-ZPERNR = '0000000002'.<br />
+GS_MAJOR-ZMNAME = '#####'.<br />
+APPEND GS_MAJOR TO GT_MAJOR.<br />
+<br />
+GS_MAJOR-ZCODE = 'SSU-03'.<br />
+GS_MAJOR-ZPERNR = '0000000003'.<br />
+GS_MAJOR-ZMNAME = '######'.<br />
+APPEND GS_MAJOR TO GT_MAJOR.<br />
+<br />
+GS_MAJOR-ZCODE = 'SSU-04'.<br />
+GS_MAJOR-ZPERNR = '0000000004'.<br />
+GS_MAJOR-ZMNAME = '####'.<br />
+APPEND GS_MAJOR TO GT_MAJOR.<br />
+<br />
+GS_MAJOR-ZCODE = 'SSU-05'.<br />
+GS_MAJOR-ZPERNR = '0000000005'.<br />
+GS_MAJOR-ZMNAME = '#####'.<br />
+APPEND GS_MAJOR TO GT_MAJOR.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;1.&nbsp;##&nbsp;READ&nbsp;##<br />
+*&nbsp;READ&nbsp;TABLE&nbsp;itab&nbsp;FROM&nbsp;wa&nbsp;INTO&nbsp;result.<br />
+*&nbsp;-&gt;&nbsp;itab&nbsp;########&nbsp;##&nbsp;##,&nbsp;#####&nbsp;wa(workArea)#&nbsp;###&nbsp;key###.<br />
+*&nbsp;-&gt;&nbsp;#,&nbsp;itab&nbsp;########&nbsp;##&nbsp;wa#&nbsp;##&nbsp;###&nbsp;##&nbsp;###,&nbsp;result#&nbsp;#####.<br />
+*&nbsp;-&gt;&nbsp;#&nbsp;##&nbsp;###,&nbsp;READ&nbsp;##&nbsp;&&nbsp;##&nbsp;#&nbsp;SY-SUBRC&nbsp;=&nbsp;0<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+CLEAR : GS_STUDENT.<br />
+<br />
+<br />
+LOOP AT GT_STUDENT INTO GS_STUDENT.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_MAJOR.<br />
+&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_STUDENT&nbsp;TO&nbsp;GS_MAJOR.&nbsp;"##&nbsp;##&nbsp;GS_STUDENT#&nbsp;##&nbsp;GS_MAJOR#&nbsp;####&nbsp;#&nbsp;(ZCODE,&nbsp;ZPERNR)&nbsp;##<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MAJOR&nbsp;FROM&nbsp;GS_MAJOR&nbsp;INTO&nbsp;GS_MAJOR.<br />
+&nbsp;&nbsp;"GT_MAJOR&nbsp;########,&nbsp;GS_MAJOR&nbsp;key(ZCODE)#&nbsp;###&nbsp;##&nbsp;###,&nbsp;GS_MAJOR#&nbsp;##&nbsp;#<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;GS_STUDENT-ZCODE,&nbsp;GS_STUDENT-ZKNAME,&nbsp;GS_MAJOR-ZMNAME.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'####&nbsp;####&nbsp;#####.'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_STUDENT.<br />
+ENDLOOP.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;2.&nbsp;TABLE&nbsp;KEY&nbsp;##<br />
+<br />
+*&nbsp;READ&nbsp;TABLE&nbsp;itab&nbsp;WITH&nbsp;TABLE&nbsp;KEY&nbsp;##&nbsp;(&nbsp;INTO&nbsp;RESUlT&nbsp;)<br />
+*&nbsp;itab########&nbsp;####&nbsp;##&nbsp;##,&nbsp;TABLE&nbsp;KEY&nbsp;###&nbsp;##&nbsp;##,&nbsp;RESULT#&nbsp;##&nbsp;##.<br />
+*&nbsp;1#&nbsp;##&nbsp;#####,&nbsp;####&nbsp;READ&nbsp;##&nbsp;####&nbsp;###&nbsp;#&nbsp;##&nbsp;##&nbsp;###&nbsp;1#&nbsp;##&nbsp;syntax&nbsp;###&nbsp;##!!<br />
+<br />
+   </div>
+   <div class="code">
+WRITE : / , / , '2# ##'.<br />
+<br />
+CLEAR : GS_STUDENT.<br />
+LOOP AT GT_STUDENT INTO GS_STUDENT.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_MAJOR.<br />
+" MOVE-CORRESPONDING GS_STUDENT TO GS_MAJOR.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;GS_MAJOR#&nbsp;ZMNAME&nbsp;###&nbsp;####&nbsp;###&nbsp;###.<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MAJOR&nbsp;WITH&nbsp;TABLE&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_STUDENT-ZCODE<br />
+&nbsp;&nbsp;INTO&nbsp;GS_MAJOR.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;GS_STUDENT-ZCODE,&nbsp;GS_STUDENT-ZKNAME,&nbsp;GS_MAJOR-ZMNAME.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'####&nbsp;####&nbsp;#####.'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_STUDENT.<br />
+ENDLOOP.<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;3.&nbsp;WORK&nbsp;AREA&nbsp;##&nbsp;:&nbsp;###&nbsp;####&nbsp;##,&nbsp;COMPARING&nbsp;/&nbsp;TRANSPORTING&nbsp;####&nbsp;##,###&nbsp;##<br />
+*&nbsp;READ&nbsp;TABLE&nbsp;itab&nbsp;WITH&nbsp;KEY&nbsp;(##)&nbsp;INTO&nbsp;ws.<br />
+*&nbsp;-&nbsp;#####?&nbsp;###&nbsp;#&nbsp;###..(f1,&nbsp;f2..)<br />
+*&nbsp;-&nbsp;####?&nbsp;###&nbsp;##&nbsp;#&nbsp;#&nbsp;###,&nbsp;"wa"#&nbsp;##<br />
+<br />
+*&nbsp;-&nbsp;COMPARING&nbsp;##<br />
+*&nbsp;-&nbsp;TRANSPORTING&nbsp;##<br />
+*&nbsp;-&gt;&nbsp;#&nbsp;##&nbsp;###&nbsp;###&nbsp;###&nbsp;###&nbsp;!!<br />
+<br />
+   </div>
+   <div class="code">
+WRITE : / , / , '3# ##'.<br />
+CLEAR : GS_STUDENT.<br />
+LOOP AT GT_STUDENT INTO GS_STUDENT.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_MAJOR.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MAJOR&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_STUDENT-ZCODE&nbsp;"#&nbsp;##&nbsp;##&nbsp;#,&nbsp;###&nbsp;READ<br />
+&nbsp;&nbsp;INTO&nbsp;GS_MAJOR.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;GS_STUDENT-ZCODE,&nbsp;GS_STUDENT-ZKNAME,&nbsp;GS_MAJOR-ZMNAME.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'####&nbsp;####&nbsp;#####.'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDLOOP.<br />
+<br />
+WRITE : / , / , '3# ## -2'.<br />
+LOOP AT GT_STUDENT INTO GS_STUDENT.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_MAJOR.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MAJOR&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_STUDENT-ZCODE&nbsp;"####&nbsp;#&nbsp;#&nbsp;###&nbsp;2#&nbsp;###&nbsp;##,&nbsp;Comma##&nbsp;##&nbsp;#&nbsp;###&nbsp;READ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZPERNR&nbsp;=&nbsp;GS_STUDENT-ZPERNR<br />
+&nbsp;&nbsp;INTO&nbsp;GS_MAJOR.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;GS_STUDENT-ZCODE,&nbsp;GS_STUDENT-ZKNAME,&nbsp;GS_MAJOR-ZMNAME.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'####&nbsp;####&nbsp;#####.'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDLOOP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;3.&nbsp;WORK&nbsp;AREA&nbsp;##&nbsp;:&nbsp;###&nbsp;####&nbsp;##,&nbsp;COMPARING&nbsp;/&nbsp;TRANSPORTING&nbsp;####&nbsp;##,###&nbsp;##<br />
+*&nbsp;READ&nbsp;TABLE&nbsp;itab&nbsp;WITH&nbsp;KEY&nbsp;(##)&nbsp;INTO&nbsp;ws.<br />
+*&nbsp;-&nbsp;#####?&nbsp;###&nbsp;#&nbsp;###..(f1,&nbsp;f2..)<br />
+*&nbsp;-&nbsp;####?&nbsp;###&nbsp;##&nbsp;#&nbsp;#&nbsp;###,&nbsp;"wa"#&nbsp;##<br />
+<br />
+*&nbsp;-&nbsp;COMPARING&nbsp;##&nbsp;(NEW&nbsp;!!)<br />
+*&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;itab&nbsp;WITH&nbsp;KEY&nbsp;(##)&nbsp;INTO&nbsp;ws&nbsp;COMPARING&nbsp;f1.<br />
+*&nbsp;&nbsp;&nbsp;-&gt;&nbsp;##&nbsp;##&nbsp;+&nbsp;#&nbsp;##&nbsp;###&nbsp;###&nbsp;##!<br />
+*&nbsp;&nbsp;&nbsp;-&gt;&nbsp;#,&nbsp;##&nbsp;READ#&nbsp;##&nbsp;#&nbsp;###&nbsp;work&nbsp;area#&nbsp;##,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;work&nbsp;Area#&nbsp;##&nbsp;##(f1)#&nbsp;###&nbsp;##&nbsp;"##"###&nbsp;##!<br />
+*&nbsp;&nbsp;&nbsp;-&gt;&nbsp;####&nbsp;##&nbsp;###,&nbsp;SY-SUBRC&nbsp;=&nbsp;0#&nbsp;##,&nbsp;##&nbsp;##&nbsp;###&nbsp;2&nbsp;##<br />
+<br />
+*&nbsp;-&nbsp;TRANSPORTING&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;itab&nbsp;WITH&nbsp;KEY&nbsp;(##)&nbsp;INTO&nbsp;ws&nbsp;TRANSPORTING&nbsp;f1.<br />
+*&nbsp;&nbsp;&nbsp;-&gt;&nbsp;COMPARING#&nbsp;###&nbsp;'##',&nbsp;TRANSPORTING#&nbsp;###&nbsp;'##&nbsp;###'.&nbsp;#,&nbsp;####&nbsp;###&nbsp;##&nbsp;##.<br />
+*&nbsp;&nbsp;&nbsp;-&gt;&nbsp;#,&nbsp;#&nbsp;###&nbsp;####&nbsp;##,&nbsp;###&nbsp;###&nbsp;Work&nbsp;Area#&nbsp;###.<br />
+<br />
+*&nbsp;-&nbsp;COMPARING&nbsp;##<br />
+   </div>
+   <div class="code">
+WRITE : / , / , '4# ##'.<br />
+CLEAR : GS_STUDENT.<br />
+LOOP AT GT_STUDENT INTO GS_STUDENT.<br />
+&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_STUDENT&nbsp;TO&nbsp;GS_MAJOR.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MAJOR&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_STUDENT-ZCODE&nbsp;INTO&nbsp;GS_MAJOR<br />
+&nbsp;&nbsp;COMPARING&nbsp;ZCODE.<br />
+&nbsp;&nbsp;"#,&nbsp;READ&nbsp;TABLE#&nbsp;##&nbsp;GT_MAJOR&nbsp;########&nbsp;##&nbsp;#&nbsp;####&nbsp;GS_MAJOR#&nbsp;###&nbsp;#&nbsp;(#&nbsp;##&nbsp;###&nbsp;##)<br />
+&nbsp;&nbsp;"GS_MAJOR#&nbsp;GT_MAJOR#&nbsp;ZCODE#&nbsp;###&nbsp;##&nbsp;#&nbsp;##<br />
+<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;GS_STUDENT-ZCODE,&nbsp;GS_STUDENT-ZKNAME,&nbsp;GS_MAJOR-ZMNAME.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'####&nbsp;####&nbsp;#####.'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_STUDENT.<br />
+ENDLOOP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;-&nbsp;TRANSPORTING&nbsp;##&nbsp;:&nbsp;(#####)&nbsp;READ#&nbsp;###,&nbsp;#&nbsp;#&nbsp;###&nbsp;##&nbsp;##,&nbsp;###&nbsp;###&nbsp;###&nbsp;##!<br />
+   </div>
+   <div class="code">
+WRITE : / , / , '5# ##'.<br />
+CLEAR : GS_STUDENT.<br />
+<br />
+LOOP AT GT_STUDENT INTO GS_STUDENT.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_MAJOR.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MAJOR&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_STUDENT-ZCODE&nbsp;INTO&nbsp;GS_MAJOR<br />
+&nbsp;&nbsp;TRANSPORTING&nbsp;ZMNAME.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;GS_STUDENT-ZCODE,&nbsp;GS_STUDENT-ZKNAME,&nbsp;GS_MAJOR-ZMNAME.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'####&nbsp;####&nbsp;#####.'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_STUDENT.<br />
+ENDLOOP.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;4.&nbsp;INDEX&nbsp;&lt;-&nbsp;##&nbsp;#!!&nbsp;#&nbsp;###&nbsp;#&nbsp;!!<br />
+<br />
+*&nbsp;READ&nbsp;TABLE&nbsp;itab&nbsp;INTO&nbsp;wa&nbsp;INDEX&nbsp;n<br />
+*&nbsp;-&gt;&nbsp;itab###&nbsp;##&nbsp;n##&nbsp;'#'#&nbsp;###&nbsp;##,&nbsp;##&nbsp;wa#&nbsp;###&nbsp;###!<br />
+*&nbsp;-&gt;&nbsp;INDEX#&nbsp;n#&nbsp;######,&nbsp;###&nbsp;###&nbsp;#####&nbsp;#####&nbsp;#####&nbsp;SORT&nbsp;##&nbsp;!!<br />
+<br />
+   </div>
+   <div class="code">
+WRITE : / , / , '6# ##'.<br />
+CLEAR : GS_STUDENT.<br />
+<br />
+SORT GT_STUDENT BY ZCODE.<br />
+SORT GT_MAJOR BY ZCODE.<br />
+LOOP AT GT_STUDENT INTO GS_STUDENT.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_MAJOR.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MAJOR&nbsp;INTO&nbsp;GS_MAJOR&nbsp;INDEX&nbsp;SY-TABIX<br />
+&nbsp;&nbsp;TRANSPORTING&nbsp;ZMNAME.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;GS_STUDENT-ZCODE,&nbsp;GS_STUDENT-ZKNAME,&nbsp;GS_MAJOR-ZMNAME.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'####&nbsp;####&nbsp;#####.'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_STUDENT.<br />
+ENDLOOP.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;5.&nbsp;Binary&nbsp;Search<br />
+<br />
+   </div>
+   <div class="code">
+WRITE : / , / , '7# ##'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;READ&nbsp;TABLE&nbsp;itab&nbsp;WITH&nbsp;KEY&nbsp;(##)&nbsp;INTO&nbsp;wa&nbsp;BINARY&nbsp;SEARCH.<br />
+   </div>
+   <div class="code">
+LOOP AT GT_STUDENT INTO GS_STUDENT.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_MAJOR.<br />
+&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_STUDENT&nbsp;TO&nbsp;GS_MAJOR.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MAJOR&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_STUDENT-ZCODE&nbsp;INTO&nbsp;GS_MAJOR<br />
+&nbsp;&nbsp;BINARY&nbsp;SEARCH.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;GS_STUDENT-ZCODE,&nbsp;GS_STUDENT-ZKNAME,&nbsp;GS_MAJOR-ZMNAME.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'####&nbsp;####&nbsp;#####.'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_STUDENT.<br />
+ENDLOOP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

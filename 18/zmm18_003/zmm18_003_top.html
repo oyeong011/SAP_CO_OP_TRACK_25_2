@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM18_003_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM18_003_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM18_003_TOP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: OK_CODE TYPE SY-UCOMM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;Screen&nbsp;100&nbsp;:&nbsp;Header<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: GF_MBLNR TYPE ZMKPF_18-MBLNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_MJAHR&nbsp;TYPE&nbsp;ZMKPF_18-MJAHR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_BLART&nbsp;TYPE&nbsp;ZMKPF_18-BLART,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_BLDAT&nbsp;TYPE&nbsp;ZMKPF_18-BLDAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_BUDAT&nbsp;TYPE&nbsp;ZMKPF_18-BUDAT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;Screen&nbsp;100&nbsp;:&nbsp;PO&nbsp;##&nbsp;##&nbsp;##<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: BEGIN OF GS_ITEM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L_CHECK&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKKO_18-EBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELP&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKPO_18-EBELP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKKO_18-LIFNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BEDAT&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKKO_18-BEDAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKPO_18-MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAKTX&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZMARA_18-MAKTX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MENGE&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKPO_18-MENGE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKPO_18-MEINS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPRME&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKPO_18-BPRME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKKO_18-WAERS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRDAT&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKPO_18-PRDAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKPO_18-WERKS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LGORT&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKPO_18-LGORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GR_DONE&nbsp;TYPE&nbsp;MENGE_D,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GR_REM&nbsp;&nbsp;TYPE&nbsp;MENGE_D,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GR_NOW&nbsp;&nbsp;TYPE&nbsp;MENGE_D,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_ITEM.<br />
+DATA: GT_ITEM LIKE TABLE OF GS_ITEM.<br />
+<br />
+DATA: G_ONCE TYPE C LENGTH 1.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;####&nbsp;###<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: GS_MKPF TYPE ZMKPF_18,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_MSEG&nbsp;TYPE&nbsp;ZMSEG_18.<br />
+<br />
+DATA: GV_SEL_MBLNR TYPE ZMKPF_18-MBLNR.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;Screen&nbsp;200&nbsp;:&nbsp;Header&nbsp;##<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: GF_MBLNR_200 TYPE ZMKPF_18-MBLNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_BLART_200&nbsp;TYPE&nbsp;ZMKPF_18-BLART,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_BLDAT_200&nbsp;TYPE&nbsp;ZMKPF_18-BLDAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_BUDAT_200&nbsp;TYPE&nbsp;ZMKPF_18-BUDAT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;Screen&nbsp;200&nbsp;:&nbsp;####&nbsp;###<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: BEGIN OF GS_GOODS_LIST,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MBLNR&nbsp;TYPE&nbsp;ZMKPF_18-MBLNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUDAT&nbsp;TYPE&nbsp;ZMKPF_18-BUDAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_GOODS_LIST.<br />
+DATA: GT_GOODS_LIST LIKE TABLE OF GS_GOODS_LIST.<br />
+<br />
+DATA: BEGIN OF GS_GOODS_ALV,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DISP_TEXT&nbsp;TYPE&nbsp;CHAR200,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_GOODS_ALV.<br />
+DATA: GT_GOODS_ALV LIKE TABLE OF GS_GOODS_ALV.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;Screen&nbsp;200&nbsp;:&nbsp;##&nbsp;###<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: BEGIN OF GS_ITEM_ALV,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_CHECK&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MBLNR&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZMSEG_18-MBLNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEILE&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZMSEG_18-ZEILE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZMSEG_18-EBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELP&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKPO_18-EBELP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZMSEG_18-LIFNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZMSEG_18-MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAKTX&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZMARA_18-MAKTX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MENGE&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZMSEG_18-MENGE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZMSEG_18-MEINS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZMSEG_18-WERKS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LGORT&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZMSEG_18-LGORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_ITEM_ALV.<br />
+DATA: GT_ITEM_ALV LIKE TABLE OF GS_ITEM_ALV.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;Custom&nbsp;Control<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CONSTANTS: GC_CONT1 TYPE SCRFNAME VALUE 'CONT1',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_CONT2&nbsp;TYPE&nbsp;SCRFNAME&nbsp;VALUE&nbsp;'CONT2',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_CONT3&nbsp;TYPE&nbsp;SCRFNAME&nbsp;VALUE&nbsp;'CONT3'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;ALV&nbsp;Objects<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: GO_CONT_100 TYPE REF TO CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_GRID_100&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+<br />
+DATA: GO_CONT_200_L TYPE REF TO CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_GRID_200_L&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_CONT_200_I&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_GRID_200_I&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;Field&nbsp;Catalog&nbsp;/&nbsp;Layout<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: GT_FIELDCAT_100 TYPE LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_LAYOUT_100&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_LAYO.<br />
+<br />
+DATA: GT_FIELDCAT_200_L TYPE LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_LAYOUT_200_L&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_LAYO.<br />
+<br />
+DATA: GT_FIELDCAT_200_I TYPE LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_LAYOUT_200_I&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_LAYO.<br />
+<br />
+DATA: GT_TOOLBAR TYPE UI_FUNCTIONS.<br />
+<br />
+DATA: GO_EVENT_100   TYPE REF TO EVENT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_EVENT_200_L&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;EVENT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_EVENT_200_I&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;EVENT.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

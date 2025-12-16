@@ -1,0 +1,1129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR17_PRACTICE009_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR17_PRACTICE009_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDR17_PRACTICE009_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_INIT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form set_init .<br />
+&nbsp;&nbsp;"##&nbsp;#&nbsp;1#&nbsp;##<br />
+&nbsp;&nbsp;gv_mon_first&nbsp;=&nbsp;sy-datum.<br />
+&nbsp;&nbsp;gv_mon_first+6(2)&nbsp;=&nbsp;'01'.<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;call&nbsp;function&nbsp;'RP_LAST_DAY_OF_MONTHS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;day_in&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gv_mon_first<br />
+&nbsp;&nbsp;&nbsp;&nbsp;importing<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last_day_of_month&nbsp;=&nbsp;gv_mon_last<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;exceptions<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;day_in_no_date&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+&nbsp;&nbsp;if&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;message&nbsp;id&nbsp;sy-msgid&nbsp;type&nbsp;sy-msgty&nbsp;number&nbsp;sy-msgno<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;sy-msgv1&nbsp;sy-msgv2&nbsp;sy-msgv3&nbsp;sy-msgv4.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;p_date&nbsp;=&nbsp;gv_mon_last.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_INPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form set_input .<br />
+&nbsp;&nbsp;if&nbsp;p_date&nbsp;is&nbsp;initial.&nbsp;"&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;i005.&nbsp;"&nbsp;'#####&nbsp;######.'&nbsp;###&nbsp;##&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;stop.<br />
+&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;if&nbsp;s_zpernr[]&nbsp;is&nbsp;initial&nbsp;and&nbsp;p_zdepcd&nbsp;is&nbsp;initial.&nbsp;"&nbsp;####&nbsp;or&nbsp;####&nbsp;#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;i006.&nbsp;"&nbsp;'####&nbsp;##&nbsp;####&nbsp;#&nbsp;##&nbsp;1##&nbsp;####&nbsp;###.'&nbsp;###&nbsp;##&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;stop.<br />
+&nbsp;&nbsp;endif.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_ZQFLAG<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form set_zqflag .<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;##&nbsp;-&gt;&nbsp;r_zqflag&nbsp;##<br />
+&nbsp;&nbsp;clear&nbsp;r_zqflag.<br />
+&nbsp;&nbsp;clear&nbsp;r_zqflag[].&nbsp;"&nbsp;&nbsp;###&nbsp;##&nbsp;##&nbsp;##<br />
+<br />
+&nbsp;&nbsp;r_zqflag-sign&nbsp;=&nbsp;'I'.&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;r_zqflag-option&nbsp;=&nbsp;'EQ'.&nbsp;"&nbsp;=<br />
+&nbsp;&nbsp;r_zqflag-low&nbsp;=&nbsp;'&nbsp;'.&nbsp;"&nbsp;##:&nbsp;###<br />
+&nbsp;&nbsp;append&nbsp;r_zqflag.<br />
+<br />
+&nbsp;&nbsp;if&nbsp;p_zqflag&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;r_zqflag-low&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;append&nbsp;r_zqflag.<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form get_data .<br />
+&nbsp;&nbsp;perform&nbsp;get_emp_data.&nbsp;"&nbsp;1#&nbsp;-&nbsp;##/##<br />
+&nbsp;&nbsp;if&nbsp;gt_emp[]&nbsp;is&nbsp;initial.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;i001.&nbsp;"&nbsp;'##&nbsp;#&nbsp;####&nbsp;####.'&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exit.<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;perform&nbsp;get_eval_data&nbsp;using&nbsp;p_date.&nbsp;"2#&nbsp;-&nbsp;##<br />
+&nbsp;&nbsp;perform&nbsp;get_salary_data&nbsp;using&nbsp;p_date.&nbsp;"3#&nbsp;-&nbsp;##<br />
+<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_EMP_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form get_emp_data .<br />
+&nbsp;&nbsp;clear&nbsp;gt_emp.<br />
+&nbsp;&nbsp;"&nbsp;datbi(##)&nbsp;&lt;=&nbsp;p_date&nbsp;AND&nbsp;datab(##)&nbsp;&gt;=&nbsp;p_date<br />
+&nbsp;&nbsp;"&nbsp;####:&nbsp;a~zqflag&nbsp;IN&nbsp;r_zqflag<br />
+&nbsp;&nbsp;if&nbsp;s_zpernr[]&nbsp;is&nbsp;not&nbsp;initial&nbsp;and&nbsp;p_zdepcd&nbsp;is&nbsp;initial.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;select&nbsp;a~zpernr&nbsp;a~zdepcode&nbsp;a~datbi&nbsp;a~datab&nbsp;a~zdeprank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~zedate&nbsp;&nbsp;a~zqdate&nbsp;&nbsp;a~zqflag<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~zpname&nbsp;&nbsp;b~zgender&nbsp;b~zaddress<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;into&nbsp;corresponding&nbsp;fields&nbsp;of&nbsp;table&nbsp;gt_emp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;zedt17_102&nbsp;as&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inner&nbsp;join&nbsp;zedt17_103&nbsp;as&nbsp;b&nbsp;on&nbsp;b~zpernr&nbsp;=&nbsp;a~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;a~datbi&nbsp;&lt;=&nbsp;p_date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;a~datab&nbsp;&gt;=&nbsp;p_date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;a~zpernr&nbsp;in&nbsp;s_zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;a~zqflag&nbsp;in&nbsp;r_zqflag.<br />
+<br />
+&nbsp;&nbsp;elseif&nbsp;s_zpernr[]&nbsp;is&nbsp;initial&nbsp;and&nbsp;p_zdepcd&nbsp;is&nbsp;not&nbsp;initial.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;select&nbsp;a~zpernr&nbsp;a~zdepcode&nbsp;a~datbi&nbsp;a~datab&nbsp;a~zdeprank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~zedate&nbsp;&nbsp;a~zqdate&nbsp;&nbsp;a~zqflag<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~zpname&nbsp;&nbsp;b~zgender&nbsp;b~zaddress<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;into&nbsp;corresponding&nbsp;fields&nbsp;of&nbsp;table&nbsp;gt_emp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;zedt17_102&nbsp;as&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inner&nbsp;join&nbsp;zedt17_103&nbsp;as&nbsp;b&nbsp;on&nbsp;b~zpernr&nbsp;=&nbsp;a~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;a~datbi&nbsp;&lt;=&nbsp;p_date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;a~datab&nbsp;&gt;=&nbsp;p_date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;a~zdepcode&nbsp;=&nbsp;p_zdepcd<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;a~zqflag&nbsp;in&nbsp;r_zqflag.<br />
+<br />
+&nbsp;&nbsp;else.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;#&nbsp;##(###)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;select&nbsp;a~zpernr&nbsp;a~zdepcode&nbsp;a~datbi&nbsp;a~datab&nbsp;a~zdeprank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~zedate&nbsp;&nbsp;a~zqdate&nbsp;&nbsp;a~zqflag<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~zpname&nbsp;&nbsp;b~zgender&nbsp;b~zaddress<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;into&nbsp;corresponding&nbsp;fields&nbsp;of&nbsp;table&nbsp;gt_emp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;zedt17_102&nbsp;as&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inner&nbsp;join&nbsp;zedt17_103&nbsp;as&nbsp;b&nbsp;on&nbsp;b~zpernr&nbsp;=&nbsp;a~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;a~datbi&nbsp;&lt;=&nbsp;p_date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;a~datab&nbsp;&gt;=&nbsp;p_date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;a~zpernr&nbsp;in&nbsp;s_zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;a~zdepcode&nbsp;=&nbsp;p_zdepcd<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;a~zqflag&nbsp;in&nbsp;r_zqflag.<br />
+&nbsp;&nbsp;endif.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_EVAL_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_P_DATE&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form get_eval_data  using p_ref_date type d.<br />
+&nbsp;&nbsp;clear&nbsp;gt_eval.<br />
+&nbsp;&nbsp;if&nbsp;gt_emp&nbsp;is&nbsp;initial.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exit.&nbsp;"&nbsp;1#&nbsp;##&nbsp;###&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;select&nbsp;zpernr&nbsp;zdepcode&nbsp;zyear&nbsp;datbi&nbsp;datab&nbsp;zrank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;into&nbsp;corresponding&nbsp;fields&nbsp;of&nbsp;table&nbsp;gt_eval<br />
+&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;zedt17_104<br />
+&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;all&nbsp;entries&nbsp;in&nbsp;gt_emp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;zpernr&nbsp;=&nbsp;gt_emp-zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;datbi&nbsp;&nbsp;&lt;=&nbsp;p_ref_date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;datab&nbsp;&nbsp;&gt;=&nbsp;p_ref_date.<br />
+<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_SALARY_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_P_DATE&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form get_salary_data  using p_ref_date type d.<br />
+&nbsp;&nbsp;clear&nbsp;gt_salary.<br />
+&nbsp;&nbsp;if&nbsp;gt_emp&nbsp;is&nbsp;initial.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exit.<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;select&nbsp;zpernr&nbsp;zyear&nbsp;datbi&nbsp;datab&nbsp;zsalary&nbsp;zbankcode&nbsp;zaccount<br />
+&nbsp;&nbsp;&nbsp;&nbsp;into&nbsp;corresponding&nbsp;fields&nbsp;of&nbsp;table&nbsp;gt_salary<br />
+&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;zedt17_106<br />
+&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;all&nbsp;entries&nbsp;in&nbsp;gt_emp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;zpernr&nbsp;=&nbsp;gt_emp-zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;datbi&nbsp;&nbsp;&lt;=&nbsp;p_ref_date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;datab&nbsp;&nbsp;&gt;=&nbsp;p_ref_date.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;MODIFY_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form modify_data .<br />
+&nbsp;&nbsp;"&nbsp;1#&nbsp;###&nbsp;(####)<br />
+&nbsp;&nbsp;clear:&nbsp;gs_emp,&nbsp;gs_001,&nbsp;gt_001[].<br />
+<br />
+&nbsp;&nbsp;loop&nbsp;at&nbsp;gt_emp&nbsp;into&nbsp;gs_emp.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;move-corresponding&nbsp;gs_emp&nbsp;to&nbsp;gs_001.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;perform&nbsp;map_emp_texts&nbsp;using&nbsp;gs_emp-zdepcode&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_emp-zdeprank&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_emp-zgender&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_emp-zqflag&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changing&nbsp;gs_001-zdep_txt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_001-zrank_txt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_001-zgen_txt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_001-zcolor.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;append&nbsp;gs_001&nbsp;to&nbsp;gt_001.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear:&nbsp;gs_emp,&nbsp;gs_001.<br />
+&nbsp;&nbsp;endloop.<br />
+<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2#&nbsp;###&nbsp;(##)<br />
+&nbsp;&nbsp;clear:&nbsp;gs_eval,&nbsp;gs_002,&nbsp;gt_002[].<br />
+<br />
+&nbsp;&nbsp;loop&nbsp;at&nbsp;gt_eval&nbsp;into&nbsp;gs_eval.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;move-corresponding&nbsp;gs_eval&nbsp;to&nbsp;gs_002.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;perform&nbsp;map_eval_texts&nbsp;using&nbsp;gs_eval-zdepcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changing&nbsp;gs_002-zdep_txt.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;append&nbsp;gs_002&nbsp;to&nbsp;gt_002.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear:&nbsp;gs_eval,&nbsp;gs_002.<br />
+&nbsp;&nbsp;endloop.<br />
+<br />
+<br />
+&nbsp;&nbsp;"&nbsp;3#&nbsp;###&nbsp;(##)<br />
+&nbsp;&nbsp;clear:&nbsp;gs_salary,&nbsp;gs_003,&nbsp;gt_003[].<br />
+<br />
+&nbsp;&nbsp;loop&nbsp;at&nbsp;gt_salary&nbsp;into&nbsp;gs_salary.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;move-corresponding&nbsp;gs_salary&nbsp;to&nbsp;gs_003.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;perform&nbsp;map_salary_texts&nbsp;using&nbsp;gs_salary-zbankcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changing&nbsp;gs_003-zbank_txt.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;append&nbsp;gs_003&nbsp;to&nbsp;gt_003.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear:&nbsp;gs_salary,&nbsp;gs_003.<br />
+&nbsp;&nbsp;endloop.<br />
+<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;MAP_EMP_TEXTS<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form map_emp_texts  using    p_depcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_rank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_gender<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_qflag<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changing&nbsp;p_dep_txt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_rank_txt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_gender_txt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_color.<br />
+<br />
+&nbsp;&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;case&nbsp;p_depcode.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'SS0001'.&nbsp;p_dep_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'SS0002'.&nbsp;p_dep_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'SS0003'.&nbsp;p_dep_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'SS0004'.&nbsp;p_dep_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'SS0005'.&nbsp;p_dep_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'SS0006'.&nbsp;p_dep_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;endcase.<br />
+<br />
+&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;case&nbsp;p_rank.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'A'.&nbsp;p_rank_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'B'.&nbsp;p_rank_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'C'.&nbsp;p_rank_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'D'.&nbsp;p_rank_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'E'.&nbsp;p_rank_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'F'.&nbsp;p_rank_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'G'.&nbsp;p_rank_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;endcase.<br />
+<br />
+&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;if&nbsp;p_gender&nbsp;=&nbsp;'M'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;p_gender_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;elseif&nbsp;p_gender&nbsp;=&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;p_gender_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;else.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;p_gender_txt.&nbsp;"&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###:&nbsp;###=##,&nbsp;##=##,&nbsp;###=##<br />
+&nbsp;&nbsp;if&nbsp;p_qflag&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;p_color&nbsp;=&nbsp;c_col_red.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;'@0A@'<br />
+&nbsp;&nbsp;elseif&nbsp;p_rank&nbsp;=&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;p_color&nbsp;=&nbsp;c_col_yellow.&nbsp;"&nbsp;'@09@'<br />
+&nbsp;&nbsp;else.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;p_color&nbsp;=&nbsp;c_col_green.&nbsp;&nbsp;&nbsp;"&nbsp;'@08@'<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;MAP_EVAL_TEXTS<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form map_eval_texts  using    p_depcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changing&nbsp;p_dep_txt.<br />
+&nbsp;&nbsp;case&nbsp;p_depcode.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'SS0001'.&nbsp;p_dep_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'SS0002'.&nbsp;p_dep_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'SS0003'.&nbsp;p_dep_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'SS0004'.&nbsp;p_dep_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'SS0005'.&nbsp;p_dep_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'SS0006'.&nbsp;p_dep_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;endcase.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;MAP_SALARY_TEXTS<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form map_salary_texts  using    p_bank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changing&nbsp;p_bank_txt.<br />
+&nbsp;&nbsp;case&nbsp;p_bank.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'001'.&nbsp;p_bank_txt&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'002'.&nbsp;p_bank_txt&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'003'.&nbsp;p_bank_txt&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'004'.&nbsp;p_bank_txt&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'005'.&nbsp;p_bank_txt&nbsp;=&nbsp;'#####'.<br />
+&nbsp;&nbsp;endcase.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CREATE_OBJECT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form create_object .<br />
+&nbsp;&nbsp;create&nbsp;object&nbsp;gc_docking<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;repid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-repid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dynnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-dynnr<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;side&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;DOCK_AT_LEFT<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extension&nbsp;=&nbsp;2000.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;style&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;lifetime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lifetime_default<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;caption&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;metric&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ratio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;no_autodef_progid_dynnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;exceptions<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;cntl_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;cntl_system_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;create_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;lifetime_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;lifetime_dynpro_dynpro_link&nbsp;=&nbsp;5<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;6<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;.<br />
+<br />
+&nbsp;&nbsp;create&nbsp;object&nbsp;gc_splitter_main&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;link_dynnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;link_repid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shellstyle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;metric&nbsp;&nbsp;=&nbsp;cntl_metric_dynpro<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;align&nbsp;&nbsp;&nbsp;=&nbsp;15<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent&nbsp;&nbsp;=&nbsp;gc_docking<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rows&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;columns&nbsp;=&nbsp;1.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;no_autodef_progid_dynnr&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;exceptions<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;cntl_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;cntl_system_error&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;.<br />
+&nbsp;&nbsp;call&nbsp;method&nbsp;gc_splitter_main-&gt;get_container&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;receiving<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;container&nbsp;=&nbsp;gc_cont_docking.<br />
+&nbsp;&nbsp;call&nbsp;method&nbsp;gc_splitter_main-&gt;get_container&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;receiving<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;container&nbsp;=&nbsp;gc_cont_bottom.<br />
+&nbsp;&nbsp;create&nbsp;object&nbsp;gc_splitter2&nbsp;"&nbsp;##&nbsp;##&nbsp;#,&nbsp;#####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;link_dynnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;link_repid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shellstyle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;metric&nbsp;&nbsp;=&nbsp;cntl_metric_dynpro<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;align&nbsp;&nbsp;&nbsp;=&nbsp;15<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent&nbsp;&nbsp;=&nbsp;gc_cont_docking&nbsp;"&nbsp;###&nbsp;###&nbsp;###&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rows&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;columns&nbsp;=&nbsp;2<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no_autodef_progid_dynnr&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;exceptions<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cntl_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cntl_system_error&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;=&nbsp;3<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+&nbsp;&nbsp;call&nbsp;method&nbsp;gc_splitter2-&gt;get_container&nbsp;"&nbsp;####&nbsp;##&nbsp;(for&nbsp;2#&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;receiving<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;container&nbsp;=&nbsp;gc_cont_top_left.<br />
+&nbsp;&nbsp;call&nbsp;method&nbsp;gc_splitter2-&gt;get_container&nbsp;"&nbsp;####&nbsp;##&nbsp;(for&nbsp;3#&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;receiving<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;container&nbsp;=&nbsp;gc_cont_top_right.<br />
+&nbsp;&nbsp;create&nbsp;object&nbsp;gc_grid1&nbsp;"&nbsp;1#&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_shellstyle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_lifetime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_parent&nbsp;=&nbsp;gc_cont_bottom<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_appl_events&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;space<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_parentdbg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_applogparent&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_graphicsparent&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_name&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_fcat_complete&nbsp;&nbsp;&nbsp;=&nbsp;SPACE<br />
+*&nbsp;&nbsp;exceptions<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error_cntl_create&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error_cntl_init&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error_cntl_link&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error_dp_create&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;=&nbsp;5<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+&nbsp;&nbsp;if&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;MESSAGE&nbsp;ID&nbsp;SY-MSGID&nbsp;TYPE&nbsp;SY-MSGTY&nbsp;NUMBER&nbsp;SY-MSGNO<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;SY-MSGV1&nbsp;SY-MSGV2&nbsp;SY-MSGV3&nbsp;SY-MSGV4.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;create&nbsp;object&nbsp;gc_grid2&nbsp;"&nbsp;2#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_shellstyle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_lifetime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_parent&nbsp;=&nbsp;gc_cont_top_left<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_appl_events&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;space<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_parentdbg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_applogparent&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_graphicsparent&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_name&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_fcat_complete&nbsp;&nbsp;&nbsp;=&nbsp;SPACE<br />
+*&nbsp;&nbsp;exceptions<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error_cntl_create&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error_cntl_init&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error_cntl_link&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error_dp_create&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;=&nbsp;5<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+&nbsp;&nbsp;if&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;MESSAGE&nbsp;ID&nbsp;SY-MSGID&nbsp;TYPE&nbsp;SY-MSGTY&nbsp;NUMBER&nbsp;SY-MSGNO<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;SY-MSGV1&nbsp;SY-MSGV2&nbsp;SY-MSGV3&nbsp;SY-MSGV4.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;create&nbsp;object&nbsp;gc_grid3&nbsp;"&nbsp;3#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_shellstyle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_lifetime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_parent&nbsp;=&nbsp;gc_cont_top_right<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_appl_events&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;space<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_parentdbg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_applogparent&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_graphicsparent&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_name&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_fcat_complete&nbsp;&nbsp;&nbsp;=&nbsp;SPACE<br />
+*&nbsp;&nbsp;exceptions<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error_cntl_create&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error_cntl_init&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error_cntl_link&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error_dp_create&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;=&nbsp;5<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+&nbsp;&nbsp;if&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;MESSAGE&nbsp;ID&nbsp;SY-MSGID&nbsp;TYPE&nbsp;SY-MSGTY&nbsp;NUMBER&nbsp;SY-MSGNO<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;SY-MSGV1&nbsp;SY-MSGV2&nbsp;SY-MSGV3&nbsp;SY-MSGV4.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;endif.<br />
+<br />
+<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;FIELD_CATALOG<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form field_catalog .<br />
+&nbsp;&nbsp;perform&nbsp;fieldcat_cont_bottom.<br />
+&nbsp;&nbsp;perform&nbsp;fieldcat_cont_top_left.<br />
+&nbsp;&nbsp;perform&nbsp;fieldcat_cont_top_right.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;FIELDCAT_CONT_BOTTOM<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form fieldcat_cont_bottom . " 1#(####)<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat,&nbsp;gt_fieldcat1.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZCOLOR'.<br />
+&nbsp;&nbsp;gs_fieldcat-coltext&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fieldcat-icon&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat1.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;gs_fieldcat-key&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat1.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZPNAME'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat1.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZDEP_TXT'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat1.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'DATBI'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;'10'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat1.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'DATAB'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;'10'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat1.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZRANK_TXT'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat1.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZGEN_TXT'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat1.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;9.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZEDATE'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;'10'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat1.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZADDRESS'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat1.<br />
+<br />
+&nbsp;&nbsp;if&nbsp;p_zqflag&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;11.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZQDATE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;'10'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;12.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZQFLAG'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;'8'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat1.<br />
+&nbsp;&nbsp;endif.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;FIELDCAT_CONT_TOP_RIGHT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form fieldcat_cont_top_right . " 2# (##)<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat&nbsp;,&nbsp;gt_fieldcat2.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;gs_fieldcat-key&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat2.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZDEP_TXT'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat2.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZYEAR'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat2.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'DATBI'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;'10'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat2.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'DATAB'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;'10'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat2.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZRANK'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat2.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;FIELDCAT_CONT_TOP_LEFT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form fieldcat_cont_top_left . " 3# (##)<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat&nbsp;,&nbsp;gt_fieldcat3.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;gs_fieldcat-key&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat3.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZYEAR'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat3.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'DATBI'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;'10'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat3.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'DATAB'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;'10'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat3.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZSALARY'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fieldcat-do_sum&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;gs_fieldcat-cfieldname&nbsp;=&nbsp;'ZWAERS'.<br />
+&nbsp;&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;'16'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat3.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZWAERS'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fieldcat-no_out&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat3.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZBANK_TXT'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat3.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZACCOUNT'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat3.<br />
+endform.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_SORT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form alv_sort .<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_sort,&nbsp;gt_sort1.<br />
+&nbsp;&nbsp;gs_sort-spos&nbsp;=&nbsp;1.&nbsp;"&nbsp;##&nbsp;####<br />
+&nbsp;&nbsp;gs_sort-fieldname&nbsp;=&nbsp;'ZPERNR'.&nbsp;"&nbsp;###&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;gs_sort-up&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;####&nbsp;####&nbsp;##<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;gs_sort-down&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;####&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;gs_sort-subtot&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;####<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;append&nbsp;gs_sort&nbsp;to&nbsp;gt_sort1.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;LAYOUT_SET<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form layout_set .<br />
+&nbsp;&nbsp;clear&nbsp;gs_layout.<br />
+&nbsp;&nbsp;gs_layout-zebra&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;##&nbsp;###&nbsp;##&nbsp;###&nbsp;-&gt;&nbsp;###&nbsp;##&nbsp;##.&nbsp;#&nbsp;#&nbsp;####&nbsp;##&nbsp;#&nbsp;#<br />
+&nbsp;&nbsp;gs_layout-totals_bef&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;##&nbsp;#&nbsp;####&nbsp;##&nbsp;#####&nbsp;##<br />
+<br />
+&nbsp;&nbsp;"&nbsp;variant#&nbsp;####&nbsp;##&nbsp;####&nbsp;##&nbsp;####&nbsp;#####&nbsp;####&nbsp;###&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;"&nbsp;(##&nbsp;##&nbsp;##,&nbsp;###,&nbsp;##&nbsp;#)<br />
+&nbsp;&nbsp;clear&nbsp;gs_variant.<br />
+&nbsp;&nbsp;gs_variant-report&nbsp;=&nbsp;sy-repid.<br />
+&nbsp;&nbsp;gs_variant-username&nbsp;=&nbsp;sy-uname.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CALL_ALV<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form call_alv .<br />
+&nbsp;&nbsp;&nbsp;&nbsp;call&nbsp;method&nbsp;gc_grid1-&gt;set_table_for_first_display&nbsp;"&nbsp;####&nbsp;&nbsp;##<br />
+&nbsp;&nbsp;"&nbsp;1#&nbsp;###&nbsp;(##)&nbsp;-&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_buffer_active&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_bypassing_buffer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_consistency_check&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_structure_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_variant&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_variant<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_save&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'A'<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_default&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_layout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_layout<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_print&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_special_groups&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_toolbar_excluding&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_hyperlink&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_alv_graphics&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_except_qinfo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ir_salv_adapter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;changing<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_outtab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_001&nbsp;"&nbsp;####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_fieldcatalog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_fieldcat1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_sort&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_sort1<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_filter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;exceptions<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;invalid_parameter_combination&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;program_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;too_many_lines&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+&nbsp;&nbsp;if&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;Implement&nbsp;suitable&nbsp;error&nbsp;handling&nbsp;here<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;"&nbsp;2#&nbsp;###&nbsp;(##)&nbsp;-&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;call&nbsp;method&nbsp;gc_grid2-&gt;set_table_for_first_display&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_buffer_active&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_bypassing_buffer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_consistency_check&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_structure_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_variant&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_variant<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_save&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'A'<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_default&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_layout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_layout<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_print&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_special_groups&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_toolbar_excluding&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_hyperlink&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_alv_graphics&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_except_qinfo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ir_salv_adapter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;changing<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_outtab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_002&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_fieldcatalog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_fieldcat2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_sort&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_sort1<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_filter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;exceptions<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;invalid_parameter_combination&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;program_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;too_many_lines&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+&nbsp;&nbsp;if&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;Implement&nbsp;suitable&nbsp;error&nbsp;handling&nbsp;here<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;call&nbsp;method&nbsp;gc_grid3-&gt;set_table_for_first_display&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;"&nbsp;3#&nbsp;###&nbsp;(##)&nbsp;-&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_buffer_active&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_bypassing_buffer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_consistency_check&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_structure_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_variant&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_variant<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_save&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'A'<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_default&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_layout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_layout<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_print&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_special_groups&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_toolbar_excluding&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_hyperlink&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_alv_graphics&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_except_qinfo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ir_salv_adapter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;changing<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_outtab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_003&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_fieldcatalog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_fieldcat3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_sort&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_sort1<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_filter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;exceptions<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;invalid_parameter_combination&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;program_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;too_many_lines&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+&nbsp;&nbsp;if&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;Implement&nbsp;suitable&nbsp;error&nbsp;handling&nbsp;here<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;endif.<br />
+endform.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

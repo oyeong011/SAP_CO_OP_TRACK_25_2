@@ -1,0 +1,478 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM06_002_F02</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM06_002_F02</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM06_002_F02<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;PO_CREATE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM PO_CREATE .<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;##.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;200.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SAVE_PO<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SAVE_PO .<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_EKKO_DB&nbsp;TYPE&nbsp;ZEDT06_EKKO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO_DB&nbsp;TYPE&nbsp;ZEDT06_EKPO.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_EBELN&nbsp;TYPE&nbsp;ZEDT06_EKKO-EBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_EBELN_MAX&nbsp;TYPE&nbsp;ZEDT06_EKKO-EBELN.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_LFM1_DB&nbsp;TYPE&nbsp;ZEDT06_LFM1.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_SEL_CNT&nbsp;TYPE&nbsp;I.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_PO_ALV&nbsp;INTO&nbsp;GS_PO_ALV&nbsp;WHERE&nbsp;SEL&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_SEL_CNT&nbsp;=&nbsp;LV_SEL_CNT&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LV_SEL_CNT&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;###&nbsp;####.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;SCREEN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1.&nbsp;##&nbsp;##&nbsp;##.<br />
+&nbsp;&nbsp;SELECT&nbsp;MAX(&nbsp;EBELN&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;LV_EBELN_MAX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT06_EKKO.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LV_EBELN_MAX&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EBELN&nbsp;=&nbsp;1000000000.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EBELN&nbsp;=&nbsp;LV_EBELN_MAX&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2.&nbsp;##&nbsp;##&nbsp;###&nbsp;##.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_PO_ALV&nbsp;INTO&nbsp;GS_PO_ALV.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_PO_ALV-SEL&nbsp;&lt;&gt;&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;2-1.&nbsp;##&nbsp;###&nbsp;##&nbsp;###&nbsp;##.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;VALIDATION_PO_GS&nbsp;USING&nbsp;GS_PO_ALV.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;2-2.&nbsp;##&nbsp;##&nbsp;##&nbsp;###&nbsp;INSERT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO_DB-EBELN&nbsp;=&nbsp;LV_EBELN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO_DB-EBELP&nbsp;=&nbsp;GS_PO_ALV-EBELP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO_DB-MATNR&nbsp;=&nbsp;GS_PO_ALV-MATNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO_DB-MAKTX&nbsp;=&nbsp;GS_PO_ALV-MAKTX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO_DB-MENGE&nbsp;=&nbsp;GS_PO_ALV-MENGE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO_DB-MEINS&nbsp;=&nbsp;GS_PO_ALV-MEINS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO_DB-BPRME&nbsp;=&nbsp;GS_PO_ALV-BPRME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO_DB-PRDAT&nbsp;=&nbsp;GS_PO_ALV-PRDAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO_DB-WERKS&nbsp;=&nbsp;GS_PO_ALV-WERKS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO_DB-LGORT&nbsp;=&nbsp;GS_PO_ALV-LGORT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;ZEDT06_EKPO&nbsp;FROM&nbsp;LV_EKPO_DB.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;3.&nbsp;##&nbsp;##&nbsp;##.<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*&nbsp;FROM&nbsp;ZEDT06_LFM1<br />
+&nbsp;&nbsp;INTO&nbsp;LV_LFM1_DB<br />
+&nbsp;&nbsp;WHERE&nbsp;LIFNR&nbsp;=&nbsp;P_LIFNR1.<br />
+<br />
+&nbsp;&nbsp;LV_EKKO_DB-EBELN&nbsp;=&nbsp;LV_EBELN.<br />
+&nbsp;&nbsp;LV_EKKO_DB-BUKRS&nbsp;=&nbsp;P_BUKRS.<br />
+&nbsp;&nbsp;LV_EKKO_DB-EKGRP&nbsp;=&nbsp;LV_LFM1_DB-EKGRP.<br />
+&nbsp;&nbsp;LV_EKKO_DB-EKORG&nbsp;=&nbsp;LV_LFM1_DB-EKORG.<br />
+&nbsp;&nbsp;LV_EKKO_DB-LIFNR&nbsp;=&nbsp;P_LIFNR1.<br />
+&nbsp;&nbsp;LV_EKKO_DB-BEDAT&nbsp;=&nbsp;P_BEDAT.<br />
+&nbsp;&nbsp;LV_EKKO_DB-WAERS&nbsp;=&nbsp;'KRW'.<br />
+<br />
+&nbsp;&nbsp;INSERT&nbsp;ZEDT06_EKKO&nbsp;FROM&nbsp;LV_EKKO_DB.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;4.&nbsp;###&nbsp;####&nbsp;ALV##&nbsp;##.<br />
+&nbsp;&nbsp;DELETE&nbsp;GT_PO_ALV&nbsp;WHERE&nbsp;SEL&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;#####&nbsp;#######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;COMMIT&nbsp;WORK.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ADD_PO<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ADD_PO .<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_MAX_POS&nbsp;TYPE&nbsp;ZEDT06_EKPO-EBELP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1.&nbsp;##&nbsp;#####&nbsp;##&nbsp;EBELP&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;GT_PO_ALV&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_PO_ALV&nbsp;INTO&nbsp;GS_PO_ALV.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_PO_ALV-EBELP&nbsp;&gt;&nbsp;LV_MAX_POS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MAX_POS&nbsp;=&nbsp;GS_PO_ALV-EBELP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2.&nbsp;####&nbsp;##&nbsp;##&nbsp;(10,20,30...)<br />
+&nbsp;&nbsp;LV_MAX_POS&nbsp;=&nbsp;LV_MAX_POS&nbsp;+&nbsp;10.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;3.&nbsp;##&nbsp;##&nbsp;##&nbsp;(###&nbsp;##&nbsp;##)<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_PO_ALV.<br />
+&nbsp;&nbsp;GS_PO_ALV-EBELP&nbsp;=&nbsp;LV_MAX_POS.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;4.&nbsp;######&nbsp;##<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_PO_ALV&nbsp;TO&nbsp;GT_PO_ALV.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;5.&nbsp;ALV&nbsp;###<br />
+&nbsp;&nbsp;PERFORM&nbsp;REFRESH.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;DEL_PO<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DEL_PO .<br />
+<br />
+&nbsp;&nbsp;DELETE&nbsp;GT_PO_ALV&nbsp;WHERE&nbsp;SEL&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;REFRESH.<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;VALIDATION_PO_GS<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_GS_PO_ALV&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM VALIDATION_PO_GS  USING   PS_PO_ALV TYPE TY_PO_ALV.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;LS_MAT&nbsp;TYPE&nbsp;ZEDT06_MAT.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;PS_PO_ALV-MATNR&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'#####&nbsp;#####'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;PS_PO_ALV-MENGE&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'PO###&nbsp;#####'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;PS_PO_ALV-BPRME&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;#####'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;PS_PO_ALV-MEINS&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;#####'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;PS_PO_ALV-MWSKZ&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'#####&nbsp;#####'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;PS_PO_ALV-PRDAT&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;#####'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;PS_PO_ALV-PRDAT&nbsp;&lt;&nbsp;P_BEDAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;#####&nbsp;###&nbsp;#######..'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;LV_VALUE&nbsp;TYPE&nbsp;LVC_VALUE.<br />
+<br />
+&nbsp;&nbsp;LV_VALUE&nbsp;=&nbsp;PS_PO_ALV-WERKS.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CHECK_DOMAIN_VALUE&nbsp;USING&nbsp;'ZWERKS06'&nbsp;LV_VALUE.<br />
+<br />
+&nbsp;&nbsp;LV_VALUE&nbsp;=&nbsp;PS_PO_ALV-LGORT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CHECK_DOMAIN_VALUE&nbsp;USING&nbsp;'ZLGORT06'&nbsp;LV_VALUE.<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_HANDLE_DATA_CHANGED<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_ER_DATA_CHANGED&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_E_ONF4&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_E_ONF4_BEFORE&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_E_ONF4_AFTER&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_E_UCOMM&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_HANDLE_DATA_CHANGED  USING    PR_DATA_CHANGED TYPE REF TO CL_ALV_CHANGED_DATA_PROTOCOL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ONF4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ONF4_BEFORE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ONF4_AFTER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_UCOMM.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_UCOMM&nbsp;=&nbsp;'DEL'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LS_MODI&nbsp;TYPE&nbsp;LVC_S_MODI.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_LEN(02).<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;LS_MODI,&nbsp;LV_LEN.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;PR_DATA_CHANGED-&gt;MT_MOD_CELLS&nbsp;INTO&nbsp;LS_MODI.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_PO_ALV&nbsp;INTO&nbsp;GS_PO_ALV&nbsp;INDEX&nbsp;LS_MODI-ROW_ID.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;COMPONENT&nbsp;ls_modi-fieldname&nbsp;OF&nbsp;STRUCTURE&nbsp;GS_PO_ALV&nbsp;TO&nbsp;FIELD-SYMBOL(&lt;fs&gt;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;&lt;fs&gt;&nbsp;IS&nbsp;ASSIGNED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;fs&gt;&nbsp;=&nbsp;ls_modi-value.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;LS_MODI-FIELDNAME.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'MATNR'.&nbsp;&nbsp;"&nbsp;#####&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_MATNR&nbsp;USING&nbsp;PR_DATA_CHANGED&nbsp;LS_MODI-ROW_ID&nbsp;LS_MODI-VALUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'MWSKZ'.&nbsp;&nbsp;"&nbsp;#####&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_MWSKZ&nbsp;USING&nbsp;LS_MODI-ROW_ID&nbsp;LS_MODI-VALUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'WERKS'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_DOMAIN_VALUE&nbsp;USING&nbsp;'ZWERKS06'&nbsp;LS_MODI-VALUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'LGORT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_DOMAIN_VALUE&nbsp;USING&nbsp;'ZLGORT06'&nbsp;LS_MODI-VALUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;####&nbsp;##&nbsp;AVL#&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_PO_ALV&nbsp;FROM&nbsp;GS_PO_ALV&nbsp;INDEX&nbsp;LS_MODI-ROW_ID.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CHECK_MATNR<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CHECK_DOMAIN_VALUE<br />
+&nbsp;&nbsp;USING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;P_DOMNAME&nbsp;TYPE&nbsp;DD07L-DOMNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;P_VALUE&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_VALUE.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;LV_DUMMY&nbsp;TYPE&nbsp;DD07L-DOMVALUE_L.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;DOMVALUE_L<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;LV_DUMMY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;DD07L<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;DOMNAME&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_DOMNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;DOMVALUE_L&nbsp;=&nbsp;P_VALUE.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;|###&nbsp;{&nbsp;P_DOMNAME&nbsp;}#&nbsp;####&nbsp;##&nbsp;####.|&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CHECK_MATNR<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_LS_MODI_ROW_ID&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_LS_MODI_VALUE&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CHECK_MATNR USING PR_DATA_CHANGED TYPE REF TO CL_ALV_CHANGED_DATA_PROTOCOL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ROW_ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_MATNR.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LS_MAT&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT06_MAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_MOD&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_MODI,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MATNR&nbsp;TYPE&nbsp;ZEDT06_MAT-ZMATNR.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;0)&nbsp;#####&nbsp;####&nbsp;STOP<br />
+&nbsp;&nbsp;IF&nbsp;P_MATNR&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'#####&nbsp;####&nbsp;#####.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1)&nbsp;##&nbsp;##&nbsp;+&nbsp;0&nbsp;##(ALPHA&nbsp;INPUT)<br />
+&nbsp;&nbsp;LV_MATNR&nbsp;=&nbsp;P_MATNR.<br />
+&nbsp;&nbsp;CONDENSE&nbsp;LV_MATNR&nbsp;NO-GAPS.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'CONVERSION_EXIT_ALPHA_INPUT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INPUT&nbsp;&nbsp;=&nbsp;LV_MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OUTPUT&nbsp;=&nbsp;LV_MATNR.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2)&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT06_MAT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;@LS_MAT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZMATNR&nbsp;=&nbsp;@LV_MATNR.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;##&nbsp;#######.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;#####&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_PO_ALV&nbsp;INTO&nbsp;GS_PO_ALV&nbsp;INDEX&nbsp;P_ROW_ID.<br />
+&nbsp;&nbsp;GS_PO_ALV-MATNR&nbsp;=&nbsp;LV_MATNR.<br />
+&nbsp;&nbsp;GS_PO_ALV-MAKTX&nbsp;=&nbsp;LS_MAT-ZMATNAME.<br />
+&nbsp;&nbsp;GS_PO_ALV-MEINS&nbsp;=&nbsp;LS_MAT-MEINS.<br />
+&nbsp;&nbsp;GS_PO_ALV-WAERS&nbsp;=&nbsp;LS_MAT-WAERS.<br />
+&nbsp;&nbsp;GS_PO_ALV-BPRME&nbsp;=&nbsp;LS_MAT-STPRS.<br />
+<br />
+&nbsp;&nbsp;MODIFY&nbsp;GT_PO_ALV&nbsp;FROM&nbsp;GS_PO_ALV&nbsp;INDEX&nbsp;P_ROW_ID.<br />
+<br />
+&nbsp;&nbsp;"---&nbsp;##&nbsp;##&nbsp;(GOODCELLS&nbsp;##)&nbsp;-----<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;LS_MOD.<br />
+&nbsp;&nbsp;LS_MOD-ROW_ID&nbsp;=&nbsp;P_ROW_ID.<br />
+&nbsp;&nbsp;LS_MOD-FIELDNAME&nbsp;=&nbsp;'MATNR'.<br />
+&nbsp;&nbsp;LS_MOD-VALUE&nbsp;=&nbsp;LV_MATNR.<br />
+&nbsp;&nbsp;INSERT&nbsp;LS_MOD&nbsp;INTO&nbsp;TABLE&nbsp;PR_DATA_CHANGED-&gt;MT_GOOD_CELLS.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;LS_MOD.<br />
+&nbsp;&nbsp;LS_MOD-ROW_ID&nbsp;=&nbsp;P_ROW_ID.<br />
+&nbsp;&nbsp;LS_MOD-FIELDNAME&nbsp;=&nbsp;'MAKTX'.<br />
+&nbsp;&nbsp;LS_MOD-VALUE&nbsp;=&nbsp;GS_PO_ALV-MAKTX.<br />
+&nbsp;&nbsp;INSERT&nbsp;LS_MOD&nbsp;INTO&nbsp;TABLE&nbsp;PR_DATA_CHANGED-&gt;MT_GOOD_CELLS.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;LS_MOD.<br />
+&nbsp;&nbsp;LS_MOD-ROW_ID&nbsp;=&nbsp;P_ROW_ID.<br />
+&nbsp;&nbsp;LS_MOD-FIELDNAME&nbsp;=&nbsp;'MEINS'.<br />
+&nbsp;&nbsp;LS_MOD-VALUE&nbsp;=&nbsp;GS_PO_ALV-MEINS.<br />
+&nbsp;&nbsp;INSERT&nbsp;LS_MOD&nbsp;INTO&nbsp;TABLE&nbsp;PR_DATA_CHANGED-&gt;MT_GOOD_CELLS.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;LS_MOD.<br />
+&nbsp;&nbsp;LS_MOD-ROW_ID&nbsp;=&nbsp;P_ROW_ID.<br />
+&nbsp;&nbsp;LS_MOD-FIELDNAME&nbsp;=&nbsp;'WAERS'.<br />
+&nbsp;&nbsp;LS_MOD-VALUE&nbsp;=&nbsp;GS_PO_ALV-WAERS.<br />
+&nbsp;&nbsp;INSERT&nbsp;LS_MOD&nbsp;INTO&nbsp;TABLE&nbsp;PR_DATA_CHANGED-&gt;MT_GOOD_CELLS.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;LS_MOD.<br />
+&nbsp;&nbsp;LS_MOD-ROW_ID&nbsp;=&nbsp;P_ROW_ID.<br />
+&nbsp;&nbsp;LS_MOD-FIELDNAME&nbsp;=&nbsp;'BPRME'.<br />
+&nbsp;&nbsp;LS_MOD-VALUE&nbsp;=&nbsp;GS_PO_ALV-BPRME.<br />
+&nbsp;&nbsp;INSERT&nbsp;LS_MOD&nbsp;INTO&nbsp;TABLE&nbsp;PR_DATA_CHANGED-&gt;MT_GOOD_CELLS.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CHECK_MWSKZ<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_LS_MODI_ROW_ID&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_LS_MODI_VALUE&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CHECK_MWSKZ  USING    P_LS_MODI_ROW_ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_LS_MODI_VALUE.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

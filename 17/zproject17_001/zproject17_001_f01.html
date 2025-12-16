@@ -1,0 +1,798 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZPROJECT17_001_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZPROJECT17_001_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZPROJECT17_001_F01<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+*---------------------------------------------------------------------*<br />
+*&nbsp;###&nbsp;##<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM init_selection.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;'###&nbsp;##'<br />
+&nbsp;&nbsp;p_cre&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;p_disp&nbsp;=&nbsp;''.<br />
+<br />
+&nbsp;&nbsp;gv_cre_active_flag&nbsp;&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;gv_disp_active_flag&nbsp;=&nbsp;'0'.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;p_bukrs&nbsp;=&nbsp;'1000'.<br />
+&nbsp;&nbsp;p_ktokk&nbsp;=&nbsp;'1000000000'.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;p_lifnr&nbsp;=&nbsp;'1000000000'.<br />
+&nbsp;&nbsp;p_qbuk&nbsp;=&nbsp;'1000'.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;selection-screen&nbsp;##&nbsp;##&nbsp;##&nbsp;(###&nbsp;2#&nbsp;##)<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM check_selection.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;:&nbsp;####&nbsp;/&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;gv_mode&nbsp;=&nbsp;c_mode_create.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_bukrs&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;p_ktokk&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;##:&nbsp;####/######&nbsp;##&nbsp;#####.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;:&nbsp;#####&nbsp;/&nbsp;####(###)&nbsp;##<br />
+&nbsp;&nbsp;ELSEIF&nbsp;gv_mode&nbsp;=&nbsp;c_mode_disp.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_lifnr&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;p_qbuk&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;##:&nbsp;#####/#####&nbsp;##&nbsp;#####.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;SELECTION-SCREEN&nbsp;OUTPUT&nbsp;##<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM selection_screen_control.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;######&nbsp;##&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;IF&nbsp;p_cre&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_cre_active_flag&nbsp;&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_disp_active_flag&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;p_disp&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_cre_active_flag&nbsp;&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_disp_active_flag&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;MODIF&nbsp;ID#&nbsp;##&nbsp;##/###<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;screen-group1&nbsp;=&nbsp;'C1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;gv_cre_active_flag.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;screen-group1&nbsp;=&nbsp;'C2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;gv_disp_active_flag.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;##&nbsp;##&nbsp;(##&nbsp;/&nbsp;##)<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM determine_mode.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;p_cre&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_mode&nbsp;=&nbsp;c_mode_create.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;p_disp&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_mode&nbsp;=&nbsp;c_mode_disp.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_mode&nbsp;=&nbsp;c_mode_create.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;##&nbsp;##&nbsp;##&nbsp;(##&nbsp;##)<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM run_display_mode.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;get_data_display.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;gt_vend_cre&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;###&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'S'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;0100.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;##&nbsp;###&nbsp;###&nbsp;##<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_data_display.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gt_vend_cre.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_vend_cre.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;a~lifnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~bukrs<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~ktokk<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~name1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~land1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~stcd1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~stcd2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~stras<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~akont<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~zterm<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c~ekorg<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c~ekgrp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c~waers<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c~mwskz<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;gt_vend_cre<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt17_lfa1&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt17_lfb1&nbsp;AS&nbsp;b<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;a~lifnr&nbsp;=&nbsp;b~lifnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt17_lfm1&nbsp;AS&nbsp;c<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;a~lifnr&nbsp;=&nbsp;c~lifnr<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;a~lifnr&nbsp;=&nbsp;p_lifnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;b~bukrs&nbsp;=&nbsp;p_qbuk.<br />
+<br />
+&nbsp;&nbsp;"####&nbsp;####&nbsp;##&nbsp;##&nbsp;##&nbsp;(KTOKK=2000##&nbsp;##)<br />
+&nbsp;&nbsp;CLEAR&nbsp;gv_disp_hide_save.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_vend_cre&nbsp;INTO&nbsp;gs_vend_cre&nbsp;INDEX&nbsp;1.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_vend_cre-ktokk&nbsp;=&nbsp;'2000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_disp_hide_save&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;##&nbsp;###&nbsp;###&nbsp;###<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM init_data_create.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gt_vend_cre.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_vend_cre.<br />
+<br />
+&nbsp;&nbsp;gs_vend_cre-bukrs&nbsp;=&nbsp;p_bukrs.<br />
+&nbsp;&nbsp;gs_vend_cre-ktokk&nbsp;=&nbsp;p_ktokk.<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_vend_cre&nbsp;TO&nbsp;gt_vend_cre.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;####&nbsp;+&nbsp;ALV&nbsp;####&nbsp;##<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM create_object.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;go_container&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_container<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;container_name&nbsp;=&nbsp;'CC_ALV'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_alv<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_parent&nbsp;=&nbsp;go_container.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;######&nbsp;Wrapper<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM field_catalog_create.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;build_fieldcatalog_create.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;####&nbsp;Wrapper<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM alv_layout_create.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;build_layout_create.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;###&nbsp;###&nbsp;##<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM class_event_create.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;go_handler&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_handler.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;go_handler-&gt;handler_data_changed&nbsp;FOR&nbsp;go_alv.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;go_handler-&gt;on_toolbar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;go_alv.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;go_handler-&gt;on_user_command&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;go_alv.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;ALV&nbsp;##&nbsp;#####<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM alv_display_create.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_alv-&gt;set_table_for_first_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_layout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_layout<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_outtab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_vend_cre<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_fieldcatalog&nbsp;=&nbsp;gt_fieldcat.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;ALV&nbsp;####<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM refresh_alv_create.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;go_alv&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_stbl-row&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_stbl-col&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_alv-&gt;refresh_table_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_stable&nbsp;=&nbsp;gs_stbl.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;######&nbsp;##&nbsp;(##&nbsp;##)<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM build_fieldcatalog_create. " fieldcat ## # #### ## ### perform# ## using## ####~<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;"&nbsp;###,&nbsp;#####,&nbsp;###,&nbsp;key##,&nbsp;######<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;'LIFNR'&nbsp;'#####'&nbsp;'10'&nbsp;'X'&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;'BUKRS'&nbsp;'####'&nbsp;'6'&nbsp;'X'&nbsp;''.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;'KTOKK'&nbsp;'#####'&nbsp;'8'&nbsp;'X'&nbsp;''.&nbsp;"&nbsp;###&nbsp;(##&nbsp;X)<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;'NAME1'&nbsp;'####'&nbsp;'15'&nbsp;''&nbsp;'X'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;'LAND1'&nbsp;'###'&nbsp;'5'&nbsp;''&nbsp;'X'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;'STCD1'&nbsp;'####'&nbsp;'6'&nbsp;''&nbsp;'X'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;'STCD2'&nbsp;'#####'&nbsp;'10'&nbsp;''&nbsp;'X'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;'STRAS'&nbsp;'##'&nbsp;'30'&nbsp;''&nbsp;'X'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;'AKONT'&nbsp;'##'&nbsp;'10'&nbsp;''&nbsp;'X'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;'ZTERM'&nbsp;'####'&nbsp;'6'&nbsp;&nbsp;''&nbsp;'X'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;'EKORG'&nbsp;'####'&nbsp;'6'&nbsp;''&nbsp;'X'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;'EKGRP'&nbsp;'####'&nbsp;'6'&nbsp;''&nbsp;'X'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;'WAERS'&nbsp;'##'&nbsp;'5'&nbsp;''&nbsp;'X'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_fcat&nbsp;USING&nbsp;'MWSKZ'&nbsp;'####'&nbsp;'6'&nbsp;''&nbsp;&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;#&nbsp;#####(LIFNR)&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;gv_mode&nbsp;=&nbsp;c_mode_create.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_fieldcat&nbsp;INTO&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'LIFNR'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-no_out&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;gt_fieldcat&nbsp;FROM&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;#####&nbsp;STCD1&nbsp;/&nbsp;STCD2&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;-&gt;&nbsp;LFA1-STCD1(##),<br />
+&nbsp;&nbsp;"&nbsp;LFA1-STCD2(##)&nbsp;####&nbsp;3000&nbsp;-&gt;&nbsp;LFA1-STCD1(##)<br />
+&nbsp;&nbsp;"&nbsp;LFA1-STCD2(##)&nbsp;####&nbsp;2000&nbsp;-&gt;&nbsp;LFA1-STCD1(##)&nbsp;,&nbsp;LFA1-STCD2(##)<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_fieldcat&nbsp;INTO&nbsp;gs_fieldcat.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####(STCD1)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'STCD1'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_ktokk&nbsp;=&nbsp;'3000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-no_out&nbsp;=&nbsp;''.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;3000&nbsp;-&gt;&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-no_out&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##,&nbsp;2000&nbsp;-&gt;&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;gt_fieldcat&nbsp;FROM&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####(STCD2)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'STCD2'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_ktokk&nbsp;=&nbsp;'2000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-no_out&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;2000&nbsp;-&gt;&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-no_out&nbsp;=&nbsp;''.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##,&nbsp;3000&nbsp;-&gt;&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;gt_fieldcat&nbsp;FROM&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_ktokk&nbsp;TYPE&nbsp;zedt17_lfa1-ktokk.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;lv_ktokk.<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_vend_cre&nbsp;INTO&nbsp;gs_vend_cre&nbsp;INDEX&nbsp;1.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_ktokk&nbsp;=&nbsp;gs_vend_cre-ktokk.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##&nbsp;#####(STCD2)#&nbsp;##&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;gv_mode&nbsp;=&nbsp;c_mode_disp.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_fieldcat&nbsp;INTO&nbsp;gs_fieldcat.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'STCD2'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-edit&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;######&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;lv_ktokk&nbsp;=&nbsp;'2000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-no_out&nbsp;=&nbsp;'X'.&nbsp;&nbsp;"2000##&nbsp;#####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-edit&nbsp;&nbsp;&nbsp;=&nbsp;''.&nbsp;&nbsp;&nbsp;"##&nbsp;##&nbsp;###&nbsp;OFF<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-no_out&nbsp;=&nbsp;''.&nbsp;&nbsp;&nbsp;"#&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-edit&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;"####&nbsp;STCD2#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-edit&nbsp;=&nbsp;''.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;gt_fieldcat&nbsp;FROM&nbsp;gs_fieldcat.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;######&nbsp;#&nbsp;#&nbsp;##&nbsp;##&nbsp;FORM<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM add_fcat  USING    pv_field    TYPE lvc_fname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_text&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;scrtext_l<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_outputln&nbsp;TYPE&nbsp;char10<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_key&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_edit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.<br />
+<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;pv_field.<br />
+&nbsp;&nbsp;gs_fieldcat-coltext&nbsp;&nbsp;&nbsp;=&nbsp;pv_text.<br />
+&nbsp;&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;pv_outputln.<br />
+&nbsp;&nbsp;gs_fieldcat-key&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;pv_key.<br />
+&nbsp;&nbsp;gs_fieldcat-edit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;pv_edit.<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;####&nbsp;##<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM build_layout_create.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_layout.<br />
+&nbsp;&nbsp;gs_layout-zebra&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;gs_layout-cwidth_opt&nbsp;=&nbsp;'X'.<br />
+<br />
+   </div>
+   <div class="code">
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;####&nbsp;:&nbsp;#&nbsp;##<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM alv_add_row_create.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_vend_cre.<br />
+&nbsp;&nbsp;gs_vend_cre-bukrs&nbsp;=&nbsp;p_bukrs.<br />
+&nbsp;&nbsp;gs_vend_cre-ktokk&nbsp;=&nbsp;p_ktokk.<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_vend_cre&nbsp;TO&nbsp;gt_vend_cre.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;refresh_alv_create.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;##&nbsp;#####&nbsp;##<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_next_lifnr  CHANGING cv_lifnr TYPE zedt17_lfa1-lifnr.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_max&nbsp;TYPE&nbsp;zedt17_lfa1-lifnr.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;lv_max.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;MAX(&nbsp;lifnr&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;lv_max<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt17_lfa1.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0&nbsp;OR&nbsp;lv_max&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;cv_lifnr&nbsp;=&nbsp;'1000000000'.&nbsp;"&nbsp;#####&nbsp;###<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;cv_lifnr&nbsp;=&nbsp;lv_max&nbsp;+&nbsp;1.&nbsp;"&nbsp;####&nbsp;####<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;####&nbsp;:&nbsp;ALV&nbsp;####&nbsp;###&nbsp;##<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM alv_save_vendor_create.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_next_lifnr&nbsp;TYPE&nbsp;zedt17_lfa1-lifnr.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;get_next_lifnr&nbsp;CHANGING&nbsp;lv_next_lifnr.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_vend_cre&nbsp;INTO&nbsp;gs_vend_cre.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_vend_cre-name1&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_vend_cre-lifnr&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_vend_cre-lifnr&nbsp;=&nbsp;lv_next_lifnr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_next_lifnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lv_next_lifnr&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LFA1&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;zedt17_lfa1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;zedt17_lfa1-lifnr&nbsp;=&nbsp;gs_vend_cre-lifnr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;zedt17_lfa1-name1&nbsp;=&nbsp;gs_vend_cre-name1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;zedt17_lfa1-land1&nbsp;=&nbsp;gs_vend_cre-land1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;zedt17_lfa1-ktokk&nbsp;=&nbsp;gs_vend_cre-ktokk.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;zedt17_lfa1-stcd1&nbsp;=&nbsp;gs_vend_cre-stcd1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;zedt17_lfa1-stcd2&nbsp;=&nbsp;gs_vend_cre-stcd2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;zedt17_lfa1-stras&nbsp;=&nbsp;gs_vend_cre-stras.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;zedt17_lfa1&nbsp;FROM&nbsp;zedt17_lfa1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;zedt17_lfa1&nbsp;FROM&nbsp;zedt17_lfa1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LFB1&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;zedt17_lfb1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;zedt17_lfb1-lifnr&nbsp;=&nbsp;gs_vend_cre-lifnr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;zedt17_lfb1-bukrs&nbsp;=&nbsp;gs_vend_cre-bukrs.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;zedt17_lfb1-akont&nbsp;=&nbsp;gs_vend_cre-akont.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;zedt17_lfb1-zterm&nbsp;=&nbsp;gs_vend_cre-zterm.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;zedt17_lfb1&nbsp;FROM&nbsp;zedt17_lfb1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;zedt17_lfb1&nbsp;FROM&nbsp;zedt17_lfb1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LFM1&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;zedt17_lfm1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;zedt17_lfm1-lifnr&nbsp;=&nbsp;gs_vend_cre-lifnr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;zedt17_lfm1-ekorg&nbsp;=&nbsp;gs_vend_cre-ekorg.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;zedt17_lfm1-ekgrp&nbsp;=&nbsp;gs_vend_cre-ekgrp.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;zedt17_lfm1-waers&nbsp;=&nbsp;gs_vend_cre-waers.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;zedt17_lfm1-mwskz&nbsp;=&nbsp;gs_vend_cre-mwskz.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;zedt17_lfm1&nbsp;FROM&nbsp;zedt17_lfm1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;zedt17_lfm1&nbsp;FROM&nbsp;zedt17_lfm1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;COMMIT&nbsp;WORK.<br />
+<br />
+&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;#######.'&nbsp;TYPE&nbsp;'S'.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;ALV&nbsp;###&nbsp;##&nbsp;###&nbsp;##&nbsp;(FIELD-SYMBOL&nbsp;###&nbsp;##)<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM alv_handle_data_changed USING p_er TYPE REF TO cl_alv_changed_data_protocol.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;ls_mod&nbsp;TYPE&nbsp;lvc_s_modi.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;p_er-&gt;mt_good_cells&nbsp;INTO&nbsp;ls_mod.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_vend_cre&nbsp;INTO&nbsp;gs_vend_cre&nbsp;INDEX&nbsp;ls_mod-row_id.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;ls_mod-fieldname&nbsp;=&nbsp;'NAME1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_vend_cre-name1&nbsp;=&nbsp;ls_mod-value.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;ls_mod-fieldname&nbsp;=&nbsp;'LAND1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_vend_cre-land1&nbsp;=&nbsp;ls_mod-value.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;ls_mod-fieldname&nbsp;=&nbsp;'STCD1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_vend_cre-stcd1&nbsp;=&nbsp;ls_mod-value.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;ls_mod-fieldname&nbsp;=&nbsp;'STCD2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_vend_cre-stcd2&nbsp;=&nbsp;ls_mod-value.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;ls_mod-fieldname&nbsp;=&nbsp;'STRAS'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_vend_cre-stras&nbsp;=&nbsp;ls_mod-value.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;ls_mod-fieldname&nbsp;=&nbsp;'AKONT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_vend_cre-akont&nbsp;=&nbsp;ls_mod-value.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;ls_mod-fieldname&nbsp;=&nbsp;'ZTERM'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_vend_cre-zterm&nbsp;=&nbsp;ls_mod-value.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;ls_mod-fieldname&nbsp;=&nbsp;'EKORG'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_vend_cre-ekorg&nbsp;=&nbsp;ls_mod-value.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;ls_mod-fieldname&nbsp;=&nbsp;'EKGRP'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_vend_cre-ekgrp&nbsp;=&nbsp;ls_mod-value.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;ls_mod-fieldname&nbsp;=&nbsp;'WAERS'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_vend_cre-waers&nbsp;=&nbsp;ls_mod-value.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;ls_mod-fieldname&nbsp;=&nbsp;'MWSKZ'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_vend_cre-mwskz&nbsp;=&nbsp;ls_mod-value.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;gt_vend_cre&nbsp;FROM&nbsp;gs_vend_cre&nbsp;INDEX&nbsp;ls_mod-row_id.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;refresh_alv_create.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;ALV&nbsp;##&nbsp;######<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM alv_handle_toolbar<br />
+&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;p_e_object&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_alv_event_toolbar_set<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_e_interactive&nbsp;TYPE&nbsp;c.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;ls_button&nbsp;TYPE&nbsp;stb_button.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##&nbsp;[##]&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;gv_mode&nbsp;=&nbsp;c_mode_create.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ls_button.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_button-function&nbsp;&nbsp;=&nbsp;'ADD'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_button-icon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;icon_insert_row.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_button-quickinfo&nbsp;=&nbsp;'#&nbsp;##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_button-text&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_button-butn_type&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;ls_button&nbsp;TO&nbsp;p_e_object-&gt;mt_toolbar.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;[SAVE]&nbsp;###&nbsp;##/##&nbsp;#&nbsp;#&nbsp;##&nbsp;(#,&nbsp;####&nbsp;KTOKK=2000##&nbsp;##)<br />
+&nbsp;&nbsp;IF&nbsp;NOT&nbsp;(&nbsp;gv_mode&nbsp;=&nbsp;c_mode_disp&nbsp;AND&nbsp;gv_disp_hide_save&nbsp;=&nbsp;'X'&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ls_button.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_button-function&nbsp;&nbsp;=&nbsp;'SAVE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_button-icon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;icon_system_save.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gv_mode&nbsp;=&nbsp;c_mode_create.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_button-quickinfo&nbsp;=&nbsp;'###&nbsp;##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_button-text&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_button-quickinfo&nbsp;=&nbsp;'#####&nbsp;##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_button-text&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_button-butn_type&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;ls_button&nbsp;TO&nbsp;p_e_object-&gt;mt_toolbar.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;ALV&nbsp;###&nbsp;###&nbsp;##<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM alv_handle_user_command USING p_ucomm TYPE syucomm.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;p_ucomm.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'ADD'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gv_mode&nbsp;=&nbsp;c_mode_create.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;alv_add_row_create.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SAVE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gv_mode&nbsp;=&nbsp;c_mode_create.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;alv_save_vendor_create.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;gv_mode&nbsp;=&nbsp;c_mode_disp.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;alv_save_vendor_display.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;##&nbsp;##&nbsp;:&nbsp;#####(STCD2)&nbsp;##<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM alv_save_vendor_display.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_vend_cre&nbsp;INTO&nbsp;gs_vend_cre.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;+&nbsp;####&nbsp;####&nbsp;LFA1/LFB1&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;zedt17_lfa1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;zedt17_lfa1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt17_lfa1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;lifnr&nbsp;=&nbsp;gs_vend_cre-lifnr.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ALV##&nbsp;###&nbsp;######&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;zedt17_lfa1-stcd2&nbsp;=&nbsp;gs_vend_cre-stcd2.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;zedt17_lfa1&nbsp;FROM&nbsp;zedt17_lfa1.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;COMMIT&nbsp;WORK.<br />
+<br />
+&nbsp;&nbsp;MESSAGE&nbsp;'######&nbsp;#######.'&nbsp;TYPE&nbsp;'S'.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

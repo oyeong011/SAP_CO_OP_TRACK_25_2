@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR04_062</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR04_062</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR04_062<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR04_062.<br />
+<br />
+DATA : BEGIN OF GS_SCARR,       " SAP CARRIER(###)<br />
+&nbsp;&nbsp;CARRID&nbsp;LIKE&nbsp;SCARR-CARRID,<br />
+&nbsp;&nbsp;CARRNAME&nbsp;LIKE&nbsp;SCARR-CARRNAME,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_SCARR.<br />
+DATA GT_SCARR LIKE TABLE OF GS_SCARR.<br />
+<br />
+" 1. INTO ### ~ ENDSELECT#,   LIKE 'S%'<br />
+WRITE / '  1. INTO ### ~ ENDSELECT#,    LIKE %'.<br />
+<br />
+SELECT CARRID CARRNAME INTO GS_SCARR<br />
+&nbsp;&nbsp;FROM&nbsp;SCARR<br />
+&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;LIKE&nbsp;'%A'.&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;###&nbsp;#&nbsp;#&nbsp;#####&nbsp;##.<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;GS_SCARR-CARRID,&nbsp;GS_SCARR-CARRNAME.<br />
+ENDSELECT.<br />
+<br />
+" 2. SINGLE ~ INTO ##_##,    ##### =<br />
+WRITE / '  2. SINGLE INTO ##_##,    ##### ='.<br />
+<br />
+SELECT SINGLE CARRID CARRNAME INTO ( GS_SCARR-CARRID, GS_SCARR-CARRNAME )<br />
+&nbsp;&nbsp;FROM&nbsp;SCARR<br />
+&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;=&nbsp;'AA'.<br />
+WRITE : / GS_SCARR-CARRID, GS_SCARR-CARRNAME.<br />
+<br />
+" 3. INTO TABLE ###_###,    WHERE ~ IN ##<br />
+WRITE / '  3. INTO TABLE ###_###,   WHERE ~ IN ##'.<br />
+<br />
+SELECT CARRID CARRNAME INTO TABLE GT_SCARR  " ### ### ## TABLE # ## #<br />
+&nbsp;&nbsp;FROM&nbsp;SCARR<br />
+&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;IN&nbsp;(&nbsp;'AA',&nbsp;'AC'&nbsp;).<br />
+<br />
+LOOP AT GT_SCARR INTO GS_SCARR.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;GS_SCARR-CARRID,&nbsp;GS_SCARR-CARRNAME.<br />
+ENDLOOP.<br />
+<br />
+" 4. INTO CORRESPONDING FIELD OF TABLE ###_###,   BETWEEN A AND B<br />
+WRITE / '  4. INTO CORRESPONDING FIELD OF TABLE ###_###,    BETWEEN A AND B'.<br />
+<br />
+SELECT CARRNAME CARRID                          " ## ##<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_SCARR&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;##&nbsp;##&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;FROM&nbsp;SCARR<br />
+&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;BETWEEN&nbsp;'AA'&nbsp;AND&nbsp;'AC'.&nbsp;&nbsp;&nbsp;"&nbsp;INTERVAL&nbsp;##.&nbsp;##&nbsp;##.<br />
+<br />
+LOOP AT GT_SCARR INTO GS_SCARR.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;GS_SCARR-CARRID,&nbsp;GS_SCARR-CARRNAME.<br />
+ENDLOOP.<br />
+<br />
+" 5. APPENDING ###_###<br />
+WRITE / '  5. APPENDING ###_### '.<br />
+<br />
+SELECT CARRID CARRNAME<br />
+&nbsp;&nbsp;FROM&nbsp;SCARR<br />
+&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;GT_SCARR&nbsp;&nbsp;"&nbsp;FROM##&nbsp;INTO#&nbsp;##&nbsp;###&nbsp;#.<br />
+&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;=&nbsp;'AC'.<br />
+<br />
+SELECT CARRID CARRNAME<br />
+&nbsp;&nbsp;FROM&nbsp;SCARR<br />
+&nbsp;&nbsp;APPENDING&nbsp;TABLE&nbsp;GT_SCARR&nbsp;&nbsp;"&nbsp;INTO&nbsp;##&nbsp;APPENDING##&nbsp;##.&nbsp;###&nbsp;##&nbsp;##&nbsp;CLEAR#.<br />
+&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;=&nbsp;'AF'.<br />
+<br />
+LOOP AT GT_SCARR INTO GS_SCARR.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;GS_SCARR-CARRID,&nbsp;GS_SCARR-CARRNAME.<br />
+ENDLOOP.<br />
+<br />
+" 6. WHERE ~ IN RANGES##<br />
+WRITE / '  6. WHERE ~ IN RANGES##'.<br />
+<br />
+RANGES GR_SCARR FOR SCARR-CARRID.<br />
+<br />
+GR_SCARR-SIGN = 'I'.<br />
+GR_SCARR-OPTION = 'CP'.<br />
+GR_SCARR-LOW = '*A'.  " ### * = LIKE ### %<br />
+APPEND GR_SCARR.  " APPEND GR_SCARR TO GR_SCARR[].<br />
+<br />
+GR_SCARR-LOW = 'A*'.<br />
+APPEND GR_SCARR.  " ### ## ##. IN RANGES## ## # # ## #### #<br />
+<br />
+SELECT CARRID CARRNAME<br />
+&nbsp;&nbsp;FROM&nbsp;SCARR<br />
+&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;GT_SCARR<br />
+&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;IN&nbsp;GR_SCARR.<br />
+<br />
+LOOP AT GT_SCARR INTO GS_SCARR.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;GS_SCARR-CARRID,&nbsp;GS_SCARR-CARRNAME.<br />
+ENDLOOP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

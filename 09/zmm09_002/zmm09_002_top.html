@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM09_002_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM09_002_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM09_002_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES : ZEKPO_09,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEKKO_09,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMARA09.<br />
+"### ###<br />
+CONTROLS TC_ITEMS TYPE TABLEVIEW USING SCREEN '0100'.<br />
+<br />
+DATA : GS_LFA1 TYPE ZLFA1_09,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_LFB1&nbsp;TYPE&nbsp;ZLFB1_09.<br />
+<br />
+DATA : OK_CODE TYPE SY-UCOMM.<br />
+<br />
+<br />
+"###100 ####<br />
+DATA : GF_EKORG TYPE ZLFM1_09-EKORG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_EKGRP&nbsp;TYPE&nbsp;ZLFM1_09-EKGRP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_BUKRS&nbsp;TYPE&nbsp;ZLFB1_09-BUKRS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_NAME1&nbsp;TYPE&nbsp;ZLFA1_09-NAME1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_BEDAT&nbsp;TYPE&nbsp;DATS.<br />
+<br />
+"###100 ### ##<br />
+DATA : BEGIN OF GS_ITEM,<br />
+&nbsp;&nbsp;MARK&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;1,&nbsp;&nbsp;&nbsp;"###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;EBELP&nbsp;LIKE&nbsp;ZEKPO_09-EBELP,&nbsp;"##<br />
+&nbsp;"MATNR&nbsp;LIKE&nbsp;ZEKPO_09-MATNR,&nbsp;"####<br />
+&nbsp;&nbsp;MATNR&nbsp;LIKE&nbsp;ZMARA09-ZMATNR,<br />
+&nbsp;&nbsp;MAKTX&nbsp;LIKE&nbsp;ZEKPO_09-MAKTX,&nbsp;"####<br />
+&nbsp;&nbsp;PSTYP&nbsp;LIKE&nbsp;ZEKPO_09-PSTYP,&nbsp;"###&nbsp;####&nbsp;(#####&nbsp;#####&nbsp;##)<br />
+&nbsp;&nbsp;MENGE&nbsp;LIKE&nbsp;ZEKPO_09-MENGE,&nbsp;"PO##<br />
+&nbsp;&nbsp;STPRS&nbsp;LIKE&nbsp;ZEKPO_09-STPRS,&nbsp;"##<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;STPRS&nbsp;TYPE&nbsp;P&nbsp;DECIMALS&nbsp;2,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;MEINS&nbsp;LIKE&nbsp;ZEKPO_09-MEINS,&nbsp;"##<br />
+&nbsp;&nbsp;WAERS&nbsp;LIKE&nbsp;ZEKKO_09-WAERS,&nbsp;"##<br />
+&nbsp;&nbsp;MWSKZ&nbsp;LIKE&nbsp;ZEKPO_09-MWSKZ,&nbsp;"####<br />
+&nbsp;&nbsp;PRDAT&nbsp;LIKE&nbsp;ZEKPO_09-PRDAT,&nbsp;"###<br />
+&nbsp;&nbsp;WERKS&nbsp;LIKE&nbsp;ZEKPO_09-WERKS,&nbsp;"###<br />
+&nbsp;&nbsp;LGORT&nbsp;LIKE&nbsp;ZEKPO_09-LGORT,&nbsp;"####<br />
+END OF GS_ITEM.<br />
+DATA : GT_ITEM LIKE TABLE OF GS_ITEM.<br />
+<br />
+"#### ### ## ##<br />
+DATA : ZMATNAME LIKE ZMARA09-ZMATNAME, "###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STPRS&nbsp;LIKE&nbsp;ZMARA09-STPRS,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;LIKE&nbsp;ZMARA09-MEINS.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+<br />
+"#### ## ###, #### ## ###<br />
+DATA : GS_EKKO TYPE ZEKKO_09,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_EKPO&nbsp;TYPE&nbsp;ZEKPO_09.<br />
+DATA : GT_EKKO LIKE TABLE OF GS_EKKO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_EKPO&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_EKPO.<br />
+<br />
+"docking ####, grid ## ####<br />
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+"######, ####, ## ## ##<br />
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT&nbsp;TYPE&nbsp;LVC_T_FCAT.<br />
+<br />
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.<br />
+<br />
+"alv<br />
+DATA : BEGIN OF GS_ALV,<br />
+&nbsp;&nbsp;EBELP&nbsp;LIKE&nbsp;ZEKPO_09-EBELP,&nbsp;"##<br />
+&nbsp;&nbsp;MATNR&nbsp;LIKE&nbsp;ZEKPO_09-MATNR,&nbsp;"####<br />
+&nbsp;&nbsp;MAKTX&nbsp;LIKE&nbsp;ZEKPO_09-MATNR,&nbsp;"###<br />
+&nbsp;&nbsp;MENGE&nbsp;LIKE&nbsp;ZEKPO_09-MENGE,&nbsp;"PO##<br />
+&nbsp;&nbsp;STPRS&nbsp;LIKE&nbsp;ZEKPO_09-STPRS,&nbsp;"##<br />
+&nbsp;&nbsp;MEINS&nbsp;LIKE&nbsp;ZEKPO_09-MEINS,&nbsp;"##<br />
+&nbsp;&nbsp;WAERS&nbsp;LIKE&nbsp;ZEKKO_09-WAERS,&nbsp;"##<br />
+&nbsp;&nbsp;MWSKZ&nbsp;LIKE&nbsp;ZEKPO_09-MWSKZ,&nbsp;"####<br />
+&nbsp;&nbsp;BEDAT&nbsp;LIKE&nbsp;ZEKKO_09-BEDAT,&nbsp;"###<br />
+&nbsp;&nbsp;WERKS&nbsp;LIKE&nbsp;ZEKPO_09-WERKS,&nbsp;"###<br />
+&nbsp;&nbsp;LGORT&nbsp;LIKE&nbsp;ZEKPO_09-LGORT,&nbsp;"####<br />
+END OF GS_ALV.<br />
+DATA : GT_ALV LIKE TABLE OF GS_ALV.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

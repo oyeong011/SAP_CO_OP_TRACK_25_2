@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR19_PRACTICE009_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR19_PRACTICE009_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDR19_PRACTICE009_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES: ZEDT19_102,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDT19_103,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDT19_104,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDT19_105,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDT19_106.<br />
+<br />
+DATA : ls_105 TYPE ZEDT19_105,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_db_amt&nbsp;TYPE&nbsp;p&nbsp;DECIMALS&nbsp;2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_mon_i&nbsp;TYPE&nbsp;i.<br />
+<br />
+" #### ### ###<br />
+TYPES: BEGIN OF TY_EMP_INFO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ICON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR4,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZPERNR&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT19_102-ZPERNR,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZPNAME&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT19_103-ZPNAME,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDEPCODE&nbsp;&nbsp;TYPE&nbsp;ZEDT19_102-ZDEPCODE,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDEPNAME&nbsp;&nbsp;TYPE&nbsp;CHAR20,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDEPRANK&nbsp;&nbsp;TYPE&nbsp;ZEDT19_102-ZDEPRANK,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZRANKNAME&nbsp;TYPE&nbsp;CHAR20,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDATE&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT19_102-ZEDATE,&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZQDATE&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT19_102-ZQDATE,&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZQFLAG&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT19_102-ZQFLAG,&nbsp;&nbsp;&nbsp;&nbsp;"####(##/##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZQFLAG_T&nbsp;&nbsp;TYPE&nbsp;CHAR4,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGENDER&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR4,&nbsp;&nbsp;&nbsp;"##(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZADDRESS&nbsp;&nbsp;TYPE&nbsp;ZEDT19_103-ZADDRESS,&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBANKCODE&nbsp;TYPE&nbsp;ZEDT19_106-ZBANKCODE,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBANKNAME&nbsp;TYPE&nbsp;CHAR20,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZACCOUNT&nbsp;TYPE&nbsp;ZEDT19_106-ZACCOUNT,&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZYEAR&nbsp;TYPE&nbsp;CHAR4,&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZRANK&nbsp;TYPE&nbsp;ZEDT19_104-ZRANK,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSALARY&nbsp;&nbsp;TYPE&nbsp;ZEDT19_106-ZSALARY,&nbsp;"####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDATE_D&nbsp;TYPE&nbsp;CHAR10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZQDATE_D&nbsp;TYPE&nbsp;CHAR10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZQDATE_T&nbsp;&nbsp;TYPE&nbsp;CHAR10,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;WAERS,&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_EMP_INFO.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*ALV&nbsp;###&nbsp;Internal&nbsp;Tables<br />
+   </div>
+   <div class="code">
+DATA: GT_EMP_INFO TYPE TABLE OF TY_EMP_INFO,  "#### ###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_EMP_INFO&nbsp;TYPE&nbsp;TY_EMP_INFO.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;CONSTANTS&nbsp;##<br />
+   </div>
+   <div class="code">
+CONSTANTS: C_X           TYPE C VALUE 'X',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_MALE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'M',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_FEMALE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'F',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_MALE_T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'##',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_FEMALE_T&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'##'.<br />
+<br />
+DATA : OK_CODE TYPE SY-UCOMM.<br />
+<br />
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA : GC_SPLITTER TYPE REF TO CL_GUI_SPLITTER_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_SPLITTER2&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_SPLITTER_CONTAINER.<br />
+<br />
+DATA : GC_CONTAINER1 TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GC_CONTAINER2 TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GC_CONTAINER3 TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GC_CONTAINER4 TYPE REF TO CL_GUI_CONTAINER.<br />
+<br />
+DATA : GC_GRID1 TYPE REF TO CL_GUI_ALV_GRID.<br />
+DATA : GC_GRID2 TYPE REF TO CL_GUI_ALV_GRID.<br />
+DATA : GC_GRID3 TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+DATA : GS_VARIANT TYPE DISVARIANT.<br />
+<br />
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT.<br />
+DATA : GT_FIELDCAT1 TYPE LVC_T_FCAT.<br />
+DATA : GT_FIELDCAT2 TYPE LVC_T_FCAT.<br />
+DATA : GT_FIELDCAT3 TYPE LVC_T_FCAT.<br />
+<br />
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.<br />
+<br />
+DATA : GS_SORT TYPE LVC_S_SORT.<br />
+DATA : GT_SORT1 TYPE LVC_T_SORT.<br />
+DATA : GT_SORT2 TYPE LVC_T_SORT.<br />
+DATA : GT_SORT3 TYPE LVC_T_SORT.<br />
+<br />
+RANGES: R_DATE   FOR ZEDT19_102-DATAB,        "#### ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_PERNR&nbsp;&nbsp;FOR&nbsp;ZEDT19_102-ZPERNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_YEAR&nbsp;&nbsp;&nbsp;FOR&nbsp;ZEDT19_104-ZYEAR.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

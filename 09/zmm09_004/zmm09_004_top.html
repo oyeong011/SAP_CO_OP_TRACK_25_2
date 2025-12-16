@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM09_004_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM09_004_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM09_004_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+DATA : OK_CODE TYPE SY-UCOMM.<br />
+<br />
+CONSTANTS : C_V1 TYPE STRING VALUE 'V1 (####10%)'.<br />
+CONSTANTS : C_V2 TYPE STRING VALUE 'V2 (####0%)'.<br />
+CONSTANTS : C_V3 TYPE STRING VALUE 'V3 (####0%)'.<br />
+CONSTANTS : C_V4 TYPE STRING VALUE 'V4 (#####10%)'.<br />
+CONSTANTS : C_V5 TYPE STRING VALUE 'V5 (######10%)'.<br />
+<br />
+CONSTANTS : C_TAX_V1 TYPE P DECIMALS 2 VALUE '0.10',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_TAX_V2&nbsp;TYPE&nbsp;P&nbsp;DECIMALS&nbsp;2&nbsp;VALUE&nbsp;'0.00',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_TAX_V3&nbsp;TYPE&nbsp;P&nbsp;DECIMALS&nbsp;2&nbsp;VALUE&nbsp;'0.00',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_TAX_V4&nbsp;TYPE&nbsp;P&nbsp;DECIMALS&nbsp;2&nbsp;VALUE&nbsp;'0.10',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_TAX_V5&nbsp;TYPE&nbsp;P&nbsp;DECIMALS&nbsp;2&nbsp;VALUE&nbsp;'0.10'.<br />
+<br />
+<br />
+"tabstip ##<br />
+CONTROLS TABSTRIP TYPE TABSTRIP.<br />
+DATA : DYNNR TYPE SY-DYNNR.<br />
+<br />
+"101 #####<br />
+DATA : GF_BLDAT LIKE ZRBKP09-BLDAT, "### (#####)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_BUDAT&nbsp;LIKE&nbsp;ZRBKP09-BUDAT,&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_RMWWR&nbsp;LIKE&nbsp;ZRBKP09-RMWWR,&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_WAERS&nbsp;LIKE&nbsp;ZRBKP09-WAERS,&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_MWSKZ&nbsp;LIKE&nbsp;ZRBKP09-MWSKZ,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_WMWST1&nbsp;LIKE&nbsp;ZRBKP09-WMWST1,&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_BKTXT&nbsp;LIKE&nbsp;ZRBKP09-BKTXT,&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_ZTERM&nbsp;LIKE&nbsp;ZRBKP09-ZTERM,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF_ZFBDT&nbsp;LIKE&nbsp;ZRBKP09-ZFBDT.&nbsp;"###<br />
+<br />
+<br />
+DATA : GF_BALANCE TYPE WRBTR. "##<br />
+DATA : GF_WAERS2 TYPE WAERS.<br />
+<br />
+"alw, ## ##<br />
+DATA : GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_GRID&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+<br />
+DATA : GC_ITEM_200 TYPE REF TO CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_GRID_200&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+<br />
+<br />
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT&nbsp;TYPE&nbsp;LVC_T_FCAT.<br />
+<br />
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.<br />
+<br />
+DATA : GT_TOOLBAR TYPE UI_FUNCTIONS.<br />
+<br />
+"### (alv ###)<br />
+DATA : BEGIN OF GS_ITEM_ALV,<br />
+&nbsp;&nbsp;LV_CHECK&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;1,&nbsp;"####&nbsp;(#####&nbsp;##)<br />
+&nbsp;&nbsp;BUZEI&nbsp;LIKE&nbsp;ZRSEG09-BUZEI,&nbsp;&nbsp;"##&nbsp;##&nbsp;(######)<br />
+&nbsp;&nbsp;NETPR&nbsp;LIKE&nbsp;ZEKPO_09-STPRS,&nbsp;"##<br />
+&nbsp;&nbsp;MENGE&nbsp;TYPE&nbsp;ZRSEG09-MENGE,&nbsp;"##&nbsp;(####)<br />
+&nbsp;&nbsp;MEINS&nbsp;LIKE&nbsp;ZRSEG09-MEINS,&nbsp;"##<br />
+&nbsp;&nbsp;WAERS&nbsp;LIKE&nbsp;ZEKKO_09-WAERS,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;WRBTR&nbsp;LIKE&nbsp;ZRSEG09-WRBTR,&nbsp;"####&nbsp;(##&nbsp;*&nbsp;##)<br />
+&nbsp;&nbsp;EBELN&nbsp;LIKE&nbsp;ZRSEG09-EBELN,&nbsp;&nbsp;"PO##<br />
+&nbsp;&nbsp;EBELP&nbsp;LIKE&nbsp;ZRSEG09-EBELP,&nbsp;&nbsp;"PO#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;MWSKZ_S&nbsp;TYPE&nbsp;STRING,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;WMWST&nbsp;&nbsp;LIKE&nbsp;ZRSEG24-WMWST,&nbsp;"##<br />
+&nbsp;&nbsp;MATNR&nbsp;LIKE&nbsp;ZMSEG09-MATNR,&nbsp;"####<br />
+&nbsp;&nbsp;ZMATNAME&nbsp;LIKE&nbsp;ZMARA09-ZMATNAME,&nbsp;"####&nbsp;(###)<br />
+&nbsp;&nbsp;WERKS&nbsp;LIKE&nbsp;ZMSEG09-WERKS,&nbsp;"###<br />
+&nbsp;&nbsp;DBMTR&nbsp;LIKE&nbsp;BSIK-DMBTR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;(###&nbsp;+&nbsp;##)<br />
+&nbsp;&nbsp;SGTXT&nbsp;LIKE&nbsp;ZRSEG09-SGTXT,&nbsp;"###<br />
+END OF GS_ITEM_ALV.<br />
+DATA : GT_ITEM_ALV LIKE TABLE OF GS_ITEM_ALV.<br />
+<br />
+DATA : GO_EVENT TYPE REF TO EVENT.<br />
+DATA : GO_EVENT_200 TYPE REF TO EVENT.<br />
+<br />
+"##### ## ##<br />
+DATA : GV_FLAG_EVENT TYPE ABAP_BOOL VALUE ABAP_FALSE.<br />
+<br />
+"###<br />
+DATA : ICON_ST1 TYPE ICONS-TEXT.<br />
+<br />
+"## #### ###<br />
+DATA : GV_BELNR LIKE ZRBKP09-BELNR.<br />
+<br />
+DATA : GS_RBKP LIKE ZRBKP09. "####<br />
+<br />
+DATA : GS_RSEG LIKE ZRSEG09. "## ###<br />
+DATA : GT_RSEG LIKE TABLE OF GS_RSEG.<br />
+<br />
+DATA : BEGIN OF GS_ITEM_ALV_200,<br />
+&nbsp;&nbsp;LV_CHECK&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;1,&nbsp;"##<br />
+&nbsp;&nbsp;BELNR&nbsp;TYPE&nbsp;ZRBKP09-BELNR,&nbsp;"######<br />
+&nbsp;&nbsp;GJAHR&nbsp;TYPE&nbsp;ZRBKP09-GJAHR,&nbsp;"####<br />
+&nbsp;&nbsp;BUZEI&nbsp;TYPE&nbsp;ZRSEG09-BUZEI,&nbsp;"####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;ZRSEG09-EBELN,&nbsp;"######<br />
+&nbsp;&nbsp;EBELP&nbsp;LIKE&nbsp;ZRSEG09-EBELN,&nbsp;"##&nbsp;(#########&nbsp;#)<br />
+&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;ZRSEG09-MATNR,&nbsp;"####<br />
+&nbsp;&nbsp;ZMATNAME&nbsp;TYPE&nbsp;ZMARA09-ZMATNAME,&nbsp;"###<br />
+&nbsp;&nbsp;MENGE&nbsp;TYPE&nbsp;ZRSEG09-MENGE,&nbsp;"####<br />
+&nbsp;&nbsp;MEINS&nbsp;TYPE&nbsp;ZRSEG09-MEINS,&nbsp;"##<br />
+&nbsp;&nbsp;NETPR&nbsp;TYPE&nbsp;ZRSEG09-NETPR,&nbsp;"##<br />
+&nbsp;&nbsp;WRBTR&nbsp;TYPE&nbsp;ZRSEG09-WRBTR,&nbsp;"####<br />
+&nbsp;&nbsp;WMWST&nbsp;TYPE&nbsp;ZRSEG09-WMWST,&nbsp;"##<br />
+&nbsp;&nbsp;DBMTR&nbsp;TYPE&nbsp;ZRSEG09-DBMTR,&nbsp;"##<br />
+&nbsp;&nbsp;SGTXT&nbsp;TYPE&nbsp;ZRSEG09-SGTXT,&nbsp;"###<br />
+&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;ZRSEG09-WAERS,&nbsp;"##&nbsp;#<br />
+&nbsp;&nbsp;SHKZG&nbsp;TYPE&nbsp;ZRSEG09-SHKZG,<br />
+END OF GS_ITEM_ALV_200.<br />
+DATA : GT_ITEM_ALV_200 LIKE TABLE OF GS_ITEM_ALV_200.<br />
+<br />
+"##/## ## ##<br />
+DATA : BEGIN OF GS_CANCEL_DEC,<br />
+&nbsp;&nbsp;BELNR&nbsp;TYPE&nbsp;ZRSEG09-BELNR,<br />
+&nbsp;&nbsp;GJAHR&nbsp;TYPE&nbsp;ZRSEG09-GJAHR,<br />
+&nbsp;&nbsp;IS_FULL&nbsp;TYPE&nbsp;ABAP_BOOL,&nbsp;"####='X'<br />
+END OF GS_CANCEL_DEC.<br />
+DATA : GT_CANCEL_DEC LIKE TABLE OF GS_CANCEL_DEC.<br />
+<br />
+DATA: gv_need_balance_calc TYPE abap_bool VALUE abap_true.<br />
+<br />
+<br />
+"#### ###<br />
+DATA : BEGIN OF GS_MIRO_LIST,<br />
+&nbsp;&nbsp;BELNR&nbsp;LIKE&nbsp;ZRBKP09-BELNR,&nbsp;"######<br />
+&nbsp;&nbsp;BUDAT&nbsp;LIKE&nbsp;ZBKPF09-BUDAT,&nbsp;"###<br />
+END OF GS_MIRO_LIST.<br />
+DATA : GT_MIRO_LIST LIKE TABLE OF GS_MIRO_LIST.<br />
+<br />
+DATA : BEGIN OF GS_MIRO_ALV,<br />
+&nbsp;&nbsp;DISP_TEXT&nbsp;TYPE&nbsp;CHAR200,<br />
+END OF GS_MIRO_ALV.<br />
+DATA : GT_MIRO_ALV LIKE TABLE OF GS_MIRO_ALV.<br />
+<br />
+"alv ##<br />
+DATA : GC_CUSTOM_MIRO_LIST TYPE REF TO CL_GUI_CUSTOM_CONTAINER.<br />
+DATA : GC_GRID_MIRO_LIST TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+DATA : GS_FIELDCAT_200 TYPE LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT_200&nbsp;TYPE&nbsp;LVC_T_FCAT.<br />
+<br />
+DATA : GS_LAYOUT_200 TYPE LVC_S_LAYO.<br />
+<br />
+DATA : GO_EVENT_MIRO TYPE REF TO EVENT.<br />
+<br />
+"### ###<br />
+DATA : BEGIN OF GS_HEADER_ALV,<br />
+&nbsp;&nbsp;BELNR&nbsp;LIKE&nbsp;ZRBKP09-BELNR,&nbsp;"######<br />
+&nbsp;&nbsp;BLART&nbsp;LIKE&nbsp;ZRBKP09-BLART,&nbsp;"####<br />
+&nbsp;&nbsp;BLDAT&nbsp;LIKE&nbsp;ZRBKP09-BLDAT,&nbsp;"###<br />
+&nbsp;&nbsp;BUDAT&nbsp;LIKE&nbsp;ZRBKP09-BUDAT,&nbsp;"###<br />
+END OF GS_HEADER_ALV.<br />
+DATA : GT_HEADER_ALV LIKE TABLE OF GS_HEADER_ALV.<br />
+<br />
+"## #####<br />
+DATA : BELNR_200 LIKE ZRBKP09-BELNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BLART_200&nbsp;LIKE&nbsp;ZRBKP09-BLART,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BLDAT_200&nbsp;LIKE&nbsp;ZRBKP09-BLDAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUDAT_200&nbsp;LIKE&nbsp;ZRBKP09-BUDAT.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

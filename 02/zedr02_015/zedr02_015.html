@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR02_015</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR02_015</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR02_015<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR02_015.<br />
+<br />
+"SELECT<br />
+   </div>
+   <div class="codeComment">
+*DATA:&nbsp;BEGIN&nbsp;OF&nbsp;GS_SCARR,<br />
+*&nbsp;&nbsp;ZCHECK&nbsp;TYPE&nbsp;C,<br />
+*&nbsp;&nbsp;CARRID&nbsp;LIKE&nbsp;SCARR-CARRID,<br />
+*&nbsp;&nbsp;CARRNAME&nbsp;LIKE&nbsp;SCARR-CARRNAME,<br />
+*END&nbsp;OF&nbsp;GS_SCARR.<br />
+*DATA:&nbsp;GT_SCARR&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_SCARR.<br />
+<br />
+   </div>
+   <div class="code">
+"INTO<br />
+"1)###(WORK AREA)<br />
+"SELECT~ENDSELECT ### ## ### ### Application Server# Database## ###### ##<br />
+   </div>
+   <div class="codeComment">
+*SELECT&nbsp;CARRID&nbsp;CARRNAME&nbsp;INTO&nbsp;GS_SCARR<br />
+*&nbsp;&nbsp;FROM&nbsp;SCARR<br />
+*&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;=&nbsp;'AA'.<br />
+*<br />
+*&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;GS_SCARR-CARRID,&nbsp;GS_SCARR-CARRNAME.<br />
+*ENDSELECT.<br />
+<br />
+   </div>
+   <div class="code">
+"WHERE### ## SELECT Single Line<br />
+   </div>
+   <div class="codeComment">
+*SELECT&nbsp;SINGLE&nbsp;CARRID&nbsp;CARRNAME&nbsp;INTO&nbsp;(&nbsp;GS_SCARR-CARRID,&nbsp;GS_SCARR-CARRNAME&nbsp;)<br />
+*&nbsp;&nbsp;FROM&nbsp;SCARR<br />
+*&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;=&nbsp;'AA'.<br />
+*<br />
+*WRITE:&nbsp;/&nbsp;GS_SCARR-CARRID,&nbsp;GS_SCARR-CARRNAME.<br />
+<br />
+   </div>
+   <div class="code">
+"2) INTERNAL TABLE<br />
+   </div>
+   <div class="codeComment">
+*SELECT&nbsp;CARRID&nbsp;&nbsp;&nbsp;"Airline&nbsp;Code<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRNAME&nbsp;"Airline&nbsp;name<br />
+*&nbsp;&nbsp;FROM&nbsp;SCARR<br />
+*&nbsp;&nbsp;"CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE:&nbsp;###&nbsp;##&nbsp;####&nbsp;##&nbsp;##&nbsp;###<br />
+*&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_SCARR<br />
+**&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;BETWEEN&nbsp;'AA'&nbsp;AND&nbsp;'AB'.<br />
+**&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;LIKE&nbsp;'A%'.&nbsp;"CARRID#&nbsp;A#&nbsp;####&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;IN&nbsp;(&nbsp;'AA',&nbsp;'AC'&nbsp;).&nbsp;"##&nbsp;###&nbsp;##&nbsp;###&nbsp;##&nbsp;###<br />
+<br />
+*SELECT&nbsp;CARRID&nbsp;&nbsp;&nbsp;"Airline&nbsp;Code<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRNAME&nbsp;"Airline&nbsp;name<br />
+*&nbsp;&nbsp;FROM&nbsp;SCARR<br />
+*&nbsp;&nbsp;APPENDING&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_SCARR<br />
+*&nbsp;&nbsp;"APPENDING:&nbsp;##&nbsp;INDEX2#&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;=&nbsp;'AB'.<br />
+<br />
+   </div>
+   <div class="code">
+"5. RANGE TABLE<br />
+   </div>
+   <div class="codeComment">
+*RANGES&nbsp;:&nbsp;GR_SCARR&nbsp;FOR&nbsp;SCARR-CARRID.<br />
+<br />
+   </div>
+   <div class="code">
+"##-OPTION<br />
+   </div>
+   <div class="codeComment">
+*CLEAR&nbsp;:&nbsp;GR_SCARR.<br />
+*<br />
+*GR_SCARR-SIGN&nbsp;=&nbsp;'I'.&nbsp;"####&nbsp;##<br />
+*GR_SCARR-OPTION&nbsp;=&nbsp;'CP'.&nbsp;"####<br />
+*GR_SCARR-LOW&nbsp;=&nbsp;'*A'.&nbsp;"#####&nbsp;##&nbsp;##<br />
+*APPEND&nbsp;GR_SCARR.<br />
+*<br />
+*DATA:&nbsp;BEGIN&nbsp;OF&nbsp;GS_SCARR.<br />
+*&nbsp;&nbsp;INCLUDE&nbsp;TYPE&nbsp;SCARR.<br />
+*DATA:&nbsp;END&nbsp;OF&nbsp;GS_SCARR.<br />
+*DATA:&nbsp;GT_SCARR&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_SCARR.<br />
+*<br />
+*SELECT&nbsp;*&nbsp;FROM&nbsp;SCARR<br />
+*&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_SCARR<br />
+*&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;IN&nbsp;GR_SCARR.<br />
+<br />
+   </div>
+   <div class="code">
+"##-LOW, HIGH<br />
+   </div>
+   <div class="codeComment">
+*GR_SCARR-SIGN&nbsp;=&nbsp;'I'.&nbsp;"####&nbsp;##<br />
+*GR_SCARR-OPTION&nbsp;=&nbsp;'EQ'.&nbsp;"##<br />
+*GR_SCARR-LOW&nbsp;=&nbsp;'AA'.&nbsp;"LOW#&nbsp;####&nbsp;###&nbsp;##<br />
+*APPEND&nbsp;GR_SCARR.<br />
+*<br />
+*GR_SCARR-LOW&nbsp;=&nbsp;'AC'.<br />
+*APPEND&nbsp;GR_SCARR.<br />
+*<br />
+*SELECT&nbsp;CARRID&nbsp;&nbsp;&nbsp;"Airline&nbsp;Code<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRNAME&nbsp;"Airline&nbsp;name<br />
+*&nbsp;&nbsp;FROM&nbsp;SCARR<br />
+*&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_SCARR<br />
+*&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;IN&nbsp;GR_SCARR.<br />
+*<br />
+*LOOP&nbsp;AT&nbsp;GT_SCARR&nbsp;INTO&nbsp;GS_SCARR.<br />
+*&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;GS_SCARR-CARRID,&nbsp;GS_SCARR-CARRNAME.<br />
+*ENDLOOP.<br />
+<br />
+   </div>
+   <div class="code">
+"6. GROUPING<br />
+   </div>
+   <div class="codeComment">
+*DATA:&nbsp;BEGIN&nbsp;OF&nbsp;GS_SFLIGHT,<br />
+*&nbsp;&nbsp;CARRID&nbsp;TYPE&nbsp;SFLIGHT-CARRID,<br />
+*&nbsp;&nbsp;CONNID&nbsp;TYPE&nbsp;SFLIGHT-CONNID,<br />
+*&nbsp;&nbsp;GV_SUM&nbsp;TYPE&nbsp;I,<br />
+*END&nbsp;OF&nbsp;GS_SFLIGHT.<br />
+*DATA:&nbsp;GT_SFLIGHT&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_SFLIGHT.<br />
+*<br />
+*SELECT&nbsp;CARRID&nbsp;"Airline&nbsp;Code<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONNID&nbsp;"Flight&nbsp;Connection&nbsp;Number<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AVG(&nbsp;PRICE&nbsp;)&nbsp;AS&nbsp;GV_SUM&nbsp;"Airfare&nbsp;"Aggregate###&nbsp;####&nbsp;###&nbsp;###<br />
+*&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_SFLIGHT<br />
+*&nbsp;&nbsp;FROM&nbsp;SFLIGHT&nbsp;GROUP&nbsp;BY&nbsp;CARRID&nbsp;CONNID<br />
+*&nbsp;&nbsp;HAVING&nbsp;AVG(&nbsp;PRICE&nbsp;)&nbsp;&gt;&nbsp;1000&nbsp;"GROUP&nbsp;BY#&nbsp;###&nbsp;###&nbsp;#&nbsp;PRICE#&nbsp;1000###&nbsp;####&nbsp;##<br />
+**&nbsp;&nbsp;ORDER&nbsp;BY&nbsp;CONNID&nbsp;DESCENDING.&nbsp;"CONNID&nbsp;####&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;ORDER&nbsp;BY&nbsp;GV_SUM.&nbsp;"PRICE#&nbsp;##&nbsp;###&nbsp;###&nbsp;##<br />
+*<br />
+*LOOP&nbsp;AT&nbsp;GT_SFLIGHT&nbsp;INTO&nbsp;GS_SFLIGHT.<br />
+*&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;GS_SFLIGHT-CARRID,&nbsp;GS_SFLIGHT-CONNID,&nbsp;GS_SFLIGHT-GV_SUM.<br />
+*ENDLOOP.<br />
+<br />
+   </div>
+   <div class="code">
+"9.SUBQUERY<br />
+   </div>
+   <div class="codeComment">
+*DATA:&nbsp;BEGIN&nbsp;OF&nbsp;GS_SFLIGHT,<br />
+*&nbsp;&nbsp;CARRID&nbsp;TYPE&nbsp;SFLIGHT-CARRID,<br />
+*&nbsp;&nbsp;CONNID&nbsp;TYPE&nbsp;SFLIGHT-CONNID,<br />
+*&nbsp;&nbsp;PRICE&nbsp;TYPE&nbsp;SFLIGHT-PRICE,<br />
+*END&nbsp;OF&nbsp;GS_SFLIGHT.<br />
+*DATA:&nbsp;GT_SFLIGHT&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_SFLIGHT.<br />
+*<br />
+*SELECT&nbsp;CARRID&nbsp;"Airline&nbsp;Code<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONNID&nbsp;"Flight&nbsp;Connection&nbsp;Number<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRICE&nbsp;&nbsp;"Airfare<br />
+*&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_SFLIGHT<br />
+*&nbsp;&nbsp;FROM&nbsp;SFLIGHT&nbsp;AS&nbsp;A&nbsp;"##&nbsp;##<br />
+*&nbsp;&nbsp;"SFLIGHT&nbsp;####&nbsp;CARRID&nbsp;##&nbsp;##&nbsp;####&nbsp;###<br />
+*&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;IN&nbsp;(&nbsp;SELECT&nbsp;CARRID<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SPFLI<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;=&nbsp;A~CARRID<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;CONNID&nbsp;=&nbsp;A~CONNID&nbsp;)<br />
+*&nbsp;&nbsp;AND&nbsp;CARRID&nbsp;=&nbsp;'AA'<br />
+*&nbsp;&nbsp;AND&nbsp;CONNID&nbsp;LIKE&nbsp;'00%'.<br />
+*<br />
+*LOOP&nbsp;AT&nbsp;GT_SFLIGHT&nbsp;INTO&nbsp;GS_SFLIGHT.<br />
+*&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;GS_SFLIGHT-CARRID,&nbsp;GS_SFLIGHT-CONNID,&nbsp;GS_SFLIGHT-PRICE.<br />
+*ENDLOOP.<br />
+<br />
+   </div>
+   <div class="code">
+"10. JOIN<br />
+   </div>
+   <div class="codeComment">
+*DATA:&nbsp;BEGIN&nbsp;OF&nbsp;GS_SFLIGHT,<br />
+*&nbsp;&nbsp;CARRID&nbsp;TYPE&nbsp;SFLIGHT-CARRID,<br />
+*&nbsp;&nbsp;CONNID&nbsp;TYPE&nbsp;SFLIGHT-CONNID,<br />
+*&nbsp;&nbsp;CARRNAME&nbsp;TYPE&nbsp;SCARR-CARRNAME,<br />
+*END&nbsp;OF&nbsp;GS_SFLIGHT.<br />
+*DATA:&nbsp;GT_SFLIGHT&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_SFLIGHT.<br />
+*<br />
+*SELECT&nbsp;A~CARRID&nbsp;&nbsp;&nbsp;&nbsp;"Airline&nbsp;Code<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~CONNID&nbsp;&nbsp;&nbsp;&nbsp;"Flight&nbsp;Connection&nbsp;Number<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~CARRNAME&nbsp;&nbsp;"Airline&nbsp;name<br />
+*&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_SFLIGHT<br />
+*&nbsp;&nbsp;FROM&nbsp;SFLIGHT&nbsp;AS&nbsp;A&nbsp;"##&nbsp;##<br />
+*&nbsp;&nbsp;"INNER&nbsp;JOIN&nbsp;SCARR&nbsp;AS&nbsp;B<br />
+*&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;SCARR&nbsp;AS&nbsp;B&nbsp;"ABAP&nbsp;OPEN&nbsp;SQL##&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN#&nbsp;##<br />
+*&nbsp;&nbsp;ON&nbsp;A~CARRID&nbsp;=&nbsp;B~CARRID<br />
+*&nbsp;&nbsp;WHERE&nbsp;A~CARRID&nbsp;=&nbsp;'AA'.<br />
+*"WHERE&nbsp;###&nbsp;ON&nbsp;###&nbsp;####&nbsp;###&nbsp;WHERE&nbsp;##&nbsp;##&nbsp;####,&nbsp;#&nbsp;####&nbsp;####&nbsp;##&nbsp;ON&nbsp;####&nbsp;#&nbsp;####&nbsp;JOIN<br />
+*<br />
+*LOOP&nbsp;AT&nbsp;GT_SFLIGHT&nbsp;INTO&nbsp;GS_SFLIGHT.<br />
+*&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;GS_SFLIGHT-CARRID,&nbsp;GS_SFLIGHT-CONNID,&nbsp;GS_SFLIGHT-CARRNAME.<br />
+*ENDLOOP.<br />
+<br />
+   </div>
+   <div class="code">
+"11. FOR ALL ENTRIES<br />
+DATA: BEGIN OF GS_SPFLI,<br />
+&nbsp;&nbsp;CARRID&nbsp;TYPE&nbsp;SPFLI-CARRID,<br />
+&nbsp;&nbsp;CONNID&nbsp;TYPE&nbsp;SPFLI-CONNID,<br />
+END OF GS_SPFLI.<br />
+DATA: GT_SPFLI LIKE TABLE OF GS_SPFLI.<br />
+<br />
+DATA: BEGIN OF GS_SFLIGHT,<br />
+&nbsp;&nbsp;CARRID&nbsp;TYPE&nbsp;SFLIGHT-CARRID,<br />
+&nbsp;&nbsp;CONNID&nbsp;TYPE&nbsp;SFLIGHT-CONNID,<br />
+&nbsp;&nbsp;FLDATE&nbsp;TYPE&nbsp;SFLIGHT-FLDATE,<br />
+&nbsp;&nbsp;PRICE&nbsp;TYPE&nbsp;SFLIGHT-PRICE,<br />
+END OF GS_SFLIGHT.<br />
+DATA: GT_SFLIGHT LIKE TABLE OF GS_SFLIGHT.<br />
+<br />
+SELECT CARRID    "Airline Code<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONNID&nbsp;&nbsp;&nbsp;&nbsp;"Flight&nbsp;Connection&nbsp;Number<br />
+&nbsp;&nbsp;FROM&nbsp;SPFLI<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_SPFLI<br />
+&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;LIKE&nbsp;'A%'.<br />
+<br />
+"GT_SPFLI# NULL### FULL SCAN## MEMORY DUMP ##-&gt;IF# ##<br />
+IF GT_SPFLI IS NOT INITIAL.<br />
+&nbsp;&nbsp;SELECT&nbsp;CARRID&nbsp;&nbsp;&nbsp;&nbsp;"Airline&nbsp;Code<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONNID&nbsp;&nbsp;&nbsp;&nbsp;"Flight&nbsp;Connection&nbsp;Number<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FLDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRICE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SFLIGHT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_SFLIGHT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;ALL&nbsp;ENTRIES&nbsp;IN&nbsp;GT_SPFLI<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"WHERE#&nbsp;GT_SPFLI#&nbsp;###&nbsp;####&nbsp;###&nbsp;##-&gt;&nbsp;LIKE,&nbsp;BETWEEN,&nbsp;IN#&nbsp;##&nbsp;####&nbsp;##&nbsp;_&gt;#####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;=&nbsp;GT_SPFLI-CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;CONNID&nbsp;=&nbsp;GT_SPFLI-CONNID.<br />
+ENDIF.<br />
+<br />
+LOOP AT GT_SFLIGHT INTO GS_SFLIGHT.<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;GS_SFLIGHT-CARRID,&nbsp;GS_SFLIGHT-CONNID,&nbsp;GS_SFLIGHT-FLDATE,&nbsp;GS_SFLIGHT-PRICE.<br />
+ENDLOOP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

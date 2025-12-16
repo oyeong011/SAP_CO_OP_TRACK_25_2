@@ -1,0 +1,426 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR09_017</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR09_017</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR09_017<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR09_017.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;=====================================================================<br />
+*&nbsp;DB&nbsp;TABLE&nbsp;##&nbsp;-&nbsp;INSERT,&nbsp;UPDATE,&nbsp;DELETE,&nbsp;MODIFY&nbsp;4##<br />
+<br />
+*&nbsp;MODIFY&nbsp;-&gt;&nbsp;INSERT&nbsp;+&nbsp;UPDATE&nbsp;=&gt;&nbsp;###&nbsp;UPSERT#<br />
+*&nbsp;=====================================================================<br />
+<br />
+*&nbsp;=====================================================================<br />
+*&nbsp;INSERT#<br />
+*&nbsp;-&nbsp;1##&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;INTO&nbsp;&lt;###&gt;&nbsp;VALUES&nbsp;&lt;###&gt;.<br />
+*&nbsp;-&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;&lt;###&gt;&nbsp;FROM&nbsp;TABLE&nbsp;&lt;######&gt;.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;&lt;###&gt;&nbsp;FROM&nbsp;TABLE&nbsp;&lt;######&gt;&nbsp;ACCEPTING&nbsp;DUPLICATE&nbsp;KEY.<br />
+*&nbsp;=====================================================================<br />
+<br />
+*&nbsp;######&nbsp;##<br />
+   </div>
+   <div class="code">
+DATA : GS_STUDENT TYPE ZEDT09_001.<br />
+DATA : GT_STUDENT TYPE TABLE OF ZEDT09_001.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;KEY#&nbsp;####&nbsp;data&nbsp;insert&nbsp;###..<br />
+   </div>
+   <div class="code">
+GS_STUDENT-MANDT = sy-mandt.<br />
+GS_STUDENT-ZCODE = 'SSU-27'.<br />
+GS_STUDENT-ZPERNR = '0000000027'.<br />
+GS_STUDENT-ZKNAME = '###'.<br />
+GS_STUDENT-ZENAME = 'DO'.<br />
+GS_STUDENT-ZGENDER = 'F'.<br />
+GS_STUDENT-ZTEL = '01000001127'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;INSERT#&nbsp;###&nbsp;##<br />
+*&nbsp;INSERT&nbsp;INTO&nbsp;ZEDT09_001&nbsp;VALUES&nbsp;GS_STUDENT.<br />
+<br />
+   </div>
+   <div class="code">
+IF sy-subrc = 0.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'###&nbsp;insert&nbsp;##'.<br />
+ELSE.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'###&nbsp;insert&nbsp;##'.<br />
+ENDIF.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;INSERT#&nbsp;##&nbsp;#&nbsp;##<br />
+   </div>
+   <div class="code">
+CLEAR : GS_STUDENT, GT_STUDENT.<br />
+GS_STUDENT-ZCODE = 'SSU-28'.<br />
+GS_STUDENT-ZPERNR = '0000000028'.<br />
+GS_STUDENT-ZKNAME = '###'.<br />
+GS_STUDENT-ZENAME = 'DA'.<br />
+GS_STUDENT-ZGENDER = 'F'.<br />
+GS_STUDENT-ZTEL = '01000001128'.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+CLEAR : GS_STUDENT.<br />
+GS_STUDENT-ZCODE = 'SSU-30'.<br />
+GS_STUDENT-ZPERNR = '0000000030'.<br />
+GS_STUDENT-ZKNAME = '###2'.<br />
+GS_STUDENT-ZENAME = 'CHA2'.<br />
+GS_STUDENT-ZGENDER = 'M'.<br />
+GS_STUDENT-ZTEL = '01000001130'.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;INSERT#&nbsp;###&nbsp;##<br />
+*&nbsp;INSERT&nbsp;ZEDT09_001&nbsp;FROM&nbsp;TABLE&nbsp;GT_STUDENT.<br />
+<br />
+   </div>
+   <div class="code">
+IF sy-subrc = 0.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'insert#&nbsp;###&nbsp;##'.<br />
+ELSE.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'insert#&nbsp;###&nbsp;##'.<br />
+ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;INSERT#&nbsp;-&gt;&nbsp;##&nbsp;#&nbsp;##<br />
+   </div>
+   <div class="code">
+CLEAR : GS_STUDENT, GT_STUDENT.<br />
+GS_STUDENT-ZCODE = 'SSU-28'.<br />
+GS_STUDENT-ZPERNR = '0000000028'. "## ## ##<br />
+GS_STUDENT-ZKNAME = '###2'.<br />
+GS_STUDENT-ZENAME = 'DA2'.<br />
+GS_STUDENT-ZGENDER = 'F'.<br />
+GS_STUDENT-ZTEL = '01000001128'.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+CLEAR : GS_STUDENT.<br />
+GS_STUDENT-ZCODE = 'SSU-31'.<br />
+GS_STUDENT-ZPERNR = '0000000031'.<br />
+GS_STUDENT-ZKNAME = '###'.<br />
+GS_STUDENT-ZENAME = 'SOO'.<br />
+GS_STUDENT-ZGENDER = 'M'.<br />
+GS_STUDENT-ZTEL = '01000001131'.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;INSERT&nbsp;ZEDT09_001&nbsp;FROM&nbsp;TABLE&nbsp;GT_STUDENT&nbsp;ACCEPTING&nbsp;DUPLICATE&nbsp;KEYS.&nbsp;"###,&nbsp;####&nbsp;####,&nbsp;id#&nbsp;##&nbsp;###&nbsp;##&nbsp;#####.<br />
+<br />
+   </div>
+   <div class="code">
+IF sy-subrc = 0.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'insert#&nbsp;###&nbsp;##&nbsp;##'.<br />
+ELSE.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'insert#&nbsp;###&nbsp;##&nbsp;##'.<br />
+ENDIF.<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;=====================================================================<br />
+*&nbsp;UPDATE#<br />
+*&nbsp;-&nbsp;1##&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;&lt;###&gt;&nbsp;FROM&nbsp;wa.<br />
+*&nbsp;-&nbsp;###&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;&lt;###&gt;&nbsp;FROM&nbsp;TABLE&nbsp;&lt;######&gt;.<br />
+*&nbsp;-&nbsp;UPDATE&nbsp;SET####,&nbsp;##&nbsp;##&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;&lt;###&gt;&nbsp;SET&nbsp;FIELD&nbsp;=&nbsp;'###&nbsp;#'&nbsp;WHERE&nbsp;&lt;##&gt;.<br />
+*&nbsp;=====================================================================<br />
+   </div>
+   <div class="code">
+CLEAR : GS_STUDENT, GT_STUDENT.<br />
+<br />
+GS_STUDENT-ZCODE = 'SSU-12'.<br />
+GS_STUDENT-ZPERNR = '0000000012'.<br />
+GS_STUDENT-ZKNAME = '### - ###'.<br />
+GS_STUDENT-ZENAME = 'JAE'.<br />
+GS_STUDENT-ZGENDER = 'M'.<br />
+" GS_STUDENT-ZTEL = '01000001121'. -&gt; #### ZTEL ## ###, # ### ## null# update#. # #### ## ## ### ### #####.<br />
+"                                     update ~ set## ####..<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;UPDATE&nbsp;ZEDT09_001&nbsp;FROM&nbsp;GS_STUDENT.&nbsp;"UPDATE#&nbsp;##<br />
+<br />
+   </div>
+   <div class="code">
+IF sy-subrc = 0.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'###&nbsp;##&nbsp;##'.<br />
+ELSE.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'###&nbsp;##&nbsp;##'.<br />
+ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;UPDATE#&nbsp;###<br />
+   </div>
+   <div class="code">
+CLEAR : GS_STUDENT, GT_STUDENT.<br />
+GS_STUDENT-ZCODE = 'SSU-11'.<br />
+GS_STUDENT-ZPERNR = '0000000011'.<br />
+GS_STUDENT-ZKNAME = '## - ###'.<br />
+GS_STUDENT-ZENAME = 'YOON'.<br />
+GS_STUDENT-ZGENDER = 'F'.<br />
+GS_STUDENT-ZTEL = '01000001131'.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+CLEAR : GS_STUDENT.<br />
+GS_STUDENT-ZCODE = 'SSU-12'.<br />
+GS_STUDENT-ZPERNR = '0000000012'.<br />
+GS_STUDENT-ZKNAME = '### - ###'.<br />
+GS_STUDENT-ZENAME = 'JAE'.<br />
+GS_STUDENT-ZGENDER = 'M'.<br />
+GS_STUDENT-ZTEL = '01000001121'.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;UPDATE&nbsp;ZEDT09_001&nbsp;FROM&nbsp;TABLE&nbsp;GT_STUDENT.<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+IF sy-subrc = 0.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'###&nbsp;##&nbsp;###&nbsp;##'.<br />
+ELSE.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'###&nbsp;##&nbsp;###&nbsp;##'.<br />
+ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;UPDATE&nbsp;SET##&nbsp;######&nbsp;##<br />
+*UPDATE&nbsp;ZEDT09_001&nbsp;SET&nbsp;ZKNAME&nbsp;=&nbsp;'###-####'<br />
+*WHERE&nbsp;ZCODE&nbsp;=&nbsp;'SSU-31'.<br />
+*<br />
+*UPDATE&nbsp;ZEDT09_001&nbsp;SET&nbsp;ZENAME&nbsp;=&nbsp;'CHA2'<br />
+*WHERE&nbsp;ZCODE&nbsp;=&nbsp;'SSU-29'.<br />
+<br />
+   </div>
+   <div class="code">
+IF sy-subrc = 0.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'update&nbsp;set&nbsp;####&nbsp;##'.<br />
+ELSE.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'update&nbsp;set&nbsp;####&nbsp;##'.<br />
+ENDIF.<br />
+<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;=====================================================================<br />
+*&nbsp;DELETE#<br />
+*&nbsp;-&nbsp;1##&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;&lt;###&gt;&nbsp;FROM&nbsp;wa.<br />
+*&nbsp;-&nbsp;###&nbsp;##&nbsp;-&gt;&nbsp;#######&nbsp;WHERE###&nbsp;####&nbsp;##&nbsp;#&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;FROM&nbsp;&lt;###&gt;&nbsp;WHERE&nbsp;[COND]<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;&lt;###&gt;&nbsp;FROM&nbsp;TABLE&nbsp;&lt;######&gt;<br />
+*&nbsp;=====================================================================<br />
+   </div>
+   <div class="code">
+CLEAR : GS_STUDENT, GT_STUDENT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##&nbsp;##&nbsp;-&gt;&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+GS_STUDENT-ZCODE = 'SSU-31'.<br />
+GS_STUDENT-ZPERNR = '0000000031'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;DELETE&nbsp;ZEDT09_001&nbsp;FROM&nbsp;GS_STUDENT.<br />
+<br />
+   </div>
+   <div class="code">
+IF sy-subrc = 0.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'###&nbsp;##&nbsp;##&nbsp;##'.<br />
+ELSE.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'###&nbsp;##&nbsp;##&nbsp;##'.<br />
+ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;###&nbsp;##&nbsp;-&gt;&nbsp;by&nbsp;WHERE&nbsp;###<br />
+<br />
+*DELETE&nbsp;FROM&nbsp;ZEDT09_001&nbsp;WHERE&nbsp;ZENAME&nbsp;=&nbsp;'CHA2'.<br />
+<br />
+   </div>
+   <div class="code">
+IF sy-subrc = 0.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'###&nbsp;###&nbsp;##&nbsp;##'.<br />
+ELSE.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'###&nbsp;###&nbsp;##&nbsp;##'.<br />
+ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##&nbsp;#&nbsp;##&nbsp;-&gt;&nbsp;by&nbsp;######<br />
+   </div>
+   <div class="code">
+CLEAR : GS_STUDENT, GT_STUDENT.<br />
+GS_STUDENT-ZCODE = 'SSU-27'.<br />
+GS_STUDENT-ZPERNR = '0000000027'.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+GS_STUDENT-ZCODE = 'SSU-28'.<br />
+GS_STUDENT-ZPERNR = '0000000028'.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*DELETE&nbsp;ZEDT09_001&nbsp;FROM&nbsp;TABLE&nbsp;GT_STUDENT.<br />
+<br />
+   </div>
+   <div class="code">
+IF sy-subrc = 0.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'###&nbsp;###&nbsp;##&nbsp;##&nbsp;-&nbsp;######'.<br />
+ELSE.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'###&nbsp;###&nbsp;##&nbsp;##&nbsp;-&nbsp;######'.<br />
+ENDIF.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;=====================================================================<br />
+*&nbsp;MODIFY#&nbsp;:&nbsp;INSERT#&nbsp;UPDATE###&nbsp;##&nbsp;&nbsp;-&gt;&nbsp;&lt;key#&nbsp;##&gt;<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KEY##&nbsp;###&nbsp;####&nbsp;####,&nbsp;UPDATE&nbsp;/&nbsp;###&nbsp;INSERT<br />
+*&nbsp;-&nbsp;1##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;&lt;###&gt;&nbsp;FROM&nbsp;wa.<br />
+*&nbsp;-&nbsp;###&nbsp;;&nbsp;#######&nbsp;####&nbsp;###&nbsp;##&nbsp;or&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;&lt;###&gt;&nbsp;FROM&nbsp;TABLE&nbsp;&lt;######&gt;<br />
+*&nbsp;=====================================================================<br />
+<br />
+   </div>
+   <div class="code">
+CLEAR : GS_STUDENT, GT_STUDENT.<br />
+<br />
+GS_STUDENT-ZCODE = 'SSU-11'.<br />
+GS_STUDENT-ZPERNR = '0000000011'.<br />
+GS_STUDENT-ZKNAME = '##'.<br />
+GS_STUDENT-ZENAME = 'YOON'.<br />
+GS_STUDENT-ZGENDER = 'F'.<br />
+GS_STUDENT-ZTEL = '01000002222'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*MODIFY&nbsp;ZEDT09_001&nbsp;FROM&nbsp;GS_STUDENT.<br />
+<br />
+   </div>
+   <div class="code">
+IF sy-subrc = 0.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'###&nbsp;modify&nbsp;##'.<br />
+ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;modify&nbsp;###<br />
+   </div>
+   <div class="code">
+CLEAR : GS_STUDENT, GT_STUDENT.<br />
+GS_STUDENT-ZCODE = 'SSU-11'.<br />
+GS_STUDENT-ZPERNR = '0000000011'.<br />
+GS_STUDENT-ZKNAME = '##'.<br />
+GS_STUDENT-ZENAME = 'YOON'.<br />
+GS_STUDENT-ZGENDER = 'F'.<br />
+GS_STUDENT-ZTEL = '01000002233'.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+GS_STUDENT-ZCODE = 'SSU-12'.<br />
+GS_STUDENT-ZPERNR = '0000000012'.<br />
+GS_STUDENT-ZKNAME = '###'.<br />
+GS_STUDENT-ZENAME = 'LEE'.<br />
+GS_STUDENT-ZGENDER = 'M'.<br />
+GS_STUDENT-ZTEL = '01000002233'.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+MODIFY ZEDT09_001 FROM TABLE GT_STUDENT.<br />
+<br />
+IF sy-subrc = 0.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'###&nbsp;modify&nbsp;###&nbsp;##'.<br />
+ENDIF.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

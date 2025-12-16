@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR05_PRACTICE001</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR05_PRACTICE001</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR05_PRACTICE001<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR05_PRACTICE001.<br />
+<br />
+<br />
+" ###### ## ##<br />
+TYPES : BEGIN OF TY_FINAL,<br />
+&nbsp;&nbsp;ZCODE&nbsp;LIKE&nbsp;ZEDT05_004-ZCODE,<br />
+&nbsp;&nbsp;ZMNAME&nbsp;LIKE&nbsp;ZEDT05_004-ZMNAME,<br />
+&nbsp;&nbsp;ZFLAG&nbsp;LIKE&nbsp;ZEDT05_004-ZFLAG,<br />
+&nbsp;&nbsp;ZAMOUNT&nbsp;LIKE&nbsp;ZEDT05_004-ZAMOUNT,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_FINAL.<br />
+<br />
+<br />
+DATA : GT_GRADE LIKE TABLE OF ZEDT05_004 WITH NON-UNIQUE KEY ZCODE, " ## ###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FINAL&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;TY_FINAL,&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FINAL_LINE&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;GT_FINAL.&nbsp;"&nbsp;#####&nbsp;##<br />
+<br />
+DATA : GS_GRADE LIKE LINE OF GT_GRADE, " ##### ### ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_GRADE_LINE&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;GT_GRADE.&nbsp;"&nbsp;#####&nbsp;##<br />
+<br />
+<br />
+<br />
+DATA :ZAMOUNT TYPE I, " ## ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZLFLAG&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;0,&nbsp;"###&nbsp;####&nbsp;####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSUM&nbsp;TYPE&nbsp;I.<br />
+<br />
+SELECT * FROM ZEDT05_004 INTO CORRESPONDING FIELDS OF TABLE GT_GRADE.<br />
+<br />
+<br />
+SORT GT_GRADE BY ZCODE ZGRADE. " ## # ##### ## (## ### #### ##### ####)<br />
+<br />
+<br />
+LOOP AT GT_GRADE INTO GS_GRADE.<br />
+&nbsp;&nbsp;"###&nbsp;##&nbsp;##.<br />
+&nbsp;AT&nbsp;FIRST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'-----------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'|',&nbsp;'####',&nbsp;14&nbsp;'|',&nbsp;'###',&nbsp;&nbsp;35&nbsp;'|',&nbsp;'####',&nbsp;&nbsp;48&nbsp;'|',&nbsp;'####',&nbsp;&nbsp;65&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'-----------------------------------------------------------------'.<br />
+&nbsp;&nbsp;ENDAT.<br />
+&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_GRADE&nbsp;TO&nbsp;GS_GRADE_LINE.<br />
+<br />
+<br />
+&nbsp;&nbsp;"&nbsp;######<br />
+&nbsp;&nbsp;AT&nbsp;NEW&nbsp;ZCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;ZLFLAG&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSUM&nbsp;=&nbsp;GS_FINAL_LINE-ZAMOUNT&nbsp;*&nbsp;100&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'|',&nbsp;GS_FINAL_LINE-ZCODE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14&nbsp;'|',&nbsp;GS_FINAL_LINE-ZMNAME&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;35&nbsp;'|',&nbsp;GS_FINAL_LINE-ZFLAG&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;48&nbsp;'|',&nbsp;ZSUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;64&nbsp;'&nbsp;|&nbsp;'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZAMOUNT&nbsp;=&nbsp;ZAMOUNT&nbsp;+&nbsp;ZSUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;SY-ULINE(65).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;END&nbsp;OF&nbsp;ZCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"#####&nbsp;A##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_GRADE_LINE-ZGRADE&nbsp;=&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_GRADE_LINE-ZFLAG&nbsp;=&nbsp;'X'.&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_GRADE_LINE-ZSCHOOL&nbsp;=&nbsp;'A'.&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_GRADE_LINE-ZAMOUNT&nbsp;=&nbsp;GS_GRADE_LINE-ZSUM&nbsp;*&nbsp;80&nbsp;/&nbsp;100.&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;GS_GRADE_LINE-ZSCHOOL&nbsp;=&nbsp;'B'.&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_GRADE_LINE-ZAMOUNT&nbsp;=&nbsp;GS_GRADE_LINE-ZSUM&nbsp;*&nbsp;90&nbsp;/&nbsp;100.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_GRADE&nbsp;FROM&nbsp;GS_GRADE_LINE&nbsp;TRANSPORTING&nbsp;ZAMOUNT&nbsp;ZFLAG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_GRADE_LINE-ZAMOUNT&nbsp;=&nbsp;GS_GRADE_LINE-ZSUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_GRADE_LINE&nbsp;TO&nbsp;GS_FINAL_LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_FINAL_LINE&nbsp;TO&nbsp;GT_FINAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZLFLAG&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;AT&nbsp;LAST.<br />
+&nbsp;&nbsp;&nbsp;ZSUM&nbsp;=&nbsp;GS_FINAL_LINE-ZAMOUNT&nbsp;*&nbsp;100&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'|',&nbsp;GS_FINAL_LINE-ZCODE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14&nbsp;'|',&nbsp;GS_FINAL_LINE-ZMNAME&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;35&nbsp;'|',&nbsp;GS_FINAL_LINE-ZFLAG&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;48&nbsp;'|',&nbsp;ZSUM&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;64&nbsp;'&nbsp;|&nbsp;'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZAMOUNT&nbsp;=&nbsp;ZAMOUNT&nbsp;+&nbsp;ZSUM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'-----------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'|',&nbsp;'##',&nbsp;&nbsp;48&nbsp;'|',&nbsp;&nbsp;ZAMOUNT,&nbsp;&nbsp;65&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'-----------------------------------------------------------------'.<br />
+<br />
+&nbsp;&nbsp;ENDAT.<br />
+ENDLOOP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZWORK18_002_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZWORK18_002_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZWORK18_002_TOP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES : ZTCURR18.<br />
+<br />
+TYPE-POOLS: OLE2.<br />
+<br />
+" OLE ### ##<br />
+DATA: GV_TEMP_DIR TYPE STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_XLS_PATH&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_PDF_PATH&nbsp;TYPE&nbsp;STRING.<br />
+<br />
+DATA : GV_TEMPLATE_RL TYPE RLGRAP-FILENAME."## ## ##<br />
+DATA : GV_PDF_PATH_RL TYPE RLGRAP-FILENAME."PDF ## ##<br />
+<br />
+" EXCEL OLE ##<br />
+DATA: GO_EXCEL     TYPE OLE2_OBJECT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_WORKBOOKS&nbsp;TYPE&nbsp;OLE2_OBJECT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_WORKBOOK&nbsp;&nbsp;TYPE&nbsp;OLE2_OBJECT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_SHEETS&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;OLE2_OBJECT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_SHEET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;OLE2_OBJECT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_RANGE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;OLE2_OBJECT.<br />
+<br />
+DATA : BEGIN OF GS_CURR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KURST&nbsp;LIKE&nbsp;ZTCURR18-KURST,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FCURR&nbsp;LIKE&nbsp;ZTCURR18-FCURR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TCURR&nbsp;LIKE&nbsp;ZTCURR18-TCURR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GDATU&nbsp;LIKE&nbsp;ZTCURR18-GDATU,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UKURS&nbsp;LIKE&nbsp;ZTCURR18-UKURS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FFACT&nbsp;LIKE&nbsp;ZTCURR18-FFACT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TFACT&nbsp;LIKE&nbsp;ZTCURR18-TFACT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERNAM&nbsp;LIKE&nbsp;ZTCURR18-ERNAM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERDAT&nbsp;LIKE&nbsp;ZTCURR18-ERDAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_CURR.<br />
+DATA : GT_CURR LIKE TABLE OF GS_CURR.<br />
+<br />
+DATA : GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER.<br />
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+DATA : OK_CODE TYPE SY-UCOMM.<br />
+<br />
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT.<br />
+DATA : GT_FIELDCAT TYPE LVC_T_FCAT.<br />
+<br />
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.<br />
+<br />
+DATA : GS_SORT TYPE LVC_S_SORT.<br />
+DATA : GT_SORT TYPE LVC_T_SORT.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

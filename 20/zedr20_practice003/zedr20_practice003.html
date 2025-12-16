@@ -1,0 +1,541 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR20_PRACTICE003</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR20_PRACTICE003</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR20_PRACTICE003<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR20_PRACTICE003.<br />
+<br />
+" ### TABLE ##<br />
+TABLES: ZEDT20_100, ZEDT20_101.<br />
+<br />
+" ### #### ## ## KRW ##<br />
+CONSTANTS: C_KRW TYPE I VALUE 100.<br />
+<br />
+" ##### ###### ### ## ## ##<br />
+DATA: GV_START TYPE SY-DATUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_END&nbsp;TYPE&nbsp;SY-DATUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_DATE&nbsp;TYPE&nbsp;SY-DATUM.<br />
+<br />
+DATA: BEGIN OF GS_ORDER.    " ###### ## ##### ##<br />
+&nbsp;&nbsp;DATA:&nbsp;ZORDNO&nbsp;LIKE&nbsp;ZEDT20_100-ZORDNO,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZIDCODE&nbsp;LIKE&nbsp;ZEDT20_100-ZIDCODE,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMATNR&nbsp;LIKE&nbsp;ZEDT20_100-ZMATNR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMATNAME&nbsp;LIKE&nbsp;ZEDT20_100-ZMATNAME,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZVOLUM&nbsp;LIKE&nbsp;ZEDT20_100-ZVOLUM,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VRKME&nbsp;LIKE&nbsp;ZEDT20_100-VRKME,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZNSAMT&nbsp;TYPE&nbsp;I,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSLAMT&nbsp;TYPE&nbsp;I,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDCAMT&nbsp;TYPE&nbsp;I,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZJDATE&nbsp;LIKE&nbsp;ZEDT20_100-ZJDATE,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDATE(10).&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;DATA:&nbsp;ZKMTART&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;8,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZKDC_FG&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;8,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZKSALE_FG&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;5,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZKRET_FG&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;DATA:&nbsp;END&nbsp;OF&nbsp;GS_ORDER.<br />
+DATA: GT_ORDER LIKE TABLE OF GS_ORDER.    " ###### ## ### ##<br />
+<br />
+DATA: BEGIN OF GS_DELIVERY.   " ###### ## ##### ##<br />
+&nbsp;&nbsp;DATA:&nbsp;ZORDNO&nbsp;LIKE&nbsp;ZEDT20_101-ZORDNO,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZIDCODE&nbsp;LIKE&nbsp;ZEDT20_101-ZIDCODE,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMATNR&nbsp;LIKE&nbsp;ZEDT20_101-ZMATNR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMATNAME&nbsp;LIKE&nbsp;ZEDT20_101-ZMATNAME,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZVOLUM&nbsp;LIKE&nbsp;ZEDT20_101-ZVOLUM,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VRKME&nbsp;LIKE&nbsp;ZEDT20_101-VRKME,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSLAMT&nbsp;TYPE&nbsp;I,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDDATE&nbsp;LIKE&nbsp;ZEDT20_101-ZDDATE,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDATE(10).&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;DATA:&nbsp;ZKMTART&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;8,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZKDFLAG&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;8,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZKDGUBUN&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;8.&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;DATA:&nbsp;END&nbsp;OF&nbsp;GS_DELIVERY.<br />
+DATA: GT_DELIVERY LIKE TABLE OF GS_DELIVERY.    " ###### ## ### ##<br />
+<br />
+DATA: BEGIN OF GS_MASTER.   " #### ### ### MASTER ##### ##<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt20_100/dictionary-zedt20_100.html">ZEDT20_100</a>.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;##&nbsp;###.&nbsp;####&nbsp;#####&nbsp;####&nbsp;##&nbsp;#####<br />
+&nbsp;&nbsp;DATA:&nbsp;ZDFLAG&nbsp;LIKE&nbsp;ZEDT20_101-ZDFLAG,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDGUBUN&nbsp;LIKE&nbsp;ZEDT20_101-ZDGUBUN,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDDATE&nbsp;LIKE&nbsp;ZEDT20_101-ZDDATE.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;DATA:&nbsp;END&nbsp;OF&nbsp;GS_MASTER.<br />
+DATA: GT_MASTER LIKE TABLE OF GS_MASTER.    " MASTER ### ##<br />
+<br />
+<br />
+" ### ### ##<br />
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.<br />
+&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;S_ZORDNO&nbsp;FOR&nbsp;ZEDT20_100-ZORDNO.&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;PARAMETERS:&nbsp;P_ZID&nbsp;LIKE&nbsp;ZEDT20_100-ZIDCODE.&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;ID<br />
+&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;S_ZMATNR&nbsp;FOR&nbsp;ZEDT20_100-ZMATNR.&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;S_ZJDATE&nbsp;FOR&nbsp;ZEDT20_100-ZJDATE&nbsp;MODIF&nbsp;ID&nbsp;M1.&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;S_ZDDATE&nbsp;FOR&nbsp;ZEDT20_101-ZDDATE&nbsp;MODIF&nbsp;ID&nbsp;M2.&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+SELECTION-SCREEN END OF BLOCK B1.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.<br />
+&nbsp;&nbsp;PARAMETERS:&nbsp;P_R1&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R1&nbsp;DEFAULT&nbsp;'X'&nbsp;USER-COMMAND&nbsp;UC1.&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;PARAMETERS:&nbsp;P_R2&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R1.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+SELECTION-SCREEN END OF BLOCK B2.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B3 WITH FRAME.<br />
+&nbsp;&nbsp;PARAMETERS:&nbsp;P_C1&nbsp;AS&nbsp;CHECKBOX&nbsp;DEFAULT&nbsp;'X'&nbsp;USER-COMMAND&nbsp;UC1.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;######<br />
+SELECTION-SCREEN END OF BLOCK B3.<br />
+<br />
+AT SELECTION-SCREEN OUTPUT.   " #### #### ### ##### ##<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'M1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_R1&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;P_R2&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'M2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_R1&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;P_R2&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+INITIALIZATION.   " ### ### ####<br />
+&nbsp;&nbsp;GV_DATE&nbsp;=&nbsp;SY-DATUM.&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;###<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'RP_LAST_DAY_OF_MONTHS'&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;#&nbsp;##&nbsp;##&nbsp;######&nbsp;....<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAY_IN&nbsp;=&nbsp;GV_DATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LAST_DAY_OF_MONTH&nbsp;=&nbsp;GV_END.&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;####<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;GV_DATE+0(6)&nbsp;'01'&nbsp;INTO&nbsp;GV_START.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;#<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;S_ZJDATE-LOW&nbsp;=&nbsp;GV_START.<br />
+&nbsp;&nbsp;S_ZJDATE-HIGH&nbsp;=&nbsp;GV_END.<br />
+&nbsp;&nbsp;APPEND&nbsp;S_ZJDATE.<br />
+<br />
+&nbsp;&nbsp;S_ZDDATE-LOW&nbsp;=&nbsp;GV_START.<br />
+&nbsp;&nbsp;S_ZDDATE-HIGH&nbsp;=&nbsp;GV_END.<br />
+&nbsp;&nbsp;APPEND&nbsp;S_ZDDATE.<br />
+<br />
+START-OF-SELECTION.   " ## ##<br />
+&nbsp;&nbsp;RANGES&nbsp;R_ZID&nbsp;FOR&nbsp;P_ZID.<br />
+&nbsp;&nbsp;IF&nbsp;P_ZID&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;R_ZID-OPTION&nbsp;=&nbsp;'EQ'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;R_ZID-SIGN&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;R_ZID-LOW&nbsp;=&nbsp;P_ZID.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;R_ZID.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;IF&nbsp;P_R1&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;###&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_DATA_BY_ZJDATE&nbsp;USING&nbsp;S_ZJDATE[]<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_ZORDNO[]<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_ZMATNR[]<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_ZID[].<br />
+&nbsp;&nbsp;ELSEIF&nbsp;P_R2&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;###&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_DATA_BY_ZDDATE&nbsp;USING&nbsp;S_ZDDATE[]<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_ZORDNO[]<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_ZMATNR[]<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_ZID[].<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+IF GT_MASTER IS INITIAL.<br />
+&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;LEAVE&nbsp;LIST-PROCESSING.<br />
+ENDIF.<br />
+<br />
+LOOP AT GT_MASTER INTO GS_MASTER.<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_ZMTART(5).&nbsp;&nbsp;&nbsp;"&nbsp;######&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;PROCESS_PUBLIC_DATA&nbsp;CHANGING&nbsp;GS_MASTER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ZMTART.<br />
+&nbsp;&nbsp;IF&nbsp;P_R1&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE&nbsp;LV_ZMTART&nbsp;TO&nbsp;GS_ORDER-ZKMTART.&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_MASTER&nbsp;TO&nbsp;GS_ORDER.&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;PROCESS_ORDER_DATA&nbsp;USING&nbsp;GS_MASTER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;GS_ORDER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_ORDER&nbsp;TO&nbsp;GT_ORDER.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;####&nbsp;APPEND<br />
+&nbsp;&nbsp;ELSEIF&nbsp;P_R2&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE&nbsp;LV_ZMTART&nbsp;TO&nbsp;GS_DELIVERY-ZKMTART.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_MASTER&nbsp;TO&nbsp;GS_DELIVERY.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;PROCESS_DELIVERY_DATA&nbsp;USING&nbsp;GS_MASTER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;GS_DELIVERY.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_R1&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_C1&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;WRITE_ORDER_RED&nbsp;USING&nbsp;SY-TABIX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ORDER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;GS_MASTER-ZRET_FG&nbsp;=''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;WRITE_ORDER&nbsp;USING&nbsp;SY-TABIX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ORDER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_C1&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;WRITE_DELIVERY_RED&nbsp;USING&nbsp;SY-TABIX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DELIVERY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;GS_DELIVERY-ZDATE&nbsp;=''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;WRITE_DELIVERY&nbsp;USING&nbsp;SY-TABIX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DELIVERY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+ENDLOOP.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_DATA_BY_ZJDATE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_S_ZJDATE[]&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--P_GT_ORD&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_DATA_BY_ZJDATE  USING    P_ZJDATE LIKE S_ZJDATE[]<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZORDNO&nbsp;LIKE&nbsp;S_ZORDNO[]<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZMATNR&nbsp;LIKE&nbsp;S_ZMATNR[]<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZID&nbsp;LIKE&nbsp;R_ZID[].<br />
+&nbsp;&nbsp;"&nbsp;#####&nbsp;####&nbsp;##&nbsp;##&nbsp;###&nbsp;####&nbsp;###<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT20_100<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_MASTER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZJDATE&nbsp;IN&nbsp;P_ZJDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZORDNO&nbsp;IN&nbsp;P_ZORDNO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZMATNR&nbsp;IN&nbsp;P_ZMATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZIDCODE&nbsp;IN&nbsp;P_ZID.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_DATA_BY_ZDDATE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_S_ZDDATE[]&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--P_GT_DEL&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_DATA_BY_ZDDATE  USING    P_ZDDATE LIKE S_ZDDATE[]<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZORDNO&nbsp;LIKE&nbsp;S_ZORDNO[]<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZMATNR&nbsp;LIKE&nbsp;S_ZMATNR[]<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZID&nbsp;LIKE&nbsp;R_ZID[].<br />
+&nbsp;&nbsp;"&nbsp;#####&nbsp;####&nbsp;##&nbsp;##&nbsp;###&nbsp;####&nbsp;###<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT20_101<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_MASTER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZDDATE&nbsp;IN&nbsp;P_ZDDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZORDNO&nbsp;IN&nbsp;P_ZORDNO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZMATNR&nbsp;IN&nbsp;P_ZMATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZIDCODE&nbsp;IN&nbsp;P_ZID.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;WRITE_ORDER_RED<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_SY_TABIX&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_GS_MASTER&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM WRITE_ORDER_RED  USING    P_TABIX LIKE SY-TABIX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_ORDER&nbsp;LIKE&nbsp;GS_ORDER.<br />
+&nbsp;&nbsp;IF&nbsp;P_TABIX&nbsp;=&nbsp;1.&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;####&nbsp;|##&nbsp;|##&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;|&nbsp;##&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;"&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;WRITE:/&nbsp;'|',&nbsp;PS_ORDER-ZORDNO,&nbsp;'|',&nbsp;PS_ORDER-ZIDCODE,&nbsp;'|',&nbsp;PS_ORDER-ZMATNR,&nbsp;'|',&nbsp;PS_ORDER-ZMATNAME,&nbsp;'|',&nbsp;PS_ORDER-ZKMTART,&nbsp;'|',PS_ORDER-ZVOLUM,&nbsp;'|',PS_ORDER-VRKME,&nbsp;'|',PS_ORDER-ZNSAMT,<br />
+&nbsp;&nbsp;'|',&nbsp;PS_ORDER-ZSLAMT,&nbsp;'|',PS_ORDER-ZDCAMT,&nbsp;'|',PS_ORDER-ZKSALE_FG,&nbsp;'|',PS_ORDER-ZJDATE,&nbsp;'|',PS_ORDER-ZKRET_FG,&nbsp;'|',PS_ORDER-ZDATE,&nbsp;'|'.<br />
+&nbsp;&nbsp;WRITE:/&nbsp;'-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;WRITE_ORDER<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_SY_TABIX&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_GS_MASTER&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM WRITE_ORDER  USING    P_TABIX LIKE SY-TABIX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_ORDER&nbsp;LIKE&nbsp;GS_ORDER.<br />
+&nbsp;&nbsp;IF&nbsp;P_TABIX&nbsp;=&nbsp;1.&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'-----------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;####&nbsp;|##&nbsp;|##&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;|&nbsp;##&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'-----------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;ENDIF.<br />
+&nbsp;"&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;WRITE:/&nbsp;'|',&nbsp;PS_ORDER-ZORDNO,&nbsp;'|',&nbsp;PS_ORDER-ZIDCODE,&nbsp;'|',&nbsp;PS_ORDER-ZMATNR,&nbsp;'|',&nbsp;PS_ORDER-ZMATNAME,&nbsp;'|',&nbsp;PS_ORDER-ZKMTART,&nbsp;'|',PS_ORDER-ZVOLUM,&nbsp;'|',PS_ORDER-VRKME,&nbsp;'|',PS_ORDER-ZNSAMT,'|',&nbsp;PS_ORDER-ZSLAMT,&nbsp;'|',PS_ORDER-ZDCAMT,&nbsp;'|',PS_ORDER-ZKSALE_FG,<br />
+'|',PS_ORDER-ZJDATE, '|'.<br />
+&nbsp;&nbsp;WRITE:/&nbsp;'-----------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;WRITE_DELIVERY_RED<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_SY_TABIX&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_GS_MASTER&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM WRITE_DELIVERY_RED  USING    P_TABIX LIKE SY-TABIX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_DELIVERY&nbsp;LIKE&nbsp;GS_DELIVERY.<br />
+&nbsp;&nbsp;IF&nbsp;P_TABIX&nbsp;=&nbsp;1.&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'----------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;####&nbsp;|##&nbsp;|##&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;|&nbsp;####&nbsp;|&nbsp;&nbsp;&nbsp;##&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'----------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;ENDIF.<br />
+&nbsp;"&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;WRITE:/&nbsp;'|',&nbsp;PS_DELIVERY-ZORDNO,&nbsp;'|',&nbsp;PS_DELIVERY-ZIDCODE,&nbsp;'|',&nbsp;PS_DELIVERY-ZMATNR,&nbsp;'|',&nbsp;PS_DELIVERY-ZMATNAME,&nbsp;'|',&nbsp;PS_DELIVERY-ZKMTART,&nbsp;'|',PS_DELIVERY-ZVOLUM,&nbsp;'|',PS_DELIVERY-VRKME,'|',&nbsp;PS_DELIVERY-ZSLAMT,&nbsp;'|',PS_DELIVERY-ZKDFLAG,&nbsp;'|',<br />
+PS_DELIVERY-ZKDGUBUN, '|',PS_DELIVERY-ZDDATE, '|', PS_DELIVERY-ZDATE, '|'.<br />
+&nbsp;&nbsp;WRITE:/&nbsp;'----------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;WRITE_DELIVERY<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_SY_TABIX&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_GS_MASTER&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM WRITE_DELIVERY  USING    P_TABIX LIKE SY-TABIX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_DELIVERY&nbsp;LIKE&nbsp;GS_DELIVERY.<br />
+&nbsp;&nbsp;IF&nbsp;P_TABIX&nbsp;=&nbsp;1.&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'---------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;####&nbsp;|##&nbsp;|##&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;|&nbsp;####&nbsp;|&nbsp;&nbsp;&nbsp;##&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'---------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;"&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;WRITE:/&nbsp;'|',&nbsp;PS_DELIVERY-ZORDNO,&nbsp;'|',&nbsp;PS_DELIVERY-ZIDCODE,&nbsp;'|',&nbsp;PS_DELIVERY-ZMATNR,&nbsp;'|',&nbsp;PS_DELIVERY-ZMATNAME,&nbsp;'|',&nbsp;PS_DELIVERY-ZKMTART,&nbsp;'|',PS_DELIVERY-ZVOLUM,&nbsp;'|',PS_DELIVERY-VRKME,<br />
+&nbsp;&nbsp;'|',&nbsp;PS_DELIVERY-ZSLAMT,&nbsp;'|',PS_DELIVERY-ZKDFLAG,&nbsp;'|',PS_DELIVERY-ZKDGUBUN,&nbsp;'|',PS_DELIVERY-ZDDATE,&nbsp;'|'.<br />
+&nbsp;&nbsp;WRITE:/&nbsp;'---------------------------------------------------------------------------------------------------------------------------------------'.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;PROCESS_ORDER_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_GS_MASTER&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--P_GS_ORDER&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM PROCESS_ORDER_DATA  USING    PS_MASTER LIKE GS_MASTER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;PS_ORDER&nbsp;LIKE&nbsp;GS_ORDER.<br />
+&nbsp;&nbsp;IF&nbsp;PS_MASTER-ZRDATE&nbsp;IS&nbsp;NOT&nbsp;INITIAL.&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;##&nbsp;##&nbsp;##&nbsp;###&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;PS_MASTER-ZRDATE+0(4)&nbsp;'.'&nbsp;PS_MASTER-ZRDATE+4(2)&nbsp;'.'&nbsp;PS_MASTER-ZRDATE+6(2)&nbsp;INTO&nbsp;PS_ORDER-ZDATE.<br />
+&nbsp;&nbsp;ELSE.&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PS_ORDER-ZDATE&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CASE&nbsp;PS_MASTER-ZDC_FG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_ORDER-ZKDC_FG&nbsp;=&nbsp;'#####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_ORDER-ZKDC_FG&nbsp;=&nbsp;'######'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_ORDER-ZKDC_FG&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;4.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_ORDER-ZKDC_FG&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CASE&nbsp;PS_MASTER-ZSALE_FG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_ORDER-ZKSALE_FG&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_ORDER-ZKSALE_FG&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CASE&nbsp;PS_MASTER-ZRET_FG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_ORDER-ZKRET_FG&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_ORDER-ZKRET_FG&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_ORDER-ZKRET_FG&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_ORDER-ZKRET_FG&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;PROCESS_DELIVERY_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_GS_MASTER&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--P_GS_ORDER&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM PROCESS_DELIVERY_DATA  USING    PS_MASTER LIKE GS_MASTER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;PS_DELIVERY&nbsp;LIKE&nbsp;GS_DELIVERY.<br />
+&nbsp;&nbsp;IF&nbsp;PS_MASTER-ZRDATE&nbsp;IS&nbsp;NOT&nbsp;INITIAL.&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;##&nbsp;##&nbsp;##&nbsp;###&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;PS_MASTER-ZRDATE+0(4)&nbsp;'.'&nbsp;PS_MASTER-ZRDATE+4(2)&nbsp;'.'&nbsp;PS_MASTER-ZRDATE+6(2)&nbsp;INTO&nbsp;PS_DELIVERY-ZDATE.<br />
+&nbsp;&nbsp;ELSE.&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PS_DELIVERY-ZDATE&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;CASE&nbsp;PS_MASTER-ZDFLAG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_DELIVERY-ZKDFLAG&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_DELIVERY-ZKDFLAG&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_DELIVERY-ZKDFLAG&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;CASE&nbsp;PS_MASTER-ZDGUBUN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_DELIVERY-ZKDGUBUN&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_DELIVERY-ZKDGUBUN&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_DELIVERY-ZKDGUBUN&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;4.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_DELIVERY-ZKDGUBUN&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;5.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_DELIVERY-ZKDGUBUN&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;6.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_DELIVERY-ZKDGUBUN&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;7.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_DELIVERY-ZKDGUBUN&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;PROCESS_PUBLIC_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--P_GS_MASTER&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--P_LC_ZMTART&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM PROCESS_PUBLIC_DATA  CHANGING PS_MASTER LIKE GS_MASTER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZMTART.<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;##&nbsp;KRW#&nbsp;##<br />
+&nbsp;&nbsp;PS_MASTER-ZSLAMT&nbsp;=&nbsp;PS_MASTER-ZSLAMT&nbsp;*&nbsp;C_KRW.<br />
+&nbsp;&nbsp;PS_MASTER-ZNSAMT&nbsp;=&nbsp;PS_MASTER-ZNSAMT&nbsp;*&nbsp;C_KRW.<br />
+&nbsp;&nbsp;PS_MASTER-ZDCAMT&nbsp;=&nbsp;PS_MASTER-ZDCAMT&nbsp;*&nbsp;C_KRW.<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;CASE&nbsp;GS_MASTER-ZMTART.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZMTART&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZMTART&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZMTART&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;4.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZMTART&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;5.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZMTART&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;6.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZMTART&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;Hard&nbsp;coded<br />
+*&nbsp;&nbsp;&nbsp;####&nbsp;####&nbsp;####.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

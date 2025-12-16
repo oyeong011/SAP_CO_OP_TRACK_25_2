@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR07_PRACTICE008_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR07_PRACTICE008_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDR07_PRACTICE008_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES : zedt07_100, zedt07_101.<br />
+<br />
+CONSTANTS : c_x TYPE char1 VALUE 'X'.<br />
+CONSTANTS : c_a TYPE char1 VALUE 'A'.<br />
+RANGES : r_fg FOR zedt07_100-zsale_fg.<br />
+RANGES : r_zg FOR zedt07_101-zflag.<br />
+<br />
+DATA : BEGIN OF gs_order, "####<br />
+&nbsp;&nbsp;zordno&nbsp;LIKE&nbsp;zedt07_100-zordno,&nbsp;"####<br />
+&nbsp;&nbsp;zidcode&nbsp;LIKE&nbsp;zedt07_100-zidcode,&nbsp;"##&nbsp;ID<br />
+&nbsp;&nbsp;zmatnr&nbsp;LIKE&nbsp;zedt07_100-zmatnr,&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;zmtart&nbsp;LIKE&nbsp;zedt07_100-zmtart,&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;zmatname&nbsp;LIKE&nbsp;zedt07_100-zmatname,&nbsp;"###<br />
+&nbsp;&nbsp;zvolum&nbsp;LIKE&nbsp;zedt07_100-zvolum,&nbsp;"##<br />
+&nbsp;&nbsp;vrkme&nbsp;LIKE&nbsp;zedt07_100-vrkme,&nbsp;"####<br />
+&nbsp;&nbsp;znsamt&nbsp;LIKE&nbsp;zedt07_100-znsamt,&nbsp;"####<br />
+&nbsp;&nbsp;zslamt&nbsp;LIKE&nbsp;zedt07_100-zslamt,&nbsp;"####<br />
+&nbsp;&nbsp;zdcamt&nbsp;LIKE&nbsp;zedt07_100-zdcamt,&nbsp;"####<br />
+&nbsp;&nbsp;zwaers&nbsp;LIKE&nbsp;zedt07_100-zwaers,&nbsp;"##<br />
+&nbsp;&nbsp;zdc_fg&nbsp;LIKE&nbsp;zedt07_100-zdc_fg,&nbsp;"####<br />
+&nbsp;&nbsp;zsale_fg&nbsp;LIKE&nbsp;zedt07_100-zsale_fg,&nbsp;"####<br />
+&nbsp;&nbsp;zret_fg&nbsp;LIKE&nbsp;zedt07_100-zret_fg,&nbsp;"####<br />
+&nbsp;&nbsp;zjdate&nbsp;LIKE&nbsp;zedt07_100-zjdate,&nbsp;"####<br />
+&nbsp;&nbsp;zrdate&nbsp;LIKE&nbsp;zedt07_100-zrdate,&nbsp;"####<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_order.<br />
+<br />
+DATA : gt_order LIKE TABLE OF gs_order.<br />
+<br />
+DATA : BEGIN OF gs_order_print,<br />
+&nbsp;&nbsp;icon&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;4,<br />
+&nbsp;&nbsp;zordno&nbsp;LIKE&nbsp;zedt07_100-zordno,&nbsp;"####<br />
+&nbsp;&nbsp;zidcode&nbsp;LIKE&nbsp;zedt07_100-zidcode,&nbsp;"##&nbsp;ID<br />
+&nbsp;&nbsp;zmatnr&nbsp;LIKE&nbsp;zedt07_100-zmatnr,&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;zmatname&nbsp;LIKE&nbsp;zedt07_100-zmatname,&nbsp;"##&nbsp;###<br />
+&nbsp;&nbsp;zmat_name&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;8,&nbsp;"##&nbsp;###<br />
+&nbsp;&nbsp;zvolum&nbsp;LIKE&nbsp;zedt07_100-zvolum,&nbsp;"##<br />
+&nbsp;&nbsp;vrkme&nbsp;LIKE&nbsp;zedt07_100-vrkme,&nbsp;"####<br />
+&nbsp;&nbsp;znsamt&nbsp;LIKE&nbsp;zedt07_100-znsamt,&nbsp;"####<br />
+&nbsp;&nbsp;zslamt&nbsp;LIKE&nbsp;zedt07_100-zslamt,&nbsp;"####<br />
+&nbsp;&nbsp;zdcamt&nbsp;LIKE&nbsp;zedt07_100-zdcamt,&nbsp;"####<br />
+&nbsp;&nbsp;zwaers&nbsp;LIKE&nbsp;zedt07_100-zwaers,&nbsp;"##<br />
+&nbsp;&nbsp;zsale_name&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;4,&nbsp;"####<br />
+&nbsp;&nbsp;zjdate&nbsp;LIKE&nbsp;zedt07_100-zjdate,&nbsp;"####<br />
+&nbsp;&nbsp;zret_name&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10,&nbsp;"####<br />
+&nbsp;&nbsp;zrdate&nbsp;LIKE&nbsp;zedt07_100-zrdate,&nbsp;"####<br />
+END OF gs_order_print.<br />
+DATA : gt_order_print LIKE TABLE OF gs_order_print.<br />
+<br />
+DATA : BEGIN OF gs_deli, "####<br />
+&nbsp;&nbsp;zordno&nbsp;LIKE&nbsp;zedt07_101-zordno,&nbsp;"####<br />
+&nbsp;&nbsp;zidcode&nbsp;LIKE&nbsp;zedt07_101-zidcode,&nbsp;"##&nbsp;ID<br />
+&nbsp;&nbsp;zmatnr&nbsp;LIKE&nbsp;zedt07_101-zmatnr,&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;zmtart&nbsp;LIKE&nbsp;zedt07_101-zmtart,&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;zmatname&nbsp;LIKE&nbsp;zedt07_101-zmatname,&nbsp;"###<br />
+&nbsp;&nbsp;zvolum&nbsp;LIKE&nbsp;zedt07_101-zvolum,&nbsp;"##<br />
+&nbsp;&nbsp;vrkme&nbsp;LIKE&nbsp;zedt07_101-vrkme,&nbsp;"####<br />
+&nbsp;&nbsp;zslamt&nbsp;LIKE&nbsp;zedt07_101-zslamt,&nbsp;"####<br />
+&nbsp;&nbsp;zwaers&nbsp;LIKE&nbsp;zedt07_100-zwaers,&nbsp;"##<br />
+&nbsp;&nbsp;zdflag&nbsp;LIKE&nbsp;zedt07_101-zdflag,&nbsp;"####<br />
+&nbsp;&nbsp;zdgubun&nbsp;LIKE&nbsp;zedt07_101-zdgubun,&nbsp;"####<br />
+&nbsp;&nbsp;zddate&nbsp;LIKE&nbsp;zedt07_101-zddate,&nbsp;"####<br />
+&nbsp;&nbsp;zrdate&nbsp;LIKE&nbsp;zedt07_101-zrdate,&nbsp;"####<br />
+&nbsp;&nbsp;zflag&nbsp;LIKE&nbsp;zedt07_101-zflag,<br />
+END OF gs_deli.<br />
+DATA gt_deli LIKE TABLE OF gs_deli.<br />
+<br />
+DATA : BEGIN OF gs_deli_print,<br />
+&nbsp;&nbsp;icon&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;4,<br />
+&nbsp;&nbsp;zordno&nbsp;LIKE&nbsp;zedt07_101-zordno,&nbsp;"####<br />
+&nbsp;&nbsp;zidcode&nbsp;LIKE&nbsp;zedt07_101-zidcode,&nbsp;"##&nbsp;ID<br />
+&nbsp;&nbsp;zmatnr&nbsp;LIKE&nbsp;zedt07_101-zmatnr,&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;zmatname&nbsp;LIKE&nbsp;zedt07_101-zmatname,&nbsp;"###<br />
+&nbsp;&nbsp;zmat_name&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;8,&nbsp;"##&nbsp;###<br />
+&nbsp;&nbsp;zvolum&nbsp;LIKE&nbsp;zedt07_101-zvolum,&nbsp;"##<br />
+&nbsp;&nbsp;vrkme&nbsp;LIKE&nbsp;zedt07_101-vrkme,&nbsp;"####<br />
+&nbsp;&nbsp;zslamt&nbsp;LIKE&nbsp;zedt07_101-zslamt,&nbsp;"####<br />
+&nbsp;&nbsp;zwaers&nbsp;LIKE&nbsp;zedt07_100-zwaers,&nbsp;"##<br />
+&nbsp;&nbsp;zdflag_name&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;8,&nbsp;"####<br />
+&nbsp;&nbsp;zdgubun_name&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;6,&nbsp;"####<br />
+&nbsp;&nbsp;zddate&nbsp;LIKE&nbsp;zedt07_101-zddate,&nbsp;"####<br />
+&nbsp;&nbsp;zrdate&nbsp;LIKE&nbsp;zedt07_101-zrdate,&nbsp;"####<br />
+&nbsp;&nbsp;zflag&nbsp;LIKE&nbsp;zedt07_101-zflag,<br />
+END OF gs_deli_print.<br />
+DATA gt_deli_print LIKE TABLE OF gs_deli_print.<br />
+<br />
+DATA : ok_code TYPE sy-ucomm.<br />
+<br />
+DATA : gc_docking TYPE REF TO cl_gui_docking_container.<br />
+<br />
+DATA : gc_grid_100 TYPE REF TO cl_gui_alv_grid.<br />
+DATA : gc_grid_200 TYPE REF TO cl_gui_alv_grid.<br />
+<br />
+DATA : gs_fieldcat TYPE lvc_s_fcat,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_fieldcat&nbsp;TYPE&nbsp;lvc_t_fcat.<br />
+<br />
+DATA : gs_layout TYPE lvc_s_layo.<br />
+<br />
+DATA : gs_sort TYPE lvc_s_sort,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_sort&nbsp;TYPE&nbsp;lvc_t_sort.<br />
+<br />
+DATA : gs_variant TYPE disvariant.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

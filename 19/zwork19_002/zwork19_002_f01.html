@@ -1,0 +1,507 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZWORK19_002_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZWORK19_002_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZWORK19_002_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_DATA .<br />
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;ZTCURR19&nbsp;INTO&nbsp;TABLE&nbsp;GT_WORK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;GDATU&nbsp;=&nbsp;P_DATE.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_WORK&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'#####&nbsp;#######.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_WORK&nbsp;INTO&nbsp;GS_WORK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_WORK-CRNAME&nbsp;=&nbsp;SY-UNAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_WORK-CRDATE&nbsp;=&nbsp;SY-DATUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_WORK&nbsp;FROM&nbsp;GS_WORK.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;FIELD_CATALOG<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM FIELD_CATALOG .<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT,&nbsp;GT_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'KURST'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'FCURR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'TCURR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'GDATU'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'UKURS'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'FFACT'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'########'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'TFACT'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'########'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'CRNAME'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;9.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'CRDATE'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CREATE_OBJECT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CREATE_OBJECT .<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GC_CUSTOM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTAINER_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'CON1'.<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GC_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;I_PARENT&nbsp;=&nbsp;GC_CUSTOM.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CALL_ALV<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CALL_ALV .<br />
+&nbsp;&nbsp;PERFORM&nbsp;ALV_DISPLAY.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_DISPLAY<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_DISPLAY .<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GC_GRID-&gt;SET_TABLE_FOR_FIRST_DISPLAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_LAYOUT<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_WORK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCATALOG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_FIELDCAT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_SORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_SORT.<br />
+ENDFORM.<br />
+<br />
+FORM DOWNLOAD_PDF.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;lv_ok&nbsp;TYPE&nbsp;abap_bool,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_rc&nbsp;TYPE&nbsp;I.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;0)&nbsp;###&nbsp;GUI&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'GUI_IS_AVAILABLE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;=&nbsp;lv_ok.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;lv_ok&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;GUI&nbsp;#####&nbsp;PDF&nbsp;###&nbsp;#####.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1)&nbsp;####&nbsp;##&nbsp;(###&nbsp;TEMP)<br />
+&nbsp;&nbsp;PERFORM&nbsp;pick_dir&nbsp;CHANGING&nbsp;gv_dir.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2)&nbsp;###&nbsp;####&nbsp;(##&nbsp;##&nbsp;##&nbsp;DOWNLOAD_TEMPLATE&nbsp;###&nbsp;##)<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;&nbsp;&nbsp;#:&nbsp;SMW0#&nbsp;ZFX_TEMPLATE_XLSX#&nbsp;gv_xlsx&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;gv_xlsx&nbsp;=&nbsp;gv_dir&nbsp;&&&nbsp;'\ALV_EXPORT_'&nbsp;&&&nbsp;sy-datum&nbsp;&&&nbsp;'_'&nbsp;&&&nbsp;sy-uzeit&nbsp;&&&nbsp;'.xlsx'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;z19_download_template&nbsp;USING&nbsp;gv_xlsx.&nbsp;&nbsp;"&nbsp;&lt;-&nbsp;##&nbsp;##&nbsp;####&nbsp;##&nbsp;##<br />
+<br />
+&nbsp;&nbsp;"&nbsp;3)&nbsp;##&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;z19_open_excel_template&nbsp;USING&nbsp;gv_xlsx.<br />
+&nbsp;&nbsp;PERFORM&nbsp;z19_fill_excel_from_alv.&nbsp;&nbsp;"&nbsp;GT_WORK&nbsp;-&gt;&nbsp;##&nbsp;###&nbsp;##<br />
+<br />
+&nbsp;&nbsp;"&nbsp;4)&nbsp;PDF&nbsp;###&nbsp;##&nbsp;+&nbsp;PDF&nbsp;####<br />
+&nbsp;&nbsp;PERFORM&nbsp;z19_setup_pages.<br />
+&nbsp;&nbsp;gv_pdf&nbsp;=&nbsp;gv_dir&nbsp;&&&nbsp;'\ALV_'&nbsp;&&&nbsp;sy-datum&nbsp;&&&nbsp;'_'&nbsp;&&&nbsp;sy-uzeit&nbsp;&&&nbsp;'.pdf'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;z19_export_pdf&nbsp;USING&nbsp;gv_pdf.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;5)&nbsp;##/##&nbsp;+&nbsp;##&nbsp;XLSX&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;z19_excel_close.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;cl_gui_frontend_services=&gt;file_delete<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename&nbsp;=&nbsp;gv_xlsx<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rc&nbsp;=&nbsp;lv_rc<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file_delete_failed&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cntl_error&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error_no_gui&nbsp;=&nbsp;3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;not_supported_by_gui&nbsp;=&nbsp;4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_parameter&nbsp;=&nbsp;5<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;=&nbsp;6.<br />
+<br />
+&nbsp;&nbsp;MESSAGE&nbsp;|PDF&nbsp;##&nbsp;##:&nbsp;{&nbsp;gv_pdf&nbsp;}|&nbsp;TYPE&nbsp;'S'.<br />
+ENDFORM.<br />
+<br />
+FORM pick_dir CHANGING pv_dir TYPE string.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;pv_dir&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;cl_gui_frontend_services=&gt;directory_browse(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;window_title&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'PDF&nbsp;##&nbsp;##&nbsp;##'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&nbsp;selected_folder&nbsp;=&nbsp;pv_dir&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;pv_dir&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cl_gui_frontend_services=&gt;get_temp_directory(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;temp_dir&nbsp;=&nbsp;pv_dir&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+FORM z19_fill_excel_from_alv.<br />
+&nbsp;&nbsp;DATA:&nbsp;lo_cell&nbsp;TYPE&nbsp;ole2_object.<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_row&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;lv_kurst&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_gdatu&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_fcurr&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_tcurr&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_ukurs&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_ffact&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_tfact&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_crname&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_crdate&nbsp;TYPE&nbsp;string.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_work&nbsp;INTO&nbsp;gs_work.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_row&nbsp;=&nbsp;lv_row&nbsp;+&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_kurst&nbsp;=&nbsp;|{&nbsp;gs_work-kurst&nbsp;}|.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_fcurr&nbsp;=&nbsp;|{&nbsp;gs_work-fcurr&nbsp;}|.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_tcurr&nbsp;=&nbsp;|{&nbsp;gs_work-tcurr&nbsp;}|.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_gdatu&nbsp;=&nbsp;|{&nbsp;gs_work-gdatu&nbsp;}|.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_ukurs&nbsp;=&nbsp;|{&nbsp;gs_work-ukurs&nbsp;}|.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_ffact&nbsp;=&nbsp;|{&nbsp;gs_work-ffact&nbsp;}|.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_tfact&nbsp;=&nbsp;|{&nbsp;gs_work-tfact&nbsp;}|.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_crname&nbsp;=&nbsp;|{&nbsp;gs_work-crname&nbsp;}|.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_work-crdate&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;lv_crdate.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_crdate&nbsp;=&nbsp;|{&nbsp;gs_work-crdate&nbsp;}|.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;z19_put_cell&nbsp;USING&nbsp;lv_row&nbsp;2&nbsp;lv_kurst.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;z19_put_cell&nbsp;USING&nbsp;lv_row&nbsp;3&nbsp;lv_fcurr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;z19_put_cell&nbsp;USING&nbsp;lv_row&nbsp;4&nbsp;lv_tcurr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;z19_put_cell&nbsp;USING&nbsp;lv_row&nbsp;5&nbsp;lv_gdatu.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;z19_put_cell&nbsp;USING&nbsp;lv_row&nbsp;6&nbsp;lv_ukurs.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;z19_put_cell&nbsp;USING&nbsp;lv_row&nbsp;7&nbsp;lv_ffact.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;z19_put_cell&nbsp;USING&nbsp;lv_row&nbsp;8&nbsp;lv_tfact.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;z19_put_cell&nbsp;USING&nbsp;lv_row&nbsp;9&nbsp;lv_crname.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;z19_put_cell&nbsp;USING&nbsp;lv_row&nbsp;10&nbsp;lv_crdate.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;UsedRange<br />
+&nbsp;&nbsp;GET&nbsp;PROPERTY&nbsp;OF&nbsp;g_worksheet&nbsp;'UsedRange'&nbsp;=&nbsp;g_usedrange.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;lo_columns&nbsp;TYPE&nbsp;ole2_object.<br />
+&nbsp;&nbsp;GET&nbsp;PROPERTY&nbsp;OF&nbsp;g_usedrange&nbsp;'Columns'&nbsp;=&nbsp;lo_columns.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_columns&nbsp;'AutoFit'.<br />
+&nbsp;&nbsp;FREE&nbsp;OBJECT&nbsp;lo_columns.<br />
+ENDFORM.<br />
+<br />
+<br />
+FORM z19_put_cell USING pv_row TYPE i pv_col TYPE i pv_val TYPE any.<br />
+&nbsp;&nbsp;DATA&nbsp;lo_cell&nbsp;TYPE&nbsp;ole2_object.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;g_worksheet&nbsp;'Cells'&nbsp;=&nbsp;lo_cell<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;#1&nbsp;=&nbsp;pv_row&nbsp;#2&nbsp;=&nbsp;pv_col.<br />
+&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;lo_cell&nbsp;'Value'&nbsp;=&nbsp;pv_val.<br />
+&nbsp;&nbsp;FREE&nbsp;OBJECT&nbsp;lo_cell.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_SCREEN<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_SCREEN .<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_LAYOUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_LAYOUT .<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_INIT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_INIT .<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;###&nbsp;##(WWWData:&nbsp;ZFX_TEMPLATE_XLSX)&nbsp;####<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM z19_download_template USING pv_xlsx TYPE string.<br />
+&nbsp;&nbsp;DATA:&nbsp;ls_key&nbsp;TYPE&nbsp;wwwdatatab,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_dest&nbsp;TYPE&nbsp;rlgrap-filename.<br />
+<br />
+&nbsp;&nbsp;lv_dest&nbsp;=&nbsp;pv_xlsx.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;wwwdata<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;ls_key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;relid&nbsp;=&nbsp;'MI'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;objid&nbsp;=&nbsp;'ZFX_TEMPLATE_XLSX'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;srtf2&nbsp;=&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'SMW0&nbsp;####(ZFX_TEMPLATE_XLSX)&nbsp;##'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'DOWNLOAD_WEB_OBJECT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ls_key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;destination&nbsp;=&nbsp;lv_dest.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;Excel&nbsp;###&nbsp;##<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM z19_open_excel_template USING pv_xlsx TYPE string.<br />
+&nbsp;&nbsp;DATA:&nbsp;lo_wbooks&nbsp;TYPE&nbsp;ole2_object.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;g_excel&nbsp;'Excel.Application'.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'Excel&nbsp;OLE&nbsp;##&nbsp;##'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;g_excel&nbsp;'Visible'&nbsp;=&nbsp;0.&nbsp;&nbsp;"&nbsp;#####<br />
+<br />
+&nbsp;&nbsp;"&nbsp;Workbooks&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;g_excel&nbsp;'Workbooks'&nbsp;=&nbsp;lo_wbooks.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;Open#&nbsp;###&nbsp;g_workbook##!<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_wbooks&nbsp;'Open'&nbsp;=&nbsp;g_workbook<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;#1&nbsp;=&nbsp;pv_xlsx.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;g_workbook&nbsp;'Worksheets'&nbsp;=&nbsp;g_worksheet<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;#1&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;FREE&nbsp;OBJECT&nbsp;lo_wbooks.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;###&nbsp;##&nbsp;(##/####&nbsp;#)<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM z19_setup_pages.<br />
+&nbsp;&nbsp;DATA:&nbsp;lo_pagesetup&nbsp;TYPE&nbsp;ole2_object.<br />
+&nbsp;&nbsp;GET&nbsp;PROPERTY&nbsp;OF&nbsp;g_worksheet&nbsp;'PageSetup'&nbsp;=&nbsp;lo_pagesetup.<br />
+&nbsp;&nbsp;"&nbsp;A4,&nbsp;##<br />
+&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;lo_pagesetup&nbsp;'Orientation'&nbsp;=&nbsp;2.&nbsp;&nbsp;&nbsp;"&nbsp;xlLandscape<br />
+&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;lo_pagesetup&nbsp;'PaperSize'&nbsp;&nbsp;&nbsp;=&nbsp;9.&nbsp;&nbsp;&nbsp;"&nbsp;xlPaperA4<br />
+<br />
+&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;lo_pagesetup&nbsp;'CenterHorizontally'&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;lo_pagesetup&nbsp;'CenterVertically'&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;FREE&nbsp;OBJECT&nbsp;lo_pagesetup.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;PDF#&nbsp;####<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM z19_export_pdf USING pv_pdf TYPE string.<br />
+&nbsp;&nbsp;"&nbsp;ExportAsFixedFormat(Type:=0,xlTypePDF)<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;g_worksheet&nbsp;'ExportAsFixedFormat'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#1&nbsp;=&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Type:&nbsp;0&nbsp;=&nbsp;PDF<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#2&nbsp;=&nbsp;pv_pdf.&nbsp;&nbsp;"&nbsp;Filename<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;Excel&nbsp;##/##&nbsp;##<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM z19_excel_close.<br />
+&nbsp;&nbsp;IF&nbsp;g_workbook-HANDLE&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;g_workbook&nbsp;'Close'&nbsp;EXPORTING&nbsp;#1&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;IF&nbsp;g_excel-HANDLE&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;g_excel&nbsp;'Quit'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;FREE&nbsp;OBJECT&nbsp;g_usedrange.<br />
+&nbsp;&nbsp;FREE&nbsp;OBJECT&nbsp;g_worksheet.<br />
+&nbsp;&nbsp;FREE&nbsp;OBJECT&nbsp;g_workbook.<br />
+&nbsp;&nbsp;FREE&nbsp;OBJECT&nbsp;g_excel.<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR23_009</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR23_009</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR23_009<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR23_009.<br />
+<br />
+"*** DB TABLE ## ***"<br />
+DELETE FROM ZEDT23_001 WHERE ZCODE = 'SSU-26' OR ZCODE = 'SSU-27'.<br />
+<br />
+BREAK-POINT.<br />
+DATA : BEGIN OF GS_STUDENT.<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt23_001/dictionary-zedt23_001.html">ZEDT23_001</a>.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;END&nbsp;OF&nbsp;GS_STUDENT.<br />
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT WITH NON-UNIQUE KEY ZCODE.<br />
+<br />
+GS_STUDENT-MANDT = SY-MANDT.<br />
+GS_STUDENT-ZCODE = 'SSU-26'.<br />
+GS_STUDENT-ZPERNR = '0000000026'.<br />
+GS_STUDENT-ZKNAME = '###'.<br />
+GS_STUDENT-ZENAME = 'DO'.<br />
+GS_STUDENT-ZGENDER = 'F'.<br />
+GS_STUDENT-ZTEL = '01000001111'.<br />
+<br />
+" INSERT INTO [TABLE] VALUES [STRUCTURE]<br />
+" # ## ##<br />
+INSERT INTO ZEDT23_001 VALUES GS_STUDENT.<br />
+<br />
+IF SY-SUBRC = 0.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/'Structure&nbsp;Insert&nbsp;##'.<br />
+ENDIF.<br />
+<br />
+" INSTERT [TABLE] FROM TABLE [INTERNAL TABLE]<br />
+" ### ## ##<br />
+" INSTERT [TABLE] FROM TABLE [INTERNAL TABLE] ACCEPTING DUPLICATE KEY<br />
+" ## # ### ## ## # ### continue<br />
+CLEAR GS_STUDENT.<br />
+<br />
+GS_STUDENT-MANDT = SY-MANDT.<br />
+GS_STUDENT-ZCODE = 'SSU-27'.<br />
+GS_STUDENT-ZPERNR = '0000000027'.<br />
+GS_STUDENT-ZKNAME = '###'.<br />
+GS_STUDENT-ZENAME = 'FA'.<br />
+GS_STUDENT-ZGENDER = 'F'.<br />
+GS_STUDENT-ZTEL = '01000001111'.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+INSERT ZEDT23_001 FROM TABLE GT_STUDENT.<br />
+IF SY-SUBRC = 0.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/'Itable&nbsp;Insert&nbsp;##'.<br />
+ENDIF.<br />
+<br />
+BREAK-POINT.<br />
+<br />
+" UPDATE [TABLE] FROM GS_STUDENT. : # ##<br />
+" UPDATE [TABLE] FROM TBLE [ITAB] : ITable ## #### Update<br />
+" UPDATE [TABLE] SET FIELD = '###' WHERE [##]<br />
+CLEAR GS_STUDENT.<br />
+<br />
+GS_STUDENT-MANDT = SY-MANDT.<br />
+GS_STUDENT-ZCODE = 'SSU-26'.<br />
+GS_STUDENT-ZPERNR = '0000000026'.<br />
+GS_STUDENT-ZKNAME = '###'.<br />
+GS_STUDENT-ZENAME = 'Update'.<br />
+GS_STUDENT-ZGENDER = 'None'.<br />
+GS_STUDENT-ZTEL = '01000001111'.<br />
+UPDATE ZEDT23_001 FROM GS_STUDENT.<br />
+IF SY-SUBRC = 0.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/'Structure&nbsp;Update&nbsp;##'.<br />
+ELSE.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/'Update&nbsp;not&nbsp;executed'.<br />
+&nbsp;&nbsp;EXIT.<br />
+ENDIF.<br />
+"UPDATE ZEDT23_001 FROM TABLE GT_STUDENT.<br />
+UPDATE ZEDT23_001 SET ZKNAME = '###' WHERE ZCODE = 'SSU-27'.<br />
+BREAK-POINT.<br />
+<br />
+" DELETE [TABLE] FROM [STRUCTURE]<br />
+" DELETE FROM [TABLE] WHERE [##]<br />
+" DELETE [TABLE] FROM TABLE [ITAB]<br />
+<br />
+" MODIFY : ## Key ## ### Update, ### Insert<br />
+" MODIFY [TALBE] FROM [STRUCTURE]<br />
+" MODIFY [TABLE] FROM TABLE [ITAB]<br />
+CLEAR GS_STUDENT.<br />
+GS_STUDENT-MANDT = SY-MANDT.<br />
+GS_STUDENT-ZCODE = 'SSU-26'.<br />
+GS_STUDENT-ZPERNR = '0000000026'.<br />
+GS_STUDENT-ZKNAME = 'Modify#~'.<br />
+GS_STUDENT-ZENAME = 'Update'.<br />
+GS_STUDENT-ZGENDER = 'None'.<br />
+GS_STUDENT-ZTEL = '01000001111'.<br />
+MODIFY ZEDT23_001 FROM GS_STUDENT.<br />
+IF SY-SUBRC = 0.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/'Structure&nbsp;Modify&nbsp;##'.<br />
+ELSE.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/'Modify&nbsp;not&nbsp;executed'.<br />
+&nbsp;&nbsp;EXIT.<br />
+ENDIF.<br />
+BREAK-POINT.<br />
+<br />
+DELETE FROM ZEDT23_001 WHERE ZCODE = 'SSU-26' OR ZCODE = 'SSU-27'.<br />
+BREAK-POINT.<br />
+<br />
+" ## DATA BEGIN OF ## # #~<br />
+RANGES GR_SCARR FOR SCARR-CARRID.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

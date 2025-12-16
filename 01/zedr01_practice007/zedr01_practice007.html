@@ -1,0 +1,774 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR01_PRACTICE007</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR01_PRACTICE007</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR01_PRACTICE007<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR01_PRACTICE007 MESSAGE-ID ZMED01.<br />
+<br />
+TABLES : ZEDT01_102 , ZEDT01_103 , ZEDT01_104 , ZEDT01_105 ,ZEDT01_106.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA : BEGIN OF GS_INFO,                   "## ## ### ### # ###<br />
+&nbsp;&nbsp;ZPERNR&nbsp;TYPE&nbsp;ZEDT01_102-ZPERNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZPNAME&nbsp;TYPE&nbsp;ZEDT01_103-ZPNAME,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPCODE&nbsp;TYPE&nbsp;ZEDT01_102-ZDEPCODE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPCODE_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;ZDEPRANK&nbsp;TYPE&nbsp;ZEDT01_102-ZDEPRANK,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;ZDEPRANK_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;ZEDATE&nbsp;TYPE&nbsp;ZEDT01_102-ZEDATE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;ZQDATE&nbsp;TYPE&nbsp;ZEDT01_102-ZQDATE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;ZQFLAG&nbsp;TYPE&nbsp;ZEDT01_102-ZQFLAG,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZQFLAG_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZGENDER&nbsp;TYPE&nbsp;ZEDT01_103-ZGENDER,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;ZGENDER_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZADDRESS&nbsp;TYPE&nbsp;ZEDT01_103-ZADDRESS,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;ZBANKCODE&nbsp;TYPE&nbsp;ZEDT01_106-ZBANKCODE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZBANKCODE_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;ZACCOUNT&nbsp;TYPE&nbsp;ZEDT01_106-ZACCOUNT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;DATBI&nbsp;TYPE&nbsp;ZEDT01_102-DATBI,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;DATAB&nbsp;TYPE&nbsp;ZEDT01_102-DATAB,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_INFO.<br />
+DATA : GT_INFO LIKE TABLE OF GS_INFO.<br />
+<br />
+DATA : BEGIN OF GS_PAY_INFO,           "##### ### # ###<br />
+&nbsp;&nbsp;ZPERNR&nbsp;TYPE&nbsp;ZEDT01_102-ZPERNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZYEAR&nbsp;TYPE&nbsp;ZEDT01_104-ZYEAR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZPNAME&nbsp;TYPE&nbsp;ZEDT01_103-ZPNAME,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPCODE&nbsp;TYPE&nbsp;ZEDT01_102-ZDEPCODE,&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;ZDEPCODE_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;ZDEPRANK&nbsp;TYPE&nbsp;ZEDT01_102-ZDEPRANK,&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;ZDEPRANK_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;ZEDATE&nbsp;TYPE&nbsp;ZEDT01_102-ZEDATE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;ZQDATE&nbsp;TYPE&nbsp;ZEDT01_102-ZQDATE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;ZQFLAG&nbsp;TYPE&nbsp;ZEDT01_102-ZQFLAG,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZSALARY&nbsp;TYPE&nbsp;ZEDT01_106-ZSALARY,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZPAY_MONTH&nbsp;TYPE&nbsp;ZEDT01_106-ZSALARY,&nbsp;&nbsp;"###&nbsp;###<br />
+&nbsp;&nbsp;ZRANK&nbsp;TYPE&nbsp;ZEDT01_104-ZRANK,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZMON01&nbsp;TYPE&nbsp;ZEDT01_105-ZMON01,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"1~12###&nbsp;###<br />
+&nbsp;&nbsp;ZMON02&nbsp;TYPE&nbsp;ZEDT01_105-ZMON02,<br />
+&nbsp;&nbsp;ZMON03&nbsp;TYPE&nbsp;ZEDT01_105-ZMON03,<br />
+&nbsp;&nbsp;ZMON04&nbsp;TYPE&nbsp;ZEDT01_105-ZMON04,<br />
+&nbsp;&nbsp;ZMON05&nbsp;TYPE&nbsp;ZEDT01_105-ZMON05,<br />
+&nbsp;&nbsp;ZMON06&nbsp;TYPE&nbsp;ZEDT01_105-ZMON06,<br />
+&nbsp;&nbsp;ZMON07&nbsp;TYPE&nbsp;ZEDT01_105-ZMON07,<br />
+&nbsp;&nbsp;ZMON08&nbsp;TYPE&nbsp;ZEDT01_105-ZMON08,<br />
+&nbsp;&nbsp;ZMON09&nbsp;TYPE&nbsp;ZEDT01_105-ZMON09,<br />
+&nbsp;&nbsp;ZMON10&nbsp;TYPE&nbsp;ZEDT01_105-ZMON10,<br />
+&nbsp;&nbsp;ZMON11&nbsp;TYPE&nbsp;ZEDT01_105-ZMON11,<br />
+&nbsp;&nbsp;ZMON12&nbsp;TYPE&nbsp;ZEDT01_105-ZMON12,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_PAY_INFO.<br />
+DATA : GT_PAY_INFO LIKE TABLE OF GS_PAY_INFO.<br />
+<br />
+DATA : GS_PAY TYPE ZEDT01_105.         "ZEDT01_105# ###### #### ###<br />
+<br />
+CONSTANTS : LV_PAY_RATE_A TYPE I VALUE 500.  "##### ## ####<br />
+RANGES : GR_RANK FOR ZEDT01_104-ZRANK.       "#### ## ## A##<br />
+CLEAR GR_RANK.<br />
+GR_RANK-SIGN = 'I'.<br />
+GR_RANK-OPTION = 'EQ'.<br />
+GR_RANK-LOW = 'A'.<br />
+APPEND GR_RANK.<br />
+<br />
+DATA : LV_MONTH_TEXT TYPE CHAR10.            "### ### ##<br />
+DATA : LV_MONTH_PAY TYPE I.                  "### ###<br />
+DATA : LV_LASTDAY TYPE I.                    "## ###<br />
+<br />
+DATA : GS_FIELDCAT TYPE SLIS_FIELDCAT_ALV.    "ALV# ### ##<br />
+DATA : GT_FIELDCAT TYPE SLIS_T_FIELDCAT_ALV.<br />
+DATA : GS_LAYOUT TYPE SLIS_LAYOUT_ALV.<br />
+DATA : GS_SORT TYPE SLIS_SORTINFO_ALV.<br />
+DATA : GT_SORT TYPE SLIS_T_SORTINFO_ALV.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.                " ### ##<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_ZPERNR&nbsp;FOR&nbsp;ZEDT01_102-ZPERNR.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_ZDATE&nbsp;FOR&nbsp;ZEDT01_102-DATBI&nbsp;MODIF&nbsp;ID&nbsp;M1.&nbsp;&nbsp;"&nbsp;##&nbsp;(&nbsp;M1&nbsp;)<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;S_DEP&nbsp;TYPE&nbsp;ZEDT01_102-ZDEPCODE&nbsp;MODIF&nbsp;ID&nbsp;M1.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;(&nbsp;M1&nbsp;)<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_YEAR&nbsp;TYPE&nbsp;ZEDT05_104-ZYEAR&nbsp;MODIF&nbsp;ID&nbsp;M2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;(&nbsp;M1&nbsp;)<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_MONTH&nbsp;TYPE&nbsp;BKPF-MONAT&nbsp;MODIF&nbsp;ID&nbsp;M2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;&nbsp;&nbsp;(&nbsp;M2&nbsp;)<br />
+SELECTION-SCREEN END OF BLOCK B1.<br />
+<br />
+INITIALIZATION.<br />
+<br />
+CONCATENATE SY-DATUM(4) '01' '01' INTO S_ZDATE-LOW.          " ### ### ## ####,01# 01# # ##<br />
+CALL FUNCTION 'RP_LAST_DAY_OF_MONTHS'                        " ### ### ## #### ## ## ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAY_IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-DATUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LAST_DAY_OF_MONTH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;S_ZDATE-HIGH.<br />
+APPEND S_ZDATE.<br />
+P_YEAR = SY-DATUM(4).<br />
+P_MONTH = SY-DATUM+4(2).<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.                         " ### ##<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_R1&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R1&nbsp;DEFAULT&nbsp;'X'&nbsp;USER-COMMAND&nbsp;UC1.&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_R2&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_R3&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+SELECTION-SCREEN END OF BLOCK B2.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B3 WITH FRAME.                         " ####<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_CH1&nbsp;AS&nbsp;CHECKBOX&nbsp;DEFAULT&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+SELECTION-SCREEN END OF BLOCK B3.<br />
+<br />
+AT SELECTION-SCREEN.<br />
+&nbsp;&nbsp;IF&nbsp;P_R1&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;S_ZDATE&nbsp;IS&nbsp;INITIAL.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E000.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;P_R2&nbsp;=&nbsp;'X'&nbsp;OR&nbsp;P_R3&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;OR&nbsp;#####&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_YEAR&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;P_MONTH&nbsp;IS&nbsp;INITIAL.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E000.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+AT SELECTION-SCREEN OUTPUT.                                           " ### ##<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'M1'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;M1##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_R2&nbsp;=&nbsp;'X'&nbsp;OR&nbsp;P_R3&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;OR&nbsp;#####&nbsp;#####&nbsp;M1##&nbsp;OFF<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;P_R1&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;#####&nbsp;ON<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'M2'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;M2##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_R2&nbsp;=&nbsp;'X'&nbsp;OR&nbsp;P_R3&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;#####&nbsp;####&nbsp;ON<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;P_R1&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;#####&nbsp;OFF<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+END-OF-SELECTION.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+IF P_R1 = 'X'.                                    "##### ###### #####<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_DATA_INFO.<br />
+&nbsp;&nbsp;PERFORM&nbsp;MODIFY_DATA.<br />
+&nbsp;&nbsp;PERFORM&nbsp;ALV_DISPLAY&nbsp;USING&nbsp;GT_INFO.<br />
+ELSEIF P_R2 = 'X'.                                "##### ### ##<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_DATA_PAY.<br />
+&nbsp;&nbsp;PERFORM&nbsp;MODIFY_PAY.<br />
+ELSEIF P_R3 = 'X'.                                "##### ### ##<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_DATA_PAY.<br />
+&nbsp;&nbsp;PERFORM&nbsp;MODIFY_PAY_DATA.<br />
+&nbsp;&nbsp;PERFORM&nbsp;ALV_DISPLAY&nbsp;USING&nbsp;GT_PAY_INFO.<br />
+ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;FIELD_CATALOG<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM FIELD_CATALOG .<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT,GT_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-KEY&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZPNAME'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-KEY&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZDEPCODE'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZDEPCODE_NAME'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZDEPRANK_NAME'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZEDATE'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_R1&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZQFLAG_NAME'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZGENDER_NAME'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;9.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZADDRESS'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZBANKCODE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;11.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZBANKCODE_NAME'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;12.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZACCOUNT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;ELSEIF&nbsp;P_R3&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZSALARY'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-DO_SUM&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-CURRENCY&nbsp;=&nbsp;'KRW'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZRANK'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_MONTH_TEXT&nbsp;=&nbsp;|{&nbsp;P_MONTH&nbsp;}#&nbsp;###|.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;9.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZPAY_MONTH'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;LV_MONTH_TEXT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-DO_SUM&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-CURRENCY&nbsp;=&nbsp;'KRW'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CALL_ALV<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CALL_ALV USING PT_TABLE TYPE STANDARD TABLE.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'REUSE_ALV_GRID_DISPLAY'<br />
+&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_LAYOUT&nbsp;&nbsp;&nbsp;=&nbsp;GS_LAYOUT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCAT&nbsp;=&nbsp;GT_FIELDCAT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_SORT&nbsp;=&nbsp;GT_SORT<br />
+&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_OUTTAB&nbsp;&nbsp;&nbsp;=&nbsp;PT_TABLE.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_LAYOUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_LAYOUT .<br />
+&nbsp;&nbsp;GS_LAYOUT-ZEBRA&nbsp;=&nbsp;'X'.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_DISPLAY<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_DISPLAY USING PT_TABLE TYPE STANDARD TABLE.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;FIELD_CATALOG.<br />
+&nbsp;&nbsp;PERFORM&nbsp;ALV_LAYOUT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;ALV_SORT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CALL_ALV&nbsp;USING&nbsp;PT_TABLE.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_SORT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_SORT .<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_SORT-SPOS&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_SORT-FIELDNAME&nbsp;=&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_SORT-UP&nbsp;=&nbsp;'X'.&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_SORT&nbsp;TO&nbsp;GT_SORT.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;MODIFY_DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+" #### ### #### #### #### ###### ## ####<br />
+" ## ## ## ##### ## ### ## ## ##<br />
+FORM MODIFY_DATA .<br />
+&nbsp;&nbsp;IF&nbsp;P_CH1&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;#####&nbsp;#####&nbsp;####&nbsp;##&nbsp;X<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_INFO&nbsp;WHERE&nbsp;ZQFLAG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ELSE.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;###&nbsp;##&nbsp;####&nbsp;########&nbsp;##&nbsp;X<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_INFO&nbsp;WHERE&nbsp;ZQDATE+4(2)&nbsp;=&nbsp;S_ZDATE-HIGH+4(2).<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_INFO&nbsp;INTO&nbsp;GS_INFO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DEP_NAMING&nbsp;USING&nbsp;GS_INFO-ZDEPCODE&nbsp;GS_INFO-ZDEPRANK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;###&nbsp;##&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;GS_INFO-ZDEPCODE_NAME&nbsp;GS_INFO-ZDEPRANK_NAME.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;GS_INFO-ZQFLAG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_INFO-ZQFLAG_NAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_INFO-ZQFLAG_NAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;GS_INFO-ZGENDER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'M'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_INFO-ZGENDER_NAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_INFO-ZGENDER_NAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;GS_INFO-ZBANKCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_INFO-ZBANKCODE_NAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'002'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_INFO-ZBANKCODE_NAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'003'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_INFO-ZBANKCODE_NAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'004'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_INFO-ZBANKCODE_NAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'005'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_INFO-ZBANKCODE_NAME&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_INFO&nbsp;FROM&nbsp;GS_INFO.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;MODIFY_PAY_DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+" ##### ###### #### ####<br />
+FORM MODIFY_PAY_DATA .<br />
+&nbsp;&nbsp;IF&nbsp;P_CH1&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;#####&nbsp;#####&nbsp;####&nbsp;##&nbsp;X<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_PAY_INFO&nbsp;WHERE&nbsp;ZQFLAG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ELSE.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;###&nbsp;##&nbsp;####&nbsp;########&nbsp;##&nbsp;X<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_PAY_INFO&nbsp;WHERE&nbsp;ZQDATE+4(2)&nbsp;=&nbsp;S_ZDATE-HIGH+4(2).<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_PAY_INFO&nbsp;INTO&nbsp;GS_PAY_INFO.&nbsp;&nbsp;&nbsp;"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;ZRANK&nbsp;FROM&nbsp;ZEDT01_104&nbsp;INTO&nbsp;GS_PAY_INFO-ZRANK&nbsp;"&nbsp;##&nbsp;DB#&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZPERNR&nbsp;=&nbsp;GS_PAY_INFO-ZPERNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FIELD-SYMBOLS&nbsp;:&nbsp;&lt;FS1&gt;&nbsp;TYPE&nbsp;ANY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;ZINDEX(2).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;ZMON(20).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DO&nbsp;12&nbsp;TIMES.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZINDEX&nbsp;=&nbsp;SY-INDEX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_MONTH&nbsp;=&nbsp;ZINDEX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;ZINDEX&nbsp;&lt;&nbsp;10.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;'GS_PAY_INFO-ZMON0'&nbsp;ZINDEX&nbsp;INTO&nbsp;ZMON.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;(ZMON)&nbsp;TO&nbsp;&lt;FS1&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY_INFO-ZPAY_MONTH&nbsp;=&nbsp;&lt;FS1&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;'GS_PAY_INFO-ZMON'&nbsp;ZINDEX&nbsp;INTO&nbsp;ZMON.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;(ZMON)&nbsp;TO&nbsp;&lt;FS1&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY_INFO-ZPAY_MONTH&nbsp;=&nbsp;&lt;FS1&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDDO.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;P_MONTH.&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;##&nbsp;###&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY_INFO-ZPAY_MONTH&nbsp;=&nbsp;GS_PAY_INFO-ZMON01.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY_INFO-ZPAY_MONTH&nbsp;=&nbsp;GS_PAY_INFO-ZMON02.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY_INFO-ZPAY_MONTH&nbsp;=&nbsp;GS_PAY_INFO-ZMON03.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'4'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY_INFO-ZPAY_MONTH&nbsp;=&nbsp;GS_PAY_INFO-ZMON04.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'5'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY_INFO-ZPAY_MONTH&nbsp;=&nbsp;GS_PAY_INFO-ZMON05.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'6'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY_INFO-ZPAY_MONTH&nbsp;=&nbsp;GS_PAY_INFO-ZMON06.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'7'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY_INFO-ZPAY_MONTH&nbsp;=&nbsp;GS_PAY_INFO-ZMON07.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'8'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY_INFO-ZPAY_MONTH&nbsp;=&nbsp;GS_PAY_INFO-ZMON08.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'9'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY_INFO-ZPAY_MONTH&nbsp;=&nbsp;GS_PAY_INFO-ZMON09.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'10'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY_INFO-ZPAY_MONTH&nbsp;=&nbsp;GS_PAY_INFO-ZMON10.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'11'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY_INFO-ZPAY_MONTH&nbsp;=&nbsp;GS_PAY_INFO-ZMON11.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'12'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY_INFO-ZPAY_MONTH&nbsp;=&nbsp;GS_PAY_INFO-ZMON12.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DEP_NAMING&nbsp;USING&nbsp;GS_PAY_INFO-ZDEPCODE&nbsp;GS_PAY_INFO-ZDEPRANK&nbsp;&nbsp;&nbsp;&nbsp;"#####&nbsp;####&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;GS_PAY_INFO-ZDEPCODE_NAME&nbsp;GS_PAY_INFO-ZDEPRANK_NAME.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_PAY_INFO&nbsp;FROM&nbsp;GS_PAY_INFO.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;DELETE&nbsp;GT_PAY_INFO&nbsp;WHERE&nbsp;ZPAY_MONTH&nbsp;=&nbsp;0.&nbsp;"###&nbsp;###&nbsp;0#&nbsp;##&nbsp;##&nbsp;X<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;MODIFY_PAY<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+" ### #### ####<br />
+FORM MODIFY_PAY .<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_PAY_INFO&nbsp;INTO&nbsp;GS_PAY_INFO.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;ZRANK&nbsp;FROM&nbsp;ZEDT01_104&nbsp;INTO&nbsp;GS_PAY_INFO-ZRANK&nbsp;"####&nbsp;#####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZPERNR&nbsp;=&nbsp;GS_PAY_INFO-ZPERNR.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_PAY_INFO-ZRANK&nbsp;IS&nbsp;INITIAL.&nbsp;"##&nbsp;###&nbsp;####&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_PAY_INFO-ZYEAR&nbsp;&lt;&gt;&nbsp;P_YEAR.&nbsp;"####&nbsp;###&nbsp;####&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;W005.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_PAY_INFO-ZQFLAG&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;"&nbsp;#######&nbsp;####&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;GS_PAY_INFO-ZQDATE+4(2)&nbsp;&gt;&nbsp;P_MONTH.&nbsp;"&nbsp;#####&nbsp;####&nbsp;####&nbsp;###&nbsp;#&nbsp;####&nbsp;####&nbsp;##&nbsp;X<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;GS_PAY_INFO-ZEDATE+4(2)&nbsp;&gt;&nbsp;P_MONTH.&nbsp;"&nbsp;#####&nbsp;####&nbsp;####&nbsp;##&nbsp;##&nbsp;X<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_PAY.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ZEDT105#&nbsp;######&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_PAY_INFO&nbsp;TO&nbsp;GS_PAY.&nbsp;"####&nbsp;##&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY-ZYEAR&nbsp;=&nbsp;GS_PAY_INFO-ZYEAR.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_MONTH_PAY&nbsp;=&nbsp;GS_PAY_INFO-ZSALARY&nbsp;&nbsp;/&nbsp;12.&nbsp;"&nbsp;##&nbsp;/&nbsp;12#&nbsp;####&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_PAY_INFO-ZRANK&nbsp;IN&nbsp;GR_RANK.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;#####&nbsp;GR_RANK#&nbsp;#####&nbsp;(&nbsp;##&nbsp;A##&nbsp;A&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MONTH_PAY&nbsp;=&nbsp;LV_MONTH_PAY&nbsp;+&nbsp;LV_PAY_RATE_A.&nbsp;"&nbsp;500#&nbsp;##&nbsp;(&nbsp;50000#)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;###&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY-ZPERNR&nbsp;=&nbsp;GS_PAY_INFO-ZPERNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY-ZYEAR&nbsp;=&nbsp;GS_PAY_INFO-ZYEAR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY-AEDATE&nbsp;=&nbsp;SY-DATUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY-AENAME&nbsp;=&nbsp;SY-UNAME.<br />
+&nbsp;&nbsp;"&nbsp;#####&nbsp;##&nbsp;##&nbsp;###&nbsp;##,<br />
+&nbsp;&nbsp;"&nbsp;#&nbsp;CHECK_UPDATE&nbsp;######&nbsp;0#&nbsp;######&nbsp;##&nbsp;##&nbsp;######&nbsp;######&nbsp;##&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FIELD-SYMBOLS&nbsp;:&nbsp;&lt;FS1&gt;&nbsp;TYPE&nbsp;ANY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;ZINDEX(2).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;ZMON(13).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DO&nbsp;12&nbsp;TIMES.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZINDEX&nbsp;=&nbsp;SY-INDEX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_MONTH&nbsp;=&nbsp;ZINDEX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;ZINDEX&nbsp;&lt;&nbsp;10.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;'GS_PAY-ZMON0'&nbsp;ZINDEX&nbsp;INTO&nbsp;ZMON.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;(ZMON)&nbsp;TO&nbsp;&lt;FS1&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_UPDATE&nbsp;USING&nbsp;&lt;FS1&gt;&nbsp;LV_MONTH_PAY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;FS1&gt;&nbsp;=&nbsp;LV_MONTH_PAY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;'GS_PAY-ZMON'&nbsp;ZINDEX&nbsp;INTO&nbsp;ZMON.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;(ZMON)&nbsp;TO&nbsp;&lt;FS1&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_UPDATE&nbsp;USING&nbsp;&lt;FS1&gt;&nbsp;LV_MONTH_PAY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;FS1&gt;&nbsp;=&nbsp;LV_MONTH_PAY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDDO.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;P_MONTH.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_UPDATE&nbsp;USING&nbsp;GS_PAY-ZMON01&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY-ZMON01&nbsp;=&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_UPDATE&nbsp;USING&nbsp;GS_PAY-ZMON02&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY-ZMON02&nbsp;=&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_UPDATE&nbsp;USING&nbsp;GS_PAY-ZMON03&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY-ZMON03&nbsp;=&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'4'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_UPDATE&nbsp;USING&nbsp;GS_PAY-ZMON04&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY-ZMON04&nbsp;=&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'5'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_UPDATE&nbsp;USING&nbsp;GS_PAY-ZMON05&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY-ZMON05&nbsp;=&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'6'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_UPDATE&nbsp;USING&nbsp;GS_PAY-ZMON06&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY-ZMON06&nbsp;=&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'7'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_UPDATE&nbsp;USING&nbsp;GS_PAY-ZMON07&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY-ZMON07&nbsp;=&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'8'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_UPDATE&nbsp;USING&nbsp;GS_PAY-ZMON08&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY-ZMON08&nbsp;=&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'9'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_UPDATE&nbsp;USING&nbsp;GS_PAY-ZMON09&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY-ZMON09&nbsp;=&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'10'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_UPDATE&nbsp;USING&nbsp;GS_PAY-ZMON10&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY-ZMON10&nbsp;=&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'11'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_UPDATE&nbsp;USING&nbsp;GS_PAY-ZMON11&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY-ZMON11&nbsp;=&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'12'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_UPDATE&nbsp;USING&nbsp;GS_PAY-ZMON12&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PAY-ZMON12&nbsp;=&nbsp;LV_MONTH_PAY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;ZEDT01_105&nbsp;FROM&nbsp;GS_PAY.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.&nbsp;"&nbsp;MODIFY&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S002.&nbsp;"&nbsp;###&nbsp;####&nbsp;####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S003.&nbsp;"&nbsp;#####&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_DATA_INFO<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+"#### #### #### #### #### ###### ##<br />
+" ###### ##### DATBI # DATAB# S_ZDATE LOW HIGH# #### #### ###<br />
+FORM GET_DATA_INFO .<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;A~ZPERNR,&nbsp;B~ZPNAME,&nbsp;A~ZDEPRANK,&nbsp;A~ZDEPCODE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZEDATE,&nbsp;A~ZQDATE,&nbsp;A~ZQFLAG,&nbsp;B~ZGENDER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~ZADDRESS,&nbsp;C~ZBANKCODE,&nbsp;C~ZACCOUNT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@GT_INFO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT01_102&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;ZEDT01_103&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZPERNR&nbsp;=&nbsp;B~ZPERNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;ZEDT01_106&nbsp;AS&nbsp;C<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZPERNR&nbsp;=&nbsp;C~ZPERNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~ZPERNR&nbsp;IN&nbsp;@S_ZPERNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~DATBI&nbsp;&gt;=&nbsp;@S_ZDATE-LOW<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~DATAB&nbsp;&gt;=&nbsp;@S_ZDATE-HIGH.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GT_INFO[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E001.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_DATA_PAY<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+"#### #### #### #### #### ###### ##<br />
+FORM GET_DATA_PAY .<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;&nbsp;A~ZPERNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~ZPNAME,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZDEPRANK,&nbsp;&nbsp;&nbsp;&nbsp;A~ZDEPCODE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZEDATE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZQDATE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZQFLAG,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~ZSALARY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~ZYEAR&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D~ZMON01&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D~ZMON02&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D~ZMON03&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D~ZMON04&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D~ZMON05&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D~ZMON06&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D~ZMON07&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D~ZMON08&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D~ZMON09&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D~ZMON10&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D~ZMON11&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D~ZMON12<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@GT_PAY_INFO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT01_102&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;ZEDT01_103&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZPERNR&nbsp;=&nbsp;B~ZPERNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;ZEDT01_106&nbsp;AS&nbsp;C<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZPERNR&nbsp;=&nbsp;C~ZPERNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;ZEDT01_105&nbsp;AS&nbsp;D<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZPERNR&nbsp;=&nbsp;D~ZPERNR.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GT_PAY_INFO[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E001.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;DEP_NAMING<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+" #### #### ## ### #### ####<br />
+FORM DEP_NAMING USING P_DEPCODE P_DEPRANK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;P_DEPCODE_NAME&nbsp;P_DEPRANK_NAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;P_DEPCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DEPCODE_NAME&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0002'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DEPCODE_NAME&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0003'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DEPCODE_NAME&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0004'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DEPCODE_NAME&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0005'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DEPCODE_NAME&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0006'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DEPCODE_NAME&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;CASE&nbsp;P_DEPRANK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DEPRANK_NAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'B'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DEPRANK_NAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'C'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DEPRANK_NAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'D'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DEPRANK_NAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DEPRANK_NAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DEPRANK_NAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'G'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DEPRANK_NAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CHECK_UPDATE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+" #### ##### ## ### ## ## 0#### ### ## ##### ##### ## ## #### ## ##<br />
+FORM CHECK_UPDATE  USING    P_ZMONTH_PAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_MONTH_PAY.<br />
+&nbsp;&nbsp;IF&nbsp;(&nbsp;P_ZMONTH_PAY&nbsp;=&nbsp;P_MONTH_PAY&nbsp;)&nbsp;OR&nbsp;(&nbsp;P_MONTH_PAY&nbsp;=&nbsp;0&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E004.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,884 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR05_PRACTICE003_1</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR05_PRACTICE003_1</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR05_PRACTICE003_1<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR05_PRACTICE003_1 LINE-SIZE 200.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR05_PRACTICE003_IMPROVED<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;##/##&nbsp;##&nbsp;##&nbsp;####<br />
+*&&nbsp;-&nbsp;####:&nbsp;ZEDT05_100<br />
+*&&nbsp;-&nbsp;####:&nbsp;ZEDT05_101<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;##&nbsp;##&nbsp;(Constants)<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CONSTANTS:<br />
+&nbsp;&nbsp;gc_return_flag&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;VALUE&nbsp;'X',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;gc_currency&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;3&nbsp;VALUE&nbsp;'KRW',&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;gc_type_order&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10&nbsp;VALUE&nbsp;'ORDER',&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;gc_type_delivery&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10&nbsp;VALUE&nbsp;'DELIVERY',&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;gc_sign_include&nbsp;&nbsp;TYPE&nbsp;c&nbsp;VALUE&nbsp;'I',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SIGN:&nbsp;Include<br />
+&nbsp;&nbsp;gc_option_between&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;2&nbsp;VALUE&nbsp;'BT'.&nbsp;"&nbsp;OPTION:&nbsp;Between<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;###&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES: zedt05_100, zedt05_101.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;##&nbsp;##&nbsp;(Types)<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+" #### ### ###<br />
+TYPES: BEGIN OF ty_order_output,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zordno&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-zordno,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zidcode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-zidcode,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmatnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-zmatnr,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmatname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-zmatname,&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmtart&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-zmtart,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmtart_txt&nbsp;&nbsp;&nbsp;TYPE&nbsp;string,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zvolum&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-zvolum,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vrkme&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-vrkme,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;znsamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-znsamt,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zslamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-zslamt,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdcamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-zdcamt,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zsale_fg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-zsale_fg,&nbsp;&nbsp;&nbsp;"&nbsp;######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zsale_fg_txt&nbsp;TYPE&nbsp;string,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zjdate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-zjdate,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zret_fg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-zret_fg,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zret_fg_txt&nbsp;&nbsp;TYPE&nbsp;string,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zrdate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-zrdate,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ty_order_output.<br />
+<br />
+" #### ### ###<br />
+TYPES: BEGIN OF ty_delivery_output,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zordno&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-zordno,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zidcode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-zidcode,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmatnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-zmatnr,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmatname&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-zmatname,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmtart&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-zmtart,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmtart_txt&nbsp;&nbsp;TYPE&nbsp;string,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zvolum&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-zvolum,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vrkme&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-vrkme,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zslamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100-zslamt,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdflag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_101-zdflag,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdflag_txt&nbsp;&nbsp;TYPE&nbsp;string,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdgubun&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_101-zdgubun,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdgubun_txt&nbsp;TYPE&nbsp;string,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zddate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_101-zddate,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zrdate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_101-zrdate,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zflag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_101-zflag,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ty_delivery_output.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;##&nbsp;##&nbsp;(Global&nbsp;Data)<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA:<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;####&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;gt_order_data&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;zedt05_100,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;#####<br />
+&nbsp;&nbsp;gt_delivery_data&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;zedt05_101,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;#####<br />
+&nbsp;&nbsp;gs_order_data&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt05_100,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;gs_delivery_data&nbsp;TYPE&nbsp;zedt05_101,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;gt_order_output&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ty_order_output,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;#####<br />
+&nbsp;&nbsp;gt_delivery_output&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ty_delivery_output,&nbsp;"&nbsp;##&nbsp;#####<br />
+&nbsp;&nbsp;gs_order_output&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ty_order_output,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;gs_delivery_output&nbsp;TYPE&nbsp;ty_delivery_output.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;###<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;####&nbsp;(Selection&nbsp;Screen)<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+" Block 1: ## ##<br />
+SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME TITLE TEXT-001.<br />
+&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;s_zordno&nbsp;FOR&nbsp;zedt05_100-zordno.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;s_idcode&nbsp;FOR&nbsp;zedt05_100-zidcode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO&nbsp;INTERVALS&nbsp;NO-EXTENSION.<br />
+&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;s_zmatnr&nbsp;FOR&nbsp;zedt05_100-zmatnr.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;s_zjdate&nbsp;FOR&nbsp;zedt05_100-zjdate&nbsp;MODIF&nbsp;ID&nbsp;g1.&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;s_zddate&nbsp;FOR&nbsp;zedt05_101-zddate&nbsp;MODIF&nbsp;ID&nbsp;g2.&nbsp;&nbsp;"&nbsp;####<br />
+SELECTION-SCREEN END OF BLOCK b1.<br />
+<br />
+" Block 2: ## ##<br />
+SELECTION-SCREEN BEGIN OF BLOCK b2 WITH FRAME TITLE TEXT-002.<br />
+&nbsp;&nbsp;PARAMETERS:&nbsp;p_order&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;r1&nbsp;DEFAULT&nbsp;'X'&nbsp;USER-COMMAND&nbsp;cmd.&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;PARAMETERS:&nbsp;p_deliv&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;r1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+SELECTION-SCREEN END OF BLOCK b2.<br />
+<br />
+" Block 3: ##<br />
+SELECTION-SCREEN BEGIN OF BLOCK b3 WITH FRAME TITLE TEXT-003.<br />
+&nbsp;&nbsp;PARAMETERS:&nbsp;p_return&nbsp;AS&nbsp;CHECKBOX&nbsp;DEFAULT&nbsp;'X'.&nbsp;&nbsp;"&nbsp;######<br />
+SELECTION-SCREEN END OF BLOCK b3.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;###&nbsp;(Initialization)<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##&nbsp;(###&nbsp;###&nbsp;01.01&nbsp;~&nbsp;###&nbsp;##)<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_default_dates.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;####&nbsp;##&nbsp;##&nbsp;(At&nbsp;Selection-Screen&nbsp;Output)<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN OUTPUT.<br />
+&nbsp;&nbsp;"&nbsp;######&nbsp;##&nbsp;##&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;control_screen_fields.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;##&nbsp;##&nbsp;##&nbsp;(Start-of-Selection)<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;main_process.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;set_default_dates<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;##&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;-&nbsp;###:&nbsp;###&nbsp;###&nbsp;01.01<br />
+*&nbsp;&nbsp;-&nbsp;###:&nbsp;####&nbsp;###&nbsp;#<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_default_dates.<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_year(4)&nbsp;&nbsp;TYPE&nbsp;c,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_first&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;sy-datum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_last&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;sy-datum.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;lv_year&nbsp;=&nbsp;sy-datum(4).<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;(YYYY.MM.01)<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;lv_year&nbsp;sy-datum+4(2)&nbsp;'01'&nbsp;INTO&nbsp;lv_first.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'RP_LAST_DAY_OF_MONTHS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;day_in&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-datum<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last_day_of_month&nbsp;=&nbsp;lv_last.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;s_zjdate-sign&nbsp;&nbsp;&nbsp;=&nbsp;gc_sign_include.<br />
+&nbsp;&nbsp;s_zjdate-option&nbsp;=&nbsp;gc_option_between.<br />
+&nbsp;&nbsp;s_zjdate-low&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lv_first.<br />
+&nbsp;&nbsp;s_zjdate-high&nbsp;&nbsp;&nbsp;=&nbsp;lv_last.<br />
+&nbsp;&nbsp;APPEND&nbsp;s_zjdate.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;s_zddate-sign&nbsp;&nbsp;&nbsp;=&nbsp;gc_sign_include.<br />
+&nbsp;&nbsp;s_zddate-option&nbsp;=&nbsp;gc_option_between.<br />
+&nbsp;&nbsp;s_zddate-low&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lv_first.<br />
+&nbsp;&nbsp;s_zddate-high&nbsp;&nbsp;&nbsp;=&nbsp;lv_last.<br />
+&nbsp;&nbsp;APPEND&nbsp;s_zddate.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;control_screen_fields<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;######&nbsp;##&nbsp;##&nbsp;##&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;-&nbsp;####:&nbsp;####&nbsp;###&nbsp;###<br />
+*&nbsp;&nbsp;-&nbsp;####:&nbsp;####&nbsp;###&nbsp;###<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM control_screen_fields.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_order&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;screen-group1&nbsp;=&nbsp;'G1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;1.&nbsp;&nbsp;"&nbsp;####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;screen-group1&nbsp;=&nbsp;'G2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;0.&nbsp;&nbsp;"&nbsp;####&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;p_deliv&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;screen-group1&nbsp;=&nbsp;'G1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;0.&nbsp;&nbsp;"&nbsp;####&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;screen-group1&nbsp;=&nbsp;'G2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;1.&nbsp;&nbsp;"&nbsp;####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;main_process<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;##&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;1.&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;2.&nbsp;##&nbsp;###<br />
+*&nbsp;&nbsp;3.&nbsp;###&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;4.&nbsp;##&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM main_process.<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_process_type&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;p_order&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_process_type&nbsp;=&nbsp;gc_type_order.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;p_deliv&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_process_type&nbsp;=&nbsp;gc_type_delivery.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1.&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;select_data&nbsp;USING&nbsp;lv_process_type.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2.&nbsp;##&nbsp;###&nbsp;(####&nbsp;##&nbsp;#)<br />
+&nbsp;&nbsp;IF&nbsp;p_return&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;filter_return_data&nbsp;USING&nbsp;lv_process_type.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;3.&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;convert_to_output&nbsp;USING&nbsp;lv_process_type.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;4.&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;display_report&nbsp;USING&nbsp;lv_process_type.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;select_data<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;######&nbsp;##<br />
+*&nbsp;&nbsp;##:&nbsp;iv_type&nbsp;-&nbsp;####&nbsp;(ORDER/DELIVERY)<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM select_data USING iv_type TYPE c.<br />
+&nbsp;&nbsp;CASE&nbsp;iv_type.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;gc_type_order.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt05_100<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;gt_order_data<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zordno&nbsp;IN&nbsp;s_zordno<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zidcode&nbsp;IN&nbsp;s_idcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zmatnr&nbsp;IN&nbsp;s_zmatnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zjdate&nbsp;IN&nbsp;s_zjdate.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;gc_type_delivery.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt05_101<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;gt_delivery_data<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zordno&nbsp;IN&nbsp;s_zordno<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zidcode&nbsp;IN&nbsp;s_idcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zmatnr&nbsp;IN&nbsp;s_zmatnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zddate&nbsp;IN&nbsp;s_zddate.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;filter_return_data<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;##&nbsp;###&nbsp;###<br />
+*&nbsp;&nbsp;######&nbsp;##&nbsp;##&nbsp;#&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;##:&nbsp;iv_type&nbsp;-&nbsp;####<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM filter_return_data USING iv_type TYPE c.<br />
+&nbsp;&nbsp;CASE&nbsp;iv_type.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####:&nbsp;ZRET_FG&nbsp;=&nbsp;'X'#&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;gc_type_order.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;gt_order_data&nbsp;WHERE&nbsp;zret_fg&nbsp;=&nbsp;gc_return_flag.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####:&nbsp;ZFLAG&nbsp;=&nbsp;'X'#&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;gc_type_delivery.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;gt_delivery_data&nbsp;WHERE&nbsp;zflag&nbsp;=&nbsp;gc_return_flag.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;convert_to_output<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;###&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;##:&nbsp;iv_type&nbsp;-&nbsp;####<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM convert_to_output USING iv_type TYPE c.<br />
+&nbsp;&nbsp;CASE&nbsp;iv_type.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;gc_type_order.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_order_data&nbsp;INTO&nbsp;gs_order_data.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;gs_order_output.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;gs_order_data&nbsp;TO&nbsp;gs_order_output.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;convert_product_type&nbsp;USING&nbsp;gs_order_output-zmtart<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_order_output-zmtart_txt.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;convert_sale_type&nbsp;USING&nbsp;gs_order_output-zsale_fg<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_order_output-zsale_fg_txt.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;convert_return_type&nbsp;USING&nbsp;gs_order_output-zret_fg<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_order_output-zret_fg_txt.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_order_output&nbsp;TO&nbsp;gt_order_output.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;gc_type_delivery.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_delivery_data&nbsp;INTO&nbsp;gs_delivery_data.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;gs_delivery_output.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;gs_delivery_data&nbsp;TO&nbsp;gs_delivery_output.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;convert_product_type&nbsp;USING&nbsp;gs_delivery_output-zmtart<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_delivery_output-zmtart_txt.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;convert_delivery_status&nbsp;USING&nbsp;gs_delivery_output-zdflag<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_delivery_output-zdflag_txt.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;convert_region&nbsp;USING&nbsp;gs_delivery_output-zdgubun<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_delivery_output-zdgubun_txt.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_delivery_output&nbsp;TO&nbsp;gt_delivery_output.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;convert_product_type<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;####&nbsp;##&nbsp;-&gt;&nbsp;###&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM convert_product_type USING iv_code TYPE c<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;cv_text&nbsp;TYPE&nbsp;string.<br />
+&nbsp;&nbsp;CASE&nbsp;iv_code.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'001'.&nbsp;cv_text&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'002'.&nbsp;cv_text&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'003'.&nbsp;cv_text&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'004'.&nbsp;cv_text&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'005'.&nbsp;cv_text&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'006'.&nbsp;cv_text&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.&nbsp;cv_text&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;convert_sale_type<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;####&nbsp;##&nbsp;-&gt;&nbsp;###&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM convert_sale_type USING iv_code TYPE c<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;cv_text&nbsp;TYPE&nbsp;string.<br />
+&nbsp;&nbsp;CASE&nbsp;iv_code.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.&nbsp;cv_text&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.&nbsp;cv_text&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.&nbsp;cv_text&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;convert_return_type<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;####&nbsp;##&nbsp;-&gt;&nbsp;###&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM convert_return_type USING iv_code TYPE c<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;cv_text&nbsp;TYPE&nbsp;string.<br />
+&nbsp;&nbsp;CASE&nbsp;iv_code.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.&nbsp;cv_text&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.&nbsp;cv_text&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.&nbsp;cv_text&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.&nbsp;cv_text&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;convert_delivery_status<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;####&nbsp;##&nbsp;-&gt;&nbsp;###&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM convert_delivery_status USING iv_code TYPE c<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;cv_text&nbsp;TYPE&nbsp;string.<br />
+&nbsp;&nbsp;CASE&nbsp;iv_code.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.&nbsp;cv_text&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.&nbsp;cv_text&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.&nbsp;cv_text&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.&nbsp;cv_text&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;convert_region<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;####&nbsp;##&nbsp;-&gt;&nbsp;###&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM convert_region USING iv_code TYPE c<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;cv_text&nbsp;TYPE&nbsp;string.<br />
+&nbsp;&nbsp;CASE&nbsp;iv_code.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.&nbsp;cv_text&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.&nbsp;cv_text&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.&nbsp;cv_text&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'4'.&nbsp;cv_text&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'5'.&nbsp;cv_text&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'6'.&nbsp;cv_text&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'7'.&nbsp;cv_text&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.&nbsp;cv_text&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;display_report<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;##:&nbsp;iv_type&nbsp;-&nbsp;####<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM display_report USING iv_type TYPE c.<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;display_header&nbsp;USING&nbsp;iv_type.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;CASE&nbsp;iv_type.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;gc_type_order.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_order_output&nbsp;INTO&nbsp;gs_order_output.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;display_order_line&nbsp;USING&nbsp;gs_order_output.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;gc_type_delivery.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_delivery_output&nbsp;INTO&nbsp;gs_delivery_output.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;display_delivery_line&nbsp;USING&nbsp;gs_delivery_output.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;PERFORM&nbsp;draw_separator_line&nbsp;USING&nbsp;iv_type.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;display_header<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;##&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM display_header USING iv_type TYPE c.<br />
+&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;PERFORM&nbsp;draw_separator_line&nbsp;USING&nbsp;iv_type.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14&nbsp;'ID'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;26&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;36&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;38&nbsp;'###'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;48&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;60&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;62&nbsp;'##'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;68&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;70&nbsp;'##'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;76&nbsp;'|'&nbsp;NO-GAP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;CASE&nbsp;iv_type.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;gc_type_order.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;display_order_header.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;gc_type_delivery.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;display_delivery_header.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;PERFORM&nbsp;draw_separator_line&nbsp;USING&nbsp;iv_type.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;display_order_header<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;####&nbsp;##&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM display_order_header.<br />
+&nbsp;&nbsp;WRITE:&nbsp;78&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;93&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;95&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;110&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;112&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;127&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;129&nbsp;'##'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;137&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;139&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;150&nbsp;'|'&nbsp;NO-GAP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;p_return&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;152&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;162&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;164&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;175&nbsp;'|'&nbsp;NO-GAP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;display_delivery_header<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;####&nbsp;##&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM display_delivery_header.<br />
+&nbsp;&nbsp;WRITE:&nbsp;78&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;93&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;95&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;105&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;107&nbsp;'##'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;117&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;119&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;130&nbsp;'|'&nbsp;NO-GAP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;p_return&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;132&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;142&nbsp;'|'&nbsp;NO-GAP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;display_order_line<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;####&nbsp;###&nbsp;##&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM display_order_line USING is_data TYPE ty_order_output.<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_znsamt_str(20)&nbsp;TYPE&nbsp;c,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_zslamt_str(20)&nbsp;TYPE&nbsp;c,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_zdcamt_str(20)&nbsp;TYPE&nbsp;c.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;PERFORM&nbsp;format_amount&nbsp;USING&nbsp;is_data-znsamt&nbsp;CHANGING&nbsp;lv_znsamt_str.<br />
+&nbsp;&nbsp;PERFORM&nbsp;format_amount&nbsp;USING&nbsp;is_data-zslamt&nbsp;CHANGING&nbsp;lv_zslamt_str.<br />
+&nbsp;&nbsp;PERFORM&nbsp;format_amount&nbsp;USING&nbsp;is_data-zdcamt&nbsp;CHANGING&nbsp;lv_zdcamt_str.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;PERFORM&nbsp;draw_separator_line&nbsp;USING&nbsp;gc_type_order.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;is_data-zordno&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14&nbsp;is_data-zidcode&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;26&nbsp;is_data-zmatnr&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;36&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;38&nbsp;is_data-zmatname&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;48&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50&nbsp;is_data-zmtart_txt&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;60&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;62&nbsp;is_data-zvolum&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;68&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;70&nbsp;is_data-vrkme&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;76&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;78&nbsp;lv_znsamt_str&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;93&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;95&nbsp;lv_zslamt_str&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;110&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;112&nbsp;lv_zdcamt_str&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;127&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;129&nbsp;is_data-zsale_fg_txt&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;137&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;139&nbsp;is_data-zjdate&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;150&nbsp;'|'&nbsp;NO-GAP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;(######&nbsp;##&nbsp;##&nbsp;##)<br />
+&nbsp;&nbsp;IF&nbsp;p_return&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;is_data-zret_fg&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;152&nbsp;is_data-zret_fg_txt&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;162&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;164&nbsp;is_data-zrdate&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;175&nbsp;'|'&nbsp;NO-GAP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;152&nbsp;''&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;162&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;164&nbsp;''&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;175&nbsp;'|'&nbsp;NO-GAP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;display_delivery_line<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;####&nbsp;###&nbsp;##&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM display_delivery_line USING is_data TYPE ty_delivery_output.<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_zslamt_str(20)&nbsp;TYPE&nbsp;c.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;PERFORM&nbsp;format_amount&nbsp;USING&nbsp;is_data-zslamt&nbsp;CHANGING&nbsp;lv_zslamt_str.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;PERFORM&nbsp;draw_separator_line&nbsp;USING&nbsp;gc_type_delivery.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;is_data-zordno&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14&nbsp;is_data-zidcode&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;26&nbsp;is_data-zmatnr&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;36&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;38&nbsp;is_data-zmatname&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;48&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50&nbsp;is_data-zmtart_txt&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;60&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;62&nbsp;is_data-zvolum&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;68&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;70&nbsp;is_data-vrkme&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;76&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;78&nbsp;lv_zslamt_str&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;93&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;95&nbsp;is_data-zdflag_txt&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;105&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;107&nbsp;is_data-zdgubun_txt&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;117&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;119&nbsp;is_data-zddate&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;130&nbsp;'|'&nbsp;NO-GAP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;(######&nbsp;##&nbsp;##&nbsp;##)<br />
+&nbsp;&nbsp;IF&nbsp;p_return&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;is_data-zflag&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;132&nbsp;is_data-zrdate&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;142&nbsp;'|'&nbsp;NO-GAP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;132&nbsp;''&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;142&nbsp;'|'&nbsp;NO-GAP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;format_amount<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;##&nbsp;###&nbsp;(###&nbsp;##&nbsp;+&nbsp;KRW)<br />
+*&nbsp;&nbsp;##:&nbsp;iv_amount&nbsp;-&nbsp;##<br />
+*&nbsp;&nbsp;##:&nbsp;cv_formatted&nbsp;-&nbsp;####&nbsp;###<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM format_amount USING iv_amount TYPE p<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;cv_formatted&nbsp;TYPE&nbsp;c.<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;KRW&nbsp;##&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;WRITE&nbsp;iv_amount&nbsp;TO&nbsp;cv_formatted&nbsp;CURRENCY&nbsp;gc_currency&nbsp;NO-SIGN&nbsp;DECIMALS&nbsp;0.<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CONDENSE&nbsp;cv_formatted&nbsp;NO-GAPS.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;draw_separator_line<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;###&nbsp;###<br />
+*&nbsp;&nbsp;##:&nbsp;iv_type&nbsp;-&nbsp;####&nbsp;(##&nbsp;##&nbsp;##)<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM draw_separator_line USING iv_type TYPE c.<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_line&nbsp;&nbsp;&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_dash&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;VALUE&nbsp;'-',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_length&nbsp;TYPE&nbsp;i.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;calculate_line_length&nbsp;USING&nbsp;iv_type<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;lv_length.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;DO&nbsp;lv_length&nbsp;TIMES.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;lv_line&nbsp;lv_dash&nbsp;INTO&nbsp;lv_line.<br />
+&nbsp;&nbsp;ENDDO.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;lv_line.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;calculate_line_length<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;##&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;-&nbsp;####&nbsp;##&nbsp;###&nbsp;##&nbsp;####&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM calculate_line_length USING iv_type TYPE c<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;cv_length&nbsp;TYPE&nbsp;i.<br />
+&nbsp;&nbsp;CASE&nbsp;iv_type.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;gc_type_order.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_return&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cv_length&nbsp;=&nbsp;175.&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cv_length&nbsp;=&nbsp;150.&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;gc_type_delivery.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_return&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cv_length&nbsp;=&nbsp;142.&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cv_length&nbsp;=&nbsp;130.&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

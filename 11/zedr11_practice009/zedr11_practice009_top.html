@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR11_PRACTICE009_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR11_PRACTICE009_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;ZEDR11_PRACTICE009_TOP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+" [##] ## #### ZEDT07 #### ##<br />
+TABLES : zedt07_102, zedt07_103, zedt07_104, zedt07_106.<br />
+<br />
+CONSTANTS : c_x    TYPE char1 VALUE 'X',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c_save&nbsp;TYPE&nbsp;char1&nbsp;VALUE&nbsp;'A'.<br />
+<br />
+RANGES : r_stat FOR zedt07_102-zqflag.<br />
+<br />
+" 1. ## ### (Master)<br />
+DATA : BEGIN OF gs_emp_m,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpernr&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_102-zpernr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpname&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_103-zpname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdepcode&nbsp;LIKE&nbsp;zedt07_102-zdepcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;datbi&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_102-datbi,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;datab&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_102-datab,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdeprank&nbsp;LIKE&nbsp;zedt07_104-zrank,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgender&nbsp;&nbsp;LIKE&nbsp;zedt07_103-zgender,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zedate&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_102-zedate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zqdate&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_102-zqdate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zqflag&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_102-zqflag,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zaddress&nbsp;LIKE&nbsp;zedt07_103-zaddress,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_emp_m.<br />
+DATA : gt_emp_m LIKE TABLE OF gs_emp_m.<br />
+<br />
+" 2. ## ###<br />
+DATA : BEGIN OF gs_emp_out,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;icon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;icon_d,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpernr&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_102-zpernr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpname&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_103-zpname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dep_txt&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;datbi&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_102-datbi,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;datab&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_102-datab,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rank_txt&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gen_txt&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zedate&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_102-zedate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zqdate&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_102-zqdate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zqflag&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_102-zqflag,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zaddress&nbsp;LIKE&nbsp;zedt07_103-zaddress,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_emp_out.<br />
+DATA : gt_emp_out LIKE TABLE OF gs_emp_out.<br />
+<br />
+" 3. ## ## (Pay)<br />
+DATA : BEGIN OF gs_pay,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpernr&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_106-zpernr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zyear&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_106-zyear,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;datbi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_106-datbi,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;datab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_106-datab,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zsalary&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_106-zsalary,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zbankcode&nbsp;LIKE&nbsp;zedt07_106-zbankcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zaccount&nbsp;&nbsp;LIKE&nbsp;zedt07_106-zaccount,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_pay.<br />
+DATA : gt_pay LIKE TABLE OF gs_pay.<br />
+<br />
+" 4. ## ###<br />
+DATA : BEGIN OF gs_pay_out,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpernr&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_106-zpernr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zyear&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_106-zyear,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;datbi&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_106-datbi,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;datab&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_106-datab,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zsalary&nbsp;&nbsp;LIKE&nbsp;zedt07_106-zsalary,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;waers&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;waers,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bank_txt&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zaccount&nbsp;LIKE&nbsp;zedt07_106-zaccount,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_pay_out.<br />
+DATA : gt_pay_out LIKE TABLE OF gs_pay_out.<br />
+<br />
+" 5. ## ## (Score)<br />
+DATA : BEGIN OF gs_score,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpernr&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_104-zpernr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdepcode&nbsp;LIKE&nbsp;zedt07_104-zdepcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zyear&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_104-zyear,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;datbi&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_104-datbi,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;datab&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_104-datab,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zrank&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_104-zrank,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_score.<br />
+DATA : gt_score LIKE TABLE OF gs_score.<br />
+<br />
+" 6. ## ###<br />
+DATA : BEGIN OF gs_score_out,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpernr&nbsp;&nbsp;LIKE&nbsp;zedt07_104-zpernr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dep_txt&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zyear&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_104-zyear,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;datbi&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_104-datbi,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;datab&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_104-datab,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zrank&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt07_104-zrank,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_score_out.<br />
+DATA : gt_score_out LIKE TABLE OF gs_score_out.<br />
+<br />
+" ALV Objects<br />
+DATA : ok_code TYPE sy-ucomm.<br />
+<br />
+DATA : go_dock       TYPE REF TO cl_gui_docking_container,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_split_vert&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_splitter_container,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_split_hori&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_splitter_container.<br />
+<br />
+DATA : go_c_top   TYPE REF TO cl_gui_container,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_c_bot&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_container,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_c_bot_l&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_container,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_c_bot_r&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_container.<br />
+<br />
+DATA : go_alv_top   TYPE REF TO cl_gui_alv_grid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_alv_bot_l&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_alv_bot_r&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid.<br />
+<br />
+DATA : gs_fcat    TYPE lvc_s_fcat,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_fcat_t&nbsp;&nbsp;TYPE&nbsp;lvc_t_fcat,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_fcat_bl&nbsp;TYPE&nbsp;lvc_t_fcat,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_fcat_br&nbsp;TYPE&nbsp;lvc_t_fcat,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_layout&nbsp;&nbsp;TYPE&nbsp;lvc_s_layo,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_sort&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_s_sort,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_sort&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_t_sort,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_variant&nbsp;TYPE&nbsp;disvariant.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

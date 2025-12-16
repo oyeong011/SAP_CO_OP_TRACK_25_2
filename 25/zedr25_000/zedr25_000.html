@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR25_000</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR25_000</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR25_000<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+REPORT zedr25_000.<br />
+<br />
+DATA: lt_student TYPE TABLE OF zedt25_001,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_student&nbsp;TYPE&nbsp;zedt25_001.<br />
+<br />
+FORM add_student USING p_code p_pernr p_kname p_ename p_gender p_tel.<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_student.<br />
+<br />
+&nbsp;&nbsp;ls_student-mandt&nbsp;&nbsp;&nbsp;=&nbsp;sy-mandt.<br />
+&nbsp;&nbsp;ls_student-zcode&nbsp;&nbsp;&nbsp;=&nbsp;p_code.<br />
+&nbsp;&nbsp;ls_student-zpernr&nbsp;&nbsp;=&nbsp;p_pernr.<br />
+&nbsp;&nbsp;ls_student-zkname&nbsp;&nbsp;=&nbsp;p_kname.<br />
+&nbsp;&nbsp;ls_student-zename&nbsp;&nbsp;=&nbsp;p_ename.<br />
+&nbsp;&nbsp;ls_student-zgender&nbsp;=&nbsp;p_gender.<br />
+&nbsp;&nbsp;ls_student-ztel&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;p_tel.<br />
+<br />
+&nbsp;&nbsp;ls_student-crdate&nbsp;&nbsp;=&nbsp;sy-datum.<br />
+&nbsp;&nbsp;ls_student-crzeit&nbsp;&nbsp;=&nbsp;sy-uzeit.<br />
+&nbsp;&nbsp;ls_student-cname&nbsp;&nbsp;&nbsp;=&nbsp;sy-uname.<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_student&nbsp;TO&nbsp;lt_student.<br />
+ENDFORM.<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;1)&nbsp;##&nbsp;###&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DELETE&nbsp;FROM&nbsp;zedt25_001.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;2)&nbsp;#&nbsp;###&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-01'&nbsp;'0000000001'&nbsp;'###'&nbsp;&nbsp;'HOON'&nbsp;&nbsp;&nbsp;'M'&nbsp;'010-1111-1111'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-02'&nbsp;'0000000002'&nbsp;'###'&nbsp;&nbsp;'SEO'&nbsp;&nbsp;&nbsp;&nbsp;'M'&nbsp;'010-2222-2222'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-03'&nbsp;'0000000003'&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;'HYUN'&nbsp;&nbsp;&nbsp;'M'&nbsp;'010-3333-3333'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-04'&nbsp;'0000000004'&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;'BIN'&nbsp;&nbsp;&nbsp;&nbsp;'M'&nbsp;'010-4444-4444'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-05'&nbsp;'0000000005'&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;'YOON'&nbsp;&nbsp;&nbsp;'F'&nbsp;'010-5555-5555'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-06'&nbsp;'0000000006'&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;'TAE'&nbsp;&nbsp;&nbsp;&nbsp;'F'&nbsp;'010-6666-6666'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-07'&nbsp;'0000000007'&nbsp;'###'&nbsp;&nbsp;'DA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'F'&nbsp;'010-7777-7777'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-08'&nbsp;'0000000008'&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;'SU'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'F'&nbsp;'010-8888-8888'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-09'&nbsp;'0000000009'&nbsp;'###'&nbsp;&nbsp;'LEE'&nbsp;&nbsp;&nbsp;&nbsp;'F'&nbsp;'010-9999-9999'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-10'&nbsp;'0000000010'&nbsp;'###'&nbsp;&nbsp;'JEON'&nbsp;&nbsp;&nbsp;'F'&nbsp;'111-0000-0000'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-11'&nbsp;'0000000011'&nbsp;'###'&nbsp;&nbsp;'JO'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'M'&nbsp;'111-1111-1111'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-12'&nbsp;'0000000012'&nbsp;'###'&nbsp;&nbsp;'KO'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'F'&nbsp;'111-2222-2222'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-13'&nbsp;'0000000013'&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;'JUNG'&nbsp;&nbsp;&nbsp;'M'&nbsp;'111-3333-3333'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-14'&nbsp;'0000000014'&nbsp;'###'&nbsp;&nbsp;'YJUNG'&nbsp;&nbsp;'F'&nbsp;'111-4444-4444'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-15'&nbsp;'0000000015'&nbsp;'###'&nbsp;&nbsp;'HYE'&nbsp;&nbsp;&nbsp;&nbsp;'F'&nbsp;'111-5555-5555'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-16'&nbsp;'0000000016'&nbsp;'###'&nbsp;&nbsp;'LIM'&nbsp;&nbsp;&nbsp;&nbsp;'F'&nbsp;'111-6666-6666'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-17'&nbsp;'0000000017'&nbsp;'###'&nbsp;&nbsp;'DO'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'M'&nbsp;'111-7777-7777'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-18'&nbsp;'0000000018'&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;'JENNY'&nbsp;&nbsp;'F'&nbsp;'111-8888-8888'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-19'&nbsp;'0000000019'&nbsp;'###'&nbsp;&nbsp;'HAN'&nbsp;&nbsp;&nbsp;&nbsp;'F'&nbsp;'111-9999-9999'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-20'&nbsp;'0000000020'&nbsp;'###'&nbsp;&nbsp;'CHA'&nbsp;&nbsp;&nbsp;&nbsp;'M'&nbsp;'212-0000-0000'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-21'&nbsp;'0000000021'&nbsp;'###'&nbsp;&nbsp;'PARK'&nbsp;&nbsp;&nbsp;'F'&nbsp;'212-1111-1111'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-22'&nbsp;'0000000022'&nbsp;'###'&nbsp;&nbsp;'SEUNG'&nbsp;&nbsp;'M'&nbsp;'212-2222-2222'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-23'&nbsp;'0000000023'&nbsp;'###'&nbsp;&nbsp;'SOO'&nbsp;&nbsp;&nbsp;&nbsp;'M'&nbsp;'212-3333-3333'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-24'&nbsp;'0000000024'&nbsp;'###'&nbsp;&nbsp;'HA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'M'&nbsp;'212-4444-4444'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_student&nbsp;USING&nbsp;'SSU-25'&nbsp;'0000000025'&nbsp;'###'&nbsp;&nbsp;'RI'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'F'&nbsp;'212-5555-5555'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;3)&nbsp;DB&nbsp;Insert<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;INSERT&nbsp;zedt25_001&nbsp;FROM&nbsp;TABLE&nbsp;lt_student.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COMMIT&nbsp;WORK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'25#&nbsp;##&nbsp;###&nbsp;##&nbsp;Insert&nbsp;##'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'Insert&nbsp;##,&nbsp;SY-SUBRC=',&nbsp;sy-subrc.<br />
+&nbsp;&nbsp;ENDIF.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

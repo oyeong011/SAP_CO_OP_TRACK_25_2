@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM11_002_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM11_002_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;ZMM11_002_F01<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM modify_screen_attributes.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;screen-group1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'GR1'.&nbsp;screen-active&nbsp;=&nbsp;COND&nbsp;i(&nbsp;WHEN&nbsp;rb_new&nbsp;=&nbsp;'X'&nbsp;THEN&nbsp;1&nbsp;ELSE&nbsp;0&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'GR2'.&nbsp;screen-active&nbsp;=&nbsp;COND&nbsp;i(&nbsp;WHEN&nbsp;rb_inq&nbsp;=&nbsp;'X'&nbsp;THEN&nbsp;1&nbsp;ELSE&nbsp;0&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'KEY'.&nbsp;screen-active&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+FORM check_master_data.<br />
+&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;FROM&nbsp;zmm11_comp_vend<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;bukrs&nbsp;=&nbsp;@p_bukrs&nbsp;AND&nbsp;lifnr&nbsp;=&nbsp;@p_lifnr.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'#####&nbsp;###&nbsp;###&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;LIST-PROCESSING.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+FORM check_date_validity.<br />
+&nbsp;&nbsp;IF&nbsp;p_bedat&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;#####.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+FORM check_po_existence.<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;@abap_true&nbsp;FROM&nbsp;zmm11_po_head&nbsp;INTO&nbsp;@DATA(lv_exists)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ebeln&nbsp;=&nbsp;@p_ebeln.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;##&nbsp;#######.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+FORM init_alv_container.<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_docker<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;repid&nbsp;=&nbsp;sy-repid&nbsp;dynnr&nbsp;=&nbsp;sy-dynnr&nbsp;extension&nbsp;=&nbsp;2000.<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_grid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;i_parent&nbsp;=&nbsp;go_docker.<br />
+ENDFORM.<br />
+<br />
+FORM set_layout_and_variant.<br />
+&nbsp;&nbsp;gs_layout-zebra&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;gs_layout-cwidth_opt&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;gs_layout-sel_mode&nbsp;=&nbsp;'A'.<br />
+&nbsp;&nbsp;gs_variant-report&nbsp;=&nbsp;sy-repid.<br />
+ENDFORM.<br />
+<br />
+FORM build_fcat_create.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_field&nbsp;USING:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'EBELP'&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;space&nbsp;space&nbsp;space,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'MATNR'&nbsp;'####'&nbsp;2&nbsp;'ZMM11_MAT_MST'&nbsp;'ZMATNR'&nbsp;'X',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'MAKTX'&nbsp;'###'&nbsp;&nbsp;&nbsp;3&nbsp;space&nbsp;space&nbsp;space,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'MENGE'&nbsp;'PO##'&nbsp;&nbsp;&nbsp;4&nbsp;space&nbsp;space&nbsp;'X',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'STPRS'&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;space&nbsp;space&nbsp;space,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'MEINS'&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6&nbsp;space&nbsp;space&nbsp;space,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'WAERS'&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;space&nbsp;space&nbsp;space,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'MWSKZ'&nbsp;'####'&nbsp;8&nbsp;space&nbsp;space&nbsp;space,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'PRDAT'&nbsp;'###'&nbsp;&nbsp;&nbsp;9&nbsp;space&nbsp;space&nbsp;'X',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'WERKS'&nbsp;'###'&nbsp;&nbsp;&nbsp;10&nbsp;space&nbsp;space&nbsp;space,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'LGORT'&nbsp;'####'&nbsp;11&nbsp;space&nbsp;space&nbsp;space.<br />
+ENDFORM.<br />
+<br />
+FORM build_fcat_display.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;PERFORM&nbsp;add_field&nbsp;USING:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'EBELN'&nbsp;'####'&nbsp;1&nbsp;space&nbsp;space&nbsp;space,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'EBELP'&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;space&nbsp;space&nbsp;space,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'MATNR'&nbsp;'####'&nbsp;3&nbsp;space&nbsp;space&nbsp;space,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'MAKTX'&nbsp;'###'&nbsp;&nbsp;&nbsp;4&nbsp;space&nbsp;space&nbsp;space,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'MENGE'&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;space&nbsp;space&nbsp;space,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'PRDAT'&nbsp;'###'&nbsp;&nbsp;&nbsp;6&nbsp;space&nbsp;space&nbsp;space.<br />
+ENDFORM.<br />
+<br />
+FORM add_field USING p_field p_text p_pos p_ref_tab p_ref_field p_edit.<br />
+&nbsp;&nbsp;DATA(ls_fcat)&nbsp;=&nbsp;VALUE&nbsp;lvc_s_fcat(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;fieldname&nbsp;=&nbsp;p_field&nbsp;coltext&nbsp;=&nbsp;p_text&nbsp;col_pos&nbsp;=&nbsp;p_pos<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ref_table&nbsp;=&nbsp;p_ref_tab&nbsp;ref_field&nbsp;=&nbsp;p_ref_field&nbsp;edit&nbsp;=&nbsp;p_edit<br />
+&nbsp;&nbsp;&nbsp;&nbsp;f4availabl&nbsp;=&nbsp;COND&nbsp;#(&nbsp;WHEN&nbsp;p_ref_tab&nbsp;IS&nbsp;NOT&nbsp;INITIAL&nbsp;THEN&nbsp;'X'&nbsp;ELSE&nbsp;space&nbsp;)<br />
+&nbsp;&nbsp;).<br />
+&nbsp;&nbsp;IF&nbsp;p_field&nbsp;=&nbsp;'MENGE'.&nbsp;ls_fcat-qfieldname&nbsp;=&nbsp;'MEINS'.&nbsp;ENDIF.<br />
+&nbsp;&nbsp;IF&nbsp;p_field&nbsp;=&nbsp;'STPRS'.&nbsp;ls_fcat-cfieldname&nbsp;=&nbsp;'WAERS'.&nbsp;ENDIF.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+ENDFORM.<br />
+<br />
+FORM register_events.<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_handler.<br />
+&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;go_handler-&gt;on_f4_request&nbsp;FOR&nbsp;go_grid.<br />
+&nbsp;&nbsp;DATA:&nbsp;lt_f4&nbsp;TYPE&nbsp;lvc_t_f4.<br />
+&nbsp;&nbsp;APPEND&nbsp;VALUE&nbsp;#(&nbsp;fieldname&nbsp;=&nbsp;'MATNR'&nbsp;register&nbsp;=&nbsp;'X'&nbsp;chngeafter&nbsp;=&nbsp;'X'&nbsp;)&nbsp;TO&nbsp;lt_f4.<br />
+&nbsp;&nbsp;go_grid-&gt;register_f4_for_fields(&nbsp;it_f4&nbsp;=&nbsp;lt_f4&nbsp;).<br />
+ENDFORM.<br />
+<br />
+FORM display_alv USING pt_data TYPE STANDARD TABLE.<br />
+&nbsp;&nbsp;go_grid-&gt;set_table_for_first_display(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;is_layout&nbsp;=&nbsp;gs_layout&nbsp;is_variant&nbsp;=&nbsp;gs_variant&nbsp;i_save&nbsp;=&nbsp;'A'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&nbsp;it_outtab&nbsp;=&nbsp;pt_data&nbsp;it_fieldcatalog&nbsp;=&nbsp;gt_fcat&nbsp;).<br />
+ENDFORM.<br />
+<br />
+FORM refresh_grid.<br />
+&nbsp;&nbsp;DATA(ls_stbl)&nbsp;=&nbsp;VALUE&nbsp;lvc_s_stbl(&nbsp;row&nbsp;=&nbsp;'X'&nbsp;col&nbsp;=&nbsp;'X'&nbsp;).<br />
+&nbsp;&nbsp;go_grid-&gt;refresh_table_display(&nbsp;is_stable&nbsp;=&nbsp;ls_stbl&nbsp;).<br />
+ENDFORM.<br />
+<br />
+FORM append_empty_line.<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_next&nbsp;TYPE&nbsp;zmm11_po_item-ebelp.<br />
+&nbsp;&nbsp;IF&nbsp;gt_alv_data&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_next&nbsp;=&nbsp;gt_alv_data[&nbsp;lines(&nbsp;gt_alv_data&nbsp;)&nbsp;]-ebelp&nbsp;+&nbsp;10.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_next&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_alv_data.<br />
+&nbsp;&nbsp;gs_alv_data-ebelp&nbsp;=&nbsp;lv_next.<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;waers,&nbsp;mwskz&nbsp;FROM&nbsp;zmm11_org_mst<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;(@gs_alv_data-waers,&nbsp;@gs_alv_data-mwskz)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;lifnr&nbsp;=&nbsp;@p_lifnr.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_alv_data&nbsp;TO&nbsp;gt_alv_data.<br />
+&nbsp;&nbsp;PERFORM&nbsp;refresh_grid.<br />
+ENDFORM.<br />
+<br />
+FORM delete_selected_lines.<br />
+&nbsp;&nbsp;DATA:&nbsp;lt_rows&nbsp;TYPE&nbsp;lvc_t_row.<br />
+&nbsp;&nbsp;go_grid-&gt;get_selected_rows(&nbsp;IMPORTING&nbsp;et_index_rows&nbsp;=&nbsp;lt_rows&nbsp;).<br />
+&nbsp;&nbsp;IF&nbsp;lt_rows&nbsp;IS&nbsp;INITIAL.&nbsp;MESSAGE&nbsp;'###&nbsp;##&nbsp;#####.'&nbsp;TYPE&nbsp;'I'.&nbsp;RETURN.&nbsp;ENDIF.<br />
+&nbsp;&nbsp;SORT&nbsp;lt_rows&nbsp;DESCENDING&nbsp;BY&nbsp;index.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;lt_rows&nbsp;INTO&nbsp;DATA(ls_row).&nbsp;DELETE&nbsp;gt_alv_data&nbsp;INDEX&nbsp;ls_row-index.&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;PERFORM&nbsp;refresh_grid.<br />
+ENDFORM.<br />
+<br />
+FORM exec_f4_matnr USING p_field p_row p_event_data TYPE REF TO cl_alv_event_data.<br />
+&nbsp;&nbsp;DATA:&nbsp;lt_ret&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ddshretval,&nbsp;lt_mat&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;zmm11_mat_mst.<br />
+&nbsp;&nbsp;p_event_data-&gt;m_event_handled&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;zmm11_mat_mst&nbsp;INTO&nbsp;TABLE&nbsp;lt_mat.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'F4IF_INT_TABLE_VALUE_REQUEST'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;retfield&nbsp;=&nbsp;'ZMATNR'&nbsp;value_org&nbsp;=&nbsp;'S'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES&nbsp;value_tab&nbsp;=&nbsp;lt_mat&nbsp;return_tab&nbsp;=&nbsp;lt_ret<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS&nbsp;OTHERS&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0&nbsp;AND&nbsp;lt_ret&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA(lv_mat)&nbsp;=&nbsp;lt_ret[&nbsp;1&nbsp;]-fieldval.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;lt_mat&nbsp;INTO&nbsp;DATA(ls_mat)&nbsp;WITH&nbsp;KEY&nbsp;zmatnr&nbsp;=&nbsp;lv_mat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FIELD-SYMBOLS:&nbsp;&lt;lt_modi&gt;&nbsp;TYPE&nbsp;lvc_t_modi.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;p_event_data-&gt;m_data-&gt;*&nbsp;TO&nbsp;&lt;lt_modi&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;add_modi&nbsp;USING&nbsp;p_row:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'MATNR'&nbsp;ls_mat-zmatnr&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&lt;lt_modi&gt;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'MAKTX'&nbsp;ls_mat-zmatname&nbsp;CHANGING&nbsp;&lt;lt_modi&gt;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'STPRS'&nbsp;ls_mat-stprs&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&lt;lt_modi&gt;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'MEINS'&nbsp;ls_mat-meins&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&lt;lt_modi&gt;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'WERKS'&nbsp;ls_mat-zwerks&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&lt;lt_modi&gt;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'LGORT'&nbsp;ls_mat-zlgort&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&lt;lt_modi&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+FORM add_modi USING p_row p_field p_val CHANGING pt_modi TYPE lvc_t_modi.<br />
+&nbsp;&nbsp;APPEND&nbsp;VALUE&nbsp;#(&nbsp;row_id&nbsp;=&nbsp;p_row&nbsp;fieldname&nbsp;=&nbsp;p_field&nbsp;value&nbsp;=&nbsp;p_val&nbsp;)&nbsp;TO&nbsp;pt_modi.<br />
+ENDFORM.<br />
+<br />
+FORM validate_lines.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_alv_data&nbsp;INTO&nbsp;gs_alv_data.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_alv_data-prdat&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;gs_alv_data-prdat&nbsp;&lt;&nbsp;p_bedat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;######&nbsp;(###&nbsp;####&nbsp;#).'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+FORM save_to_database.<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_po&nbsp;TYPE&nbsp;zmm11_po_head-ebeln.<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_calc&nbsp;TYPE&nbsp;i.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;MAX(&nbsp;ebeln&nbsp;)&nbsp;FROM&nbsp;zmm11_po_head&nbsp;INTO&nbsp;@DATA(lv_max).<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;lv_max&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_po&nbsp;=&nbsp;'0000000001'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_calc&nbsp;=&nbsp;lv_max&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;##&nbsp;(WIDTH,&nbsp;ALIGN,&nbsp;PAD&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_po&nbsp;=&nbsp;|{&nbsp;lv_calc&nbsp;WIDTH&nbsp;=&nbsp;10&nbsp;ALIGN&nbsp;=&nbsp;RIGHT&nbsp;PAD&nbsp;=&nbsp;'0'&nbsp;}|.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gt_head_ins,&nbsp;gt_item_ins.<br />
+&nbsp;&nbsp;APPEND&nbsp;INITIAL&nbsp;LINE&nbsp;TO&nbsp;gt_head_ins&nbsp;ASSIGNING&nbsp;FIELD-SYMBOL(&lt;fs_h&gt;).<br />
+&nbsp;&nbsp;&lt;fs_h&gt;-ebeln&nbsp;=&nbsp;lv_po.<br />
+&nbsp;&nbsp;&lt;fs_h&gt;-bedat&nbsp;=&nbsp;p_bedat.<br />
+&nbsp;&nbsp;&lt;fs_h&gt;-bukrs&nbsp;=&nbsp;p_bukrs.<br />
+&nbsp;&nbsp;&lt;fs_h&gt;-lifnr&nbsp;=&nbsp;p_lifnr.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;ekgrp,&nbsp;ekorg,&nbsp;waers&nbsp;FROM&nbsp;zmm11_org_mst<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;(@&lt;fs_h&gt;-ekgrp,&nbsp;@&lt;fs_h&gt;-ekorg,&nbsp;@&lt;fs_h&gt;-waers)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;lifnr&nbsp;=&nbsp;@p_lifnr.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_alv_data&nbsp;INTO&nbsp;gs_alv_data.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;INITIAL&nbsp;LINE&nbsp;TO&nbsp;gt_item_ins&nbsp;ASSIGNING&nbsp;FIELD-SYMBOL(&lt;fs_i&gt;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;gs_alv_data&nbsp;TO&nbsp;&lt;fs_i&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;fs_i&gt;-ebeln&nbsp;=&nbsp;lv_po.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;INSERT&nbsp;zmm11_po_head&nbsp;FROM&nbsp;TABLE&nbsp;gt_head_ins.<br />
+&nbsp;&nbsp;INSERT&nbsp;zmm11_po_item&nbsp;FROM&nbsp;TABLE&nbsp;gt_item_ins.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COMMIT&nbsp;WORK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;|####&nbsp;{&nbsp;lv_po&nbsp;}&nbsp;##&nbsp;##|&nbsp;TYPE&nbsp;'S'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ROLLBACK&nbsp;WORK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;##'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+FORM select_po_data.<br />
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;zmm11_po_item&nbsp;INTO&nbsp;TABLE&nbsp;@gt_item_ins&nbsp;WHERE&nbsp;ebeln&nbsp;=&nbsp;@p_ebeln.<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

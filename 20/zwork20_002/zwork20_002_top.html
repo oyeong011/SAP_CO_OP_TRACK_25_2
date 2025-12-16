@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZWORK20_002_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZWORK20_002_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZWORK20_002_TOP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES: SSCRFIELDS.<br />
+&nbsp;TYPES:&nbsp;T_C(1500)&nbsp;TYPE&nbsp;C,&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;####&nbsp;##&nbsp;#######&nbsp;####&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_DATA&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;T_C.<br />
+<br />
+DATA: GT_CLIPBOARD TYPE T_DATA."TABLE OF STRING.<br />
+<br />
+DATA: GS_EXCEL TYPE SMP_DYNTXT.   " EXCEL# #### ### ### ## ##<br />
+DATA: GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER.    " ALV### CUSTOM CONTAINER #### ##<br />
+DATA: GC_GRID TYPE REF TO CL_GUI_ALV_GRID.    " ALV ### ALV GRID #### ##<br />
+DATA: OK_CODE TYPE SY-UCOMM.    " TOOLBAR ## ##<br />
+<br />
+DATA: GS_FIELDCAT TYPE LVC_S_FCAT.    " ###### ###<br />
+DATA: GT_FIELDCAT TYPE LVC_T_FCAT.    " ###### ###<br />
+<br />
+DATA: GT_SORT TYPE LVC_T_SORT.    " SORT ###<br />
+DATA: GS_SORT TYPE LVC_S_SORT.    " SORT ###<br />
+<br />
+DATA: GS_LAYOUT TYPE LVC_S_LAYO.    " LAYOUT ###<br />
+<br />
+DATA: GS_VARIANT TYPE DISVARIANT.   " LAYOUT #### ###<br />
+<br />
+DATA: GC_FILE TYPE REF TO CL_GUI_FRONTEND_SERVICES.   " FRONTEND SERVICES ## ## ##<br />
+<br />
+DATA: GV_TEMP_DT TYPE STRING,   " TEMP## ### ## ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_FILE_DT&nbsp;TYPE&nbsp;STRING.&nbsp;&nbsp;&nbsp;"&nbsp;PDF##&nbsp;###&nbsp;##&nbsp;##<br />
+<br />
+DATA: GV_EXCEL_APP TYPE OLE2_OBJECT,    " ### #### ## ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_EXCEL_WORKBOOK&nbsp;TYPE&nbsp;OLE2_OBJECT.&nbsp;&nbsp;&nbsp;"&nbsp;######&nbsp;####&nbsp;##&nbsp;##<br />
+DATA: GV_FILE TYPE RLGRAP-FILENAME.   " RLGRAP-FILENAME ### ## #### ### ## ##<br />
+<br />
+DATA: GO_EVENT TYPE REF TO EVENT.   " EVENT ## ## ##<br />
+<br />
+DATA: BEGIN OF GS_EXCHANGE.   " ## ### ### ###<br />
+&nbsp;&nbsp;DATA:&nbsp;KURST&nbsp;TYPE&nbsp;ZTCURR20-KURST,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FCURR&nbsp;TYPE&nbsp;ZTCURR20-FCURR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TCURR&nbsp;TYPE&nbsp;ZTCURR20-TCURR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GDATU&nbsp;TYPE&nbsp;ZTCURR20-GDATU,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZUKURS&nbsp;TYPE&nbsp;DECFLOAT16,&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FFACT&nbsp;TYPE&nbsp;ZTCURR20-FFACT,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;########<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TFACT&nbsp;TYPE&nbsp;ZTCURR20-TFACT,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;########<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZUNAME&nbsp;TYPE&nbsp;SY-UNAME,&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDATE&nbsp;TYPE&nbsp;SY-DATUM.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;DATA:&nbsp;END&nbsp;OF&nbsp;GS_EXCHANGE.<br />
+DATA: GT_EXCHANGE LIKE TABLE OF GS_EXCHANGE.<br />
+<br />
+DATA: BEGIN OF GS_ZTCURR20.   " ZTCURR20 ### ### ###<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="ztcurr20/dictionary-ztcurr20.html">ZTCURR20</a>.<br />
+&nbsp;&nbsp;DATA:&nbsp;END&nbsp;OF&nbsp;GS_ZTCURR20.<br />
+DATA: GT_ZTCURR20 LIKE TABLE OF GS_ZTCURR20.    " ZTCURR20 ### ### ###<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

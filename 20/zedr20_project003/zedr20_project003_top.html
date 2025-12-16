@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR20_PROJECT003_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR20_PROJECT003_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDR20_PROJECT003_TOP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES: ZEDT20_MKPF, ZEDT20_MSEG, ZEDT20_EKPO, ZEDT20_EKKO, ZEDT20_MARA.<br />
+<br />
+" ALV ## ##<br />
+DATA: GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER,    " ALV### DOCKING CONTAINER #### ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GC_GRID&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ALV&nbsp;###&nbsp;ALV&nbsp;GRID&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;OK_CODE&nbsp;TYPE&nbsp;SY-UCOMM,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;TOOLBAR&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT&nbsp;TYPE&nbsp;LVC_S_FCAT,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;######&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT&nbsp;TYPE&nbsp;LVC_T_FCAT,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;######&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GT_SORT&nbsp;TYPE&nbsp;LVC_T_SORT,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SORT&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_SORT&nbsp;TYPE&nbsp;LVC_S_SORT,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SORT&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_LAYOUT&nbsp;TYPE&nbsp;LVC_S_LAYO,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LAYOUT&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_VARIANT&nbsp;TYPE&nbsp;DISVARIANT.&nbsp;&nbsp;&nbsp;"&nbsp;LAYOUT&nbsp;####&nbsp;###<br />
+<br />
+DATA: BEGIN OF GS_MIGO,<br />
+&nbsp;&nbsp;ZCHECK&nbsp;TYPE&nbsp;C,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;ZEDT20_MSEG-EBELN,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;######<br />
+&nbsp;&nbsp;EBELP&nbsp;TYPE&nbsp;ZEDT20_EKPO-EBELP,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;ZEDT20_MSEG-LIFNR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;BEDAT&nbsp;TYPE&nbsp;ZEDT20_EKKO-BEDAT,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;ZEDT20_MSEG-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;MAKTX&nbsp;TYPE&nbsp;ZEDT20_MARA-MAKTX,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;POMENGE&nbsp;TYPE&nbsp;ZEDT20_MSEG-MENGE,<br />
+&nbsp;&nbsp;MENGE&nbsp;TYPE&nbsp;ZEDT20_MSEG-MENGE,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;REMENGE&nbsp;TYPE&nbsp;ZEDT20_MSEG-MENGE,<br />
+&nbsp;&nbsp;MEINS&nbsp;TYPE&nbsp;ZEDT20_MSEG-MEINS,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;BPRME&nbsp;TYPE&nbsp;ZEDT20_EKPO-BPRME,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;ZEDT20_MSEG-WAERS,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;PRDAT&nbsp;TYPE&nbsp;ZEDT20_EKPO-PRDAT,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;WERKS&nbsp;TYPE&nbsp;ZEDT20_MSEG-WERKS,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;LGORT&nbsp;TYPE&nbsp;ZEDT20_MSEG-LGORT,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;BUKRS&nbsp;TYPE&nbsp;ZEDT20_MSEG-BUKRS,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_MIGO.<br />
+DATA: GT_MIGO LIKE TABLE OF GS_MIGO.<br />
+<br />
+DATA: BEGIN OF GS_WAREHOUSED_HEADER,<br />
+&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;ZEDT20_EKKO-EBELN,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;WERKS&nbsp;TYPE&nbsp;ZEDT20_MSEG-WERKS,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;BEDAT&nbsp;TYPE&nbsp;ZEDT20_EKKO-BEDAT,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;PO##&nbsp;###<br />
+&nbsp;&nbsp;BUKRS&nbsp;TYPE&nbsp;ZEDT20_EKKO-BUKRS,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;EKGRP&nbsp;TYPE&nbsp;ZEDT20_EKKO-EKGRP,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;ZEDT20_EKKO-LIFNR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;NAME1&nbsp;TYPE&nbsp;ZEDT20_LFA1-NAME1,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_WAREHOUSED_HEADER.<br />
+DATA: GT_WAREHOUSED_HEADER LIKE TABLE OF GS_WAREHOUSED_HEADER.<br />
+<br />
+DATA: BEGIN OF GS_WAREHOUSED_ALV,<br />
+&nbsp;&nbsp;ZCHECK&nbsp;TYPE&nbsp;C,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;ZLSTATUS&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;2,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;ZEDT20_MSEG-EBELN,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;LOEVM&nbsp;TYPE&nbsp;ZEDT20_MSEG-LOEVM,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;EBELP&nbsp;TYPE&nbsp;ZEDT20_EKPO-EBELP,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;MBLNR&nbsp;TYPE&nbsp;ZEDT20_MSEG-MBLNR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;######<br />
+&nbsp;&nbsp;ZEILE&nbsp;TYPE&nbsp;ZEDT20_MSEG-ZEILE,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;MAKTX&nbsp;TYPE&nbsp;ZEDT20_MARA-MAKTX,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;POMENGE&nbsp;TYPE&nbsp;ZEDT20_MSEG-MENGE,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;PO&nbsp;##<br />
+&nbsp;&nbsp;MENGE&nbsp;TYPE&nbsp;ZEDT20_MSEG-MENGE,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;MEINS&nbsp;TYPE&nbsp;ZEDT20_MSEG-MEINS,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;BLDAT&nbsp;TYPE&nbsp;ZEDT20_MKPF-BLDAT,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;LGORT&nbsp;TYPE&nbsp;ZEDT20_MSEG-LGORT,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_WAREHOUSED_ALV.<br />
+DATA: GT_WAREHOUSED_ALV LIKE TABLE OF GS_WAREHOUSED_ALV.<br />
+<br />
+DATA: BEGIN OF GS_EKKO.<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt20_ekko/dictionary-zedt20_ekko.html">ZEDT20_EKKO</a>.<br />
+&nbsp;&nbsp;DATA:&nbsp;END&nbsp;OF&nbsp;GS_EKKO.<br />
+DATA: GT_EKKO LIKE TABLE OF GS_EKKO.<br />
+<br />
+DATA: BEGIN OF GS_EBELN,<br />
+&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;ZEDT20_MSEG-EBELN,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_EBELN.<br />
+DATA: GT_EBELN LIKE TABLE OF GS_EBELN.<br />
+<br />
+DATA: BEGIN OF GS_MARA,<br />
+&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;ZEDT20_MARA-MATNR,<br />
+&nbsp;&nbsp;MAKTX&nbsp;TYPE&nbsp;ZEDT20_MARA-MAKTX,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_MARA.<br />
+DATA: GT_MARA LIKE TABLE OF GS_MARA.<br />
+<br />
+DATA: BEGIN OF GS_MSEG.<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt20_mseg/dictionary-zedt20_mseg.html">ZEDT20_MSEG</a>.<br />
+&nbsp;&nbsp;DATA:&nbsp;END&nbsp;OF&nbsp;GS_MSEG.<br />
+DATA: GT_MSEG LIKE TABLE OF GS_MSEG.<br />
+<br />
+DATA: BEGIN OF GS_MKPF.<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt20_mkpf/dictionary-zedt20_mkpf.html">ZEDT20_MKPF</a>.<br />
+&nbsp;&nbsp;DATA:&nbsp;END&nbsp;OF&nbsp;GS_MKPF.<br />
+DATA: GT_MKPF LIKE TABLE OF GS_MKPF.<br />
+<br />
+DATA: GO_EVENT TYPE REF TO EVENT.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

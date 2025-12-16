@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR14_PRACTICE002</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR14_PRACTICE002</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR14_PRACTICE002<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR14_PRACTICE002.<br />
+<br />
+"READ ##<br />
+"### ### ##<br />
+DATA : GT_ZEDT001 TYPE TABLE OF ZEDT14_001,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZEDT002&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZEDT14_002,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZEDT004&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZEDT14_004.<br />
+DATA : GS_ZEDT001 TYPE ZEDT14_001,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ZEDT002&nbsp;TYPE&nbsp;ZEDT14_002,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ZEDT004&nbsp;TYPE&nbsp;ZEDT14_004.<br />
+<br />
+TYPES : BEGIN OF ZTG_FINAL,<br />
+&nbsp;&nbsp;ZCODE&nbsp;TYPE&nbsp;ZCODE14,<br />
+&nbsp;&nbsp;ZKNAME&nbsp;TYPE&nbsp;ZKNAME14,<br />
+&nbsp;&nbsp;ZJGGUBUN&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,<br />
+&nbsp;&nbsp;ZTEL&nbsp;TYPE&nbsp;ZTEL14,<br />
+&nbsp;&nbsp;ZHSGUBUN&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;ZTG_FINAL.<br />
+<br />
+"### ### ##<br />
+DATA : GT_FINAL TYPE TABLE OF ZTG_FINAL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FINAL&nbsp;TYPE&nbsp;ZTG_FINAL.<br />
+<br />
+"### ##<br />
+SELECT * FROM ZEDT14_001 INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT001.<br />
+SELECT * FROM ZEDT14_002 INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT002.<br />
+SELECT * FROM ZEDT14_004 INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT004.<br />
+<br />
+"#### ##<br />
+DATA : LV_MSUM TYPE ZEDT14_004-ZSUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_FSUM&nbsp;TYPE&nbsp;ZEDT14_004-ZSUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_SUM&nbsp;TYPE&nbsp;ZEDT14_004-ZSUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_GFLAG&nbsp;TYPE&nbsp;ZTG_FINAL-ZHSGUBUN,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ZMAJOR&nbsp;TYPE&nbsp;ZEDT14_004-ZMAJOR.&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+<br />
+"### ##<br />
+SORT GT_ZEDT001 BY ZCODE.<br />
+SORT GT_ZEDT002 BY ZCODE.<br />
+SORT GT_ZEDT004 BY ZCODE.<br />
+<br />
+"MODIFY LOOP<br />
+LOOP AT GT_ZEDT004 INTO GS_ZEDT004.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;GS_ZEDT004-ZGRADE&nbsp;IS&nbsp;NOT&nbsp;INITIAL.&nbsp;&nbsp;&nbsp;"CHECK&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FINAL.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;NEW&nbsp;ZCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_GFLAG&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GS_ZEDT004-ZGRADE&nbsp;=&nbsp;'D'&nbsp;OR&nbsp;GS_ZEDT004-ZGRADE&nbsp;=&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_GFLAG&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;LV_ZMAJOR&nbsp;=&nbsp;GS_ZEDT004-ZMAJOR.<br />
+&nbsp;&nbsp;LV_SUM&nbsp;=&nbsp;GS_ZEDT004-ZSUM.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;END&nbsp;OF&nbsp;ZCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ZEDT001&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_ZEDT004-ZCODE&nbsp;INTO&nbsp;GS_ZEDT001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COMPARING&nbsp;ZCODE.&nbsp;&nbsp;&nbsp;&nbsp;"READ&nbsp;~&nbsp;COMPARING&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ZEDT002&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_ZEDT004-ZCODE&nbsp;INTO&nbsp;GS_ZEDT002<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COMPARING&nbsp;ZCODE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FINAL-ZCODE&nbsp;=&nbsp;GS_ZEDT004-ZCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FINAL-ZKNAME&nbsp;=&nbsp;GS_ZEDT001-ZKNAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_ZEDT002-ZMAJOR&nbsp;&lt;&gt;&nbsp;LV_ZMAJOR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FINAL-ZJGGUBUN&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FINAL-ZHSGUBUN&nbsp;=&nbsp;LV_GFLAG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_FINAL-ZHSGUBUN&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FINAL-ZTEL&nbsp;=&nbsp;GS_ZEDT001-ZTEL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_ZEDT001-ZGENDER&nbsp;=&nbsp;'M'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSUM&nbsp;=&nbsp;LV_MSUM&nbsp;+&nbsp;LV_SUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_FSUM&nbsp;=&nbsp;LV_FSUM&nbsp;+&nbsp;LV_SUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COLLECT&nbsp;GS_FINAL&nbsp;INTO&nbsp;GT_FINAL.&nbsp;&nbsp;&nbsp;"COLLECT&nbsp;##<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+ENDLOOP.<br />
+<br />
+"WRITE LOOP<br />
+LOOP AT GT_FINAL INTO GS_FINAL.<br />
+&nbsp;&nbsp;AT&nbsp;FIRST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;/01(66).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/01&nbsp;'|',&nbsp;02(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;'|',&nbsp;13(15)&nbsp;'##'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;28&nbsp;'|',&nbsp;29(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;39&nbsp;'|',&nbsp;40(15)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;55&nbsp;'|',&nbsp;56(10)&nbsp;'##'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;66&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;/01(66).<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/01&nbsp;'|',&nbsp;02(10)&nbsp;GS_FINAL-ZCODE&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;'|',&nbsp;13(15)&nbsp;GS_FINAL-ZKNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;28&nbsp;'|',&nbsp;29(10)&nbsp;GS_FINAL-ZJGGUBUN&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;39&nbsp;'|',&nbsp;40(15)&nbsp;GS_FINAL-ZTEL&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;55&nbsp;'|',&nbsp;56(10)&nbsp;GS_FINAL-ZHSGUBUN&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;66&nbsp;'|'.<br />
+&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;/01(66).<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;LAST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'######&nbsp;:',&nbsp;LV_MSUM&nbsp;CURRENCY&nbsp;'KRW'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'######&nbsp;:',&nbsp;LV_FSUM&nbsp;CURRENCY&nbsp;'KRW'.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+ENDLOOP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

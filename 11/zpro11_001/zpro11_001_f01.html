@@ -1,0 +1,545 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZPRO11_001_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZPRO11_001_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZPRO11_001_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;####&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CONTROL_SCREEN_FIELDS<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##&nbsp;##&nbsp;###/####&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM control_screen_fields.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;screen-group1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'MD1'.&nbsp;&nbsp;"#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;pa_rad1&nbsp;EQ&nbsp;abap_true.&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'MD2'.&nbsp;&nbsp;"#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;pa_rad1&nbsp;EQ&nbsp;abap_true.&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'ALL'.&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;1.&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SAVE_VENDOR_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;###&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM save_vendor_data.<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_error&nbsp;TYPE&nbsp;abap_bool.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gs_general,&nbsp;gs_company,&nbsp;gs_purchase.<br />
+&nbsp;&nbsp;lv_error&nbsp;=&nbsp;abap_false.<br />
+<br />
+&nbsp;&nbsp;"##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;validate_required_fields&nbsp;CHANGING&nbsp;lv_error.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;lv_error&nbsp;EQ&nbsp;abap_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;####&nbsp;####&nbsp;#####.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"ZPRO11_001&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;gs_general-lifnr&nbsp;=&nbsp;gv_lifnr.<br />
+&nbsp;&nbsp;gs_general-name1&nbsp;=&nbsp;gv_name1.<br />
+&nbsp;&nbsp;gs_general-land1&nbsp;=&nbsp;gv_land1.<br />
+&nbsp;&nbsp;gs_general-ktokk&nbsp;=&nbsp;gv_ktokk.<br />
+&nbsp;&nbsp;gs_general-stcd1&nbsp;=&nbsp;gv_stcd1.<br />
+&nbsp;&nbsp;gs_general-stcd2&nbsp;=&nbsp;gv_stcd2.<br />
+&nbsp;&nbsp;gs_general-stras&nbsp;=&nbsp;gv_stras.<br />
+<br />
+&nbsp;&nbsp;"##&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_general&nbsp;TO&nbsp;gt_general.<br />
+<br />
+&nbsp;&nbsp;"DB&nbsp;##<br />
+&nbsp;&nbsp;MODIFY&nbsp;zpro11_001&nbsp;FROM&nbsp;gs_general.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;zpro11_001&nbsp;FROM&nbsp;gs_general.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"ZPRO11_002&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;gs_company-lifnr&nbsp;=&nbsp;gv_lifnr.<br />
+&nbsp;&nbsp;gs_company-bukrs&nbsp;=&nbsp;gv_bukrs.<br />
+&nbsp;&nbsp;gs_company-akont&nbsp;=&nbsp;gv_akont.<br />
+&nbsp;&nbsp;gs_company-zterm&nbsp;=&nbsp;gv_zterm.<br />
+<br />
+&nbsp;&nbsp;"##&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_company&nbsp;TO&nbsp;gt_company.<br />
+<br />
+&nbsp;&nbsp;"DB&nbsp;##<br />
+&nbsp;&nbsp;MODIFY&nbsp;zpro11_002&nbsp;FROM&nbsp;gs_company.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;zpro11_002&nbsp;FROM&nbsp;gs_company.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"ZPRO11_003&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;gs_purchase-lifnr&nbsp;=&nbsp;gv_lifnr.<br />
+&nbsp;&nbsp;gs_purchase-ekorg&nbsp;=&nbsp;gv_ekorg.<br />
+&nbsp;&nbsp;gs_purchase-ekgrp&nbsp;=&nbsp;gv_ekgrp.<br />
+&nbsp;&nbsp;gs_purchase-waers&nbsp;=&nbsp;gv_waers.<br />
+&nbsp;&nbsp;gs_purchase-mwskz&nbsp;=&nbsp;gv_mwskz.<br />
+<br />
+&nbsp;&nbsp;"##&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_purchase&nbsp;TO&nbsp;gt_purchase.<br />
+<br />
+&nbsp;&nbsp;"DB&nbsp;##<br />
+&nbsp;&nbsp;MODIFY&nbsp;zpro11_003&nbsp;FROM&nbsp;gs_purchase.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;zpro11_003&nbsp;FROM&nbsp;gs_purchase.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;#####&nbsp;#######.'&nbsp;TYPE&nbsp;'S'.<br />
+<br />
+&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;VALIDATE_REQUIRED_FIELDS<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;###&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM validate_required_fields CHANGING cv_error TYPE abap_bool.<br />
+&nbsp;&nbsp;"######&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;CASE&nbsp;gv_ktokk.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####,&nbsp;#####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gv_lifnr&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;gv_name1&nbsp;IS&nbsp;INITIAL&nbsp;OR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_land1&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;gv_stras&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cv_error&nbsp;=&nbsp;abap_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####,&nbsp;#####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gv_lifnr&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;gv_name1&nbsp;IS&nbsp;INITIAL&nbsp;OR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_land1&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;gv_stcd1&nbsp;IS&nbsp;INITIAL&nbsp;OR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_stcd2&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;gv_stras&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cv_error&nbsp;=&nbsp;abap_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"######&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gv_lifnr&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;gv_name1&nbsp;IS&nbsp;INITIAL&nbsp;OR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_land1&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;gv_stcd2&nbsp;IS&nbsp;INITIAL&nbsp;OR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_stras&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cv_error&nbsp;=&nbsp;abap_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CALCULATE_NEXT_LIFNR<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;#####&nbsp;##&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM calculate_next_lifnr.<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_max_lifnr&nbsp;TYPE&nbsp;zpro11_001-lifnr.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;MAX(&nbsp;lifnr&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;lv_max_lifnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zpro11_001.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;lv_max_lifnr&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_lifnr&nbsp;=&nbsp;'1000000000'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_lifnr&nbsp;=&nbsp;lv_max_lifnr&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CHECK_VENDOR_GROUP<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#####&nbsp;###&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM check_vendor_group.<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_check&nbsp;TYPE&nbsp;dd07v-domvalue_l.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;pa_rad1&nbsp;EQ&nbsp;abap_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;domvalue_l<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;lv_check<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;dd07v<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;domname&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'ZKTOKK11'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;domvalue_l&nbsp;=&nbsp;pa_ktokk.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;##&nbsp;########.&nbsp;###&nbsp;Fixed&nbsp;Value#&nbsp;#####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;SET_ALV&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALV&nbsp;Grid&nbsp;##&nbsp;#&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE set_alv OUTPUT.<br />
+&nbsp;&nbsp;IF&nbsp;go_docking&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;init_alv_container.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;build_fieldcatalog.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_alv_layout.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_alv_sort.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;register_alv_events.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;display_alv_grid.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;refresh_alv_display.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;INIT_ALV_CONTAINER<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALV&nbsp;####&nbsp;#&nbsp;Grid&nbsp;####&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM init_alv_container.<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_docking<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;repid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-repid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dynnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-dynnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extension&nbsp;=&nbsp;2000.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_alv_grid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_parent&nbsp;=&nbsp;go_docking.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;BUILD_FIELDCATALOG<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;####&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM build_fieldcatalog.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gs_fcat,&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;"#####<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'LIFNR'.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;&nbsp;&nbsp;=&nbsp;'#####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+<br />
+&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'NAME1'.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;&nbsp;&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+<br />
+&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'BUKRS'.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;&nbsp;&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+<br />
+&nbsp;&nbsp;"#####&nbsp;(##&nbsp;##)<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;&nbsp;&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'STCD2'.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;&nbsp;&nbsp;=&nbsp;'#####'.<br />
+&nbsp;&nbsp;gs_fcat-edit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;abap_true.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+<br />
+&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;&nbsp;&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'LAND1'.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;&nbsp;&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+<br />
+&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;&nbsp;&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'STRAS'.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;&nbsp;&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_ALV_LAYOUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALV&nbsp;####&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_alv_layout.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_variant.<br />
+&nbsp;&nbsp;gs_variant-report&nbsp;&nbsp;&nbsp;=&nbsp;sy-repid.<br />
+&nbsp;&nbsp;gs_variant-username&nbsp;=&nbsp;sy-uname.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_ALV_SORT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALV&nbsp;##&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_alv_sort.<br />
+&nbsp;&nbsp;"##&nbsp;##&nbsp;##&nbsp;(###&nbsp;##)<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;REGISTER_ALV_EVENTS<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALV&nbsp;###&nbsp;###&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM register_alv_events.<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_handler.<br />
+<br />
+&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;go_handler-&gt;on_data_changed&nbsp;FOR&nbsp;go_alv_grid.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_alv_grid-&gt;register_edit_event<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_event_id&nbsp;=&nbsp;cl_gui_alv_grid=&gt;mc_evt_modified.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;DISPLAY_ALV_GRID<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALV&nbsp;Grid&nbsp;##&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM display_alv_grid.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_alv_grid-&gt;set_table_for_first_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_variant&nbsp;&nbsp;=&nbsp;gs_variant<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_save&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'A'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_layout&nbsp;&nbsp;&nbsp;=&nbsp;gs_layout<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_outtab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_fieldcatalog&nbsp;=&nbsp;gt_fcat<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_sort&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_sort.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;REFRESH_ALV_DISPLAY<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALV&nbsp;Grid&nbsp;####<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM refresh_alv_display.<br />
+&nbsp;&nbsp;DATA:&nbsp;ls_stable&nbsp;TYPE&nbsp;lvc_s_stbl.<br />
+<br />
+&nbsp;&nbsp;ls_stable-row&nbsp;=&nbsp;abap_true.<br />
+&nbsp;&nbsp;ls_stable-col&nbsp;=&nbsp;abap_true.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_alv_grid-&gt;refresh_table_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_stable&nbsp;=&nbsp;ls_stable.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SELECT_VENDOR_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;###&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM select_vendor_data.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gt_display.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;a~lifnr&nbsp;a~name1&nbsp;a~stcd2&nbsp;a~stras&nbsp;a~land1&nbsp;b~bukrs<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zpro11_001&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zpro11_002&nbsp;AS&nbsp;b<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;a~lifnr&nbsp;EQ&nbsp;b~lifnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;a~lifnr&nbsp;EQ&nbsp;pa_lifnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;b~bukrs&nbsp;EQ&nbsp;pa_bukrs.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;HANDLE_ALV_DATA_CHANGED<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALV&nbsp;###&nbsp;##&nbsp;###&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM handle_alv_data_changed<br />
+&nbsp;&nbsp;USING&nbsp;pv_data_changed&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_alv_changed_data_protocol<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_onf4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_onf4_before<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_onf4_after<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_ucomm.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;ls_modi&nbsp;TYPE&nbsp;lvc_s_modi.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;pv_data_changed-&gt;mt_good_cells&nbsp;INTO&nbsp;ls_modi.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;ls_modi-fieldname&nbsp;EQ&nbsp;'STCD2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_display&nbsp;INTO&nbsp;gs_display&nbsp;INDEX&nbsp;ls_modi-row_id.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;gt_display&nbsp;FROM&nbsp;gs_display&nbsp;INDEX&nbsp;ls_modi-row_id.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;gs_display.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;refresh_alv_display.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;UPDATE_VENDOR_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;###&nbsp;####<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM update_vendor_data.<br />
+&nbsp;&nbsp;DATA:&nbsp;ls_update&nbsp;TYPE&nbsp;zpro11_001,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lt_update&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;zpro11_001.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_display&nbsp;INTO&nbsp;gs_display.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ls_update.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;DB&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zpro11_001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;ls_update<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;lifnr&nbsp;EQ&nbsp;gs_display-lifnr.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;gs_display&nbsp;TO&nbsp;ls_update.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;ls_update&nbsp;TO&nbsp;lt_update.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;"DB&nbsp;####<br />
+&nbsp;&nbsp;IF&nbsp;lt_update&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;zpro11_001&nbsp;FROM&nbsp;TABLE&nbsp;lt_update.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;#######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;#&nbsp;###&nbsp;######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

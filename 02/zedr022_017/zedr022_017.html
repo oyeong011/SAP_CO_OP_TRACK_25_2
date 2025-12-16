@@ -1,0 +1,1133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR022_017</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR022_017</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR022_017<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;######&nbsp;####<br />
+*&&nbsp;###:&nbsp;###<br />
+*&&nbsp;###:&nbsp;2025.01.01<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zedr022_017.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;1.&nbsp;DOMAIN,&nbsp;ELEMENT#&nbsp;####&nbsp;TABLE&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES: zedt22_102,  " #### ###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zedt22_103,&nbsp;&nbsp;"&nbsp;####-####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zedt22_104,&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zedt22_105,&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zedt22_106.&nbsp;&nbsp;"&nbsp;####<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;CONSTANTS&nbsp;##&nbsp;(####&nbsp;8&nbsp;-&nbsp;CONSTANTS&nbsp;1###&nbsp;##)<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CONSTANTS: gc_retire    TYPE c VALUE 'X',                    " #####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gc_eval_a&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;VALUE&nbsp;'A',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;A<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gc_bonus&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;p&nbsp;DECIMALS&nbsp;2&nbsp;VALUE&nbsp;'50000.00',&nbsp;&nbsp;"&nbsp;A##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gc_months&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;12,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;12##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gc_male&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;VALUE&nbsp;'M',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gc_female&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;VALUE&nbsp;'F',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gc_currency&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;3&nbsp;VALUE&nbsp;'KRW'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;TYPE&nbsp;##&nbsp;-&nbsp;####&nbsp;##&nbsp;###&nbsp;####&nbsp;##&nbsp;TYPE&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;####&nbsp;TYPE<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF ty_employee,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpernr&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_102-zpernr,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdepcode&nbsp;&nbsp;TYPE&nbsp;zedt22_102-zdepcode,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdepname&nbsp;&nbsp;TYPE&nbsp;char20,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpname&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_103-zpname,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgender&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_103-zgender,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgender_t&nbsp;TYPE&nbsp;char10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zaddress&nbsp;&nbsp;TYPE&nbsp;zedt22_103-zaddress,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdeprank&nbsp;&nbsp;TYPE&nbsp;zedt22_102-zdeprank,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zrank_t&nbsp;&nbsp;&nbsp;TYPE&nbsp;char10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zedate&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_102-zedate,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zqdate&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_102-zqdate,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zqflag&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_102-zqflag,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zstatus&nbsp;&nbsp;&nbsp;TYPE&nbsp;char10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####(##/##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zyear&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_104-zyear,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zrank&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_104-zrank,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zsalary&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_106-zsalary,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zbankcode&nbsp;TYPE&nbsp;zedt22_106-zbankcode,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zbank_t&nbsp;&nbsp;&nbsp;TYPE&nbsp;char10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zaccount&nbsp;&nbsp;TYPE&nbsp;zedt22_106-zaccount,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ty_employee.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;####&nbsp;TYPE<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF ty_salary,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpernr&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_105-zpernr,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpname&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_103-zpname,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdepcode&nbsp;&nbsp;TYPE&nbsp;zedt22_102-zdepcode,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdepname&nbsp;&nbsp;TYPE&nbsp;char20,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdeprank&nbsp;&nbsp;TYPE&nbsp;zedt22_102-zdeprank,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zrank_t&nbsp;&nbsp;&nbsp;TYPE&nbsp;char10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zedate&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_102-zedate,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zqdate&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_102-zqdate,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zsalary&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_106-zsalary,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zrank&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_104-zrank,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;monthly&nbsp;&nbsp;&nbsp;TYPE&nbsp;p&nbsp;DECIMALS&nbsp;2,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ty_salary.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;####&nbsp;TYPE<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF ty_evaluation,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpernr&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_105-zpernr,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpname&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_103-zpname,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdepcode&nbsp;&nbsp;TYPE&nbsp;zedt22_102-zdepcode,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdepname&nbsp;&nbsp;TYPE&nbsp;char20,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdeprank&nbsp;&nbsp;TYPE&nbsp;zedt22_102-zdeprank,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zrank_t&nbsp;&nbsp;&nbsp;TYPE&nbsp;char10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zedate&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_102-zedate,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zsalary&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_106-zsalary,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zrank&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_104-zrank,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;monthly&nbsp;&nbsp;&nbsp;TYPE&nbsp;p&nbsp;DECIMALS&nbsp;2,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###(###)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zstatus&nbsp;&nbsp;&nbsp;TYPE&nbsp;char10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ty_evaluation.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;###&nbsp;###&nbsp;##&nbsp;(####&nbsp;3&nbsp;-&nbsp;####&nbsp;##&nbsp;###)<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: gt_employee     TYPE TABLE OF ty_employee,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_employee&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ty_employee,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_salary&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ty_salary,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_salary&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ty_salary,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_evaluation&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ty_evaluation,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_evaluation&nbsp;&nbsp;&nbsp;TYPE&nbsp;ty_evaluation,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_alv_emp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ty_employee,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ALV###&nbsp;ITAB<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_alv_eval&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ty_evaluation.&nbsp;&nbsp;&nbsp;"&nbsp;ALV###&nbsp;ITAB<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;###&nbsp;###&nbsp;###<br />
+   </div>
+   <div class="code">
+DATA: gs_zedt22_102   TYPE zedt22_102,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_103&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_103,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_104&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_104,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_105,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_106&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt22_106.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;RANGE&nbsp;##&nbsp;##&nbsp;(####&nbsp;5&nbsp;-&nbsp;#####&nbsp;1###&nbsp;##)<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+RANGES: r_date FOR zedt22_102-datbi,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;r_pernr&nbsp;FOR&nbsp;zedt22_102-zpernr.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;ALV&nbsp;##&nbsp;##&nbsp;(####&nbsp;12&nbsp;-&nbsp;######,&nbsp;LAYOUT,&nbsp;SORT&nbsp;##)<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TYPE-POOLS: slis.<br />
+<br />
+DATA: gt_fieldcat TYPE slis_t_fieldcat_alv,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat&nbsp;TYPE&nbsp;slis_fieldcat_alv,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_layout&nbsp;&nbsp;&nbsp;TYPE&nbsp;slis_layout_alv,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_sort&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;slis_t_sortinfo_alv,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_sort&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;slis_sortinfo_alv,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_variant&nbsp;&nbsp;TYPE&nbsp;disvariant.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;##&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: gv_success TYPE i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_fail&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_message&nbsp;TYPE&nbsp;string.<br />
+<br />
+DATA: lv_text1 TYPE string VALUE '####',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_text2&nbsp;TYPE&nbsp;string&nbsp;VALUE&nbsp;'####'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;Selection&nbsp;Screen&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+*---------------------------------------------------------------------*<br />
+*&nbsp;Selection&nbsp;Screen&nbsp;##<br />
+*---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+" ####<br />
+" # ## 1: ###### ####<br />
+SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME TITLE TEXT-001.<br />
+SELECT-OPTIONS: s_pernr FOR zedt22_102-zpernr.  "####<br />
+"SELECT-OPTIONS: s_date FOR zedt22_102-zedate.   "##<br />
+PARAMETERS: p_frdate TYPE zedt22_102-zedate,  " ###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_todate&nbsp;TYPE&nbsp;zedt22_102-zedate.&nbsp;&nbsp;"&nbsp;###<br />
+PARAMETERS: s_dept TYPE zedt22_102-zdepcode.    "##<br />
+SELECTION-SCREEN END OF BLOCK b1.<br />
+<br />
+" ####<br />
+SELECTION-SCREEN BEGIN OF BLOCK b2 WITH FRAME TITLE TEXT-002.<br />
+PARAMETERS: p_year  TYPE zedt22_104-zyear,  " ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_month&nbsp;TYPE&nbsp;n&nbsp;LENGTH&nbsp;2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#<br />
+SELECTION-SCREEN END OF BLOCK b2.<br />
+<br />
+" ####<br />
+SELECTION-SCREEN BEGIN OF BLOCK b3 WITH FRAME TITLE TEXT-003.<br />
+PARAMETERS: p_year2  TYPE zedt22_104-zyear, " ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_month2&nbsp;TYPE&nbsp;n&nbsp;LENGTH&nbsp;2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#<br />
+SELECTION-SCREEN END OF BLOCK b3.<br />
+<br />
+" (#####)<br />
+SELECTION-SCREEN BEGIN OF BLOCK b4 WITH FRAME TITLE TEXT-004.<br />
+PARAMETERS: p_emp  RADIOBUTTON GROUP rad1 DEFAULT 'X',  " ####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_pay&nbsp;&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;rad1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_eval&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;rad1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+SELECTION-SCREEN END OF BLOCK b4.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK b5 WITH FRAME TITLE TEXT-005.<br />
+PARAMETERS: p_active AS CHECKBOX USER-COMMAND actv.     " ####<br />
+SELECTION-SCREEN END OF BLOCK b5.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;INITIALIZATION&nbsp;-&nbsp;##&nbsp;###&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+&nbsp;&nbsp;lv_text1&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;lv_text2&nbsp;=&nbsp;'####'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;START-OF-SELECTION&nbsp;-&nbsp;##&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN OUTPUT.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;screen-group1&nbsp;=&nbsp;'EMP'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_emp&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;screen-group1&nbsp;=&nbsp;'PAY'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_pay&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;screen-group1&nbsp;=&nbsp;'EVA'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_eval&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;(#####&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;screen-group1&nbsp;=&nbsp;'ACT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_emp&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;START-OF-SELECTION<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;p_emp.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_employee_data.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;p_pay.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;process_salary_payment.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;p_eval.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_evaluation_data.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;GET_EMPLOYEE_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;####&nbsp;##&nbsp;(####&nbsp;13-1)<br />
+*&&nbsp;-&nbsp;####&nbsp;##&nbsp;(DATBI/DATAB)<br />
+*&&nbsp;-&nbsp;####&nbsp;####&nbsp;##<br />
+*&&nbsp;-&nbsp;####&nbsp;'##',&nbsp;#&nbsp;##&nbsp;'##'&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_employee_data.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gt_employee,&nbsp;gt_alv_emp.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;RANGE&nbsp;##&nbsp;##&nbsp;(####&nbsp;5&nbsp;-&nbsp;#####&nbsp;##)<br />
+&nbsp;&nbsp;REFRESH:&nbsp;r_date.<br />
+&nbsp;&nbsp;r_date-sign&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;r_date-option&nbsp;=&nbsp;'BT'.<br />
+&nbsp;&nbsp;r_date-low&nbsp;=&nbsp;p_frdate.<br />
+&nbsp;&nbsp;r_date-high&nbsp;=&nbsp;p_todate.<br />
+&nbsp;&nbsp;APPEND&nbsp;r_date.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;JOIN#&nbsp;###&nbsp;###&nbsp;##&nbsp;(####&nbsp;4&nbsp;-&nbsp;##&nbsp;4#&nbsp;###&nbsp;JOIN)<br />
+&nbsp;&nbsp;SELECT&nbsp;a~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~zdepcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~zdeprank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~zedate<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~zqdate<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~zqflag<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~datbi<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~datab<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~zpname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~zgender<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~zaddress<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c~zyear<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c~zrank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d~zsalary<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d~zbankcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d~zaccount<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_employee<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt22_102&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt22_103&nbsp;AS&nbsp;b<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;b~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;zedt22_104&nbsp;AS&nbsp;c<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;c~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;a~zdepcode&nbsp;=&nbsp;c~zdepcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;c~zyear&nbsp;=&nbsp;p_year<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;zedt22_106&nbsp;AS&nbsp;d<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;d~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;d~zyear&nbsp;=&nbsp;p_year<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;a~zdepcode&nbsp;=&nbsp;s_dept<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;13-1-4:&nbsp;####&nbsp;##&nbsp;(####&nbsp;####&nbsp;#&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;a~datab&nbsp;&lt;=&nbsp;p_todate<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;a~datbi&nbsp;&gt;=&nbsp;p_frdate.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;#&nbsp;####&nbsp;(####&nbsp;11)<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.&nbsp;&nbsp;"&nbsp;STOP&nbsp;##&nbsp;(####&nbsp;10)<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;#&nbsp;####&nbsp;###<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_employee&nbsp;INTO&nbsp;gs_employee.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;13-1-3:&nbsp;####&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_active&nbsp;=&nbsp;'X'&nbsp;AND&nbsp;gs_employee-zqflag&nbsp;=&nbsp;gc_retire.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.&nbsp;&nbsp;"&nbsp;CONTINUE&nbsp;##&nbsp;(####&nbsp;10)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;13-1-3:&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_employee-zqflag&nbsp;=&nbsp;gc_retire.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_employee-zstatus&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_employee-zstatus&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;13-1-6:&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;gs_employee-zgender.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;gc_male.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_employee-zgender_t&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;gc_female.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_employee-zgender_t&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_employee-zgender_t&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;13-1-5:&nbsp;###&nbsp;##&nbsp;(USING/CHANGING&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_rank_name&nbsp;USING&nbsp;gs_employee-zdeprank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_employee-zrank_t.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;13-1-7:&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_dept_name&nbsp;USING&nbsp;gs_employee-zdepcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_employee-zdepname.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;13-1-7:&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_bank_name&nbsp;USING&nbsp;gs_employee-zbankcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_employee-zbank_t.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ALV#&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_employee&nbsp;TO&nbsp;gt_alv_emp.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;gt_alv_emp&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;###&nbsp;##&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.&nbsp;&nbsp;"&nbsp;EXIT&nbsp;##&nbsp;(####&nbsp;10)<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;PROCESS_SALARY_PAYMENT<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;####&nbsp;##&nbsp;(####&nbsp;13-2)<br />
+*&&nbsp;-&nbsp;###&nbsp;##<br />
+*&&nbsp;-&nbsp;#####&nbsp;##&nbsp;###&nbsp;##<br />
+*&&nbsp;-&nbsp;A###&nbsp;5##&nbsp;##<br />
+*&&nbsp;-&nbsp;CASE###&nbsp;##&nbsp;####<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM process_salary_payment.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_amount&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;p&nbsp;DECIMALS&nbsp;2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_field_name&nbsp;&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_count&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gt_salary,&nbsp;gv_success,&nbsp;gv_fail.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;##&nbsp;(4#&nbsp;###&nbsp;JOIN)<br />
+&nbsp;&nbsp;SELECT&nbsp;a~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~zdepcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~zdeprank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~zedate<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~zqdate<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~zpname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c~zrank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d~zsalary<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_salary<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt22_102&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt22_103&nbsp;AS&nbsp;b<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;b~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt22_104&nbsp;AS&nbsp;c&nbsp;&nbsp;"&nbsp;#####&nbsp;##&nbsp;(####&nbsp;13-2-4)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;c~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;a~zdepcode&nbsp;=&nbsp;c~zdepcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;c~zyear&nbsp;=&nbsp;p_year<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt22_106&nbsp;AS&nbsp;d<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;d~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;d~zyear&nbsp;=&nbsp;p_year<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;a~zdepcode&nbsp;=&nbsp;s_dept<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;a~zqflag&nbsp;NE&nbsp;gc_retire.&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;(####&nbsp;13-2-3)<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;###&nbsp;####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_salary&nbsp;INTO&nbsp;gs_salary.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;(####&nbsp;13-2-3)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;NOT&nbsp;gs_salary-zqdate&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA:&nbsp;lv_quit_month&nbsp;TYPE&nbsp;n&nbsp;LENGTH&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_quit_month&nbsp;=&nbsp;gs_salary-zqdate+4(2).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;lv_quit_month&nbsp;&lt;=&nbsp;p_month.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;(####&nbsp;13-2-5:&nbsp;##/12)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_amount&nbsp;=&nbsp;gs_salary-zsalary&nbsp;/&nbsp;gc_months.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;A##&nbsp;###&nbsp;(####&nbsp;13-2-5:&nbsp;A###&nbsp;5##&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_salary-zrank&nbsp;=&nbsp;gc_eval_a.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_amount&nbsp;=&nbsp;lv_amount&nbsp;+&nbsp;gc_bonus.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;0#&nbsp;##&nbsp;##&nbsp;(####&nbsp;13-2-9)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;lv_amount&nbsp;&gt;&nbsp;0.&nbsp;&nbsp;"&nbsp;CHECK&nbsp;##&nbsp;(####&nbsp;10)<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;gs_zedt22_105.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*&nbsp;FROM&nbsp;zedt22_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;gs_zedt22_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;gs_salary-zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zyear&nbsp;=&nbsp;p_year.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105-zpernr&nbsp;=&nbsp;gs_salary-zpernr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105-zyear&nbsp;=&nbsp;p_year.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105-crname&nbsp;=&nbsp;sy-uname.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105-crdate&nbsp;=&nbsp;sy-datum.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105-crzeit&nbsp;=&nbsp;sy-uzeit.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;CASE###&nbsp;##&nbsp;##&nbsp;####&nbsp;(####&nbsp;13-2-2)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;p_month.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'01'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105-zmon01&nbsp;=&nbsp;lv_amount.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'02'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105-zmon02&nbsp;=&nbsp;lv_amount.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'03'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105-zmon03&nbsp;=&nbsp;lv_amount.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'04'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105-zmon04&nbsp;=&nbsp;lv_amount.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'05'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105-zmon05&nbsp;=&nbsp;lv_amount.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'06'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105-zmon06&nbsp;=&nbsp;lv_amount.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'07'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105-zmon07&nbsp;=&nbsp;lv_amount.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'08'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105-zmon08&nbsp;=&nbsp;lv_amount.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'09'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105-zmon09&nbsp;=&nbsp;lv_amount.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'10'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105-zmon10&nbsp;=&nbsp;lv_amount.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'11'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105-zmon11&nbsp;=&nbsp;lv_amount.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'12'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105-zmon12&nbsp;=&nbsp;lv_amount.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;####&nbsp;(####&nbsp;13-2-5)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105-aename&nbsp;=&nbsp;sy-uname.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105-aedate&nbsp;=&nbsp;sy-datum.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt22_105-aezeit&nbsp;=&nbsp;sy-uzeit.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;DB&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;zedt22_105&nbsp;FROM&nbsp;gs_zedt22_105.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_success&nbsp;=&nbsp;gv_success&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;####&nbsp;##&nbsp;(####&nbsp;13-2-7)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ROLLBACK&nbsp;WORK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;##'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;(####&nbsp;13-2-8)<br />
+&nbsp;&nbsp;IF&nbsp;gv_success&nbsp;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COMMIT&nbsp;WORK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;#######.'&nbsp;TYPE&nbsp;'S'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;###&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;GET_EVALUATION_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;####&nbsp;###&nbsp;##&nbsp;(####&nbsp;13-3)<br />
+*&&nbsp;-&nbsp;0#&nbsp;##<br />
+*&&nbsp;-&nbsp;##/###&nbsp;##&nbsp;##<br />
+*&&nbsp;-&nbsp;####&nbsp;##&nbsp;#&nbsp;###&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_evaluation_data.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_amount&nbsp;TYPE&nbsp;p&nbsp;DECIMALS&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gt_evaluation,&nbsp;gt_alv_eval.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;SELECT&nbsp;a~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~zpname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~zdepcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~zdeprank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~zedate<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~zqdate<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c~zrank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d~zsalary<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_evaluation<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt22_102&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt22_103&nbsp;AS&nbsp;b<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;b~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt22_104&nbsp;AS&nbsp;c<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;c~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;a~zdepcode&nbsp;=&nbsp;c~zdepcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;c~zyear&nbsp;=&nbsp;p_year<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zedt22_106&nbsp;AS&nbsp;d<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;a~zpernr&nbsp;=&nbsp;d~zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;d~zyear&nbsp;=&nbsp;p_year<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;a~zdepcode&nbsp;=&nbsp;s_dept.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_evaluation&nbsp;INTO&nbsp;gs_evaluation.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;gs_zedt22_105.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*&nbsp;FROM&nbsp;zedt22_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;gs_zedt22_105<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zpernr&nbsp;=&nbsp;gs_evaluation-zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zyear&nbsp;=&nbsp;p_year.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;##&nbsp;####&nbsp;(####&nbsp;13-3-7)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;p_month.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'01'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_evaluation-monthly&nbsp;=&nbsp;gs_zedt22_105-zmon01.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'02'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_evaluation-monthly&nbsp;=&nbsp;gs_zedt22_105-zmon02.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'03'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_evaluation-monthly&nbsp;=&nbsp;gs_zedt22_105-zmon03.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'04'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_evaluation-monthly&nbsp;=&nbsp;gs_zedt22_105-zmon04.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'05'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_evaluation-monthly&nbsp;=&nbsp;gs_zedt22_105-zmon05.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'06'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_evaluation-monthly&nbsp;=&nbsp;gs_zedt22_105-zmon06.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'07'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_evaluation-monthly&nbsp;=&nbsp;gs_zedt22_105-zmon07.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'08'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_evaluation-monthly&nbsp;=&nbsp;gs_zedt22_105-zmon08.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'09'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_evaluation-monthly&nbsp;=&nbsp;gs_zedt22_105-zmon09.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'10'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_evaluation-monthly&nbsp;=&nbsp;gs_zedt22_105-zmon10.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'11'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_evaluation-monthly&nbsp;=&nbsp;gs_zedt22_105-zmon11.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'12'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_evaluation-monthly&nbsp;=&nbsp;gs_zedt22_105-zmon12.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;0#&nbsp;##&nbsp;##&nbsp;(####&nbsp;13-3-2)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_evaluation-monthly&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;(####&nbsp;13-3-3)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_rank_name&nbsp;USING&nbsp;gs_evaluation-zdeprank<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_evaluation-zrank_t.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;(####&nbsp;13-3-4)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_dept_name&nbsp;USING&nbsp;gs_evaluation-zdepcode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_evaluation-zdepname.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;(####&nbsp;13-3-5)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_evaluation-zedate&nbsp;IS&nbsp;NOT&nbsp;INITIAL&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_evaluation-zedate&nbsp;&lt;=&nbsp;sy-datum.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_evaluation-zstatus&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_evaluation-zstatus&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_evaluation&nbsp;TO&nbsp;gt_alv_eval.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;gt_alv_eval&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;GET_RANK_NAME<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;###&nbsp;##&nbsp;(####&nbsp;7&nbsp;-&nbsp;USING/CHANGING&nbsp;##)<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_rank_name USING p_rank TYPE any<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;p_rank_name&nbsp;TYPE&nbsp;any.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;p_rank.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_rank_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'B'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_rank_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'C'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_rank_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'D'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_rank_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_rank_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_rank_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'G'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_rank_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_rank_name&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;GET_DEPT_NAME<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;###&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_dept_name USING p_dept TYPE any<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;p_dept_name&nbsp;TYPE&nbsp;any.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;p_dept.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_dept_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0002'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_dept_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0003'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_dept_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0004'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_dept_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0005'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_dept_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SS0006'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_dept_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_dept_name&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;GET_BANK_NAME<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;###&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_bank_name USING p_bank TYPE any<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;p_bank_name&nbsp;TYPE&nbsp;any.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;p_bank.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_bank_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'002'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_bank_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'003'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_bank_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'004'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_bank_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'005'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_bank_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_bank_name&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;DISPLAY_EMPLOYEE_ALV<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;####&nbsp;ALV&nbsp;##&nbsp;(####&nbsp;12)<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM display_employee_alv.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;Field&nbsp;Catalog&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_employee_fieldcat.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;Layout&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_layout.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;Sort&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_employee_sort.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;ALV&nbsp;Display<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'REUSE_ALV_GRID_DISPLAY'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_callback_program&nbsp;=&nbsp;sy-repid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_layout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_layout<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_fieldcat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_fieldcat<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_sort&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_sort<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_save&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'A'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_variant&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_variant<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t_outtab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_alv_emp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;program_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;##'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_EMPLOYEE_FIELDCAT<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;####&nbsp;##&nbsp;####&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_employee_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;append_fieldcat&nbsp;USING:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZPERNR'&nbsp;&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;&nbsp;&nbsp;'C'&nbsp;'10'&nbsp;'&nbsp;'&nbsp;'&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZPNAME'&nbsp;&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;&nbsp;&nbsp;'C'&nbsp;'10'&nbsp;'&nbsp;'&nbsp;'&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZDEPCODE'&nbsp;&nbsp;'####'&nbsp;&nbsp;&nbsp;&nbsp;'C'&nbsp;'10'&nbsp;'&nbsp;'&nbsp;'&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZDEPNAME'&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'C'&nbsp;'15'&nbsp;'&nbsp;'&nbsp;'&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZRANK_T'&nbsp;&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'C'&nbsp;'10'&nbsp;'&nbsp;'&nbsp;'&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZGENDER_T'&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'C'&nbsp;'5'&nbsp;&nbsp;'&nbsp;'&nbsp;'&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZADDRESS'&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'C'&nbsp;'20'&nbsp;'&nbsp;'&nbsp;'&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZEDATE'&nbsp;&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;&nbsp;&nbsp;'D'&nbsp;'10'&nbsp;'&nbsp;'&nbsp;'&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZQDATE'&nbsp;&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;&nbsp;&nbsp;'D'&nbsp;'10'&nbsp;'&nbsp;'&nbsp;'&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZSTATUS'&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;&nbsp;&nbsp;'C'&nbsp;'10'&nbsp;'&nbsp;'&nbsp;'&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZSALARY'&nbsp;&nbsp;&nbsp;'##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'P'&nbsp;'15'&nbsp;'X'&nbsp;'KRW',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZBANK_T'&nbsp;&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'C'&nbsp;'10'&nbsp;'&nbsp;'&nbsp;'&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZACCOUNT'&nbsp;&nbsp;'####'&nbsp;&nbsp;&nbsp;&nbsp;'C'&nbsp;'20'&nbsp;'&nbsp;'&nbsp;'&nbsp;'.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;DISPLAY_EVALUATION_ALV<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;####&nbsp;ALV&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM display_evaluation_alv.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;Field&nbsp;Catalog&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_evaluation_fieldcat.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;Layout&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_layout.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;Sort&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_evaluation_sort.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;ALV&nbsp;Display<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'REUSE_ALV_GRID_DISPLAY'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_callback_program&nbsp;=&nbsp;sy-repid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_layout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_layout<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_fieldcat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_fieldcat<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_sort&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_sort<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_save&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'A'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_variant&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_variant<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t_outtab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_alv_eval<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;program_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;##'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_EVALUATION_FIELDCAT<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;####&nbsp;##&nbsp;####&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_evaluation_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_month_text&nbsp;TYPE&nbsp;string.<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;p_month&nbsp;'####'&nbsp;INTO&nbsp;lv_month_text.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;####&nbsp;##&nbsp;(####&nbsp;13-3-8:&nbsp;SUM#&nbsp;##)<br />
+&nbsp;&nbsp;PERFORM&nbsp;append_fieldcat&nbsp;USING:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZPERNR'&nbsp;&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'C'&nbsp;'10'&nbsp;'&nbsp;'&nbsp;'&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZPNAME'&nbsp;&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'C'&nbsp;'10'&nbsp;'&nbsp;'&nbsp;'&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZDEPCODE'&nbsp;&nbsp;'####'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'C'&nbsp;'10'&nbsp;'&nbsp;'&nbsp;'&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZDEPNAME'&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'C'&nbsp;'15'&nbsp;'&nbsp;'&nbsp;'&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZRANK_T'&nbsp;&nbsp;&nbsp;'###'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'C'&nbsp;'10'&nbsp;'&nbsp;'&nbsp;'&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZEDATE'&nbsp;&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'D'&nbsp;'10'&nbsp;'&nbsp;'&nbsp;'&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZSALARY'&nbsp;&nbsp;&nbsp;'####(#)'&nbsp;&nbsp;'P'&nbsp;'15'&nbsp;'X'&nbsp;'KRW',&nbsp;&nbsp;"&nbsp;####&nbsp;13-3-6:&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZRANK'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'C'&nbsp;'5'&nbsp;&nbsp;'&nbsp;'&nbsp;'&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'MONTHLY'&nbsp;&nbsp;&nbsp;lv_month_text&nbsp;&nbsp;&nbsp;'P'&nbsp;'15'&nbsp;'X'&nbsp;'KRW',&nbsp;&nbsp;"&nbsp;####&nbsp;13-3-7:&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ZSTATUS'&nbsp;&nbsp;&nbsp;'####'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'C'&nbsp;'10'&nbsp;'&nbsp;'&nbsp;'&nbsp;'.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;APPEND_FIELDCAT<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;##&nbsp;####&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM append_fieldcat USING p_fieldname TYPE any<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_seltext&nbsp;&nbsp;&nbsp;TYPE&nbsp;any<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_datatype&nbsp;&nbsp;TYPE&nbsp;any<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_width&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;any<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_sum&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;any<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_currency&nbsp;&nbsp;TYPE&nbsp;any.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;p_fieldname.<br />
+&nbsp;&nbsp;gs_fieldcat-seltext_m&nbsp;=&nbsp;p_seltext.<br />
+&nbsp;&nbsp;gs_fieldcat-seltext_l&nbsp;=&nbsp;p_seltext.<br />
+&nbsp;&nbsp;gs_fieldcat-seltext_s&nbsp;=&nbsp;p_seltext.<br />
+&nbsp;&nbsp;gs_fieldcat-datatype&nbsp;&nbsp;=&nbsp;p_datatype.<br />
+&nbsp;&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;p_width.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;SUM&nbsp;##&nbsp;(####&nbsp;13-3-8)<br />
+&nbsp;&nbsp;IF&nbsp;p_sum&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-do_sum&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;(####&nbsp;13-3-6:&nbsp;##&nbsp;###&nbsp;##)<br />
+&nbsp;&nbsp;IF&nbsp;p_currency&nbsp;=&nbsp;'KRW'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-currency&nbsp;=&nbsp;'KRW'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_LAYOUT<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Layout&nbsp;##&nbsp;(####&nbsp;12)<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_layout.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gs_layout.<br />
+&nbsp;&nbsp;gs_layout-zebra&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;gs_layout-colwidth_optimize&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;gs_layout-cell_merge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;gs_layout-get_selinfos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;gs_layout-f2code&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'PICK'.&nbsp;&nbsp;&nbsp;"&nbsp;F2&nbsp;##<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_EMPLOYEE_SORT<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;####&nbsp;##&nbsp;##&nbsp;(####&nbsp;12)<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_employee_sort.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gt_sort.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1#&nbsp;##:&nbsp;####<br />
+&nbsp;&nbsp;gs_sort-spos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;gs_sort-fieldname&nbsp;=&nbsp;'ZDEPCODE'.<br />
+&nbsp;&nbsp;gs_sort-tabname&nbsp;&nbsp;&nbsp;=&nbsp;'GT_ALV_EMP'.<br />
+&nbsp;&nbsp;gs_sort-up&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_sort&nbsp;TO&nbsp;gt_sort.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2#&nbsp;##:&nbsp;####<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_sort.<br />
+&nbsp;&nbsp;gs_sort-spos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;gs_sort-fieldname&nbsp;=&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;gs_sort-tabname&nbsp;&nbsp;&nbsp;=&nbsp;'GT_ALV_EMP'.<br />
+&nbsp;&nbsp;gs_sort-up&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_sort&nbsp;TO&nbsp;gt_sort.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_EVALUATION_SORT<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;####&nbsp;##&nbsp;##&nbsp;-&nbsp;###&nbsp;##&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_evaluation_sort.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gt_sort.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1#&nbsp;##:&nbsp;####&nbsp;(##&nbsp;##)<br />
+&nbsp;&nbsp;gs_sort-spos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;gs_sort-fieldname&nbsp;=&nbsp;'ZDEPCODE'.<br />
+&nbsp;&nbsp;gs_sort-tabname&nbsp;&nbsp;&nbsp;=&nbsp;'GT_ALV_EVAL'.<br />
+&nbsp;&nbsp;gs_sort-up&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;gs_sort-subtot&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;(####&nbsp;13-3)<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_sort&nbsp;TO&nbsp;gt_sort.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2#&nbsp;##:&nbsp;####<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_sort.<br />
+&nbsp;&nbsp;gs_sort-spos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;gs_sort-fieldname&nbsp;=&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;gs_sort-tabname&nbsp;&nbsp;&nbsp;=&nbsp;'GT_ALV_EVAL'.<br />
+&nbsp;&nbsp;gs_sort-up&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_sort&nbsp;TO&nbsp;gt_sort.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;####&nbsp;##&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;1.&nbsp;s_date&nbsp;(##&nbsp;##)<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;####&nbsp;####&nbsp;####(DATAB~DATBI)#&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;####&nbsp;####&nbsp;##&nbsp;##&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;#:&nbsp;2025.01.01~2025.01.31&nbsp;##&nbsp;#&nbsp;2025.02.01&nbsp;##&nbsp;###&nbsp;##<br />
+*<br />
+*&nbsp;2.&nbsp;s_dept&nbsp;(####)<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;SELECT-OPTIONS#&nbsp;##&nbsp;##&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;IN&nbsp;####&nbsp;WHERE###&nbsp;###<br />
+*<br />
+*&nbsp;3.&nbsp;p_active&nbsp;(####&nbsp;####)<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;##&nbsp;#:&nbsp;ZQFLAG&nbsp;=&nbsp;'X'(##)&nbsp;#&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;###&nbsp;#:&nbsp;##&nbsp;##&nbsp;##&nbsp;(##/##&nbsp;##)<br />
+*<br />
+*&nbsp;4.&nbsp;p_year,&nbsp;p_month&nbsp;(##,&nbsp;#)<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;####&nbsp;#&nbsp;####&nbsp;#&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;######&nbsp;##&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;###&nbsp;###&nbsp;##&nbsp;##<br />
+*<br />
+*&nbsp;5.&nbsp;#####&nbsp;(p_emp,&nbsp;p_pay,&nbsp;p_eval)<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;p_emp:&nbsp;####&nbsp;##&nbsp;#&nbsp;ALV&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;p_pay:&nbsp;####&nbsp;##&nbsp;(DB&nbsp;####)<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;p_eval:&nbsp;####&nbsp;(###&nbsp;##&nbsp;##)<br />
+*----------------------------------------------------------------------*<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;Hard&nbsp;coded<br />
+*&nbsp;&nbsp;&nbsp;###&nbsp;####&nbsp;####.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR022_PRACTICE009_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR022_PRACTICE009_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDR022_PRACTICE009_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES : ZEDT22_102, ZEDT22_103. "####<br />
+TABLES : ZEDT22_104. "####<br />
+TABLES : ZEDT22_106. "####<br />
+<br />
+CONSTANTS : C_X TYPE CHAR1 VALUE 'X'.<br />
+<br />
+RANGES : R_FG FOR ZEDT22_102-ZQFLAG."####<br />
+<br />
+<br />
+DATA : BEGIN OF GS_EMPL, "####<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT22_102-ZPERNR,&nbsp;"####<br />
+&nbsp;&nbsp;ZPNAME&nbsp;LIKE&nbsp;ZEDT22_103-ZPNAME,&nbsp;"##<br />
+&nbsp;&nbsp;ZDEPCODE&nbsp;LIKE&nbsp;ZEDT22_102-ZDEPCODE,&nbsp;"####<br />
+&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT22_102-DATBI,&nbsp;"####<br />
+&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT22_102-DATAB,&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPRANK&nbsp;LIKE&nbsp;ZEDT22_104-ZRANK,&nbsp;"##<br />
+&nbsp;&nbsp;ZGENDER&nbsp;LIKE&nbsp;ZEDT22_103-ZGENDER,&nbsp;"##<br />
+&nbsp;&nbsp;ZEDATE&nbsp;LIKE&nbsp;ZEDT22_102-ZEDATE,&nbsp;"####<br />
+&nbsp;&nbsp;ZQDATE&nbsp;LIKE&nbsp;ZEDT22_102-ZQDATE,&nbsp;"####<br />
+&nbsp;&nbsp;ZQFLAG&nbsp;LIKE&nbsp;ZEDT22_102-ZQFLAG,&nbsp;"####<br />
+&nbsp;&nbsp;ZADDRESS&nbsp;LIKE&nbsp;ZEDT22_103-ZADDRESS,&nbsp;"##<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_EMPL.<br />
+DATA : GT_EMPL LIKE TABLE OF GS_EMPL.<br />
+<br />
+DATA : BEGIN OF GS_EMPL_ALV, "#### ##<br />
+&nbsp;&nbsp;ICON&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;4,&nbsp;"###<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT22_102-ZPERNR,&nbsp;"####<br />
+&nbsp;&nbsp;ZPNAME&nbsp;LIKE&nbsp;ZEDT22_103-ZPNAME,&nbsp;"##<br />
+&nbsp;&nbsp;ZDEPCODE_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,&nbsp;"##<br />
+&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT22_102-DATBI,&nbsp;"####<br />
+&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT22_102-DATAB,&nbsp;"####<br />
+&nbsp;&nbsp;ZRANK_NAME(8),&nbsp;"##<br />
+&nbsp;&nbsp;ZGENDER_NAME(4),&nbsp;"##<br />
+&nbsp;&nbsp;ZEDATE&nbsp;LIKE&nbsp;ZEDT22_102-ZEDATE,&nbsp;"####<br />
+&nbsp;&nbsp;ZQDATE&nbsp;LIKE&nbsp;ZEDT22_102-ZQDATE,&nbsp;"####<br />
+&nbsp;&nbsp;ZQFLAG&nbsp;LIKE&nbsp;ZEDT22_102-ZQFLAG,&nbsp;"####<br />
+&nbsp;&nbsp;ZADDRESS&nbsp;LIKE&nbsp;ZEDT22_103-ZADDRESS,&nbsp;"##<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_EMPL_ALV.<br />
+DATA : GT_EMPL_ALV LIKE TABLE OF GS_EMPL_ALV.<br />
+<br />
+DATA : BEGIN OF GS_EVAL, "##<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT22_104-ZPERNR,&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPCODE&nbsp;LIKE&nbsp;ZEDT22_104-ZDEPCODE,&nbsp;"####<br />
+&nbsp;&nbsp;ZYEAR&nbsp;LIKE&nbsp;ZEDT22_104-ZYEAR,&nbsp;"##<br />
+&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT22_104-DATBI,&nbsp;"####<br />
+&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT22_104-DATAB,&nbsp;"####<br />
+&nbsp;&nbsp;ZRANK&nbsp;LIKE&nbsp;ZEDT22_104-ZRANK,&nbsp;"####<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_EVAL.<br />
+DATA : GT_EVAL LIKE TABLE OF GS_EVAL.<br />
+<br />
+DATA : BEGIN OF GS_EVAL_ALV, "##<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT22_104-ZPERNR,&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPCODE_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,&nbsp;"##<br />
+&nbsp;&nbsp;ZYEAR&nbsp;LIKE&nbsp;ZEDT22_104-ZYEAR,&nbsp;"##<br />
+&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT22_104-DATBI,&nbsp;"####<br />
+&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT22_104-DATAB,&nbsp;"####<br />
+&nbsp;&nbsp;ZRANK&nbsp;LIKE&nbsp;ZEDT22_104-ZRANK,&nbsp;"####<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_EVAL_ALV.<br />
+DATA : GT_EVAL_ALV LIKE TABLE OF GS_EVAL_ALV.<br />
+<br />
+DATA : BEGIN OF GS_CONTR, "##<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT22_106-ZPERNR,&nbsp;"####<br />
+&nbsp;&nbsp;ZYEAR&nbsp;LIKE&nbsp;ZEDT22_106-ZYEAR,&nbsp;"####<br />
+&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT22_106-DATBI,&nbsp;"####<br />
+&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT22_106-DATAB,&nbsp;"####<br />
+&nbsp;&nbsp;ZSALARY&nbsp;LIKE&nbsp;ZEDT22_106-ZSALARY,&nbsp;"####<br />
+&nbsp;&nbsp;ZBANKCODE&nbsp;LIKE&nbsp;ZEDT22_106-ZBANKCODE,&nbsp;"####<br />
+&nbsp;&nbsp;ZACCOUNT&nbsp;LIKE&nbsp;ZEDT22_106-ZACCOUNT,&nbsp;"####<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_CONTR.<br />
+DATA : GT_CONTR LIKE TABLE OF GS_CONTR.<br />
+<br />
+DATA : BEGIN OF GS_CONTR_ALV, "##<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT22_106-ZPERNR,&nbsp;"####<br />
+&nbsp;&nbsp;ZYEAR&nbsp;LIKE&nbsp;ZEDT22_106-ZYEAR,&nbsp;"####<br />
+&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT22_106-DATBI,&nbsp;"####<br />
+&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT22_106-DATAB,&nbsp;"####<br />
+&nbsp;&nbsp;ZSALARY&nbsp;LIKE&nbsp;ZEDT22_106-ZSALARY,&nbsp;"####<br />
+&nbsp;&nbsp;ZWAERS&nbsp;TYPE&nbsp;WAERS,&nbsp;"##<br />
+&nbsp;&nbsp;ZBANK_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,&nbsp;"##<br />
+&nbsp;&nbsp;ZACCOUNT&nbsp;LIKE&nbsp;ZEDT22_106-ZACCOUNT,&nbsp;"ZBANKL<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_CONTR_ALV.<br />
+DATA : GT_CONTR_ALV LIKE TABLE OF GS_CONTR_ALV.<br />
+<br />
+<br />
+DATA : OK_CODE TYPE SY-UCOMM.<br />
+<br />
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+<br />
+DATA : GC_SPLITTER TYPE REF TO CL_GUI_SPLITTER_CONTAINER.<br />
+DATA : GC_SPLITTER2 TYPE REF TO CL_GUI_SPLITTER_CONTAINER.<br />
+<br />
+DATA : GC_CONTAINER1 TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GC_CONTAINER2 TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GC_CONTAINER3 TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GC_CONTAINER4 TYPE REF TO CL_GUI_CONTAINER.<br />
+<br />
+DATA : GC_GRID1 TYPE REF TO CL_GUI_ALV_GRID.<br />
+DATA : GC_GRID2 TYPE REF TO CL_GUI_ALV_GRID.<br />
+DATA : GC_GRID3 TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT1&nbsp;TYPE&nbsp;LVC_T_FCAT.<br />
+<br />
+DATA : GT_FIELDCAT2 TYPE LVC_T_FCAT.<br />
+DATA : GT_FIELDCAT3 TYPE LVC_T_FCAT.<br />
+<br />
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.<br />
+<br />
+DATA : GS_SORT TYPE LVC_S_SORT .<br />
+DATA : GT_SORT1 TYPE LVC_T_SORT.<br />
+DATA : GT_SORT2 TYPE LVC_T_SORT.<br />
+DATA : GT_SORT3 TYPE LVC_T_SORT.<br />
+<br />
+DATA : GS_VARIANT TYPE DISVARIANT.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

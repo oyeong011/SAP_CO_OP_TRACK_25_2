@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZWORK21_001_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZWORK21_001_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZWORK21_001_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+"### ##<br />
+TABLES : ZTCURR21, SSCRFIELDS.<br />
+<br />
+"SELECTION SCREEN## ### #### ## # ### ### ##<br />
+DATA : G_FUNCTION_KEY TYPE SMP_DYNTXT.<br />
+SELECTION-SCREEN : FUNCTION KEY 1.<br />
+<br />
+"EXCEL ### 1## #### ### #### ## ##<br />
+DATA : GV_DOWNLOAD_REQUEST TYPE ABAP_BOOL.<br />
+<br />
+"## ##### RAW ### ##<br />
+DATA : T_RAW_EXCEL TYPE TABLE OF ALSMEX_TABLINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_RAW_EXCEL&nbsp;TYPE&nbsp;ALSMEX_TABLINE.<br />
+<br />
+<br />
+"### ## ##<br />
+<br />
+"SMW0# ### ##### KEY##<br />
+DATA : GS_KEY TYPE WWWDATATAB.<br />
+<br />
+"###, ##, #### # ##<br />
+DATA : GV_FILE TYPE STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_PATH&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_FULLPATH&nbsp;TYPE&nbsp;STRING.<br />
+DATA : GV_DEST TYPE RLGRAP-FILENAME VALUE 'C:\'.<br />
+<br />
+"## ### ##<br />
+DATA : LV_ANSWER TYPE C.<br />
+<br />
+<br />
+"## EXCEL### ##<br />
+DATA : LT_EXCEL TYPE TABLE OF ALSMEX_TABLINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_EXCEL&nbsp;TYPE&nbsp;ALSMEX_TABLINE.<br />
+<br />
+"##### ## ## #### ## ##<br />
+DATA: LT_FIELDNAMES TYPE STANDARD TABLE OF STRING.<br />
+<br />
+<br />
+"ALV# ## # ## ### ##<br />
+DATA : BEGIN OF GS_TCURR,<br />
+&nbsp;&nbsp;KURST&nbsp;LIKE&nbsp;ZTCURR21-KURST,<br />
+&nbsp;&nbsp;FCURR&nbsp;LIKE&nbsp;ZTCURR21-FCURR,<br />
+&nbsp;&nbsp;TCURR&nbsp;LIKE&nbsp;ZTCURR21-TCURR,<br />
+&nbsp;&nbsp;GDATU&nbsp;LIKE&nbsp;ZTCURR21-GDATU,<br />
+&nbsp;&nbsp;UKURS&nbsp;LIKE&nbsp;ZTCURR21-UKURS,<br />
+&nbsp;&nbsp;FFACT&nbsp;LIKE&nbsp;ZTCURR21-FFACT,<br />
+&nbsp;&nbsp;TFACT&nbsp;LIKE&nbsp;ZTCURR21-TFACT,<br />
+&nbsp;&nbsp;MODIFER&nbsp;LIKE&nbsp;ZTCURR21-MODIFER,<br />
+&nbsp;&nbsp;EDATE&nbsp;LIKE&nbsp;ZTCURR21-EDATE,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_TCURR.<br />
+<br />
+"ALV# ##/### ## ### ## ### ###<br />
+DATA : GT_TCURR LIKE TABLE OF GS_TCURR.<br />
+<br />
+"### ### ### OK_CODE<br />
+DATA : OK_CODE TYPE SY-UCOMM.<br />
+<br />
+"ALV_CONTAINER # GRID ##<br />
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+"ALV GRID ### ##<br />
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.<br />
+"ALV LAYOUT VARIANT ##<br />
+DATA : GS_VARIANT TYPE DISVARIANT.<br />
+<br />
+"FIELD CATALOG ## ##<br />
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT.<br />
+DATA : GT_FIELDCAT TYPE LVC_T_FCAT.<br />
+<br />
+"ALV LAYOUT ## ##<br />
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.<br />
+<br />
+"ALV_## ## ##<br />
+DATA : GS_SORT TYPE LVC_S_SORT.<br />
+DATA : GT_SORT TYPE LVC_T_SORT.<br />
+<br />
+"EXCEL ## ## ## ##<br />
+DATA : LV_FILENAME TYPE STRING.<br />
+DATA : LV_PATH TYPE STRING.<br />
+DATA : LV_FULLPATH TYPE STRING.<br />
+<br />
+"REFRESH ## ###<br />
+DATA : LS_STABLE TYPE LVC_S_STBL.<br />
+<br />
+<br />
+"SAVE ## ###<br />
+DATA : GS_SAVE LIKE ZTCURR21.<br />
+DATA : GT_SAVE LIKE TABLE OF GS_SAVE.<br />
+DATA : GO_EVENT TYPE REF TO EVENT.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

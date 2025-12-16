@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR16_019</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR16_019</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR16_019<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zedr16_019.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*DATA&nbsp;:&nbsp;BEGIN&nbsp;OF&nbsp;gs_student.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;TYPE&nbsp;zedt16_001.<br />
+*DATA&nbsp;:&nbsp;END&nbsp;OF&nbsp;gs_student.<br />
+*DATA&nbsp;:&nbsp;gt_student&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;gs_student.<br />
+*<br />
+*DATA&nbsp;:&nbsp;gv_pname(20)&nbsp;VALUE&nbsp;'ZEDR16_018'.<br />
+*DATA&nbsp;:&nbsp;gv_formname(20)&nbsp;VALUE&nbsp;'GET_DATA'.<br />
+*<br />
+*TRANSLATE&nbsp;gv_pname&nbsp;TO&nbsp;UPPER&nbsp;CASE.<br />
+*TRANSLATE&nbsp;gv_formname&nbsp;TO&nbsp;UPPER&nbsp;CASE.<br />
+*<br />
+*PERFORM&nbsp;(gv_formname)&nbsp;IN&nbsp;PROGRAM&nbsp;(gv_pname)&nbsp;IF&nbsp;FOUND&nbsp;CHANGING&nbsp;gt_student.<br />
+*<br />
+*LOOP&nbsp;AT&nbsp;&nbsp;gt_student&nbsp;INTO&nbsp;gs_student.<br />
+*<br />
+*&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;gs_student-zcode,&nbsp;gs_student-zkname.<br />
+*ENDLOOP.<br />
+*<br />
+*DO&nbsp;2&nbsp;TIMES.<br />
+*&nbsp;&nbsp;PERFORM&nbsp;sy-index&nbsp;OF&nbsp;subr1&nbsp;subr2.<br />
+*ENDDO.<br />
+*<br />
+*FORM&nbsp;subr1.<br />
+*&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;sy-index,&nbsp;'##&nbsp;####'.<br />
+*ENDFORM.<br />
+*<br />
+*FORM&nbsp;subr2.<br />
+*&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;sy-index,&nbsp;'##&nbsp;####'.<br />
+*ENDFORM.<br />
+<br />
+<br />
+*DATA&nbsp;:&nbsp;BEGIN&nbsp;OF&nbsp;gs_student.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;TYPE&nbsp;zedt16_001.<br />
+*DATA&nbsp;:&nbsp;END&nbsp;OF&nbsp;gs_student.<br />
+*DATA&nbsp;:&nbsp;gt_student&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;gs_student.<br />
+*DATA&nbsp;:&nbsp;gv_flag.<br />
+*<br />
+*SELECT&nbsp;SINGLE&nbsp;*&nbsp;FROM&nbsp;zedt16_001<br />
+*&nbsp;&nbsp;INTO&nbsp;gs_student&nbsp;WHERE&nbsp;zcode&nbsp;=&nbsp;'SSU-01'.<br />
+*<br />
+*PERFORM&nbsp;delete_data&nbsp;USING&nbsp;gs_student.<br />
+*PERFORM&nbsp;insert_data&nbsp;ON&nbsp;COMMIT.<br />
+*<br />
+*IF&nbsp;gv_flag&nbsp;=&nbsp;'X'.<br />
+*&nbsp;&nbsp;COMMIT&nbsp;WORK.<br />
+*ENDIF.<br />
+**&---------------------------------------------------------------------*<br />
+**&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;DELETE_DATA<br />
+**&---------------------------------------------------------------------*<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+**----------------------------------------------------------------------*<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_GS_STUDENT&nbsp;&nbsp;text<br />
+**----------------------------------------------------------------------*<br />
+*FORM&nbsp;delete_data&nbsp;&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;ps_student&nbsp;LIKE&nbsp;gs_student.<br />
+*<br />
+*&nbsp;&nbsp;DELETE&nbsp;zedt16_001&nbsp;FROM&nbsp;ps_student.<br />
+*&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gv_flag&nbsp;=&nbsp;'X'.<br />
+*&nbsp;&nbsp;ENDIF.<br />
+*ENDFORM.<br />
+**&---------------------------------------------------------------------*<br />
+**&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;INSERT_DATA<br />
+**&---------------------------------------------------------------------*<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+**----------------------------------------------------------------------*<br />
+**&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+**&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+**----------------------------------------------------------------------*<br />
+*FORM&nbsp;insert_data&nbsp;.<br />
+*&nbsp;&nbsp;INSERT&nbsp;zedt16_001&nbsp;FROM&nbsp;gs_student.<br />
+*ENDFORM.<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+DATA : gv_var1 TYPE c LENGTH 10 VALUE '##1',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_var2&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10&nbsp;VALUE&nbsp;'##2',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_var3&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10&nbsp;VALUE&nbsp;'##3',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_var4&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10&nbsp;VALUE&nbsp;'##4'.<br />
+<br />
+WRITE :/ '## #: '.<br />
+WRITE :/ gv_var1, gv_var2, gv_var3, gv_var4.<br />
+ULINE.<br />
+<br />
+PERFORM test_subroutine USING gv_var1 gv_var3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gv_var2&nbsp;gv_var4.<br />
+<br />
+WRITE :/ '## #: '.<br />
+WRITE :/ gv_var1, gv_var2, gv_var3, gv_var4.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;TEST_SUBROUTINE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_GV_VAR1&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_GV_VAR3&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--P_GV_VAR2&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--P_GV_VAR4&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM test_subroutine  USING    p_var1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE(p_var3)<br />
+&nbsp;&nbsp;CHANGING&nbsp;p_var2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;VALUE(p_var4).<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'####&nbsp;##&nbsp;(##&nbsp;#):&nbsp;'.<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;p_var1,&nbsp;p_var2,&nbsp;p_var3,&nbsp;p_var4.<br />
+<br />
+&nbsp;&nbsp;p_var1&nbsp;=&nbsp;'##1'.<br />
+&nbsp;&nbsp;p_var2&nbsp;=&nbsp;'##2'.<br />
+&nbsp;&nbsp;p_var3&nbsp;=&nbsp;'##3'.<br />
+&nbsp;&nbsp;p_var4&nbsp;=&nbsp;'##4'.<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'####&nbsp;##&nbsp;(##&nbsp;#):&nbsp;'.<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;p_var1,&nbsp;p_var2,&nbsp;p_var3,&nbsp;p_var4.<br />
+&nbsp;&nbsp;ULINE.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR09_022</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR09_022</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR09_022<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR09_022.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;=====================================================================<br />
+*&nbsp;####&nbsp;##&nbsp;:&nbsp;Internal,&nbsp;External,&nbsp;Dynamic,&nbsp;PERFORM&nbsp;ON&nbsp;COMMIT<br />
+<br />
+*&nbsp;1.&nbsp;Internal&nbsp;(##)&nbsp;##&nbsp;:&nbsp;##&nbsp;####&nbsp;##,&nbsp;##&nbsp;####&nbsp;###&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;-&nbsp;PERFORM&nbsp;##&nbsp;##&nbsp;######&nbsp;###&nbsp;##<br />
+*<br />
+*&nbsp;2.&nbsp;External&nbsp;(##)&nbsp;##&nbsp;:&nbsp;##&nbsp;#####&nbsp;##&nbsp;#####&nbsp;####&nbsp;##,&nbsp;##&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;-&nbsp;IF&nbsp;FOUND&nbsp;##&nbsp;##&nbsp;:&nbsp;#####&nbsp;#####&nbsp;###&nbsp;#####&nbsp;##&nbsp;####&nbsp;#####&nbsp;####&nbsp;##&nbsp;(dump&nbsp;error)#&nbsp;##&nbsp;#&nbsp;##<br />
+*<br />
+*&nbsp;3.&nbsp;Dynamic&nbsp;(##)&nbsp;##&nbsp;:&nbsp;###&nbsp;#####&nbsp;###&nbsp;##&nbsp;##&nbsp;##&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;-&nbsp;##&nbsp;##&nbsp;###&nbsp;####&nbsp;###&nbsp;####&nbsp;###&nbsp;###&nbsp;####&nbsp;####&nbsp;#<br />
+*<br />
+*&nbsp;4.&nbsp;Special&nbsp;(##)&nbsp;##&nbsp;:&nbsp;##&nbsp;###(#:&nbsp;######&nbsp;##)#&nbsp;###&nbsp;###&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;-&nbsp;PERFORM&nbsp;ON&nbsp;COMMIT&nbsp;:&nbsp;COMMIT&nbsp;WORK&nbsp;###&nbsp;###&nbsp;#,&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;-&nbsp;PERFORM&nbsp;ON&nbsp;ROLLBACK&nbsp;:&nbsp;ROLLBACK&nbsp;WORK&nbsp;###&nbsp;###&nbsp;#,&nbsp;####&nbsp;##<br />
+<br />
+<br />
+*&nbsp;=====================================================================<br />
+<br />
+<br />
+*&nbsp;1.&nbsp;INTERNAL#&nbsp;##&nbsp;ZEDR09_021&nbsp;######&nbsp;#####,&nbsp;##&nbsp;####&nbsp;##&nbsp;####&nbsp;#####,,&nbsp;##&nbsp;###&nbsp;#<br />
+<br />
+*&nbsp;2.&nbsp;EXTERNAL&nbsp;##&nbsp;(##)<br />
+*&nbsp;&nbsp;PERFORM&nbsp;FORM_NAME(PROGRAM)&nbsp;IF&nbsp;FOUND<br />
+*&nbsp;&nbsp;USING&nbsp;P_NAME<br />
+*&nbsp;&nbsp;CHANGING&nbsp;P_NAME<br />
+<br />
+*&nbsp;&nbsp;DATA&nbsp;:&nbsp;GS_STUDENT&nbsp;LIKE&nbsp;ZEDT09_001.<br />
+*&nbsp;&nbsp;DATA&nbsp;:&nbsp;GT_STUDENT&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_STUDENT.<br />
+*<br />
+*&nbsp;&nbsp;PERFORM&nbsp;GET_DATA(ZEDR09_021)&nbsp;IF&nbsp;FOUND&nbsp;CHANGING&nbsp;GT_STUDENT.&nbsp;"zedt09_021&nbsp;######&nbsp;###&nbsp;##&nbsp;##<br />
+*<br />
+*&nbsp;&nbsp;"##&nbsp;##<br />
+*&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_STUDENT&nbsp;INTO&nbsp;GS_STUDENT.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;GS_STUDENT-ZCODE,&nbsp;GS_STUDENT-ZKNAME.<br />
+*&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+*&nbsp;3.&nbsp;Dynamic&nbsp;##&nbsp;(##)<br />
+*&nbsp;&nbsp;PERFORM&nbsp;(NAME)&nbsp;IN&nbsp;PROGRAM&nbsp;(Program&nbsp;name)&nbsp;IF&nbsp;FOUND<br />
+*&nbsp;&nbsp;USING&nbsp;P_NAME<br />
+*&nbsp;&nbsp;CHANGING&nbsp;P_NAME<br />
+<br />
+*&nbsp;&nbsp;DATA&nbsp;:&nbsp;GS_STUDENT&nbsp;LIKE&nbsp;ZEDT09_001.<br />
+*&nbsp;&nbsp;DATA&nbsp;:&nbsp;GT_STUDENT&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_STUDENT.<br />
+*<br />
+*&nbsp;&nbsp;DATA&nbsp;:&nbsp;GV_PNAME(20)&nbsp;VALUE&nbsp;'ZEDR09_021'.&nbsp;"####&nbsp;###&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;DATA&nbsp;:&nbsp;GV_FORMNAME(20)&nbsp;VALUE&nbsp;'GET_DATA'.&nbsp;"####&nbsp;###&nbsp;####&nbsp;##<br />
+*<br />
+**&nbsp;&nbsp;&nbsp;##&nbsp;###&nbsp;###&nbsp;##&nbsp;######&nbsp;######&nbsp;###&nbsp;####&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;TRANSLATE&nbsp;GV_PNAME&nbsp;TO&nbsp;UPPER&nbsp;CASE.<br />
+*&nbsp;&nbsp;TRANSLATE&nbsp;GV_FORMNAME&nbsp;TO&nbsp;UPPER&nbsp;CASE.<br />
+*<br />
+*&nbsp;&nbsp;PERFORM&nbsp;(GV_FORMNAME)&nbsp;IN&nbsp;PROGRAM&nbsp;(GV_PNAME)&nbsp;IF&nbsp;FOUND&nbsp;CHANGING&nbsp;GT_STUDENT.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_STUDENT&nbsp;INTO&nbsp;GS_STUDENT.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;GS_STUDENT-ZCODE,&nbsp;GS_STUDENT-ZKNAME.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+*&nbsp;##,&nbsp;LIST#&nbsp;###&nbsp;####&nbsp;##<br />
+*&nbsp;#,&nbsp;##&nbsp;###&nbsp;#####&nbsp;##.<br />
+*&nbsp;&nbsp;&nbsp;1.&nbsp;Internal&nbsp;Subroutine###&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;2.&nbsp;####&nbsp;##&nbsp;##<br />
+*<br />
+*&nbsp;&nbsp;DO&nbsp;2&nbsp;TIMES.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SY-INDEX&nbsp;OF&nbsp;SUBR1&nbsp;SUBR2.<br />
+*&nbsp;&nbsp;ENDDO.<br />
+*&nbsp;&nbsp;FORM&nbsp;SUBR1.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;SY-INDEX,&nbsp;'##&nbsp;####'.<br />
+*&nbsp;&nbsp;ENDFORM.<br />
+*&nbsp;&nbsp;FORM&nbsp;SUBR2.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;SY-INDEX,&nbsp;'##&nbsp;####'.<br />
+*&nbsp;&nbsp;ENDFORM.<br />
+<br />
+<br />
+<br />
+*&nbsp;4.&nbsp;Special&nbsp;##&nbsp;(re)<br />
+*&nbsp;##&nbsp;###(#:&nbsp;######&nbsp;##)#&nbsp;###&nbsp;###&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;-&nbsp;PERFORM&nbsp;ON&nbsp;COMMIT&nbsp;:&nbsp;COMMIT&nbsp;WORK&nbsp;###&nbsp;###&nbsp;#,&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;-&nbsp;PERFORM&nbsp;ON&nbsp;ROLLBACK&nbsp;:&nbsp;ROLLBACK&nbsp;WORK&nbsp;###&nbsp;###&nbsp;#,&nbsp;####&nbsp;##<br />
+   </div>
+   <div class="code">
+DATA : GS_STUDENT LIKE ZEDT09_001.<br />
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.<br />
+DATA : GV_FLAG.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;SELECT&nbsp;DATA<br />
+   </div>
+   <div class="code">
+SELECT SINGLE *<br />
+&nbsp;&nbsp;FROM&nbsp;ZEDT09_001<br />
+&nbsp;&nbsp;INTO&nbsp;GS_STUDENT<br />
+&nbsp;&nbsp;WHERE&nbsp;ZCODE&nbsp;=&nbsp;'SSU-01'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;DELETE&nbsp;DATA&nbsp;perform&nbsp;##<br />
+   </div>
+   <div class="code">
+PERFORM DELETE_DATA USING GS_STUDENT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;perform&nbsp;skip!&nbsp;(insert-data&nbsp;perform#&nbsp;commit&nbsp;work#&nbsp;##&nbsp;#&nbsp;##&nbsp;!)<br />
+   </div>
+   <div class="code">
+PERFORM INSERT-DATA ON COMMIT.<br />
+<br />
+IF SY-SUBRC = 0.<br />
+&nbsp;&nbsp;COMMIT&nbsp;WORK.&nbsp;"insert-data&nbsp;perform&nbsp;##<br />
+ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;DELETE_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_GS_STUDENT&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DELETE_DATA  USING    P_GS_STUDENT STRUCTURE GS_STUDENT.<br />
+<br />
+&nbsp;&nbsp;DELETE&nbsp;ZEDT09_001&nbsp;FROM&nbsp;P_GS_STUDENT.&nbsp;"###&nbsp;##<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_FLAG&nbsp;=&nbsp;'X'.&nbsp;"flag&nbsp;##<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;INSERT-DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM INSERT-DATA . "#### db ##  ####<br />
+&nbsp;&nbsp;INSERT&nbsp;ZEDT09_001&nbsp;FROM&nbsp;GS_STUDENT.<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

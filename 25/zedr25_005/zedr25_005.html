@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR25_005</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR25_005</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR25_005<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR25_005.<br />
+<br />
+<br />
+"SORT<br />
+DATA : BEGIN OF gs_studentS1,<br />
+&nbsp;&nbsp;ZCODE&nbsp;type&nbsp;C&nbsp;length&nbsp;10,<br />
+&nbsp;&nbsp;ZKNAME&nbsp;type&nbsp;C&nbsp;length&nbsp;10,<br />
+&nbsp;&nbsp;ZENAME&nbsp;type&nbsp;C&nbsp;length&nbsp;10,<br />
+end of gs_studentS1.<br />
+<br />
+DATA : gt_studentS1 like table of gs_studentS1.<br />
+<br />
+gs_studentS1-ZCODE = 'ssu-02'.<br />
+gs_studentS1-ZKNAME = '###'.<br />
+gs_studentS1-ZENAME = 'Lee'.<br />
+APPEND gs_studentS1 to gt_studentS1.<br />
+<br />
+gs_studentS1-ZCODE = 'ssu-01'.<br />
+gs_studentS1-ZKNAME = '###'.<br />
+gs_studentS1-ZENAME = 'DONG'.<br />
+APPEND gs_studentS1 to gt_studentS1.<br />
+<br />
+gs_studentS1-ZCODE = 'ssu-03'.<br />
+gs_studentS1-ZKNAME = '###'.<br />
+gs_studentS1-ZENAME = 'SONG'.<br />
+APPEND gs_studentS1 to gt_studentS1.<br />
+<br />
+" ### ### # ### KEY ### SORT<br />
+" SORT gt_studentS1.<br />
+<br />
+" #### ##<br />
+" sort gt_studentS1 ascending.<br />
+<br />
+"#### ##<br />
+"sort gt_studentS1 descending.<br />
+<br />
+"kname## ####<br />
+" sort gt_studentS1 by zkname.<br />
+<br />
+"kname## ####<br />
+" sort gt_studentS1 by zkname descending.<br />
+<br />
+" lines : ####### #### ## ## # ##<br />
+<br />
+<br />
+DATA : BEGIN OF gs_line,<br />
+&nbsp;&nbsp;COL1&nbsp;type&nbsp;C,<br />
+&nbsp;&nbsp;end&nbsp;of&nbsp;gs_line.<br />
+<br />
+DATA : gt_line like table of gs_line.<br />
+<br />
+DATA : gv_line type i.<br />
+<br />
+gs_line-COL1 = SY-INDEX.<br />
+write : / gs_line-COL1.<br />
+append gs_line to gt_line.<br />
+<br />
+gs_line-COL1 = '2'.<br />
+append gs_line to gt_line.<br />
+<br />
+gs_line-COL1 = '3'.<br />
+append gs_line to gt_line.<br />
+<br />
+describe table gt_line lines gv_line.<br />
+<br />
+write : / gv_line.<br />
+<br />
+<br />
+"DATA : BEGIN OF gs_studentS2,<br />
+&nbsp;"&nbsp;ZCODE&nbsp;type&nbsp;C&nbsp;length&nbsp;10,<br />
+&nbsp;&nbsp;"ZKNAME&nbsp;type&nbsp;C&nbsp;length&nbsp;10,<br />
+&nbsp;&nbsp;"ZENAME&nbsp;type&nbsp;C&nbsp;length&nbsp;10,<br />
+"end of gs_studentS2.<br />
+<br />
+"DATA : gt_studentS2 like table of gs_studentS2.<br />
+<br />
+"clear : gs_studentS2.<br />
+"gs_studentS2-ZCODE = 'ssu-02'.<br />
+"gs_studentS2-ZKNAME = '###'.<br />
+"gs_studentS2-ZENAME = 'Lee'.<br />
+"insert gs_studentS2 into table gt_studentS2.<br />
+<br />
+"clear : gs_studentS2.<br />
+"gs_studentS2-ZCODE = 'ssu-01'.<br />
+"gs_studentS2-ZKNAME = '###'.<br />
+"gs_studentS2-ZENAME = 'DONG'.<br />
+"insert gs_studentS2 into table gt_studentS2.<br />
+<br />
+"clear : gs_studentS2.<br />
+"gs_studentS2-ZCODE = 'ssu-03'.<br />
+"gs_studentS2-ZKNAME = '###'.<br />
+"gs_studentS2-ZENAME = 'SONG'.<br />
+"insert gs_studentS2 into table gt_studentS2.<br />
+"insert gs_studentS2 into gt_studentS2 index 2.<br />
+<br />
+DATA : BEGIN OF gs_studentS2,<br />
+&nbsp;&nbsp;ZCODE&nbsp;type&nbsp;C&nbsp;length&nbsp;10,<br />
+&nbsp;&nbsp;ZKNAME&nbsp;type&nbsp;C&nbsp;length&nbsp;10,<br />
+&nbsp;&nbsp;ZENAME&nbsp;type&nbsp;C&nbsp;length&nbsp;10,<br />
+&nbsp;&nbsp;ZSUM&nbsp;type&nbsp;I,<br />
+end of gs_studentS2.<br />
+<br />
+DATA : gt_studentS2 like table of gs_studentS2.<br />
+<br />
+clear : gs_studentS2.<br />
+gs_studentS2-ZCODE = 'ssu-02'.<br />
+gs_studentS2-ZKNAME = '###'.<br />
+gs_studentS2-ZENAME = 'Lee'.<br />
+gs_studentS2-ZSUM = '1000'.<br />
+collect gs_studentS2 into gt_studentS2.<br />
+<br />
+clear : gs_studentS2.<br />
+"gs_studentS2-ZCODE = 'ssu-01'.<br />
+"gs_studentS2-ZKNAME = '###'.<br />
+"gs_studentS2-ZENAME = 'DONG'.<br />
+"gs_studentS2-ZSUM = '1000'.<br />
+"collect gs_studentS2 into gt_studentS2.<br />
+<br />
+clear : gs_studentS2.<br />
+gs_studentS2-ZCODE = 'ssu-02'.<br />
+gs_studentS2-ZKNAME = '###'.<br />
+gs_studentS2-ZENAME = 'Lee'.<br />
+gs_studentS2-ZSUM = '1000'.<br />
+collect gs_studentS2 into gt_studentS2.<br />
+<br />
+clear : gs_studentS2.<br />
+gs_studentS2-ZCODE = 'ssu-03'.<br />
+gs_studentS2-ZKNAME = '###'.<br />
+gs_studentS2-ZENAME = 'SONG'.<br />
+gs_studentS2-ZSUM = '1000'.<br />
+collect gs_studentS2 into gt_studentS2.<br />
+<br />
+break-point.<br />
+<br />
+"IF#<br />
+DATA : BEGIN OF gs_student,<br />
+&nbsp;&nbsp;ZPERNR&nbsp;like&nbsp;ZEDT25_001-ZPERNR,<br />
+&nbsp;&nbsp;&nbsp;ZCODE&nbsp;like&nbsp;ZEDT25_001-ZCODE,<br />
+&nbsp;&nbsp;&nbsp;ZKNAME&nbsp;like&nbsp;ZEDT25_001-ZKNAME,<br />
+&nbsp;&nbsp;&nbsp;ZENAME&nbsp;like&nbsp;ZEDT25_001-ZENAME,<br />
+&nbsp;&nbsp;&nbsp;ZGENDER&nbsp;like&nbsp;ZEDT25_001-ZGENDER,<br />
+&nbsp;&nbsp;ZGNAME&nbsp;type&nbsp;C&nbsp;length&nbsp;4,<br />
+&nbsp;&nbsp;ZTEL&nbsp;like&nbsp;ZEDT25_001-ZTEL,<br />
+end of gs_student.<br />
+<br />
+DATA : gt_student like table of gs_student.<br />
+<br />
+clear : gs_student, gt_student.<br />
+<br />
+gs_student-ZPERNR = '00000001'.<br />
+gs_student-ZCODE = 'ssu-02'.<br />
+gs_student-ZKNAME = '###'.<br />
+gs_student-ZENAME = 'Lee'.<br />
+gs_student-ZGENDER = 'M'.<br />
+"gs_student-ZGENDER = 'F'.<br />
+gs_student-ZTEL = '01037374848'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;if&nbsp;gs_student-ZGENDER&nbsp;=&nbsp;'M'.<br />
+*&nbsp;&nbsp;gs_student-ZGNAME&nbsp;=&nbsp;'##'.<br />
+*&nbsp;elseif&nbsp;gs_student-ZGENDER&nbsp;=&nbsp;'F'.<br />
+*&nbsp;&nbsp;gs_student-ZGNAME&nbsp;=&nbsp;'##'.<br />
+*&nbsp;else.<br />
+*&nbsp;&nbsp;gs_student-ZGNAME&nbsp;=&nbsp;'##'.<br />
+*endif.<br />
+<br />
+   </div>
+   <div class="code">
+" OR<br />
+IF gs_student-zgender = 'M' AND gs_student-zkname = '###'.<br />
+&nbsp;&nbsp;gs_student-zgname&nbsp;=&nbsp;'##'.<br />
+ENDIF.<br />
+<br />
+<br />
+APPEND gs_student to gt_student.<br />
+<br />
+clear gs_student.<br />
+<br />
+write : / '##'.<br />
+<br />
+DATA: gv_num1 TYPE i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_num2&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_num3&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_LARGEST&nbsp;TYPE&nbsp;I.<br />
+<br />
+gv_num1 = 100.<br />
+gv_num2 = 120.<br />
+gv_num3 = 110.<br />
+<br />
+if  gv_num1 &lt; gv_num2.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'1#&nbsp;if##&nbsp;write#&nbsp;##'.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gv_num1.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gv_num2.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'gv_num1#&nbsp;gv_num2##&nbsp;####'.<br />
+elseif gv_num1 &gt; gv_num2.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'1#&nbsp;if##&nbsp;write#&nbsp;##'.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gv_num1.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gv_num2.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'gv_num1#&nbsp;gv_num2##&nbsp;###'.<br />
+elseif gv_num1 = gv_num2.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'1#&nbsp;if##&nbsp;write#&nbsp;##'.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gv_num1.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gv_num2.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'gv_num1#&nbsp;gv_num2#&nbsp;####'.<br />
+endif.<br />
+<br />
+if ( gv_num1 &lt; gv_num2 ) and ( gv_num1 &lt; gv_num3 ).<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'2#&nbsp;if##&nbsp;write#&nbsp;##'.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gv_num1.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gv_num2.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gv_num3.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'gv_num1#&nbsp;gv_num2,&nbsp;gv_num3##&nbsp;####'.<br />
+endif.<br />
+<br />
+if gv_num1 &lt; gv_num2.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'3#&nbsp;if##&nbsp;write#&nbsp;##'.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gv_num1.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gv_num2.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'gv_num2#&nbsp;gv_num1##&nbsp;###'.<br />
+endif.<br />
+<br />
+<br />
+IF ( GV_NUM1 &gt; GV_NUM2 ) AND ( GV_NUM1 &gt; GV_NUM3 ).<br />
+&nbsp;&nbsp;GV_LARGEST&nbsp;=&nbsp;GV_NUM1.<br />
+<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'4#&nbsp;num1,&nbsp;num2,&nbsp;num3&nbsp;##&nbsp;###&nbsp;####&nbsp;write#&nbsp;##'.<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'GV_NUM1#',&nbsp;GV_LARGEST,&nbsp;'##&nbsp;#####.'.<br />
+ELSEIF ( GV_NUM2 &gt; GV_NUM1 ) AND ( GV_NUM2 &gt; GV_NUM3 ).<br />
+&nbsp;&nbsp;GV_LARGEST&nbsp;=&nbsp;GV_NUM2.<br />
+<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'4#&nbsp;num1,&nbsp;num2,&nbsp;num3&nbsp;##&nbsp;###&nbsp;####&nbsp;write#&nbsp;##'.<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'GV_NUM2#',&nbsp;GV_LARGEST,&nbsp;'##&nbsp;#####.'.<br />
+ELSE.<br />
+&nbsp;&nbsp;GV_LARGEST&nbsp;=&nbsp;GV_NUM3.<br />
+<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'4#&nbsp;num1,&nbsp;num2,&nbsp;num3&nbsp;##&nbsp;###&nbsp;####&nbsp;write#&nbsp;##'.<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'GV_NUM3#',&nbsp;GV_LARGEST,&nbsp;'##&nbsp;#####.'.<br />
+ENDIF.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

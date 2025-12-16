@@ -1,0 +1,375 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM23_004_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM23_004_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM23_004_F01<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+FORM GET_PO.<br />
+&nbsp;&nbsp;GV_FLAG&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_EKKO.<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;GS_EKKO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23EKKO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;EBELN&nbsp;EQ&nbsp;GV_EBELN.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GS_EKKO&nbsp;IS&nbsp;INITIAL.&nbsp;&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'#####&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_FLAG&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_EKPO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23EKPO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;EBELN&nbsp;EQ&nbsp;GV_EBELN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;WERKS&nbsp;EQ&nbsp;GV_WERKS.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_EKPO[]&nbsp;IS&nbsp;INITIAL.&nbsp;&nbsp;"#####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;OK_CODE&nbsp;EQ&nbsp;'ADD'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_FLAG&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;OK_CODE&nbsp;EQ&nbsp;'CREA'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LS_RSEG&nbsp;TYPE&nbsp;Z23RSEG.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;####&nbsp;#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_EKPO&nbsp;INTO&nbsp;DATA(LS_EKPO).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;LS_RSEG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23RSEG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;EBELN&nbsp;EQ&nbsp;LS_EKPO-EBELN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;EBELP&nbsp;EQ&nbsp;LS_EKPO-EBELP.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_EKPO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;EBELN&nbsp;EQ&nbsp;LS_RSEG-EBELN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;EBELP&nbsp;EQ&nbsp;LS_RSEG-EBELP.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;FILL_RBKP.<br />
+<br />
+ENDFORM.<br />
+<br />
+FORM FILL_RBKP.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_MAX_BELNR&nbsp;TYPE&nbsp;RE_BELNR.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;MAX(&nbsp;BELNR&nbsp;)&nbsp;INTO&nbsp;LV_MAX_BELNR&nbsp;FROM&nbsp;Z23RBKP.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LV_MAX_BELNR&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_MAX_BELNR&nbsp;=&nbsp;5100000000&nbsp;-&nbsp;1.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;LV_MAX_BELNR&nbsp;=&nbsp;LV_MAX_BELNR&nbsp;+&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_RBKP.<br />
+&nbsp;&nbsp;GS_RBKP-BELNR&nbsp;=&nbsp;LV_MAX_BELNR.&nbsp;"####.&nbsp;####(51)<br />
+&nbsp;&nbsp;GS_RBKP-GJAHR&nbsp;=&nbsp;GV_BUDAT+0(4).&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;GS_RBKP-BLART&nbsp;=&nbsp;'RE'.&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;GS_RBKP-BLDAT&nbsp;=&nbsp;GV_BUDAT.&nbsp;"###(#####&nbsp;###)&nbsp;&lt;-&nbsp;INPUT<br />
+&nbsp;&nbsp;GS_RBKP-BUDAT&nbsp;=&nbsp;GV_BUDAT.&nbsp;"###(##&nbsp;###)&nbsp;&lt;-&nbsp;INPUT<br />
+&nbsp;&nbsp;GS_RBKP-BUKRS&nbsp;=&nbsp;GS_EKKO-BUKRS.&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;GS_RBKP-LIFNR&nbsp;=&nbsp;GS_EKKO-LIFNR.&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;GS_RBKP-WAERS&nbsp;=&nbsp;GS_EKKO-WAERS.&nbsp;&nbsp;"###<br />
+<br />
+&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;ZTERM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;GS_RBKP-ZTERM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23LFB1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;BUKRS&nbsp;EQ&nbsp;GS_RBKP-BUKRS.<br />
+<br />
+&nbsp;&nbsp;GS_RBKP-BKTXT&nbsp;=&nbsp;|&nbsp;{&nbsp;GS_EKKO-EBELN&nbsp;}####&nbsp;|.&nbsp;"#####<br />
+<br />
+&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;MWSKZ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;GS_RBKP-BWSKZ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23LFM1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;LIFNR&nbsp;EQ&nbsp;GS_EKKO-LIFNR.<br />
+<br />
+&nbsp;&nbsp;"GS_RBKP-WMWST&nbsp;=&nbsp;"##&nbsp;&lt;-&nbsp;####<br />
+&nbsp;&nbsp;"GS_RBKP-RMWWR&nbsp;=&nbsp;"##&nbsp;(##&nbsp;+&nbsp;##)&nbsp;&lt;-&nbsp;INPUT&nbsp;/&nbsp;####<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;####&nbsp;##.<br />
+&nbsp;&nbsp;"GS_RBKP-STBLG&nbsp;=&nbsp;"#######<br />
+&nbsp;&nbsp;"GS_RBKP-STJAH&nbsp;=&nbsp;"#####<br />
+&nbsp;&nbsp;"GS_RBKP-RBSTAT&nbsp;=&nbsp;"####<br />
+<br />
+ENDFORM.<br />
+<br />
+FORM CALCULATE_TAX.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_SUM&nbsp;TYPE&nbsp;P&nbsp;DECIMALS&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_EKPO&nbsp;INTO&nbsp;DATA(LS_EKPO).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LS_EKPO-ZCHECK&nbsp;EQ&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"LV_SUM&nbsp;=&nbsp;LV_SUM&nbsp;+&nbsp;LS_EKPO-MENGE&nbsp;*&nbsp;LS_EKPO-STPRS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_SUM&nbsp;=&nbsp;LV_SUM&nbsp;+&nbsp;LS_EKPO-MENGE&nbsp;*&nbsp;LS_EKPO-WRBTR.&nbsp;&nbsp;"##&nbsp;*&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GS_RBKP-BWSKZ&nbsp;EQ&nbsp;'V1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_RBKP-WMWST&nbsp;=&nbsp;LV_SUM&nbsp;*&nbsp;'0.1'.&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_RBKP-WMWST&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;GS_RBKP-RMWWR&nbsp;=&nbsp;GS_RBKP-WMWST&nbsp;+&nbsp;LV_SUM.&nbsp;"&nbsp;#&nbsp;##&nbsp;##&nbsp;##<br />
+<br />
+ENDFORM.<br />
+<br />
+FORM SAVE_RBKP.<br />
+&nbsp;&nbsp;MODIFY&nbsp;Z23RBKP&nbsp;FROM&nbsp;GS_RBKP.<br />
+ENDFORM.<br />
+<br />
+FORM SAVE_RSEG.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_RSEG&nbsp;TYPE&nbsp;Z23RSEG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_CNT&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_SUM&nbsp;TYPE&nbsp;P&nbsp;DECIMALS&nbsp;2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_WMWST&nbsp;TYPE&nbsp;FWSTEV,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RMWWR&nbsp;TYPE&nbsp;RMWWR.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_EKPO&nbsp;INTO&nbsp;DATA(LS_EKPO).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LS_EKPO-ZCHECK&nbsp;EQ&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"LV_SUM&nbsp;=&nbsp;LV_SUM&nbsp;+&nbsp;LS_EKPO-MENGE&nbsp;*&nbsp;LS_EKPO-STPRS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_SUM&nbsp;=&nbsp;LV_SUM&nbsp;+&nbsp;LS_EKPO-MENGE&nbsp;*&nbsp;LS_EKPO-WRBTR.&nbsp;&nbsp;"&nbsp;##*####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GS_RBKP-BWSKZ&nbsp;EQ&nbsp;'V1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_WMWST&nbsp;=&nbsp;LV_SUM&nbsp;*&nbsp;'0.1'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_WMWST&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;LV_RMWWR&nbsp;=&nbsp;LV_WMWST&nbsp;+&nbsp;LV_SUM.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GS_RBKP-RMWWR&nbsp;NE&nbsp;LV_RMWWR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;OR&nbsp;GS_RBKP-WMWST&nbsp;NE&nbsp;LV_WMWST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;###&nbsp;######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_EKPO.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;NUM&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;1.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_EKPO&nbsp;INTO&nbsp;GS_EKPO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_EKPO-ZCHECK&nbsp;EQ&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RSEG-BELNR&nbsp;=&nbsp;GS_RBKP-BELNR.&nbsp;&nbsp;"######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RSEG-GJAHR&nbsp;=&nbsp;GS_RBKP-GJAHR.&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RSEG-BUZEI&nbsp;=&nbsp;NUM.&nbsp;"##&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RSEG-EBELN&nbsp;=&nbsp;GS_EKPO-EBELN.&nbsp;&nbsp;"######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RSEG-EBELP&nbsp;=&nbsp;GS_EKPO-EBELP.&nbsp;&nbsp;"####&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RSEG-MATNR&nbsp;=&nbsp;GS_EKPO-MATNR.&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RSEG-TXZ01&nbsp;=&nbsp;GS_EKPO-MAKTX.&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RSEG-WERKS&nbsp;=&nbsp;GS_EKPO-WERKS.&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RSEG-WRBTR&nbsp;=&nbsp;GS_EKPO-WRBTR.&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RSEG-MENGE&nbsp;=&nbsp;GS_EKPO-MENGE.&nbsp;&nbsp;"PO##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RSEG-BSTME&nbsp;=&nbsp;GS_EKPO-MEINS.&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RSEG-MWSKZ&nbsp;=&nbsp;GS_RBKP-BWSKZ.&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"LV_RSEG-WMWST&nbsp;=&nbsp;GS_RBKP-WMWST.&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"LV_RSEG-SGTXT&nbsp;&nbsp;"###<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;Z23RSEG&nbsp;FROM&nbsp;LV_RSEG.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_CNT&nbsp;=&nbsp;LV_CNT&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;LV_RSEG,&nbsp;GS_EKPO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NUM&nbsp;=&nbsp;NUM&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LV_CNT&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SAVE_RBKP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'#########.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_PO.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+FORM SIMULATION.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_SUM&nbsp;TYPE&nbsp;P&nbsp;DECIMALS&nbsp;2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_WMWST&nbsp;TYPE&nbsp;FWSTEV,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RMWWR&nbsp;TYPE&nbsp;RMWWR.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_EKPO&nbsp;INTO&nbsp;DATA(LS_EKPO).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LS_EKPO-ZCHECK&nbsp;EQ&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_SUM&nbsp;=&nbsp;LV_SUM&nbsp;+&nbsp;LS_EKPO-MENGE&nbsp;*&nbsp;LS_EKPO-WRBTR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GS_RBKP-BWSKZ&nbsp;EQ&nbsp;'V1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_WMWST&nbsp;=&nbsp;LV_SUM&nbsp;*&nbsp;'0.1'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_WMWST&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;LV_RMWWR&nbsp;=&nbsp;LV_WMWST&nbsp;+&nbsp;LV_SUM.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GS_RBKP-RMWWR&nbsp;NE&nbsp;LV_RMWWR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;OR&nbsp;GS_RBKP-WMWST&nbsp;NE&nbsp;LV_WMWST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;###&nbsp;######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;GS_RBKP-RMWWR&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;##(##)&nbsp;##.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+FORM GET_RBKP.<br />
+&nbsp;&nbsp;GV_FLAG&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LS_RBKP_ITAB&nbsp;LIKE&nbsp;GS_RBKP_ITAB.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GT_RSEG.<br />
+&nbsp;&nbsp;SELECT&nbsp;BELNR&nbsp;GJAHR&nbsp;BUZEI&nbsp;EBELN&nbsp;WERKS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_RSEG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23RSEG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;EBELN&nbsp;EQ&nbsp;GV_EBELN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;WERKS&nbsp;EQ&nbsp;GV_WERKS.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_RSEG[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;OK_CODE&nbsp;EQ&nbsp;'SCH'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_FLAG&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;OK_CODE&nbsp;EQ&nbsp;'DEL'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;DELETE&nbsp;ADJACENT&nbsp;DUPLICATES&nbsp;FROM&nbsp;GT_RSEG&nbsp;COMPARING&nbsp;BELNR&nbsp;GJAHR.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GT_RBKP_ITAB.<br />
+<br />
+&nbsp;&nbsp;SELECT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;BELNR&nbsp;&nbsp;"######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GJAHR&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;BLDAT&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;BUDAT&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;BUKRS&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;BKTXT&nbsp;"#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RMWWR&nbsp;"#&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;"##&nbsp;#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_RBKP_ITAB<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23RBKP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;ALL&nbsp;ENTRIES&nbsp;IN&nbsp;GT_RSEG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;BELNR&nbsp;EQ&nbsp;GT_RSEG-BELNR&nbsp;"######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;GJAHR&nbsp;EQ&nbsp;GT_RSEG-GJAHR.&nbsp;&nbsp;"####<br />
+<br />
+ENDFORM.<br />
+<br />
+FORM REMOVE_RBKP.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LS_RBKP&nbsp;TYPE&nbsp;Z23RBKP.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_RBKP_ITAB&nbsp;INTO&nbsp;DATA(LINE).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LINE-ZCHECK&nbsp;EQ&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;REMOVE_RSEG&nbsp;USING&nbsp;LINE-BELNR&nbsp;LINE-GJAHR.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;LS_RBKP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23RBKP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;BELNR&nbsp;EQ&nbsp;LINE-BELNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;GJAHR&nbsp;EQ&nbsp;LINE-GJAHR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDSELECT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;Z23RBKP&nbsp;FROM&nbsp;LS_RBKP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;###&nbsp;###&nbsp;##(##)#####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_RBKP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+FORM REMOVE_RSEG USING P_BELNR TYPE RE_BELNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_GJAHR&nbsp;TYPE&nbsp;GJAHR.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LT_RSEG&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;Z23RSEG.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23RSEG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;LT_RSEG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;BELNR&nbsp;EQ&nbsp;P_BELNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;GJAHR&nbsp;EQ&nbsp;P_GJAHR.<br />
+<br />
+&nbsp;&nbsp;DELETE&nbsp;Z23RSEG&nbsp;FROM&nbsp;TABLE&nbsp;LT_RSEG.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

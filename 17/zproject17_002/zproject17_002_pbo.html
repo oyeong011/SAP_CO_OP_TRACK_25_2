@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZPROJECT17_002_PBO</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZPROJECT17_002_PBO</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZPROJECT17_002_PBO<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+MODULE status_0100 OUTPUT.<br />
+<br />
+&nbsp;DATA:&nbsp;lt_ex_func&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;sy-ucomm,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_func&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;sy-ucomm.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;gv_mode&nbsp;=&nbsp;c_mode_create.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;:&nbsp;##&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'STATUS_0100'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;'T0100'&nbsp;WITH&nbsp;'##'.<br />
+<br />
+&nbsp;&nbsp;ELSE.&nbsp;"&nbsp;##&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;####&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;REFRESH&nbsp;lt_ex_func.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_func&nbsp;=&nbsp;'ADD'.&nbsp;&nbsp;&nbsp;APPEND&nbsp;lv_func&nbsp;TO&nbsp;lt_ex_func.&nbsp;"&nbsp;####&nbsp;+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_func&nbsp;=&nbsp;'DEL'.&nbsp;&nbsp;&nbsp;APPEND&nbsp;lv_func&nbsp;TO&nbsp;lt_ex_func.&nbsp;"&nbsp;####&nbsp;-<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_func&nbsp;=&nbsp;'SAVE'.&nbsp;&nbsp;APPEND&nbsp;lv_func&nbsp;TO&nbsp;lt_ex_func.&nbsp;"&nbsp;PO##(##)<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;3#&nbsp;####&nbsp;####&nbsp;STATUS_0100&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'STATUS_0100'&nbsp;EXCLUDING&nbsp;lt_ex_func.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;'T0100'&nbsp;WITH&nbsp;'##'.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDMODULE.<br />
+<br />
+MODULE set_alv_0100 OUTPUT.<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;(###&nbsp;###&nbsp;#)<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;#####&nbsp;##&nbsp;##&nbsp;##&nbsp;(###&nbsp;###&nbsp;#)<br />
+&nbsp;&nbsp;IF&nbsp;gv_mode&nbsp;=&nbsp;c_mode_create.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;check_vendor_valid.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;gv_bukrs_disp&nbsp;=&nbsp;gs_ekko-bukrs.<br />
+&nbsp;&nbsp;gv_lifnr_disp&nbsp;=&nbsp;gs_ekko-lifnr.<br />
+&nbsp;&nbsp;gv_bedat_disp&nbsp;=&nbsp;gs_ekko-bedat.<br />
+&nbsp;&nbsp;gv_ekorg_disp&nbsp;=&nbsp;gs_ekko-ekorg.<br />
+&nbsp;&nbsp;gv_ekgrp_disp&nbsp;=&nbsp;gs_ekko-ekgrp.<br />
+&nbsp;&nbsp;gv_waers_disp&nbsp;=&nbsp;gs_ekko-waers.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;####<br />
+&nbsp;&nbsp;PERFORM&nbsp;disable_header_fields.<br />
+<br />
+<br />
+&nbsp;&nbsp;"&nbsp;alv&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;go_container&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;create_object_0100.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;alv_display_0100.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;go_handler&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_handler.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;go_handler-&gt;handler_data_changed&nbsp;FOR&nbsp;go_alv.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;refresh_alv_0100.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDMODULE.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

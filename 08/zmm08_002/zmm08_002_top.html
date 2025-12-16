@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM08_002_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM08_002_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM08_002_TOP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES: ZEDT08_EKKO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDT08_EKPO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDT08_LFA1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDT08_LFB1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDT08_LFM1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDT08_MAT.<br />
+<br />
+CLASS LCL_ALV_EVENT DEFINITION DEFERRED.<br />
+<br />
+CONSTANTS:<br />
+&nbsp;&nbsp;C_OK_ADD&nbsp;TYPE&nbsp;SYUCOMM&nbsp;VALUE&nbsp;'ADD',&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;C_OK_DEL&nbsp;TYPE&nbsp;SYUCOMM&nbsp;VALUE&nbsp;'DEL',&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;C_OK_SAVE&nbsp;TYPE&nbsp;SYUCOMM&nbsp;VALUE&nbsp;'SAVE'.&nbsp;"&nbsp;PO##<br />
+<br />
+   </div>
+   <div class="codeComment">
+*DATA:&nbsp;TEXT_C01(10)&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'##',<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT_C02(10)&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'##'.<br />
+<br />
+   </div>
+   <div class="code">
+DATA: OK_CODE TYPE SY-UCOMM.<br />
+<br />
+TYPES: BEGIN OF TY_EKKO,<br />
+&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;ZEDT08_EKKO-EBELN,<br />
+&nbsp;&nbsp;BUKRS&nbsp;TYPE&nbsp;ZEDT08_EKKO-BUKRS,<br />
+&nbsp;&nbsp;EKGRP&nbsp;TYPE&nbsp;ZEDT08_EKKO-EKGRP,<br />
+&nbsp;&nbsp;EKORG&nbsp;TYPE&nbsp;ZEDT08_EKKO-EKORG,<br />
+&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;ZEDT08_EKKO-LIFNR,<br />
+&nbsp;&nbsp;BEDAT&nbsp;TYPE&nbsp;ZEDT08_EKKO-BEDAT,<br />
+&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;ZEDT08_EKKO-WAERS,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_EKKO.<br />
+<br />
+TYPES: BEGIN OF TY_EKPO,<br />
+&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;ZEDT08_EKPO-EBELN,<br />
+&nbsp;&nbsp;EBELP&nbsp;TYPE&nbsp;ZEDT08_EKPO-EBELP,<br />
+&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;ZEDT08_EKPO-MATNR,<br />
+&nbsp;&nbsp;MAKTX&nbsp;TYPE&nbsp;ZEDT08_EKPO-MAKTX,<br />
+&nbsp;&nbsp;MENGE&nbsp;TYPE&nbsp;ZEDT08_EKPO-MENGE,<br />
+&nbsp;&nbsp;MEINS&nbsp;TYPE&nbsp;ZEDT08_EKPO-MEINS,<br />
+&nbsp;&nbsp;BPRME&nbsp;TYPE&nbsp;ZEDT08_EKPO-BPRME,<br />
+&nbsp;&nbsp;PRDAT&nbsp;TYPE&nbsp;ZEDT08_EKPO-PRDAT,<br />
+&nbsp;&nbsp;WERKS&nbsp;TYPE&nbsp;ZEDT08_EKPO-WERKS,<br />
+&nbsp;&nbsp;LGORT&nbsp;TYPE&nbsp;ZEDT08_EKPO-LGORT,<br />
+&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;ZEDT08_EKKO-WAERS,<br />
+&nbsp;&nbsp;MWSKZ&nbsp;TYPE&nbsp;ZEDT08_LFM1-MWSKZ,<br />
+&nbsp;&nbsp;CHK&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;1,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_EKPO.<br />
+<br />
+DATA: BEGIN OF TY_MAT,<br />
+&nbsp;&nbsp;WERKS&nbsp;TYPE&nbsp;ZEDT08_MAT-WERKS,<br />
+&nbsp;&nbsp;LGORT&nbsp;TYPE&nbsp;ZEDT08_MAT-LGORT,<br />
+&nbsp;&nbsp;ZMATNR&nbsp;TYPE&nbsp;ZEDT08_MAT-ZMATNR,<br />
+&nbsp;&nbsp;ZMATNAME&nbsp;TYPE&nbsp;ZEDT08_MAT-ZMATNAME,<br />
+&nbsp;&nbsp;ZMATDES&nbsp;TYPE&nbsp;ZEDT08_MAT-ZMATDES,<br />
+&nbsp;&nbsp;ZMTART&nbsp;TYPE&nbsp;ZEDT08_MAT-ZMTART,<br />
+&nbsp;&nbsp;STPRS&nbsp;TYPE&nbsp;ZEDT08_MAT-STPRS,<br />
+&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;ZEDT08_MAT-WAERS,<br />
+&nbsp;&nbsp;MENGE&nbsp;TYPE&nbsp;ZEDT08_MAT-MENGE,<br />
+&nbsp;&nbsp;MEINS&nbsp;TYPE&nbsp;ZEDT08_MAT-MEINS,<br />
+&nbsp;&nbsp;BRGEW&nbsp;TYPE&nbsp;ZEDT08_MAT-BRGEW,<br />
+&nbsp;&nbsp;GEWEI&nbsp;TYPE&nbsp;ZEDT08_MAT-GEWEI,<br />
+&nbsp;&nbsp;ZMATEXP&nbsp;TYPE&nbsp;ZEDT08_MAT-ZMATEXP,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_MAT.<br />
+<br />
+DATA: BEGIN OF GS_LFA1,<br />
+&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;ZEDT08_LFA1-LIFNR,<br />
+&nbsp;&nbsp;NAME1&nbsp;TYPE&nbsp;ZEDT08_LFA1-NAME1,<br />
+&nbsp;&nbsp;LAND1&nbsp;TYPE&nbsp;ZEDT08_LFA1-LAND1,<br />
+&nbsp;&nbsp;KTOKK&nbsp;TYPE&nbsp;ZEDT08_LFA1-KTOKK,<br />
+&nbsp;&nbsp;STCD1&nbsp;TYPE&nbsp;ZEDT08_LFA1-STCD1,<br />
+&nbsp;&nbsp;STCD2&nbsp;TYPE&nbsp;ZEDT08_LFA1-STCD2,<br />
+&nbsp;&nbsp;STRAS&nbsp;TYPE&nbsp;ZEDT08_LFA1-STRAS,<br />
+&nbsp;&nbsp;KTOKK_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_LFA1.<br />
+<br />
+DATA: BEGIN OF GS_LFB1,<br />
+&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;ZEDT08_LFB1-LIFNR,<br />
+&nbsp;&nbsp;BUKRS&nbsp;TYPE&nbsp;ZEDT08_LFB1-BUKRS,<br />
+&nbsp;&nbsp;LOEVM&nbsp;TYPE&nbsp;ZEDT08_LFB1-LOEVM,<br />
+&nbsp;&nbsp;AKONT&nbsp;TYPE&nbsp;ZEDT08_LFB1-AKONT,<br />
+&nbsp;&nbsp;ZTERM&nbsp;TYPE&nbsp;ZEDT08_LFB1-ZTERM,<br />
+&nbsp;&nbsp;ZKONT_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;ZTERM_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_LFB1.<br />
+<br />
+DATA: BEGIN OF GS_LFM1,<br />
+&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;ZEDT08_LFM1-LIFNR,<br />
+&nbsp;&nbsp;EKORG&nbsp;TYPE&nbsp;ZEDT08_LFM1-EKORG,<br />
+&nbsp;&nbsp;EKGRP&nbsp;TYPE&nbsp;ZEDT08_LFM1-EKGRP,<br />
+&nbsp;&nbsp;LOEVM&nbsp;TYPE&nbsp;ZEDT08_LFM1-LOEVM,<br />
+&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;ZEDT08_LFM1-WAERS,<br />
+&nbsp;&nbsp;MWSKZ&nbsp;TYPE&nbsp;ZEDT08_LFM1-MWSKZ,<br />
+&nbsp;&nbsp;MWSKZ_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_LFM1.<br />
+<br />
+DATA: GS_EKKO TYPE TY_EKKO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_EKPO&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;TY_EKPO&nbsp;WITH&nbsp;DEFAULT&nbsp;KEY.<br />
+<br />
+" #### ## ##### ## ## ###<br />
+DATA: GV_BUKRS TYPE ZEDT08_EKKO-BUKRS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_LIFNR&nbsp;TYPE&nbsp;ZEDT08_EKKO-LIFNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_LAND1&nbsp;TYPE&nbsp;ZEDT08_LFA1-LAND1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_WAERS&nbsp;TYPE&nbsp;ZEDT08_EKKO-WAERS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_BEDAT&nbsp;TYPE&nbsp;ZEDT08_EKKO-BEDAT.<br />
+<br />
+" #### ## ##<br />
+DATA: GT_EKPO_Q TYPE STANDARD TABLE OF TY_EKPO WITH DEFAULT KEY.<br />
+<br />
+" ALV ## ##<br />
+DATA: GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA: GC_GRID TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+" ALV ### ##<br />
+DATA: GS_FIELDCAT TYPE LVC_S_FCAT. " ## #### ###<br />
+DATA: GT_FIELDCAT TYPE LVC_T_FCAT. " ## #### ###<br />
+<br />
+DATA: GS_LAYOUT TYPE LVC_S_LAYO. " #### ##<br />
+<br />
+DATA: GS_SORT TYPE LVC_S_SORT. " ## ## ###<br />
+DATA: GT_SORT TYPE LVC_T_SORT. " ## ## ###<br />
+<br />
+DATA: GO_EVENT TYPE REF TO LCL_ALV_EVENT.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

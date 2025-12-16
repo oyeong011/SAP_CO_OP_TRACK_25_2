@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM06_003_FF</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM06_003_FF</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM06_003_FF<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+" 1xxx=####(##·##),<br />
+" 2xxx=##(GR/IR·#####),<br />
+" 3xxx=##(##·####),<br />
+" 4xxx=##(##),<br />
+" 5xxx=##(####),<br />
+" 6xxx=##(###),<br />
+" 9xxx=###/####<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM06_003_F02<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;RECEIVING_PROCESSING<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CREATE_FI_DOC_FOR_GR<br />
+&nbsp;&nbsp;USING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_MBLNR&nbsp;TYPE&nbsp;ZEDT06_MKPF-MBLNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_MJAHR&nbsp;TYPE&nbsp;ZEDT06_MKPF-MJAHR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_BUKRS&nbsp;TYPE&nbsp;ZEDT06_BKPF-BUKRS.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_BELNR&nbsp;TYPE&nbsp;ZEDT06_BKPF-BELNR,&nbsp;&nbsp;"&nbsp;FI&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_GJAHR&nbsp;TYPE&nbsp;ZEDT06_BKPF-GJAHR,&nbsp;&nbsp;"&nbsp;FI&nbsp;##&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_BUZEI&nbsp;TYPE&nbsp;ZEDT06_BSEG-BUZEI,&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_TOTAL&nbsp;TYPE&nbsp;ZEDT06_BSEG-DMBTR.&nbsp;&nbsp;"&nbsp;GR/IR&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;DATA:&nbsp;LS_LFM1&nbsp;TYPE&nbsp;ZEDT06_LFM1.<br />
+<br />
+&nbsp;&nbsp;"---------------------------------------------------------------<br />
+&nbsp;&nbsp;"&nbsp;1.&nbsp;FI&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;"---------------------------------------------------------------<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_NEXT_BELNR&nbsp;CHANGING&nbsp;LV_BELNR&nbsp;LV_GJAHR.<br />
+<br />
+&nbsp;&nbsp;"---------------------------------------------------------------<br />
+&nbsp;&nbsp;"&nbsp;2.&nbsp;BKPF&nbsp;(##&nbsp;##)&nbsp;##<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;&nbsp;-&nbsp;#&nbsp;###&nbsp;GR(##)###&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;"---------------------------------------------------------------<br />
+&nbsp;&nbsp;PERFORM&nbsp;INSERT_BKPF<br />
+&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;LV_BELNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_GJAHR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_MBLNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_MJAHR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_BUKRS.<br />
+<br />
+&nbsp;&nbsp;"---------------------------------------------------------------<br />
+&nbsp;&nbsp;"&nbsp;3.&nbsp;BSEG&nbsp;–&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;&nbsp;-&nbsp;###&nbsp;##(MSEG)&nbsp;####<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;&nbsp;-&nbsp;###&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;"---------------------------------------------------------------<br />
+&nbsp;&nbsp;LV_BUZEI&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;CLEAR&nbsp;LV_TOTAL.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;####&nbsp;##.<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*&nbsp;FROM&nbsp;ZEDT06_LFM1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;LS_LFM1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;LIFNR&nbsp;=&nbsp;GS_EKKO-LIFNR.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_MSEG&nbsp;INTO&nbsp;GS_MSEG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;MBLNR&nbsp;=&nbsp;PV_MBLNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;MJAHR&nbsp;=&nbsp;PV_MJAHR.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;INSERT_BSEG_STOCK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;LV_BELNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_GJAHR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_BUZEI<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_LFM1-MWSKZ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_MSEG.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;GR/IR&nbsp;##&nbsp;###&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_TOTAL&nbsp;=&nbsp;LV_TOTAL&nbsp;+&nbsp;GS_MSEG-DMBTR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SAP&nbsp;##&nbsp;###&nbsp;##:&nbsp;10,&nbsp;20,&nbsp;30&nbsp;...<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_BUZEI&nbsp;=&nbsp;LV_BUZEI&nbsp;+&nbsp;10.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;"---------------------------------------------------------------<br />
+&nbsp;&nbsp;"&nbsp;4.&nbsp;BSEG&nbsp;–&nbsp;GR/IR&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;&nbsp;-&nbsp;##&nbsp;##&nbsp;##&nbsp;###&nbsp;####<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;&nbsp;-&nbsp;GR/IR&nbsp;###&nbsp;##&nbsp;1##&nbsp;##<br />
+&nbsp;&nbsp;"---------------------------------------------------------------<br />
+&nbsp;&nbsp;PERFORM&nbsp;INSERT_BSEG_GRIR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;LV_BELNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_GJAHR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_BUZEI<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_LFM1-MWSKZ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_TOTAL.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM06_003_F02<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;RECEIVING_PROCESSING<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FI&nbsp;####&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_NEXT_BELNR<br />
+&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_BELNR&nbsp;TYPE&nbsp;ZEDT06_BKPF-BELNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_GJAHR&nbsp;TYPE&nbsp;ZEDT06_BKPF-GJAHR.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;MAX(&nbsp;BELNR&nbsp;)&nbsp;INTO&nbsp;PV_BELNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT06_BKPF<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;BELNR&nbsp;LIKE&nbsp;'9%'.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;PV_BELNR&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_BELNR&nbsp;=&nbsp;'9000000000'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_BELNR&nbsp;=&nbsp;PV_BELNR&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;PV_GJAHR&nbsp;=&nbsp;SY-DATUM(4).<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM06_003_F02<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;RECEIVING_PROCESSING<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FI&nbsp;##&nbsp;##(BKPF)&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM INSERT_BKPF<br />
+&nbsp;&nbsp;USING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_BELNR&nbsp;TYPE&nbsp;ZEDT06_BKPF-BELNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_GJAHR&nbsp;TYPE&nbsp;ZEDT06_BKPF-GJAHR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_MBLNR&nbsp;TYPE&nbsp;ZEDT06_MKPF-MBLNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_MJAHR&nbsp;TYPE&nbsp;ZEDT06_MKPF-MJAHR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_BUKRS&nbsp;TYPE&nbsp;ZEDT06_BKPF-BUKRS.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;LS_BKPF&nbsp;TYPE&nbsp;ZEDT06_BKPF.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;LS_BKPF.<br />
+&nbsp;&nbsp;LS_BKPF-BELNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;PV_BELNR.<br />
+&nbsp;&nbsp;LS_BKPF-GJAHR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;PV_GJAHR.<br />
+&nbsp;&nbsp;LS_BKPF-BUKRS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;PV_BUKRS.<br />
+&nbsp;&nbsp;LS_BKPF-BLART&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'WE'.<br />
+&nbsp;&nbsp;LS_BKPF-BLDAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-DATUM.<br />
+&nbsp;&nbsp;LS_BKPF-BUDAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-DATUM.<br />
+&nbsp;&nbsp;LS_BKPF-REF_DOC_TYPE&nbsp;=&nbsp;'GR'.<br />
+&nbsp;&nbsp;LS_BKPF-REF_DOC_NO&nbsp;&nbsp;&nbsp;=&nbsp;PV_MBLNR.<br />
+&nbsp;&nbsp;LS_BKPF-REF_DOC_YEAR&nbsp;=&nbsp;PV_MJAHR.<br />
+<br />
+&nbsp;&nbsp;INSERT&nbsp;ZEDT06_BKPF&nbsp;FROM&nbsp;LS_BKPF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM06_003_F02<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;RECEIVING_PROCESSING<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##&nbsp;##&nbsp;###&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM INSERT_BSEG_STOCK<br />
+&nbsp;&nbsp;USING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_BELNR&nbsp;TYPE&nbsp;ZEDT06_BSEG-BELNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_GJAHR&nbsp;TYPE&nbsp;ZEDT06_BSEG-GJAHR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_BUZEI&nbsp;TYPE&nbsp;ZEDT06_BSEG-BUZEI<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_MWSKZ&nbsp;TYPE&nbsp;ZEDT06_LFM1-MWSKZ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PS_MSEG&nbsp;&nbsp;TYPE&nbsp;ZEDT06_MSEG.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;LS_BSEG&nbsp;TYPE&nbsp;ZEDT06_BSEG.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;LS_BSEG.<br />
+&nbsp;&nbsp;LS_BSEG-BELNR&nbsp;=&nbsp;PV_BELNR.<br />
+&nbsp;&nbsp;LS_BSEG-GJAHR&nbsp;=&nbsp;PV_GJAHR.<br />
+&nbsp;&nbsp;LS_BSEG-BUZEI&nbsp;=&nbsp;PV_BUZEI.<br />
+&nbsp;&nbsp;LS_BSEG-HKONT&nbsp;=&nbsp;'30000000'.<br />
+&nbsp;&nbsp;LS_BSEG-SHKZG&nbsp;=&nbsp;'S'.<br />
+&nbsp;&nbsp;LS_BSEG-DMBTR&nbsp;=&nbsp;PS_MSEG-DMBTR.<br />
+&nbsp;&nbsp;LS_BSEG-WAERS&nbsp;=&nbsp;PS_MSEG-WAERS.<br />
+&nbsp;&nbsp;LS_BSEG-MWSKZ&nbsp;=&nbsp;PV_MWSKZ.<br />
+&nbsp;&nbsp;LS_BSEG-MATNR&nbsp;=&nbsp;PS_MSEG-MATNR.<br />
+<br />
+&nbsp;&nbsp;INSERT&nbsp;ZEDT06_BSEG&nbsp;FROM&nbsp;LS_BSEG.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM06_003_F02<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;RECEIVING_PROCESSING<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GR/IR&nbsp;##&nbsp;##&nbsp;###&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM INSERT_BSEG_GRIR<br />
+&nbsp;&nbsp;USING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_BELNR&nbsp;TYPE&nbsp;ZEDT06_BSEG-BELNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_GJAHR&nbsp;TYPE&nbsp;ZEDT06_BSEG-GJAHR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_BUZEI&nbsp;TYPE&nbsp;ZEDT06_BSEG-BUZEI<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_MWSKZ&nbsp;TYPE&nbsp;ZEDT06_LFM1-MWSKZ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_TOTAL&nbsp;TYPE&nbsp;ZEDT06_BSEG-DMBTR.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;LS_BSEG&nbsp;TYPE&nbsp;ZEDT06_BSEG.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;LS_BSEG.<br />
+&nbsp;&nbsp;LS_BSEG-BELNR&nbsp;=&nbsp;PV_BELNR.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;LS_BSEG-GJAHR&nbsp;=&nbsp;PV_GJAHR.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;LS_BSEG-BUZEI&nbsp;=&nbsp;PV_BUZEI.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;LS_BSEG-HKONT&nbsp;=&nbsp;'20000000'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;GR/IR&nbsp;##<br />
+&nbsp;&nbsp;LS_BSEG-SHKZG&nbsp;=&nbsp;'H'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;LS_BSEG-DMBTR&nbsp;=&nbsp;PV_TOTAL.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;LS_BSEG-MWSKZ&nbsp;=&nbsp;PV_MWSKZ.&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;LS_BSEG-WAERS&nbsp;=&nbsp;GS_EKKO-WAERS.<br />
+<br />
+&nbsp;&nbsp;INSERT&nbsp;ZEDT06_BSEG&nbsp;FROM&nbsp;LS_BSEG.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CREATE_REVERSE_FI_DOC<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_LT_CANCEL&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CREATE_REVERSE_FI_DOC<br />
+&nbsp;&nbsp;USING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PT_CANCEL&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;TY_MSEG.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

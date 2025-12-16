@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM06_002_F03</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM06_002_F03</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM06_002_F03<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;PO_FIND<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM PO_FIND .<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_PO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;MODIFY_PO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;300.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_PO<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_PO .<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_EKKO,&nbsp;GT_EKPO.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1.&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*&nbsp;FROM&nbsp;ZEDT06_EKKO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;GS_EKKO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;EBELN&nbsp;=&nbsp;P_EBELN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;BUKRS&nbsp;=&nbsp;P_BUKRS.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;#####&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;GS_EKKO_DISP-EBELN&nbsp;=&nbsp;GS_EKKO-EBELN.<br />
+&nbsp;&nbsp;GS_EKKO_DISP-BUKRS&nbsp;=&nbsp;GS_EKKO-BUKRS.<br />
+&nbsp;&nbsp;GS_EKKO_DISP-EKGRP&nbsp;=&nbsp;GS_EKKO-EKGRP.<br />
+&nbsp;&nbsp;GS_EKKO_DISP-EKORG&nbsp;=&nbsp;GS_EKKO-EKORG.<br />
+&nbsp;&nbsp;GS_EKKO_DISP-LIFNR&nbsp;=&nbsp;GS_EKKO-LIFNR.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;yyyy-mm-dd&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;GS_EKKO_DISP-BEDAT&nbsp;=&nbsp;|{&nbsp;GS_EKKO-BEDAT&nbsp;DATE&nbsp;=&nbsp;ISO&nbsp;}|.<br />
+<br />
+&nbsp;&nbsp;GS_EKKO_DISP-WAERS&nbsp;=&nbsp;GS_EKKO-WAERS.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2.&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT06_EKPO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@GT_EKPO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;EBELN&nbsp;=&nbsp;@P_EBELN.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_EKPO&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;#####&nbsp;#####&nbsp;####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;MODIFY_PO<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM MODIFY_PO .<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_EKPO&nbsp;INTO&nbsp;GS_EKPO.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_EKPO_ALV.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_EKPO&nbsp;TO&nbsp;GS_EKPO_ALV.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ALV#&nbsp;###&nbsp;##&nbsp;##(WAERS)#&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_EKPO_ALV-WAERS&nbsp;=&nbsp;GS_EKKO-WAERS.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;#&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_EKPO_ALV&nbsp;TO&nbsp;GT_EKPO_ALV.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CREATE_OBJECT_300<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CREATE_OBJECT_300 .<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GC_CUSTOM_300<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTAINER_NAME&nbsp;=&nbsp;'CON1'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GC_GRID_300<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_PARENT&nbsp;=&nbsp;GC_CUSTOM_300.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_FIELDCAT_300<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_FIELDCAT_300 .<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT_300,&nbsp;GT_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'EBELN'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'######'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'EBELP'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2.&nbsp;####&nbsp;(MATNR)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'MATNR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;3.&nbsp;###&nbsp;(MAKTX)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'MAKTX'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;4.&nbsp;##&nbsp;(MENGE)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'MENGE'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;5.&nbsp;##&nbsp;(MEINS)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'MEINS'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;6.&nbsp;##&nbsp;(BPRME)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'BPRME'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-CFIELDNAME&nbsp;=&nbsp;'WAERS'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;7.&nbsp;###&nbsp;(PRDAT)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'PRDAT'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-OUTPUTLEN&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;8.&nbsp;###&nbsp;(WERKS)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;9.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'WERKS'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;9.&nbsp;####&nbsp;(LGORT)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'LGORT'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_LAYOUT_300<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_LAYOUT_300 .<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_LAYOUT_300.<br />
+<br />
+&nbsp;&nbsp;GS_LAYOUT_300-ZEBRA&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;GS_LAYOUT_300-CWIDTH_OPT&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;##&nbsp;##&nbsp;#&nbsp;##<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_SORT_300<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_SORT_300 .<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GT_SORT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_SORT_300.<br />
+<br />
+&nbsp;&nbsp;GS_SORT_300-FIELDNAME&nbsp;=&nbsp;'EBELN'.<br />
+&nbsp;&nbsp;GS_SORT_300-UP&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_SORT_300&nbsp;TO&nbsp;GT_SORT_300.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_DISPLAY_300<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_DISPLAY_300 .<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GC_GRID_300-&gt;SET_TABLE_FOR_FIRST_DISPLAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_LAYOUT_300<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_EKPO_ALV<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCATALOG&nbsp;=&nbsp;GT_FIELDCAT_300<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_SORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_SORT_300.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

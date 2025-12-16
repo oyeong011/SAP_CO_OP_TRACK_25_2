@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR10_0923</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR10_0923</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR10_0923<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR10_0923.<br />
+<br />
+DATA: BEGIN OF GS_SCARR.<br />
+&nbsp;&nbsp;DATA:&nbsp;ZCHECK&nbsp;TYPE&nbsp;C.<br />
+&nbsp;&nbsp;INCLUDE&nbsp;TYPE&nbsp;SCARR.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;CARRID&nbsp;LIKE&nbsp;SCARR-CARRID,<br />
+*&nbsp;&nbsp;CARRNAME&nbsp;LIKE&nbsp;SCARR-CARRNAME,<br />
+   </div>
+   <div class="code">
+DATA: END OF GS_SCARR.<br />
+DATA: GT_SCARR LIKE TABLE OF GS_SCARR.<br />
+<br />
+SELECT SINGLE A~CARRID A~CARRNAME INTO ( GS_SCARR-CARRID, GS_SCARR-CARRNAME )<br />
+&nbsp;&nbsp;FROM&nbsp;SCARR&nbsp;as&nbsp;A<br />
+&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;=&nbsp;'AA'.<br />
+<br />
+WRITE:/ GS_SCARR.<br />
+<br />
+" #### ## INTO ## X<br />
+" INTERNAL TABLE# #### ##<br />
+   </div>
+   <div class="codeComment">
+*select&nbsp;carrid&nbsp;carrname&nbsp;into&nbsp;table&nbsp;gt_scarr<br />
+*&nbsp;&nbsp;from&nbsp;scarr<br />
+*&nbsp;&nbsp;where&nbsp;carrid&nbsp;=&nbsp;'a%'.<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+" ### ### FIELD # ## ### #### ### #.<br />
+SELECT CARRID CARRNAME<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_SCARR<br />
+&nbsp;&nbsp;FROM&nbsp;SCARR<br />
+&nbsp;&nbsp;.<br />
+<br />
+<br />
+" INTO ## APPENDING# #### OVERWRITTEN ### ### # ##<br />
+SELECT CARRID CARRNAME<br />
+&nbsp;&nbsp;APPENDING&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_SCARR<br />
+&nbsp;&nbsp;FROM&nbsp;SCARR<br />
+&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;BETWEEN&nbsp;'AA'&nbsp;AND&nbsp;'AB'.<br />
+<br />
+SELECT CARRID CARRNAME<br />
+&nbsp;&nbsp;APPENDING&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_SCARR<br />
+&nbsp;&nbsp;FROM&nbsp;SCARR<br />
+&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;IN&nbsp;(&nbsp;'AC'&nbsp;,&nbsp;'AF'&nbsp;).<br />
+<br />
+<br />
+LOOP AT GT_SCARR INTO GS_SCARR.<br />
+&nbsp;&nbsp;WRITE:/&nbsp;GS_SCARR.<br />
+ENDLOOP.<br />
+<br />
+ULINE /.<br />
+<br />
+RANGES GR_SCARR FOR SCARR-CARRID.<br />
+<br />
+GR_SCARR-SIGN = 'I'.<br />
+GR_SCARR-OPTION = 'CP'.<br />
+GR_SCARR-LOW = '*A'.<br />
+APPEND GR_SCARR.<br />
+<br />
+GR_SCARR-SIGN = 'I'.<br />
+GR_SCARR-OPTION = 'EQ'.<br />
+GR_SCARR-HIGH = 'ZZ'.<br />
+APPEND GR_SCARR.<br />
+<br />
+SELECT * FROM SCARR<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_SCARR<br />
+&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;IN&nbsp;GR_SCARR.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*BREAK-POINT.<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+DATA: BEGIN OF GS_SFLIGHT.<br />
+&nbsp;&nbsp;INCLUDE&nbsp;TYPE&nbsp;SFLIGHT.<br />
+&nbsp;&nbsp;INCLUDE&nbsp;TYPE&nbsp;SCARR&nbsp;AS&nbsp;CARR&nbsp;RENAMING&nbsp;WITH&nbsp;SUFFIX&nbsp;_CARR.<br />
+DATA: END OF GS_SFLIGHT.<br />
+<br />
+DATA: GT_SFLIGHT LIKE TABLE OF GS_SFLIGHT.<br />
+<br />
+SELECT CARRID<br />
+&nbsp;&nbsp;CONNID<br />
+&nbsp;&nbsp;PRICE<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_SFLIGHT<br />
+&nbsp;&nbsp;FROM&nbsp;SFLIGHT&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;WHERE&nbsp;CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;(&nbsp;SELECT&nbsp;CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SPFLI<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;=&nbsp;A~CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;CONNID&nbsp;=&nbsp;A~CONNID&nbsp;)<br />
+&nbsp;&nbsp;AND&nbsp;CARRID&nbsp;=&nbsp;'AA'<br />
+&nbsp;&nbsp;AND&nbsp;CONNID&nbsp;LIKE&nbsp;'00%'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*LOOP&nbsp;AT&nbsp;GT_SFLIGHT&nbsp;INTO&nbsp;GS_SFLIGHT.<br />
+*&nbsp;&nbsp;WRITE:/&nbsp;GS_SFLIGHT-CARRID.<br />
+*ENDLOOP.<br />
+<br />
+   </div>
+   <div class="code">
+SELECT A~CARRID<br />
+&nbsp;&nbsp;A~CONNID<br />
+&nbsp;&nbsp;B~CARRNAME<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_SFLIGHT<br />
+&nbsp;&nbsp;FROM&nbsp;SFLIGHT&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;SCARR&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;ON&nbsp;A~CARRID&nbsp;=&nbsp;B~CARRID<br />
+&nbsp;&nbsp;WHERE&nbsp;A~CARRID&nbsp;=&nbsp;'AA'.<br />
+<br />
+LOOP AT GT_SFLIGHT INTO GS_SFLIGHT.<br />
+&nbsp;&nbsp;WRITE:/&nbsp;GS_SFLIGHT-CARRID,&nbsp;GS_SFLIGHT-CONNID,&nbsp;GS_SFLIGHT-CARRNAME_CARR.<br />
+ENDLOOP.<br />
+<br />
+DATA: GS_SPFLI TYPE SPFLI,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_SPFLI&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_SPFLI.<br />
+<br />
+SELECT<br />
+&nbsp;&nbsp;CARRID<br />
+&nbsp;&nbsp;CONNID<br />
+&nbsp;&nbsp;FLDATE<br />
+&nbsp;&nbsp;PRICE<br />
+&nbsp;&nbsp;FROM&nbsp;SFLIGHT<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_SFLIGHT<br />
+&nbsp;&nbsp;FOR&nbsp;ALL&nbsp;ENTRIES&nbsp;IN&nbsp;GT_SPFLI<br />
+&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;&lt;&gt;&nbsp;GT_SPFLI-CARRID<br />
+&nbsp;&nbsp;AND&nbsp;CONNID&nbsp;&lt;&gt;&nbsp;GT_SPFLI-CONNID<br />
+&nbsp;&nbsp;.<br />
+<br />
+BREAK-POINT.<br />
+<br />
+LOOP AT GT_SFLIGHT INTO GS_SFLIGHT.<br />
+&nbsp;&nbsp;WRITE:/&nbsp;GS_SFLIGHT-CARRID,&nbsp;GS_SFLIGHT-CONNID,&nbsp;GS_SFLIGHT-FLDATE,&nbsp;GS_SFLIGHT-PRICE.<br />
+ENDLOOP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

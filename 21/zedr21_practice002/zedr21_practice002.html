@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR21_PRACTICE002</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR21_PRACTICE002</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR21_PRACTICE002<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR21_PRACTICE002.<br />
+<br />
+"----------------------------------------------------------<br />
+" DATA ##<br />
+"----------------------------------------------------------<br />
+DATA : GT_ZEDT21_001 LIKE TABLE OF ZEDT21_001,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZEDT21_002&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;ZEDT21_002,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZEDT21_004&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;ZEDT21_004.<br />
+<br />
+DATA : GS_ZEDT21_001 TYPE ZEDT21_001,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ZEDT21_002&nbsp;TYPE&nbsp;ZEDT21_002,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ZEDT21_004&nbsp;TYPE&nbsp;ZEDT21_004.<br />
+<br />
+" ## ## ##<br />
+DATA : GV_WORST_RANK  TYPE i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_CURR_MAJOR&nbsp;&nbsp;TYPE&nbsp;ZEDT21_004-ZMAJOR21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_WARN_FLAG&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_MAJOR_FLAG&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;1.<br />
+<br />
+" ## ###/###<br />
+DATA : BEGIN OF GS_WRITE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCODE21&nbsp;&nbsp;LIKE&nbsp;ZEDT21_001-ZCODE21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZKNAME21&nbsp;LIKE&nbsp;ZEDT21_001-ZKNAME21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCHG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZTEL21&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZEDT21_001-ZTEL21,&nbsp;"&nbsp;###&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZWARN&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_WRITE.<br />
+<br />
+DATA : GT_WRITE LIKE TABLE OF GS_WRITE.<br />
+<br />
+"----------------------------------------------------------<br />
+" ### ####<br />
+"----------------------------------------------------------<br />
+SELECT * FROM ZEDT21_001 INTO TABLE GT_ZEDT21_001.<br />
+SELECT * FROM ZEDT21_002 INTO TABLE GT_ZEDT21_002.<br />
+SELECT * FROM ZEDT21_004 INTO TABLE GT_ZEDT21_004.<br />
+<br />
+" ## # ## ##<br />
+SORT GT_ZEDT21_001 BY ZCODE21.<br />
+DELETE ADJACENT DUPLICATES FROM GT_ZEDT21_001 COMPARING ZCODE21.<br />
+<br />
+SORT GT_ZEDT21_002 BY ZCODE21.<br />
+DELETE ADJACENT DUPLICATES FROM GT_ZEDT21_002 COMPARING ZCODE21.<br />
+<br />
+SORT GT_ZEDT21_004 BY ZCODE21 ZPERNR21 ZSEM21 ZEXAM21.<br />
+DELETE ADJACENT DUPLICATES FROM GT_ZEDT21_004 COMPARING ZCODE21 ZPERNR21 ZSEM21 ZEXAM21.<br />
+<br />
+CLEAR: GS_ZEDT21_001, GS_ZEDT21_002, GS_ZEDT21_004.<br />
+<br />
+"----------------------------------------------------------<br />
+" ## LOOP (### ## ##)<br />
+"----------------------------------------------------------<br />
+LOOP AT GT_ZEDT21_004 INTO GS_ZEDT21_004.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;NEW&nbsp;ZCODE21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_WORST_RANK&nbsp;=&nbsp;9999.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;GV_CURR_MAJOR,&nbsp;GV_WARN_FLAG,&nbsp;GV_MAJOR_FLAG.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ZEDT21_001&nbsp;INTO&nbsp;GS_ZEDT21_001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;ZCODE21&nbsp;=&nbsp;GS_ZEDT21_004-ZCODE21.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;##&nbsp;##&nbsp;(SWITCH)<br />
+&nbsp;&nbsp;DATA(lv_rank)&nbsp;=&nbsp;SWITCH&nbsp;i(&nbsp;GS_ZEDT21_004-ZGRADE21<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'A'&nbsp;THEN&nbsp;6<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'B'&nbsp;THEN&nbsp;5<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'C'&nbsp;THEN&nbsp;4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'D'&nbsp;THEN&nbsp;3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'F'&nbsp;THEN&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE&nbsp;6&nbsp;).<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;lv_rank&nbsp;&lt;&nbsp;GV_WORST_RANK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_WORST_RANK&nbsp;=&nbsp;lv_rank.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###(D/F&nbsp;###&nbsp;###)<br />
+&nbsp;&nbsp;IF&nbsp;GS_ZEDT21_004-ZGRADE21&nbsp;=&nbsp;'D'&nbsp;OR&nbsp;GS_ZEDT21_004-ZGRADE21&nbsp;=&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_WARN_FLAG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;#&nbsp;###&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;GV_CURR_MAJOR&nbsp;=&nbsp;GS_ZEDT21_004-ZMAJOR21.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;END&nbsp;OF&nbsp;ZCODE21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ZEDT21_002&nbsp;INTO&nbsp;GS_ZEDT21_002<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;ZCODE21&nbsp;=&nbsp;GS_ZEDT21_004-ZCODE21.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0&nbsp;AND&nbsp;GS_ZEDT21_002-ZMAJOR21&nbsp;&lt;&gt;&nbsp;GV_CURR_MAJOR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_MAJOR_FLAG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_MAJOR_FLAG&nbsp;=&nbsp;'&nbsp;'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_WRITE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_WRITE-ZCODE21&nbsp;&nbsp;=&nbsp;GS_ZEDT21_004-ZCODE21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_WRITE-ZKNAME21&nbsp;=&nbsp;GS_ZEDT21_001-ZKNAME21.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GV_MAJOR_FLAG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_WRITE-ZCHG&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GV_WARN_FLAG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_WRITE-ZWARN&nbsp;&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_WRITE-ZTEL21&nbsp;=&nbsp;GS_ZEDT21_001-ZTEL21.&nbsp;"&nbsp;####&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_WRITE&nbsp;TO&nbsp;GT_WRITE.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+ENDLOOP.<br />
+<br />
+SORT GT_WRITE BY ZCODE21.<br />
+<br />
+"----------------------------------------------------------<br />
+" ## LOOP (# ##)<br />
+"----------------------------------------------------------<br />
+LOOP AT GT_WRITE INTO GS_WRITE.<br />
+&nbsp;&nbsp;AT&nbsp;FIRST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;&nbsp;&nbsp;&nbsp;|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|',&nbsp;(10)&nbsp;GS_WRITE-ZCODE21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(17)&nbsp;GS_WRITE-ZKNAME21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(14)&nbsp;GS_WRITE-ZCHG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(17)&nbsp;GS_WRITE-ZTEL21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(10)&nbsp;GS_WRITE-ZWARN,&nbsp;'|'.<br />
+<br />
+&nbsp;WRITE&nbsp;:/&nbsp;'------------------------------------------------------------------------------------'.<br />
+ENDLOOP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

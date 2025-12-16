@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR23_PRACTICE002</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR23_PRACTICE002</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZED23_PRACTICE002<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZED23_PRACTICE002.<br />
+<br />
+<br />
+" Itable - READ<br />
+" # #  ## ## : ### READ ###<br />
+" WITH NON-UNIQUE KEY<br />
+<br />
+" ##### ## Itable ##<br />
+DATA : GS_ZEDT001 TYPE ZEDT23_001.<br />
+DATA : GT_ZEDT001 TYPE TABLE OF ZEDT23_001.<br />
+SELECT * FROM ZEDT23_001<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_ZEDT001.<br />
+<br />
+DATA : GS_ZEDT002 TYPE ZEDT23_002.<br />
+DATA : GT_ZEDT002 TYPE TABLE OF ZEDT23_002.<br />
+SELECT * FROM ZEDT23_002<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_ZEDT002.<br />
+<br />
+DATA : GT_ZEDT004 TYPE TABLE OF ZEDT23_004.<br />
+SELECT * FROM ZEDT23_004<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_ZEDT004.<br />
+<br />
+"### ## Structur, Itable<br />
+DATA : BEGIN OF GS_STUDENT,<br />
+&nbsp;&nbsp;ZCODE&nbsp;TYPE&nbsp;ZEDT23_001-ZCODE,<br />
+&nbsp;&nbsp;ZKNAME&nbsp;TYPE&nbsp;ZEDT23_001-ZKNAME,<br />
+&nbsp;&nbsp;ZCHANGE&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;6,<br />
+&nbsp;&nbsp;ZTEL&nbsp;TYPE&nbsp;ZEDT23_001-ZTEL,<br />
+&nbsp;&nbsp;ZWARN&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;6,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_STUDENT.<br />
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT WITH NON-UNIQUE KEY ZCODE.<br />
+<br />
+DATA : BEGIN OF GS_ZSUM,<br />
+&nbsp;&nbsp;ZGENDER&nbsp;TYPE&nbsp;ZEDT23_001-ZGENDER,<br />
+&nbsp;&nbsp;ZFSUM&nbsp;TYPE&nbsp;ZEDT23_002-ZSUM,&nbsp;"##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;ZMSUM&nbsp;TYPE&nbsp;ZEDT23_002-ZSUM,&nbsp;"##&nbsp;###&nbsp;##<br />
+END OF GS_ZSUM.<br />
+DATA : GT_ZSUM LIKE TABLE OF GS_ZSUM WITH NON-UNIQUE KEY ZGENDER.<br />
+<br />
+<br />
+DATA ZEND(6) TYPE C. "True = # ZCODE# #<br />
+ZEND = 'FALSE'.<br />
+DATA ZFLAG(6) TYPE C. "True = ####<br />
+ZFLAG = 'FALSE'.<br />
+<br />
+SORT GT_ZEDT004 BY ZCODE ASCENDING ZGRADE DESCENDING.<br />
+<br />
+CLEAR GS_STUDENT.<br />
+<br />
+LOOP AT GT_ZEDT004 INTO DATA(GS_ZEDT004).<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;NEW&nbsp;ZCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_STUDENT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_ZSUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZEND&nbsp;=&nbsp;'FALSE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZFLAG&nbsp;=&nbsp;'FALSE'.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;"##&nbsp;#####&nbsp;##&nbsp;####&nbsp;###&nbsp;=&gt;&nbsp;Continue<br />
+&nbsp;&nbsp;IF&nbsp;ZFLAG&nbsp;EQ&nbsp;'TRUE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;#####&nbsp;=&gt;&nbsp;ZFLAG='TRUE'.<br />
+&nbsp;&nbsp;IF&nbsp;GS_ZEDT004-ZGRADE&nbsp;EQ&nbsp;'D'&nbsp;OR&nbsp;GS_ZEDT004-ZGRADE&nbsp;EQ&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZFLAG&nbsp;=&nbsp;'TRUE'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;END&nbsp;OF&nbsp;ZCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZEND&nbsp;=&nbsp;'TRUE'.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;"####&nbsp;#####&nbsp;ZCODE&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;CHECK&nbsp;ZFLAG&nbsp;EQ&nbsp;'TRUE'&nbsp;OR&nbsp;ZEND&nbsp;EQ&nbsp;'TRUE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;LOOP&nbsp;####&nbsp;-&gt;&nbsp;##&nbsp;zcode(004)#&nbsp;##&nbsp;ZCODE&nbsp;####&nbsp;001##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ZEDT001&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_ZEDT004-ZCODE&nbsp;INTO&nbsp;GS_ZEDT001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COMPARING&nbsp;ZCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ZEDT002&nbsp;:&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ZEDT002&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_ZEDT004-ZCODE&nbsp;INTO&nbsp;GS_ZEDT002<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COMPARING&nbsp;ZCODE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ZCODE,&nbsp;ZKNAME,&nbsp;ZGENDER,&nbsp;ZTEL&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_ZEDT001&nbsp;TO&nbsp;GS_STUDENT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;'####'&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;ZFLAG&nbsp;EQ&nbsp;'TRUE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_STUDENT-ZWARN&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.&nbsp;"&nbsp;####&nbsp;##&nbsp;###&nbsp;ZTEL&nbsp;###&nbsp;##.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_STUDENT-ZTEL&nbsp;=&nbsp;'&nbsp;'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;'####'&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_ZEDT002-ZMAJOR&nbsp;NE&nbsp;GS_ZEDT004-ZMAJOR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_STUDENT-ZCHANGE&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_ZSUM-ZGENDER&nbsp;=&nbsp;GS_ZEDT001-ZGENDER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_ZSUM-ZGENDER&nbsp;EQ&nbsp;'M'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ZSUM-ZMSUM&nbsp;=&nbsp;GS_ZEDT004-ZSUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;GS_ZSUM-ZGENDER&nbsp;EQ&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ZSUM-ZFSUM&nbsp;=&nbsp;GS_ZEDT004-ZSUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;or&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COLLECT&nbsp;GS_ZSUM&nbsp;INTO&nbsp;GT_ZSUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_STUDENT&nbsp;TO&nbsp;GT_STUDENT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"MODIFY&nbsp;GT_STUDENT&nbsp;FROM&nbsp;GS_STUDENT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_STUDENT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_ZSUM.<br />
+ENDLOOP.<br />
+<br />
+<br />
+" ##<br />
+ULINE AT /01(71).<br />
+WRITE : /01 '|', 02(10) '####' CENTERED,<br />
+12 '|', 13(10) '##' CENTERED,<br />
+23 '|', 24(15) '####' CENTERED,<br />
+39 '|', 40(20) '####' CENTERED,<br />
+60 '|', 61(10) '##' CENTERED,<br />
+71 '|'.<br />
+ULINE AT /01(71).<br />
+<br />
+LOOP AT GT_STUDENT INTO DATA(line).<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/01&nbsp;'|',&nbsp;02(10)&nbsp;line-ZCODE&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;'|',&nbsp;13(10)&nbsp;line-ZKNAME&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;23&nbsp;'|',&nbsp;24(15)&nbsp;line-ZCHANGE&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;39&nbsp;'|',&nbsp;40(20)&nbsp;line-ZTEL&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;60&nbsp;'|',&nbsp;61(10)&nbsp;line-ZWARN&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;71&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;/01(71).<br />
+ENDLOOP.<br />
+<br />
+<br />
+CLEAR : GS_ZSUM.<br />
+READ TABLE GT_ZSUM WITH KEY ZGENDER = 'M' INTO GS_ZSUM.<br />
+IF SY-SUBRC = 0.<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'######&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;,&nbsp;GS_ZSUM-ZMSUM&nbsp;CURRENCY&nbsp;'KRW'.<br />
+ENDIF.<br />
+<br />
+CLEAR : GS_ZSUM.<br />
+READ TABLE GT_ZSUM WITH KEY ZGENDER = 'F' INTO GS_ZSUM.<br />
+IF SY-SUBRC = 0.<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'######&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;,&nbsp;GS_ZSUM-ZFSUM&nbsp;CURRENCY&nbsp;'KRW'.<br />
+ENDIF.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR01_PRACTICE005</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR01_PRACTICE005</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR01_PRACTICE005<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR01_PRACTICE005.<br />
+<br />
+PARAMETERS: P_ZYEAR LIKE BKPF-GJAHR DEFAULT SY-DATUM+0(4).<br />
+PARAMETERS: P_MONTH LIKE BKPF-MONAT DEFAULT SY-DATUM+4(2).<br />
+<br />
+RANGES: GR_DATE FOR BKPF-MONAT.<br />
+<br />
+DATA: LV_YEAR  TYPE I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MONTH&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_LASTDAY&nbsp;&nbsp;&nbsp;TYPE&nbsp;N&nbsp;LENGTH&nbsp;2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RESULT_DATE&nbsp;TYPE&nbsp;DATS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_FORMAT_DATE&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10.<br />
+<br />
+CLEAR GR_DATE.<br />
+GR_DATE-SIGN = 'I'.<br />
+GR_DATE-OPTION = 'BT'.<br />
+GR_DATE-LOW = P_MONTH.<br />
+APPEND GR_DATE.<br />
+<br />
+LV_YEAR  = P_ZYEAR.<br />
+LV_MONTH = P_MONTH.<br />
+<br />
+CALL FUNCTION 'ZED01_LAST_DAY_OF_MONTHS'<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;I_YEAR&nbsp;&nbsp;=&nbsp;LV_YEAR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;I_MONTH&nbsp;=&nbsp;LV_MONTH<br />
+&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;E_RESULT_DAY&nbsp;=&nbsp;LV_LASTDAY.<br />
+<br />
+GR_DATE-HIGH = LV_LASTDAY.<br />
+APPEND GR_DATE.<br />
+<br />
+CONCATENATE P_ZYEAR P_MONTH LV_LASTDAY INTO LV_RESULT_DATE.<br />
+CONCATENATE LV_RESULT_DATE+0(4) '.' LV_RESULT_DATE+4(2) '.' LV_RESULT_DATE+6(2)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;LV_FORMAT_DATE.<br />
+<br />
+IF GR_DATE-HIGH IS NOT INITIAL.<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;P_ZYEAR,&nbsp;'#',&nbsp;P_MONTH,&nbsp;'##&nbsp;#####',&nbsp;LV_FORMAT_DATE,&nbsp;'###'.<br />
+ELSE.<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'####&nbsp;####.'.<br />
+ENDIF.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

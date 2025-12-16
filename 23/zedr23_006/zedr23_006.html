@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR23_006</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR23_006</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR23_006<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR23_006.<br />
+<br />
+<br />
+TYPES : BEGIN OF T_STUDENT.<br />
+&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt23_001/dictionary-zedt23_001.html">ZEDT23_001</a>.<br />
+&nbsp;&nbsp;&nbsp;TYPES&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;ZGNAME(4)&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;T_STUDENT.<br />
+<br />
+DATA : GS_STUDENT TYPE T_STUDENT.<br />
+DATA : GT_STUDENT TYPE TABLE OF T_STUDENT WITH NON-UNIQUE KEY ZCODE.<br />
+<br />
+GS_STUDENT-ZCODE = 'SSU-01'.<br />
+GS_STUDENT-ZKNAME = '#'.<br />
+GS_STUDENT-ZENAME = 'KANG'.<br />
+GS_STUDENT-ZGENDER = 'M'.<br />
+GS_STUDENT-ZTEL = '01099991111'.<br />
+<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+CLEAR GS_STUDENT.<br />
+<br />
+GS_STUDENT-ZCODE = 'SSU-02'.<br />
+GS_STUDENT-ZKNAME = '#'.<br />
+GS_STUDENT-ZENAME = 'KIMG'.<br />
+GS_STUDENT-ZGENDER = 'M'.<br />
+GS_STUDENT-ZTEL = '01099992222'.<br />
+<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+CLEAR GS_STUDENT.<br />
+<br />
+GS_STUDENT-ZCODE = 'SSU-03'.<br />
+GS_STUDENT-ZKNAME = '#'.<br />
+GS_STUDENT-ZENAME = 'KWON'.<br />
+GS_STUDENT-ZGENDER = 'F'.<br />
+GS_STUDENT-ZTEL = '0109999333'.<br />
+<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+BREAK-POINT.<br />
+GS_STUDENT-ZENAME = 'SONG'.<br />
+GS_STUDENT-ZGENDER = 'M'.<br />
+" MODIFY : WITH NON-UNIQUE KEY # ## ## #.<br />
+" GS_# ## ## ## Record# Itable## ## ##.<br />
+" TRANSPORTING : ZGENDER # ##<br />
+MODIFY TABLE GT_STUDENT FROM GS_STUDENT TRANSPORTING ZGENDER.<br />
+BREAK-POINT.<br />
+<br />
+CLEAR GS_STUDENT.<br />
+<br />
+GS_STUDENT-ZCODE = 'SSU-04'.<br />
+GS_STUDENT-ZKNAME = '#'.<br />
+GS_STUDENT-ZENAME = 'SONG'.<br />
+GS_STUDENT-ZGENDER = 'F'.<br />
+GS_STUDENT-ZTEL = '01099994444'.<br />
+<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+CLEAR GS_STUDENT.<br />
+" LOOP ## SORT##<br />
+BREAK-POINT.<br />
+<br />
+LOOP AT GT_STUDENT INTO GS_STUDENT. "WHERE / FROM 1 TO 3<br />
+&nbsp;&nbsp;IF&nbsp;GS_STUDENT-ZGENDER&nbsp;=&nbsp;'M'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_STUDENT-ZGNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;GS_STUDENT-ZGENDER&nbsp;=&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_STUDENT-ZGNAME&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_STUDENT-ZGNAME&nbsp;=&nbsp;'##?'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;MODIFY&nbsp;GT_STUDENT&nbsp;FROM&nbsp;GS_STUDENT&nbsp;TRANSPORTING&nbsp;ZGNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZCODE&nbsp;=&nbsp;GS_STUDENT-ZCODE.<br />
+&nbsp;&nbsp;"MODIFY&nbsp;GT_STUDENT&nbsp;FROM&nbsp;GS_STUDENT&nbsp;INDEX&nbsp;SY-TABIX.<br />
+&nbsp;&nbsp;BREAK-POINT.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_STUDENT.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+BREAK-POINT.<br />
+" ##<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_STUDENT&nbsp;INTO&nbsp;GS_STUDENT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_STUDENT-ZGENDER&nbsp;=&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;TABLE&nbsp;GT_STUDENT&nbsp;FROM&nbsp;GS_STUDENT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_STUDENT.<br />
+&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+" KEY # #### ##<br />
+" DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT WITH NON-UNIQUE KEY ZGENDER.<br />
+" DELETE TABLE GT_STUDENT WITH TABLE KEY ZGENDER='F'.<br />
+" =&gt; # # ## #, # # #### #### ## ##<br />
+<br />
+" WHERE#### ##<br />
+" DELETE GT_STUDENT WHERE ZGENDER = 'F'.<br />
+" =&gt; LOOP # ## # ##### ##<br />
+<br />
+"Index# ## ##<br />
+" DELETE GT_STUDENT INDEX 2.<br />
+" DELETE GT_STUDENT FROM 2 TO 3.<br />
+" FROM 2<br />
+" TO 2<br />
+<br />
+" SSU-04 ## ####~<br />
+GS_STUDENT-ZCODE = 'SSU-04'.<br />
+GS_STUDENT-ZKNAME = '#'.<br />
+GS_STUDENT-ZENAME = 'SONG'.<br />
+GS_STUDENT-ZGENDER = 'F'.<br />
+GS_STUDENT-ZTEL = '01099994444'.<br />
+<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+APPEND GS_STUDENT TO GT_STUDENT.<br />
+<br />
+CLEAR GS_STUDENT.<br />
+<br />
+SORT GT_STUDENT.<br />
+<br />
+BREAK-POINT.<br />
+<br />
+DELETE ADJACENT DUPLICATES FROM GT_STUDENT. "#### ##<br />
+<br />
+BREAK-POINT.<br />
+<br />
+" ### ### ### Record ##<br />
+"DELETE ADJACENT DUPLICATES FROM GT_STUDENT COMPARING ZCODE.<br />
+<br />
+<br />
+<br />
+"AT FIRST, AT LAST (ENDAT)<br />
+<br />
+LOOP AT GT_STUDENT INTO GS_STUDENT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;GS_STUDENT-ZGNAME&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AT&nbsp;FIRST.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Itable#&nbsp;##&nbsp;###&nbsp;##&nbsp;/&nbsp;##&nbsp;##&nbsp;###(*)&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_STUDENT-ZGNAME&nbsp;=&nbsp;'1st'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_STUDENT&nbsp;FROM&nbsp;GS_STUDENT&nbsp;INDEX&nbsp;SY-TABIX&nbsp;TRANSPORTING&nbsp;ZGNAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_STUDENT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;BREAK-POINT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AT&nbsp;LAST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_STUDENT-ZGNAME&nbsp;=&nbsp;'Last'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_STUDENT&nbsp;FROM&nbsp;GS_STUDENT&nbsp;INDEX&nbsp;SY-TABIX&nbsp;TRANSPORTING&nbsp;ZGNAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDAT.<br />
+ENDLOOP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

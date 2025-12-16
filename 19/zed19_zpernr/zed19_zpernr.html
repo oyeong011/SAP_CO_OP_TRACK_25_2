@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZED19_ZPERNR</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for function ZED19_ZPERNR</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="code">
+FUNCTION ZED19_ZPERNR.<br />
+   </div>
+   <div class="codeComment">
+*"----------------------------------------------------------------------<br />
+*"*"Local Interface:<br />
+*"  IMPORTING<br />
+*"     REFERENCE(I_LOW_CODE) TYPE  C DEFAULT 'SSU-90'<br />
+*"     REFERENCE(I_HIGH_CODE) TYPE  C DEFAULT 'SSU-99'<br />
+*"     REFERENCE(I_COMMIT) TYPE  ABAP_BOOL<br />
+*"  EXPORTING<br />
+*"     REFERENCE(E_CNT_SEL) TYPE  I<br />
+*"     REFERENCE(E_CNT_UPD) TYPE  I<br />
+*"     REFERENCE(E_MESSAGE) TYPE  STRING<br />
+*"  TABLES<br />
+*"      T_ZEDT19_0001 STRUCTURE  ZEDT19_0001<br />
+*"  CHANGING<br />
+*"     REFERENCE(P_ZEDT19_0001) TYPE  ZEDT19_0001<br />
+*"  EXCEPTIONS<br />
+*"      BAD_RANGE<br />
+*"----------------------------------------------------------------------<br />
+<br />
+
+<div class="codeComment">*       <a href ="global-zed19_zpernr.html">Global data declarations</a></div><br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;"---&nbsp;##&nbsp;###/######<br />
+&nbsp;&nbsp;DATA:&nbsp;gs_student&nbsp;TYPE&nbsp;zedt19_0001,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_student&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;zedt19_0001.<br />
+<br />
+&nbsp;&nbsp;"---&nbsp;1)&nbsp;RANGE&nbsp;##&nbsp;(SSU-90&nbsp;~&nbsp;SSU-99)<br />
+&nbsp;&nbsp;RANGES&nbsp;gr_zcode&nbsp;FOR&nbsp;zedt19_0001-zcode.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gr_zcode.<br />
+&nbsp;&nbsp;gr_zcode-sign&nbsp;&nbsp;&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;gr_zcode-option&nbsp;=&nbsp;'BT'.<br />
+&nbsp;&nbsp;gr_zcode-low&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;i_low_code.<br />
+&nbsp;&nbsp;gr_zcode-high&nbsp;&nbsp;&nbsp;=&nbsp;i_high_code.<br />
+&nbsp;&nbsp;APPEND&nbsp;gr_zcode.<br />
+<br />
+&nbsp;&nbsp;"---&nbsp;2)&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt00_001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_student<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zcode&nbsp;IN&nbsp;gr_zcode.<br />
+<br />
+&nbsp;&nbsp;e_cnt_sel&nbsp;=&nbsp;lines(&nbsp;gt_student&nbsp;).<br />
+&nbsp;&nbsp;CLEAR&nbsp;e_cnt_upd.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;e_cnt_sel&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;e_message&nbsp;=&nbsp;'##&nbsp;##&nbsp;####&nbsp;####.'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"---&nbsp;3)&nbsp;ZPERNR&nbsp;10##&nbsp;0##<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_student&nbsp;INTO&nbsp;gs_student.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'CONVERSION_EXIT_ALPHA_INPUT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;&nbsp;input&nbsp;&nbsp;=&nbsp;gs_student-zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;&nbsp;output&nbsp;=&nbsp;gs_student-zpernr.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;gt_student&nbsp;FROM&nbsp;gs_student&nbsp;INDEX&nbsp;sy-tabix.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;gs_student.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;"---&nbsp;4)&nbsp;##&nbsp;###&nbsp;##(##&nbsp;MODIFY)<br />
+&nbsp;&nbsp;MODIFY&nbsp;zedt19_0001&nbsp;FROM&nbsp;TABLE&nbsp;gt_student.<br />
+&nbsp;&nbsp;e_cnt_upd&nbsp;=&nbsp;sy-dbcnt.<br />
+<br />
+&nbsp;&nbsp;"---&nbsp;5)&nbsp;##&nbsp;(##)<br />
+&nbsp;&nbsp;IF&nbsp;i_commit&nbsp;=&nbsp;abap_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COMMIT&nbsp;WORK&nbsp;AND&nbsp;WAIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"---&nbsp;6)&nbsp;###<br />
+&nbsp;&nbsp;e_message&nbsp;=&nbsp;|sel={&nbsp;e_cnt_sel&nbsp;}&nbsp;upd={&nbsp;e_cnt_upd&nbsp;}|.<br />
+<br />
+ENDFUNCTION.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

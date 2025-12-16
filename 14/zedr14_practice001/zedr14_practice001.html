@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR14_PRACTICE001</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR14_PRACTICE001</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR14_PRACTICE001<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR14_PRACTICE001.<br />
+<br />
+"## 1#<br />
+"## ### ## ### ### ##<br />
+DATA : GT_GRADE TYPE TABLE OF ZEDT14_004,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_GRADE&nbsp;TYPE&nbsp;ZEDT14_004.<br />
+<br />
+SELECT * FROM ZEDT14_004 INTO CORRESPONDING FIELDS OF TABLE GT_GRADE.<br />
+<br />
+"ZFLAG ## ##<br />
+LOOP AT GT_GRADE INTO GS_GRADE.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;NEW&nbsp;ZCODE.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"AT&nbsp;NEW&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA(LV_FLAG)&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GS_GRADE-ZGRADE&nbsp;&lt;&gt;&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_FLAG&nbsp;=&nbsp;''.&nbsp;&nbsp;&nbsp;"###&nbsp;##<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;END&nbsp;OF&nbsp;ZCODE.&nbsp;&nbsp;&nbsp;&nbsp;"AT&nbsp;END&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_GRADE-ZFLAG&nbsp;=&nbsp;LV_FLAG.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;GS_GRADE-ZFLAG&nbsp;=&nbsp;LV_FLAG.<br />
+<br />
+&nbsp;&nbsp;MODIFY&nbsp;GT_GRADE&nbsp;FROM&nbsp;GS_GRADE&nbsp;TRANSPORTING&nbsp;ZFLAG<br />
+&nbsp;&nbsp;WHERE&nbsp;ZCODE&nbsp;=&nbsp;GS_GRADE-ZCODE.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_GRADE.<br />
+ENDLOOP.<br />
+<br />
+"ZAMOUNT ## ##<br />
+DATA LV_SUM TYPE ZEDT14_004-ZAMOUNT.    "# ##<br />
+LOOP AT GT_GRADE INTO GS_GRADE.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;LV_AMOUNT&nbsp;TYPE&nbsp;ZEDT00_004-ZAMOUNT.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GS_GRADE-ZSCHOOL&nbsp;=&nbsp;'A'&nbsp;AND&nbsp;GS_GRADE-ZFLAG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_AMOUNT&nbsp;=&nbsp;GS_GRADE-ZSUM&nbsp;*&nbsp;'0.8'.&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;ELSEIF&nbsp;GS_GRADE-ZSCHOOL&nbsp;=&nbsp;'B'&nbsp;AND&nbsp;GS_GRADE-ZFLAG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_AMOUNT&nbsp;=&nbsp;GS_GRADE-ZSUM&nbsp;*&nbsp;'0.9'.&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_AMOUNT&nbsp;=&nbsp;GS_GRADE-ZSUM.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;END&nbsp;OF&nbsp;ZCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_SUM&nbsp;=&nbsp;LV_SUM&nbsp;+&nbsp;LV_AMOUNT.&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;GS_GRADE-ZAMOUNT&nbsp;=&nbsp;LV_AMOUNT.<br />
+<br />
+&nbsp;&nbsp;MODIFY&nbsp;GT_GRADE&nbsp;FROM&nbsp;GS_GRADE&nbsp;INDEX&nbsp;SY-TABIX&nbsp;TRANSPORTING&nbsp;ZAMOUNT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_GRADE.<br />
+ENDLOOP.<br />
+<br />
+"## ##<br />
+SORT GT_GRADE BY ZCODE.     "##<br />
+DELETE ADJACENT DUPLICATES FROM GT_GRADE COMPARING ZCODE.   "## ##<br />
+<br />
+LOOP AT GT_GRADE INTO GS_GRADE.<br />
+&nbsp;&nbsp;"##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;AT&nbsp;FIRST.&nbsp;&nbsp;&nbsp;"AT&nbsp;FIRST&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;/01(50).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/01&nbsp;'|',&nbsp;02(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;'|',&nbsp;13(15)&nbsp;'###'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;28&nbsp;'|',&nbsp;29(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;39&nbsp;'|',&nbsp;40(10)&nbsp;'####'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;/01(50).<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;"##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/01&nbsp;'|',&nbsp;02(10)&nbsp;GS_GRADE-ZCODE&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;'|',&nbsp;13(15)&nbsp;GS_GRADE-ZMNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;28&nbsp;'|',&nbsp;29(10)&nbsp;GS_GRADE-ZFLAG&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;39&nbsp;'|',&nbsp;40(10)&nbsp;GS_GRADE-ZAMOUNT&nbsp;CENTERED&nbsp;CURRENCY&nbsp;'KRW',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50&nbsp;'|'.<br />
+&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;/01(50).<br />
+<br />
+&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;AT&nbsp;LAST.&nbsp;&nbsp;&nbsp;&nbsp;"AT&nbsp;LAST&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/01&nbsp;'|',&nbsp;02(37)&nbsp;'#&nbsp;&nbsp;&nbsp;&nbsp;#'&nbsp;CENTERED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;39&nbsp;'|',&nbsp;40(10)&nbsp;LV_SUM&nbsp;CENTERED&nbsp;CURRENCY&nbsp;'KRW',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE&nbsp;AT&nbsp;/01(50).<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+ENDLOOP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

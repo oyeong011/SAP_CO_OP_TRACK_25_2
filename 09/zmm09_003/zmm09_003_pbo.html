@@ -1,0 +1,397 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM09_003_PBO</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM09_003_PBO</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM09_003_PBO<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;STATUS_0100&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE STATUS_0100 OUTPUT.<br />
+&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'STATUS_0100'.<br />
+&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;'T100'.<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;GET_DATA&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE GET_DATA OUTPUT.<br />
+&nbsp;&nbsp;"####<br />
+<br />
+&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;GF_BUDAT&nbsp;=&nbsp;P_BUDAT.<br />
+<br />
+&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;GF_MJAHR&nbsp;=&nbsp;GF_BUDAT+0(4).<br />
+<br />
+&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;BEDAT<br />
+&nbsp;&nbsp;FROM&nbsp;ZEKKO_09<br />
+&nbsp;&nbsp;INTO&nbsp;GF_BLDAT<br />
+&nbsp;&nbsp;WHERE&nbsp;EBELN&nbsp;=&nbsp;P_EBELNC.<br />
+<br />
+&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;GF_BLART&nbsp;=&nbsp;'WE'.<br />
+<br />
+&nbsp;&nbsp;"######&nbsp;###<br />
+&nbsp;&nbsp;IF&nbsp;G_ONCE&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_ITAB.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;G_ONCE&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;MODIFY_SCREEN&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE MODIFY_SCREEN OUTPUT.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;OK_CODE.<br />
+<br />
+&nbsp;&nbsp;"##&nbsp;####&nbsp;######&nbsp;##&nbsp;####<br />
+&nbsp;&nbsp;DESCRIBE&nbsp;TABLE&nbsp;GT_ITEM&nbsp;LINES&nbsp;TC_ITEMS-LINES.<br />
+<br />
+&nbsp;&nbsp;"########&nbsp;######&nbsp;####&nbsp;####<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ITEM&nbsp;INTO&nbsp;GS_ITEM&nbsp;INDEX&nbsp;TC_ITEMS-CURRENT_LINE.<br />
+<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;STATUS_0200&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE STATUS_0200 OUTPUT.<br />
+&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'STATUS_0200'.<br />
+&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;'T200'.<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;SET_GOODS_LIST&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+"#######<br />
+MODULE SET_GOODS_LIST OUTPUT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CREATE_OBJECT_GOODS.<br />
+&nbsp;&nbsp;PERFORM&nbsp;FIELD_CATALOG.<br />
+&nbsp;&nbsp;PERFORM&nbsp;DELETE_TOOLBAR.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CLASS_EVENT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CALL_ALV.<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;SET_HEADER&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE SET_HEADER OUTPUT.<br />
+&nbsp;&nbsp;MBLNR_200&nbsp;=&nbsp;GS_HEADER_ALV-MBLNR.<br />
+&nbsp;&nbsp;BLART_200&nbsp;=&nbsp;GS_HEADER_ALV-BLART.<br />
+&nbsp;&nbsp;BLDAT_200&nbsp;=&nbsp;GS_HEADER_ALV-BLDAT.<br />
+&nbsp;&nbsp;BUDAT_200&nbsp;=&nbsp;GS_HEADER_ALV-BUDAT.<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;SET_ITEMS&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE SET_ITEMS OUTPUT.<br />
+<br />
+"#### ###<br />
+PERFORM FILL_CANCEL_STATUS.<br />
+<br />
+IF GC_GRID_GOODS_ITEM IS INITIAL.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CREATE_OBJECT_ITEMS.<br />
+&nbsp;&nbsp;PERFORM&nbsp;FIELD_CATALOG_ITEMS.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CLASS_EVENT_ITEMS.<br />
+&nbsp;&nbsp;PERFORM&nbsp;LATOUT_ITEMS.<br />
+<br />
+&nbsp;&nbsp;"####&nbsp;###<br />
+&nbsp;&nbsp;PERFORM&nbsp;FILL_CANCEL_STATUS.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;CALL_ALV_ITEMS.<br />
+ELSE.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_CELL_STYLE.&nbsp;"###&nbsp;##<br />
+&nbsp;&nbsp;GC_GRID_GOODS_ITEM-&gt;REFRESH_TABLE_DISPLAY(&nbsp;).<br />
+ENDIF.<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;CONTROL_BUTTONS&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE CONTROL_BUTTONS OUTPUT.<br />
+&nbsp;&nbsp;"####&nbsp;####&nbsp;(101)&nbsp;-&gt;&nbsp;FI##&nbsp;###&nbsp;##,&nbsp;###&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;"###&nbsp;##&nbsp;(102#&nbsp;###&nbsp;##)&nbsp;-&gt;&nbsp;#&nbsp;##&nbsp;##&nbsp;##,&nbsp;##&nbsp;#&nbsp;###&nbsp;##&nbsp;####<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_CANCEL_EXISTS&nbsp;TYPE&nbsp;ABAP_BOOL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_TMP&nbsp;TYPE&nbsp;ZMSEG09-MBLNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_HEADER_MBLNR&nbsp;TYPE&nbsp;ZMSEG09-MBLNR.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;LV_CANCEL_EXISTS.<br />
+&nbsp;&nbsp;LV_HEADER_MBLNR&nbsp;=&nbsp;GS_HEADER_ALV-MBLNR.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;MBLNR<br />
+&nbsp;&nbsp;FROM&nbsp;ZMSEG09<br />
+&nbsp;&nbsp;INTO&nbsp;LV_TMP<br />
+&nbsp;&nbsp;WHERE&nbsp;LFBNR&nbsp;=&nbsp;LV_HEADER_MBLNR&nbsp;"LFBNR&nbsp;:&nbsp;###&nbsp;####&nbsp;##,&nbsp;##&nbsp;#####&nbsp;####<br />
+&nbsp;&nbsp;AND&nbsp;BWART&nbsp;=&nbsp;'102'.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.&nbsp;"#####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_CANCEL_EXISTS&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"FI&nbsp;##&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-NAME&nbsp;=&nbsp;'BTN_FI'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;###&nbsp;#####&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-NAME&nbsp;=&nbsp;'BTN_REVERSAL'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LV_CANCEL_EXISTS&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;STATUS_0300&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE STATUS_0300 OUTPUT.<br />
+&nbsp;"SET&nbsp;PF-STATUS&nbsp;'STATUS_0300'.<br />
+&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'STATUS_0300_2'.<br />
+&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;'T300'.<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;SET_FI_LIST&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE SET_FI_LIST OUTPUT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SHOW_FI_LIST.<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;STATUS_0400&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE STATUS_0400 OUTPUT.<br />
+&nbsp;"SET&nbsp;PF-STATUS&nbsp;'STATUS_0400'.<br />
+&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;'T0400'.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LS_SEL_MSEG&nbsp;TYPE&nbsp;ZMSEG09,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_SEL_MSEG&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;LS_SEL_MSEG.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;LS_SEL_MSEG,&nbsp;LT_SEL_MSEG.<br />
+<br />
+&nbsp;&nbsp;"###&nbsp;#####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_ITEM_ALV&nbsp;INTO&nbsp;GS_ITEM_ALV&nbsp;WHERE&nbsp;LV_CHECK&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZMSEG09<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;LS_SEL_MSEG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;MBLNR&nbsp;=&nbsp;GS_HEADER_ALV-MBLNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;&nbsp;ZEILE&nbsp;=&nbsp;GS_ITEM_ALV-ZEILE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;LS_SEL_MSEG&nbsp;TO&nbsp;LT_SEL_MSEG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;"[###&nbsp;##&nbsp;##]&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_CANCEL&nbsp;TYPE&nbsp;ABAP_BOOL&nbsp;VALUE&nbsp;ABAP_FALSE.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;LV_CANCEL.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_SEL_MSEG&nbsp;INTO&nbsp;LS_SEL_MSEG&nbsp;WHERE&nbsp;BWART&nbsp;=&nbsp;'101'.&nbsp;"##&nbsp;##&nbsp;####&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LS_SEL_MSEG-ZCANCEL_FLAG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_CANCEL&nbsp;=&nbsp;ABAP_TRUE.&nbsp;"########&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LV_CANCEL&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'S400_REV'.&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;##&nbsp;##&nbsp;&&nbsp;Cancel&nbsp;##<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'STATUS_0400'.&nbsp;"Cancel&nbsp;###<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;PBO_0400&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE PBO_0400 OUTPUT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;PREPARE_FI_DISPLAY.<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_BKPF.<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_BSEG.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SHOW_BSEG_ALV.<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;STATUS_0410&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE STATUS_0410 OUTPUT.<br />
+&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'STATUS_0410'.<br />
+&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;'T410'.<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;PBO_0410&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE PBO_0410 OUTPUT.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LT_TOOLBAR&nbsp;TYPE&nbsp;UI_FUNCTIONS.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GO_CONT_410&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_CONT_410<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;CONTAINER_NAME&nbsp;=&nbsp;'CC_REV_LIST'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_ALV_410<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;I_PARENT&nbsp;=&nbsp;GO_CONT_410.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;BUILD_FCAT_410.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_EXCL_ALL&nbsp;TO&nbsp;LT_TOOLBAR.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;##&nbsp;##&nbsp;##&nbsp;-&gt;&nbsp;#####,&nbsp;###&nbsp;#####&nbsp;####&nbsp;#####&nbsp;####&nbsp;##&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CLASS_EVENT_410.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_ALV_410-&gt;SET_TABLE_FOR_FIRST_DISPLAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_TOOLBAR_EXCLUDING&nbsp;=&nbsp;LT_TOOLBAR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_REV_BELNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCATALOG&nbsp;=&nbsp;GT_FCAT_410.<br />
+<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GO_ALV_410-&gt;REFRESH_TABLE_DISPLAY(&nbsp;).<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDMODULE.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

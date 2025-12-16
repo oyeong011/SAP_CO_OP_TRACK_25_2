@@ -1,0 +1,445 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR17_007</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR17_007</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR17_007<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+report zedr17_007.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;[InternalTable&nbsp;##]<br />
+<br />
+**&nbsp;student,&nbsp;major&nbsp;###&nbsp;###&nbsp;##&nbsp;##&nbsp;#&nbsp;###&nbsp;##<br />
+*data&nbsp;:&nbsp;gs_student&nbsp;type&nbsp;zedt17_001.<br />
+*data&nbsp;:&nbsp;gt_student&nbsp;like&nbsp;table&nbsp;of&nbsp;gs_student.<br />
+*<br />
+*data&nbsp;:&nbsp;begin&nbsp;of&nbsp;gs_major,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zcode&nbsp;&nbsp;like&nbsp;zedt17_001-zcode,&nbsp;"####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpernr&nbsp;like&nbsp;zedt17_001-zpernr,&nbsp;"####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmname&nbsp;like&nbsp;zedt17_004-zmname,&nbsp;"###<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end&nbsp;of&nbsp;gs_major.<br />
+*data&nbsp;:&nbsp;gt_major&nbsp;like&nbsp;table&nbsp;of&nbsp;gs_major&nbsp;with&nbsp;non-unique&nbsp;key&nbsp;zcode.&nbsp;"&nbsp;read&nbsp;###&nbsp;###&nbsp;####&nbsp;#&nbsp;#&nbsp;##.<br />
+   </div>
+   <div class="code">
+" 1. ## READ ## : # ###, syntax ## ## X but read ###<br />
+" 2. TABLE KEY ## : # ###, syntax ## ##<br />
+<br />
+   </div>
+   <div class="codeComment">
+*clear&nbsp;:&nbsp;gs_student,&nbsp;gt_student,&nbsp;gs_major,&nbsp;gt_major.<br />
+*gs_student-zpernr&nbsp;=&nbsp;'0000000001'.<br />
+*gs_student-zcode&nbsp;=&nbsp;'SSU-01'.<br />
+*gs_student-zkname&nbsp;=&nbsp;'###'.<br />
+*gs_student-zename&nbsp;=&nbsp;'DONG'.<br />
+*gs_student-zgender&nbsp;=&nbsp;'M'.<br />
+*gs_student-ztel&nbsp;=&nbsp;'01011112222'.<br />
+*append&nbsp;gs_student&nbsp;to&nbsp;gt_student.<br />
+*<br />
+*gs_major-zpernr&nbsp;=&nbsp;'0000000001'.<br />
+*gs_major-zcode&nbsp;=&nbsp;'SSU-01'.<br />
+*gs_major-zmname&nbsp;=&nbsp;'####'.<br />
+*append&nbsp;gs_major&nbsp;to&nbsp;gt_major.<br />
+*<br />
+*clear&nbsp;:&nbsp;gs_student,&nbsp;gs_major.<br />
+<br />
+*&nbsp;1.&nbsp;##&nbsp;READ&nbsp;##&nbsp;(###)<br />
+**&nbsp;sy-subrc&nbsp;=&nbsp;0&nbsp;"&nbsp;##,&nbsp;#&nbsp;##&nbsp;##<br />
+**&nbsp;sy-subrc&nbsp;=&nbsp;2&nbsp;"&nbsp;#&nbsp;##<br />
+**&nbsp;sy-subrc&nbsp;=&nbsp;4&nbsp;"&nbsp;##&nbsp;#####&nbsp;###&nbsp;###&nbsp;#&nbsp;###&nbsp;##&nbsp;X<br />
+*loop&nbsp;at&nbsp;gt_student&nbsp;into&nbsp;gs_student.<br />
+*&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_major.<br />
+*&nbsp;&nbsp;move-corresponding&nbsp;gs_student&nbsp;to&nbsp;gs_major.&nbsp;"&nbsp;###&nbsp;###&nbsp;#&nbsp;##&nbsp;####&nbsp;##.&nbsp;###&nbsp;##&nbsp;##(##&nbsp;##&nbsp;X)<br />
+*&nbsp;&nbsp;read&nbsp;table&nbsp;gt_major&nbsp;from&nbsp;gs_major&nbsp;into&nbsp;gs_major.&nbsp;"&nbsp;####&nbsp;##&nbsp;#&nbsp;#&nbsp;####&nbsp;###&nbsp;##&nbsp;###&nbsp;###&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;"&nbsp;##&nbsp;read&nbsp;##&nbsp;###&nbsp;####&nbsp;zmname&nbsp;###&nbsp;#####&nbsp;###.<br />
+*<br />
+*&nbsp;&nbsp;if&nbsp;sy-subrc&nbsp;=&nbsp;0.&nbsp;"&nbsp;#&nbsp;###&nbsp;##&nbsp;(##&nbsp;#&nbsp;###&nbsp;2,&nbsp;###&nbsp;###&nbsp;4)<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;loop&nbsp;#&nbsp;##&nbsp;###&nbsp;##&nbsp;##&nbsp;2##&nbsp;######&nbsp;####&nbsp;#&nbsp;##&nbsp;##&nbsp;##&nbsp;-&gt;&nbsp;####&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gs_student-zcode,&nbsp;gs_student-zkname,&nbsp;gs_student-zename.<br />
+*&nbsp;&nbsp;else.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'####&nbsp;####&nbsp;#####.'.<br />
+*&nbsp;&nbsp;endif.<br />
+*endloop.<br />
+<br />
+*&nbsp;2.&nbsp;TABLE&nbsp;KEY&nbsp;##&nbsp;(###)<br />
+**&nbsp;sy-subrc&nbsp;=&nbsp;0&nbsp;"&nbsp;##<br />
+**&nbsp;sy-subrc&nbsp;=&nbsp;4&nbsp;"&nbsp;##<br />
+*gs_student-zpernr&nbsp;=&nbsp;'0000000002'.<br />
+*gs_student-zcode&nbsp;=&nbsp;'SSU-02'.<br />
+*gs_student-zkname&nbsp;=&nbsp;'###'.<br />
+*gs_student-zename&nbsp;=&nbsp;'LEE'.<br />
+*gs_student-zgender&nbsp;=&nbsp;'M'.<br />
+*gs_student-ztel&nbsp;=&nbsp;'01022223333'.<br />
+*append&nbsp;gs_student&nbsp;to&nbsp;gt_student.<br />
+*<br />
+*gs_major-zpernr&nbsp;=&nbsp;'0000000002'.<br />
+*gs_major-zcode&nbsp;=&nbsp;'SSU-02'.<br />
+*gs_major-zmname&nbsp;=&nbsp;'#####'.<br />
+*append&nbsp;gs_major&nbsp;to&nbsp;gt_major.<br />
+*<br />
+*clear&nbsp;:&nbsp;gs_student,&nbsp;gs_major.<br />
+*<br />
+*gs_student-zpernr&nbsp;=&nbsp;'0000000003'.<br />
+*gs_student-zcode&nbsp;=&nbsp;'SSU-03'.<br />
+*gs_student-zkname&nbsp;=&nbsp;'##'.<br />
+*gs_student-zename&nbsp;=&nbsp;'BIN'.<br />
+*gs_student-zgender&nbsp;=&nbsp;'M'.<br />
+*gs_student-ztel&nbsp;=&nbsp;'01033334444'.<br />
+*append&nbsp;gs_student&nbsp;to&nbsp;gt_student.<br />
+*<br />
+*gs_major-zpernr&nbsp;=&nbsp;'0000000003'.<br />
+*gs_major-zcode&nbsp;=&nbsp;'SSU-03'.<br />
+*gs_major-zmname&nbsp;=&nbsp;'######'.<br />
+*append&nbsp;gs_major&nbsp;to&nbsp;gt_major.<br />
+*<br />
+*clear&nbsp;:&nbsp;gs_student,&nbsp;gs_major.<br />
+*<br />
+*gs_student-zpernr&nbsp;=&nbsp;'0000000004'.<br />
+*gs_student-zcode&nbsp;=&nbsp;'SSU-04'.<br />
+*gs_student-zkname&nbsp;=&nbsp;'##'.<br />
+*gs_student-zename&nbsp;=&nbsp;'JENNY'.<br />
+*gs_student-zgender&nbsp;=&nbsp;'F'.<br />
+*gs_student-ztel&nbsp;=&nbsp;'01044445555'.<br />
+*append&nbsp;gs_student&nbsp;to&nbsp;gt_student.<br />
+*<br />
+*gs_major-zpernr&nbsp;=&nbsp;'0000000004'.<br />
+*gs_major-zcode&nbsp;=&nbsp;'SSU-04'.<br />
+*gs_major-zmname&nbsp;=&nbsp;'####'.<br />
+*append&nbsp;gs_major&nbsp;to&nbsp;gt_major.<br />
+*<br />
+*clear&nbsp;:&nbsp;gs_student,&nbsp;gs_major.<br />
+*<br />
+*gs_student-zpernr&nbsp;=&nbsp;'0000000005'.<br />
+*gs_student-zcode&nbsp;=&nbsp;'SSU-05'.<br />
+*gs_student-zkname&nbsp;=&nbsp;'##'.<br />
+*gs_student-zename&nbsp;=&nbsp;'KOOK'.<br />
+*gs_student-zgender&nbsp;=&nbsp;'M'.<br />
+*gs_student-ztel&nbsp;=&nbsp;'01055556666'.<br />
+*append&nbsp;gs_student&nbsp;to&nbsp;gt_student.<br />
+*<br />
+*gs_major-zpernr&nbsp;=&nbsp;'0000000005'.<br />
+*gs_major-zcode&nbsp;=&nbsp;'SSU-05'.<br />
+*gs_major-zmname&nbsp;=&nbsp;'#####'.<br />
+*append&nbsp;gs_major&nbsp;to&nbsp;gt_major.<br />
+*<br />
+*clear&nbsp;:&nbsp;gs_student,&nbsp;gs_major.<br />
+<br />
+*loop&nbsp;at&nbsp;gt_student&nbsp;into&nbsp;gs_student.<br />
+*&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_major.<br />
+*&nbsp;&nbsp;read&nbsp;table&nbsp;gt_major&nbsp;with&nbsp;table&nbsp;key&nbsp;zcode&nbsp;=&nbsp;gs_student-zcode&nbsp;"&nbsp;######&nbsp;###&nbsp;##&nbsp;###&nbsp;pk##&nbsp;##&nbsp;####&nbsp;read<br />
+*&nbsp;&nbsp;into&nbsp;gs_major.<br />
+*<br />
+*&nbsp;&nbsp;if&nbsp;sy-subrc&nbsp;=&nbsp;0.&nbsp;"&nbsp;###<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gs_student-zcode,&nbsp;gs_student-zkname,&nbsp;gs_major-zmname.<br />
+*&nbsp;&nbsp;else.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'####&nbsp;####&nbsp;#####.'.<br />
+*&nbsp;&nbsp;endif.<br />
+*endloop.<br />
+<br />
+*&nbsp;3.&nbsp;WORK&nbsp;AREA&nbsp;##<br />
+**&nbsp;3-1.&nbsp;##&nbsp;WORK&nbsp;AREA&nbsp;##<br />
+*loop&nbsp;at&nbsp;gt_student&nbsp;into&nbsp;gs_student.<br />
+*&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_major.<br />
+*&nbsp;&nbsp;read&nbsp;table&nbsp;gt_major&nbsp;with&nbsp;key&nbsp;zcode&nbsp;=&nbsp;gs_student-zcode&nbsp;"###&nbsp;##&nbsp;#&nbsp;###&nbsp;read<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpernr&nbsp;=&nbsp;gs_student-zpernr&nbsp;"&nbsp;###&nbsp;#&nbsp;##&nbsp;2#&nbsp;###&nbsp;##&nbsp;,&nbsp;##<br />
+*&nbsp;&nbsp;into&nbsp;gs_major.<br />
+*&nbsp;&nbsp;if&nbsp;sy-subrc&nbsp;=&nbsp;0.&nbsp;"&nbsp;###<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gs_student-zcode,&nbsp;gs_student-zkname,&nbsp;gs_major-zmname.<br />
+*&nbsp;&nbsp;else.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'####&nbsp;####&nbsp;#####.'.<br />
+*&nbsp;&nbsp;endif.<br />
+*endloop.<br />
+<br />
+**&nbsp;3-2.&nbsp;COMPARING&nbsp;##<br />
+**&nbsp;read&nbsp;##&nbsp;##&nbsp;###&nbsp;##&nbsp;##&nbsp;####&nbsp;work&nbsp;area#&nbsp;####&nbsp;##<br />
+*loop&nbsp;at&nbsp;gt_student&nbsp;into&nbsp;gs_student.<br />
+*&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_major.<br />
+*&nbsp;&nbsp;move-corresponding&nbsp;gs_student&nbsp;to&nbsp;gs_major.&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;##&nbsp;####&nbsp;###&nbsp;##<br />
+*<br />
+*&nbsp;&nbsp;read&nbsp;table&nbsp;gt_major&nbsp;with&nbsp;key&nbsp;zcode&nbsp;=&nbsp;gs_student-zcode&nbsp;into&nbsp;gs_major.&nbsp;"&nbsp;####&nbsp;zcode&nbsp;###&nbsp;###&nbsp;#######&nbsp;#&nbsp;##<br />
+*&nbsp;&nbsp;"comparing&nbsp;zcode.&nbsp;"&nbsp;####&nbsp;#######&nbsp;zcode&nbsp;##&nbsp;#&nbsp;##<br />
+*<br />
+**&nbsp;comparing#&nbsp;###&nbsp;zcode&nbsp;##&nbsp;##&nbsp;###&nbsp;sy-subc=0#&nbsp;##&nbsp;###&nbsp;###&nbsp;####&nbsp;###&nbsp;###,<br />
+**&nbsp;##&nbsp;comparing##&nbsp;#####&nbsp;#&nbsp;##<br />
+*<br />
+*&nbsp;&nbsp;if&nbsp;sy-subrc&nbsp;=&nbsp;0.&nbsp;"&nbsp;####&nbsp;#&nbsp;###&nbsp;##&nbsp;(##)<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gs_student-zcode,&nbsp;gs_student-zkname,&nbsp;gs_major-zmname.<br />
+*&nbsp;&nbsp;else.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'####&nbsp;####&nbsp;#####.'.<br />
+*&nbsp;&nbsp;endif.<br />
+*endloop.<br />
+<br />
+**&nbsp;3-3.&nbsp;TRANSPORTING&nbsp;##<br />
+**&nbsp;read#&nbsp;###&nbsp;##&nbsp;####&nbsp;##<br />
+   </div>
+   <div class="code">
+data : gs_student type zedt17_001.<br />
+data : gt_student like table of gs_student.<br />
+<br />
+data : begin of gs_major,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zcode&nbsp;&nbsp;like&nbsp;zedt17_001-zcode,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpernr&nbsp;like&nbsp;zedt17_001-zpernr,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zkname&nbsp;like&nbsp;zedt17_001-zkname,&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmname&nbsp;like&nbsp;zedt17_004-zmname,&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end&nbsp;of&nbsp;gs_major.<br />
+data : gt_major like table of gs_major.<br />
+<br />
+clear : gs_student, gt_student, gs_major, gt_major.<br />
+gs_student-zpernr = '0000000001'.<br />
+gs_student-zcode = 'SSU-01'.<br />
+gs_student-zename = 'DONG'.<br />
+gs_student-zgender = 'M'.<br />
+gs_student-ztel = '01011112222'.<br />
+append gs_student to gt_student.<br />
+<br />
+gs_major-zpernr = '0000000001'.<br />
+gs_major-zcode = 'SSU-01'.<br />
+gs_major-zkname = '###'.<br />
+gs_major-zmname = '####'.<br />
+append gs_major to gt_major.<br />
+<br />
+clear : gs_student, gs_major.<br />
+<br />
+gs_student-zpernr = '0000000002'.<br />
+gs_student-zcode = 'SSU-02'.<br />
+gs_student-zename = 'LEE'.<br />
+gs_student-zgender = 'M'.<br />
+gs_student-ztel = '01022223333'.<br />
+append gs_student to gt_student.<br />
+<br />
+gs_major-zpernr = '0000000002'.<br />
+gs_major-zcode = 'SSU-02'.<br />
+gs_major-zkname = '###'.<br />
+gs_major-zmname = '#####'.<br />
+append gs_major to gt_major.<br />
+<br />
+clear : gs_student, gs_major.<br />
+<br />
+gs_student-zpernr = '0000000003'.<br />
+gs_student-zcode = 'SSU-03'.<br />
+gs_student-zename = 'BIN'.<br />
+gs_student-zgender = 'M'.<br />
+gs_student-ztel = '01033334444'.<br />
+append gs_student to gt_student.<br />
+<br />
+gs_major-zpernr = '0000000003'.<br />
+gs_major-zcode = 'SSU-03'.<br />
+gs_major-zkname = '##'.<br />
+gs_major-zmname = '######'.<br />
+append gs_major to gt_major.<br />
+<br />
+clear : gs_student, gs_major.<br />
+<br />
+gs_student-zpernr = '0000000004'.<br />
+gs_student-zcode = 'SSU-04'.<br />
+gs_student-zename = 'JENNY'.<br />
+gs_student-zgender = 'F'.<br />
+gs_student-ztel = '01044445555'.<br />
+append gs_student to gt_student.<br />
+<br />
+gs_major-zpernr = '0000000004'.<br />
+gs_major-zcode = 'SSU-04'.<br />
+gs_major-zkname = '##'.<br />
+gs_major-zmname = '####'.<br />
+append gs_major to gt_major.<br />
+<br />
+clear : gs_student, gs_major.<br />
+<br />
+gs_student-zpernr = '0000000005'.<br />
+gs_student-zcode = 'SSU-05'.<br />
+gs_student-zename = 'KOOK'.<br />
+gs_student-zgender = 'M'.<br />
+gs_student-ztel = '01055556666'.<br />
+append gs_student to gt_student.<br />
+<br />
+gs_major-zpernr = '0000000005'.<br />
+gs_major-zcode = 'SSU-05'.<br />
+gs_major-zkname = '##'.<br />
+gs_major-zmname = '#####'.<br />
+append gs_major to gt_major.<br />
+<br />
+clear : gs_student, gs_major.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*loop&nbsp;at&nbsp;gt_student&nbsp;into&nbsp;gs_student.<br />
+*&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_major.<br />
+*&nbsp;&nbsp;move-corresponding&nbsp;gs_student&nbsp;to&nbsp;gs_major.<br />
+*<br />
+**&nbsp;gt_major##&nbsp;gs_student#&nbsp;zcode&nbsp;###&nbsp;###&nbsp;##&nbsp;##,<br />
+**&nbsp;##&nbsp;##&nbsp;zmname&nbsp;###&nbsp;gs_major&nbsp;##&nbsp;####&nbsp;##.<br />
+**&nbsp;TRANSPORTING&nbsp;###&nbsp;READ&nbsp;TABLE#&nbsp;##&nbsp;##&nbsp;###&nbsp;##&nbsp;####&nbsp;###&nbsp;#####<br />
+**&nbsp;###&nbsp;#&nbsp;##.&nbsp;gt_major#&nbsp;zmname&nbsp;##&nbsp;##&nbsp;gs_major#&nbsp;####<br />
+**&nbsp;##&nbsp;##(ex.&nbsp;zkname)#&nbsp;####&nbsp;X<br />
+*&nbsp;&nbsp;read&nbsp;table&nbsp;gt_major&nbsp;with&nbsp;key&nbsp;zcode&nbsp;=&nbsp;gs_student-zcode&nbsp;into&nbsp;gs_major<br />
+*&nbsp;&nbsp;transporting&nbsp;zmname.<br />
+*<br />
+*&nbsp;&nbsp;if&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gs_student-zkname&nbsp;=&nbsp;gs_major-zkname.&nbsp;"&nbsp;gs_major##&nbsp;zmname#&nbsp;######&nbsp;zkname#&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gs_student-zcode,&nbsp;gs_student-zkname,&nbsp;gs_major-zmname.<br />
+*&nbsp;&nbsp;else.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'####&nbsp;####&nbsp;#####.'.<br />
+*&nbsp;&nbsp;endif.<br />
+*endloop.<br />
+<br />
+<br />
+*&nbsp;4.&nbsp;INDEX&nbsp;##&nbsp;(##!&nbsp;##&nbsp;##&nbsp;#)<br />
+*sort&nbsp;gt_major.<br />
+*loop&nbsp;at&nbsp;gt_student&nbsp;into&nbsp;gs_student.<br />
+*&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_major.<br />
+*&nbsp;&nbsp;move-corresponding&nbsp;gs_student&nbsp;to&nbsp;gs_major.<br />
+*<br />
+*&nbsp;&nbsp;read&nbsp;table&nbsp;gt_major&nbsp;into&nbsp;gs_major&nbsp;index&nbsp;sy-tabix.<br />
+*&nbsp;&nbsp;gs_student-zkname&nbsp;=&nbsp;gs_major-zkname.<br />
+*<br />
+*&nbsp;&nbsp;if&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gs_student-zcode,&nbsp;gs_student-zkname,&nbsp;gs_major-zmname.<br />
+*&nbsp;&nbsp;else.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'####&nbsp;####&nbsp;#####.'.<br />
+*&nbsp;&nbsp;endif.<br />
+*endloop.<br />
+<br />
+*&nbsp;5.&nbsp;READ&nbsp;BINARY&nbsp;SEARCH<br />
+**&nbsp;loop&nbsp;###&nbsp;#&nbsp;####&nbsp;#&nbsp;#,&nbsp;##&nbsp;##&nbsp;###&nbsp;##&nbsp;###&nbsp;memory&nbsp;dump&nbsp;##<br />
+**&nbsp;binary&nbsp;search&nbsp;##&nbsp;full&nbsp;scan&nbsp;##&nbsp;##<br />
+*sort&nbsp;gt_student&nbsp;by&nbsp;zcode.<br />
+*sort&nbsp;gt_major&nbsp;by&nbsp;zcode.<br />
+*<br />
+*loop&nbsp;at&nbsp;gt_student&nbsp;into&nbsp;gs_student.<br />
+*&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_major.<br />
+*&nbsp;&nbsp;move-corresponding&nbsp;gs_student&nbsp;to&nbsp;gs_major.<br />
+*<br />
+*&nbsp;&nbsp;read&nbsp;table&nbsp;gt_major&nbsp;with&nbsp;key&nbsp;zcode&nbsp;=&nbsp;gs_student-zcode&nbsp;into&nbsp;gs_major&nbsp;binary&nbsp;search.<br />
+*&nbsp;&nbsp;gs_student-zkname&nbsp;=&nbsp;gs_major-zkname.<br />
+*<br />
+*&nbsp;&nbsp;if&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gs_student-zcode,&nbsp;gs_student-zkname,&nbsp;gs_major-zmname.<br />
+*&nbsp;&nbsp;else.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'####&nbsp;####&nbsp;#####.'.<br />
+*&nbsp;&nbsp;endif.<br />
+*endloop.<br />
+<br />
+************************************<br />
+<br />
+*&nbsp;[InternalTable&nbsp;##]<br />
+<br />
+*&nbsp;1.&nbsp;DO&nbsp;~&nbsp;ENDDO<br />
+*data&nbsp;:&nbsp;lv_num&nbsp;type&nbsp;i.<br />
+*data&nbsp;:&nbsp;lv_sum&nbsp;type&nbsp;i.<br />
+*lv_num&nbsp;=&nbsp;5.<br />
+<br />
+*do&nbsp;lv_num&nbsp;times.<br />
+**&nbsp;&nbsp;add&nbsp;sy-index&nbsp;to&nbsp;lv_sum.<br />
+*&nbsp;&nbsp;lv_sum&nbsp;=&nbsp;lv_sum&nbsp;+&nbsp;sy-index.<br />
+*&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;sy-index.<br />
+*enddo.<br />
+*write&nbsp;:&nbsp;/&nbsp;'index##:&nbsp;',&nbsp;lv_sum.<br />
+<br />
+*do&nbsp;lv_num&nbsp;times.<br />
+*&nbsp;&nbsp;if&nbsp;sy-index&nbsp;=&nbsp;'3'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;exit.&nbsp;"&nbsp;break&nbsp;##<br />
+*&nbsp;&nbsp;endif.<br />
+*&nbsp;&nbsp;add&nbsp;sy-index&nbsp;to&nbsp;lv_sum.<br />
+*&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;sy-index.<br />
+*&nbsp;enddo.<br />
+*&nbsp;write&nbsp;:&nbsp;/&nbsp;'index##:&nbsp;',&nbsp;lv_sum.<br />
+<br />
+*do&nbsp;lv_num&nbsp;times.<br />
+*&nbsp;&nbsp;if&nbsp;sy-index&nbsp;=&nbsp;'3'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;continue.&nbsp;"&nbsp;continue<br />
+*&nbsp;&nbsp;endif.<br />
+*&nbsp;&nbsp;add&nbsp;sy-index&nbsp;to&nbsp;lv_sum.<br />
+*&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;sy-index.<br />
+*&nbsp;enddo.<br />
+*&nbsp;write&nbsp;:&nbsp;/&nbsp;'index##:&nbsp;',&nbsp;lv_sum.<br />
+<br />
+*do&nbsp;lv_num&nbsp;times.<br />
+*&nbsp;&nbsp;check&nbsp;sy-index&nbsp;=&nbsp;'3'.&nbsp;"&nbsp;check##&nbsp;##&nbsp;##&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;add&nbsp;sy-index&nbsp;to&nbsp;lv_sum.<br />
+*&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;sy-index.<br />
+*&nbsp;enddo.<br />
+*&nbsp;write&nbsp;:&nbsp;/&nbsp;'index##:&nbsp;',&nbsp;lv_sum.<br />
+<br />
+*&nbsp;2.&nbsp;WHILE&nbsp;~&nbsp;DO&nbsp;WHILE<br />
+   </div>
+   <div class="code">
+data : gv_num type i.<br />
+data : gv_check type c.<br />
+<br />
+gv_num = 5.<br />
+<br />
+while gv_num = 5.<br />
+&nbsp;&nbsp;gv_check&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;add&nbsp;1&nbsp;to&nbsp;gv_num.<br />
+endwhile.<br />
+<br />
+if gv_check = 'X'.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'#######'.<br />
+endif.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

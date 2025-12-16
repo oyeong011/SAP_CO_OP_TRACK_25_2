@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM21_001_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM21_001_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM21_001_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+TABLES :  ZLFA1_21, ZLFB1_21,ZLFM1_21.<br />
+<br />
+"## ### ## ######<br />
+DATA : GS_LFA1 LIKE ZLFA1_21.<br />
+DATA : GT_LFA1 LIKE TABLE OF GS_LFA1.<br />
+<br />
+"#### ### ## ### ###<br />
+<br />
+DATA : GS_LFB1 LIKE ZLFB1_21.<br />
+DATA : GT_LFB1 LIKE TABLE OF GS_LFB1.<br />
+<br />
+<br />
+"#### ### ## ### ###<br />
+<br />
+DATA : GS_LFM1 LIKE ZLFM1_21.<br />
+DATA : GT_LFM1 LIKE TABLE OF GS_LFM1.<br />
+<br />
+<br />
+<br />
+"ALV ## ##<br />
+DATA : GS_FC TYPE LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FC&nbsp;TYPE&nbsp;LVC_T_FCAT.<br />
+<br />
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.<br />
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+"ALV_SORT ## ##<br />
+DATA : GS_SORT TYPE LVC_S_SORT.<br />
+DATA : GT_SORT TYPE LVC_T_SORT.<br />
+<br />
+"EVENT ## ##<br />
+DATA : LS_MODI TYPE LVC_S_MODI.<br />
+DATA : GO_EVENT TYPE REF TO EVENT.<br />
+<br />
+" VARIANT ## ##<br />
+DATA : GS_VARIANT TYPE DISVARIANT.<br />
+<br />
+"OK CODE<br />
+DATA : OK_CODE TYPE SY-UCOMM.<br />
+<br />
+"## ### ### ## ### ##<br />
+DATA : GV_LIFNR LIKE ZLFA1_21-LIFNR. "#####<br />
+DATA : GV_NAME1 LIKE ZLFA1_21-NAME1. "####<br />
+DATA : GV_LAND1 LIKE ZLFA1_21-LAND1. "###<br />
+DATA : GV_STRAS LIKE ZLFA1_21-STRAS. "##<br />
+DATA : GV_KTOKK LIKE ZLFA1_21-KTOKK. "### ##<br />
+DATA : GV_STCD1 LIKE ZLFA1_21-STCD1. "####<br />
+DATA : GV_STCD2 LIKE ZLFA1_21-STCD2. "#####<br />
+<br />
+"## ## ### ### ## ### ##<br />
+DATA : GV_BUKRS LIKE ZLFB1_21-BUKRS. "####<br />
+DATA : GV_LOEVM LIKE ZLFB1_21-LOEVM. "#####<br />
+DATA : GV_AKONT LIKE ZLFB1_21-AKONT. "##<br />
+DATA : GV_ZTERM LIKE ZLFB1_21-ZTERM. "####<br />
+<br />
+"####### ### ### ##<br />
+DATA : GV_EKORG LIKE ZLFM1_21-EKORG. "####<br />
+DATA : GV_EKGRP LIKE ZLFM1_21-EKGRP. "####<br />
+DATA : GV_WAERS LIKE ZLFM1_21-WAERS. "##<br />
+DATA : GV_MWSKZ LIKE ZLFM1_21-MWSKZ. "####<br />
+<br />
+<br />
+"### ###<br />
+DATA : BEGIN OF GS_SEARCH,<br />
+&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;ZLFA1_21-LIFNR,&nbsp;"#####<br />
+&nbsp;&nbsp;NAME1&nbsp;TYPE&nbsp;ZLFA1_21-NAME1,&nbsp;"####<br />
+&nbsp;&nbsp;BUKRS&nbsp;TYPE&nbsp;ZLFB1_21-BUKRS,&nbsp;"####<br />
+&nbsp;&nbsp;STCD2&nbsp;TYPE&nbsp;ZLFA1_21-STCD2,&nbsp;"#####<br />
+&nbsp;&nbsp;LAND1&nbsp;TYPE&nbsp;ZLFA1_21-LAND1,&nbsp;"###<br />
+&nbsp;&nbsp;STRAS&nbsp;TYPE&nbsp;ZLFA1_21-STRAS,&nbsp;"##<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_SEARCH.<br />
+<br />
+<br />
+DATA : GV_MODE TYPE C. "## ##<br />
+DATA : GT_SEARCH LIKE TABLE OF GS_SEARCH.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR19_PRACTICE002</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR19_PRACTICE002</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR19_PRACTICE002<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;ZEDT19_0001&nbsp;/&nbsp;0002&nbsp;/&nbsp;0004&nbsp;#&nbsp;####<br />
+*&&nbsp;&nbsp;####&nbsp;/&nbsp;####&nbsp;/&nbsp;#·#&nbsp;###&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR19_PRACTICE002.<br />
+<br />
+CONSTANTS: c_rate TYPE i VALUE 100.   "## ##<br />
+<br />
+"--------------------------------------------------------------------"<br />
+" ### ## ##<br />
+"--------------------------------------------------------------------"<br />
+TYPES: BEGIN OF ty_result,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zcode&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_0001-zcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zname&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_0001-zkname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_stop&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10,&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_major&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10,&nbsp;&nbsp;&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_tel&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;20,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ty_result.<br />
+<br />
+" ### ## ##<br />
+TYPES: BEGIN OF ty_sum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgender&nbsp;TYPE&nbsp;zedt19_0001-zgender,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount&nbsp;&nbsp;TYPE&nbsp;zedt19_004-zsum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ty_sum.<br />
+<br />
+" ## ## ### / #####<br />
+DATA: gt_sum TYPE SORTED TABLE OF ty_sum WITH UNIQUE KEY zgender,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_sum&nbsp;TYPE&nbsp;ty_sum.<br />
+<br />
+" ### ## ## ###<br />
+DATA: gt_result TYPE STANDARD TABLE OF ty_result WITH DEFAULT KEY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_result&nbsp;TYPE&nbsp;ty_result.<br />
+<br />
+" ## ### ##<br />
+DATA: lv_tel    TYPE c LENGTH 20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_female&nbsp;TYPE&nbsp;zedt19_004-zsum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_major&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_stop&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_male&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt19_004-zsum.<br />
+<br />
+" ## ### ### ### ### ###<br />
+DATA: gt_zedt001 TYPE STANDARD TABLE OF zedt19_0001 WITH DEFAULT KEY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_zedt002&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;zedt19_002&nbsp;&nbsp;WITH&nbsp;DEFAULT&nbsp;KEY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_zedt004&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;zedt19_004&nbsp;&nbsp;WITH&nbsp;DEFAULT&nbsp;KEY.<br />
+<br />
+DATA: gs_zedt001 TYPE zedt19_0001,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt002&nbsp;TYPE&nbsp;zedt19_002,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt004&nbsp;TYPE&nbsp;zedt19_004.<br />
+<br />
+"--------------------------------------------------------------------"<br />
+" 1. ### ##<br />
+"--------------------------------------------------------------------"<br />
+" ## ####<br />
+SELECT * FROM zedt19_0001 INTO CORRESPONDING FIELDS OF TABLE gt_zedt001.<br />
+" ## ##<br />
+SELECT * FROM zedt19_002  INTO CORRESPONDING FIELDS OF TABLE gt_zedt002.<br />
+" ##/## ##<br />
+SELECT * FROM zedt19_004  INTO CORRESPONDING FIELDS OF TABLE gt_zedt004.<br />
+<br />
+"--------------------------------------------------------------------"<br />
+" 2. ### ## # ## ### ###<br />
+"--------------------------------------------------------------------"<br />
+SORT gt_zedt001 BY zcode.<br />
+SORT gt_zedt002 BY zcode.<br />
+SORT gt_zedt004 BY zcode zgrade DESCENDING.<br />
+<br />
+" ## #### # ## ## ##(## ## ##)# ##<br />
+DELETE ADJACENT DUPLICATES FROM gt_zedt004 COMPARING zcode.<br />
+<br />
+CLEAR: gs_zedt001, gs_result.<br />
+<br />
+"--------------------------------------------------------------------"<br />
+" 3. ### ##/####/####/#### ##<br />
+"--------------------------------------------------------------------"<br />
+LOOP AT gt_zedt004 INTO gs_zedt004.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gs_zedt001,&nbsp;gs_zedt002,&nbsp;lv_major,&nbsp;lv_tel,&nbsp;lv_stop.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;gs_zedt004-zgrade&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;####&nbsp;/&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_zedt001&nbsp;INTO&nbsp;gs_zedt001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;zcode&nbsp;=&nbsp;gs_zedt004-zcode.<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_zedt002&nbsp;INTO&nbsp;gs_zedt002<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;zcode&nbsp;=&nbsp;gs_zedt004-zcode.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;(##&nbsp;##&nbsp;###&nbsp;####&nbsp;###&nbsp;##&nbsp;##)<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt002-zmajor&nbsp;IS&nbsp;NOT&nbsp;INITIAL&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zedt002-zmajor&nbsp;&lt;&gt;&nbsp;gs_zedt004-zmajor.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_major&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;D&nbsp;##&nbsp;F&nbsp;##&nbsp;####&nbsp;+&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;gs_zedt004-zgrade&nbsp;=&nbsp;'D'&nbsp;OR&nbsp;gs_zedt004-zgrade&nbsp;=&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_stop&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_tel&nbsp;&nbsp;=&nbsp;gs_zedt001-ztel.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_stop&nbsp;=&nbsp;'&nbsp;'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_tel&nbsp;&nbsp;=&nbsp;'&nbsp;'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_result.<br />
+&nbsp;&nbsp;gs_result-zcode&nbsp;&nbsp;&nbsp;=&nbsp;gs_zedt001-zcode.<br />
+&nbsp;&nbsp;gs_result-zname&nbsp;&nbsp;&nbsp;=&nbsp;gs_zedt001-zkname.<br />
+&nbsp;&nbsp;gs_result-lv_stop&nbsp;=&nbsp;lv_stop.<br />
+&nbsp;&nbsp;gs_result-lv_major&nbsp;=&nbsp;lv_major.<br />
+&nbsp;&nbsp;gs_result-lv_tel&nbsp;&nbsp;=&nbsp;lv_tel.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_result&nbsp;TO&nbsp;gt_result.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_sum.<br />
+&nbsp;&nbsp;gs_sum-zgender&nbsp;=&nbsp;gs_zedt001-zgender.<br />
+&nbsp;&nbsp;gs_sum-amount&nbsp;&nbsp;=&nbsp;gs_zedt004-zsum.<br />
+&nbsp;&nbsp;COLLECT&nbsp;gs_sum&nbsp;INTO&nbsp;gt_sum.<br />
+<br />
+ENDLOOP.<br />
+<br />
+"--------------------------------------------------------------------"<br />
+" 4. #/# ## ##<br />
+"--------------------------------------------------------------------"<br />
+CLEAR: lv_male, lv_female, gs_sum.<br />
+<br />
+READ TABLE gt_sum INTO gs_sum WITH KEY zgender = 'M'.<br />
+IF sy-subrc = 0.<br />
+&nbsp;&nbsp;lv_male&nbsp;=&nbsp;gs_sum-amount&nbsp;*&nbsp;c_rate.<br />
+ENDIF.<br />
+<br />
+CLEAR gs_sum.<br />
+READ TABLE gt_sum INTO gs_sum WITH KEY zgender = 'F'.<br />
+IF sy-subrc = 0.<br />
+&nbsp;&nbsp;lv_female&nbsp;=&nbsp;gs_sum-amount&nbsp;*&nbsp;c_rate.<br />
+ENDIF.<br />
+<br />
+"--------------------------------------------------------------------"<br />
+" 5. ##<br />
+"--------------------------------------------------------------------"<br />
+LOOP AT gt_result INTO gs_result.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;FIRST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'---------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;&nbsp;&nbsp;&nbsp;|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'---------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'|',&nbsp;gs_result-zcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;gs_result-zname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;gs_result-lv_major,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;|',&nbsp;gs_result-lv_tel,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;gs_result-lv_stop,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'.<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'---------------------------------------------------------------------------------------'.<br />
+<br />
+ENDLOOP.<br />
+<br />
+WRITE: / '### ## :', lv_male   DECIMALS 0.<br />
+WRITE: / '### ## :', lv_female DECIMALS 0.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

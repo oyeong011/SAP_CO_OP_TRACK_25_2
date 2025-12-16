@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM22_001_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM22_001_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM22_001_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES : ZLFA1_22, ZLFB1_22, ZLFM1_22.<br />
+<br />
+DATA: G_BUKRS TYPE BUKRS,      "### ####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_KTOKK&nbsp;TYPE&nbsp;KTOKK,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_LIFNR&nbsp;TYPE&nbsp;LIFNR.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;#####<br />
+DATA: gv_mode TYPE char1.    " 'C' = ##, 'R' = ##<br />
+DATA: OK_CODE TYPE SY-UCOMM.<br />
+<br />
+"###### ### ###<br />
+"## ###<br />
+DATA: GS_LFA1 TYPE ZLFA1_22.<br />
+DATA: GT_LFA1 TYPE TABLE OF ZLFA1_22.<br />
+<br />
+" #######<br />
+DATA: GS_LFB1 TYPE ZLFB1_22.<br />
+DATA: GT_LFB1 TYPE TABLE OF ZLFB1_22.<br />
+<br />
+" #######<br />
+DATA: GS_LFM1 TYPE ZLFM1_22.<br />
+DATA: GT_LFM1 TYPE TABLE OF ZLFM1_22.<br />
+<br />
+"ALV #<br />
+DATA: GS_LFA1_ALV TYPE ZLFA1_22,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_LFA1_ALV&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;ZLFA1_22.<br />
+<br />
+DATA: GS_LFB1_ALV TYPE ZLFB1_22,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_LFB1_ALV&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;ZLFB1_22.<br />
+<br />
+DATA: GS_LFM1_ALV TYPE ZLFM1_22,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_LFM1_ALV&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;ZLFM1_22.<br />
+<br />
+"### ALV<br />
+TYPES: BEGIN OF TY_VENDOR_ALL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ZLFA1_22<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;LIFNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME1&nbsp;TYPE&nbsp;ZLFA1_22-NAME1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LAND1&nbsp;TYPE&nbsp;ZLFA1_22-LAND1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KTOKK&nbsp;TYPE&nbsp;ZLFA1_22-KTOKK,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STCD1&nbsp;TYPE&nbsp;ZLFA1_22-STCD1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STCD2&nbsp;TYPE&nbsp;ZLFA1_22-STCD2,&nbsp;"&nbsp;#&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STRAS&nbsp;TYPE&nbsp;ZLFA1_22-STRAS,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ZLFB1_22<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUKRS&nbsp;TYPE&nbsp;ZLFB1_22-BUKRS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AKONT&nbsp;TYPE&nbsp;ZLFB1_22-AKONT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZTERM&nbsp;TYPE&nbsp;ZLFB1_22-ZTERM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOEVM1&nbsp;TYPE&nbsp;ZLFB1_22-LOEVM,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ZLFM1_22<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKORG&nbsp;TYPE&nbsp;ZLFM1_22-EKORG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKGRP&nbsp;TYPE&nbsp;ZLFM1_22-EKGRP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;ZLFM1_22-WAERS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MWSKZ&nbsp;TYPE&nbsp;ZLFM1_22-MWSKZ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOEVM2&nbsp;TYPE&nbsp;ZLFM1_22-LOEVM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_VENDOR_ALL.<br />
+<br />
+DATA: GT_VENDOR_ALL TYPE STANDARD TABLE OF TY_VENDOR_ALL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_VENDOR_ALL&nbsp;TYPE&nbsp;TY_VENDOR_ALL.<br />
+<br />
+<br />
+<br />
+DATA : GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER.<br />
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+<br />
+DATA : GC_SPLITTER TYPE REF TO CL_GUI_SPLITTER_CONTAINER.<br />
+DATA : GC_SPLITTER2 TYPE REF TO CL_GUI_SPLITTER_CONTAINER.<br />
+<br />
+DATA : GC_CONTAINER1 TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GC_CONTAINER2 TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GC_CONTAINER3 TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GC_CONTAINER4 TYPE REF TO CL_GUI_CONTAINER.<br />
+<br />
+DATA : GC_GRID1 TYPE REF TO CL_GUI_ALV_GRID.<br />
+DATA : GC_GRID2 TYPE REF TO CL_GUI_ALV_GRID.<br />
+DATA : GC_GRID3 TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT1&nbsp;TYPE&nbsp;LVC_T_FCAT.<br />
+DATA : GT_FIELDCAT2 TYPE LVC_T_FCAT.<br />
+DATA : GT_FIELDCAT3 TYPE LVC_T_FCAT.<br />
+<br />
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.<br />
+DATA : GS_SORT TYPE LVC_S_SORT .<br />
+DATA : GT_SORT1 TYPE LVC_T_SORT.<br />
+DATA : GT_SORT2 TYPE LVC_T_SORT.<br />
+DATA : GT_SORT3 TYPE LVC_T_SORT.<br />
+<br />
+DATA : GS_VARIANT TYPE DISVARIANT.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

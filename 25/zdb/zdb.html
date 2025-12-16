@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZDB</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZDB</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZDUMMY_DATA_INSERT_25<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;PO&nbsp;4500000001&nbsp;##&nbsp;##&nbsp;##&nbsp;###&nbsp;INSERT&nbsp;####<br />
+*&&nbsp;##&nbsp;##:&nbsp;SE38&nbsp;#&nbsp;##&nbsp;#&nbsp;F8&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zdummy_data_insert_25.<br />
+<br />
+DATA: lv_answer TYPE c.<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'POPUP_TO_CONFIRM'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;titlebar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'##&nbsp;###&nbsp;INSERT&nbsp;##'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_question&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'##&nbsp;##&nbsp;####&nbsp;INSERT######?'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_button_1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'#'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_button_2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'###'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_cancel_button&nbsp;=&nbsp;''<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;answer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lv_answer.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;lv_answer&nbsp;&lt;&gt;&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'#######.'&nbsp;TYPE&nbsp;'S'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"====================================================================<br />
+&nbsp;&nbsp;"&nbsp;1.&nbsp;####&nbsp;###&nbsp;INSERT&nbsp;(ZEDT25_ZTERM)<br />
+&nbsp;&nbsp;"====================================================================<br />
+&nbsp;&nbsp;"&nbsp;M001&nbsp;#####&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;DATA:&nbsp;ls_zterm&nbsp;TYPE&nbsp;zedt25_zterm.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt25_zterm<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;ls_zterm<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zterm&nbsp;=&nbsp;'M001'.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_zterm-mandt&nbsp;=&nbsp;sy-mandt.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_zterm-zterm&nbsp;=&nbsp;'M001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_zterm-text&nbsp;&nbsp;=&nbsp;'30#&nbsp;##&nbsp;##'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;zedt25_zterm&nbsp;FROM&nbsp;ls_zterm.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'#&nbsp;####&nbsp;M001&nbsp;INSERT&nbsp;##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'#&nbsp;####&nbsp;INSERT&nbsp;##:',&nbsp;sy-subrc.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'-&nbsp;####&nbsp;M001&nbsp;##&nbsp;##&nbsp;(##)'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"====================================================================<br />
+&nbsp;&nbsp;"&nbsp;2.&nbsp;##&nbsp;##&nbsp;INSERT&nbsp;(ZEDT25_ZRBKP)<br />
+&nbsp;&nbsp;"====================================================================<br />
+&nbsp;&nbsp;DATA:&nbsp;ls_rbkp&nbsp;TYPE&nbsp;zedt25_zrbkp.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt25_zrbkp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;ls_rbkp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;belnr&nbsp;=&nbsp;'5000000001'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;gjahr&nbsp;=&nbsp;'2024'.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'-&nbsp;##&nbsp;##&nbsp;5000000001&nbsp;##&nbsp;##&nbsp;(##)'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ls_rbkp.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rbkp-mandt&nbsp;=&nbsp;sy-mandt.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rbkp-belnr&nbsp;=&nbsp;'5000000001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rbkp-gjahr&nbsp;=&nbsp;'2024'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rbkp-blart&nbsp;=&nbsp;'RE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rbkp-bldat&nbsp;=&nbsp;'20241201'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rbkp-budat&nbsp;=&nbsp;'20241201'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rbkp-bukrs&nbsp;=&nbsp;'1000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rbkp-lifnr&nbsp;=&nbsp;'1000000005'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rbkp-waers&nbsp;=&nbsp;'USD'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rbkp-zterm&nbsp;=&nbsp;'M001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rbkp-bktxt&nbsp;=&nbsp;'4500000001####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rbkp-xmwst&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rbkp-mwskz&nbsp;=&nbsp;'V1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rbkp-wmwst&nbsp;=&nbsp;'200.00'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rbkp-rmwwr&nbsp;=&nbsp;'2200.00'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rbkp-ebeln&nbsp;=&nbsp;'4500000001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rbkp-werks&nbsp;=&nbsp;'1000'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;zedt25_zrbkp&nbsp;FROM&nbsp;ls_rbkp.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'#&nbsp;##&nbsp;##&nbsp;5000000001&nbsp;INSERT&nbsp;##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'#&nbsp;##&nbsp;##&nbsp;INSERT&nbsp;##:',&nbsp;sy-subrc.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"====================================================================<br />
+&nbsp;&nbsp;"&nbsp;3.&nbsp;##&nbsp;###&nbsp;INSERT&nbsp;(ZEDT25_ZRSEG)<br />
+&nbsp;&nbsp;"====================================================================<br />
+&nbsp;&nbsp;DATA:&nbsp;ls_rseg&nbsp;TYPE&nbsp;zedt25_zrseg.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zedt25_zrseg<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;ls_rseg<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;belnr&nbsp;=&nbsp;'5000000001'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;gjahr&nbsp;=&nbsp;'2024'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;buzei&nbsp;=&nbsp;'000001'.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'-&nbsp;##&nbsp;###&nbsp;5000000001-000001&nbsp;##&nbsp;##&nbsp;(##)'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ls_rseg.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-mandt&nbsp;=&nbsp;sy-mandt.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-belnr&nbsp;=&nbsp;'5000000001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-gjahr&nbsp;=&nbsp;'2024'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-buzei&nbsp;=&nbsp;'000001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-ebeln&nbsp;=&nbsp;'4500000001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-ebelp&nbsp;=&nbsp;'00010'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-matnr&nbsp;=&nbsp;'7'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-bukrs&nbsp;=&nbsp;'1000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-txz01&nbsp;=&nbsp;'###(FRON...)'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-werks&nbsp;=&nbsp;'1000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-lgort&nbsp;=&nbsp;'2000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-shkzg&nbsp;=&nbsp;'S'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-menge&nbsp;=&nbsp;'10.000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-meins&nbsp;=&nbsp;'EA'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-bstme&nbsp;=&nbsp;'EA'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-bpmng&nbsp;=&nbsp;'10.000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-wrbtr&nbsp;=&nbsp;'2000.00'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-mwskz&nbsp;=&nbsp;'V1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-wmwst&nbsp;=&nbsp;'200.00'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-waers&nbsp;=&nbsp;'USD'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_rseg-sgtxt&nbsp;=&nbsp;'4500000001####'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;zedt25_zrseg&nbsp;FROM&nbsp;ls_rseg.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'#&nbsp;##&nbsp;###&nbsp;000001&nbsp;INSERT&nbsp;##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'#&nbsp;##&nbsp;###&nbsp;INSERT&nbsp;##:',&nbsp;sy-subrc.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"====================================================================<br />
+&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;"====================================================================<br />
+&nbsp;&nbsp;SKIP&nbsp;1.<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'===================================='.<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'##&nbsp;###&nbsp;INSERT&nbsp;##!'.<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'===================================='.<br />
+&nbsp;&nbsp;SKIP&nbsp;1.<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'##&nbsp;##:'.<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'1.&nbsp;SE16N&nbsp;#&nbsp;ZEDT25_ZRBKP&nbsp;#&nbsp;BELNR&nbsp;=&nbsp;5000000001'.<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'2.&nbsp;SE16N&nbsp;#&nbsp;ZEDT25_ZRSEG&nbsp;#&nbsp;BELNR&nbsp;=&nbsp;5000000001'.<br />
+&nbsp;&nbsp;SKIP&nbsp;1.<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'####&nbsp;##:'.<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'-&nbsp;SE38&nbsp;#&nbsp;ZMM25_004&nbsp;##'.<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'-&nbsp;PO:&nbsp;4500000001,&nbsp;###:&nbsp;1000'.<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'-&nbsp;[##&nbsp;##]&nbsp;##&nbsp;#&nbsp;F8'.<br />
+<br />
+&nbsp;&nbsp;COMMIT&nbsp;WORK.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;Hard&nbsp;coded<br />
+*&nbsp;&nbsp;&nbsp;#######.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

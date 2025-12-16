@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR24_PRACTICE009_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR24_PRACTICE009_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDR24_PRACTICE009_TOP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES : ZEDT24_102. "#### ###<br />
+TABLES : ZEDT24_103. "####-####<br />
+TABLES : ZEDT24_104. "####<br />
+TABLES : ZEDT24_105. "####<br />
+TABLES : ZEDT24_106. "####<br />
+<br />
+TYPE-POOLS: ICON.<br />
+<br />
+RANGES : GR_ISQUIT FOR ZEDT24_102-ZQFLAG. "####<br />
+<br />
+"1# ### : #### ### + ####<br />
+DATA : BEGIN OF GS_EMPLOYEE,<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT24_102-ZPERNR,&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPCODE&nbsp;LIKE&nbsp;ZEDT24_102-ZDEPCODE,&nbsp;"####<br />
+&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT24_102-DATBI,&nbsp;"VALID&nbsp;TO&nbsp;DATE<br />
+&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT24_102-DATAB,&nbsp;&nbsp;"VALID&nbsp;FROM&nbsp;DATE<br />
+&nbsp;&nbsp;ZDEPRANK&nbsp;LIKE&nbsp;ZEDT24_102-ZDEPRANK,&nbsp;"####<br />
+&nbsp;&nbsp;ZEDATE&nbsp;LIKE&nbsp;ZEDT24_102-ZEDATE,&nbsp;"####<br />
+&nbsp;&nbsp;ZQDATE&nbsp;LIKE&nbsp;ZEDT24_102-ZQDATE,&nbsp;"####<br />
+&nbsp;&nbsp;ZQFLAG&nbsp;LIKE&nbsp;ZEDT24_102-ZQFLAG,&nbsp;"####<br />
+&nbsp;&nbsp;ZPNAME&nbsp;LIKE&nbsp;ZEDT24_103-ZPNAME,&nbsp;"####<br />
+&nbsp;&nbsp;ZGENDER&nbsp;LIKE&nbsp;ZEDT24_103-ZGENDER,&nbsp;"##<br />
+&nbsp;&nbsp;ZADDRESS&nbsp;LIKE&nbsp;ZEDT24_103-ZADDRESS,&nbsp;"##<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_EMPLOYEE.<br />
+DATA : GT_EMPLOYEE LIKE TABLE OF GS_EMPLOYEE.<br />
+<br />
+"2# ### : ####<br />
+DATA : BEGIN OF GS_EVAL.<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt24_104/dictionary-zedt24_104.html">ZEDT24_104</a>.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;END&nbsp;OF&nbsp;GS_EVAL.<br />
+DATA : GT_EVAL LIKE TABLE OF GS_EVAL.<br />
+<br />
+"3# ### : ####<br />
+DATA : BEGIN OF GS_CONTRACT.<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt24_106/dictionary-zedt24_106.html">ZEDT24_106</a>.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;END&nbsp;OF&nbsp;GS_CONTRACT.<br />
+DATA : GT_CONTRACT LIKE TABLE OF GS_CONTRACT.<br />
+<br />
+"## 1# ### : #### ### + ####<br />
+DATA : BEGIN OF GS_EMP_RESULT,<br />
+&nbsp;&nbsp;ZICON&nbsp;TYPE&nbsp;ICON_D,&nbsp;&nbsp;"##&nbsp;(##,&nbsp;##,&nbsp;##)<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT24_102-ZPERNR,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZPNAME&nbsp;LIKE&nbsp;ZEDT24_103-ZPNAME,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;ZDEPNAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,&nbsp;&nbsp;"(####&nbsp;-&gt;)&nbsp;####<br />
+&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT24_102-DATBI,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT24_102-DATAB,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPRANKNAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;ZGENDERNAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;5,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;ZEDATE&nbsp;LIKE&nbsp;ZEDT24_102-ZEDATE,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZADDRESS&nbsp;LIKE&nbsp;ZEDT24_103-ZADDRESS,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;ZQDATE&nbsp;LIKE&nbsp;ZEDT24_102-ZQDATE,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZQFLAG&nbsp;LIKE&nbsp;ZEDT24_102-ZQFLAG,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_EMP_RESULT.<br />
+DATA : GT_EMP_RESULT LIKE TABLE OF GS_EMP_RESULT.<br />
+<br />
+"## 2# ### : ####<br />
+DATA : BEGIN OF GS_EVAL_RESULT,<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT24_104-ZPERNR,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPNAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,&nbsp;&nbsp;"(####&nbsp;-&gt;)&nbsp;####<br />
+&nbsp;&nbsp;ZYEAR&nbsp;LIKE&nbsp;ZEDT24_104-ZYEAR,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT24_104-DATBI,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT24_104-DATAB,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZRANK&nbsp;LIKE&nbsp;ZEDT24_104-ZRANK,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_EVAL_RESULT.<br />
+DATA : GT_EVAL_RESULT LIKE TABLE OF GS_EVAL_RESULT.<br />
+<br />
+"## 3# ### : ####<br />
+DATA : BEGIN OF GS_CON_RESULT,<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT24_106-ZPERNR,&nbsp;"####<br />
+&nbsp;&nbsp;ZYEAR&nbsp;LIKE&nbsp;ZEDT24_106-ZYEAR,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT24_106-DATBI,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT24_106-DATAB,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZSALARY&nbsp;LIKE&nbsp;ZEDT24_106-ZSALARY,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZWAERS&nbsp;TYPE&nbsp;WAERS,<br />
+&nbsp;&nbsp;ZBANKNAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,&nbsp;"(ZBANKCODE-&gt;ZBANKNAME)###<br />
+&nbsp;&nbsp;ZACCOUNT&nbsp;LIKE&nbsp;ZEDT24_106-ZACCOUNT,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_CON_RESULT.<br />
+DATA : GT_CON_RESULT LIKE TABLE OF GS_CON_RESULT.<br />
+<br />
+DATA : OK_CODE TYPE SY-UCOMM.<br />
+<br />
+"## ##<br />
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+<br />
+"## ### ## ### ##<br />
+DATA : GC_SPLITTER_MAIN TYPE REF TO CL_GUI_SPLITTER_CONTAINER.<br />
+DATA : GC_SPLITTER_DOWN TYPE REF TO CL_GUI_SPLITTER_CONTAINER.<br />
+<br />
+DATA : GC_CONTAINER_TOP TYPE REF TO CL_GUI_CONTAINER. "## - #<br />
+DATA : GC_CONTAINER_TOP1 TYPE REF TO CL_GUI_CONTAINER. "## - #<br />
+DATA : GC_CONTAINER_TOP2 TYPE REF TO CL_GUI_CONTAINER. "##<br />
+DATA : GC_CONTAINER_BOTTOM TYPE REF TO CL_GUI_CONTAINER. "## - #<br />
+<br />
+DATA : GC_GRID_TOP1 TYPE REF TO CL_GUI_ALV_GRID.<br />
+DATA : GC_GRID_TOP2 TYPE REF TO CL_GUI_ALV_GRID.<br />
+DATA : GC_GRID_BOTTOM TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+DATA : GS_VARIANT TYPE DISVARIANT.<br />
+<br />
+DATA : GS_SORT TYPE LVC_S_SORT.<br />
+DATA : GT_SORT TYPE LVC_T_SORT.<br />
+<br />
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT.<br />
+DATA : GT_FC_TOP1 TYPE LVC_T_FCAT.<br />
+DATA : GT_FC_TOP2 TYPE LVC_T_FCAT.<br />
+DATA : GT_FC_BOTTOM TYPE LVC_T_FCAT.<br />
+<br />
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,625 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR16_PRACTICE003</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR16_PRACTICE003</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR16_PRACTICE003<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zedr16_practice003.<br />
+<br />
+TABLES : zedt16_100.<br />
+TABLES : zedt16_101.<br />
+<br />
+DATA : BEGIN OF gs_order,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zordno&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_100-zordno,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zidcode&nbsp;&nbsp;LIKE&nbsp;zedt16_100-zidcode,&nbsp;"##ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmatnr&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_100-zmatnr,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmtart&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_100-zmtart,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmatname&nbsp;LIKE&nbsp;zedt16_100-zmatname,&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zvolum&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_100-zvolum,&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vrkme&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_100-vrkme,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;znsamt&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_100-znsamt,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zslamt&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_100-zslamt,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdcamt&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_100-zdcamt,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdc_fg&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_100-zdc_fg,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zsale_fg&nbsp;LIKE&nbsp;zedt16_100-zsale_fg,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zret_fg&nbsp;&nbsp;LIKE&nbsp;zedt16_100-zret_fg,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zjdate&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_100-zjdate,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zrdate&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_100-zrdate,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_order.<br />
+DATA : gt_order LIKE TABLE OF gs_order.<br />
+<br />
+DATA : BEGIN OF gs_deliver,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zordno&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_101-zordno,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zidcode&nbsp;&nbsp;LIKE&nbsp;zedt16_101-zidcode,&nbsp;"##ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmatnr&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_101-zmatnr,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmtart&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_101-zmtart,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmatname&nbsp;LIKE&nbsp;zedt16_101-zmatname,&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zvolum&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_101-zvolum,&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vrkme&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_101-vrkme,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zslamt&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_101-zslamt,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdflag&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_101-zdflag,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdgubun&nbsp;&nbsp;LIKE&nbsp;zedt16_101-zdgubun,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zddate&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_101-zddate,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zrdate&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_101-zrdate,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zflag&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_101-zflag,&nbsp;"FLAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_deliver.<br />
+DATA : gt_deliver LIKE TABLE OF gs_deliver.<br />
+<br />
+<br />
+DATA : BEGIN OF gs_write_order,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zordno&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_100-zordno,&nbsp;"####&nbsp;10<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zidcode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_100-zidcode,&nbsp;"##ID&nbsp;10<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmatnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_100-zmatnr,&nbsp;"####&nbsp;10<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmatname&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_100-zmatname,&nbsp;"###&nbsp;20<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmtart_name&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;8,&nbsp;"####&nbsp;8<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zvolum&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_100-zvolum,&nbsp;"##&nbsp;3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vrkme&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_100-vrkme,&nbsp;"##&nbsp;3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;znsamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,&nbsp;"####&nbsp;13<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zslamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,&nbsp;"####&nbsp;13<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdcamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,&nbsp;"####&nbsp;13<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zsale_name&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;4,&nbsp;"&nbsp;4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zjdate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10,&nbsp;"&nbsp;10<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zret_name&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10,&nbsp;"&nbsp;10<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zrdate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10,&nbsp;"####&nbsp;10<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_write_order.<br />
+DATA : gt_write_order LIKE TABLE OF gs_write_order.<br />
+<br />
+<br />
+DATA : BEGIN OF gs_write_deliver,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zordno&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_101-zordno,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zidcode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_101-zidcode,&nbsp;"##ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmatnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_101-zmatnr,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmatname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_101-zmatname,&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmtart_name&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;8,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zvolum&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_101-zvolum,&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vrkme&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_101-vrkme,&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zslamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdflag_name&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;8,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdgubun_name&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;6,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zddate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zrdate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zflag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_101-zflag,&nbsp;"FLAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_write_deliver.<br />
+DATA : gt_write_deliver LIKE TABLE OF gs_write_deliver.<br />
+<br />
+" ## ## ### ## range table<br />
+RANGES : gr_zsale_fg FOR zedt16_100-zsale_fg.<br />
+RANGES : gr_zflag FOR zedt16_101-zflag.<br />
+<br />
+CONSTANTS : c_mul_krw TYPE i VALUE '100'. " krw ###<br />
+<br />
+DATA gv_char_date(10).<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME.<br />
+SELECT-OPTIONS : s_zordno FOR zedt16_100-zordno.<br />
+SELECT-OPTIONS : s_zid FOR zedt16_100-zidcode NO INTERVALS NO-EXTENSION.<br />
+SELECT-OPTIONS : s_zmatnr FOR zedt16_100-zmatnr.<br />
+SELECT-OPTIONS : s_zjdate FOR zedt16_100-zjdate MODIF ID m1.<br />
+SELECT-OPTIONS : s_zddate FOR zedt16_101-zddate MODIF ID m2.<br />
+   </div>
+   <div class="codeComment">
+*SELECT-OPTIONS&nbsp;:&nbsp;s_zjdate&nbsp;FOR&nbsp;gv_char_date&nbsp;MODIF&nbsp;ID&nbsp;m1.<br />
+*SELECT-OPTIONS&nbsp;:&nbsp;s_zddate&nbsp;FOR&nbsp;gv_char_date&nbsp;MODIF&nbsp;ID&nbsp;m2.<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN END OF BLOCK b1.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK b2 WITH FRAME.<br />
+PARAMETERS : p_r1 RADIOBUTTON GROUP r1 DEFAULT 'X' USER-COMMAND uc1.<br />
+PARAMETERS : p_r2 RADIOBUTTON GROUP r1.<br />
+SELECTION-SCREEN END OF BLOCK b2.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK b3 WITH FRAME.<br />
+PARAMETERS : p_ch1 AS CHECKBOX DEFAULT 'X'.<br />
+SELECTION-SCREEN END OF BLOCK b3.<br />
+<br />
+INITIALIZATION.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_default_date.<br />
+<br />
+AT SELECTION-SCREEN OUTPUT.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;screen-group1&nbsp;=&nbsp;'M1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_r1&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;p_r2&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;screen-group1&nbsp;=&nbsp;'M2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_r1&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;p_r2&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+START-OF-SELECTION.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_range_table.<br />
+&nbsp;&nbsp;IF&nbsp;p_r1&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;select_data_order.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;modify_write_order_table.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;p_r2&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;select_data_deliver.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;modify_write_deliver_table.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;write_table.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;BREAK-POINT.<br />
+<br />
+   </div>
+   <div class="code">
+FORM set_default_date.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_first_day&nbsp;TYPE&nbsp;d,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_last_day&nbsp;&nbsp;TYPE&nbsp;d,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_next_mon&nbsp;&nbsp;TYPE&nbsp;d.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;#&nbsp;#<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;lv_first_day&nbsp;=&nbsp;sy-datum.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;lv_first_day&nbsp;=&nbsp;'20250901'.<br />
+&nbsp;&nbsp;lv_first_day+6(2)&nbsp;=&nbsp;'01'.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;#&nbsp;#<br />
+&nbsp;&nbsp;lv_next_mon&nbsp;=&nbsp;lv_first_day.<br />
+&nbsp;&nbsp;ADD&nbsp;1&nbsp;TO&nbsp;lv_next_mon+4(2).&nbsp;&nbsp;"&nbsp;#&nbsp;+1<br />
+&nbsp;&nbsp;IF&nbsp;lv_next_mon+4(2)&nbsp;&gt;&nbsp;'12'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_next_mon+0(4)&nbsp;=&nbsp;lv_next_mon+0(4)&nbsp;+&nbsp;1.&nbsp;"&nbsp;##&nbsp;+1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_next_mon+4(2)&nbsp;=&nbsp;'01'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;#<br />
+&nbsp;&nbsp;lv_last_day&nbsp;=&nbsp;lv_next_mon&nbsp;-&nbsp;1.<br />
+<br />
+<br />
+&nbsp;&nbsp;s_zjdate-sign&nbsp;&nbsp;&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;s_zjdate-option&nbsp;=&nbsp;'BT'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;WRITE&nbsp;lv_first_day&nbsp;&nbsp;TO&nbsp;s_zjdate-low&nbsp;&nbsp;USING&nbsp;EDIT&nbsp;MASK&nbsp;'____.__.__'.<br />
+*&nbsp;&nbsp;WRITE&nbsp;lv_last_day&nbsp;&nbsp;TO&nbsp;s_zjdate-high&nbsp;&nbsp;USING&nbsp;EDIT&nbsp;MASK&nbsp;'____.__.__'.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;s_zjdate-low&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lv_first_day.<br />
+&nbsp;&nbsp;s_zjdate-high&nbsp;&nbsp;&nbsp;=&nbsp;lv_last_day.<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;s_zjdate.<br />
+<br />
+<br />
+&nbsp;&nbsp;s_zddate-sign&nbsp;&nbsp;&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;s_zddate-option&nbsp;=&nbsp;'BT'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;WRITE&nbsp;lv_first_day&nbsp;&nbsp;TO&nbsp;s_zddate-low&nbsp;&nbsp;USING&nbsp;EDIT&nbsp;MASK&nbsp;'____.__.__'.<br />
+*&nbsp;&nbsp;WRITE&nbsp;lv_last_day&nbsp;&nbsp;TO&nbsp;s_zddate-high&nbsp;&nbsp;USING&nbsp;EDIT&nbsp;MASK&nbsp;'____.__.__'.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;s_zddate-low&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lv_first_day.<br />
+&nbsp;&nbsp;s_zddate-high&nbsp;&nbsp;&nbsp;=&nbsp;lv_last_day.<br />
+&nbsp;&nbsp;APPEND&nbsp;s_zddate.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SELECT_DATA_ORDER<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM select_data_order .<br />
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;zedt16_100<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_order<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zordno&nbsp;IN&nbsp;s_zordno<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zidcode&nbsp;IN&nbsp;s_zid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zmatnr&nbsp;IN&nbsp;s_zmatnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zjdate&nbsp;IN&nbsp;s_zjdate<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zsale_fg&nbsp;IN&nbsp;gr_zsale_fg.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SELECT_DATA_DELIVER<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM select_data_deliver .<br />
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;zedt16_101<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_deliver<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zordno&nbsp;IN&nbsp;s_zordno<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zidcode&nbsp;IN&nbsp;s_zid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zmatnr&nbsp;IN&nbsp;s_zmatnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zddate&nbsp;IN&nbsp;s_zddate<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zflag&nbsp;IN&nbsp;gr_zflag.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_RANGE_TABLE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_range_table .<br />
+&nbsp;&nbsp;IF&nbsp;p_r1&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gr_zsale_fg-sign&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gr_zsale_fg-option&nbsp;=&nbsp;'BT'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_ch1&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gr_zsale_fg-low&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gr_zsale_fg-high&nbsp;=&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gr_zsale_fg-low&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gr_zsale_fg-high&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gr_zsale_fg.<br />
+<br />
+&nbsp;&nbsp;ELSEIF&nbsp;p_r2&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gr_zflag-sign&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gr_zflag-option&nbsp;=&nbsp;'EQ'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gr_zflag-low&nbsp;=&nbsp;'&nbsp;'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gr_zflag.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_ch1&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gr_zflag-low&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gr_zflag.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;WRITE_TABLE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+FORM write_table .<br />
+&nbsp;&nbsp;IF&nbsp;p_r1&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_ch1&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'------------------------------------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;####&nbsp;|##&nbsp;|##&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;|&nbsp;##&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'------------------------------------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'----------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;####&nbsp;|##&nbsp;|##&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;|&nbsp;##&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'----------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_write_order&nbsp;INTO&nbsp;gs_write_order.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_ch1&nbsp;=&nbsp;'X'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'######&nbsp;-&nbsp;####'.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|',&nbsp;gs_write_order-zordno,&nbsp;'|',&nbsp;gs_write_order-zidcode,&nbsp;'|',&nbsp;gs_write_order-zmatnr,&nbsp;'|',&nbsp;gs_write_order-zmatname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;gs_write_order-zmtart_name,&nbsp;'|',&nbsp;gs_write_order-zvolum,&nbsp;'|',&nbsp;gs_write_order-vrkme,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;gs_write_order-znsamt,&nbsp;'|',&nbsp;gs_write_order-zslamt,&nbsp;'|',&nbsp;gs_write_order-zdcamt,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;gs_write_order-zsale_name,&nbsp;'|',&nbsp;gs_write_order-zjdate,&nbsp;'|',&nbsp;gs_write_order-zret_name,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;gs_write_order-zrdate,&nbsp;'|'&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'------------------------------------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'######&nbsp;-&nbsp;#####'.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|',&nbsp;gs_write_order-zordno,&nbsp;'|',&nbsp;gs_write_order-zidcode,&nbsp;'|',&nbsp;gs_write_order-zmatnr,'|',&nbsp;gs_write_order-zmatname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;gs_write_order-zmtart_name,&nbsp;'|',&nbsp;gs_write_order-zvolum,&nbsp;'|',&nbsp;gs_write_order-vrkme,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;gs_write_order-znsamt,&nbsp;'|',&nbsp;gs_write_order-zslamt,&nbsp;'|',&nbsp;gs_write_order-zdcamt,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;gs_write_order-zsale_name,&nbsp;'|',&nbsp;gs_write_order-zjdate,&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'----------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;ELSEIF&nbsp;p_r2&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_ch1&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'--------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;####&nbsp;|##&nbsp;|##&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;|&nbsp;####&nbsp;|&nbsp;&nbsp;##&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'--------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'-------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;####&nbsp;|##&nbsp;|##&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;|&nbsp;####&nbsp;|&nbsp;&nbsp;##&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'-------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_write_deliver&nbsp;INTO&nbsp;gs_write_deliver.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_ch1&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|',&nbsp;gs_write_deliver-zordno,&nbsp;'|',&nbsp;gs_write_deliver-zidcode,&nbsp;'|',&nbsp;gs_write_deliver-zmatnr,&nbsp;'|',&nbsp;gs_write_deliver-zmatname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;gs_write_deliver-zmtart_name,&nbsp;'|',&nbsp;gs_write_deliver-zvolum,&nbsp;'|',&nbsp;gs_write_deliver-vrkme,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;gs_write_deliver-zslamt,&nbsp;'|',&nbsp;gs_write_deliver-zdflag_name,&nbsp;'|',&nbsp;gs_write_deliver-zdgubun_name,&nbsp;'|',&nbsp;gs_write_deliver-zddate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;gs_write_deliver-zrdate,&nbsp;'|'&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'--------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|',&nbsp;gs_write_deliver-zordno,&nbsp;'|',&nbsp;gs_write_deliver-zidcode,&nbsp;'|',&nbsp;gs_write_deliver-zmatnr,&nbsp;'|',&nbsp;gs_write_deliver-zmatname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;gs_write_deliver-zmtart_name,&nbsp;'|',&nbsp;gs_write_deliver-zvolum,&nbsp;'|',&nbsp;gs_write_deliver-vrkme,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;gs_write_deliver-zslamt,&nbsp;'|',&nbsp;gs_write_deliver-zdflag_name,&nbsp;'|',&nbsp;gs_write_deliver-zdgubun_name,&nbsp;'|',&nbsp;gs_write_deliver-zddate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'-------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;MODIFY_WRITE_TABLE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM modify_write_order_table .<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_order&nbsp;INTO&nbsp;gs_order.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;gs_write_order.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;gs_order&nbsp;TO&nbsp;gs_write_order.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;######&nbsp;##&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;zmtart&nbsp;-&gt;&nbsp;zmtart_name(####)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;zsale_fg&nbsp;-&gt;&nbsp;zsale_name(##),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;zret_fg&nbsp;-&gt;&nbsp;zret_name(####)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;x&nbsp;100<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_write_order-znsamt&nbsp;=&nbsp;gs_order-znsamt&nbsp;*&nbsp;c_mul_krw.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_write_order-zslamt&nbsp;=&nbsp;gs_order-zslamt&nbsp;*&nbsp;c_mul_krw.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_write_order-zdcamt&nbsp;=&nbsp;gs_order-zdcamt&nbsp;*&nbsp;c_mul_krw.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;gs_order-zmtart.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_order-zmtart_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'002'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_order-zmtart_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'003'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_order-zmtart_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'004'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_order-zmtart_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'005'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_order-zmtart_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'006'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_order-zmtart_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;gs_order-zsale_fg.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_order-zsale_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_order-zsale_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;gs_order-zret_fg.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_order-zret_name&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_order-zret_name&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_order-zret_name&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_order-zrdate&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_order-zrdate&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;gs_order-zrdate+0(4)&nbsp;'.'&nbsp;gs_order-zrdate+4(2)&nbsp;'.'&nbsp;gs_order-zrdate+6(2)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;gs_write_order-zrdate.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_order-zjdate&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;gs_order-zjdate+0(4)&nbsp;'.'&nbsp;gs_order-zjdate+4(2)&nbsp;'.'&nbsp;gs_order-zjdate+6(2)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;gs_write_order-zjdate.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_write_order&nbsp;TO&nbsp;gt_write_order.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_order.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;MODIFY_WRITE_DELIVER_TABLE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM modify_write_deliver_table .<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_deliver&nbsp;INTO&nbsp;gs_deliver.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;gs_write_deliver.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;gs_deliver&nbsp;TO&nbsp;gs_write_deliver.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;######&nbsp;##&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;zmtart&nbsp;-&gt;&nbsp;zmtart_name(####)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;zdflag&nbsp;-&gt;&nbsp;zdflag_name(####),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;zdgubun&nbsp;-&gt;&nbsp;zdgubun_name(####)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;x&nbsp;100<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_write_deliver-zslamt&nbsp;=&nbsp;gs_deliver-zslamt&nbsp;*&nbsp;c_mul_krw.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;gs_deliver-zmtart.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_deliver-zmtart_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'002'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_deliver-zmtart_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'003'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_deliver-zmtart_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'004'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_deliver-zmtart_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'005'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_deliver-zmtart_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'006'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_deliver-zmtart_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;gs_deliver-zdflag.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_deliver-zdflag_name&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_deliver-zdflag_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_deliver-zdflag_name&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;gs_deliver-zdgubun.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_deliver-zdgubun_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_deliver-zdgubun_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_deliver-zdgubun_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'4'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_deliver-zdgubun_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'5'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_deliver-zdgubun_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'6'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_deliver-zdgubun_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'7'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_deliver-zdgubun_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_deliver-zrdate&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_write_deliver-zrdate&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;gs_deliver-zrdate+0(4)&nbsp;'.'&nbsp;gs_deliver-zrdate+4(2)&nbsp;'.'&nbsp;gs_deliver-zrdate+6(2)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;gs_write_deliver-zrdate.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_deliver-zddate&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;gs_deliver-zddate+0(4)&nbsp;'.'&nbsp;gs_deliver-zddate+4(2)&nbsp;'.'&nbsp;gs_deliver-zddate+6(2)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;gs_write_deliver-zddate.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_write_deliver&nbsp;TO&nbsp;gt_write_deliver.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_deliver.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

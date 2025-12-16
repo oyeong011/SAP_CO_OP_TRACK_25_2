@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR018_PRACTICE002</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR018_PRACTICE002</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR018_PRACTICE002<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR018_PRACTICE002.<br />
+<br />
+" ### ### ###<br />
+data : BEGIN OF gs_zedt001,<br />
+&nbsp;&nbsp;zcode&nbsp;type&nbsp;zedt018_001-zcode,<br />
+&nbsp;&nbsp;zpernr&nbsp;type&nbsp;zedt018_001-zpernr,<br />
+&nbsp;&nbsp;zkname&nbsp;type&nbsp;zedt018_001-zkname,<br />
+&nbsp;&nbsp;zename&nbsp;type&nbsp;zedt018_001-zename,<br />
+&nbsp;&nbsp;zgender&nbsp;type&nbsp;zedt018_001-zgender,<br />
+&nbsp;&nbsp;ztel&nbsp;type&nbsp;zedt018_001-ztel,<br />
+END OF gs_zedt001.<br />
+<br />
+data : BEGIN OF gs_zedt002,<br />
+&nbsp;&nbsp;zcode&nbsp;type&nbsp;zedt018_002-zcode,<br />
+&nbsp;&nbsp;zpernr&nbsp;type&nbsp;zedt018_002-zpernr,<br />
+&nbsp;&nbsp;zmajor&nbsp;type&nbsp;zedt018_002-zmajor,<br />
+&nbsp;&nbsp;zmname&nbsp;type&nbsp;zedt018_002-zmname,<br />
+&nbsp;&nbsp;zsum&nbsp;type&nbsp;zedt018_002-zsum,<br />
+&nbsp;&nbsp;zmgubun&nbsp;type&nbsp;zedt018_002-zmgubun,<br />
+&nbsp;&nbsp;zwaers&nbsp;type&nbsp;zedt018_002-zwaers,<br />
+END OF gs_zedt002.<br />
+<br />
+data : BEGIN OF gs_zedt004,<br />
+&nbsp;&nbsp;zcode&nbsp;type&nbsp;zedt00_004-zcode,<br />
+&nbsp;&nbsp;zpernr&nbsp;type&nbsp;zedt00_004-zpernr,<br />
+&nbsp;&nbsp;zschool&nbsp;type&nbsp;zedt00_004-zschool,<br />
+&nbsp;&nbsp;zsem&nbsp;type&nbsp;zedt00_004-zsem,<br />
+&nbsp;&nbsp;zexam&nbsp;type&nbsp;zedt00_004-zexam,<br />
+&nbsp;&nbsp;zmajor&nbsp;type&nbsp;zedt00_004-zmajor,<br />
+&nbsp;&nbsp;zmname&nbsp;type&nbsp;zedt00_004-zmname,<br />
+&nbsp;&nbsp;zsum&nbsp;type&nbsp;zedt00_004-zsum,<br />
+&nbsp;&nbsp;zwaers&nbsp;type&nbsp;zedt00_004-zwaers,<br />
+&nbsp;&nbsp;zgrade&nbsp;type&nbsp;zedt00_004-zgrade,<br />
+&nbsp;&nbsp;zgender&nbsp;type&nbsp;zedt018_001-zgender,<br />
+&nbsp;&nbsp;zkname&nbsp;type&nbsp;zedt018_001-zkname,<br />
+&nbsp;&nbsp;ztel&nbsp;type&nbsp;zedt018_001-ztel,<br />
+END OF gs_zedt004.<br />
+<br />
+data : gt_zedt001 like TABLE OF gs_zedt001.<br />
+data : gt_zedt002 like TABLE OF gs_zedt002.<br />
+data : gt_zedt004 like TABLE OF gs_zedt004.<br />
+<br />
+data : gv_sum_boy type i, gv_sum_girl type i.<br />
+data : gv_is_warn(10) type c, gv_major(10) type c, gv_end type c.<br />
+<br />
+" ### ##.<br />
+SELECT * FROM ZEDT00_001<br />
+INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT001.<br />
+<br />
+SELECT * FROM ZEDT00_002<br />
+INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT002.<br />
+<br />
+SELECT * FROM ZEDT00_004<br />
+INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT004.<br />
+<br />
+BREAK-point.<br />
+sort gt_zedt001 by zcode.<br />
+sort gt_zedt002 by zcode.<br />
+sort gt_zedt004 by zcode zgrade. "## ## ### #### ### ##. -&gt; ## ## ### ###### zsum # # ### ##.<br />
+<br />
+loop at gt_zedt004 into gs_zedt004.<br />
+&nbsp;&nbsp;at&nbsp;first.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'---------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;&nbsp;&nbsp;&nbsp;|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'---------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;zcode#&nbsp;#####&nbsp;#&nbsp;###&nbsp;-&gt;&nbsp;continue.&nbsp;####&nbsp;###&nbsp;###.<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_zedt001&nbsp;with&nbsp;key&nbsp;zcode&nbsp;=&nbsp;gs_zedt004-zcode&nbsp;into&nbsp;gs_zedt001&nbsp;BINARY&nbsp;SEARCH.<br />
+&nbsp;&nbsp;if&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;read&nbsp;table&nbsp;gt_zedt002&nbsp;with&nbsp;key&nbsp;zcode&nbsp;=&nbsp;gs_zedt004-zcode&nbsp;into&nbsp;gs_zedt002&nbsp;BINARY&nbsp;SEARCH.<br />
+&nbsp;&nbsp;if&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;gs_zedt004-zmajor&nbsp;&lt;&gt;&nbsp;gs_zedt002-zmajor.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_major&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;at&nbsp;new&nbsp;zcode.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;gv_is_warn.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;gv_major.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;gv_end.<br />
+&nbsp;&nbsp;endat.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;if&nbsp;gs_zedt004-zgrade&nbsp;CA&nbsp;'dDfF'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_is_warn&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;else.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;gv_is_warn&nbsp;ne&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;gs_zedt001-ztel.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;at&nbsp;END&nbsp;OF&nbsp;zcode.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_end&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;endat.<br />
+<br />
+&nbsp;&nbsp;if&nbsp;gv_end&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;gs_zedt001-zgender&nbsp;=&nbsp;'M'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_sum_boy&nbsp;=&nbsp;gv_sum_boy&nbsp;+&nbsp;gs_zedt004-zsum&nbsp;*&nbsp;100.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;elseif&nbsp;gs_zedt001-zgender&nbsp;=&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_sum_girl&nbsp;=&nbsp;gv_sum_girl&nbsp;+&nbsp;gs_zedt004-zsum&nbsp;*&nbsp;100.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:/&nbsp;'|',&nbsp;gs_zedt004-zcode(10),&nbsp;'|',&nbsp;gs_zedt001-zkname(10),'|&nbsp;',&nbsp;&nbsp;gv_major(9)&nbsp;&nbsp;,'|'&nbsp;,&nbsp;gs_zedt001-ztel(13)&nbsp;,'|',&nbsp;gv_is_warn(10)&nbsp;,'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'---------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;at&nbsp;last.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:/&nbsp;'######&nbsp;:&nbsp;',&nbsp;gv_sum_boy&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:/&nbsp;'######&nbsp;:&nbsp;',&nbsp;gv_sum_girl.<br />
+&nbsp;&nbsp;ENDAT.<br />
+ENDLOOP.<br />
+<br />
+" ### # ## ## ## ## -&gt; ## ### continue. (xexam &gt;=1 ### #. &gt; 0 ###.<br />
+"<br />
+" ### D ## F# ###(## ## ###)  ## ##.<br />
+" ## ## ### #### #### #.<br />
+" ### ### ### #### ####.<br />
+" ### ###(gv), ### ###(gv) ####.<br />
+" ## ## ### zsum ## ## ##.<br />
+" ### #### ### ##.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

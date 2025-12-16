@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM23_002_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM23_002_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM23_002_F01<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+" ##### (GV_LIFNR) ### ## : ####### ##<br />
+FORM CHECK_REQUIRED.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_TEMP&nbsp;TYPE&nbsp;Z23LFA1.<br />
+&nbsp;&nbsp;GV_FLAG&nbsp;=&nbsp;'1'.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;LIFNR&nbsp;INTO&nbsp;LV_TEMP&nbsp;FROM&nbsp;Z23LFA1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;LIFNR&nbsp;=&nbsp;GV_LIFNR.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;##&nbsp;######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_FLAG&nbsp;=&nbsp;'0'.&nbsp;RETURN.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;OK_CODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'ADD'.&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GV_BUKRS&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;&nbsp;"####&nbsp;BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_LIFNR&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;&nbsp;"#####&nbsp;LIFNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_BEDAT&nbsp;IS&nbsp;INITIAL.&nbsp;&nbsp;"###&nbsp;BEDAT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####,&nbsp;#####,&nbsp;####&nbsp;######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_FLAG&nbsp;=&nbsp;'0'.&nbsp;RETURN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SCH'.&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GV_BUKRS&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;&nbsp;"####&nbsp;BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_LIFNR&nbsp;IS&nbsp;INITIAL&nbsp;OR&nbsp;&nbsp;"#####&nbsp;LIFNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_EBELN&nbsp;IS&nbsp;INITIAL.&nbsp;&nbsp;"PO&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####,&nbsp;#####,&nbsp;PO###&nbsp;######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_FLAG&nbsp;=&nbsp;'0'.&nbsp;RETURN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDFORM.<br />
+<br />
+FORM CHECK_DATA.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LS_MARA&nbsp;TYPE&nbsp;Z23MARA.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_PO.<br />
+&nbsp;&nbsp;GV_FLAG&nbsp;=&nbsp;'1'.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_PO&nbsp;INTO&nbsp;GS_PO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_PO-GV_EBELP&nbsp;IS&nbsp;INITIAL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR&nbsp;GS_PO-GV_MATNR&nbsp;IS&nbsp;INITIAL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR&nbsp;GS_PO-GV_MAKTX&nbsp;IS&nbsp;INITIAL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR&nbsp;GS_PO-GV_MENGE&nbsp;IS&nbsp;INITIAL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR&nbsp;GS_PO-GV_STPRS&nbsp;IS&nbsp;INITIAL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR&nbsp;GS_PO-GV_MEINS&nbsp;IS&nbsp;INITIAL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR&nbsp;GS_PO-GV_WAERS&nbsp;IS&nbsp;INITIAL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR&nbsp;GS_PO-GV_PRDAT&nbsp;IS&nbsp;INITIAL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR&nbsp;GS_PO-GV_WERKS&nbsp;IS&nbsp;INITIAL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR&nbsp;GS_PO-GV_LGORT&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;###&nbsp;######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_FLAG&nbsp;=&nbsp;'0'.&nbsp;RETURN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GV_BEDAT&nbsp;&gt;&nbsp;GS_PO-GV_PRDAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_FLAG&nbsp;=&nbsp;'0'.&nbsp;RETURN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23MARA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;LS_MARA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;MATNR&nbsp;EQ&nbsp;GS_PO-GV_MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;WERKS&nbsp;EQ&nbsp;GS_PO-GV_WERKS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;LGORT&nbsp;EQ&nbsp;GS_PO-GV_LGORT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-DBCNT&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;#######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_FLAG&nbsp;=&nbsp;'0'.&nbsp;RETURN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LS_MARA-WERKS&nbsp;NE&nbsp;GS_PO-GV_WERKS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR&nbsp;LS_MARA-LGORT&nbsp;NE&nbsp;GS_PO-GV_LGORT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;#####&nbsp;######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_FLAG&nbsp;=&nbsp;'0'.&nbsp;RETURN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_PO.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+<br />
+FORM ADD_LINE.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_PO.<br />
+&nbsp;&nbsp;GS_PO-GV_EBELP&nbsp;=&nbsp;GV_EBELPNUM.<br />
+&nbsp;&nbsp;GV_EBELPNUM&nbsp;=&nbsp;GV_EBELPNUM&nbsp;+&nbsp;10.<br />
+&nbsp;&nbsp;INSERT&nbsp;GS_PO&nbsp;INTO&nbsp;TABLE&nbsp;GT_PO.<br />
+&nbsp;&nbsp;OK_CODE&nbsp;=&nbsp;''.<br />
+ENDFORM.<br />
+<br />
+" GT_PO# #### EKKO, EKPO # ##<br />
+FORM SAVE_PO.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_EKKO&nbsp;TYPE&nbsp;Z23EKKO,&nbsp;&nbsp;"PO&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO&nbsp;TYPE&nbsp;Z23EKPO,&nbsp;&nbsp;"PO&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MAX_EBELN&nbsp;TYPE&nbsp;EBELN.<br />
+<br />
+&nbsp;&nbsp;"EKKO&nbsp;:&nbsp;PO&nbsp;##<br />
+&nbsp;&nbsp;SELECT&nbsp;MAX(&nbsp;EBELN&nbsp;)&nbsp;INTO&nbsp;LV_MAX_EBELN&nbsp;FROM&nbsp;Z23EKKO.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LV_MAX_EBELN&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_MAX_EBELN&nbsp;=&nbsp;'4499999999'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;LV_MAX_EBELN&nbsp;=&nbsp;LV_MAX_EBELN&nbsp;+&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;LV_EKKO-EBELN&nbsp;=&nbsp;LV_MAX_EBELN.&nbsp;"######&nbsp;####<br />
+&nbsp;&nbsp;LV_EKKO-BEDAT&nbsp;=&nbsp;GV_BEDAT.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;B~BUKRS&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~EKGRP&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~EKORG&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~LIFNR"#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~WAERS"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;LV_EKKO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23LFB1&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;JOIN&nbsp;Z23LFM1&nbsp;AS&nbsp;C<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;B~LIFNR&nbsp;EQ&nbsp;C~LIFNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;C~LIFNR&nbsp;EQ&nbsp;GV_LIFNR.<br />
+&nbsp;&nbsp;ENDSELECT.<br />
+<br />
+&nbsp;&nbsp;MODIFY&nbsp;Z23EKKO&nbsp;FROM&nbsp;LV_EKKO.&nbsp;&nbsp;"##&nbsp;##<br />
+<br />
+&nbsp;&nbsp;"EKPO&nbsp;:&nbsp;PO&nbsp;###<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_PO.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_PO&nbsp;INTO&nbsp;GS_PO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO-EBELN&nbsp;=&nbsp;LV_MAX_EBELN.&nbsp;"######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO-EBELP&nbsp;=&nbsp;GS_PO-GV_EBELP.&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO-MATNR&nbsp;=&nbsp;GS_PO-GV_MATNR.&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO-MAKTX&nbsp;=&nbsp;GS_PO-GV_MAKTX.&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO-MENGE&nbsp;=&nbsp;GS_PO-GV_MENGE.&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO-MEINS&nbsp;=&nbsp;GS_PO-GV_MEINS.&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO-STPRS&nbsp;=&nbsp;GS_PO-GV_STPRS.&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO-PRDAT&nbsp;=&nbsp;GS_PO-GV_PRDAT.&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO-WERKS&nbsp;=&nbsp;GS_PO-GV_WERKS.&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_EKPO-LGORT&nbsp;=&nbsp;GS_PO-GV_LGORT.&nbsp;&nbsp;"####.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;Z23EKPO&nbsp;FROM&nbsp;LV_EKPO.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;LV_EKPO,&nbsp;GS_PO.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'PO#&nbsp;#######.'&nbsp;TYPE&nbsp;'I'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GT_PO,&nbsp;GS_PO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_EBELPNUM&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;ADD_LINE.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;Z23EKKO&nbsp;FROM&nbsp;LV_EKKO.&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+FORM UPDATE_GV_EBELN.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_CNT&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;10.<br />
+<br />
+&nbsp;&nbsp;DELETE&nbsp;GT_PO&nbsp;WHERE&nbsp;GV_CHECK&nbsp;EQ&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_PO&nbsp;ASSIGNING&nbsp;FIELD-SYMBOL(&lt;FS&gt;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;FS&gt;-GV_EBELP&nbsp;=&nbsp;LV_CNT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_CNT&nbsp;=&nbsp;LV_CNT&nbsp;+&nbsp;10.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;GV_EBELPNUM&nbsp;=&nbsp;LV_CNT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;OK_CODE&nbsp;=&nbsp;''.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GETDATA_300<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GETDATA_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_EKKO,&nbsp;GT_EKPO.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;GS_EKKO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23EKKO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;EBELN&nbsp;EQ&nbsp;GV_EBELN.<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'#####&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_EKPO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;Z23EKPO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;EBELN&nbsp;EQ&nbsp;GV_EBELN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GT_EKPO[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;####&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CTR_300-LINES&nbsp;=&nbsp;SY-DBCNT.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

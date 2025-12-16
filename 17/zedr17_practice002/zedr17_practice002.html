@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR17_PRACTICE002</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR17_PRACTICE002</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR17_PRACTICE002<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+report zedr17_practice002.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;1.&nbsp;#####&nbsp;##&nbsp;######&nbsp;##<br />
+   </div>
+   <div class="code">
+data : gs_student type zedt17_001. " ## ## ### ##<br />
+data : gt_student type table of zedt17_001. " ## ### ### ##<br />
+<br />
+data : gs_tuition type zedt17_002. " ### ### ### ##<br />
+data : gt_tuition type table of zedt17_002. " ### ### ### ### ##<br />
+<br />
+data : gs_grade type zedt17_004. " ### ## ### ##<br />
+data : gt_grade type table of zedt17_004. " ### ## ### ### ##<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;###&nbsp;###&nbsp;##<br />
+   </div>
+   <div class="code">
+data : begin of gs_result,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zcode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;like&nbsp;zedt17_001-zcode,&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zkname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;like&nbsp;zedt17_001-zkname,&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ztransfer(10),&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ztel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;like&nbsp;zedt17_001-ztel,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zwarning(10),&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end&nbsp;of&nbsp;gs_result.<br />
+data : gt_result like table of gs_result.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;###&nbsp;###&nbsp;##&nbsp;###&nbsp;##&nbsp;(for&nbsp;collect)<br />
+   </div>
+   <div class="code">
+data : begin of gs_sum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgender&nbsp;like&nbsp;zedt17_001-zgender,&nbsp;"&nbsp;m/f<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zsum&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;p&nbsp;decimals&nbsp;2,&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end&nbsp;of&nbsp;gs_sum.<br />
+data : gt_sum like table of gs_sum.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+data : gv_warning_flag(1). " #### ## ## ###<br />
+data : gv_transfer_flag(1). " ## ## ###<br />
+data : gv_total_m type p decimals 2. " ### ### ## ##<br />
+data : gv_total_f type p decimals 2. " ### ### ## ##<br />
+data : gv_worst_grade(1). " ### ## ## ##<br />
+data : gv_no_grade_flag(1). " ## ### ## ###<br />
+data : gv_tuition_major like zedt17_002-zmajor. " ## ##<br />
+data : gv_rep_zsum type p decimals 2. " ## ### ## ## ##<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;2.&nbsp;###&nbsp;##<br />
+   </div>
+   <div class="code">
+select * from zedt17_001 " ## ## ### ##<br />
+&nbsp;&nbsp;into&nbsp;corresponding&nbsp;fields&nbsp;of&nbsp;table&nbsp;gt_student.<br />
+<br />
+select * from zedt17_002 " ### ### ### ##<br />
+&nbsp;&nbsp;into&nbsp;corresponding&nbsp;fields&nbsp;of&nbsp;table&nbsp;gt_tuition.<br />
+<br />
+select * from zedt17_004 " ## ## ### ##<br />
+&nbsp;&nbsp;into&nbsp;corresponding&nbsp;fields&nbsp;of&nbsp;table&nbsp;gt_grade.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;work&nbsp;area&nbsp;clear&nbsp;&&nbsp;sort<br />
+   </div>
+   <div class="code">
+clear : gs_student, gs_tuition, gs_grade, gs_result.<br />
+clear: gv_total_m, gv_total_f.<br />
+sort gt_student by zcode.<br />
+sort gt_tuition by zcode.<br />
+sort gt_grade by zcode zgrade.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##&nbsp;loop&nbsp;-&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+loop at gt_grade into gs_grade.<br />
+<br />
+&nbsp;&nbsp;at&nbsp;new&nbsp;zcode.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;:&nbsp;gv_warning_flag,&nbsp;gv_transfer_flag.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_worst_grade&nbsp;=&nbsp;'A'.&nbsp;"&nbsp;##&nbsp;##&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_rep_zsum&nbsp;=&nbsp;gs_grade-zsum.&nbsp;"&nbsp;zsum(###)&nbsp;###<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;gs_tuition.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;read&nbsp;table&nbsp;gt_tuition&nbsp;into&nbsp;gs_tuition<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;key&nbsp;zcode&nbsp;=&nbsp;gs_grade-zcode&nbsp;binary&nbsp;search<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;comparing&nbsp;zcode.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_tuition_major&nbsp;=&nbsp;gs_tuition-zmajor.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;else.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;gv_tuition_major.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;endat.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;if&nbsp;gs_grade-zgrade&nbsp;=&nbsp;'D'&nbsp;or&nbsp;gs_grade-zgrade&nbsp;=&nbsp;'F'.&nbsp;"&nbsp;D#&nbsp;F&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_warning_flag&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;if&nbsp;gs_tuition-zmajor&nbsp;ne&nbsp;gs_grade-zmajor.&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_transfer_flag&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##(=##&nbsp;##)<br />
+&nbsp;&nbsp;gv_rep_zsum&nbsp;=&nbsp;gs_grade-zsum.&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;if&nbsp;gs_grade-zgrade&nbsp;&gt;&nbsp;gv_worst_grade.&nbsp;"####&nbsp;##(#####&nbsp;#&nbsp;##)&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_worst_grade&nbsp;=&nbsp;gs_grade-zgrade.&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;at&nbsp;end&nbsp;of&nbsp;zcode.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;gs_student.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;read&nbsp;table&nbsp;gt_student&nbsp;into&nbsp;gs_student<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;key&nbsp;zcode&nbsp;=&nbsp;gs_grade-zcode&nbsp;binary&nbsp;search.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;sy-subrc&nbsp;ne&nbsp;0.&nbsp;"&nbsp;####&nbsp;##&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue.&nbsp;"&nbsp;##&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;####&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;gs_result.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_result-zcode&nbsp;=&nbsp;gs_student-zcode.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_result-zkname&nbsp;=&nbsp;gs_student-zkname.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;gv_transfer_flag&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_result-ztransfer&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;gv_warning_flag&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;####&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_result-zwarning&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_result-ztel&nbsp;=&nbsp;gs_student-ztel.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;append&nbsp;gs_result&nbsp;to&nbsp;gt_result.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;##&nbsp;collect<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;gs_sum.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_sum-zgender&nbsp;=&nbsp;gs_student-zgender.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_sum-zsum&nbsp;=&nbsp;gv_rep_zsum.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;collect&nbsp;gs_sum&nbsp;into&nbsp;gt_sum.<br />
+&nbsp;&nbsp;endat.<br />
+endloop.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;###&nbsp;###&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+sort gt_sum by zgender.<br />
+clear gs_sum.<br />
+read table gt_sum into gs_sum with key zgender = 'M' binary search.<br />
+if sy-subrc = 0.<br />
+&nbsp;&nbsp;gv_total_m&nbsp;=&nbsp;gs_sum-zsum.<br />
+endif.<br />
+clear gs_sum.<br />
+read table gt_sum into gs_sum with key zgender = 'F' binary search.<br />
+if sy-subrc = 0.<br />
+&nbsp;&nbsp;gv_total_f&nbsp;=&nbsp;gs_sum-zsum.<br />
+endif.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##<br />
+   </div>
+   <div class="code">
+data : float_to_int type i.<br />
+data : gv_tel type zedt17_001-ztel. " #### ### ## ##<br />
+<br />
+write : / 'READ##'.<br />
+write : /.<br />
+write : / '-----------------------------------------------------------------------------'.<br />
+write : / '|  ####   |   ##      |  ####   |   ####        |    ##     |'.<br />
+write : / '-----------------------------------------------------------------------------'.<br />
+<br />
+loop at gt_result into gs_result.<br />
+&nbsp;&nbsp;clear&nbsp;gv_tel.<br />
+&nbsp;&nbsp;if&nbsp;gs_result-ztel&nbsp;ne&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_tel&nbsp;=&nbsp;gs_result-ztel.<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;write:&nbsp;/&nbsp;'|&nbsp;',&nbsp;gs_result-zcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|&nbsp;',&nbsp;gs_result-zkname(10),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|&nbsp;',&nbsp;gs_result-ztransfer,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|&nbsp;',&nbsp;gv_tel,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|&nbsp;',&nbsp;gs_result-zwarning(10),&nbsp;'|'.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'-----------------------------------------------------------------------------'.<br />
+endloop.<br />
+<br />
+float_to_int = gv_total_m * 100.<br />
+write : / '### ###   : ', float_to_int.<br />
+float_to_int = gv_total_f * 100.<br />
+write : / '### ###   : ', float_to_int.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

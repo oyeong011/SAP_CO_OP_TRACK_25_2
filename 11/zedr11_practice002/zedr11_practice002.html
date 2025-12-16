@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR11_PRACTICE002</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR11_PRACTICE002</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR11_PRACTICE002<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR11_PRACTICE002.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------<br />
+*&nbsp;0)&nbsp;##/##/###&nbsp;##<br />
+*----------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+CONSTANTS: C_RANK_A TYPE I VALUE 6,     " A (## ##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_RANK_B&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;5,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_RANK_C&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;4,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;C<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_RANK_D&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;3,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;D&nbsp;(##&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_RANK_F&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;F&nbsp;(##&nbsp;##)<br />
+<br />
+CONSTANTS: C_SCALE  TYPE I VALUE 100.   " 100.00 # 10000 ###<br />
+<br />
+" ## ### ####<br />
+DATA: GT_ZEDT001 TYPE TABLE OF ZEDT11_001,   " ##,###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZEDT002&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZEDT11_002,&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZEDT004&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZEDT11_004.&nbsp;&nbsp;&nbsp;"&nbsp;##,###<br />
+<br />
+" #### GS###<br />
+DATA: GS_ZEDT001 TYPE ZEDT11_001,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ZEDT002&nbsp;TYPE&nbsp;ZEDT11_002,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ZEDT004&nbsp;TYPE&nbsp;ZEDT11_004.<br />
+<br />
+" ##/## ##<br />
+TYPES: BEGIN OF TY_WRITE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCODE&nbsp;&nbsp;TYPE&nbsp;ZEDT11_001-ZCODE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZKNAME&nbsp;TYPE&nbsp;ZEDT11_001-ZKNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCHG&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZTEL&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT11_001-ZTEL,"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMEMO&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_WRITE.<br />
+<br />
+TYPES: BEGIN OF TY_SUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGENDER&nbsp;TYPE&nbsp;ZEDT11_001-ZGENDER,"&nbsp;##(#)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSUM_I&nbsp;&nbsp;TYPE&nbsp;I,&nbsp;"&nbsp;##&nbsp;##(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_SUM.<br />
+<br />
+DATA: GT_WRITE TYPE TABLE OF TY_WRITE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_WRITE&nbsp;TYPE&nbsp;TY_WRITE.<br />
+<br />
+DATA: GT_SUM TYPE TABLE OF TY_SUM, " ## ###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SUM&nbsp;TYPE&nbsp;TY_SUM.<br />
+<br />
+" ## ### ####(## ##,##,##)<br />
+DATA: GV_CURR_CODE   TYPE ZEDT11_004-ZCODE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_RANK_WORST&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_GRADE_WORST&nbsp;TYPE&nbsp;ZEDT11_004-ZGRADE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_SUM_WORST_I&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_MAJOR_004&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT11_004-ZMAJOR.<br />
+<br />
+DATA: LV_RANK   TYPE I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MALE&nbsp;&nbsp;&nbsp;TYPE&nbsp;I,&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_FEMALE&nbsp;TYPE&nbsp;I.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------<br />
+*&nbsp;1)&nbsp;###&nbsp;##&nbsp;(####&nbsp;#&nbsp;SELECT&nbsp;###)<br />
+*----------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+SELECT * FROM ZEDT11_001<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_ZEDT001.<br />
+<br />
+SELECT * FROM ZEDT11_002<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_ZEDT002.<br />
+<br />
+SELECT * FROM ZEDT11_004<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_ZEDT004.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------<br />
+*&nbsp;2)&nbsp;##<br />
+*----------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+SORT GT_ZEDT004 BY ZCODE ZPERNR ZSEM ZEXAM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------<br />
+*&nbsp;3)&nbsp;##&nbsp;LOOP&nbsp;(#&nbsp;##&nbsp;LOOP)<br />
+*----------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+LOOP AT GT_ZEDT004 INTO GS_ZEDT004.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;NEW&nbsp;ZCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;GV_RANK_WORST,&nbsp;GV_GRADE_WORST,&nbsp;GV_SUM_WORST_I,&nbsp;GV_MAJOR_004.&nbsp;"###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_CURR_CODE&nbsp;=&nbsp;GS_ZEDT004-ZCODE.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;##&nbsp;####<br />
+&nbsp;&nbsp;CLEAR&nbsp;LV_RANK.<br />
+&nbsp;&nbsp;CASE&nbsp;GS_ZEDT004-ZGRADE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'A'.&nbsp;LV_RANK&nbsp;=&nbsp;C_RANK_A.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'B'.&nbsp;LV_RANK&nbsp;=&nbsp;C_RANK_B.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'C'.&nbsp;LV_RANK&nbsp;=&nbsp;C_RANK_C.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'D'.&nbsp;LV_RANK&nbsp;=&nbsp;C_RANK_D.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'F'.&nbsp;LV_RANK&nbsp;=&nbsp;C_RANK_F.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.&nbsp;LV_RANK&nbsp;=&nbsp;C_RANK_A.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##(#&nbsp;####&nbsp;##&nbsp;#)<br />
+&nbsp;&nbsp;IF&nbsp;GV_RANK_WORST&nbsp;=&nbsp;0&nbsp;OR&nbsp;LV_RANK&nbsp;&lt;&nbsp;GV_RANK_WORST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_RANK_WORST&nbsp;&nbsp;=&nbsp;LV_RANK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_GRADE_WORST&nbsp;=&nbsp;GS_ZEDT004-ZGRADE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_SUM_WORST_I&nbsp;=&nbsp;GS_ZEDT004-ZSUM&nbsp;*&nbsp;C_SCALE.&nbsp;&nbsp;"&nbsp;100.00&nbsp;#&nbsp;10000<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_MAJOR_004&nbsp;&nbsp;&nbsp;=&nbsp;GS_ZEDT004-ZMAJOR.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;END&nbsp;OF&nbsp;ZCODE.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ZEDT001&nbsp;INTO&nbsp;GS_ZEDT001&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GV_CURR_CODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##&nbsp;##(READ&nbsp;COMPARING)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_ZEDT002.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_ZEDT002-ZMAJOR&nbsp;=&nbsp;GV_MAJOR_004.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ZEDT002&nbsp;INTO&nbsp;GS_ZEDT002&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GV_CURR_CODE&nbsp;COMPARING&nbsp;ZMAJOR.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;LV_CHANGED&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'&nbsp;'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_CHANGED&nbsp;=&nbsp;'&nbsp;'."&nbsp;##&nbsp;##&nbsp;#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_CHANGED&nbsp;=&nbsp;'X'.&nbsp;"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_WRITE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_WRITE-ZCODE&nbsp;&nbsp;=&nbsp;GV_CURR_CODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_WRITE-ZKNAME&nbsp;=&nbsp;GS_ZEDT001-ZKNAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LV_CHANGED&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_WRITE-ZCHG&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"D/F&nbsp;##&nbsp;#&nbsp;####&nbsp;+&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GV_GRADE_WORST&nbsp;=&nbsp;'D'&nbsp;OR&nbsp;GV_GRADE_WORST&nbsp;=&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_WRITE-ZMEMO&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_WRITE-ZTEL&nbsp;&nbsp;=&nbsp;GS_ZEDT001-ZTEL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_WRITE&nbsp;TO&nbsp;GT_WRITE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##(COLLECT)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_SUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_SUM-ZGENDER&nbsp;=&nbsp;GS_ZEDT001-ZGENDER.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_SUM-ZSUM_I&nbsp;&nbsp;=&nbsp;GV_SUM_WORST_I.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COLLECT&nbsp;GS_SUM&nbsp;INTO&nbsp;GT_SUM.<br />
+<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+ENDLOOP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------<br />
+*&nbsp;4)&nbsp;##&nbsp;LOOP&nbsp;(#&nbsp;##&nbsp;LOOP)<br />
+*----------------------------------------------------------------------<br />
+<br />
+   </div>
+   <div class="code">
+LOOP AT GT_WRITE INTO GS_WRITE.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;FIRST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;'----------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'|&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'----------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'|&nbsp;',&nbsp;GS_WRITE-ZCODE,&nbsp;'&nbsp;|&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_WRITE-ZKNAME,&nbsp;'&nbsp;|&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_WRITE-ZCHG,&nbsp;'&nbsp;|&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_WRITE-ZTEL,&nbsp;'&nbsp;|&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_WRITE-ZMEMO,&nbsp;'&nbsp;|'.<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'----------------------------------------------------------------------------------'.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;LAST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#/#&nbsp;##&nbsp;##(###&nbsp;0)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;LV_MALE,&nbsp;LV_FEMALE,&nbsp;GS_SUM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_SUM&nbsp;INTO&nbsp;GS_SUM&nbsp;WITH&nbsp;KEY&nbsp;ZGENDER&nbsp;=&nbsp;'M'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MALE&nbsp;=&nbsp;GS_SUM-ZSUM_I.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_SUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_SUM&nbsp;INTO&nbsp;GS_SUM&nbsp;WITH&nbsp;KEY&nbsp;ZGENDER&nbsp;=&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_FEMALE&nbsp;=&nbsp;GS_SUM-ZSUM_I.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SKIP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'###&nbsp;&nbsp;###&nbsp;:&nbsp;',&nbsp;LV_MALE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'###&nbsp;&nbsp;###&nbsp;:&nbsp;',&nbsp;LV_FEMALE.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+ENDLOOP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

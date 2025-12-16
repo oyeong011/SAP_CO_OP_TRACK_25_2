@@ -1,0 +1,845 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR05_PRACTICE003</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR05_PRACTICE003</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR05_PRACTICE003<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR05_PRACTICE003 LINE-SIZE 200.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*<br />
+*1.&nbsp;###&nbsp;##&nbsp;####&nbsp;#####&nbsp;####&nbsp;#####&nbsp;##&nbsp;##&nbsp;#&nbsp;#&nbsp;###&nbsp;##<br />
+*2.&nbsp;RANGE###&nbsp;##&nbsp;1#&nbsp;##&nbsp;####<br />
+*4.&nbsp;###&nbsp;###&nbsp;####&nbsp;###&nbsp;##&nbsp;####<br />
+*6.CONSTANTS#&nbsp;##&nbsp;1#&nbsp;##&nbsp;####<br />
+*<br />
+*####&nbsp;##&nbsp;##<br />
+*1.&nbsp;#####&nbsp;##&nbsp;##&nbsp;###&nbsp;###&nbsp;#####&nbsp;##&nbsp;##&nbsp;####&nbsp;####&nbsp;##&nbsp;###&nbsp;##&nbsp;###&nbsp;####<br />
+*3.&nbsp;####&nbsp;####&nbsp;##&nbsp;###,&nbsp;####,&nbsp;##&nbsp;###&nbsp;,&nbsp;######&nbsp;###&nbsp;##<br />
+*4.&nbsp;##&nbsp;###&nbsp;##KRW#&nbsp;##<br />
+*5.&nbsp;ZEDT00_101-ZFLAG#&nbsp;X###&nbsp;######&nbsp;##&nbsp;##&nbsp;#&nbsp;###&nbsp;####<br />
+*6.&nbsp;######&nbsp;####&nbsp;###&nbsp;###&nbsp;####(R1),&nbsp;####(R1,&nbsp;R2),&nbsp;####(R2)&nbsp;##&nbsp;####<br />
+*(###&nbsp;#&nbsp;##&nbsp;###&nbsp;##&nbsp;###&nbsp;###&nbsp;##)<br />
+*7.&nbsp;######&nbsp;###&nbsp;####&nbsp;###&nbsp;###&nbsp;##&nbsp;,&nbsp;####&nbsp;####&nbsp;####&nbsp;####&nbsp;(&nbsp;#####&nbsp;####or#######&nbsp;####&nbsp;##&nbsp;##)<br />
+<br />
+<br />
+*0.&nbsp;#####&nbsp;ZEDT00_100,&nbsp;#####&nbsp;ZEDT00_101#####&nbsp;####&nbsp;(###&nbsp;##&nbsp;###&nbsp;###)<br />
+   </div>
+   <div class="code">
+tables ZEDT05_100.<br />
+tables ZEDT05_101.<br />
+<br />
+constants: C_RETURN type C value 'X',  "## ###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_KRW(3)&nbsp;type&nbsp;C&nbsp;value&nbsp;'KRW'.&nbsp;"####<br />
+DATA : ZRET_FG TYPE C.<br />
+<br />
+" ### ### ##<br />
+<br />
+types: begin of TY_SEL_OUTPUT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZORDNO&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_100-ZORDNO,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZIDCODE&nbsp;&nbsp;type&nbsp;ZEDT05_100-ZIDCODE,&nbsp;&nbsp;&nbsp;"##ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMATNR&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_100-ZMATNR,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMATNAME&nbsp;type&nbsp;ZEDT05_100-ZMATNAME,&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMTART&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_100-ZMTART,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMTART_TXT&nbsp;&nbsp;&nbsp;type&nbsp;STRING,&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZVOLUM&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_100-ZVOLUM,&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VRKME&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_100-VRKME,&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZNSAMT&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_100-ZNSAMT,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSLAMT&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_100-ZSLAMT,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDCAMT&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_100-ZDCAMT,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSALE_FG&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_100-ZSALE_FG,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSALE_FG_TXT&nbsp;TYPE&nbsp;STRING,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZJDATE&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_100-ZJDATE,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZRET_FG&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_100-ZRET_FG,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZRET_FG_TXT&nbsp;&nbsp;&nbsp;type&nbsp;STRING,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZRDATE&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_100-ZRDATE,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end&nbsp;of&nbsp;TY_SEL_OUTPUT.<br />
+<br />
+types: begin of TY_DEL_OUTPUT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZORDNO&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_100-ZORDNO,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZIDCODE&nbsp;&nbsp;type&nbsp;ZEDT05_100-ZIDCODE,&nbsp;&nbsp;&nbsp;"##ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMATNR&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_100-ZMATNR,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMATNAME&nbsp;type&nbsp;ZEDT05_100-ZMATNAME,&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMTART&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_100-ZMTART,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMTART_TXT&nbsp;&nbsp;&nbsp;type&nbsp;STRING,&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZVOLUM&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_100-ZVOLUM,&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VRKME&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_100-VRKME,&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZNSAMT&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_100-ZNSAMT,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSLAMT&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_100-ZSLAMT,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDFLAG&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_101-ZDFLAG,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDFLAG_TXT&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;STRING,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDGUBUN&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_101-ZDGUBUN,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDGUBUN_TXT&nbsp;&nbsp;&nbsp;type&nbsp;STRING,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDDATE&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_101-ZDDATE,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZRDATE&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_101-ZRDATE,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZFLAG&nbsp;TYPE&nbsp;ZEDT05_101-ZFLAG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end&nbsp;of&nbsp;TY_DEL_OUTPUT.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*5.&nbsp;##&nbsp;###&nbsp;####&nbsp;###&nbsp;##&nbsp;###&nbsp;####&nbsp;####&nbsp;(###&nbsp;###&nbsp;###&nbsp;##&nbsp;##&nbsp;##)<br />
+   </div>
+   <div class="code">
+data : GS_ZEDT100 type ZEDT05_100,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ZEDT101&nbsp;type&nbsp;ZEDT05_101,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZEDT100&nbsp;like&nbsp;table&nbsp;of&nbsp;GS_ZEDT100,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZEDT101&nbsp;like&nbsp;table&nbsp;of&nbsp;GS_ZEDT101.<br />
+data :GS_OUT100 type TY_SEL_OUTPUT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUT101&nbsp;type&nbsp;TY_DEL_OUTPUT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_OUT101&nbsp;type&nbsp;table&nbsp;of&nbsp;TY_DEL_OUTPUT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_OUT100&nbsp;type&nbsp;table&nbsp;of&nbsp;TY_SEL_OUTPUT.<br />
+<br />
+<br />
+selection-screen begin of block B1 with frame.<br />
+&nbsp;&nbsp;select-options&nbsp;S_ZORDNO&nbsp;for&nbsp;ZEDT05_100-ZORDNO.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;P_IDCODE&nbsp;FOR&nbsp;ZEDT05_100-ZIDCODE&nbsp;NO&nbsp;INTERVALS&nbsp;NO-EXTENSION.<br />
+&nbsp;&nbsp;select-options&nbsp;S_ZMATNR&nbsp;for&nbsp;ZEDT05_100-ZMATNR.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;3.&nbsp;#####&nbsp;#####&nbsp;##&nbsp;default#&nbsp;######&nbsp;##,&nbsp;###&nbsp;###&nbsp;01.01~&nbsp;###&nbsp;##&nbsp;##&nbsp;###&nbsp;###&nbsp;##&nbsp;FIX<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;select-options&nbsp;S_ZJDATE&nbsp;for&nbsp;ZEDT05_100-ZJDATE&nbsp;modif&nbsp;id&nbsp;G1.<br />
+&nbsp;&nbsp;select-options&nbsp;S_ZDDATE&nbsp;for&nbsp;ZEDT05_101-ZDDATE&nbsp;modif&nbsp;id&nbsp;G2.<br />
+selection-screen end of block B1.<br />
+<br />
+selection-screen begin of block B2 with frame.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*1.&nbsp;#####&nbsp;######&nbsp;####&nbsp;####,&nbsp;##&nbsp;ID,&nbsp;####,&nbsp;####<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;parameters&nbsp;:&nbsp;P_ORBT&nbsp;radiobutton&nbsp;group&nbsp;R1&nbsp;default&nbsp;'X'&nbsp;user-command&nbsp;CMD.<br />
+   </div>
+   <div class="codeComment">
+*#####&nbsp;######&nbsp;####&nbsp;####,&nbsp;##&nbsp;ID,&nbsp;####,&nbsp;####&nbsp;#####&nbsp;###&nbsp;##<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;parameters&nbsp;:&nbsp;P_DELI&nbsp;radiobutton&nbsp;group&nbsp;R1.<br />
+selection-screen end of block B2.<br />
+<br />
+selection-screen begin of block B3 with frame.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*2.&nbsp;#######&nbsp;#####&nbsp;#####&nbsp;X##&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;parameters&nbsp;:&nbsp;P_REF&nbsp;as&nbsp;checkbox&nbsp;default&nbsp;'X'.<br />
+<br />
+selection-screen end of block B3.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*3.&nbsp;INITIALIZATION#&nbsp;START-OF-SELECTION#&nbsp;###&nbsp;####<br />
+*3.&nbsp;#####&nbsp;#####&nbsp;##&nbsp;default#&nbsp;######&nbsp;##,<br />
+   </div>
+   <div class="code">
+"### ### 01.01~ ### ## ## ### ### ## FIX<br />
+<br />
+initialization.<br />
+   </div>
+   <div class="codeComment">
+*0.&nbsp;#####&nbsp;2025.#.##&nbsp;####<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;perform&nbsp;DATEFORMATEER.<br />
+<br />
+at selection-screen output.<br />
+&nbsp;&nbsp;perform&nbsp;RADIOCONTROL.<br />
+<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*4.&nbsp;###&nbsp;###&nbsp;####&nbsp;###&nbsp;##&nbsp;####<br />
+*5.&nbsp;##&nbsp;###&nbsp;####&nbsp;###&nbsp;##&nbsp;###&nbsp;####&nbsp;####&nbsp;(###&nbsp;###&nbsp;###&nbsp;##&nbsp;##&nbsp;##)<br />
+<br />
+<br />
+*3.&nbsp;INITIALIZATION#&nbsp;START-OF-SELECTION#&nbsp;###&nbsp;####<br />
+   </div>
+   <div class="code">
+start-of-selection.<br />
+<br />
+&nbsp;&nbsp;perform&nbsp;RADIO_CONDITION.<br />
+<br />
+<br />
+form RADIOCONTROL .<br />
+&nbsp;&nbsp;"1.&nbsp;#####&nbsp;######&nbsp;####&nbsp;####,&nbsp;##&nbsp;ID,&nbsp;####,&nbsp;####<br />
+<br />
+   </div>
+   <div class="codeComment">
+*#####&nbsp;######&nbsp;####&nbsp;####,&nbsp;##&nbsp;ID,&nbsp;####,&nbsp;####&nbsp;#####&nbsp;###&nbsp;##<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;if&nbsp;P_ORBT&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;loop&nbsp;at&nbsp;screen.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'G1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'G2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modify&nbsp;screen.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;endloop.<br />
+&nbsp;&nbsp;elseif&nbsp;P_DELI&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;loop&nbsp;at&nbsp;screen.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'G2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'G1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modify&nbsp;screen.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;endloop.<br />
+&nbsp;&nbsp;endif.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*0.&nbsp;#####&nbsp;2025.#.##&nbsp;####<br />
+   </div>
+   <div class="code">
+form DATEFORMATEER .<br />
+&nbsp;&nbsp;data:&nbsp;LV_YEAR(4)&nbsp;type&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_FIRST&nbsp;&nbsp;&nbsp;type&nbsp;SY-DATUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_LAST&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;SY-DATUM.<br />
+<br />
+&nbsp;&nbsp;"###&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;call&nbsp;function&nbsp;'RP_LAST_DAY_OF_MONTHS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAY_IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-DATUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;importing<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LAST_DAY_OF_MONTH&nbsp;=&nbsp;LV_LAST.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;LV_YEAR&nbsp;=&nbsp;SY-DATUM(4).<br />
+&nbsp;&nbsp;concatenate&nbsp;LV_YEAR&nbsp;SY-DATUM+4(2)&nbsp;into&nbsp;LV_FIRST.<br />
+&nbsp;&nbsp;concatenate&nbsp;LV_FIRST&nbsp;'01'&nbsp;into&nbsp;LV_FIRST.<br />
+<br />
+&nbsp;&nbsp;S_ZDDATE-SIGN&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;S_ZDDATE-OPTION&nbsp;=&nbsp;'BT'.<br />
+&nbsp;&nbsp;S_ZDDATE-LOW&nbsp;=&nbsp;LV_FIRST.<br />
+&nbsp;&nbsp;S_ZDDATE-HIGH&nbsp;=&nbsp;LV_LAST.<br />
+&nbsp;&nbsp;append&nbsp;S_ZDDATE.<br />
+<br />
+&nbsp;&nbsp;S_ZJDATE-SIGN&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;S_ZJDATE-OPTION&nbsp;=&nbsp;'BT'.<br />
+&nbsp;&nbsp;S_ZJDATE-LOW&nbsp;=&nbsp;LV_FIRST.<br />
+&nbsp;&nbsp;S_ZJDATE-HIGH&nbsp;=&nbsp;LV_LAST.<br />
+&nbsp;&nbsp;append&nbsp;S_ZJDATE.<br />
+<br />
+<br />
+endform.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##&nbsp;####&nbsp;####&nbsp;###&nbsp;##&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+form RADIO_CONDITION .<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;###&nbsp;###&nbsp;##,####&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_TYPE&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10.<br />
+<br />
+&nbsp;&nbsp;if&nbsp;P_ORBT&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_TYPE&nbsp;=&nbsp;'ORDER'.<br />
+&nbsp;&nbsp;elseif&nbsp;P_DELI&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_TYPE&nbsp;=&nbsp;'DELIVERY'.<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_REF&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZRET_FG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##&nbsp;###&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;COMMON_PS&nbsp;USING&nbsp;LV_TYPE.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;###&nbsp;####&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;MOVE_TO_OUTPUT&nbsp;USING&nbsp;LV_TYPE.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;DISPLAY&nbsp;USING&nbsp;LV_TYPE.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;COMMON_PS<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_LV_TYPE&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+<br />
+*&nbsp;##&nbsp;###&nbsp;##<br />
+<br />
+   </div>
+   <div class="code">
+form COMMON_PS using P_TYPE TYPE C.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SELECT_DATA&nbsp;USING&nbsp;P_TYPE.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_REF&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;FILTER_RETURN_DATA&nbsp;USING&nbsp;P_TYPE&nbsp;ZRET_FG.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;PERFORM&nbsp;FILTER_OPTION_DATA&nbsp;USING&nbsp;P_TYPE.<br />
+<br />
+   </div>
+   <div class="code">
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SELECT_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_P_TYPE&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+<br />
+*&nbsp;####&nbsp;###&nbsp;##<br />
+<br />
+   </div>
+   <div class="code">
+form SELECT_DATA  using  P_TYPE.<br />
+&nbsp;&nbsp;CASE&nbsp;P_TYPE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'ORDER'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;ZEDT05_100<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;GT_ZEDT100<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZORDNO&nbsp;IN&nbsp;S_ZORDNO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZJDATE&nbsp;IN&nbsp;S_ZJDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZMATNR&nbsp;IN&nbsp;S_ZMATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZIDCODE&nbsp;IN&nbsp;P_IDCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'DELIVERY'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;ZEDT05_101<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;GT_ZEDT101<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZORDNO&nbsp;IN&nbsp;S_ZORDNO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZDDATE&nbsp;IN&nbsp;S_ZDDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZMATNR&nbsp;IN&nbsp;S_ZMATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZIDCODE&nbsp;IN&nbsp;P_IDCODE.<br />
+&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;FILTER_RETURN_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_P_TYPE&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+<br />
+<br />
+*4.&nbsp;######&nbsp;###&nbsp;##&nbsp;####&nbsp;#####&nbsp;###&nbsp;###&nbsp;##<br />
+   </div>
+   <div class="code">
+form FILTER_RETURN_DATA  using  P_TYPE ZRET_FG.<br />
+&nbsp;&nbsp;CASE&nbsp;P_TYPE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'ORDER'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_ZEDT100&nbsp;WHERE&nbsp;ZRET_FG&nbsp;=&nbsp;C_RETURN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'DELIVERY'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_ZEDT101&nbsp;WHERE&nbsp;ZFLAG&nbsp;=&nbsp;C_RETURN.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+endform.<br />
+<br />
+form MOVE_TO_OUTPUT  using    LV_TYPE.<br />
+&nbsp;&nbsp;CASE&nbsp;LV_TYPE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'ORDER'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_ZEDT100&nbsp;INTO&nbsp;GS_ZEDT100.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_ZEDT100&nbsp;TO&nbsp;GS_OUT100.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_OUT100&nbsp;TO&nbsp;GT_OUT100.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_OUT100.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'DELIVERY'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_ZEDT101&nbsp;INTO&nbsp;GS_ZEDT101.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_ZEDT101&nbsp;TO&nbsp;GS_OUT101.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_OUT101&nbsp;TO&nbsp;GT_OUT101.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_OUT101.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+endform.<br />
+form DISPLAY  using    LV_TYPE.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_LENGTH&nbsp;TYPE&nbsp;I.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;LV_TYPE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'ORDER'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DISPLAY_HEAEDR&nbsp;USING&nbsp;LV_TYPE&nbsp;ZRET_FG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CONVERT_DATA&nbsp;USING&nbsp;LV_TYPE&nbsp;ZRET_FG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'DELIVERY'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DISPLAY_HEAEDR&nbsp;USING&nbsp;LV_TYPE&nbsp;ZRET_FG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CONVERT_DATA&nbsp;USING&nbsp;LV_TYPE&nbsp;ZRET_FG.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_LINE_LENGTH&nbsp;USING&nbsp;LV_TYPE&nbsp;ZRET_FG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;LV_LENGTH.<br />
+&nbsp;&nbsp;PERFORM&nbsp;DRAW_LINE&nbsp;USING&nbsp;LV_LENGTH.<br />
+<br />
+endform.<br />
+form CONVERT_DATA  using    LV_TYPE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZRET_FG.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;LV_TYPE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'ORDER'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_OUT100&nbsp;INTO&nbsp;GS_OUT100.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####&nbsp;###<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CONVERT_ZMTART&nbsp;CHANGING&nbsp;GS_OUT100-ZMTART&nbsp;GS_OUT100-ZMTART_TXT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CONVERT_ZSALE_FG&nbsp;CHANGING&nbsp;GS_OUT100-ZSALE_FG&nbsp;GS_OUT100-ZSALE_FG_TXT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CONVERT_ZRET_FG&nbsp;CHANGING&nbsp;GS_OUT100-ZRET_FG&nbsp;GS_OUT100-ZRET_FG_TXT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DISPLAY_ORDER_LINE&nbsp;USING&nbsp;GS_OUT100&nbsp;ZRET_FG.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_OUT100.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'DELIVERY'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_OUT101&nbsp;INTO&nbsp;GS_OUT101.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CONVERT_ZMTART&nbsp;CHANGING&nbsp;GS_OUT101-ZMTART&nbsp;GS_OUT101-ZMTART_TXT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CONVERT_ZDFLAG&nbsp;CHANGING&nbsp;GS_OUT101-ZDFLAG&nbsp;GS_OUT101-ZDFLAG_TXT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CONVERT_ZDGUBUN&nbsp;CHANGING&nbsp;GS_OUT101-ZDGUBUN&nbsp;GS_OUT101-ZDGUBUN_TXT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DISPLAY_DELIVERY_LINE&nbsp;USING&nbsp;GS_OUT101&nbsp;ZRET_FG.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_OUT101.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+endform.<br />
+form CONVERT_ZMTART  changing P_ZMTART<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZMTART_TXT.<br />
+   </div>
+   <div class="codeComment">
+*001&nbsp;&nbsp;##<br />
+*002&nbsp;&nbsp;##<br />
+*003&nbsp;&nbsp;##<br />
+*004&nbsp;&nbsp;##<br />
+*005&nbsp;&nbsp;##<br />
+*006&nbsp;&nbsp;###<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;P_ZMTART.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZMTART_TXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'002'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZMTART_TXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'003'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZMTART_TXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'004'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZMTART_TXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'005'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZMTART_TXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'006'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZMTART_TXT&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+endform.<br />
+form CONVERT_ZSALE_FG  changing P_ZSALE_FG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZSALE_FG_TXT.<br />
+&nbsp;&nbsp;IF&nbsp;P_ZSALE_FG&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;P_ZSALE_FG_TXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;P_ZSALE_FG&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;P_ZSALE_FG_TXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+endform.<br />
+form CONVERT_ZRET_FG  changing P_ZRET_FG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZRET_FG_TXT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*1&nbsp;&nbsp;####<br />
+*2&nbsp;&nbsp;####<br />
+*3&nbsp;&nbsp;####<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;IF&nbsp;P_ZRET_FG&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;P_ZRET_FG_TXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;P_ZRET_FG&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;P_ZRET_FG_TXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;P_ZRET_FG&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;P_ZRET_FG_TXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+endform.<br />
+form CONVERT_ZDFLAG  changing P_ZDFLAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZDFLAG_TXT.<br />
+   </div>
+   <div class="codeComment">
+*1&nbsp;&nbsp;####<br />
+*2&nbsp;&nbsp;###<br />
+*3&nbsp;&nbsp;####<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CASE&nbsp;P_ZDFLAG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZDFLAG_TXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZDFLAG_TXT&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZDFLAG_TXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDGUBUN&nbsp;&nbsp;&nbsp;type&nbsp;ZEDT05_101-ZDGUBUN,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDGUBUN_TXT&nbsp;&nbsp;&nbsp;type&nbsp;STRING,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+   </div>
+   <div class="code">
+endform.<br />
+form CONVERT_ZDGUBUN  changing P_ZDGUBUN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZDGUBUN_TXT.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;P_ZDGUBUN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZDGUBUN_TXT&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZDGUBUN_TXT&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZDGUBUN_TXT&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'4'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZDGUBUN_TXT&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'5'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZDGUBUN_TXT&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'6'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZDGUBUN_TXT&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'7'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZDGUBUN_TXT&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*<br />
+*&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;######&nbsp;##&nbsp;##<br />
+*"&nbsp;ZORDNO(####),&nbsp;ZIDCODE(ID),&nbsp;ZMATNR(####),&nbsp;ZMATNAME(###),&nbsp;ZMTART(####),<br />
+*"&nbsp;ZVOLUM(##),&nbsp;VRKME(##),&nbsp;ZNSAMT(####),&nbsp;ZSLAMT(####),&nbsp;ZDCAMT(####),<br />
+*"&nbsp;ZSALE_FG(##),&nbsp;ZJDATE(####),&nbsp;(&nbsp;ZRET_FG(####),&nbsp;ZRDATE(####)&nbsp;)*<br />
+<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##&nbsp;###&nbsp;##<br />
+   </div>
+   <div class="code">
+form GET_LINE_LENGTH using P_TYPE TYPE C<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZRET_FG&nbsp;TYPE&nbsp;C<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changing&nbsp;P_LENGTH&nbsp;TYPE&nbsp;I.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;P_TYPE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'ORDER'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_ZRET_FG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_LENGTH&nbsp;=&nbsp;175.&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_LENGTH&nbsp;=&nbsp;150.&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'DELIVERY'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_ZRET_FG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_LENGTH&nbsp;=&nbsp;142.&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_LENGTH&nbsp;=&nbsp;130.&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+endform.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####&nbsp;#&nbsp;###<br />
+   </div>
+   <div class="code">
+form DRAW_LINE using P_LENGTH TYPE I.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_LINE&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_DASH(1)&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'-'.<br />
+<br />
+&nbsp;&nbsp;DO&nbsp;P_LENGTH&nbsp;TIMES.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;LV_LINE&nbsp;LV_DASH&nbsp;INTO&nbsp;LV_LINE.<br />
+&nbsp;&nbsp;ENDDO.<br />
+<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;LV_LINE.<br />
+<br />
+endform.<br />
+<br />
+form DISPLAY_HEAEDR using LV_TYPE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZRET_FG.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_LENGTH&nbsp;TYPE&nbsp;I.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_LINE_LENGTH&nbsp;USING&nbsp;LV_TYPE&nbsp;ZRET_FG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;LV_LENGTH.<br />
+&nbsp;&nbsp;PERFORM&nbsp;DRAW_LINE&nbsp;USING&nbsp;LV_LENGTH.<br />
+<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14&nbsp;'ID'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;26&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;36&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;38&nbsp;'###'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;48&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;60&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;62&nbsp;'##'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;68&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;70&nbsp;'##'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;76&nbsp;'|'&nbsp;NO-GAP.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;LV_TYPE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'ORDER'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;78&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;93&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;95&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;110&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;112&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;127&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;129&nbsp;'##'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;137&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;139&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;150&nbsp;'|'&nbsp;NO-GAP.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;ZRET_FG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;152&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;162&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;164&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;175&nbsp;'|'&nbsp;NO-GAP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'DELIVERY'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;78&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;93&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;95&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;105&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;107&nbsp;'##'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;117&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;119&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;130&nbsp;'|'&nbsp;NO-GAP.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;ZRET_FG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;132&nbsp;'####'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;142&nbsp;'|'&nbsp;NO-GAP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+endform.<br />
+<br />
+form DISPLAY_ORDER_LINE using P_OUT100 TYPE TY_SEL_OUTPUT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZRET_FG.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_ZNSAMT_STR(20)&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ZSLAMT_STR(20)&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ZDCAMT_STR(20)&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_LENGTH&nbsp;TYPE&nbsp;I.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;WRITE&nbsp;P_OUT100-ZNSAMT&nbsp;TO&nbsp;LV_ZNSAMT_STR&nbsp;CURRENCY&nbsp;'KRW'&nbsp;NO-SIGN&nbsp;DECIMALS&nbsp;0.<br />
+&nbsp;&nbsp;CONDENSE&nbsp;LV_ZNSAMT_STR&nbsp;NO-GAPS.<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;P_OUT100-ZSLAMT&nbsp;TO&nbsp;LV_ZSLAMT_STR&nbsp;CURRENCY&nbsp;'KRW'&nbsp;NO-SIGN&nbsp;DECIMALS&nbsp;0.<br />
+&nbsp;&nbsp;CONDENSE&nbsp;LV_ZSLAMT_STR&nbsp;NO-GAPS.<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;P_OUT100-ZDCAMT&nbsp;TO&nbsp;LV_ZDCAMT_STR&nbsp;CURRENCY&nbsp;'KRW'&nbsp;NO-SIGN&nbsp;DECIMALS&nbsp;0.<br />
+&nbsp;&nbsp;CONDENSE&nbsp;LV_ZDCAMT_STR&nbsp;NO-GAPS.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;#&nbsp;###<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_LINE_LENGTH&nbsp;USING&nbsp;'ORDER'&nbsp;P_ZRET_FG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;LV_LENGTH.<br />
+&nbsp;&nbsp;PERFORM&nbsp;DRAW_LINE&nbsp;USING&nbsp;LV_LENGTH.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;P_OUT100-ZORDNO&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14&nbsp;P_OUT100-ZIDCODE&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;26&nbsp;P_OUT100-ZMATNR&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;36&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;38&nbsp;P_OUT100-ZMATNAME&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;48&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50&nbsp;P_OUT100-ZMTART_TXT&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;60&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;62&nbsp;P_OUT100-ZVOLUM&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;68&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;70&nbsp;P_OUT100-VRKME&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;76&nbsp;'|'&nbsp;NO-GAP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;WRITE:&nbsp;78&nbsp;LV_ZNSAMT_STR&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;93&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;95&nbsp;LV_ZSLAMT_STR&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;110&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;112&nbsp;LV_ZDCAMT_STR&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;127&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;129&nbsp;P_OUT100-ZSALE_FG_TXT&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;137&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;139&nbsp;P_OUT100-ZJDATE&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;150&nbsp;'|'&nbsp;NO-GAP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;P_ZRET_FG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_OUT100-ZRET_FG&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;152&nbsp;P_OUT100-ZRET_FG_TXT&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;162&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;164&nbsp;P_OUT100-ZRDATE&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;175&nbsp;'|'&nbsp;NO-GAP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;152&nbsp;''&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;162&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;164&nbsp;''&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;175&nbsp;'|'&nbsp;NO-GAP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+endform.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;DISPLAY_DELIVERY_LINE&nbsp;(##)<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form DISPLAY_DELIVERY_LINE using P_OUT101 TYPE TY_DEL_OUTPUT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_ZRET_FG.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_ZSLAMT_STR(20)&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_LENGTH&nbsp;TYPE&nbsp;I.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;WRITE&nbsp;P_OUT101-ZSLAMT&nbsp;TO&nbsp;LV_ZSLAMT_STR&nbsp;CURRENCY&nbsp;'KRW'&nbsp;NO-SIGN&nbsp;DECIMALS&nbsp;0.<br />
+&nbsp;&nbsp;CONDENSE&nbsp;LV_ZSLAMT_STR&nbsp;NO-GAPS.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;#&nbsp;###<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_LINE_LENGTH&nbsp;USING&nbsp;'DELIVERY'&nbsp;P_ZRET_FG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;LV_LENGTH.<br />
+&nbsp;&nbsp;PERFORM&nbsp;DRAW_LINE&nbsp;USING&nbsp;LV_LENGTH.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;P_OUT101-ZORDNO&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14&nbsp;P_OUT101-ZIDCODE&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;26&nbsp;P_OUT101-ZMATNR&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;36&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;38&nbsp;P_OUT101-ZMATNAME&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;48&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50&nbsp;P_OUT101-ZMTART_TXT&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;60&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;62&nbsp;P_OUT101-ZVOLUM&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;68&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;70&nbsp;P_OUT101-VRKME&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;76&nbsp;'|'&nbsp;NO-GAP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;WRITE:&nbsp;78&nbsp;LV_ZSLAMT_STR&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;93&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;95&nbsp;P_OUT101-ZDFLAG_TXT&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;105&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;107&nbsp;P_OUT101-ZDGUBUN_TXT&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;117&nbsp;'|'&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;119&nbsp;P_OUT101-ZDDATE&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;130&nbsp;'|'&nbsp;NO-GAP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;P_ZRET_FG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_OUT101-ZFLAG&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;132&nbsp;P_OUT101-ZRDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;142&nbsp;'|'&nbsp;NO-GAP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;132&nbsp;''&nbsp;NO-GAP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;142&nbsp;'|'&nbsp;NO-GAP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+endform.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

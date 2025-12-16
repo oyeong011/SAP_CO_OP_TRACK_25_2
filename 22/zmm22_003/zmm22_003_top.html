@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM22_003_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM22_003_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM22_003_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES : ZMKPF_22, ZMSEG_22, ZEKKO_22, ZEKPO_22.<br />
+"MKPF : ## ## / MSEG : ## ###, EKKO : PO-##, EKPO : PO-###<br />
+<br />
+   </div>
+   <div class="codeComment">
+*CLASS&nbsp;EVENT&nbsp;DEFINITION&nbsp;DEFERRED.<br />
+*DATA&nbsp;:&nbsp;GO_EVENT&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;EVENT.<br />
+   </div>
+   <div class="code">
+"CLASS LCL_EVENT_HANDLER DEFINITION DEFERRED.<br />
+DATA : GO_EVENT TYPE REF TO LCL_EVENT_HANDLER.<br />
+<br />
+DATA : OK_CODE TYPE SY-UCOMM.<br />
+<br />
+DATA : BEGIN OF GS_HEADER,"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MBLNR&nbsp;TYPE&nbsp;ZMKPF_22-MBLNR,"######(5000000000-#####&nbsp;5###&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MJAHR&nbsp;TYPE&nbsp;ZMKPF_22-MJAHR,"####(####&nbsp;###&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BLART&nbsp;TYPE&nbsp;ZMKPF_22-BLART,"####(WE)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BLDAT&nbsp;TYPE&nbsp;ZMKPF_22-BLDAT,"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUDAT&nbsp;TYPE&nbsp;ZMKPF_22-BUDAT,"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_HEADER.<br />
+<br />
+DATA : BEGIN OF GS_ITEM,"###<br />
+&nbsp;&nbsp;MARK&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"######"<br />
+&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;ZEKKO_22-EBELN,&nbsp;"######"<br />
+&nbsp;&nbsp;EBELP&nbsp;TYPE&nbsp;ZEKPO_22-EBELP,&nbsp;"####"<br />
+&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;ZEKKO_22-LIFNR,&nbsp;"###"<br />
+&nbsp;&nbsp;BEDAT&nbsp;TYPE&nbsp;ZEKKO_22-BEDAT,&nbsp;"###"<br />
+&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;ZEKKO_22-WAERS,&nbsp;"##"<br />
+&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;ZEKPO_22-MATNR,&nbsp;"####"<br />
+&nbsp;&nbsp;MAKTX&nbsp;TYPE&nbsp;ZEKPO_22-MAKTX,"###"<br />
+&nbsp;&nbsp;MENGE&nbsp;TYPE&nbsp;ZEKPO_22-MENGE,&nbsp;"##"<br />
+&nbsp;&nbsp;MEINS&nbsp;TYPE&nbsp;ZEKPO_22-MEINS,&nbsp;"##"<br />
+&nbsp;&nbsp;STPRS&nbsp;TYPE&nbsp;ZEKPO_22-STPRS,&nbsp;"##"<br />
+&nbsp;&nbsp;PRDAT&nbsp;TYPE&nbsp;ZEKPO_22-PRDAT,&nbsp;"###"<br />
+&nbsp;&nbsp;WERKS&nbsp;TYPE&nbsp;ZEKPO_22-WERKS,&nbsp;"###"<br />
+&nbsp;&nbsp;LGORT&nbsp;TYPE&nbsp;ZEKPO_22-LGORT,&nbsp;"####"<br />
+&nbsp;&nbsp;WEMNG&nbsp;TYPE&nbsp;MENGE_D,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"#####"<br />
+&nbsp;&nbsp;REMNG&nbsp;TYPE&nbsp;MENGE_D,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##"<br />
+&nbsp;&nbsp;ERFMG&nbsp;TYPE&nbsp;MENGE_D,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##&nbsp;##"<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_ITEM,<br />
+&nbsp;&nbsp;GT_ITEM&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_ITEM.<br />
+<br />
+" ##### ### ##<br />
+TYPES: BEGIN OF TY_WEMNG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;ZMSEG_22-EBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELP&nbsp;TYPE&nbsp;ZMSEG_22-ZEILE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WEMNG&nbsp;TYPE&nbsp;MENGE_D,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_WEMNG.<br />
+DATA: LT_WEMNG TYPE TABLE OF TY_WEMNG.<br />
+<br />
+" 1. [##] ## ### ###<br />
+DATA: BEGIN OF GS_DOC_LIST,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MBLNR&nbsp;TYPE&nbsp;ZMKPF_22-MBLNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MJAHR&nbsp;TYPE&nbsp;ZMKPF_22-MJAHR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUDAT&nbsp;TYPE&nbsp;ZMKPF_22-BUDAT,"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIST_TEXT&nbsp;TYPE&nbsp;CHAR50,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DOC_LIST.<br />
+DATA: GT_DOC_LIST LIKE TABLE OF GS_DOC_LIST.<br />
+<br />
+DATA: BEGIN OF GS_LIST_200,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MARK&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;1.&nbsp;##(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MBLNR&nbsp;&nbsp;TYPE&nbsp;ZMKPF_22-MBLNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;2.&nbsp;######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEILE&nbsp;&nbsp;TYPE&nbsp;ZMSEG_22-ZEILE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;3.&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;&nbsp;TYPE&nbsp;ZMSEG_22-LIFNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;4.&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;&nbsp;TYPE&nbsp;ZMSEG_22-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;5.&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAKTX&nbsp;&nbsp;TYPE&nbsp;ZEKPO_22-MAKTX,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;5-1.&nbsp;###&nbsp;(###)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MENGE&nbsp;&nbsp;TYPE&nbsp;ZMSEG_22-MENGE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;6.&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;&nbsp;TYPE&nbsp;ZMSEG_22-MEINS,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;7.&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DMBTR&nbsp;&nbsp;TYPE&nbsp;ZMSEG_22-DMBTR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;8.&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;&nbsp;TYPE&nbsp;ZMSEG_22-WAERS,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;9.&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZWERKS&nbsp;TYPE&nbsp;ZMSEG_22-ZWERKS,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;10.&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZLGORT&nbsp;TYPE&nbsp;ZMSEG_22-ZLGOPT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;11.&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BWART&nbsp;&nbsp;TYPE&nbsp;ZMSEG_22-BWART,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;12.&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;&nbsp;TYPE&nbsp;ZMSEG_22-EBELN,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;13.&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELP&nbsp;&nbsp;TYPE&nbsp;ZMSEG_22-ZEILE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;14.&nbsp;PO##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUKRS&nbsp;&nbsp;TYPE&nbsp;ZEKKO_22-BUKRS,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;15.&nbsp;####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MJAHR&nbsp;&nbsp;TYPE&nbsp;ZMKPF_22-MJAHR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUDAT&nbsp;&nbsp;TYPE&nbsp;ZMKPF_22-BUDAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_LIST_200.<br />
+DATA: GT_LIST_200 LIKE TABLE OF GS_LIST_200.<br />
+<br />
+"### 100#<br />
+DATA : GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER.<br />
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+" 2. ## 200# (##: ##) - [## ##]<br />
+DATA : GC_DOCK_LEFT TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA : GC_GRID_LEFT TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+" 3. ## 200# (##: ##) - [## ##]<br />
+DATA : GC_DOCK_BOTTOM TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA : GC_GRID_BOTTOM TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT&nbsp;TYPE&nbsp;LVC_T_FCAT.<br />
+<br />
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.<br />
+<br />
+DATA : GS_SORT TYPE LVC_S_SORT.<br />
+DATA : GT_SORT TYPE LVC_T_SORT.<br />
+<br />
+DATA : GS_VARIANT TYPE DISVARIANT.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

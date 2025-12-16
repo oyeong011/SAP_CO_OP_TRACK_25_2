@@ -1,0 +1,489 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM06_003_F03</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM06_003_F03</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM06_003_F03<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;INQUIRY<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM INQUIRY .<br />
+&nbsp;&nbsp;DATA:&nbsp;LT_MSEG_DOCS&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZEDT06_MSEG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_MSEG_DOC&nbsp;TYPE&nbsp;ZEDT06_MSEG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_MKPF_DOCS&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZEDT06_MKPF,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_MKPF_DOC&nbsp;TYPE&nbsp;ZEDT06_MKPF.<br />
+<br />
+&nbsp;&nbsp;"------------------------------------------------------------<br />
+&nbsp;&nbsp;"&nbsp;1.&nbsp;MSEG##&nbsp;###&nbsp;##(MBLNR/MJAHR)&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;"------------------------------------------------------------<br />
+&nbsp;&nbsp;SELECT&nbsp;MBLNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MJAHR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT06_MSEG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;LT_MSEG_DOCS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;EBELN&nbsp;=&nbsp;P_EBELN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;WERKS&nbsp;=&nbsp;P_WERKS.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LT_MSEG_DOCS&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;#####&nbsp;##&nbsp;###&nbsp;####.'&nbsp;TYPE&nbsp;'S'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"------------------------------------------------------------<br />
+&nbsp;&nbsp;"&nbsp;2.&nbsp;MKPF##&nbsp;##&nbsp;####&nbsp;##&nbsp;##&nbsp;(BUDAT&nbsp;##)<br />
+&nbsp;&nbsp;"------------------------------------------------------------<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT06_MKPF<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;LT_MKPF_DOCS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;ALL&nbsp;ENTRIES&nbsp;IN&nbsp;LT_MSEG_DOCS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;MBLNR&nbsp;=&nbsp;LT_MSEG_DOCS-MBLNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;MJAHR&nbsp;=&nbsp;LT_MSEG_DOCS-MJAHR.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LT_MKPF_DOCS&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;##(MKPF)&nbsp;###&nbsp;##&nbsp;#&nbsp;####.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"------------------------------------------------------------<br />
+&nbsp;&nbsp;"&nbsp;3.&nbsp;##&nbsp;##(BUDAT&nbsp;##&nbsp;DESC)&nbsp;##<br />
+&nbsp;&nbsp;"------------------------------------------------------------<br />
+&nbsp;&nbsp;SORT&nbsp;LT_MKPF_DOCS&nbsp;BY&nbsp;BUDAT&nbsp;DESCENDING.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_MKPF_DOCS&nbsp;INTO&nbsp;LS_MKPF_DOC&nbsp;INDEX&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;MKPF&nbsp;#&nbsp;##&nbsp;GS_MKPF#&nbsp;##<br />
+&nbsp;&nbsp;GS_MKPF&nbsp;=&nbsp;LS_MKPF_DOC.<br />
+<br />
+&nbsp;&nbsp;GS_MKPF_DISP-MBLNR&nbsp;=&nbsp;LS_MKPF_DOC-MBLNR.<br />
+&nbsp;&nbsp;GS_MKPF_DISP-MJAHR&nbsp;=&nbsp;LS_MKPF_DOC-MJAHR.<br />
+&nbsp;&nbsp;GS_MKPF_DISP-BLART&nbsp;=&nbsp;LS_MKPF_DOC-BLART.<br />
+&nbsp;&nbsp;GS_MKPF_DISP-BLDAT&nbsp;=&nbsp;LS_MKPF_DOC-BLDAT.<br />
+&nbsp;&nbsp;GS_MKPF_DISP-BUDAT&nbsp;=&nbsp;LS_MKPF_DOC-BUDAT.<br />
+<br />
+&nbsp;&nbsp;"------------------------------------------------------------<br />
+&nbsp;&nbsp;"&nbsp;4.&nbsp;###&nbsp;###&nbsp;###&nbsp;##&nbsp;(GT_MSEG)<br />
+&nbsp;&nbsp;"------------------------------------------------------------<br />
+&nbsp;&nbsp;CLEAR&nbsp;GT_MSEG_ALV.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT06_MSEG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_MSEG_ALV<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;EBELN&nbsp;=&nbsp;P_EBELN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;WERKS&nbsp;=&nbsp;P_WERKS.<br />
+<br />
+&nbsp;&nbsp;"------------------------------------------------------------<br />
+&nbsp;&nbsp;"&nbsp;5.&nbsp;##&nbsp;##(300#&nbsp;###)&nbsp;##<br />
+&nbsp;&nbsp;"------------------------------------------------------------<br />
+&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;300.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CREATE_OBJECT_300<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CREATE_OBJECT_300 .<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;######&nbsp;##&nbsp;###&nbsp;##&nbsp;(##&nbsp;##&nbsp;##)<br />
+&nbsp;&nbsp;IF&nbsp;GC_CUSTOM_300&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GC_CUSTOM_300<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTAINER_NAME&nbsp;=&nbsp;'CON1'.&nbsp;&nbsp;"&nbsp;Screen&nbsp;300#&nbsp;##&nbsp;Custom&nbsp;Control&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GC_GRID_300<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_PARENT&nbsp;=&nbsp;GC_CUSTOM_300.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_FIELDCAT_300<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_FIELDCAT_300 .<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT_300,&nbsp;GT_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1.&nbsp;####&nbsp;(MBLNR)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'SEL'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-CHECKBOX&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-EDIT&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2.&nbsp;####&nbsp;(MBLNR)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'MBLNR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;3.&nbsp;####&nbsp;(MJAHR)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'MJAHR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;4.&nbsp;#####&nbsp;(ZEILE)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'ZEILE'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'###&nbsp;##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;5.&nbsp;####&nbsp;(MATNR)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'MATNR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;6.&nbsp;###&nbsp;(WERKS)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'WERKS'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;7.&nbsp;####&nbsp;(LGORT)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'LGORT'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;8.&nbsp;##&nbsp;(MENGE)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'MENGE'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;9.&nbsp;##&nbsp;(MEINS)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;9.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'MEINS'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;10.&nbsp;##&nbsp;(DMBTR)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'DMBTR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;10.&nbsp;##&nbsp;(WAERS)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;11.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'WAERS'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;12.&nbsp;######&nbsp;(EBELN)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;12.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'EBELN'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;13.&nbsp;####&nbsp;(BUKRS)<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;13.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-FIELDNAME&nbsp;=&nbsp;'BUKRS'.<br />
+&nbsp;&nbsp;GS_FIELDCAT_300-SCRTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT_300&nbsp;TO&nbsp;GT_FIELDCAT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT_300.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_LAYOUT_300<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_LAYOUT_300 .<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_LAYOUT_300.<br />
+<br />
+&nbsp;&nbsp;GS_LAYOUT_300-ZEBRA&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;GS_LAYOUT_300-CWIDTH_OPT&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;##&nbsp;##&nbsp;#&nbsp;##<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_SORT_300<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_SORT_300.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GT_SORT_300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_SORT_300.<br />
+<br />
+&nbsp;&nbsp;GS_SORT_300-FIELDNAME&nbsp;=&nbsp;'ZEILE'.<br />
+&nbsp;&nbsp;GS_SORT_300-UP&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_SORT_300&nbsp;TO&nbsp;GT_SORT_300.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_DISPLAY_300<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_DISPLAY_300 .<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GC_GRID_300-&gt;SET_TABLE_FOR_FIRST_DISPLAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_LAYOUT_300<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_MSEG_ALV<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCATALOG&nbsp;=&nbsp;GT_FIELDCAT_300<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_SORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_SORT_300.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;PO_CANCLE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GR_CANCEL .<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LT_CANCEL&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;TY_MSEG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_CANCEL&nbsp;TYPE&nbsp;TY_MSEG.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1.&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_MSEG_ALV&nbsp;INTO&nbsp;LS_CANCEL&nbsp;WHERE&nbsp;SEL&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;LS_CANCEL&nbsp;TO&nbsp;LT_CANCEL.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LT_CANCEL&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;##&nbsp;###&nbsp;#####.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2.&nbsp;##&nbsp;###(MSEG)&nbsp;##<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_CANCEL&nbsp;INTO&nbsp;LS_CANCEL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;FROM&nbsp;ZEDT06_MSEG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;MBLNR&nbsp;=&nbsp;LS_CANCEL-MBLNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;MJAHR&nbsp;=&nbsp;LS_CANCEL-MJAHR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZEILE&nbsp;=&nbsp;LS_CANCEL-ZEILE.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;3.&nbsp;##(MKPF)&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;DELETE_MKPF_IF_EMPTY&nbsp;USING&nbsp;LT_CANCEL.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;4.&nbsp;FI&nbsp;##&nbsp;##&nbsp;##<br />
+"  PERFORM CREATE_REVERSE_FI_DOC USING LT_CANCEL.<br />
+<br />
+&nbsp;&nbsp;COMMIT&nbsp;WORK.<br />
+<br />
+&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;###&nbsp;#######.'&nbsp;TYPE&nbsp;'S'.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;5.&nbsp;ALV&nbsp;#######&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_CANCEL&nbsp;INTO&nbsp;LS_CANCEL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_MSEG_ALV<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;MBLNR&nbsp;=&nbsp;LS_CANCEL-MBLNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;MJAHR&nbsp;=&nbsp;LS_CANCEL-MJAHR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZEILE&nbsp;=&nbsp;LS_CANCEL-ZEILE.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;REFRESH_300.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;DELETE_MKPF_IF_EMPTY<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_LT_CANCEL&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DELETE_MKPF_IF_EMPTY USING PT_CANCEL TYPE STANDARD TABLE.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LS_CANCEL&nbsp;TYPE&nbsp;TY_MSEG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_CNT&nbsp;TYPE&nbsp;I.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;PT_CANCEL&nbsp;INTO&nbsp;LS_CANCEL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;INTO&nbsp;LV_CNT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT06_MSEG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;MBLNR&nbsp;=&nbsp;LS_CANCEL-MBLNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;MJAHR&nbsp;=&nbsp;LS_CANCEL-MJAHR.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LV_CNT&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;FROM&nbsp;ZEDT06_MKPF<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;MBLNR&nbsp;=&nbsp;LS_CANCEL-MBLNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;MJAHR&nbsp;=&nbsp;LS_CANCEL-MJAHR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CLASS_EVENT_300<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CLASS_EVENT_300.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_EVT_300.<br />
+<br />
+&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;GO_EVT_300-&gt;HANDLER_DATA_CHANGED&nbsp;FOR&nbsp;GC_GRID_300.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GC_GRID_300-&gt;REGISTER_EDIT_EVENT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_EVENT_ID&nbsp;=&nbsp;CL_GUI_ALV_GRID=&gt;MC_EVT_MODIFIED.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;REFRESH_300<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM REFRESH_300.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LS_STABLE&nbsp;TYPE&nbsp;LVC_S_STBL.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GC_GRID_300&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GC_GRID_300-&gt;REFRESH_TABLE_DISPLAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_STABLE&nbsp;=&nbsp;LS_STABLE.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

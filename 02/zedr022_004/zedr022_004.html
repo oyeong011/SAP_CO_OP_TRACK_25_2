@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR022_004</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR022_004</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR022_004<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zedr022_004.<br />
+<br />
+DATA: BEGIN OF gs_student,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zcode&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;6,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zkname&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zename&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgender&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgname&nbsp;&nbsp;&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ztel&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_student.<br />
+<br />
+DATA: gt_student LIKE TABLE OF gs_student.<br />
+<br />
+CLEAR : gs_student, gt_student.<br />
+<br />
+gs_student-zcode = 'SSU-01'.<br />
+gs_student-zkname = '###'.<br />
+gs_student-zename = 'DONG'.<br />
+gs_student-zgname = '####'.<br />
+APPEND gs_student TO gt_student.<br />
+<br />
+gs_student-zcode = 'SSU-01'.<br />
+gs_student-zkname = '###'.<br />
+gs_student-zename = 'DONG'.<br />
+gs_student-zgname = '####'.<br />
+APPEND gs_student TO gt_student.<br />
+<br />
+gs_student-zcode = 'SSU-01'.<br />
+gs_student-zkname = '###'.<br />
+gs_student-zename = 'DONG'.<br />
+gs_student-zgname = '####'.<br />
+APPEND gs_student TO gt_student.<br />
+<br />
+gs_student-zcode = 'SSU-01'.<br />
+gs_student-zkname = '###'.<br />
+gs_student-zename = 'DONG'.<br />
+gs_student-zgname = '####'.<br />
+APPEND gs_student TO gt_student.<br />
+<br />
+gs_student-zcode = 'SSU-01'.<br />
+gs_student-zkname = '###'.<br />
+gs_student-zename = 'KANG'.<br />
+APPEND gs_student TO gt_student.<br />
+<br />
+gs_student-zcode = 'SSU-02'.<br />
+gs_student-zkname = '###'.<br />
+gs_student-zename = 'LEE'.<br />
+gs_student-zgname = '####'.<br />
+APPEND gs_student TO gt_student.<br />
+<br />
+SORT gt_student BY zcode zkname zename zgname.<br />
+<br />
+LOOP AT gt_student INTO gs_student.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;END&nbsp;OF&nbsp;zename.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_student-zgname&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;MODIFY&nbsp;gt_student&nbsp;FROM&nbsp;gs_student&nbsp;INDEX&nbsp;sy-tabix&nbsp;TRANSPORTING&nbsp;zgname.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+<br />
+ENDLOOP.<br />
+<br />
+LOOP AT gt_student INTO gs_student.<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;gs_student-zcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_student-zkname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_student-zename,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_student-zgname.<br />
+ENDLOOP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

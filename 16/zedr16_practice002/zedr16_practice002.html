@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR16_PRACTICE002</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR16_PRACTICE002</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR16_PRACTICE002<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zedr16_practice002.<br />
+<br />
+" ## ###<br />
+TYPES: BEGIN OF ty_out,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zcode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt16_001-zcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zkname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt16_001-zkname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transfer_tx&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;8,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ztel_show&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt16_001-ztel,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remark&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ty_out.<br />
+<br />
+DATA: gt_out TYPE STANDARD TABLE OF ty_out WITH EMPTY KEY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_out&nbsp;TYPE&nbsp;ty_out.<br />
+<br />
+DATA : BEGIN OF gs_sum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgender&nbsp;TYPE&nbsp;zedt16_001-zgender,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zsum&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt16_004-zsum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_sum.<br />
+<br />
+DATA gt_sum LIKE TABLE OF gs_sum.<br />
+<br />
+<br />
+DATA gt_zedt001 TYPE TABLE OF zedt16_001.<br />
+DATA gs_zedt001 TYPE zedt16_001.<br />
+<br />
+DATA gt_zedt002 TYPE TABLE OF zedt16_002.<br />
+DATA gs_zedt002 TYPE zedt16_002.<br />
+<br />
+DATA gt_zedt004 TYPE TABLE OF zedt16_004.<br />
+DATA gs_zedt004 TYPE zedt16_004.<br />
+<br />
+"## ##(### ## 1## ## ##)<br />
+DATA: gt_rep TYPE STANDARD TABLE OF zedt16_004 WITH EMPTY KEY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_rep&nbsp;TYPE&nbsp;zedt16_004.<br />
+<br />
+"#/# ### ##<br />
+DATA: gv_sum_m TYPE p DECIMALS 2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_sum_f&nbsp;TYPE&nbsp;p&nbsp;DECIMALS&nbsp;2.<br />
+<br />
+" Loop ### ### ## ##<br />
+DATA: ls_probe TYPE zedt16_004.<br />
+DATA: ls_tmp   TYPE zedt16_004.<br />
+<br />
+<br />
+SELECT * FROM zedt16_001<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_zedt001.<br />
+<br />
+SELECT * FROM zedt16_002<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_zedt002.<br />
+<br />
+SELECT * FROM zedt16_004<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_zedt004.<br />
+<br />
+<br />
+<br />
+" zpernr, zgrade# ## # zpernr ## ## ## gt_rep# ##<br />
+gt_rep = gt_zedt004.<br />
+SORT gt_rep BY zpernr zgrade DESCENDING.<br />
+DELETE ADJACENT DUPLICATES FROM gt_rep COMPARING zpernr.<br />
+<br />
+" MODIFY# LOOP<br />
+LOOP AT gt_rep INTO gs_rep.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_out.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_zedt001.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_sum.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;zedt16_001&nbsp;READ<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_zedt001&nbsp;INTO&nbsp;gs_zedt001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;zpernr&nbsp;=&nbsp;gs_rep-zpernr.<br />
+&nbsp;&nbsp;CHECK&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_zedt002.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;zedt16_002&nbsp;READ<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_zedt002&nbsp;INTO&nbsp;gs_zedt002<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;zpernr&nbsp;=&nbsp;gs_rep-zpernr.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####,&nbsp;#####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_probe.<br />
+&nbsp;&nbsp;ls_probe-zpernr&nbsp;=&nbsp;gs_rep-zpernr.<br />
+&nbsp;&nbsp;ls_probe-zmajor&nbsp;=&nbsp;gs_rep-zmajor.<br />
+<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_tmp.<br />
+&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;gs_zedt002&nbsp;TO&nbsp;ls_tmp.<br />
+<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_zedt004<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;zpernr&nbsp;=&nbsp;ls_tmp-zpernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;ls_tmp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COMPARING&nbsp;zmajor.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;zmajor#&nbsp;###&nbsp;####&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_out-transfer_tx&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;gs_rep-zgrade&nbsp;&gt;=&nbsp;'D'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_out-remark&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_out-ztel_show&nbsp;=&nbsp;gs_zedt001-ztel.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;"&nbsp;#,&nbsp;#&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;IF&nbsp;gs_zedt001-zgender&nbsp;=&nbsp;'M'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gv_sum_m&nbsp;=&nbsp;gv_sum_m&nbsp;+&nbsp;gs_rep-zsum.<br />
+*&nbsp;&nbsp;ELSEIF&nbsp;gs_zedt001-zgender&nbsp;=&nbsp;'F'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gv_sum_f&nbsp;=&nbsp;gv_sum_f&nbsp;+&nbsp;gs_rep-zsum.<br />
+*&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CLEAR&nbsp;gs_sum.<br />
+<br />
+&nbsp;&nbsp;gs_sum-zgender&nbsp;=&nbsp;gs_zedt001-zgender.<br />
+&nbsp;&nbsp;gs_sum-zsum&nbsp;=&nbsp;gs_rep-zsum.<br />
+<br />
+&nbsp;&nbsp;COLLECT&nbsp;gs_sum&nbsp;INTO&nbsp;gt_sum.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;gs_out-zcode&nbsp;&nbsp;=&nbsp;gs_rep-zcode.<br />
+&nbsp;&nbsp;gs_out-zkname&nbsp;=&nbsp;gs_zedt001-zkname.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_out&nbsp;TO&nbsp;gt_out.<br />
+<br />
+ENDLOOP.<br />
+<br />
+<br />
+LOOP AT gt_out INTO gs_out.<br />
+&nbsp;&nbsp;AT&nbsp;FIRST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'---------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;&nbsp;&nbsp;&nbsp;|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'---------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|',&nbsp;gs_out-zcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;gs_out-zkname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;&nbsp;|',&nbsp;gs_out-transfer_tx,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;&nbsp;&nbsp;|',&nbsp;gs_out-ztel_show,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;gs_out-remark,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'.<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'---------------------------------------------------------------------------'.<br />
+ENDLOOP.<br />
+<br />
+<br />
+READ TABLE gt_sum WITH KEY zgender = 'M' INTO gs_sum.<br />
+<br />
+IF sy-subrc = 0.<br />
+&nbsp;&nbsp;gv_sum_m&nbsp;=&nbsp;gs_sum-zsum.<br />
+ENDIF.<br />
+<br />
+CLEAR gs_sum.<br />
+<br />
+<br />
+READ TABLE gt_sum WITH KEY zgender = 'F' INTO gs_sum.<br />
+<br />
+IF sy-subrc = 0.<br />
+&nbsp;&nbsp;gv_sum_f&nbsp;=&nbsp;gs_sum-zsum.<br />
+ENDIF.<br />
+<br />
+WRITE: / '###### : ', gv_sum_m CURRENCY 'KRW'.<br />
+WRITE: / '###### : ', gv_sum_f CURRENCY 'KRW'.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

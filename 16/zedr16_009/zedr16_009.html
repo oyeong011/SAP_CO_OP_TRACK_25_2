@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR16_009</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR16_009</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR16_009<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zedr16_009.<br />
+<br />
+DATA : BEGIN OF gs_student,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpernr&nbsp;&nbsp;LIKE&nbsp;zedt16_001-zpernr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zcode&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_001-zcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zkname&nbsp;&nbsp;LIKE&nbsp;zedt16_001-zkname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zename&nbsp;&nbsp;LIKE&nbsp;zedt16_001-zename,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgender&nbsp;LIKE&nbsp;zedt16_001-zgender,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgname&nbsp;&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;4,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ztel&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zedt16_001-ztel,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_student.<br />
+DATA : gt_student LIKE TABLE OF gs_student WITH NON-UNIQUE KEY zcode.<br />
+<br />
+CLEAR : gs_student, gt_student.<br />
+<br />
+gs_student-zpernr = '0000000001'.<br />
+gs_student-zcode = 'SSU-01'.<br />
+gs_student-zkname = '###'.<br />
+gs_student-zename = 'DONG'.<br />
+gs_student-zgender = 'F'.<br />
+gs_student-ztel = '01011112222'.<br />
+APPEND gs_student TO gt_student.<br />
+<br />
+CLEAR : gs_student.<br />
+gs_student-zpernr = '0000000001'.<br />
+gs_student-zcode = 'SSU-01'.<br />
+gs_student-zkname = '###'.<br />
+gs_student-zename = 'DONG'.<br />
+gs_student-zgender = 'F'.<br />
+gs_student-ztel = '01011112222'.<br />
+APPEND gs_student TO gt_student.<br />
+<br />
+CLEAR : gs_student.<br />
+gs_student-zpernr = '0000000001'.<br />
+gs_student-zcode = 'SSU-01'.<br />
+gs_student-zkname = '###'.<br />
+gs_student-zename = 'DONG'.<br />
+gs_student-zgender = 'F'.<br />
+gs_student-ztel = '01011112222'.<br />
+APPEND gs_student TO gt_student.<br />
+   </div>
+   <div class="codeComment">
+*<br />
+*gs_student-zename&nbsp;=&nbsp;'KANG'.<br />
+*gs_student-zgender&nbsp;=&nbsp;'M'.<br />
+**APPEND&nbsp;gs_student&nbsp;TO&nbsp;gt_student.<br />
+*MODIFY&nbsp;TABLE&nbsp;gt_student&nbsp;FROM&nbsp;gs_student&nbsp;TRANSPORTING&nbsp;zgender.<br />
+<br />
+<br />
+*LOOP&nbsp;AT&nbsp;gt_student&nbsp;INTO&nbsp;gs_student.<br />
+*&nbsp;&nbsp;IF&nbsp;gs_student-zgender&nbsp;=&nbsp;'M'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gs_student-zgname&nbsp;=&nbsp;'##'.<br />
+*&nbsp;&nbsp;ELSEIF&nbsp;gs_student-zgender&nbsp;=&nbsp;'F'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gs_student-zgname&nbsp;=&nbsp;'##'.<br />
+*&nbsp;&nbsp;ELSE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gs_student-zgname&nbsp;=&nbsp;'##'.<br />
+*&nbsp;&nbsp;ENDIF.<br />
+*<br />
+*&nbsp;&nbsp;MODIFY&nbsp;gt_student&nbsp;FROM&nbsp;gs_student&nbsp;TRANSPORTING&nbsp;zgname<br />
+*&nbsp;&nbsp;WHERE&nbsp;zcode&nbsp;=&nbsp;gs_student-zcode.<br />
+*&nbsp;&nbsp;CLEAR&nbsp;gs_student.<br />
+*ENDLOOP.<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+LOOP AT gt_student INTO gs_student.<br />
+&nbsp;&nbsp;IF&nbsp;gs_student-zgender&nbsp;=&nbsp;'M'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_student-zgname&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;gs_student-zgender&nbsp;=&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_student-zgname&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_student-zgname&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;MODIFY&nbsp;gt_student&nbsp;FROM&nbsp;gs_student&nbsp;INDEX&nbsp;sy-tabix.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_student.<br />
+ENDLOOP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

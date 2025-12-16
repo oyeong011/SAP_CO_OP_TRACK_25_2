@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR04_003</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR04_003</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR04_003<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR04_003.<br />
+<br />
+DATA :  text1 TYPE STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text2(8)&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text3(8)&nbsp;TYPE&nbsp;C.<br />
+<br />
+" 1. Find : #### ## ## ### SY-SUBRC = 0 ##<br />
+text1 = 'ABAP'.<br />
+text2 = 'B'.<br />
+<br />
+FIND text2 IN text1.<br />
+<br />
+IF SY-SUBRC = 0.<br />
+&nbsp;&nbsp;WRITE&nbsp;text2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"B<br />
+ENDIF.<br />
+WRITE / '---------------------------------------------------'.<br />
+<br />
+" 2. REPLACE : ## ##<br />
+text1 = 'ABAP'.<br />
+text2 = 'BBAP'.<br />
+<br />
+REPLACE text1 IN text1 WITH text2.<br />
+<br />
+WRITE / text1.      "BBAP<br />
+WRITE / '---------------------------------------------------'.<br />
+<br />
+" 3. TRANSLATE : #### ##<br />
+text1 = 'ABAP'.<br />
+text2 = 'abap'.<br />
+<br />
+TRANSLATE text1 to LOWER CASE.<br />
+TRANSLATE text2 to UPPER CASE.<br />
+<br />
+WRITE : / text1,    "abap<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;text2.&nbsp;&nbsp;&nbsp;&nbsp;"ABAP<br />
+WRITE / '---------------------------------------------------'.<br />
+<br />
+" 4. SHIFT : ### #### # ## ##<br />
+text1 = ' ABAP'.<br />
+text2 = ' ABAP'.<br />
+<br />
+SHIFT text1.<br />
+<br />
+WRITE : / text1,    "ABAP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;text2.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ABAP<br />
+WRITE / '---------------------------------------------------'.<br />
+<br />
+" 5. CONDENSE : ## ##, ## ##. NO-GAPS# ## ##<br />
+text1 = 'AB    AP'.<br />
+text2 = 'AB    AP'.<br />
+text3 = 'AB    AP'.<br />
+<br />
+CONDENSE text1.<br />
+CONDENSE text2 NO-GAPS.<br />
+<br />
+WRITE : / text1,    "AB AP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;text2,&nbsp;&nbsp;&nbsp;&nbsp;"ABAP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;text3.&nbsp;&nbsp;&nbsp;&nbsp;"AB&nbsp;&nbsp;&nbsp;&nbsp;AP<br />
+WRITE / '---------------------------------------------------'.<br />
+<br />
+" 6. OVERLAY : CHAR # ## ###<br />
+text1 = ' B P'.<br />
+text2 = 'AAAA'.<br />
+<br />
+OVERLAY text1 with text2.<br />
+<br />
+WRITE / text1.      "ABAP<br />
+WRITE / text2.      "AAAA<br />
+WRITE / '---------------------------------------------------'.<br />
+<br />
+" 7. CONCATENATE : #### ## ##<br />
+text1 = 'AB'.<br />
+text2 = 'AP'.<br />
+<br />
+CONCATENATE text1 text2 INTO text3.<br />
+<br />
+WRITE / text1.      "AB<br />
+WRITE / text2.      "AP<br />
+WRITE / text3.      "ABAP<br />
+WRITE / '---------------------------------------------------'.<br />
+<br />
+" 8. SPLIT : ## ### #### ### ##<br />
+text1 = 'AB+AP'.<br />
+SPLIT text1 AT '+' INTO text2 text3.<br />
+<br />
+write / text1.      "AB+AP<br />
+WRITE / text2.      "AB<br />
+WRITE / text3.      "AP<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

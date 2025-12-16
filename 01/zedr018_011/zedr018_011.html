@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR018_011</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR018_011</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR018_011<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR018_011.<br />
+SELECTION-SCREEN BEGIN OF BLOCK b1 with FRAME. "#### ##.<br />
+PARAMETERS : p_zcode like zedt018_001-zcode LOWER CASE. " ### ###  LOWER CASE, ### ### obligatory.<br />
+PARAMETERS : p_zpernr type c length 10 no-display. "#### ## ##, ##### ##### ### #### ###,<br />
+" ## ### #### # ## ##.<br />
+PARAMETERS : p_znum type p DECIMALS 2.<br />
+SELECTION-SCREEN END OF BLOCK b1.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B2 with FRAME.<br />
+PARAMETERS : p_zgen like zedt018_001-zgender default 'M'.<br />
+PARAMETERS : p_zcode2 like zedt018_001-zcode VISIBLE LENGTH 5. "#### 10## / ### ##### 5### ##.<br />
+PARAMETERS : z_check as CHECKBOX DEFAULT 'X'. "checkbox ### ## # ##.<br />
+SELECTION-SCREEN BEGIN OF LINE.<br />
+PARAMETERS : P_R1 RADIOBUTTON GROUP R1 DEFAULT 'X'.<br />
+SELECTION-SCREEN POSITION 3. " ### ## position ## ## ##.<br />
+SELECTION-SCREEN COMMENT (10) FOR FIELD P_R1. " ### ## ## #(###) ##<br />
+PARAMETERS : P_R2 RADIOBUTTON GROUP R1. "## ## ### ### ## ##### #.<br />
+SELECTION-SCREEN POSITION 20. " position ## ## ##.<br />
+SELECTION-SCREEN COMMENT (10) FOR FIELD P_R2. " ## #(###) ##<br />
+SELECTION-SCREEN END OF line.<br />
+SELECTION-SCREEN END OF BLOCK b2.<br />
+BREAK-POINT.<br />
+<br />
+if z_check = 'X'.<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'####&nbsp;##'.<br />
+else.<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'##&nbsp;##'.<br />
+endif.<br />
+<br />
+data : BEGIN OF gs_student,<br />
+&nbsp;&nbsp;zcode&nbsp;type&nbsp;ZEDT018_001-zcode,<br />
+&nbsp;&nbsp;zgender&nbsp;type&nbsp;ZEDT018_001-zgender,<br />
+END OF gs_student.<br />
+<br />
+data : gt_student like TABLE OF gs_student.<br />
+<br />
+<br />
+<br />
+select * from zedt018_001<br />
+&nbsp;&nbsp;into&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_student<br />
+&nbsp;&nbsp;WHERE&nbsp;zcode&nbsp;=&nbsp;p_zcode<br />
+&nbsp;&nbsp;and&nbsp;zgender&nbsp;=&nbsp;p_zgen.<br />
+<br />
+<br />
+if gt_student[] is not INITIAL.<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'###&nbsp;##'.<br />
+ELSE.<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'###&nbsp;##'.<br />
+ENDIF.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR12_PRACTICE002</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR12_PRACTICE002</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR12_PRACTICE002<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR12_PRACTICE002.<br />
+DATA: GS_ZEDT001 TYPE ZEDT12_001,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZEDT001&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;ZEDT12_001.<br />
+DATA: GS_ZEDT002 TYPE ZEDT12_002,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZEDT002&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;ZEDT12_002.<br />
+DATA: GS_ZEDT004 TYPE ZEDT12_004,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZEDT004&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;ZEDT12_004.<br />
+DATA: BEGIN OF GS_STUDENT,<br />
+&nbsp;&nbsp;ZCODE&nbsp;TYPE&nbsp;ZEDT12_001-ZCODE,<br />
+&nbsp;&nbsp;ZKNAME&nbsp;TYPE&nbsp;ZEDT12_001-ZKNAME,<br />
+&nbsp;&nbsp;ZGENDER&nbsp;TYPE&nbsp;ZEDT12_001-ZGENDER,<br />
+&nbsp;&nbsp;ZTEL&nbsp;TYPE&nbsp;ZEDT12_001-ZTEL,<br />
+&nbsp;&nbsp;ZMAJOR1&nbsp;TYPE&nbsp;ZEDT12_002-ZMAJOR,<br />
+&nbsp;&nbsp;ZMAJOR2&nbsp;TYPE&nbsp;ZEDT12_004-ZMAJOR,<br />
+&nbsp;&nbsp;ZGRADE&nbsp;TYPE&nbsp;ZEDT12_004-ZGRADE,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_STUDENT.<br />
+<br />
+DATA: BEGIN OF GS_OUT,<br />
+&nbsp;&nbsp;ZCODE&nbsp;TYPE&nbsp;ZEDT12_001-ZCODE,<br />
+&nbsp;&nbsp;ZKNAME&nbsp;TYPE&nbsp;ZEDT12_001-ZKNAME,<br />
+&nbsp;&nbsp;M_MOVE(10)&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;ZGENDER&nbsp;TYPE&nbsp;ZEDT12_001-ZGENDER,<br />
+&nbsp;&nbsp;ZTEL&nbsp;TYPE&nbsp;ZEDT12_001-ZTEL,<br />
+&nbsp;&nbsp;WARNING(1)&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_OUT.<br />
+&nbsp;&nbsp;DATA:&nbsp;GT_OUT&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_OUT.<br />
+<br />
+DATA: LV_MZSUM TYPE I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_FZSUM&nbsp;TYPE&nbsp;I.<br />
+SELECT * FROM ZEDT12_001<br />
+INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT001.<br />
+SELECT * FROM ZEDT12_002<br />
+INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT002.<br />
+SELECT * FROM ZEDT12_004<br />
+INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT004.<br />
+<br />
+SORT GT_ZEDT004 BY ZCODE ZGRADE DESCENDING. "ZCODE# ### ZGRADE# ####.<br />
+DELETE ADJACENT DUPLICATES FROM GT_ZEDT004 COMPARING ZCODE. "ZGRADE ##### ## ### #### ###.<br />
+<br />
+MOVE-CORRESPONDING GT_ZEDT001[] TO GT_OUT[]. "GT_OUT# ZCODE, ZKNAME, ZTEL###.<br />
+<br />
+LOOP AT GT_ZEDT004 INTO GS_ZEDT004.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GS_OUT.<br />
+&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_ZEDT004&nbsp;TO&nbsp;GS_OUT.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_OUT&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_ZEDT004-ZCODE&nbsp;INTO&nbsp;GS_OUT<br />
+&nbsp;&nbsp;COMPARING&nbsp;ZCODE.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_ZEDT004-ZGRADE&nbsp;&gt;=&nbsp;'D'.&nbsp;"##&nbsp;##&nbsp;D,F<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUT-WARNING&nbsp;=&nbsp;'T'.&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUT-WARNING&nbsp;=&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;MODIFY&nbsp;GT_OUT&nbsp;FROM&nbsp;GS_OUT&nbsp;INDEX&nbsp;SY-TABIX&nbsp;TRANSPORTING&nbsp;WARNING.&nbsp;"####&nbsp;##.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GS_ZEDT002.<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ZEDT002&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_ZEDT004-ZCODE&nbsp;INTO&nbsp;GS_ZEDT002.&nbsp;"COMPARING&nbsp;ZCODE.<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_ZEDT004-ZMAJOR&nbsp;&lt;&gt;&nbsp;GS_ZEDT002-ZMAJOR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUT-M_MOVE&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUT-M_MOVE&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;MODIFY&nbsp;GT_OUT&nbsp;FROM&nbsp;GS_OUT&nbsp;INDEX&nbsp;SY-TABIX&nbsp;TRANSPORTING&nbsp;M_MOVE.&nbsp;"####&nbsp;##.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GS_OUT-ZGENDER&nbsp;=&nbsp;'M'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;GS_ZEDT004-ZSUM&nbsp;TO&nbsp;LV_MZSUM.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;GS_ZEDT004-ZSUM&nbsp;TO&nbsp;LV_FZSUM.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDLOOP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*"3.WORK&nbsp;AREA&nbsp;##.&nbsp;2)COMPARING<br />
+*LOOP&nbsp;AT&nbsp;GT_STUDENT&nbsp;INTO&nbsp;GS_STUDENT.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:GS_MAJOR.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_STUDENT&nbsp;TO&nbsp;GS_MAJOR.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MAJOR&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_STUDENT-ZCODE<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;GS_MAJOR&nbsp;COMPARING&nbsp;ZCODE.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;GS_STUDENT-ZCODE,&nbsp;GS_STUDENT-ZKNAME,&nbsp;GS_MAJOR-ZMNAME.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;'####&nbsp;####&nbsp;##.'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+*<br />
+*ENDLOOP.<br />
+*LOOP&nbsp;AT&nbsp;GT_ZEDT001&nbsp;INTO&nbsp;GS_ZEDT001.<br />
+*&nbsp;&nbsp;CLEAR:&nbsp;GS_STUDENT.<br />
+*&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_ZEDT001&nbsp;TO&nbsp;GS_STUDENT.<br />
+*<br />
+*&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ZEDT002&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_ZEDT001-ZCODE<br />
+*<br />
+*ENDLOOP<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

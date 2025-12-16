@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM08_001_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM08_001_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM08_001_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+" DB ### ##<br />
+TABLES: ZEDT08_LFA1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDT08_LFB1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDT08_LFM1.<br />
+<br />
+" ### ## ##<br />
+DATA: OK_CODE TYPE SY-UCOMM.<br />
+<br />
+" ## ### ## ##<br />
+DATA: TEXT_B1(40),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT_B2(40).<br />
+<br />
+" ####/## # ##### ##<br />
+CONSTANTS: GC_EKORG TYPE EKORG VALUE '1000',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_EKGRP&nbsp;TYPE&nbsp;EKGRP&nbsp;VALUE&nbsp;'102',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_WAERS&nbsp;TYPE&nbsp;WAERS&nbsp;VALUE&nbsp;'KRW',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_MWSKZ&nbsp;TYPE&nbsp;MWSKZ&nbsp;VALUE&nbsp;'V1'.<br />
+<br />
+CONSTANTS: GC_MSGID TYPE SYMSGID VALUE 'ZMM08'.<br />
+<br />
+" ## ### C = ##, Q = ##<br />
+DATA: GV_MODE TYPE C LENGTH 1 VALUE 'C'.<br />
+<br />
+DATA: GV_BUKRS_C TYPE BUKRS, " ####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_KTOKK_C&nbsp;TYPE&nbsp;LFA1-KTOKK.&nbsp;"&nbsp;##&nbsp;##<br />
+<br />
+DATA: GV_LIFNR_Q TYPE LIFNR, " #####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_BUKRS_Q&nbsp;TYPE&nbsp;BUKRS.&nbsp;"&nbsp;####<br />
+<br />
+" ## ### ###<br />
+DATA: BEGIN OF GS_LFA1, " #####<br />
+&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;ZEDT08_LFA1-LIFNR,<br />
+&nbsp;&nbsp;NAME1&nbsp;TYPE&nbsp;ZEDT08_LFA1-NAME1,<br />
+&nbsp;&nbsp;LAND1&nbsp;TYPE&nbsp;ZEDT08_LFA1-LAND1,<br />
+&nbsp;&nbsp;KTOKK&nbsp;TYPE&nbsp;ZEDT08_LFA1-KTOKK,<br />
+&nbsp;&nbsp;STCD1&nbsp;TYPE&nbsp;ZEDT08_LFA1-STCD1,<br />
+&nbsp;&nbsp;STCD2&nbsp;TYPE&nbsp;ZEDT08_LFA1-STCD2,<br />
+&nbsp;&nbsp;STRAS&nbsp;TYPE&nbsp;ZEDT08_LFA1-STRAS,<br />
+&nbsp;&nbsp;KTOKK_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_LFA1.<br />
+" ## ### ### ##<br />
+DATA: GT_LFA1 LIKE TABLE OF GS_LFA1.<br />
+<br />
+" #### ### ###<br />
+DATA: BEGIN OF GS_LFB1,<br />
+&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;ZEDT08_LFB1-LIFNR,<br />
+&nbsp;&nbsp;BUKRS&nbsp;TYPE&nbsp;ZEDT08_LFB1-BUKRS,<br />
+&nbsp;&nbsp;LOEVM&nbsp;TYPE&nbsp;ZEDT08_LFB1-LOEVM,<br />
+&nbsp;&nbsp;AKONT&nbsp;TYPE&nbsp;ZEDT08_LFB1-AKONT,<br />
+&nbsp;&nbsp;ZTERM&nbsp;TYPE&nbsp;ZEDT08_LFB1-ZTERM,<br />
+&nbsp;&nbsp;ZKONT_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;ZTERM_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_LFB1.<br />
+" #### ### ### ##<br />
+DATA: GT_LFB1 LIKE TABLE OF GS_LFB1.<br />
+<br />
+" #### ### ###<br />
+DATA: BEGIN OF GS_LFM1,<br />
+&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;ZEDT08_LFM1-LIFNR,<br />
+&nbsp;&nbsp;EKORG&nbsp;TYPE&nbsp;ZEDT08_LFM1-EKORG,<br />
+&nbsp;&nbsp;EKGRP&nbsp;TYPE&nbsp;ZEDT08_LFM1-EKGRP,<br />
+&nbsp;&nbsp;LOEVM&nbsp;TYPE&nbsp;ZEDT08_LFM1-LOEVM,<br />
+&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;ZEDT08_LFM1-WAERS,<br />
+&nbsp;&nbsp;MWSKZ&nbsp;TYPE&nbsp;ZEDT08_LFM1-MWSKZ,<br />
+&nbsp;&nbsp;MWSKZ_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_LFM1.<br />
+" #### ### ### ##<br />
+DATA: GT_LFM1 LIKE TABLE OF GS_LFM1.<br />
+<br />
+" ALV ### ### ##<br />
+DATA: BEGIN OF GS_ALV,<br />
+&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;ZEDT08_LFA1-LIFNR,<br />
+&nbsp;&nbsp;LIFNR_A1&nbsp;TYPE&nbsp;ZEDT08_LFA1-LIFNR,<br />
+&nbsp;&nbsp;NAME1&nbsp;TYPE&nbsp;ZEDT08_LFA1-NAME1,<br />
+&nbsp;&nbsp;LAND1&nbsp;TYPE&nbsp;ZEDT08_LFA1-LAND1,<br />
+&nbsp;&nbsp;KTOKK_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;KTOKK&nbsp;TYPE&nbsp;ZEDT08_LFA1-KTOKK,<br />
+&nbsp;&nbsp;STCD1&nbsp;TYPE&nbsp;ZEDT08_LFA1-STCD1,<br />
+&nbsp;&nbsp;STCD2&nbsp;TYPE&nbsp;ZEDT08_LFA1-STCD2,<br />
+&nbsp;&nbsp;STRAS&nbsp;TYPE&nbsp;ZEDT08_LFA1-STRAS,<br />
+&nbsp;&nbsp;LIFNR_B1&nbsp;TYPE&nbsp;ZEDT08_LFB1-LIFNR,<br />
+&nbsp;&nbsp;BUKRS&nbsp;TYPE&nbsp;ZEDT08_LFB1-BUKRS,<br />
+&nbsp;&nbsp;LOEVM_B1&nbsp;TYPE&nbsp;ZEDT08_LFB1-LOEVM,<br />
+&nbsp;&nbsp;AKONT_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;ZTERM_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;LIFNR_M1&nbsp;TYPE&nbsp;ZEDT08_LFM1-LIFNR,<br />
+&nbsp;&nbsp;EKORG&nbsp;TYPE&nbsp;ZEDT08_LFM1-EKORG,<br />
+&nbsp;&nbsp;EKGRP&nbsp;TYPE&nbsp;ZEDT08_LFM1-EKGRP,<br />
+&nbsp;&nbsp;LOEVM_M1&nbsp;TYPE&nbsp;ZEDT08_LFM1-LOEVM,<br />
+&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;ZEDT08_LFM1-WAERS,<br />
+&nbsp;&nbsp;MWSKZ_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_ALV.<br />
+" ALV ### ### ##<br />
+DATA: GT_ALV LIKE TABLE OF GS_ALV.<br />
+<br />
+" #####(### 200)<br />
+DATA: LIFNR_A1 TYPE ZEDT08_LFA1-LIFNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME1&nbsp;TYPE&nbsp;ZEDT08_LFA1-NAME1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LAND1&nbsp;TYPE&nbsp;ZEDT08_LFA1-LAND1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KTOKK&nbsp;TYPE&nbsp;ZEDT08_LFA1-KTOKK,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STCD1&nbsp;TYPE&nbsp;ZEDT08_LFA1-STCD1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STCD2&nbsp;TYPE&nbsp;ZEDT08_LFA1-STCD2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STRAS&nbsp;TYPE&nbsp;ZEDT08_LFA1-STRAS.<br />
+<br />
+" #######(### 200)<br />
+DATA: LIFNR_B1 TYPE ZEDT08_LFB1-LIFNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUKRS&nbsp;TYPE&nbsp;ZEDT08_LFB1-BUKRS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOEVM_B1&nbsp;TYPE&nbsp;ZEDT08_LFB1-LOEVM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AKONT&nbsp;TYPE&nbsp;ZEDT08_LFB1-AKONT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZTERM&nbsp;TYPE&nbsp;ZEDT08_LFB1-ZTERM.<br />
+<br />
+" #######(### 200)<br />
+DATA: LIFNR_M1 TYPE ZEDT08_LFM1-LIFNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKORG&nbsp;TYPE&nbsp;ZEDT08_LFM1-EKORG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKGRP&nbsp;TYPE&nbsp;ZEDT08_LFM1-EKGRP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOEVM_M1&nbsp;TYPE&nbsp;ZEDT08_LFM1-LOEVM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;ZEDT08_LFM1-WAERS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MWSKZ&nbsp;TYPE&nbsp;ZEDT08_LFM1-MWSKZ.<br />
+<br />
+" ## ## ###<br />
+DATA: GV_SHOW_DETAIL TYPE ABAP_BOOL VALUE ABAP_FALSE.<br />
+<br />
+" ## ## ## (## ## ##)<br />
+DATA: GV_CURR_KTOKK TYPE LFA1-KTOKK.<br />
+<br />
+" ALV ## ##<br />
+DATA: GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA: GC_GRID TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+" ALV ### ##<br />
+DATA: GS_FIELDCAT TYPE LVC_S_FCAT. " ## #### ###<br />
+DATA: GT_FIELDCAT TYPE LVC_T_FCAT. " ## #### ###<br />
+<br />
+DATA: GS_LAYOUT TYPE LVC_S_LAYO. " #### ##<br />
+<br />
+DATA: GS_SORT TYPE LVC_S_SORT. " ## ## ###<br />
+DATA: GT_SORT TYPE LVC_T_SORT. " ## ## ###<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

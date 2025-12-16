@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR23_PRACTICE005</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR23_PRACTICE005</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR23_PRACTICE005<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR23_PRACTICE005.<br />
+<br />
+DATA : GV_DATE TYPE D,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_LASTDAY&nbsp;TYPE&nbsp;SY-DATUM.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITh FRAME.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_YEAR&nbsp;TYPE&nbsp;BKPF-GJAHR.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_MONTH&nbsp;TYPE&nbsp;BKPF-MONAT.<br />
+SELECTION-SCREEN END OF BLOCK B1.<br />
+<br />
+RANGES GR_MONTH FOR BKPF-MONAT.<br />
+&nbsp;&nbsp;GR_MONTH-SIGN&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;GR_MONTH-OPTION&nbsp;=&nbsp;'BT'.<br />
+&nbsp;&nbsp;GR_MONTH-LOW&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;GR_MONTH-HIGH&nbsp;=&nbsp;12.<br />
+&nbsp;&nbsp;APPEND&nbsp;GR_MONTH.<br />
+<br />
+INITIALIZATION.<br />
+&nbsp;&nbsp;P_YEAR&nbsp;=&nbsp;SY-DATUM(4).<br />
+&nbsp;&nbsp;P_MONTH&nbsp;=&nbsp;SY-DATUM+4(2).<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+IF P_MONTH NOT IN GR_MONTH.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'###&nbsp;##&nbsp;######.'.<br />
+&nbsp;&nbsp;EXIT.<br />
+ENDIF.<br />
+<br />
+CONCATENATE P_YEAR P_MONTH '01' INTO GV_DATE.<br />
+<br />
+CALL FUNCTION 'LAST_DAY_OF_MONTHS'<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DAY_IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GV_DATE<br />
+&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LAST_DAY_OF_MONTH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GV_LASTDAY.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;DAY_IN_NO_DATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+"IF SY-SUBRC &lt;&gt; 0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Implement&nbsp;suitable&nbsp;error&nbsp;handling&nbsp;here<br />
+   </div>
+   <div class="code">
+"ENDIF.<br />
+<br />
+WRITE : / P_YEAR, '#', P_MONTH, '## ### ##', GV_LASTDAY, '###.'.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

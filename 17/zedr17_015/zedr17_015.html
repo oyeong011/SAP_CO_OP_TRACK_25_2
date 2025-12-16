@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR17_015</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR17_015</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR17_015<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR17_015.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*tables&nbsp;:&nbsp;zedt17_001.<br />
+*data&nbsp;:&nbsp;begin&nbsp;of&nbsp;gs_student.<br />
+*&nbsp;&nbsp;include&nbsp;type&nbsp;zedt17_001.<br />
+*&nbsp;&nbsp;data&nbsp;:&nbsp;end&nbsp;of&nbsp;gs_student.<br />
+*data&nbsp;:&nbsp;gt_student&nbsp;like&nbsp;table&nbsp;of&nbsp;gs_student.<br />
+*<br />
+**&nbsp;[Function&nbsp;ALV]<br />
+*selection-screen&nbsp;begin&nbsp;of&nbsp;block&nbsp;b1&nbsp;with&nbsp;frame.<br />
+*&nbsp;&nbsp;select-options&nbsp;:&nbsp;s_zcode&nbsp;for&nbsp;zedt17_001-zcode.<br />
+*selection-screen&nbsp;end&nbsp;of&nbsp;block&nbsp;b1.<br />
+*<br />
+*initialization.<br />
+*s_zcode-low&nbsp;=&nbsp;'SSU-01'.<br />
+*s_zcode-high&nbsp;=&nbsp;'SSU-99'.<br />
+*append&nbsp;s_zcode.<br />
+*<br />
+*at&nbsp;selection-screen&nbsp;output.<br />
+*&nbsp;&nbsp;loop&nbsp;at&nbsp;screen.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;screen-group1&nbsp;=&nbsp;'SC1'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-input&nbsp;=&nbsp;0.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;modify&nbsp;screen.<br />
+*&nbsp;&nbsp;endloop.<br />
+*<br />
+*start-of-selection.<br />
+*&nbsp;&nbsp;perform&nbsp;get_data.<br />
+*&nbsp;&nbsp;perform&nbsp;modify_data.<br />
+*end-of-selection.<br />
+*&nbsp;&nbsp;perform&nbsp;alv_display.<br />
+*<br />
+*<br />
+**&---------------------------------------------------------------------*<br />
+**&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_DATA<br />
+**&---------------------------------------------------------------------*<br />
+*form&nbsp;get_data&nbsp;.<br />
+*&nbsp;&nbsp;select&nbsp;*&nbsp;from&nbsp;zedt17_001<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;into&nbsp;corresponding&nbsp;fields&nbsp;of&nbsp;table&nbsp;gt_student<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;zcode&nbsp;in&nbsp;s_zcode.<br />
+*endform.<br />
+**&---------------------------------------------------------------------*<br />
+**&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;MODIFY_DATA<br />
+**&---------------------------------------------------------------------*<br />
+*form&nbsp;modify_data&nbsp;.<br />
+*<br />
+*endform.<br />
+*<br />
+**&---------------------------------------------------------------------*<br />
+**&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_DISPLAY<br />
+**&---------------------------------------------------------------------*<br />
+*form&nbsp;alv_display&nbsp;.<br />
+*&nbsp;call&nbsp;function&nbsp;'REUSE_ALV_LIST_DISPLAY'<br />
+*&nbsp;&nbsp;exporting<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;i_structure_name&nbsp;=&nbsp;'ZEDT17_001'<br />
+*&nbsp;&nbsp;tables<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;t_outtab&nbsp;=&nbsp;gt_student.<br />
+*endform.<br />
+<br />
+*****************************************************************************<br />
+**&nbsp;##&nbsp;####&nbsp;###&nbsp;ALV<br />
+   </div>
+   <div class="code">
+" 1. ## #### ####### ### ##<br />
+   </div>
+   <div class="codeComment">
+*"&nbsp;se11#&nbsp;type&nbsp;group##&nbsp;slis&nbsp;###&nbsp;#,&nbsp;##&nbsp;##&nbsp;#&nbsp;##&nbsp;#####&nbsp;##<br />
+*types&nbsp;:&nbsp;begin&nbsp;of&nbsp;slis_fieldcat_main.<br />
+*&nbsp;&nbsp;include&nbsp;type&nbsp;slis_fieldcat_main0.<br />
+*&nbsp;&nbsp;include&nbsp;type&nbsp;slis_fieldcat_main1.<br />
+*types&nbsp;:&nbsp;end&nbsp;of&nbsp;slis_fieldcat_main.<br />
+*<br />
+*types&nbsp;:&nbsp;begin&nbsp;of&nbsp;slis_fieldcat_alv_spec,<br />
+*&nbsp;&nbsp;key_sel(1)&nbsp;type&nbsp;c,<br />
+*&nbsp;&nbsp;no_sum(1)&nbsp;type&nbsp;c,<br />
+*&nbsp;&nbsp;sp_group(4)&nbsp;type&nbsp;c,<br />
+*&nbsp;&nbsp;reprep(1)&nbsp;type&nbsp;c,<br />
+*&nbsp;&nbsp;input(1)&nbsp;type&nbsp;c,<br />
+*&nbsp;&nbsp;edit(1)&nbsp;type&nbsp;c,<br />
+*&nbsp;&nbsp;hotspot(1)&nbsp;type&nbsp;c,<br />
+*&nbsp;&nbsp;end&nbsp;of&nbsp;slis_fieldcat_alv_spec.<br />
+*<br />
+*types&nbsp;:&nbsp;begin&nbsp;of&nbsp;slis_fieldcat_alv.<br />
+*&nbsp;&nbsp;include&nbsp;type&nbsp;slis_fieldcat_main.<br />
+*&nbsp;&nbsp;include&nbsp;type&nbsp;slis_fieldcat_alv_spec.<br />
+*types&nbsp;:&nbsp;end&nbsp;of&nbsp;slis_fieldcat_alv.<br />
+*<br />
+*types&nbsp;:&nbsp;begin&nbsp;of&nbsp;slis_fieldcat_alv1.<br />
+*&nbsp;&nbsp;include&nbsp;type&nbsp;slis_fieldcat_main1.<br />
+*types&nbsp;:&nbsp;end&nbsp;of&nbsp;slis_fieldcat_alv1.<br />
+*<br />
+*types&nbsp;:&nbsp;slis_t_fieldcat_alv&nbsp;type&nbsp;slis_fieldcat_alv&nbsp;occurs&nbsp;1.<br />
+*types:&nbsp;begin&nbsp;of&nbsp;slis_fieldcat_main0,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row_pos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;like&nbsp;sy-curow,&nbsp;"&nbsp;output&nbsp;in&nbsp;row<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col_pos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;like&nbsp;sy-cucol,&nbsp;"&nbsp;position&nbsp;of&nbsp;the&nbsp;column<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fieldname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;slis_fieldname,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tabname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;slis_tabname,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;currency(5)&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;c,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cfieldname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;slis_fieldname,&nbsp;"&nbsp;field&nbsp;with&nbsp;currency&nbsp;unit<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctabname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;slis_tabname,&nbsp;&nbsp;&nbsp;"&nbsp;and&nbsp;table<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ifieldname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;slis_fieldname,&nbsp;"&nbsp;initial&nbsp;column<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;quantity(3)&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;c,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qfieldname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;slis_fieldname,&nbsp;"&nbsp;field&nbsp;with&nbsp;quantity&nbsp;unit<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qtabname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;slis_tabname,&nbsp;&nbsp;&nbsp;"&nbsp;and&nbsp;table<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;round&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;i,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;round&nbsp;in&nbsp;write&nbsp;statement<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exponent(3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;c,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;exponent&nbsp;for&nbsp;floats<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key(1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;c,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;column&nbsp;with&nbsp;key-color<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br />
+*&nbsp;&nbsp;end&nbsp;of&nbsp;slis_fieldcat_main0.<br />
+<br />
+   </div>
+   <div class="code">
+tables : zedt17_001.<br />
+<br />
+data : gs_student type zedt17_002.<br />
+   </div>
+   <div class="codeComment">
+*data&nbsp;:&nbsp;begin&nbsp;of&nbsp;gs_student,<br />
+*&nbsp;&nbsp;zcode&nbsp;type&nbsp;zedt17_001-zcode,&nbsp;"####<br />
+*&nbsp;&nbsp;zpernr&nbsp;type&nbsp;zedt17_001-zpernr,&nbsp;"####<br />
+*&nbsp;&nbsp;crdate&nbsp;type&nbsp;zedt17_001-crdate,&nbsp;"####<br />
+*&nbsp;&nbsp;zmajor&nbsp;type&nbsp;zedt17_002-zmajor,&nbsp;"##<br />
+*&nbsp;&nbsp;zmname&nbsp;type&nbsp;zedt17_002-zmname,&nbsp;"###<br />
+*&nbsp;&nbsp;zsum&nbsp;type&nbsp;zedt17_002-zsum,&nbsp;"####<br />
+*&nbsp;&nbsp;zwaers&nbsp;type&nbsp;zedt17_002-zwaers.&nbsp;"##<br />
+*&nbsp;&nbsp;data&nbsp;:&nbsp;end&nbsp;of&nbsp;gs_student.<br />
+   </div>
+   <div class="code">
+data : gt_student like table of gs_student.<br />
+<br />
+data : gs_fieldcat type slis_fieldcat_alv.<br />
+data : gt_fieldcat type slis_t_fieldcat_alv.<br />
+<br />
+selection-screen begin of block b1 with frame.<br />
+&nbsp;&nbsp;select-options&nbsp;:&nbsp;s_zcode&nbsp;for&nbsp;zedt17_001-zcode.<br />
+&nbsp;&nbsp;parameters&nbsp;:&nbsp;p_zpernr&nbsp;like&nbsp;zedt17_001-zpernr.<br />
+&nbsp;&nbsp;parameters&nbsp;:&nbsp;p_zgen&nbsp;like&nbsp;zedt17_001-zgender&nbsp;modif&nbsp;id&nbsp;sc1.<br />
+selection-screen end of block b1.<br />
+<br />
+<br />
+initialization.<br />
+s_zcode-low = 'SSU-01'.<br />
+s_zcode-high = 'SSU-99'.<br />
+append s_zcode.<br />
+<br />
+at selection-screen output.<br />
+&nbsp;&nbsp;loop&nbsp;at&nbsp;screen.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;screen-group1&nbsp;=&nbsp;'SC1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-input&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;modify&nbsp;screen.<br />
+&nbsp;&nbsp;endloop.<br />
+<br />
+<br />
+start-of-selection.<br />
+&nbsp;&nbsp;perform&nbsp;get_data.<br />
+&nbsp;&nbsp;perform&nbsp;modify_data.<br />
+end-of-selection.<br />
+&nbsp;&nbsp;perform&nbsp;alv_display.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form get_data .<br />
+&nbsp;&nbsp;select&nbsp;*&nbsp;from&nbsp;zedt17_002<br />
+&nbsp;&nbsp;&nbsp;&nbsp;into&nbsp;corresponding&nbsp;fields&nbsp;of&nbsp;table&nbsp;gt_student<br />
+&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;zcode&nbsp;in&nbsp;s_zcode.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;select&nbsp;a~zcode&nbsp;a~zpernr&nbsp;a~crdate&nbsp;b~zmajor&nbsp;b~zmname&nbsp;b~zsum&nbsp;b~zwaers<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;into&nbsp;corresponding&nbsp;fields&nbsp;of&nbsp;table&nbsp;gt_student<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;zedt17_001&nbsp;as&nbsp;a<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;inner&nbsp;join&nbsp;zedt17_002&nbsp;as&nbsp;b<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;on&nbsp;a~zcode&nbsp;=&nbsp;b~zcode<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;a~zcode&nbsp;in&nbsp;s_zcode.<br />
+   </div>
+   <div class="code">
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;MODIFY_DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form modify_data .<br />
+<br />
+endform.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_DISPLAY<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form alv_display .<br />
+&nbsp;perform&nbsp;field_catalog.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;perform&nbsp;call_alv.<br />
+   </div>
+   <div class="code">
+&nbsp;call&nbsp;function&nbsp;'REUSE_ALV_GRID_DISPLAY'<br />
+&nbsp;exporting<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;i_structure_name&nbsp;=&nbsp;'zedt17_001'<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;it_fieldcat&nbsp;=&nbsp;gt_fieldcat<br />
+&nbsp;tables<br />
+&nbsp;&nbsp;&nbsp;t_outtab&nbsp;=&nbsp;gt_student.<br />
+endform.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;[ALV&nbsp;##&nbsp;####&nbsp;##]<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;FIELD_CATALOG<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form field_catalog .<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat,&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;1.&nbsp;"&nbsp;coll_pos#&nbsp;###&nbsp;output&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZCODE'.&nbsp;"&nbsp;###&nbsp;#######&nbsp;###&nbsp;###&nbsp;dump&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;alv&nbsp;###&nbsp;########&nbsp;######&nbsp;###&nbsp;##&nbsp;##&nbsp;###&nbsp;##.<br />
+&nbsp;&nbsp;gs_fieldcat-seltext_m&nbsp;=&nbsp;'####'.&nbsp;"&nbsp;_m#&nbsp;medium&nbsp;##.&nbsp;##&nbsp;###&nbsp;#&nbsp;##&nbsp;#&nbsp;(s,&nbsp;l#&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;sltext_s&nbsp;=&nbsp;short,&nbsp;sltext_m&nbsp;=&nbsp;medium,&nbsp;sltext_l&nbsp;=&nbsp;large<br />
+&nbsp;&nbsp;gs_fieldcat-key&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;#&nbsp;###&nbsp;##&nbsp;-&gt;&nbsp;###&nbsp;#####&nbsp;###<br />
+&nbsp;&nbsp;gs_fieldcat-just&nbsp;=&nbsp;'L'.&nbsp;"&nbsp;##&nbsp;##&nbsp;(L#,&nbsp;R#,&nbsp;C##)<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;gs_fieldcat-seltext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fieldcat-key&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;#&nbsp;###&nbsp;##&nbsp;-&gt;&nbsp;###&nbsp;#####&nbsp;###<br />
+&nbsp;&nbsp;gs_fieldcat-just&nbsp;=&nbsp;'C'.&nbsp;"&nbsp;##&nbsp;##&nbsp;(L#,&nbsp;R#,&nbsp;C##)<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZMNAME'.<br />
+&nbsp;&nbsp;gs_fieldcat-seltext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fieldcat-just&nbsp;=&nbsp;'R'.&nbsp;"&nbsp;##&nbsp;##&nbsp;(L#,&nbsp;R#,&nbsp;C##)<br />
+&nbsp;&nbsp;gs_fieldcat-no_out&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZMNAME'.<br />
+&nbsp;&nbsp;gs_fieldcat-seltext_m&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZSUM'.<br />
+&nbsp;&nbsp;gs_fieldcat-seltext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fieldcat-currency&nbsp;=&nbsp;'KRW'.&nbsp;"&nbsp;###&nbsp;###&nbsp;###&nbsp;###&nbsp;####<br />
+&nbsp;&nbsp;gs_fieldcat-do_sum&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;###&nbsp;###&nbsp;####&nbsp;##&nbsp;#&nbsp;##.<br />
+&nbsp;&nbsp;gs_fieldcat-no_zero&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;0#&nbsp;##<br />
+&nbsp;&nbsp;gs_fieldcat-no_sign&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;20.&nbsp;"&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;gs_fieldcat-emphasize&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;gs_fieldcat-edit&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;##&nbsp;###&nbsp;#&nbsp;###&nbsp;##&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZWAERS'.<br />
+&nbsp;&nbsp;gs_fieldcat-seltext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'CRDATE'.<br />
+&nbsp;&nbsp;gs_fieldcat-seltext_m&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;gs_fieldcat-edit_mask&nbsp;=&nbsp;'____-__-__'.<br />
+&nbsp;&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;10.&nbsp;"&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;append&nbsp;gs_fieldcat&nbsp;to&nbsp;gt_fieldcat.<br />
+endform.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

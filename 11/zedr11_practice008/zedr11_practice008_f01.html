@@ -1,0 +1,356 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR11_PRACTICE008_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR11_PRACTICE008_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDR11_PRACTICE008_F01<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_date.<br />
+&nbsp;&nbsp;"&nbsp;[##]&nbsp;##&nbsp;##&nbsp;##&nbsp;(##&nbsp;1#&nbsp;~&nbsp;##)<br />
+&nbsp;&nbsp;IF&nbsp;s_zjdate[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_zjdate-low&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-datum(6)&nbsp;&&&nbsp;'01'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_zjdate-high&nbsp;&nbsp;&nbsp;=&nbsp;sy-datum(6)&nbsp;&&&nbsp;'01'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_zjdate-sign&nbsp;&nbsp;&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_zjdate-option&nbsp;=&nbsp;'BT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'LAST_DAY_OF_MONTHS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;day_in&nbsp;=&nbsp;s_zjdate-high<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;last_day_of_month&nbsp;=&nbsp;s_zjdate-high.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;s_zjdate.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;s_zddate[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_zddate-low&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-datum(6)&nbsp;&&&nbsp;'01'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_zddate-high&nbsp;&nbsp;&nbsp;=&nbsp;sy-datum(6)&nbsp;&&&nbsp;'01'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_zddate-sign&nbsp;&nbsp;&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;s_zddate-option&nbsp;=&nbsp;'BT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'LAST_DAY_OF_MONTHS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;day_in&nbsp;=&nbsp;s_zddate-high<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;last_day_of_month&nbsp;=&nbsp;s_zddate-high.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;s_zddate.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+FORM set_screen.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;screen.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;screen-group1&nbsp;=&nbsp;'M2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;COND&nbsp;#(&nbsp;WHEN&nbsp;p_r1&nbsp;=&nbsp;'X'&nbsp;THEN&nbsp;'0'&nbsp;ELSE&nbsp;'1'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;screen-group1&nbsp;=&nbsp;'M1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;COND&nbsp;#(&nbsp;WHEN&nbsp;p_r1&nbsp;=&nbsp;'X'&nbsp;THEN&nbsp;'1'&nbsp;ELSE&nbsp;'0'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;screen.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+FORM check_data.<br />
+&nbsp;&nbsp;"&nbsp;[##]&nbsp;####&nbsp;###(1)#&nbsp;DB##(0000000001)#&nbsp;##&nbsp;##&nbsp;(##)<br />
+&nbsp;&nbsp;IF&nbsp;s_zordno[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;s_zordno.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'CONVERSION_EXIT_ALPHA_INPUT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;input&nbsp;&nbsp;=&nbsp;s_zordno-low<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;output&nbsp;=&nbsp;s_zordno-low.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;s_zordno-high&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'CONVERSION_EXIT_ALPHA_INPUT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;input&nbsp;&nbsp;=&nbsp;s_zordno-high<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;output&nbsp;=&nbsp;s_zordno-high.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;s_zordno.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;[##]&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;p_r1&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;s_zjdate&nbsp;IS&nbsp;INITIAL&nbsp;AND&nbsp;s_zordno&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;i000&nbsp;WITH&nbsp;'##&nbsp;###&nbsp;#####'.&nbsp;STOP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;p_r2&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;s_zddate&nbsp;IS&nbsp;INITIAL&nbsp;AND&nbsp;s_zordno&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;i000&nbsp;WITH&nbsp;'##&nbsp;###&nbsp;#####'.&nbsp;STOP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;[##]&nbsp;###&nbsp;###&nbsp;##&nbsp;##&nbsp;(##/##&nbsp;#)<br />
+&nbsp;&nbsp;CLEAR:&nbsp;r_fg[],&nbsp;r_zg[].<br />
+&nbsp;&nbsp;IF&nbsp;p_r1&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;r_fg-sign&nbsp;=&nbsp;'I'.&nbsp;r_fg-option&nbsp;=&nbsp;'EQ'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;r_fg-low&nbsp;&nbsp;=&nbsp;'1'.&nbsp;APPEND&nbsp;r_fg.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_ch1&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;r_fg-low&nbsp;=&nbsp;'2'.&nbsp;APPEND&nbsp;r_fg.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;r_zg-sign&nbsp;=&nbsp;'I'.&nbsp;r_zg-option&nbsp;=&nbsp;'EQ'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;r_zg-low&nbsp;&nbsp;=&nbsp;'&nbsp;'.&nbsp;APPEND&nbsp;r_zg.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_ch1&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;r_zg-low&nbsp;=&nbsp;c_x.&nbsp;APPEND&nbsp;r_zg.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+FORM progress_display USING p_text.<br />
+&nbsp;&nbsp;CHECK&nbsp;p_text&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'SAPGUI_PROGRESS_INDICATOR'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;text&nbsp;=&nbsp;p_text.<br />
+ENDFORM.<br />
+<br />
+FORM select_r1.<br />
+&nbsp;&nbsp;"&nbsp;[##]&nbsp;##(ZJDATE)&nbsp;#&nbsp;##(ZSALE_FG)&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;zedt11_100<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_order<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zordno&nbsp;&nbsp;&nbsp;IN&nbsp;s_zordno<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zidcode&nbsp;&nbsp;IN&nbsp;s_zid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zmatnr&nbsp;&nbsp;&nbsp;IN&nbsp;s_zmatnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zjdate&nbsp;&nbsp;&nbsp;IN&nbsp;s_zjdate<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zsale_fg&nbsp;IN&nbsp;r_fg.<br />
+ENDFORM.<br />
+<br />
+FORM modify_r1.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gs_order,&nbsp;gs_order_print.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_order&nbsp;INTO&nbsp;gs_order.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;gs_order&nbsp;TO&nbsp;gs_order_print.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;zmtart_name&nbsp;USING&nbsp;gs_order-zmtart<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_order_print-zmat_name.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_order-zsale_fg&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_order_print-zsale_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_order_print-icon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'@08@'.&nbsp;"Green<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;gs_order-zsale_fg&nbsp;=&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_order_print-zsale_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_order_print-icon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'@0A@'.&nbsp;"Red<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_ch1&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;zret_name&nbsp;USING&nbsp;gs_order-zret_fg<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_order_print-zret_name.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_order_print&nbsp;TO&nbsp;gt_order_print.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;gs_order,&nbsp;gs_order_print.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+FORM select_r2.<br />
+&nbsp;&nbsp;"&nbsp;[##]&nbsp;##(ZDDATE)&nbsp;#&nbsp;##(ZFLAG)&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;zedt11_101<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_deli<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;zordno&nbsp;IN&nbsp;s_zordno<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zidcode&nbsp;IN&nbsp;s_zid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zmatnr&nbsp;&nbsp;IN&nbsp;s_zmatnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zddate&nbsp;&nbsp;IN&nbsp;s_zddate<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zflag&nbsp;&nbsp;&nbsp;IN&nbsp;r_zg.<br />
+ENDFORM.<br />
+<br />
+FORM modify_r2.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gs_deli,&nbsp;gs_deli_print.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_deli&nbsp;INTO&nbsp;gs_deli.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;gs_deli&nbsp;TO&nbsp;gs_deli_print.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;zmtart_name&nbsp;USING&nbsp;gs_deli-zmtart<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_deli_print-zmat_name.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_deli-zdflag&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_deli_print-zdflag_name&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;gs_deli-zdflag&nbsp;=&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_deli_print-zdflag_name&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_deli-zflag&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_deli_print-icon&nbsp;=&nbsp;'@0A@'.&nbsp;"Red<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_deli_print-icon&nbsp;=&nbsp;'@08@'.&nbsp;"Green<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;zdgubun_name&nbsp;USING&nbsp;gs_deli-zdgubun<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;gs_deli_print-zdgubun_name.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_deli_print&nbsp;TO&nbsp;gt_deli_print.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;gs_deli,&nbsp;gs_deli_print.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+FORM create_object USING p_docking TYPE REF TO cl_gui_docking_container<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_grid&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid.<br />
+&nbsp;&nbsp;IF&nbsp;p_docking&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;p_docking<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;repid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-repid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dynnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-dynnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extension&nbsp;=&nbsp;2000.<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;p_grid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;i_parent&nbsp;=&nbsp;p_docking.<br />
+ENDFORM.<br />
+<br />
+FORM field_catalog_0100.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gs_fieldcat,&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;1.&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ICON'.&nbsp;gs_fieldcat-coltext&nbsp;=&nbsp;'##'.&nbsp;gs_fieldcat-icon&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;2.&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZORDNO'.&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;3.&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZIDCODE'.&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##ID'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;4.&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZMATNR'.&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;5.&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZMATNAME'.&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'###'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;6.&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZMAT_NAME'.&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;7.&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZVOLUM'.&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.&nbsp;gs_fieldcat-qfieldname&nbsp;=&nbsp;'VRKME'.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;8.&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'VRKME'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;9.&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZNSAMT'.&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.&nbsp;gs_fieldcat-cfieldname&nbsp;=&nbsp;'ZWAERS'.&nbsp;gs_fieldcat-do_sum&nbsp;=&nbsp;'X'.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;10.&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZSLAMT'.&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.&nbsp;gs_fieldcat-cfieldname&nbsp;=&nbsp;'ZWAERS'.&nbsp;gs_fieldcat-do_sum&nbsp;=&nbsp;'X'.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;11.&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZDCAMT'.&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.&nbsp;gs_fieldcat-cfieldname&nbsp;=&nbsp;'ZWAERS'.&nbsp;gs_fieldcat-do_sum&nbsp;=&nbsp;'X'.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;12.&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZWAERS'.&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.&nbsp;gs_fieldcat-emphasize&nbsp;=&nbsp;'X'.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;13.&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZSALE_NAME'.gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;14.&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZJDATE'.&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;10.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;p_ch1&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;15.&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZRET_NAME'.&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;16.&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZRDATE'.&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;10.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+FORM field_catalog_0200.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gs_fieldcat,&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;1.&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ICON'.&nbsp;gs_fieldcat-coltext&nbsp;=&nbsp;'##'.&nbsp;gs_fieldcat-icon&nbsp;=&nbsp;'X'.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;2.&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZORDNO'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;3.&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZIDCODE'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##ID'.&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;4.&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZMATNR'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;5.&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZMATNAME'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'###'.&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;6.&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZMAT_NAME'.&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;7.&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZVOLUM'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.&nbsp;gs_fieldcat-qfieldname&nbsp;=&nbsp;'VRKME'.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;8.&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'VRKME'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;10.&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZSLAMT'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.&nbsp;gs_fieldcat-cfieldname&nbsp;=&nbsp;'ZWAERS'.&nbsp;gs_fieldcat-do_sum&nbsp;=&nbsp;'X'.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;11.&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZWAERS'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.&nbsp;gs_fieldcat-emphasize&nbsp;=&nbsp;'X'.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;12.&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZDFLAG_NAME'.&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;13.&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZDGUBUN_NAME'.&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.&nbsp;gs_fieldcat-emphasize&nbsp;=&nbsp;'X'.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;14.&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZDDATE'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;10.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;p_ch1&nbsp;=&nbsp;c_x.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;15.&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZRDATE'.&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;10.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.&nbsp;gs_fieldcat-col_pos&nbsp;=&nbsp;16.&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ZFLAG'.&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.&nbsp;gs_fieldcat-outputlen&nbsp;=&nbsp;8.&nbsp;gs_fieldcat-just&nbsp;=&nbsp;'C'.&nbsp;gs_fieldcat-emphasize&nbsp;=&nbsp;'X'.&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+FORM alv_sort.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gs_sort,&nbsp;gt_sort.<br />
+&nbsp;&nbsp;gs_sort-spos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;gs_sort-fieldname&nbsp;=&nbsp;'ZIDCODE'.<br />
+&nbsp;&nbsp;gs_sort-up&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;gs_sort-subtot&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_sort&nbsp;TO&nbsp;gt_sort.<br />
+ENDFORM.<br />
+<br />
+FORM layout_set.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_layout.&nbsp;&nbsp;gs_layout-zebra&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_variant.&nbsp;gs_variant-report&nbsp;=&nbsp;sy-repid.&nbsp;gs_variant-username&nbsp;=&nbsp;sy-uname.<br />
+ENDFORM.<br />
+<br />
+FORM call_alv USING pt_itab    TYPE STANDARD TABLE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_grid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ps_layout&nbsp;&nbsp;TYPE&nbsp;lvc_s_layo<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ps_variant&nbsp;LIKE&nbsp;disvariant.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;p_grid-&gt;set_table_for_first_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_variant&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ps_variant<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_save&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;c_a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_layout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ps_layout<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_outtab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;pt_itab<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_fieldcatalog&nbsp;=&nbsp;gt_fieldcat<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_sort&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_sort.<br />
+ENDFORM.<br />
+<br />
+FORM zmtart_name USING p_zmtart CHANGING p_name.<br />
+&nbsp;&nbsp;CASE&nbsp;p_zmtart.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'001'.&nbsp;p_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'002'.&nbsp;p_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'003'.&nbsp;p_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'004'.&nbsp;p_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'005'.&nbsp;p_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'006'.&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+<br />
+FORM zret_name USING p_fg CHANGING p_name.<br />
+&nbsp;&nbsp;CASE&nbsp;p_fg.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.&nbsp;p_name&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.&nbsp;p_name&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.&nbsp;p_name&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+<br />
+FORM zdgubun_name USING p_zdgubun CHANGING p_name.<br />
+&nbsp;&nbsp;CASE&nbsp;p_zdgubun.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.&nbsp;p_name&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'4'.&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'5'.&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'6'.&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'7'.&nbsp;p_name&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

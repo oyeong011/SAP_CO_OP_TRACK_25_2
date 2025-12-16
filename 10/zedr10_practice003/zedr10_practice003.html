@@ -1,0 +1,550 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR10_PRACTICE003</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR10_PRACTICE003</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR10_PRACTICE003<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR10_PRACTICE003.<br />
+<br />
+" ## #### ##<br />
+CONSTANTS C_CURR TYPE WAERS VALUE 'KRW'.    "####<br />
+CONSTANTS C_CURR_DIV TYPE P VALUE 100.      "100 ## ##<br />
+" ## # # ### ##<br />
+CONSTANTS C_ORDER_LINER1 TYPE I VALUE 187.<br />
+CONSTANTS C_ORDER_LINER2 TYPE I VALUE 161.<br />
+CONSTANTS C_DELIV_LINER1 TYPE I VALUE 156.<br />
+CONSTANTS C_DELIV_LINER2 TYPE I VALUE 143.<br />
+<br />
+" STRUCTURE ## # INTERNAL TABLE ## --------------------------------<br />
+<br />
+" ## ## # ## ## ## STRUCT<br />
+DATA: BEGIN OF GS_COMBINED,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;mandt&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;mandt,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Client<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZORDNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZORDNO10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZIDCODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZIDCODE10,&nbsp;&nbsp;&nbsp;&nbsp;"##ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMATNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZMATNR10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMTART&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZMTART10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMATNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZMATNAME10,&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZVOLUM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZVOLUM10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VOLUM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;VOLUM,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Volume<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VRKME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;VRKME,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Sales&nbsp;Unit<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSLAMT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZSLAMT10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZRDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZDDATE10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"============&nbsp;Fields&nbsp;from&nbsp;ZEDT10_100&nbsp;============<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZNSAMT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZSLAMT10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDCAMT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZDCAMT10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDC_FG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZDC_FG10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSALE_FG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZSALE_FG10,&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZRET_FG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZRET_FG10,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZJDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZJDATE10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"============&nbsp;Fields&nbsp;from&nbsp;ZEDT10_101&nbsp;============<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDFLAG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZDFLAG10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDGUBUN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZDGUBUN10,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZDDATE10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZFLAG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZFLAG10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"===&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_ZMTART(10)&nbsp;TYPE&nbsp;C,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_ZDC(6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_ZSALE(5)&nbsp;&nbsp;&nbsp;TYPE&nbsp;C,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_ZRET(10)&nbsp;&nbsp;&nbsp;TYPE&nbsp;C,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_ZDFLAG(8)&nbsp;&nbsp;TYPE&nbsp;C,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_ZDGUBUN(8)&nbsp;TYPE&nbsp;C,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_ZRDATE(10)&nbsp;TYPE&nbsp;C,&nbsp;"####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_ZSLAMT(13)&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_ZNSAMT(13)&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_ZDCAMT(13)&nbsp;TYPE&nbsp;C<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+DATA: END OF GS_COMBINED,<br />
+GT_COMBINED LIKE TABLE OF GS_COMBINED.<br />
+<br />
+" ## ## STRUCT # TABLE<br />
+DATA: BEGIN OF GS_ORDER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt10_100/dictionary-zedt10_100.html">ZEDT10_100</a>.<br />
+DATA: END OF GS_ORDER,<br />
+GT_ORDER LIKE TABLE OF GS_ORDER.<br />
+<br />
+" ## ## STRUCTURE # TABLE<br />
+DATA: BEGIN OF GS_DELIVERY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt10_101/dictionary-zedt10_101.html">ZEDT10_101</a>.<br />
+DATA: END OF GS_DELIVERY,<br />
+GT_DELIVERY LIKE TABLE OF GS_DELIVERY.<br />
+<br />
+" #. STRUCTURE ## # INTERNAL TABLE ## --------------------------------<br />
+<br />
+" SELECT-OPTION # PARAMETER ## ----------------------------<br />
+<br />
+" ## ## BLOCK<br />
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.<br />
+SELECT-OPTIONS:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_ORDNO&nbsp;&nbsp;&nbsp;FOR&nbsp;GS_ORDER-ZORDNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_ZIDCO&nbsp;&nbsp;&nbsp;FOR&nbsp;GS_ORDER-ZIDCODE&nbsp;&nbsp;&nbsp;&nbsp;NO&nbsp;INTERVALS&nbsp;NO-EXTENSION,&nbsp;"&nbsp;##&nbsp;ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_MATNR&nbsp;&nbsp;&nbsp;FOR&nbsp;GS_ORDER-ZMATNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_JDATE&nbsp;&nbsp;&nbsp;FOR&nbsp;GS_ORDER-ZJDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;S1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_DDATE&nbsp;&nbsp;&nbsp;FOR&nbsp;GS_DELIVERY-ZDDATE&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;S2.<br />
+<br />
+SELECTION-SCREEN END OF BLOCK B1.<br />
+<br />
+" RADIO BUTTON BLOCK ## #### ## #### ##.<br />
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.<br />
+PARAMETERS:<br />
+&nbsp;&nbsp;P_R_ORD&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R1&nbsp;DEFAULT&nbsp;'X'&nbsp;USER-COMMAND&nbsp;UC1,<br />
+&nbsp;&nbsp;P_R_DEL&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R1.<br />
+SELECTION-SCREEN END OF BLOCK B2.<br />
+<br />
+" ## ## CHECKBOX BLOCK<br />
+SELECTION-SCREEN BEGIN OF BLOCK B3 WITH FRAME.<br />
+PARAMETERS:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_C_RET&nbsp;AS&nbsp;CHECKBOX&nbsp;DEFAULT&nbsp;'X'.<br />
+SELECTION-SCREEN END OF BLOCK B3.<br />
+<br />
+" #. SELECT-OPTION # PARAMETER ## ----------------------------<br />
+<br />
+" SCREEN ###<br />
+<br />
+INITIALIZATION.<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;"&nbsp;https://zcoding1.tistory.com/4&nbsp;-&nbsp;##&nbsp;####<br />
+&nbsp;&nbsp;DATA:&nbsp;GV_LDAT&nbsp;TYPE&nbsp;SY-DATUM.<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'RP_LAST_DAY_OF_MONTHS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAY_IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-DATUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LAST_DAY_OF_MONTH&nbsp;=&nbsp;GV_LDAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;S_DDATE-HIGH&nbsp;=&nbsp;GV_LDAT.<br />
+&nbsp;&nbsp;S_JDATE-HIGH&nbsp;=&nbsp;GV_LDAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;S_DDATE-LOW&nbsp;=&nbsp;|{&nbsp;SY-DATUM(6)&nbsp;}01&nbsp;|.<br />
+&nbsp;&nbsp;S_JDATE-LOW&nbsp;=&nbsp;|{&nbsp;SY-DATUM(6)&nbsp;}01&nbsp;|.<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;S_DDATE.<br />
+&nbsp;&nbsp;APPEND&nbsp;S_JDATE.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;SCREEN&nbsp;##.&nbsp;------------------<br />
+<br />
+AT SELECTION-SCREEN OUTPUT.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;RADIO&nbsp;BOX&nbsp;ACTION&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_R_ORD&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'S1'.&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'1'.&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'S2'.&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'0'.&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;P_R_DEL&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'S1'.&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'0'.&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'S2'.&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'1'.&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;"&nbsp;#.&nbsp;SCREEN&nbsp;##.&nbsp;------------------<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##.<br />
+<br />
+START-OF-SELECTION.<br />
+&nbsp;&nbsp;"&nbsp;RANGE&nbsp;##<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;GR_RET_FG&nbsp;TYPE&nbsp;RANGE&nbsp;OF&nbsp;ZEDT10_101-ZFLAG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_RET_FG&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;GR_RET_FG.<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;RANGE&nbsp;##<br />
+&nbsp;&nbsp;GS_RET_FG-SIGN&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;GS_RET_FG-LOW&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;RANGE&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;P_C_RET&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;'X'#&nbsp;'1','2','3'#&nbsp;##&nbsp;INITIAL&nbsp;###&nbsp;#&nbsp;##&nbsp;##.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_RET_FG-OPTION&nbsp;=&nbsp;'GE'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_RET_FG-OPTION&nbsp;=&nbsp;'EQ'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_RET_FG&nbsp;TO&nbsp;GR_RET_FG.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;P_R_ORD&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_ORDER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT10_100<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZORDNO&nbsp;&nbsp;IN&nbsp;S_ORDNO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;&nbsp;ZIDCODE&nbsp;IN&nbsp;S_ZIDCO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;&nbsp;ZMATNR&nbsp;&nbsp;IN&nbsp;S_MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;&nbsp;ZJDATE&nbsp;&nbsp;IN&nbsp;S_JDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;&nbsp;ZRET_FG&nbsp;IN&nbsp;GR_RET_FG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GT_ORDER[]&nbsp;TO&nbsp;GT_COMBINED[].<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;MODI_TABLE_4_PRINT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;PRINT_ORDER_TABLE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;ELSEIF&nbsp;P_R_DEL&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_DELIVERY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT10_101<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZORDNO&nbsp;IN&nbsp;S_ORDNO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;&nbsp;ZIDCODE&nbsp;IN&nbsp;S_ZIDCO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZMATNR&nbsp;IN&nbsp;S_MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZDDATE&nbsp;IN&nbsp;S_DDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZFLAG&nbsp;&nbsp;IN&nbsp;GR_RET_FG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GT_DELIVERY[]&nbsp;TO&nbsp;GT_COMBINED[].<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;MODI_TABLE_4_PRINT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;PRINT_DELIVERY_TABLE&nbsp;.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;MODI_TABLE_4_PRINT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;##&nbsp;##&nbsp;###&nbsp;##.<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--P_GT_COMBINED&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM MODI_TABLE_4_PRINT.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_COMBINED&nbsp;INTO&nbsp;GS_COMBINED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;0&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'CONVERSION_EXIT_ALPHA_OUTPUT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input&nbsp;&nbsp;=&nbsp;GS_COMBINED-ZORDNO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output&nbsp;=&nbsp;GS_COMBINED-ZORDNO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'CONVERSION_EXIT_ALPHA_OUTPUT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input&nbsp;&nbsp;=&nbsp;GS_COMBINED-ZMATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output&nbsp;=&nbsp;GS_COMBINED-ZMATNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-ZNSAMT&nbsp;=&nbsp;GS_COMBINED-ZNSAMT&nbsp;/&nbsp;C_CURR_DIV.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-ZSLAMT&nbsp;=&nbsp;GS_COMBINED-ZSLAMT&nbsp;/&nbsp;C_CURR_DIV.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-ZDCAMT&nbsp;=&nbsp;GS_COMBINED-ZDCAMT&nbsp;/&nbsp;C_CURR_DIV.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;GS_COMBINED-ZNSAMT&nbsp;TO&nbsp;GS_COMBINED-C_ZNSAMT&nbsp;CURRENCY&nbsp;C_CURR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;GS_COMBINED-ZSLAMT&nbsp;TO&nbsp;GS_COMBINED-C_ZSLAMT&nbsp;CURRENCY&nbsp;C_CURR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;GS_COMBINED-ZDCAMT&nbsp;TO&nbsp;GS_COMBINED-C_ZDCAMT&nbsp;CURRENCY&nbsp;C_CURR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#.&nbsp;##&nbsp;###&nbsp;###&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_COMBINED-ZRDATE&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;GS_COMBINED-ZRDATE&nbsp;TO&nbsp;GS_COMBINED-C_ZRDATE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#.&nbsp;##&nbsp;##&nbsp;##.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;FLAG&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;GS_COMBINED-ZDC_FG.&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZDC&nbsp;=&nbsp;'#####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZDC&nbsp;=&nbsp;'######'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZDC&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'4'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZDC&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;GS_COMBINED-ZDFLAG.&nbsp;"&nbsp;####&nbsp;FLAG&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZDFLAG&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZDFLAG&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZDFLAG&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;GS_COMBINED-ZDGUBUN.&nbsp;"&nbsp;######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZDGUBUN&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZDGUBUN&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZDGUBUN&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'4'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZDGUBUN&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'5'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZDGUBUN&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'6'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZDGUBUN&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'7'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZDGUBUN&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;GS_COMBINED-ZMTART.&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'001'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZMTART&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'002'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZMTART&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'003'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZMTART&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'004'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZMTART&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'005'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZMTART&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'006'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZMTART&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;GS_COMBINED-ZRET_FG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZRET&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZRET&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZRET&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;GS_COMBINED-ZSALE_FG.&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZSALE&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COMBINED-C_ZSALE&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#.&nbsp;##&nbsp;FLAG&nbsp;####&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;MODIFY#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_COMBINED&nbsp;FROM&nbsp;GS_COMBINED&nbsp;INDEX&nbsp;SY-TABIX.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;PRINT_ORDER_TABLE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM PRINT_ORDER_TABLE .<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;IF&nbsp;P_C_RET&nbsp;&lt;&gt;&nbsp;'X'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;####&nbsp;INTERNAL&nbsp;TABLE##&nbsp;##.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_COMBINED&nbsp;WHERE&nbsp;ZRET_FG&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+*&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;"&nbsp;HEADER&nbsp;STRING&nbsp;##<br />
+&nbsp;&nbsp;WRITE:<br />
+/ '|', (10) '####',<br />
+&nbsp;&nbsp;'|',&nbsp;(10)&nbsp;'ID',<br />
+&nbsp;&nbsp;'|',&nbsp;(10)&nbsp;'####',<br />
+&nbsp;&nbsp;'|',&nbsp;(20)&nbsp;'###',<br />
+&nbsp;&nbsp;'|',&nbsp;(10)&nbsp;'####',<br />
+&nbsp;&nbsp;'|',&nbsp;(5)&nbsp;'##',<br />
+&nbsp;&nbsp;'|',&nbsp;(5)&nbsp;'##',<br />
+&nbsp;&nbsp;'|',&nbsp;(13)&nbsp;'####',<br />
+&nbsp;&nbsp;'|',&nbsp;(13)&nbsp;'####',<br />
+&nbsp;&nbsp;'|',&nbsp;(13)&nbsp;'####',<br />
+&nbsp;&nbsp;'|',&nbsp;(5)&nbsp;'##',<br />
+&nbsp;&nbsp;'|',&nbsp;(10)&nbsp;'####'.&nbsp;"124&nbsp;+&nbsp;12<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;P_C_RET&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(10)&nbsp;'####',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(10)&nbsp;'####',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'|'.&nbsp;"&nbsp;20&nbsp;+3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;PRINT_DASH&nbsp;USING&nbsp;C_ORDER_LINER1.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;PRINT_DASH&nbsp;USING&nbsp;C_ORDER_LINER2.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;"&nbsp;#.&nbsp;HEADER&nbsp;STRING&nbsp;##<br />
+&nbsp;&nbsp;"&nbsp;#&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_COMBINED&nbsp;INTO&nbsp;GS_COMBINED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;'|',&nbsp;GS_COMBINED-ZORDNO&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;GS_COMBINED-ZIDCODE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;GS_COMBINED-ZMATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;GS_COMBINED-ZMATNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;GS_COMBINED-C_ZMTART,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|&nbsp;',&nbsp;GS_COMBINED-ZVOLUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;|&nbsp;',&nbsp;GS_COMBINED-VRKME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;|',&nbsp;GS_COMBINED-C_ZNSAMT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;GS_COMBINED-C_ZSLAMT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;GS_COMBINED-C_ZDCAMT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;GS_COMBINED-C_ZSALE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;GS_COMBINED-ZJDATE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_C_RET&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;GS_COMBINED-C_ZRET,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;GS_COMBINED-C_ZRDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;PRINT_DASH&nbsp;USING&nbsp;C_ORDER_LINER1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;PRINT_DASH&nbsp;USING&nbsp;C_ORDER_LINER2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;PRINT_ORDER_TABLE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM PRINT_DELIVERY_TABLE .<br />
+&nbsp;&nbsp;IF&nbsp;P_C_RET&nbsp;&lt;&gt;&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;####&nbsp;INTERNAL&nbsp;TABLE##&nbsp;##.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_COMBINED&nbsp;WHERE&nbsp;ZFLAG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;HEADER&nbsp;STRING&nbsp;##<br />
+&nbsp;&nbsp;WRITE:<br />
+/ '|', (10) '####',<br />
+&nbsp;&nbsp;'|',&nbsp;(10)&nbsp;'ID',<br />
+&nbsp;&nbsp;'|',&nbsp;(10)&nbsp;'####',<br />
+&nbsp;&nbsp;'|',&nbsp;(20)&nbsp;'###',<br />
+&nbsp;&nbsp;'|',&nbsp;(10)&nbsp;'####',<br />
+&nbsp;&nbsp;'|',&nbsp;(5)&nbsp;'##',<br />
+&nbsp;&nbsp;'|',&nbsp;(5)&nbsp;'##',<br />
+&nbsp;&nbsp;'|',&nbsp;(13)&nbsp;'####',<br />
+&nbsp;&nbsp;'|',&nbsp;(8)&nbsp;'####',<br />
+&nbsp;&nbsp;'|',&nbsp;(8)&nbsp;'##',<br />
+&nbsp;&nbsp;'|',&nbsp;(10)&nbsp;'####'.&nbsp;"&nbsp;122<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;P_C_RET&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(10)&nbsp;'####',&nbsp;"&nbsp;12<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;PRINT_DASH&nbsp;USING&nbsp;C_DELIV_LINER1..<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;PRINT_DASH&nbsp;USING&nbsp;C_DELIV_LINER2.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;"&nbsp;#.&nbsp;HEADER&nbsp;STRING&nbsp;##<br />
+&nbsp;&nbsp;"&nbsp;#&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_COMBINED&nbsp;INTO&nbsp;GS_COMBINED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;'|',&nbsp;GS_COMBINED-ZORDNO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;GS_COMBINED-ZIDCODE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;GS_COMBINED-ZMATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;GS_COMBINED-ZMATNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;GS_COMBINED-C_ZMTART,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|&nbsp;',&nbsp;GS_COMBINED-ZVOLUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;|&nbsp;',&nbsp;GS_COMBINED-VRKME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;|',&nbsp;GS_COMBINED-C_ZSLAMT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;GS_COMBINED-C_ZDFLAG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;GS_COMBINED-C_ZDGUBUN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;GS_COMBINED-ZDDATE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_C_RET&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;GS_COMBINED-C_ZRDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;PRINT_DASH&nbsp;USING&nbsp;C_DELIV_LINER1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;PRINT_DASH&nbsp;USING&nbsp;C_DELIV_LINER2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;PRINT_DASH<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DASH&nbsp;###&nbsp;####&nbsp;FORM<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_C_DELIV_LINER1&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM PRINT_DASH  USING    P_LINER.<br />
+&nbsp;&nbsp;NEW-LINE.<br />
+&nbsp;&nbsp;DO&nbsp;P_LINER&nbsp;TIMES.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;'-'&nbsp;NO-GAP.<br />
+&nbsp;&nbsp;ENDDO.<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

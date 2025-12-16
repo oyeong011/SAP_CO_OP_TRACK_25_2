@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR022_PRACTICE001</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR022_PRACTICE001</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR022_PRACTICE001<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR022_PRACTICE001.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##&nbsp;###&nbsp;##&nbsp;###&nbsp;###&nbsp;##<br />
+   </div>
+   <div class="code">
+DATA: BEGIN OF gs_grade, "### ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zcode&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt00_004-zcode,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zpernr&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt00_004-zpernr,&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zschool&nbsp;&nbsp;TYPE&nbsp;zedt00_004-zschool,&nbsp;&nbsp;"###/####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zsem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt00_004-zsem,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zexam&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt00_004-zexam,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmajor&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt00_004-zmajor,&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmname&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt00_004-zmname,&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zsum&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt00_004-zsum,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####(ex.100.00)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zwaers&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt00_004-zwaers,&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgrade&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt00_004-zgrade,&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zflag&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zedt00_004-zflag,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zamount&nbsp;&nbsp;TYPE&nbsp;zedt00_004-zamount,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zcal_sum&nbsp;TYPE&nbsp;p&nbsp;DECIMALS&nbsp;2,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_grade.<br />
+<br />
+DATA gt_grade LIKE TABLE OF gs_grade. "### ### ##<br />
+<br />
+DATA : gv_is_scholar    TYPE abap_bool VALUE abap_true,   "### ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_is_last&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;abap_bool&nbsp;VALUE&nbsp;abap_false,&nbsp;&nbsp;"##&nbsp;####&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_total_amount&nbsp;&nbsp;TYPE&nbsp;i,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_amount_int&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;##&nbsp;####<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;DATA&nbsp;####(##&nbsp;##)<br />
+   </div>
+   <div class="code">
+SELECT * FROM zedt00_004<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_grade.<br />
+<br />
+CLEAR : gs_grade.<br />
+SORT gt_grade BY zcode zexam. "AT ### SORT ##<br />
+"#### #### zcode# sort, ## ### ## ####+### ## ##### #### ##-&gt; zexam sort<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;#&nbsp;##&nbsp;####(ZCODE)##&nbsp;####(ZEXAM)#&nbsp;##&nbsp;##&nbsp;###&nbsp;A#&nbsp;###&nbsp;####(ZFLAG)#&nbsp;X####<br />
+*&nbsp;##&nbsp;####(ZAMOUNT)#&nbsp;####(ZSUM)##&nbsp;###<br />
+*&nbsp;###('A'&nbsp;:&nbsp;20%),&nbsp;####('B'&nbsp;:&nbsp;10%)&nbsp;##<br />
+<br />
+   </div>
+   <div class="code">
+"## # ## ## ### #<br />
+"1. ## ## A### ###-&gt;ZFLAG = 'X', ZAMOUNT = ZSUM * 0.8<br />
+"2. ## ## A### ####-&gt;ZFLAG = 'X', ZAMOUNT = ZSUM * 0.9<br />
+"3. #### A# ## -&gt; ZFLAG = '', ZAMOUNT = ZSUM<br />
+<br />
+LOOP AT gt_grade INTO gs_grade.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;AT&nbsp;NEW&nbsp;1#&nbsp;##&nbsp;##(###&nbsp;#&nbsp;###&nbsp;#)<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;AT&nbsp;NEW&nbsp;zcode.&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_is_scholar&nbsp;=&nbsp;abap_true.&nbsp;&nbsp;"######&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_is_last&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;abap_false.&nbsp;"##&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;gs_grade-zgrade&nbsp;NE&nbsp;'A'.&nbsp;"#&nbsp;#####&nbsp;A#&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_is_scholar&nbsp;=&nbsp;abap_false.&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;AT&nbsp;END&nbsp;1#&nbsp;##&nbsp;##(##&nbsp;##&nbsp;##&nbsp;#)<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;AT&nbsp;END&nbsp;OF&nbsp;zcode.&nbsp;"#&nbsp;###&nbsp;###&nbsp;####&nbsp;#&nbsp;##&nbsp;#(##,##,##,&nbsp;##&nbsp;#&nbsp;4#)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_is_last&nbsp;=&nbsp;abap_true.&nbsp;"##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;gv_is_last&nbsp;=&nbsp;abap_true.&nbsp;"##&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;#####&nbsp;##&nbsp;###&nbsp;###&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;gs_grade-zcal_sum&nbsp;=&nbsp;gs_grade-zsum&nbsp;*&nbsp;100.&nbsp;"100.00&nbsp;-&gt;&nbsp;10000##&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gv_is_scholar&nbsp;=&nbsp;abap_true.&nbsp;"##&nbsp;######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_grade-zflag&nbsp;=&nbsp;'X'.&nbsp;"####(ZFLAG)&nbsp;X##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_grade-zschool&nbsp;=&nbsp;'A'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;:&nbsp;20%&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_grade-zcal_sum&nbsp;=&nbsp;gs_grade-zcal_sum&nbsp;*&nbsp;'0.8'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;:&nbsp;10%&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_grade-zcal_sum&nbsp;=&nbsp;gs_grade-zcal_sum&nbsp;*&nbsp;'0.9'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_grade-zcal_sum&nbsp;=&nbsp;gs_grade-zcal_sum.&nbsp;"&nbsp;###&nbsp;##&nbsp;:&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_grade-zamount&nbsp;=&nbsp;gs_grade-zcal_sum.&nbsp;"&nbsp;##&nbsp;####(zamount)&nbsp;##<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##&nbsp;#&nbsp;modify&nbsp;###&nbsp;##&nbsp;###&nbsp;###&nbsp;#&nbsp;####&nbsp;#####&nbsp;##&nbsp;###&nbsp;###&nbsp;###&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;gt_grade&nbsp;FROM&nbsp;gs_grade&nbsp;INDEX&nbsp;sy-tabix<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRANSPORTING&nbsp;zflag&nbsp;zamount&nbsp;zcal_sum.&nbsp;"####,###,#######&nbsp;####<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_grade.<br />
+ENDLOOP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##&nbsp;###&nbsp;##&nbsp;(####&nbsp;#&nbsp;##&nbsp;#&nbsp;##&nbsp;##)<br />
+   </div>
+   <div class="code">
+SORT gt_grade BY zcode zexam DESCENDING.<br />
+DELETE ADJACENT DUPLICATES FROM gt_grade COMPARING zcode.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;###&nbsp;#&nbsp;##<br />
+   </div>
+   <div class="code">
+CLEAR : gs_grade.<br />
+gv_total_amount = 0.<br />
+<br />
+LOOP AT gt_grade INTO gs_grade.<br />
+&nbsp;&nbsp;gv_total_amount&nbsp;=&nbsp;gv_total_amount&nbsp;+&nbsp;gs_grade-zamount.&nbsp;"##&nbsp;=&nbsp;##&nbsp;+&nbsp;##&nbsp;####&nbsp;-&gt;&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;gv_amount_int&nbsp;&nbsp;&nbsp;=&nbsp;TRUNC(&nbsp;gs_grade-zamount&nbsp;).&nbsp;"TRUNC&nbsp;:&nbsp;###&nbsp;###&nbsp;###&nbsp;##-&gt;&nbsp;####&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;AT&nbsp;FIRST&nbsp;1#&nbsp;##&nbsp;##(LOOP#&nbsp;#&nbsp;##&nbsp;#)<br />
+   </div>
+   <div class="code">
+AT FIRST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'---------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|',&nbsp;(10)&nbsp;'####',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(15)&nbsp;'##',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(10)&nbsp;'####',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(15)&nbsp;'####',&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'---------------------------------------------------------------'.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;(#&nbsp;##)<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|',&nbsp;(10)&nbsp;gs_grade-zcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(15)&nbsp;gs_grade-zmname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(10)&nbsp;gs_grade-zflag,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(15)&nbsp;gv_amount_int,&nbsp;'|'.<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'---------------------------------------------------------------'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;AT&nbsp;LAST&nbsp;1#&nbsp;##&nbsp;##(LOOP#&nbsp;###&nbsp;#)<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;AT&nbsp;LAST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|',&nbsp;(10)&nbsp;'##',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(15)&nbsp;space,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(10)&nbsp;space,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;(15)&nbsp;gv_total_amount,&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'---------------------------------------------------------------'.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+ENDLOOP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

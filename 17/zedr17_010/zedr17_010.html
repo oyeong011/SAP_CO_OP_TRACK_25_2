@@ -1,0 +1,347 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR17_010</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR17_010</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR17_010<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+report zedr17_010.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*data&nbsp;:&nbsp;begin&nbsp;of&nbsp;gs_student.<br />
+*&nbsp;&nbsp;include&nbsp;type&nbsp;zedt17_001.<br />
+*data&nbsp;:&nbsp;end&nbsp;of&nbsp;gs_student.<br />
+*data&nbsp;:&nbsp;gt_student&nbsp;like&nbsp;table&nbsp;of&nbsp;gs_student.<br />
+<br />
+**&nbsp;[Selection&nbsp;Screen]<br />
+**parameters&nbsp;:&nbsp;p_zcode&nbsp;like&nbsp;zedt17_001-zcode&nbsp;lower&nbsp;case.&nbsp;"&nbsp;###&nbsp;##<br />
+**parameters&nbsp;:&nbsp;p_zcode&nbsp;like&nbsp;zedt17_001-zcode&nbsp;obligatory.&nbsp;"&nbsp;#####&nbsp;##<br />
+*selection-screen&nbsp;begin&nbsp;of&nbsp;block&nbsp;b1&nbsp;with&nbsp;frame.&nbsp;"&nbsp;##&nbsp;###<br />
+*parameters&nbsp;:&nbsp;p_zcode&nbsp;like&nbsp;zedt17_001-zcode&nbsp;visible&nbsp;length&nbsp;15.&nbsp;"###&nbsp;###&nbsp;##&nbsp;##&nbsp;##<br />
+*parameters&nbsp;:&nbsp;p_zpernr(10)&nbsp;no-display.&nbsp;"&nbsp;###<br />
+*parameters&nbsp;:&nbsp;p_znum&nbsp;type&nbsp;p&nbsp;decimals&nbsp;2.<br />
+*parameters&nbsp;:&nbsp;p_zgen&nbsp;like&nbsp;zedt17_001-zgender&nbsp;default&nbsp;'M'.&nbsp;"&nbsp;default#&nbsp;##<br />
+*selection-screen&nbsp;end&nbsp;of&nbsp;block&nbsp;b1.<br />
+*<br />
+*select&nbsp;*&nbsp;from&nbsp;zedt17_001<br />
+*&nbsp;&nbsp;into&nbsp;corresponding&nbsp;fields&nbsp;of&nbsp;table&nbsp;gt_student<br />
+*&nbsp;&nbsp;where&nbsp;zcode&nbsp;=&nbsp;p_zcode<br />
+*&nbsp;&nbsp;and&nbsp;zgender&nbsp;=&nbsp;p_zgen.<br />
+*if&nbsp;gt_student[]&nbsp;is&nbsp;not&nbsp;initial.<br />
+*&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'###&nbsp;##'.<br />
+*else.<br />
+*&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'###&nbsp;##'.<br />
+*endif.<br />
+<br />
+*<br />
+*selection-screen&nbsp;begin&nbsp;of&nbsp;block&nbsp;b2&nbsp;with&nbsp;frame.<br />
+*selection-screen&nbsp;begin&nbsp;of&nbsp;line.<br />
+*&nbsp;&nbsp;parameters&nbsp;:&nbsp;p_r1&nbsp;radiobutton&nbsp;group&nbsp;r1&nbsp;default&nbsp;'X'.<br />
+*selection-screen&nbsp;position&nbsp;3.&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+*selection-screen&nbsp;comment&nbsp;(10)&nbsp;for&nbsp;field&nbsp;p_r1.&nbsp;"&nbsp;###&nbsp;##<br />
+*parameters&nbsp;:&nbsp;p_r2&nbsp;radiobutton&nbsp;group&nbsp;r1.<br />
+*selection-screen&nbsp;position&nbsp;20.<br />
+*selection-screen&nbsp;comment&nbsp;(10)&nbsp;for&nbsp;field&nbsp;p_r2.<br />
+*selection-screen&nbsp;end&nbsp;of&nbsp;line.<br />
+*parameters&nbsp;:&nbsp;z_check&nbsp;as&nbsp;checkbox&nbsp;default&nbsp;'X'.<br />
+*selection-screen&nbsp;end&nbsp;of&nbsp;block&nbsp;b2.<br />
+<br />
+*if&nbsp;z_check&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;z_check&nbsp;####&nbsp;##&nbsp;#&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'####&nbsp;##'.<br />
+*else.<br />
+*&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'##&nbsp;##'.<br />
+*endif.<br />
+*<br />
+*if&nbsp;p_r1&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;z_check&nbsp;####&nbsp;##&nbsp;#&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'####&nbsp;##'.<br />
+*elseif&nbsp;p_r2&nbsp;=&nbsp;'X'.<br />
+*&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'##&nbsp;##'.<br />
+*endif.<br />
+<br />
+**********************************************<br />
+*&nbsp;[Select&nbsp;Options]<br />
+   </div>
+   <div class="code">
+tables : zedt17_001.<br />
+data : begin of gs_student.<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt17_001/dictionary-zedt17_001.html">zedt17_001</a>.<br />
+&nbsp;&nbsp;data&nbsp;:&nbsp;end&nbsp;of&nbsp;gs_student.<br />
+data : gt_student like table of gs_student.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*selection-screen&nbsp;begin&nbsp;of&nbsp;block&nbsp;b1&nbsp;with&nbsp;frame.<br />
+*&nbsp;&nbsp;select-options&nbsp;:&nbsp;s_zcode&nbsp;for&nbsp;zedt17_001-zcode.&nbsp;"&nbsp;for&nbsp;##&nbsp;##&nbsp;tables#&nbsp;###&nbsp;#####&nbsp;##.<br />
+*selection-screen&nbsp;end&nbsp;of&nbsp;block&nbsp;b1.<br />
+*selection-screen&nbsp;begin&nbsp;of&nbsp;block&nbsp;b2&nbsp;with&nbsp;frame.<br />
+*&nbsp;&nbsp;parameters&nbsp;:&nbsp;p_zgen&nbsp;like&nbsp;zedt17_001-zgender.<br />
+*selection-screen&nbsp;end&nbsp;of&nbsp;block&nbsp;b2.<br />
+*<br />
+*select&nbsp;*&nbsp;from&nbsp;zedt17_001<br />
+*&nbsp;&nbsp;into&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;table&nbsp;gt_student<br />
+*&nbsp;&nbsp;where&nbsp;zcode&nbsp;in&nbsp;s_zcode<br />
+*&nbsp;&nbsp;and&nbsp;zgender&nbsp;=&nbsp;p_zgen.<br />
+*<br />
+*if&nbsp;gt_student[]&nbsp;is&nbsp;not&nbsp;initial.<br />
+*&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_student.<br />
+*&nbsp;&nbsp;loop&nbsp;at&nbsp;gt_student&nbsp;into&nbsp;gs_student.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gs_student-zcode,&nbsp;gs_student-zkname.<br />
+*&nbsp;&nbsp;endloop.<br />
+*else.<br />
+*&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'###&nbsp;##'.<br />
+*endif.<br />
+<br />
+*select-options&nbsp;:&nbsp;s_zcode&nbsp;for&nbsp;zedt17_001-zcode&nbsp;default&nbsp;'SSU-01'.&nbsp;"&nbsp;sign&nbsp;I&nbsp;option&nbsp;eq#&nbsp;###&nbsp;###&nbsp;#<br />
+*select-options&nbsp;:&nbsp;s_zcode&nbsp;for&nbsp;zedt17_001-zcode&nbsp;default&nbsp;'SSU-01'&nbsp;sign&nbsp;e&nbsp;option&nbsp;eq.&nbsp;"&nbsp;sign&nbsp;e&nbsp;option&nbsp;eq#&nbsp;###&nbsp;#&nbsp;##&nbsp;#&nbsp;##<br />
+*select-options&nbsp;:&nbsp;s_zcode&nbsp;for&nbsp;zedt17_001-zcode&nbsp;default&nbsp;'SSU-01'&nbsp;sign&nbsp;e&nbsp;option&nbsp;bt.&nbsp;"&nbsp;default&nbsp;data&nbsp;1##&nbsp;##&nbsp;between&nbsp;A&nbsp;and&nbsp;B&nbsp;&nbsp;##<br />
+*select-options&nbsp;:&nbsp;s_zcode&nbsp;for&nbsp;zedt17_001-zcode&nbsp;default&nbsp;'SSU-01'&nbsp;to&nbsp;'SSU-99'&nbsp;sign&nbsp;e&nbsp;option&nbsp;bt.&nbsp;"&nbsp;default&nbsp;data&nbsp;2#&nbsp;##&nbsp;-&gt;&nbsp;bt&nbsp;##<br />
+<br />
+*select-options&nbsp;:&nbsp;s_zcode&nbsp;for&nbsp;zedt17_001-zcode&nbsp;default&nbsp;'SSU-01'&nbsp;no&nbsp;intervals.&nbsp;"&nbsp;##&nbsp;#&nbsp;####&nbsp;##.&nbsp;###&nbsp;###&nbsp;#<br />
+*select-options&nbsp;:&nbsp;s_zcode&nbsp;for&nbsp;zedt17_001-zcode&nbsp;default&nbsp;'SSU-01'&nbsp;no&nbsp;intervals&nbsp;no-extension.&nbsp;"&nbsp;multiple&nbsp;selection&nbsp;##&nbsp;##<br />
+*parameters&nbsp;:&nbsp;s_zcode&nbsp;like&nbsp;zedt17_001-zcode.&nbsp;"&nbsp;##&nbsp;####&nbsp;#&nbsp;###&nbsp;###&nbsp;##&nbsp;-&nbsp;####<br />
+<br />
+*select-options&nbsp;:&nbsp;s_zcode&nbsp;for&nbsp;zedt17_001-zcode&nbsp;default&nbsp;'SSU-01'&nbsp;visible&nbsp;length&nbsp;3.&nbsp;"&nbsp;####&nbsp;##&nbsp;##&nbsp;##<br />
+<br />
+*parameters&nbsp;:&nbsp;p_zgen&nbsp;like&nbsp;zedt17_001-zgender.<br />
+<br />
+*select&nbsp;*&nbsp;from&nbsp;zedt17_001<br />
+*&nbsp;&nbsp;into&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;table&nbsp;gt_student<br />
+**&nbsp;&nbsp;where&nbsp;zcode&nbsp;=&nbsp;s_zcode.&nbsp;"&nbsp;parameters#&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;where&nbsp;zcode&nbsp;in&nbsp;s_zcode.<br />
+*<br />
+*if&nbsp;gt_student[]&nbsp;is&nbsp;not&nbsp;initial.<br />
+*&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_student.<br />
+*&nbsp;&nbsp;loop&nbsp;at&nbsp;gt_student&nbsp;into&nbsp;gs_student.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gs_student-zcode,&nbsp;gs_student-zkname.<br />
+*&nbsp;&nbsp;endloop.<br />
+*else.<br />
+*&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'###&nbsp;##'.<br />
+*endif.<br />
+<br />
+   </div>
+   <div class="code">
+" modif id : ##### ##<br />
+   </div>
+   <div class="codeComment">
+*selection-screen&nbsp;begin&nbsp;of&nbsp;block&nbsp;b1&nbsp;with&nbsp;frame.<br />
+*&nbsp;&nbsp;select-options&nbsp;:&nbsp;s_zcode&nbsp;for&nbsp;zedt17_001-zcode.<br />
+*&nbsp;&nbsp;parameters&nbsp;:&nbsp;p_zgen&nbsp;like&nbsp;zedt17_001-zgender.<br />
+*selection-screen&nbsp;end&nbsp;of&nbsp;block&nbsp;b1.<br />
+*selection-screen&nbsp;begin&nbsp;of&nbsp;block&nbsp;b2&nbsp;with&nbsp;frame.<br />
+*&nbsp;&nbsp;parameters&nbsp;:&nbsp;p_ch1&nbsp;as&nbsp;checkbox&nbsp;default&nbsp;'X'&nbsp;modif&nbsp;id&nbsp;m1.&nbsp;"&nbsp;1.&nbsp;###&nbsp;###&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;parameters&nbsp;:&nbsp;p_ch2&nbsp;as&nbsp;checkbox&nbsp;modif&nbsp;id&nbsp;m2.&nbsp;"&nbsp;####&nbsp;##&nbsp;3###&nbsp;(ex,&nbsp;m111#&nbsp;4###&nbsp;error)<br />
+*selection-screen&nbsp;end&nbsp;of&nbsp;block&nbsp;b2.<br />
+<br />
+   </div>
+   <div class="code">
+" #####  input #### (screen-group1)<br />
+   </div>
+   <div class="codeComment">
+*at&nbsp;selection-screen&nbsp;output.&nbsp;"&nbsp;2.&nbsp;selection-screen#&nbsp;####&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;loop&nbsp;at&nbsp;screen.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;screen-group1&nbsp;=&nbsp;'M2'.&nbsp;"&nbsp;3.&nbsp;modif&nbsp;id#&nbsp;##&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-input&nbsp;=&nbsp;'0'.&nbsp;"&nbsp;4.&nbsp;###&nbsp;#&nbsp;##.&nbsp;iput&nbsp;=&nbsp;0:&nbsp;screen&nbsp;#&nbsp;input&nbsp;#&nbsp;0;&nbsp;#,&nbsp;##&nbsp;##&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modify&nbsp;screen.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+*&nbsp;&nbsp;endloop.<br />
+<br />
+   </div>
+   <div class="code">
+" ##### input #### (screen-name)<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;at&nbsp;selection-screen&nbsp;output.&nbsp;"&nbsp;2.&nbsp;selection-screen#&nbsp;####&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;loop&nbsp;at&nbsp;screen.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;screen-name&nbsp;=&nbsp;'P_CH2'.&nbsp;"&nbsp;screen-group1#&nbsp;###&nbsp;###,&nbsp;screen-name#&nbsp;###&nbsp;###<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-input&nbsp;=&nbsp;'0'.&nbsp;"&nbsp;4.&nbsp;###&nbsp;#&nbsp;##.&nbsp;iput&nbsp;=&nbsp;0:&nbsp;screen&nbsp;#&nbsp;input&nbsp;#&nbsp;0;&nbsp;#,&nbsp;##&nbsp;##&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modify&nbsp;screen.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+*&nbsp;&nbsp;endloop.<br />
+<br />
+   </div>
+   <div class="code">
+" ##### #### ##<br />
+   </div>
+   <div class="codeComment">
+*at&nbsp;selection-screen&nbsp;output.<br />
+*&nbsp;&nbsp;loop&nbsp;at&nbsp;screen.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;screen-group1&nbsp;=&nbsp;'M2'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;'0'.&nbsp;"&nbsp;##&nbsp;###&nbsp;###<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modify&nbsp;screen.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+*&nbsp;&nbsp;endloop.<br />
+<br />
+   </div>
+   <div class="code">
+" ##### ## ## ## ##<br />
+   </div>
+   <div class="codeComment">
+*at&nbsp;selection-screen&nbsp;output.<br />
+*&nbsp;&nbsp;loop&nbsp;at&nbsp;screen.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;screen-group1&nbsp;=&nbsp;'M2'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-required&nbsp;=&nbsp;'1'.&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;##&nbsp;#<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modify&nbsp;screen.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+*&nbsp;&nbsp;endloop.<br />
+<br />
+   </div>
+   <div class="code">
+" ##### ## ## ####<br />
+   </div>
+   <div class="codeComment">
+*at&nbsp;selection-screen&nbsp;output.<br />
+*&nbsp;&nbsp;loop&nbsp;at&nbsp;screen.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;screen-group1&nbsp;=&nbsp;'M2'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-output&nbsp;=&nbsp;'0'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modify&nbsp;screen.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+*&nbsp;&nbsp;endloop.<br />
+*<br />
+*&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+*select&nbsp;*&nbsp;from&nbsp;zedt17_001<br />
+*&nbsp;&nbsp;into&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;table&nbsp;gt_student<br />
+**&nbsp;&nbsp;where&nbsp;zcode&nbsp;=&nbsp;s_zcode.&nbsp;"&nbsp;parameters#&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;where&nbsp;zcode&nbsp;in&nbsp;s_zcode.<br />
+*<br />
+*if&nbsp;gt_student[]&nbsp;is&nbsp;not&nbsp;initial.<br />
+*&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_student.<br />
+*&nbsp;&nbsp;loop&nbsp;at&nbsp;gt_student&nbsp;into&nbsp;gs_student.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gs_student-zcode,&nbsp;gs_student-zkname.<br />
+*&nbsp;&nbsp;endloop.<br />
+*else.<br />
+*&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'###&nbsp;##'.<br />
+*endif.<br />
+<br />
+   </div>
+   <div class="code">
+" #### ## usercommand ### #####<br />
+   </div>
+   <div class="codeComment">
+*##1&nbsp;-&nbsp;####<br />
+*##&nbsp;2&nbsp;-&nbsp;#####<br />
+*##&nbsp;####&nbsp;###&nbsp;#####&nbsp;##,&nbsp;#&nbsp;##&nbsp;####&nbsp;##&nbsp;###&nbsp;user-command&nbsp;####&nbsp;#<br />
+*fcode#&nbsp;###&nbsp;###&nbsp;#.&nbsp;####&nbsp;:&nbsp;uc1,&nbsp;uc2,&nbsp;..,<br />
+   </div>
+   <div class="code">
+selection-screen begin of block b1 with frame.<br />
+&nbsp;&nbsp;select-options&nbsp;:&nbsp;s_zcode&nbsp;for&nbsp;zedt17_001-zcode.<br />
+&nbsp;&nbsp;parameters&nbsp;:&nbsp;p_zpernr&nbsp;like&nbsp;zedt17_001-zpernr&nbsp;modif&nbsp;id&nbsp;m1.&nbsp;"&nbsp;1.&nbsp;##&nbsp;###&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;parameters&nbsp;:&nbsp;p_zgen&nbsp;like&nbsp;zedt17_001-zgender&nbsp;matchcode&nbsp;object&nbsp;zsh17_001&nbsp;modif&nbsp;id&nbsp;m2.&nbsp;"&nbsp;search&nbsp;help&nbsp;##&nbsp;##&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;"&nbsp;matchcode&nbsp;object&nbsp;obtion&nbsp;##&nbsp;search&nbsp;help##&nbsp;##<br />
+selection-screen end of block b1.<br />
+selection-screen begin of block b2 with frame.<br />
+&nbsp;&nbsp;parameters&nbsp;:&nbsp;p_r1&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;r1&nbsp;default&nbsp;'X'&nbsp;user-command&nbsp;uc1.&nbsp;"&nbsp;2.&nbsp;selection-screen&nbsp;##&nbsp;###&nbsp;######&nbsp;user-command&nbsp;fcode&nbsp;###&nbsp;(uc1)<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;parameters&nbsp;:&nbsp;p_r1&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;r1&nbsp;default&nbsp;'X'.&nbsp;"&nbsp;user-command&nbsp;###&nbsp;enter&nbsp;##&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;parameters&nbsp;:&nbsp;p_r2&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;r1.<br />
+&nbsp;&nbsp;parameters&nbsp;:&nbsp;p_r3&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;r2.<br />
+&nbsp;&nbsp;parameters&nbsp;:&nbsp;p_r4&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;r2.<br />
+selection-screen end of block b2.<br />
+<br />
+at selection-screen output.<br />
+&nbsp;&nbsp;loop&nbsp;at&nbsp;screen.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;screen-group1&nbsp;=&nbsp;'M2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-intensified&nbsp;=&nbsp;'1'.&nbsp;"##&nbsp;##.&nbsp;1#&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-display_3D&nbsp;=&nbsp;'1'.&nbsp;"##&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-invisible&nbsp;=&nbsp;'1'.&nbsp;"####&nbsp;*##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;p_r1&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elseif&nbsp;p_r2&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;modify&nbsp;screen.<br />
+&nbsp;&nbsp;endloop.<br />
+<br />
+<br />
+select * from zedt17_001<br />
+&nbsp;&nbsp;into&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;table&nbsp;gt_student<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;where&nbsp;zcode&nbsp;=&nbsp;s_zcode.&nbsp;"&nbsp;parameters#&nbsp;###&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;where&nbsp;zcode&nbsp;in&nbsp;s_zcode.<br />
+<br />
+if gt_student[] is not initial.<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_student.<br />
+&nbsp;&nbsp;loop&nbsp;at&nbsp;gt_student&nbsp;into&nbsp;gs_student.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gs_student-zcode,&nbsp;gs_student-zkname.<br />
+&nbsp;&nbsp;endloop.<br />
+else.<br />
+&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'###&nbsp;##'.<br />
+endif.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

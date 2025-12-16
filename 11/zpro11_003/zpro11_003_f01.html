@@ -1,0 +1,697 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZPRO11_003_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZPRO11_003_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZPRO11_003_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;####&nbsp;###<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;INIT_DEFAULT_VALUES<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM init_default_values.<br />
+&nbsp;&nbsp;p_grdat&nbsp;=&nbsp;sy-datum.<br />
+&nbsp;&nbsp;txt_prc&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;txt_dsp&nbsp;=&nbsp;'####'.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CONTROL_SCREEN_FIELDS<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM control_screen_fields.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;screen-group1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'PRC'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_proc&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CHECK_PO_VALIDITY<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM check_po_validity.<br />
+&nbsp;&nbsp;DATA&nbsp;lv_cnt&nbsp;TYPE&nbsp;i.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;COUNT(*)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;lv_cnt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zpro11_005<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ebeln&nbsp;=&nbsp;p_ponum<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;werks&nbsp;=&nbsp;p_plant.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;lv_cnt&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;#####&nbsp;###&nbsp;###&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;LOAD_PO_DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM load_po_data.<br />
+&nbsp;&nbsp;DATA:&nbsp;lt_gr_items&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;zpro11_007.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;a~ebeln&nbsp;a~lifnr&nbsp;a~bedat&nbsp;a~waers&nbsp;a~bukrs<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~ebelp&nbsp;b~matnr&nbsp;b~maktx&nbsp;b~menge&nbsp;b~meins&nbsp;b~bprme&nbsp;b~prdat&nbsp;b~werks&nbsp;b~lgort<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_po_items<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zpro11_004&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;zpro11_005&nbsp;AS&nbsp;b<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;a~ebeln&nbsp;=&nbsp;b~ebeln<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;b~werks&nbsp;=&nbsp;p_plant<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;a~ebeln&nbsp;=&nbsp;p_ponum.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_po_items&nbsp;ASSIGNING&nbsp;FIELD-SYMBOL(&lt;fs_po&gt;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;lt_gr_items<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zpro11_007<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ebeln&nbsp;=&nbsp;&lt;fs_po&gt;-ebeln<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zeile&nbsp;=&nbsp;&lt;fs_po&gt;-ebelp.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;lt_gr_items&nbsp;INTO&nbsp;gs_dtl_007.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;fs_po&gt;-menge&nbsp;=&nbsp;&lt;fs_po&gt;-menge&nbsp;-&nbsp;gs_dtl_007-menge.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;LOAD_GR_HISTORY<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM load_gr_history.<br />
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;zpro11_007<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_gr_hist<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ebeln&nbsp;=&nbsp;p_ponum<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;werks&nbsp;=&nbsp;p_plant.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;BUILD_ALV_CONTAINER<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM build_alv_container.<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_dock<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;repid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-repid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dynnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-dynnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extension&nbsp;=&nbsp;2000.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_alv<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_parent&nbsp;=&nbsp;go_dock.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;BUILD_FCAT_PROCESS<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM build_fcat_process.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fcat,&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'CHECK'.<br />
+&nbsp;&nbsp;gs_fcat-checkbox&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;gs_fcat-edit&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'EBELN'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'EBELP'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'#####'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'LIFNR'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'BEDAT'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'MATNR'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'MAKTX'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'MENGE'.<br />
+&nbsp;&nbsp;gs_fcat-decimals&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;gs_fcat-edit&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;9.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'MEINS'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'BPRME'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;11.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'WAERS'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;12.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'PRDAT'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;13.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'WERKS'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;14.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'LGORT'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;BUILD_FCAT_HISTORY<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM build_fcat_history.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_fcat,&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'CHECK'.<br />
+&nbsp;&nbsp;gs_fcat-edit&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;gs_fcat-checkbox&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'MBLNR'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'MJAHR'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'#####'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'ZEILE'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'MATNR'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'WERKS'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'LGORT'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'#####'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'LIFNR'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;9.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'WAERS'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'MENGE'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;11.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'MEINS'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;12.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'######'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'EBELN'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;13.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'BUKRS'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;14.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'GJAHR'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;15.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'BELNR'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;16.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'SHKZG'.<br />
+&nbsp;&nbsp;gs_fcat-outputlen&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fcat.<br />
+&nbsp;&nbsp;gs_fcat-col_pos&nbsp;=&nbsp;17.<br />
+&nbsp;&nbsp;gs_fcat-coltext&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fcat-fieldname&nbsp;=&nbsp;'DMBTR'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_ALV_VARIANT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_alv_variant.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_vari.<br />
+&nbsp;&nbsp;gs_vari-report&nbsp;=&nbsp;sy-repid.<br />
+&nbsp;&nbsp;gs_vari-username&nbsp;=&nbsp;sy-uname.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_ALV_SORT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_alv_sort.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gt_sort.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SHOW_ALV_PROCESS<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM show_alv_process.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_alv-&gt;set_table_for_first_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_variant&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_vari<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_save&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'A'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_layout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_layo<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_outtab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_po_items<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_fieldcatalog&nbsp;=&nbsp;gt_fcat<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_sort&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_sort.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SHOW_ALV_HISTORY<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM show_alv_history.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_alv-&gt;set_table_for_first_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_variant&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_vari<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_save&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'A'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_layout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_layo<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_outtab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_gr_hist<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_fieldcatalog&nbsp;=&nbsp;gt_fcat<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_sort&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_sort.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;REFRESH_ALV<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM refresh_alv.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;ls_stable&nbsp;TYPE&nbsp;lvc_s_stbl.<br />
+<br />
+&nbsp;&nbsp;ls_stable-row&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ls_stable-col&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_alv-&gt;refresh_table_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_stable&nbsp;=&nbsp;ls_stable.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;PROCESS_GOODS_RECEIPT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM process_goods_receipt.<br />
+&nbsp;&nbsp;IF&nbsp;go_alv&nbsp;IS&nbsp;BOUND.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_alv-&gt;check_changed_data.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;lv_docnum&nbsp;TYPE&nbsp;zpro11_006-mblnr.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;lv_flag&nbsp;TYPE&nbsp;c&nbsp;VALUE&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_po_items&nbsp;INTO&nbsp;gs_po_item.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_po_item-check&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_po_item-menge&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;###&nbsp;###&nbsp;####'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;lv_flag&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;generate_gr_number&nbsp;CHANGING&nbsp;lv_docnum.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_flag&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;lv_flag&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_hdr_006-mblnr&nbsp;=&nbsp;lv_docnum.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_hdr_006-bldat&nbsp;=&nbsp;p_grdat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_hdr_006-budat&nbsp;=&nbsp;p_grdat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_hdr_006-mjahr&nbsp;=&nbsp;p_grdat(4).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_hdr_006-blart&nbsp;=&nbsp;'WE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_hdr_006&nbsp;TO&nbsp;gt_hdr_006.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;lv_seq&nbsp;TYPE&nbsp;c&nbsp;VALUE&nbsp;0000000001.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;lv_qty&nbsp;TYPE&nbsp;menge_d.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;lv_po_num&nbsp;TYPE&nbsp;ebeln,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_po_itm&nbsp;TYPE&nbsp;ebelp.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_po_items&nbsp;INTO&nbsp;gs_po_item.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;gs_dtl_007.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_po_item-check&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_po_num&nbsp;=&nbsp;gs_po_item-ebeln.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_po_itm&nbsp;=&nbsp;gs_po_item-ebelp.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_dtl_007-mblnr&nbsp;=&nbsp;lv_docnum.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_dtl_007-mjahr&nbsp;=&nbsp;p_grdat(4).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_dtl_007-zeile&nbsp;=&nbsp;gs_po_item-ebelp.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_dtl_007-matnr&nbsp;=&nbsp;gs_po_item-matnr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_dtl_007-werks&nbsp;=&nbsp;gs_po_item-werks.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_dtl_007-lgort&nbsp;=&nbsp;gs_po_item-lgort.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_dtl_007-lifnr&nbsp;=&nbsp;gs_po_item-lifnr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_dtl_007-waers&nbsp;=&nbsp;gs_po_item-waers.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_dtl_007-menge&nbsp;=&nbsp;gs_po_item-menge.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_qty&nbsp;=&nbsp;gs_dtl_007-menge.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_dtl_007-meins&nbsp;=&nbsp;gs_po_item-meins.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_dtl_007-ebeln&nbsp;=&nbsp;gs_po_item-ebeln.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_dtl_007-bukrs&nbsp;=&nbsp;gs_po_item-bukrs.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_dtl_007-gjahr&nbsp;=&nbsp;sy-datum(4).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_dtl_007-belnr&nbsp;=&nbsp;lv_seq.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_seq&nbsp;=&nbsp;lv_seq&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_dtl_007-shkzg&nbsp;=&nbsp;'S'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_dtl_007-dmbtr&nbsp;=&nbsp;gs_po_item-menge&nbsp;*&nbsp;gs_po_item-bprme.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_dtl_007&nbsp;TO&nbsp;gt_dtl_007.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;update_remaining_qty&nbsp;USING&nbsp;lv_po_num&nbsp;lv_po_itm&nbsp;lv_qty.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;gs_po_item.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;zpro11_006&nbsp;FROM&nbsp;TABLE&nbsp;gt_hdr_006.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;zpro11_007&nbsp;FROM&nbsp;TABLE&nbsp;gt_dtl_007.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;###&nbsp;####'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GENERATE_GR_NUMBER<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM generate_gr_number CHANGING pv_docnum TYPE zpro11_006-mblnr.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;lv_maxnum&nbsp;TYPE&nbsp;zpro11_006-mblnr.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;MAX(&nbsp;mblnr&nbsp;)&nbsp;INTO&nbsp;lv_maxnum&nbsp;FROM&nbsp;zpro11_006.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;lv_maxnum&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;pv_docnum&nbsp;=&nbsp;'5000000000'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;pv_docnum&nbsp;=&nbsp;lv_maxnum&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;pv_docnum&nbsp;=&nbsp;|{&nbsp;pv_docnum&nbsp;ALPHA&nbsp;=&nbsp;IN&nbsp;}|.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;UPDATE_REMAINING_QTY<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM update_remaining_qty USING pv_ponum pv_poitm pv_qty.<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;gs_itm_005<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zpro11_005<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ebeln&nbsp;=&nbsp;pv_ponum<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ebelp&nbsp;=&nbsp;pv_poitm.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_po_items&nbsp;INTO&nbsp;gs_po_item.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_po_item-ebeln&nbsp;=&nbsp;pv_ponum&nbsp;AND&nbsp;gs_po_item-ebelp&nbsp;=&nbsp;pv_poitm.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_po_item-menge&nbsp;=&nbsp;gs_itm_005-menge&nbsp;-&nbsp;pv_qty.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_po_item-menge&nbsp;&lt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;######&nbsp;#&nbsp;#######'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;gt_po_items&nbsp;FROM&nbsp;gs_po_item&nbsp;INDEX&nbsp;sy-tabix.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'#####&nbsp;#######!'&nbsp;TYPE&nbsp;'S'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;PROCESS_GR_REVERSAL<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM process_gr_reversal.<br />
+&nbsp;&nbsp;IF&nbsp;go_alv&nbsp;IS&nbsp;BOUND.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_alv-&gt;check_changed_data.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lt_del_items&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;zpro11_007,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_del_item&nbsp;&nbsp;TYPE&nbsp;zpro11_007.<br />
+<br />
+&nbsp;&nbsp;FIELD-SYMBOLS:&nbsp;&lt;fs_row&gt;&nbsp;LIKE&nbsp;gs_gr_hist.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_gr_hist&nbsp;ASSIGNING&nbsp;&lt;fs_row&gt;&nbsp;WHERE&nbsp;check&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ls_del_item.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_del_item-mblnr&nbsp;=&nbsp;&lt;fs_row&gt;-mblnr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_del_item-mjahr&nbsp;=&nbsp;&lt;fs_row&gt;-mjahr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_del_item-zeile&nbsp;=&nbsp;&lt;fs_row&gt;-zeile.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;ls_del_item&nbsp;TO&nbsp;lt_del_items.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;lt_del_items&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;##&nbsp;####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;lt_del_items&nbsp;INTO&nbsp;ls_del_item.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;FROM&nbsp;zpro11_007<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;mblnr&nbsp;=&nbsp;@ls_del_item-mblnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;mjahr&nbsp;=&nbsp;@ls_del_item-mjahr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;zeile&nbsp;=&nbsp;@ls_del_item-zeile.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;(###&nbsp;##&nbsp;###&nbsp;##)<br />
+&nbsp;&nbsp;DATA&nbsp;lv_cnt&nbsp;TYPE&nbsp;i.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;lt_del_items&nbsp;INTO&nbsp;ls_del_item.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;INTO&nbsp;@lv_cnt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zpro11_007<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;mblnr&nbsp;=&nbsp;@ls_del_item-mblnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;mjahr&nbsp;=&nbsp;@ls_del_item-mjahr.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;lv_cnt&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;FROM&nbsp;zpro11_006<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;mblnr&nbsp;=&nbsp;@ls_del_item-mblnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;mjahr&nbsp;=&nbsp;@ls_del_item-mjahr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;COMMIT&nbsp;WORK.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;load_gr_history.<br />
+&nbsp;&nbsp;PERFORM&nbsp;refresh_alv.<br />
+<br />
+&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;##&nbsp;#####'&nbsp;TYPE&nbsp;'S'.<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,946 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZWORK17_001_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZWORK17_001_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZWORK17_001_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;F4_FILE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;##&nbsp;##(F4).&nbsp;CSV&nbsp;####&nbsp;##/###&nbsp;p_file#&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM f4_file .<br />
+&nbsp;&nbsp;DATA&nbsp;lv_fname&nbsp;TYPE&nbsp;rlgrap-filename."&nbsp;F4&nbsp;####&nbsp;###&nbsp;###(##&nbsp;##)&nbsp;##<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###:&nbsp;##&nbsp;###&nbsp;p_file#&nbsp;###&nbsp;###,&nbsp;###&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;p_file&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_fname&nbsp;=&nbsp;'ZWORK17_001_TEMPLATE.xlsx'.&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_fname&nbsp;=&nbsp;p_file.&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;##/###&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'KD_GET_FILENAME_ON_F4'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file_name&nbsp;=&nbsp;lv_fname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;###&nbsp;P_FILE&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0&nbsp;AND&nbsp;lv_fname&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;p_file&nbsp;=&nbsp;lv_fname.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##/###&nbsp;##&nbsp;##+###<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+FORM download_template .<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;###&nbsp;##&nbsp;CSV&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;DATA:&nbsp;lt_csv&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_line&nbsp;&nbsp;&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_save_s&nbsp;TYPE&nbsp;string,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;###&nbsp;(####)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_msg&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;FILE_SAVE_DIALOG#&nbsp;##<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_filename&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_path&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_fullpath&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_action&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_dir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###/##&nbsp;##&nbsp;(p_file#&nbsp;##&nbsp;###&nbsp;##&nbsp;##)<br />
+&nbsp;&nbsp;IF&nbsp;p_file&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'SO_SPLIT_FILE_AND_PATH'&nbsp;&nbsp;"&nbsp;##&nbsp;P_FILE&nbsp;##&nbsp;##/#####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;full_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;p_file<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stripped_name&nbsp;=&nbsp;lv_name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file_path&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lv_dir<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;###&nbsp;##&nbsp;##,&nbsp;###&nbsp;##&nbsp;####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;lv_name&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_filename&nbsp;=&nbsp;'ZWORK17_001_TEMPLATE.xlsx'.&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;###<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;lv_filename&nbsp;=&nbsp;'ZWORK17_001_TEMPLATE'.&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;###<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_filename&nbsp;=&nbsp;lv_name.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;###&nbsp;###&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;lv_dir&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_path&nbsp;=&nbsp;lv_dir.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;FILE_SAVE_DIALOG&nbsp;##&nbsp;(##&nbsp;##/###&nbsp;##)<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;cl_gui_frontend_services=&gt;file_save_dialog<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default_extension&nbsp;&nbsp;&nbsp;=&nbsp;'XLSX'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;#&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default_file_name&nbsp;&nbsp;&nbsp;=&nbsp;lv_filename&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;initial_directory&nbsp;&nbsp;&nbsp;=&nbsp;lv_path&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prompt_on_overwrite&nbsp;=&nbsp;'X'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lv_filename&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lv_path&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fullpath&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lv_fullpath&nbsp;&nbsp;"&nbsp;##+###&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user_action&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lv_action&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##/##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;#####&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0<br />
+&nbsp;&nbsp;&nbsp;OR&nbsp;lv_action&nbsp;&lt;&gt;&nbsp;cl_gui_frontend_services=&gt;action_ok<br />
+&nbsp;&nbsp;&nbsp;OR&nbsp;lv_fullpath&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;###&nbsp;####&nbsp;#####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;lv_save_s&nbsp;=&nbsp;lv_fullpath.<br />
+&nbsp;&nbsp;TRANSLATE&nbsp;lv_save_s&nbsp;TO&nbsp;LOWER&nbsp;CASE.&nbsp;"&nbsp;###&nbsp;###&nbsp;##&nbsp;####&nbsp;##<br />
+<br />
+&nbsp;&nbsp;"&nbsp;selection-screen##&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;p_file&nbsp;=&nbsp;lv_save_s.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;CSV&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;CLEAR&nbsp;lt_csv.<br />
+&nbsp;&nbsp;lv_line&nbsp;=&nbsp;'####,####,####,####,##,########,########'.<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;APPEND&nbsp;lv_line&nbsp;TO&nbsp;lt_csv.<br />
+&nbsp;&nbsp;APPEND&nbsp;'M,USD,KRW,20250401,1470.6,1,1'&nbsp;&nbsp;&nbsp;TO&nbsp;lt_csv.<br />
+&nbsp;&nbsp;APPEND&nbsp;'M,JPY,KRW,20250401,980.11,100,1'&nbsp;TO&nbsp;lt_csv.<br />
+&nbsp;&nbsp;APPEND&nbsp;'M,EUR,KRW,20250401,1590.9,1,1'&nbsp;&nbsp;&nbsp;TO&nbsp;lt_csv.<br />
+&nbsp;&nbsp;APPEND&nbsp;'M,CAD,KRW,20250401,1021.89,1,1'&nbsp;&nbsp;TO&nbsp;lt_csv.<br />
+&nbsp;&nbsp;APPEND&nbsp;'M,CNY,KRW,20250401,202.68,1,1'&nbsp;&nbsp;&nbsp;TO&nbsp;lt_csv.<br />
+&nbsp;&nbsp;APPEND&nbsp;'M,VND,KRW,20250401,5.75,100,1'&nbsp;&nbsp;&nbsp;TO&nbsp;lt_csv.<br />
+&nbsp;&nbsp;APPEND&nbsp;'M,HKD,KRW,20250401,189.03,1,1'&nbsp;&nbsp;&nbsp;TO&nbsp;lt_csv.<br />
+&nbsp;&nbsp;APPEND&nbsp;'M,AUD,KRW,20250401,918.24,1,1'&nbsp;&nbsp;&nbsp;TO&nbsp;lt_csv.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;XLSX&nbsp;##&nbsp;CSV#&nbsp;##<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;IF&nbsp;lv_save_s&nbsp;CP&nbsp;'*.xlsx'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;XLSX#&nbsp;###&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;XLS(X)&nbsp;##&nbsp;CSV#&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;lv_save_s&nbsp;CP&nbsp;'*.xlsx'<br />
+&nbsp;&nbsp;&nbsp;OR&nbsp;lv_save_s&nbsp;CP&nbsp;'*.xls'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;.xls&nbsp;#&nbsp;####&nbsp;##&nbsp;###&nbsp;##<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:&nbsp;lo_excel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ole2_object,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_workbooks&nbsp;TYPE&nbsp;ole2_object,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_workbook&nbsp;&nbsp;TYPE&nbsp;ole2_object,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_sheet&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ole2_object,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_cell&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ole2_object.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:&nbsp;lv_row&nbsp;TYPE&nbsp;i,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;###(1##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_idx&nbsp;TYPE&nbsp;i.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;###(1##)<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Excel&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;lo_excel&nbsp;'Excel.Application'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;lo_excel&nbsp;'Visible'&nbsp;=&nbsp;0.&nbsp;"&nbsp;##&nbsp;###&nbsp;###&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Workbook&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_excel&nbsp;'Workbooks'&nbsp;=&nbsp;lo_workbooks.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_workbooks&nbsp;'Add'&nbsp;=&nbsp;lo_workbook.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_excel&nbsp;'ActiveSheet'&nbsp;=&nbsp;lo_sheet.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;lt_csv&nbsp;###&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_row&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;lt_csv&nbsp;INTO&nbsp;lv_line.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;lt_cols&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;string.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;lv_col&nbsp;&nbsp;TYPE&nbsp;string.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REFRESH&nbsp;lt_cols.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPLIT&nbsp;lv_line&nbsp;AT&nbsp;','&nbsp;INTO&nbsp;TABLE&nbsp;lt_cols.&nbsp;"&nbsp;#&nbsp;##&nbsp;##&nbsp;####&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_idx&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;lt_cols&nbsp;INTO&nbsp;lv_col.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;##&nbsp;####&nbsp;(row,&nbsp;col)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_sheet&nbsp;'Cells'&nbsp;=&nbsp;lo_cell<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#1&nbsp;=&nbsp;lv_row<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#2&nbsp;=&nbsp;lv_idx.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;lo_cell&nbsp;'Value'&nbsp;=&nbsp;lv_col.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;#(##)##&nbsp;###&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;lv_row&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;lo_inter&nbsp;TYPE&nbsp;ole2_object.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_cell&nbsp;'Interior'&nbsp;=&nbsp;lo_inter.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;lo_inter&nbsp;'Color'&nbsp;=&nbsp;65535.&nbsp;&nbsp;&nbsp;"&nbsp;Yellow<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;lo_inter.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_idx&nbsp;=&nbsp;lv_idx&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_row&nbsp;=&nbsp;lv_row&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;###&nbsp;###&nbsp;+&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:&nbsp;lo_used_range&nbsp;TYPE&nbsp;ole2_object,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_borders&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ole2_object,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_columns&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ole2_object.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##(##&nbsp;+&nbsp;###&nbsp;##)&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_sheet&nbsp;'UsedRange'&nbsp;=&nbsp;lo_used_range.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;(##/##&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_used_range&nbsp;'Borders'&nbsp;=&nbsp;lo_borders.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;xlContinuous&nbsp;=&nbsp;1&nbsp;&nbsp;(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;lo_borders&nbsp;'LineStyle'&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;xlThin&nbsp;=&nbsp;2&nbsp;(##&nbsp;#&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;lo_borders&nbsp;'Weight'&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_used_range&nbsp;'Columns'&nbsp;=&nbsp;lo_columns.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_columns&nbsp;'AutoFit'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;lo_columns.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;lo_borders.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;lo_used_range.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;XLSX#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_workbook&nbsp;'SaveAs'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#1&nbsp;=&nbsp;lv_save_s.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Excel&nbsp;##&nbsp;#&nbsp;OLE&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_workbook&nbsp;'Close'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;lo_excel&nbsp;'Quit'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;lo_cell.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;lo_sheet.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;lo_workbook.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;lo_workbooks.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE&nbsp;lo_excel.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;'###&nbsp;##&nbsp;##:'&nbsp;lv_save_s<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;lv_msg&nbsp;SEPARATED&nbsp;BY&nbsp;space.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;lv_msg&nbsp;TYPE&nbsp;'S'.<br />
+<br />
+&nbsp;&nbsp;ELSE.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;&nbsp;####&nbsp;CSV#&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;.csv&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;NOT&nbsp;(&nbsp;lv_save_s&nbsp;CP&nbsp;'*.csv'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;lv_save_s&nbsp;'.csv'&nbsp;INTO&nbsp;lv_save_s.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_file&nbsp;=&nbsp;lv_save_s.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;CP949#&nbsp;##&nbsp;##(##&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'GUI_DOWNLOAD'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename&nbsp;=&nbsp;lv_save_s<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filetype&nbsp;=&nbsp;'ASC'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;codepage&nbsp;=&nbsp;'949'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data_tab&nbsp;=&nbsp;lt_csv<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;##&nbsp;###&nbsp;####&nbsp;codepage&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'GUI_DOWNLOAD'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename&nbsp;=&nbsp;lv_save_s<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filetype&nbsp;=&nbsp;'ASC'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data_tab&nbsp;=&nbsp;lt_csv<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;###&nbsp;######.&nbsp;(##&nbsp;##&nbsp;#&nbsp;##)'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;'###&nbsp;##&nbsp;##:'&nbsp;lv_save_s<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;lv_msg&nbsp;SEPARATED&nbsp;BY&nbsp;space.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;lv_msg&nbsp;TYPE&nbsp;'S'.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;LOAD_CSV<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;##&nbsp;####&nbsp;##&nbsp;CSV&nbsp;/&nbsp;XLS(X)&nbsp;##&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM load_csv .<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_name&nbsp;TYPE&nbsp;string.&nbsp;"&nbsp;###(##&nbsp;##)&nbsp;###&nbsp;##<br />
+<br />
+&nbsp;&nbsp;lv_name&nbsp;=&nbsp;p_file.<br />
+&nbsp;&nbsp;TRANSLATE&nbsp;lv_name&nbsp;TO&nbsp;LOWER&nbsp;CASE.&nbsp;"&nbsp;###&nbsp;###&nbsp;##&nbsp;####&nbsp;##<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gt_rate.&nbsp;"&nbsp;###&nbsp;##&nbsp;###&nbsp;###<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;##&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;lv_name&nbsp;CP&nbsp;'*.csv'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;load_csv_file.<br />
+<br />
+&nbsp;&nbsp;ELSEIF&nbsp;lv_name&nbsp;CP&nbsp;'*.xls'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR&nbsp;lv_name&nbsp;CP&nbsp;'*.xlsx'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;load_xls_file.<br />
+<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'CSV&nbsp;##&nbsp;XLS/XLSX&nbsp;###&nbsp;###&nbsp;#####.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;###&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;IF&nbsp;gt_rate&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;LOAD_CSV_FILE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;CSV&nbsp;###<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM load_csv_file .<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lt_raw&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;string,&nbsp;"&nbsp;GUI_UPLOAD#&nbsp;##&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_line&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;#&nbsp;#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lt_col&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;string,&nbsp;"&nbsp;#&nbsp;##&nbsp;###&nbsp;split#&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_idx&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_filename&nbsp;TYPE&nbsp;string,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_dbg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_subrc&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;char10.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;sy-subrc&nbsp;###<br />
+<br />
+&nbsp;&nbsp;lv_filename&nbsp;=&nbsp;p_file.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;#######&nbsp;###&nbsp;##(CSV)&nbsp;###<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'GUI_UPLOAD'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename&nbsp;=&nbsp;lv_filename<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filetype&nbsp;=&nbsp;'ASC'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data_tab&nbsp;=&nbsp;lt_raw<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;#&nbsp;##&nbsp;###&nbsp;##&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;lv_dbg,&nbsp;lv_subrc.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;sy-subrc&nbsp;TO&nbsp;lv_subrc.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;'GUI_UPLOAD&nbsp;##,&nbsp;SY-SUBRC&nbsp;='&nbsp;lv_subrc<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;lv_dbg&nbsp;SEPARATED&nbsp;BY&nbsp;space.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;lv_dbg&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;lv_idx&nbsp;=&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;#&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;lt_raw&nbsp;INTO&nbsp;lv_line.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_idx&nbsp;=&nbsp;lv_idx&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;lv_idx&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE."&nbsp;#&nbsp;##&nbsp;##&nbsp;#####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;REFRESH&nbsp;lt_col.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SPLIT&nbsp;lv_line&nbsp;AT&nbsp;','&nbsp;INTO&nbsp;TABLE&nbsp;lt_col.&nbsp;"&nbsp;###&nbsp;#&nbsp;##&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;###&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:&nbsp;lv_kurst&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_fcurr&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_tcurr&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_gdatu&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_ukurs&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_ffact&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_tfact&nbsp;TYPE&nbsp;string.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;lt_col&nbsp;INDEX&nbsp;1&nbsp;INTO&nbsp;lv_kurst.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;lt_col&nbsp;INDEX&nbsp;2&nbsp;INTO&nbsp;lv_fcurr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;lt_col&nbsp;INDEX&nbsp;3&nbsp;INTO&nbsp;lv_tcurr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;lt_col&nbsp;INDEX&nbsp;4&nbsp;INTO&nbsp;lv_gdatu.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;lt_col&nbsp;INDEX&nbsp;5&nbsp;INTO&nbsp;lv_ukurs.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;lt_col&nbsp;INDEX&nbsp;6&nbsp;INTO&nbsp;lv_ffact.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;lt_col&nbsp;INDEX&nbsp;7&nbsp;INTO&nbsp;lv_tfact.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;####&nbsp;FORM##&nbsp;##&nbsp;#&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;add_rate_line<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;lv_kurst&nbsp;lv_fcurr&nbsp;lv_tcurr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_gdatu&nbsp;lv_ukurs&nbsp;lv_ffact&nbsp;lv_tfact.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;LOAD_XLS_FILE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;XLS&nbsp;/&nbsp;XLSX&nbsp;###&nbsp;ALSM_EXCEL_TO_INTERNAL_TABLE#&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM load_xls_file .<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lt_excel&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;alsmex_tabline,&nbsp;"&nbsp;##&nbsp;-&gt;&nbsp;##&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_excel&nbsp;TYPE&nbsp;alsmex_tabline,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_row&nbsp;&nbsp;&nbsp;TYPE&nbsp;i.&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;##&nbsp;#&nbsp;##<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;#&nbsp;##&nbsp;####&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_kurst&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_fcurr&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_tcurr&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_gdatu&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_ukurs&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_ffact&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_tfact&nbsp;TYPE&nbsp;string.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;##&nbsp;-&gt;&nbsp;##&nbsp;####&nbsp;##&nbsp;(2###,&nbsp;7###)<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'ALSM_EXCEL_TO_INTERNAL_TABLE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;p_file<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_begin_col&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_begin_row&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;1##&nbsp;#####&nbsp;2###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_end_col&nbsp;&nbsp;&nbsp;=&nbsp;7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;~&nbsp;########<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_end_row&nbsp;&nbsp;&nbsp;=&nbsp;9999&nbsp;&nbsp;"&nbsp;###&nbsp;#&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;intern&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lt_excel<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'##&nbsp;###&nbsp;##&nbsp;#&nbsp;###&nbsp;######.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;lv_row.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;ALSM&nbsp;##&nbsp;#&nbsp;#&nbsp;##&nbsp;###&nbsp;ADD_RATE_LINE&nbsp;##<br />
+&nbsp;&nbsp;CLEAR:&nbsp;lv_kurst,&nbsp;lv_fcurr,&nbsp;lv_tcurr,&nbsp;lv_gdatu,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_ukurs,&nbsp;lv_ffact,&nbsp;lv_tfact.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;lt_excel&nbsp;INTO&nbsp;ls_excel.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##&nbsp;##&nbsp;GT_RATE#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;lv_row&nbsp;&lt;&gt;&nbsp;0&nbsp;AND&nbsp;ls_excel-row&nbsp;&lt;&gt;&nbsp;lv_row.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;add_rate_line<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;lv_kurst&nbsp;lv_fcurr&nbsp;lv_tcurr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_gdatu&nbsp;lv_ukurs&nbsp;lv_ffact&nbsp;lv_tfact.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;lv_kurst,&nbsp;lv_fcurr,&nbsp;lv_tcurr,&nbsp;lv_gdatu,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_ukurs,&nbsp;lv_ffact,&nbsp;lv_tfact.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_row&nbsp;=&nbsp;ls_excel-row.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;###&nbsp;##&nbsp;##&nbsp;###&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;ls_excel-col.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;1.&nbsp;lv_kurst&nbsp;=&nbsp;ls_excel-value.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;2.&nbsp;lv_fcurr&nbsp;=&nbsp;ls_excel-value.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;3.&nbsp;lv_tcurr&nbsp;=&nbsp;ls_excel-value.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;4.&nbsp;lv_gdatu&nbsp;=&nbsp;ls_excel-value.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;5.&nbsp;lv_ukurs&nbsp;=&nbsp;ls_excel-value.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;6.&nbsp;lv_ffact&nbsp;=&nbsp;ls_excel-value.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;7.&nbsp;lv_tfact&nbsp;=&nbsp;ls_excel-value.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;lv_row&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;add_rate_line<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;lv_kurst&nbsp;lv_fcurr&nbsp;lv_tcurr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_gdatu&nbsp;lv_ukurs&nbsp;lv_ffact&nbsp;lv_tfact.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ADD_RATE_LINE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;CSV&nbsp;/&nbsp;XLSX##&nbsp;##&nbsp;#&nbsp;##&nbsp;GT_RATE#&nbsp;##&nbsp;##&nbsp;####&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p_kurst&nbsp;&nbsp;:&nbsp;####(##&nbsp;##&nbsp;##,&nbsp;M&nbsp;##)<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p_fcurr&nbsp;&nbsp;:&nbsp;####<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p_tcurr&nbsp;&nbsp;:&nbsp;####<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p_gdatu&nbsp;&nbsp;:&nbsp;####(##&nbsp;##&nbsp;##,&nbsp;p_pdate&nbsp;##)<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p_ukurs&nbsp;&nbsp;:&nbsp;##(###)<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p_ffact&nbsp;&nbsp;:&nbsp;########(##&nbsp;#&nbsp;##&nbsp;#&nbsp;JPY/VND&nbsp;##)<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p_tfact&nbsp;&nbsp;:&nbsp;########(##&nbsp;#&nbsp;##&nbsp;#&nbsp;JPY/VND&nbsp;##)<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM add_rate_line<br />
+&nbsp;&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;p_kurst&nbsp;TYPE&nbsp;string<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_fcurr&nbsp;TYPE&nbsp;string<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_tcurr&nbsp;TYPE&nbsp;string<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_gdatu&nbsp;TYPE&nbsp;string<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_ukurs&nbsp;TYPE&nbsp;string<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_ffact&nbsp;TYPE&nbsp;string<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_tfact&nbsp;TYPE&nbsp;string.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_rate.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;####,&nbsp;#####&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;gs_rate-kurst&nbsp;=&nbsp;c_kurst.&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;M&nbsp;##<br />
+&nbsp;&nbsp;gs_rate-gdatu&nbsp;=&nbsp;p_pdate.&nbsp;&nbsp;&nbsp;"&nbsp;Selection-screen##&nbsp;###&nbsp;####&nbsp;##<br />
+<br />
+&nbsp;&nbsp;gs_rate-fcurr&nbsp;=&nbsp;p_fcurr.<br />
+&nbsp;&nbsp;gs_rate-tcurr&nbsp;=&nbsp;p_tcurr.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;###&nbsp;ALV#&nbsp;###&nbsp;##&nbsp;(#:&nbsp;UKURS_C)<br />
+&nbsp;&nbsp;gs_rate-ukurs_c&nbsp;=&nbsp;p_ukurs.&nbsp;"&nbsp;####&nbsp;###&nbsp;####&nbsp;##<br />
+<br />
+&nbsp;&nbsp;"&nbsp;JPY&nbsp;/&nbsp;VND&nbsp;#&nbsp;100&nbsp;:&nbsp;1,&nbsp;####&nbsp;1&nbsp;:&nbsp;1<br />
+&nbsp;&nbsp;IF&nbsp;gs_rate-fcurr&nbsp;=&nbsp;'JPY'&nbsp;OR&nbsp;gs_rate-fcurr&nbsp;=&nbsp;'VND'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_rate-ffact&nbsp;=&nbsp;100.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_rate-tfact&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_rate-ffact&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_rate-tfact&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;/&nbsp;###&nbsp;###&nbsp;(ALV###&nbsp;###&nbsp;DB##&nbsp;####&nbsp;##)<br />
+&nbsp;&nbsp;gs_rate-ernam&nbsp;=&nbsp;sy-uname.<br />
+&nbsp;&nbsp;gs_rate-erdat&nbsp;=&nbsp;sy-datum.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;ALV&nbsp;###&nbsp;######&nbsp;#&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_rate&nbsp;TO&nbsp;gt_rate.<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CREATE_OBJECT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Docking&nbsp;+&nbsp;ALV&nbsp;Grid&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM create_object .<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;####/####&nbsp;####&nbsp;##&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;gc_docking<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;repid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-repid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dynnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-dynnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extension&nbsp;=&nbsp;2000.&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;#(##)&nbsp;##<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;####&nbsp;##&nbsp;ALV&nbsp;Grid&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;gc_grid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_parent&nbsp;=&nbsp;gc_docking.<br />
+ENDFORM.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;FIELD_CATALOG<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;ALV&nbsp;######&nbsp;##&nbsp;(UKURS&nbsp;##&nbsp;##)<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM field_catalog .<br />
+&nbsp;&nbsp;REFRESH&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'KURST'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'FCURR'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'TCURR'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;&nbsp;&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'GDATU'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;&nbsp;&nbsp;=&nbsp;5.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'UKURS'.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'UKURS_C'.&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;gs_fieldcat-edit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;gs_fieldcat-decimals&nbsp;=&nbsp;2.&nbsp;"&nbsp;##&nbsp;##&nbsp;###&nbsp;###(###)<br />
+&nbsp;&nbsp;gs_fieldcat-decimals_o&nbsp;=&nbsp;2.&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;&nbsp;&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'FFACT'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'########'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;&nbsp;&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'TFACT'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'########'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;&nbsp;&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ERNAM'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_fieldcat.<br />
+&nbsp;&nbsp;gs_fieldcat-col_pos&nbsp;&nbsp;&nbsp;=&nbsp;9.<br />
+&nbsp;&nbsp;gs_fieldcat-fieldname&nbsp;=&nbsp;'ERDAT'.<br />
+&nbsp;&nbsp;gs_fieldcat-scrtext_m&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_fieldcat&nbsp;TO&nbsp;gt_fieldcat.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_LAYOUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;ALV&nbsp;####&nbsp;##&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM alv_layout .<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_layout.<br />
+&nbsp;&nbsp;gs_layout-zebra&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;###(zebra)&nbsp;##<br />
+&nbsp;&nbsp;gs_layout-cwidth_opt&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;###&nbsp;####<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;Variant&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_variant.<br />
+&nbsp;&nbsp;gs_variant-report&nbsp;&nbsp;&nbsp;=&nbsp;sy-repid.&nbsp;"&nbsp;##&nbsp;###&nbsp;####&nbsp;Variant&nbsp;##<br />
+&nbsp;&nbsp;gs_variant-username&nbsp;=&nbsp;sy-uname.&nbsp;"&nbsp;####&nbsp;Variant<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_SORT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;ALV&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM alv_sort .<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;refresh&nbsp;gt_sort.<br />
+*&nbsp;&nbsp;clear&nbsp;gs_sort.<br />
+*&nbsp;&nbsp;gs_sort-spos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+*&nbsp;&nbsp;gs_sort-fieldname&nbsp;=&nbsp;'FCURR'.<br />
+*&nbsp;&nbsp;gs_sort-up&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+*&nbsp;&nbsp;append&nbsp;gs_sort&nbsp;to&nbsp;gt_sort.<br />
+   </div>
+   <div class="code">
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CLASS_EVENT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;ALV&nbsp;###&nbsp;###&nbsp;##&nbsp;+&nbsp;##&nbsp;###&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM class_event .<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_event.&nbsp;"&nbsp;##&nbsp;###&nbsp;####&nbsp;(_CLS#&nbsp;##)<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;go_event-&gt;handler_data_changed&nbsp;FOR&nbsp;gc_grid.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;DATA_CHANGED&nbsp;#####&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;gc_grid-&gt;register_edit_event<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_event_id&nbsp;=&nbsp;cl_gui_alv_grid=&gt;mc_evt_modified.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;ON&nbsp;(##&nbsp;##&nbsp;##)<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;gc_grid-&gt;set_ready_for_input<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_ready_for_input&nbsp;=&nbsp;1.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_DISPLAY<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;ALV&nbsp;##&nbsp;#####<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM alv_display .<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;gc_grid-&gt;set_table_for_first_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_variant&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_variant&nbsp;&nbsp;&nbsp;"&nbsp;Variant&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_save&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'A'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Variant&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_layout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_layout&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_outtab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_rate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_fieldcatalog&nbsp;=&nbsp;gt_fieldcat&nbsp;&nbsp;"&nbsp;######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_sort&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_sort.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;REFRESH<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;ALV&nbsp;####(##/###&nbsp;##)<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM refresh .<br />
+&nbsp;&nbsp;"&nbsp;#/#&nbsp;##&nbsp;##&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;gs_stbl-row&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;gs_stbl-col&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;gc_grid-&gt;refresh_table_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_stable&nbsp;=&nbsp;gs_stbl.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_HANDLE_DATA_CHANGED<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;ALV##&nbsp;UKURS&nbsp;##&nbsp;#&nbsp;##&nbsp;#&nbsp;##&nbsp;ITAB&nbsp;##&nbsp;+&nbsp;##&nbsp;####<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;--&gt;&nbsp;p_er&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_alv_changed_data_protocol<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM alv_handle_data_changed  USING p_er TYPE REF TO cl_alv_changed_data_protocol.<br />
+&nbsp;&nbsp;DATA:&nbsp;ls_mod&nbsp;TYPE&nbsp;lvc_s_modi.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;#&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;p_er-&gt;mt_good_cells&nbsp;INTO&nbsp;ls_mod.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;ls_mod-fieldname&nbsp;=&nbsp;'UKURS'.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;ls_mod-fieldname&nbsp;=&nbsp;'UKURS_C'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;GT_RATE##&nbsp;###(ROW_ID&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_rate&nbsp;INTO&nbsp;gs_rate&nbsp;INDEX&nbsp;ls_mod-row_id.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;##&nbsp;##&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_rate-ukurs&nbsp;=&nbsp;ls_mod-value.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;#####&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;gt_rate&nbsp;FROM&nbsp;gs_rate&nbsp;INDEX&nbsp;ls_mod-row_id.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##(##/###&nbsp;##)<br />
+&nbsp;&nbsp;gs_stbl-row&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;gs_stbl-col&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;IF&nbsp;gc_grid&nbsp;IS&nbsp;BOUND.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;gc_grid-&gt;refresh_table_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_stable&nbsp;=&nbsp;gs_stbl.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SAVE_RATE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;ALV&nbsp;#####&nbsp;GT_RATE&nbsp;-&gt;&nbsp;DB&nbsp;###&nbsp;ZTCURR17&nbsp;##<br />
+*&nbsp;1)&nbsp;####&nbsp;##<br />
+*&nbsp;2)&nbsp;YES#&nbsp;ZTCURR17&nbsp;#&nbsp;##&nbsp;(ERNAM/ERDAT#&nbsp;DB#&nbsp;##)<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM save_rate .<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_answer&nbsp;TYPE&nbsp;c.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;###&nbsp;##(1:#/2:###)<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_text&nbsp;&nbsp;&nbsp;TYPE&nbsp;string.&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;####&nbsp;###<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;lv_ukurs_df&nbsp;TYPE&nbsp;decfloat16.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##(##&nbsp;#&nbsp;DB&nbsp;##&nbsp;###)<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;gt_rate&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1)&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'POPUP_TO_CONFIRM'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;titlebar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'##&nbsp;##'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_question&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'#####&nbsp;##&nbsp;########?'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_button_1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'#'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_button_2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'###'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default_button&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'1'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_cancel_button&nbsp;=&nbsp;'&nbsp;'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;answer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lv_answer.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;#(1)#&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;lv_answer&nbsp;&lt;&gt;&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;#######.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2)&nbsp;ALV#&nbsp;##&nbsp;-&gt;&nbsp;DB&nbsp;###&nbsp;MOVE<br />
+&nbsp;&nbsp;CLEAR&nbsp;gt_rate_db.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_rate&nbsp;INTO&nbsp;gs_rate.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;gs_rate_db.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_rate_db-mandt&nbsp;=&nbsp;sy-mandt.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_rate_db-kurst&nbsp;=&nbsp;gs_rate-kurst.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_rate_db-fcurr&nbsp;=&nbsp;gs_rate-fcurr.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;From&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_rate_db-tcurr&nbsp;=&nbsp;gs_rate-tcurr.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;To&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;:&nbsp;##&nbsp;##(YYYYMMDD)&nbsp;-&gt;&nbsp;INVDT&nbsp;#####&nbsp;##&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;lv_gdatu_inv&nbsp;TYPE&nbsp;ztcurr17-gdatu.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'CONVERSION_EXIT_INVDT_INPUT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input&nbsp;&nbsp;=&nbsp;gs_rate-gdatu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ty_rate&nbsp;##&nbsp;SY-DATUM&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output&nbsp;=&nbsp;lv_gdatu_inv.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;INVERTED&nbsp;DATE<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_rate_db-gdatu&nbsp;=&nbsp;lv_gdatu_inv.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;/&nbsp;##<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;gs_rate_db-ukurs&nbsp;=&nbsp;gs_rate-ukurs.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_rate-ukurs_c&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;decfloat16##&nbsp;##&nbsp;##(###&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_ukurs_df&nbsp;=&nbsp;gs_rate-ukurs_c.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;CHAR&nbsp;#&nbsp;decfloat16&nbsp;(##&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_rate_db-ukurs&nbsp;=&nbsp;lv_ukurs_df.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;decfloat16&nbsp;#&nbsp;DB&nbsp;##(DEC/CURR)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;gs_rate_db-ukurs.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_rate_db-ffact&nbsp;=&nbsp;gs_rate-ffact.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_rate_db-tfact&nbsp;=&nbsp;gs_rate-tfact.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###/###&nbsp;##&nbsp;(ZTCURR17#&nbsp;CRNAME,&nbsp;CRDATE)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_rate_db-crname&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_rate_db-crname&nbsp;=&nbsp;sy-uname.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_rate_db-crdate&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_rate_db-crdate&nbsp;=&nbsp;sy-datum.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_rate_db-crzeit&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_rate_db-crzeit&nbsp;=&nbsp;sy-uzeit.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_rate_db&nbsp;TO&nbsp;gt_rate_db.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;DB#&nbsp;##&nbsp;(#####&nbsp;##&nbsp;MODIFY)<br />
+&nbsp;&nbsp;MODIFY&nbsp;ztcurr17&nbsp;FROM&nbsp;TABLE&nbsp;gt_rate_db.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'#####&nbsp;ZTCURR17#&nbsp;#######.'&nbsp;TYPE&nbsp;'S'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;##&nbsp;#&nbsp;###&nbsp;######.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR09_030</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR09_030</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR09_030<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR09_030.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;=====================================================================<br />
+*&nbsp;&gt;&gt;&nbsp;alv&nbsp;layout&nbsp;&lt;&lt;<br />
+<br />
+*&nbsp;(###&nbsp;###&nbsp;###)<br />
+*&nbsp;1.&nbsp;select##&nbsp;#######&nbsp;##<br />
+*&nbsp;2.&nbsp;##&nbsp;####&nbsp;##<br />
+*&nbsp;3.&nbsp;layout<br />
+*&nbsp;4.&nbsp;call&nbsp;function##&nbsp;##<br />
+<br />
+*&nbsp;=&gt;&nbsp;###&nbsp;layout&nbsp;###&nbsp;###<br />
+*&nbsp;&gt;&gt;&nbsp;#######&nbsp;####&nbsp;##?&nbsp;-&nbsp;##&nbsp;##&nbsp;##&nbsp;#####,&nbsp;##&nbsp;###&nbsp;###&nbsp;&lt;&lt;<br />
+*&nbsp;-&nbsp;##&nbsp;####&nbsp;:&nbsp;#&nbsp;##&nbsp;###&nbsp;##&nbsp;##<br />
+*&nbsp;-&nbsp;####&nbsp;:&nbsp;alv&nbsp;##&nbsp;###&nbsp;####&nbsp;#&nbsp;####&nbsp;###<br />
+<br />
+*&nbsp;=&gt;&nbsp;#####,&nbsp;###&nbsp;&nbsp;#######&nbsp;#####&nbsp;SLIS##&nbsp;##,&nbsp;slis_layout_alv#&nbsp;##<br />
+<br />
+*&nbsp;=&gt;&nbsp;##&nbsp;####&nbsp;###&nbsp;#&nbsp;##&nbsp;2##<br />
+*&nbsp;1.&nbsp;alv&nbsp;layout&nbsp;-&nbsp;grid&nbsp;#&nbsp;#&nbsp;##<br />
+*&nbsp;2.&nbsp;alv&nbsp;sort&nbsp;-&nbsp;alv##&nbsp;#,&nbsp;####&nbsp;###&nbsp;###&nbsp;#####&nbsp;##<br />
+<br />
+*&nbsp;=====================================================================<br />
+<br />
+   </div>
+   <div class="code">
+"1) data ##<br />
+DATA : GS_FIELDCAT TYPE slis_fieldcat_alv, "######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT&nbsp;TYPE&nbsp;slis_t_fieldcat_alv.<br />
+<br />
+DATA : GS_LAYOUT TYPE slis_layout_alv. "layout<br />
+<br />
+DATA : GS_SORT TYPE slis_sortinfo_alv, "sort<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_SORT&nbsp;TYPE&nbsp;slis_t_sortinfo_alv.<br />
+<br />
+DATA : GS_STUDENT TYPE ZEDT09_002, "#### ## #### ######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_STUDENT&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_STUDENT.<br />
+<br />
+<br />
+PERFORM GET_DATA.<br />
+PERFORM ALV_DISPLAY.<br />
+<br />
+<br />
+"3) alv ## ## #, #### IS_LAYOUT ##<br />
+FORM GET_DATA.<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT09_002<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;GT_STUDENT.<br />
+ENDFORM.<br />
+<br />
+FORM ALV_DISPLAY.<br />
+&nbsp;&nbsp;PERFORM&nbsp;FIELD_CATALOG.<br />
+&nbsp;&nbsp;PERFORM&nbsp;ALV_LAYOUT.&nbsp;"layout&nbsp;(##)<br />
+&nbsp;&nbsp;PERFORM&nbsp;ALV_SORT.&nbsp;"sort&nbsp;(##)<br />
+&nbsp;&nbsp;PERFORM&nbsp;CALL_ALV.<br />
+ENDFORM.<br />
+<br />
+FORM ALV_LAYOUT. "2) #### ### ## ##<br />
+&nbsp;&nbsp;GS_LAYOUT-NO_COLHEAD&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;"##&nbsp;##&nbsp;##&nbsp;-&nbsp;####&nbsp;|&nbsp;####&nbsp;|&nbsp;###&nbsp;|&nbsp;####&nbsp;|&nbsp;##&nbsp;|&nbsp;###<br />
+&nbsp;&nbsp;GS_LAYOUT-ZEBRA&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"######&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;GS_LAYOUT-NO_VLINE&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"GRID#&nbsp;####&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;GS_LAYOUT-NO_HLINE&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"GRID#&nbsp;####&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;GS_LAYOUT-EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##&nbsp;-&gt;&nbsp;##&nbsp;##&nbsp;######&nbsp;###&nbsp;##,&nbsp;########&nbsp;######&nbsp;###&nbsp;######&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;GS_LAYOUT-TOTALS_BEFORE_ITEMS&nbsp;=&nbsp;'X'.&nbsp;"#####&nbsp;#&nbsp;#&nbsp;###&nbsp;##&nbsp;(####&nbsp;###&nbsp;###&nbsp;##&nbsp;#?)<br />
+<br />
+ENDFORM.<br />
+<br />
+FORM ALV_SORT.<br />
+&nbsp;&nbsp;GS_SORT-SPOS&nbsp;=&nbsp;1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"spos&nbsp;:&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;GS_SORT-FIELDNAME&nbsp;=&nbsp;'ZCODE'.&nbsp;&nbsp;"fieldname&nbsp;:&nbsp;###&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;"&nbsp;GS_SORT-UP&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"up&nbsp;:&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;GS_SORT-DOWN&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"down&nbsp;:&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;GS_SORT-SUBTOT&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"subtot&nbsp;:&nbsp;(subtotal)&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_SORT&nbsp;TO&nbsp;GT_SORT.<br />
+<br />
+ENDFORM.<br />
+<br />
+FORM FIELD_CATALOG.<br />
+&nbsp;&nbsp;"######&nbsp;####<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT,&nbsp;GT_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"col_pos&nbsp;:&nbsp;###&nbsp;output&nbsp;##<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZCODE'.&nbsp;"fieldname&nbsp;:&nbsp;#######&nbsp;##&nbsp;##&nbsp;**#,&nbsp;alv###,&nbsp;#######&nbsp;####&nbsp;####!<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.&nbsp;"seltext_m&nbsp;:&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;GS_FIELDCAT-KEY&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"key&nbsp;:&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;GS_FIELDCAT-JUST&nbsp;=&nbsp;'L'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;L&nbsp;##<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZPERNR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-KEY&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-JUST&nbsp;=&nbsp;'C'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;C&nbsp;:&nbsp;center<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZMAJOR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-JUST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'R'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;R&nbsp;:&nbsp;Right<br />
+&nbsp;&nbsp;GS_FIELDCAT-NO_OUT&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZMNAME'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZSUM'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-CURRENCY&nbsp;=&nbsp;'KRW'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;100#&nbsp;###&nbsp;###&nbsp;alv########&nbsp;currency#&nbsp;#####&nbsp;#<br />
+&nbsp;&nbsp;GS_FIELDCAT-DO_SUM&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"alv##&nbsp;##&nbsp;#####&nbsp;##&nbsp;##&nbsp;####<br />
+&nbsp;&nbsp;GS_FIELDCAT-OUTPUTLEN&nbsp;=&nbsp;20.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;GS_FIELDCAT-EMPHASIZE&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;GS_FIELDCAT-EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZWARES'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'CRDATE'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-OUTPUTLEN&nbsp;=&nbsp;20.<br />
+&nbsp;&nbsp;GS_FIELDCAT-EDIT_MASK&nbsp;=&nbsp;'____-__-__'.&nbsp;"##&nbsp;###&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+FORM CALL_ALV.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'REUSE_ALV_GRID_DISPLAY'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCAT&nbsp;=&nbsp;GT_FIELDCAT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_LAYOUT&nbsp;=&nbsp;GS_LAYOUT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_SORT&nbsp;=&nbsp;GT_SORT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_OUTTAB&nbsp;=&nbsp;GT_STUDENT.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

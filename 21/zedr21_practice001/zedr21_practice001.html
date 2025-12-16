@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR21_PRACTICE001</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR21_PRACTICE001</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR21_PRACTICE001<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR21_PRACTICE001.                               " ### #### ##<br />
+<br />
+"1. DATA ##<br />
+DATA:  GS_GRADE LIKE ZEDT21_004.                                  " #####(# ## ##) ##<br />
+DATA:  GT_GRADE LIKE TABLE OF ZEDT21_004.                          " DDIC ## ZEDT21_004# ## ### ##<br />
+<br />
+<br />
+<br />
+"## ## ##<br />
+DATA: ZCODE       LIKE ZEDT21_004-ZCODE21.                " ## ### #### ##<br />
+DATA: GRADE       TYPE C LENGTH 10.                       " ## # ## ##('A' ## ## ###)<br />
+DATA: NEW         TYPE C LENGTH 10.                       " ## # ### ## ## ###('X'# # ##)<br />
+DATA: END         TYPE C LENGTH 10.                       " ## ### ### ## ###('X'# ###)<br />
+DATA: FLAG        TYPE C LENGTH 10.                       " ## # ## ### 'A'## ## ###<br />
+DATA: ZPAY_AMT TYPE I.<br />
+DATA: NO_SOSU TYPE I.<br />
+"## ## ##<br />
+DATA: TOTAL_PAY TYPE I.                                   " ##(## ##) ### ##<br />
+<br />
+"2. GET DATA<br />
+SELECT * FROM ZEDT21_004                                  " DB ##### ## # ##<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_GRADE.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;##&nbsp;####&nbsp;##<br />
+<br />
+"SORT<br />
+SORT GT_GRADE BY ZCODE21 ZPERNR21 ZEXAM21.                " AT NEW/AT END #### ## ##(###=ZCODE21)<br />
+<br />
+CLEAR: GS_GRADE.                                          " ##### ###(### ### ##)<br />
+CLEAR: ZCODE, GRADE, END.                                 " ## ## ## ## ###<br />
+<br />
+"3. MODIFY DATA<br />
+LOOP AT GT_GRADE INTO GS_GRADE.                           " ## #### # ## GS_GRADE# ###<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;AT&nbsp;NEW&nbsp;ZCODE21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZCODE&nbsp;=&nbsp;GS_GRADE-ZCODE21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;NEW&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;FLAG.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;#&nbsp;FLAG&nbsp;###<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;"#&nbsp;####&nbsp;##&nbsp;A&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;NEW&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_GRADE-ZGRADE21&nbsp;=&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;##&nbsp;###&nbsp;'A'#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GRADE&nbsp;=&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FLAG&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;###&nbsp;A#&nbsp;FLAG&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"#&nbsp;###&nbsp;##:&nbsp;##&nbsp;###&nbsp;##&nbsp;##&nbsp;###&nbsp;A##&nbsp;##&nbsp;###&nbsp;A##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GRADE&nbsp;=&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_GRADE-ZGRADE21&nbsp;=&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FLAG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;'A'#&nbsp;###&nbsp;--&gt;&nbsp;####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;GRADE,&nbsp;FLAG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;###&nbsp;######&nbsp;##,&nbsp;###&nbsp;#&nbsp;##&nbsp;END&nbsp;=&nbsp;'X'<br />
+&nbsp;&nbsp;AT&nbsp;END&nbsp;OF&nbsp;ZCODE21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ENDAT.<br />
+&nbsp;&nbsp;"##&nbsp;###&nbsp;###&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;END&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"#####&nbsp;100#&nbsp;###&nbsp;#####&nbsp;100&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ZPAY_AMT&nbsp;=&nbsp;GS_GRADE-ZSUM21&nbsp;*&nbsp;100.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"#&nbsp;##&nbsp;##&nbsp;#&nbsp;FLAG#&nbsp;'X'##&nbsp;##&nbsp;###&nbsp;A&nbsp;###&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;FLAG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_GRADE-ZFLAG21&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;####&nbsp;##&nbsp;20%&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_GRADE-ZSCHOOL21&nbsp;=&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZPAY_AMT&nbsp;=&nbsp;ZPAY_AMT&nbsp;*&nbsp;80&nbsp;/&nbsp;100.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;#######&nbsp;10%#&nbsp;##.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZPAY_AMT&nbsp;=&nbsp;ZPAY_AMT&nbsp;*&nbsp;90&nbsp;/&nbsp;100.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TOTAL_PAY&nbsp;=&nbsp;TOTAL_PAY&nbsp;+&nbsp;ZPAY_AMT.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;###&nbsp;##&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_GRADE-ZAMOUNT21&nbsp;=&nbsp;ZPAY_AMT.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;##&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_GRADE&nbsp;FROM&nbsp;GS_GRADE&nbsp;INDEX&nbsp;SY-TABIX.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;GS_GRADE,&nbsp;FLAG,&nbsp;GRADE.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;"##&nbsp;##&nbsp;###&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;CLEAR:&nbsp;NEW,&nbsp;END.<br />
+<br />
+ENDLOOP.<br />
+<br />
+"## ## # ##<br />
+SORT GT_GRADE DESCENDING BY ZCODE21 ZAMOUNT21.<br />
+"##(ZCODE21 ##) ## # # ### # ## ##(=## ##)<br />
+DELETE ADJACENT DUPLICATES FROM GT_GRADE COMPARING ZCODE21.<br />
+SORT GT_GRADE BY ZCODE21.<br />
+<br />
+"4. WRITE DATA<br />
+DATA: NO_SOSU_AMOUNT TYPE I.    " ### ## ## ## ###<br />
+DATA: NO_SOSU_TOTAL  TYPE I.    " ## ## ###<br />
+<br />
+LOOP AT GT_GRADE INTO GS_GRADE.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;FIRST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'--------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'|&nbsp;&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|####|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'--------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;##&nbsp;##&nbsp;###&nbsp;##&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;NO_SOSU_AMOUNT&nbsp;=&nbsp;GS_GRADE-ZAMOUNT21.<br />
+<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'|&nbsp;&nbsp;',&nbsp;GS_GRADE-ZCODE21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|&nbsp;&nbsp;&nbsp;&nbsp;',&nbsp;GS_GRADE-ZMNAME21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_GRADE-ZFLAG21,&nbsp;'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO_SOSU_AMOUNT,&nbsp;'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|'.<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'--------------------------------------------------------------------------'.<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;LAST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;NO_SOSU_TOTAL&nbsp;=&nbsp;TOTAL_PAY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'|',&nbsp;'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',&nbsp;'#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#',&nbsp;'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',&nbsp;'|',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;&nbsp;',&nbsp;NO_SOSU_TOTAL,&nbsp;'&nbsp;&nbsp;&nbsp;&nbsp;',&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'--------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+ENDLOOP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

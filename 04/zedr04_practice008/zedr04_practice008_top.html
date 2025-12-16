@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR04_PRACTICE008_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR04_PRACTICE008_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDR04_PRACTICE008_TOP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES : ZEDT04_100, ZEDT04_101.  " SELECT-OPTIONS# ##<br />
+<br />
+CONSTANTS : C_X TYPE C VALUE 'X'.<br />
+RANGES R_ZID FOR ZEDT04_100-ZIDCODE.  " ### ##ID# ## RANGES ##<br />
+DATA GV_DATE TYPE D.                  " ## ## ## ##<br />
+<br />
+DATA GS_ORD TYPE ZEDT04_100.      " ## ##<br />
+DATA GT_ORD LIKE TABLE OF GS_ORD.<br />
+<br />
+DATA : BEGIN OF GS_WRITE_ORD,     " ## ## ###<br />
+&nbsp;&nbsp;ZCOLOR&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;4,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;(##&nbsp;##)<br />
+&nbsp;&nbsp;ZORDNO&nbsp;TYPE&nbsp;ZEDT04_100-ZORDNO,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;ZIDCODE&nbsp;TYPE&nbsp;ZEDT04_100-ZIDCODE,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##ID<br />
+&nbsp;&nbsp;ZMATNR&nbsp;TYPE&nbsp;ZEDT04_100-ZMATNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;ZMATNAME&nbsp;TYPE&nbsp;ZEDT04_100-ZMATNAME,&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;ZMTART_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;8,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;(##)<br />
+&nbsp;&nbsp;ZVOLUM&nbsp;TYPE&nbsp;ZEDT04_100-ZVOLUM,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;VRKME&nbsp;TYPE&nbsp;ZEDT04_100-VRKME,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;ZNSAMT&nbsp;TYPE&nbsp;ZEDT04_100-ZNSAMT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;ZSLAMT&nbsp;TYPE&nbsp;ZEDT04_100-ZSLAMT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;ZDCAMT&nbsp;TYPE&nbsp;ZEDT04_100-ZDCAMT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;ZWAERS&nbsp;TYPE&nbsp;ZEDT04_100-ZWAERS,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;ZSALE_FG_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;6,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;(##&nbsp;OR&nbsp;##)<br />
+&nbsp;&nbsp;ZJDATE&nbsp;TYPE&nbsp;ZEDT04_100-ZJDATE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;ZRET_FG_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;(##)<br />
+&nbsp;&nbsp;ZRDATE&nbsp;TYPE&nbsp;ZEDT04_100-ZRDATE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_WRITE_ORD.<br />
+DATA GT_WRITE_ORD LIKE TABLE OF GS_WRITE_ORD.<br />
+<br />
+DATA GS_DEL TYPE ZEDT04_101.      " ## ##<br />
+DATA GT_DEL LIKE TABLE OF GS_DEL.<br />
+<br />
+DATA : BEGIN OF GS_WRITE_DEL,     " ## ## ###<br />
+&nbsp;&nbsp;ZCOLOR&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;4,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;(##&nbsp;##)<br />
+&nbsp;&nbsp;ZORDNO&nbsp;TYPE&nbsp;ZEDT04_101-ZORDNO,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;ZIDCODE&nbsp;TYPE&nbsp;ZEDT04_101-ZIDCODE,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##ID<br />
+&nbsp;&nbsp;ZMATNR&nbsp;TYPE&nbsp;ZEDT04_101-ZMATNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;ZMATNAME&nbsp;TYPE&nbsp;ZEDT04_101-ZMATNAME,&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;ZMTART_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;8,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;(##)<br />
+&nbsp;&nbsp;ZVOLUM&nbsp;TYPE&nbsp;ZEDT04_101-ZVOLUM,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;VRKME&nbsp;TYPE&nbsp;ZEDT04_101-VRKME,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;ZSLAMT&nbsp;TYPE&nbsp;ZEDT04_101-ZSLAMT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;ZWAERS&nbsp;TYPE&nbsp;ZEDT04_101-ZWAERS,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;ZDFLAG_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;(##)<br />
+&nbsp;&nbsp;ZDGUBUN_NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;8,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;(##)<br />
+&nbsp;&nbsp;ZDDATE&nbsp;TYPE&nbsp;ZEDT04_101-ZDDATE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;ZRDATE&nbsp;TYPE&nbsp;ZEDT04_101-ZRDATE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;ZFLAG&nbsp;TYPE&nbsp;ZEDT04_101-ZFLAG,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_WRITE_DEL.<br />
+DATA GT_WRITE_DEL LIKE TABLE OF GS_WRITE_DEL.<br />
+<br />
+DATA : OK_CODE TYPE SY-UCOMM. " ##### ### ### ##<br />
+<br />
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+DATA : GS_VARIANT TYPE DISVARIANT.  " ALV####(####ID, #####, #### ## # ##)<br />
+<br />
+" ## ####. FUNCTION 'SET_TABLE_FOR_FIRST_DISPLAY'## ##<br />
+DATA GS_FIELDCAT TYPE LVC_S_FCAT.<br />
+DATA GT_FIELDCAT TYPE LVC_T_FCAT.<br />
+<br />
+" ALV ####<br />
+DATA GS_LAYOUT TYPE LVC_S_LAYO.<br />
+<br />
+" ALV SORT ### ##<br />
+DATA GS_SORT TYPE LVC_S_SORT.<br />
+DATA GT_SORT TYPE LVC_T_SORT.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

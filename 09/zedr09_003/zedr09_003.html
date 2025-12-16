@@ -1,0 +1,356 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR09_003</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR09_003</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR09_003<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR09_003.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;assigning&nbsp;value&nbsp;-&nbsp;Data&nbsp;object#&nbsp;assigning&nbsp;value&nbsp;(#&nbsp;##)<br />
+*&nbsp;1.&nbsp;MOVE&nbsp;A&nbsp;TO&nbsp;B&nbsp;(equal)<br />
+*&nbsp;2.&nbsp;OFFSET#&nbsp;###&nbsp;#&nbsp;##<br />
+*&nbsp;3.&nbsp;WRITE&nbsp;A&nbsp;TO&nbsp;B<br />
+*&nbsp;4.&nbsp;MOVE-CORRENSPONDING<br />
+<br />
+*&nbsp;1.&nbsp;MOVE&nbsp;A&nbsp;TO&nbsp;B<br />
+*&nbsp;-&nbsp;equal(=)&nbsp;###&nbsp;###&nbsp;##<br />
+*&nbsp;-&nbsp;#&nbsp;####&nbsp;##&nbsp;##&nbsp;(#,&nbsp;TYPE&nbsp;D#&nbsp;TYPE&nbsp;T#&nbsp;##)<br />
+*&nbsp;-&nbsp;A&nbsp;-&gt;&nbsp;B#&nbsp;##&nbsp;##&nbsp;##&nbsp;##&nbsp;##.<br />
+<br />
+*&nbsp;-&nbsp;equal&nbsp;##&nbsp;(move&nbsp;a&nbsp;to&nbsp;b&nbsp;###)<br />
+   </div>
+   <div class="code">
+DATA : BEGIN OF GS_NAME,<br />
+&nbsp;&nbsp;NAME1(10)&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'###',<br />
+&nbsp;&nbsp;NAME2(10)&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'##',<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_NAME.<br />
+<br />
+write / GS_NAME-NAME1. "###<br />
+write / GS_NAME-NAME2. "##<br />
+write / 'equal #### # ##'.<br />
+<br />
+GS_NAME-NAME1 = GS_NAME-NAME2.<br />
+write / GS_NAME-NAME1. "##<br />
+write / GS_NAME-NAME2. "##<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;-&nbsp;move&nbsp;a&nbsp;to&nbsp;b#&nbsp;#&nbsp;###&nbsp;#<br />
+*&nbsp;move&nbsp;a&nbsp;to&nbsp;b&nbsp;&lt;=&gt;&nbsp;move&nbsp;'###'&nbsp;to&nbsp;'##'&nbsp;&lt;=&gt;&nbsp;a##&nbsp;~&gt;&nbsp;b#&nbsp;####&nbsp;!!<br />
+<br />
+   </div>
+   <div class="code">
+DATA : BEGIN OF GS_NAME_assign,<br />
+&nbsp;&nbsp;NAME1(10)&nbsp;type&nbsp;c&nbsp;value&nbsp;'###',<br />
+&nbsp;&nbsp;NAME2(10)&nbsp;type&nbsp;c&nbsp;value&nbsp;'##',<br />
+&nbsp;&nbsp;end&nbsp;of&nbsp;gs_name_assign.<br />
+<br />
+write : / 'move a to b # :: ', gs_name_assign-name1, ',name2 : ', gs_name_assign-name2.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;move&nbsp;a&nbsp;to&nbsp;b&nbsp;(a##&nbsp;b###&nbsp;####)<br />
+   </div>
+   <div class="code">
+move gs_name_assign-name2 to gs_name_assign-name1.<br />
+<br />
+write : / 'move a to b # ::', gs_name_assign-name1, ',name2 : ', gs_name_assign-name2.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;-&nbsp;move&nbsp;a&nbsp;to&nbsp;b#&nbsp;####&nbsp;##<br />
+*&nbsp;-&nbsp;35.12#&nbsp;####(n,i,p)&nbsp;#&nbsp;p<br />
+*&nbsp;-&nbsp;###&nbsp;p#&nbsp;###&nbsp;###,&nbsp;##&nbsp;#####&nbsp;condense&nbsp;#&nbsp;##&nbsp;###,&nbsp;##&nbsp;string&nbsp;####&nbsp;#&nbsp;#&nbsp;##.<br />
+*&nbsp;-&nbsp;##&nbsp;##,&nbsp;move&nbsp;a&nbsp;to&nbsp;b&nbsp;#&nbsp;####&nbsp;###&nbsp;!!<br />
+   </div>
+   <div class="code">
+DATA : BEGIN OF gs_name_02,<br />
+&nbsp;&nbsp;name1&nbsp;type&nbsp;c&nbsp;length&nbsp;10&nbsp;value&nbsp;'##',<br />
+&nbsp;&nbsp;degree1&nbsp;type&nbsp;p&nbsp;decimals&nbsp;2&nbsp;value&nbsp;'35.12',<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_name_02.<br />
+<br />
+write : / '### #', gs_name_02-name1.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;move&nbsp;a&nbsp;to&nbsp;b&nbsp;-&gt;&nbsp;a#(###&nbsp;35.12)#&nbsp;b(###&nbsp;c)#&nbsp;####.<br />
+*&nbsp;#,&nbsp;name1#&nbsp;###&nbsp;35.12#&nbsp;#####&nbsp;####&nbsp;###.&nbsp;'35.12'.<br />
+   </div>
+   <div class="code">
+move gs_name_02-degree1 to gs_name_02-name1.<br />
+<br />
+write : / '### # & condense # ,' , gs_name_02-name1.<br />
+condense gs_name_02-name1 no-gaps.<br />
+write : / '### # & condense #' , gs_name_02-name1.<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;2.&nbsp;offset#&nbsp;###&nbsp;#&nbsp;##<br />
+*&nbsp;-&nbsp;####&nbsp;##&nbsp;##&nbsp;###&nbsp;#&nbsp;index&nbsp;####&nbsp;##&nbsp;######<br />
+*&nbsp;-&nbsp;MOVE&nbsp;A&nbsp;p1(p2)&nbsp;TO&nbsp;B&nbsp;p3(p4)<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;A##&nbsp;p1##&nbsp;~&nbsp;p2##&nbsp;####,&nbsp;B##&nbsp;p3&nbsp;~&nbsp;p4##&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;offset#####&nbsp;p1##&nbsp;0##&nbsp;##<br />
+<br />
+   </div>
+   <div class="code">
+DATA : gv_data1(8) type c value 'abcdefgh',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_data2(8),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_temp3&nbsp;type&nbsp;string&nbsp;value&nbsp;'abcdefgh'.<br />
+<br />
+move gv_data1+2(3) to gv_data2.<br />
+write / gv_data1.<br />
+write / gv_data2. "cdf"<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;gv_data2&nbsp;##<br />
+   </div>
+   <div class="code">
+move gv_data2 to gv_temp3.<br />
+<br />
+DATA : gv_start type i value 2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_length&nbsp;type&nbsp;i&nbsp;value&nbsp;4.<br />
+<br />
+move gv_data1+gv_start(gv_length) to gv_data2.<br />
+<br />
+write / gv_data1.<br />
+write / gv_data2.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;'ijklmnop'&nbsp;-&gt;&nbsp;'ij**coef**op'<br />
+<br />
+   </div>
+   <div class="code">
+data : gv_data1_2(8) value 'abcdefgh',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_data2_2(8)&nbsp;value&nbsp;'ljkimnop'.<br />
+<br />
+move gv_data1_2+2(4) to gv_data2_2+2(4).<br />
+<br />
+write / gv_data1_2.<br />
+write / gv_data2_2.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;3.&nbsp;write&nbsp;a&nbsp;to&nbsp;b<br />
+*&nbsp;-&nbsp;write##&nbsp;###&nbsp;##&nbsp;######&nbsp;##&nbsp;#<br />
+*&nbsp;-&nbsp;##&nbsp;#####&nbsp;###&nbsp;####&nbsp;####!<br />
+<br />
+   </div>
+   <div class="code">
+DATA : begin of GS_NAME_04,<br />
+&nbsp;&nbsp;NAME1&nbsp;TYPE&nbsp;C&nbsp;length&nbsp;10,<br />
+&nbsp;&nbsp;NAME2&nbsp;type&nbsp;c&nbsp;length&nbsp;10,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_NAME_04.<br />
+<br />
+GS_NAME_04-name1 = '###'.<br />
+GS_NAME_04-NAME2 = '##'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;WRITE&nbsp;GS_NAME_04-nam2TO&nbsp;GS_NAME_04-name2.<br />
+<br />
+   </div>
+   <div class="code">
+write : / GS_NAME_04-name1.<br />
+write : / GS_NAME_04-name2.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;4.&nbsp;move-corresponding<br />
+*&nbsp;-&nbsp;####&nbsp;copy<br />
+*&nbsp;-&nbsp;#####&nbsp;##&nbsp;###&nbsp;#&nbsp;##<br />
+*&nbsp;-&nbsp;####&nbsp;##&nbsp;###,&nbsp;##&nbsp;##<br />
+*&nbsp;-&nbsp;##,&nbsp;####&nbsp;###&nbsp;###&nbsp;##&nbsp;###&nbsp;move#&nbsp;###,&nbsp;###&nbsp;####&nbsp;####&nbsp;#####<br />
+*&nbsp;-&nbsp;######&nbsp;move-responsding#&nbsp;###&nbsp;#.<br />
+<br />
+*&nbsp;-&nbsp;move&nbsp;a&nbsp;to&nbsp;b#&nbsp;###?&nbsp;=&gt;&nbsp;##&nbsp;#&nbsp;###&nbsp;'###&nbsp;#&nbsp;###&nbsp;#',&nbsp;###&nbsp;##&nbsp;###&nbsp;#&nbsp;###&nbsp;4##&nbsp;#.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;move&nbsp;a&nbsp;to&nbsp;b&nbsp;:<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####&nbsp;###&nbsp;###&nbsp;#&nbsp;###&nbsp;'####'&nbsp;###&nbsp;###&nbsp;####.&nbsp;#,&nbsp;####&nbsp;###&nbsp;###&nbsp;###&nbsp;##&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;move-corresponding<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##'##'#&nbsp;##&nbsp;##&nbsp;##.&nbsp;###&nbsp;#####&nbsp;##<br />
+*<br />
+<br />
+   </div>
+   <div class="code">
+DATA : BEGIN OF GS_ZEDT09_05, "#####<br />
+&nbsp;&nbsp;ZCODE&nbsp;TYPE&nbsp;ZEDT09_001-ZCODE,<br />
+&nbsp;&nbsp;ZKNAME&nbsp;TYPE&nbsp;ZEDT09_001-ZKNAME,<br />
+&nbsp;&nbsp;ZENAME&nbsp;TYPE&nbsp;ZEDT09_001-ZENAME,<br />
+&nbsp;&nbsp;ZGENDER&nbsp;TYPE&nbsp;ZEDT09_001-ZGENDER,<br />
+&nbsp;&nbsp;ZTEL&nbsp;TYPE&nbsp;ZEDT09_001-ZTEL,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_ZEDT09_05.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##&nbsp;####,&nbsp;#####&nbsp;##&nbsp;(####&nbsp;###!)<br />
+   </div>
+   <div class="code">
+DATA : BEGIN OF GS_ZEDT09_06, "#####<br />
+&nbsp;&nbsp;ZCODE&nbsp;TYPE&nbsp;ZEDT09_001-ZCODE,<br />
+&nbsp;&nbsp;ZKNAME&nbsp;TYPE&nbsp;ZEDT09_001-ZKNAME,<br />
+&nbsp;&nbsp;ZENAME&nbsp;TYPE&nbsp;ZEDT09_001-ZENAME,<br />
+&nbsp;&nbsp;ZGENDER&nbsp;TYPE&nbsp;ZEDT09_001-ZGENDER,<br />
+&nbsp;&nbsp;ZTEL&nbsp;TYPE&nbsp;ZEDT09_001-ZTEL,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_ZEDT09_06.<br />
+<br />
+GS_ZEDT09_05-ZCODE = 'ssu-09'.<br />
+GS_ZEDT09_05-ZKNAME = '###'.<br />
+GS_ZEDT09_05-ZENAME = 'kimminji'.<br />
+GS_ZEDT09_05-ZGENDER = 'F'.<br />
+GS_ZEDT09_05-ZTEL = '01072373114'.<br />
+<br />
+<br />
+MOVE-CORRESPONDING gs_zedt09_05 to gs_zedt09_06.<br />
+<br />
+write : / gs_zedt09_06-ZCODE.<br />
+write : /  gs_zedt09_06-ZKNAME.<br />
+write : /  gs_zedt09_06-ZENAME.<br />
+write : /  gs_zedt09_06-ZGENDER.<br />
+write : /  gs_zedt09_06-ZTEL.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;###&nbsp;###&nbsp;move-corresponding&nbsp;a&nbsp;to&nbsp;b###,&nbsp;####&nbsp;#####&nbsp;##&nbsp;##&nbsp;####&nbsp;#####&nbsp;####&nbsp;!!<br />
+   </div>
+   <div class="code">
+DATA : BEGIN OF GS_ZEDT09_06_change_order, "#####<br />
+&nbsp;&nbsp;ZGENDER&nbsp;TYPE&nbsp;ZEDT09_001-ZGENDER,<br />
+&nbsp;&nbsp;ZCODE&nbsp;TYPE&nbsp;ZEDT09_001-ZCODE,<br />
+&nbsp;&nbsp;ZKNAME&nbsp;TYPE&nbsp;ZEDT09_001-ZKNAME,<br />
+&nbsp;&nbsp;ZENAME&nbsp;TYPE&nbsp;ZEDT09_001-ZENAME,<br />
+&nbsp;&nbsp;ZTEL&nbsp;TYPE&nbsp;ZEDT09_001-ZTEL,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_ZEDT09_06_change_order.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;ZGENDER#&nbsp;##&nbsp;##&nbsp;!&nbsp;*<br />
+   </div>
+   <div class="code">
+move-corresponding gs_zedt09_05 to gs_zedt09_06_change_order.<br />
+<br />
+write : / 'zgender# ## ## ###### ##'.<br />
+write : / gs_zedt09_06_change_order-ZCODE.<br />
+write : / gs_zedt09_06_change_order-ZKNAME.<br />
+write : / gs_zedt09_06_change_order-ZENAME.<br />
+write : / gs_zedt09_06_change_order-ZGENDER.<br />
+write : / gs_zedt09_06_change_order-ZTEL.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##,&nbsp;move&nbsp;a&nbsp;to&nbsp;b#&nbsp;###&nbsp;##'#'#&nbsp;####&nbsp;'##'##&nbsp;#####,&nbsp;###&nbsp;###&nbsp;####&nbsp;####&nbsp;#!<br />
+   </div>
+   <div class="code">
+DATA : BEGIN OF GS_ZEDT09_06_change_order2,"#####<br />
+&nbsp;&nbsp;ZGENDER&nbsp;TYPE&nbsp;ZEDT09_001-ZGENDER,<br />
+&nbsp;&nbsp;ZCODE&nbsp;TYPE&nbsp;ZEDT09_001-ZCODE,<br />
+&nbsp;&nbsp;ZKNAME&nbsp;TYPE&nbsp;ZEDT09_001-ZKNAME,<br />
+&nbsp;&nbsp;ZENAME&nbsp;TYPE&nbsp;ZEDT09_001-ZENAME,<br />
+&nbsp;&nbsp;ZTEL&nbsp;TYPE&nbsp;ZEDT09_001-ZTEL,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_ZEDT09_06_change_order2.<br />
+<br />
+move gs_zedt09_05 to gs_zedt09_06_change_order2.<br />
+<br />
+write : / 'zgender# ## ## ###### ##22, move a to b'.<br />
+write : / gs_zedt09_06_change_order2-ZCODE.<br />
+write : / gs_zedt09_06_change_order2-ZKNAME.<br />
+write : / gs_zedt09_06_change_order2-ZENAME.<br />
+write : / gs_zedt09_06_change_order2-ZGENDER.<br />
+write : / gs_zedt09_06_change_order2-ZTEL.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##,&nbsp;move&nbsp;a&nbsp;to&nbsp;b#&nbsp;#&nbsp;##&nbsp;#####&nbsp;###&nbsp;###&nbsp;##.&nbsp;###&nbsp;##,&nbsp;####&nbsp;####,&nbsp;#&nbsp;###&nbsp;##<br />
+*&nbsp;#,&nbsp;move&nbsp;a&nbsp;to&nbsp;b#&nbsp;###&nbsp;####&nbsp;###&nbsp;##&nbsp;#####&nbsp;###&nbsp;#&nbsp;#..<br />
+*&nbsp;##&nbsp;##&nbsp;###&nbsp;move-corresponding&nbsp;a&nbsp;to&nbsp;b#&nbsp;###&nbsp;#&nbsp;###&nbsp;###.<br />
+<br />
+   </div>
+   <div class="code">
+DATA : BEGIN OF GS_ZEDT09_06_diff_name, "#####<br />
+&nbsp;&nbsp;ZZZCODE&nbsp;TYPE&nbsp;ZEDT09_001-ZCODE,<br />
+&nbsp;&nbsp;ZZZKNAME&nbsp;TYPE&nbsp;ZEDT09_001-ZKNAME,<br />
+&nbsp;&nbsp;ZZZENAME&nbsp;TYPE&nbsp;ZEDT09_001-ZENAME,<br />
+&nbsp;&nbsp;ZZZGENDER&nbsp;TYPE&nbsp;ZEDT09_001-ZGENDER,<br />
+&nbsp;&nbsp;ZZZTEL&nbsp;TYPE&nbsp;ZEDT09_001-ZTEL,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_ZEDT09_06_diff_name.<br />
+<br />
+move gs_zedt09_05 to gs_zedt09_06_diff_name.<br />
+<br />
+<br />
+write : / '#### ##, ### ##, move a to b try'.<br />
+write : / gs_zedt09_06_diff_name-ZZZCODE.<br />
+write : / gs_zedt09_06_diff_name-ZZZKNAME.<br />
+write : / gs_zedt09_06_diff_name-ZZZENAME.<br />
+write : / gs_zedt09_06_diff_name-ZZZGENDER.<br />
+write : / gs_zedt09_06_diff_name-ZZZTEL.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

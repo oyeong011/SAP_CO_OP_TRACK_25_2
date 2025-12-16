@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR04_022</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR04_022</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR04_022<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR04_022.<br />
+<br />
+" 1. MOVE A TO B (3. WRITE A TO B)<br />
+DATA : BEGIN OF GS_NAME,<br />
+&nbsp;&nbsp;NAME1&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,<br />
+&nbsp;&nbsp;NAME2&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_NAME.<br />
+<br />
+GS_NAME-NAME1 = '###'.<br />
+GS_NAME-NAME2 = '##'.<br />
+<br />
+"GS_NAME-NAME1 = GS_NAME-NAME2.<br />
+MOVE GS_NAME-NAME2 TO GS_NAME-NAME1.<br />
+   </div>
+   <div class="codeComment">
+*WRITE&nbsp;GS_NAME-NAME2&nbsp;TO&nbsp;GS_NAME-NAME1.&nbsp;&nbsp;"&nbsp;##?<br />
+<br />
+   </div>
+   <div class="code">
+WRITE / GS_NAME-NAME1.  "##<br />
+WRITE / GS_NAME-NAME2.  "##<br />
+WRITE / '--------------------------------------------'.<br />
+<br />
+" 1-1) MOVE A TO B ### ### ##<br />
+DATA : BEGIN OF GS_NAME2,<br />
+&nbsp;&nbsp;NAME1&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;DEGREE1&nbsp;TYPE&nbsp;P&nbsp;DECIMALS&nbsp;2,&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_NAME2.<br />
+<br />
+GS_NAME2-NAME1 = '##'.<br />
+GS_NAME2-DEGREE1 = '35.12'.<br />
+<br />
+MOVE GS_NAME2-DEGREE1 TO GS_NAME2-NAME1.  " ##-&gt;##<br />
+CONDENSE GS_NAME2-NAME1 NO-GAPS. " ## ##<br />
+<br />
+WRITE / GS_NAME2-NAME1.     "35.12<br />
+WRITE / GS_NAME2-DEGREE1.   "           35.12<br />
+WRITE / '--------------------------------------------'.<br />
+<br />
+" 2. MOVE A+P1(P2) TO B+P3(P4) : OFFSET(0-INDEXED)# ### # ##<br />
+DATA :  GV_DATA1(8) VALUE 'ABCDEFGH',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_DATA2(8),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_START&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_LENGTH&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;4.<br />
+<br />
+"MOVE GV_DATA1+2(4) TO GV_DATA2.<br />
+MOVE GV_DATA1+GV_START(GV_LENGTH) TO GV_DATA2.<br />
+WRITE / GV_DATA2.     "CDEF<br />
+<br />
+" 2-1) ####<br />
+GV_DATA2 = 'IJKLMNOP'.<br />
+<br />
+MOVE GV_DATA1+GV_START(GV_LENGTH) TO GV_DATA2+GV_START(GV_LENGTH).<br />
+WRITE / GV_DATA2.   "IJCDEFOP<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

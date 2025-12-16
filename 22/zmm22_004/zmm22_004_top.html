@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM22_004_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM22_004_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM22_004_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES : ZRBKP_22, ZRSEG_22, ZEKKO_22, ZEKPO_22.<br />
+"ZRBKP : ##-##, ZRSEG : ##-###, ZEKKO : ####-##, ZEKPO : ####-###<br />
+<br />
+DATA: OK_CODE TYPE SY-UCOMM.<br />
+<br />
+"### ###<br />
+DATA : GO_EVENT TYPE REF TO LCL_EVENT_HANDLER.<br />
+<br />
+"## ## ## ### ##(# ## # ## ### # ##)<br />
+DATA: GV_CALC_FLAG TYPE C.<br />
+<br />
+" 1. ## ### ## ## ###<br />
+DATA: BALANCE TYPE ZRBKP_22-RMWWR.<br />
+<br />
+" 2. ### ### ###<br />
+DATA: ICON    TYPE ICON_D.<br />
+<br />
+" 3. ## ## ### (KRW #)<br />
+DATA: WAERS   TYPE ZRBKP_22-WAERS.<br />
+<br />
+TYPE-POOLS: ICON, VRM.<br />
+<br />
+"#<br />
+CONTROLS: TS_INFO TYPE TABSTRIP.<br />
+<br />
+" --- [##### ## ##] ---<br />
+DATA: GV_SUB_DYNNR TYPE SY-DYNNR VALUE '0110'.<br />
+<br />
+" --- [ALV ## ##] ---<br />
+DATA: GC_CUSTOM   TYPE REF TO CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_GRID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+<br />
+DATA: GS_FIELDCAT TYPE LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT&nbsp;TYPE&nbsp;LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_LAYOUT&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_LAYO.<br />
+<br />
+"### 200 #<br />
+DATA : GC_DOCKING_200 TYPE REF TO CL_GUI_DOCKING_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_GRID_200&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+<br />
+" ## ##(Docking) ## ##<br />
+DATA : GC_DOCK_LEFT TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA : GC_GRID_LEFT TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+" ## ## ### ###<br />
+DATA : BEGIN OF GS_DOC_LIST,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BELNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZRBKP_22-BELNR,&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GJAHR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZRBKP_22-GJAHR,&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUDAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZRBKP_22-BUDAT,&nbsp;"&nbsp;###&nbsp;(##&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZRBKP_22-LIFNR,&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZRBKP_22-WAERS,&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RMWWR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZRBKP_22-RMWWR,&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DOC_LIST.<br />
+DATA : GT_DOC_LIST LIKE TABLE OF GS_DOC_LIST.<br />
+<br />
+"ALV ###<br />
+DATA : BEGIN OF GS_ITEM,<br />
+&nbsp;&nbsp;CHECK&nbsp;&nbsp;TYPE&nbsp;C,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;###&nbsp;####<br />
+&nbsp;&nbsp;BELNR&nbsp;&nbsp;LIKE&nbsp;ZRSEG_22-BELNR,&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;GJAHR&nbsp;&nbsp;LIKE&nbsp;ZRSEG_22-GJAHR,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;BUZEI&nbsp;&nbsp;LIKE&nbsp;ZRSEG_22-BUZEI,&nbsp;&nbsp;"##&nbsp;###<br />
+&nbsp;&nbsp;EBELN&nbsp;&nbsp;LIKE&nbsp;ZRSEG_22-EBELN,&nbsp;&nbsp;"PO##<br />
+&nbsp;&nbsp;EBELP&nbsp;&nbsp;LIKE&nbsp;ZRSEG_22-EBELP,&nbsp;&nbsp;"PO#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;MATNR&nbsp;&nbsp;LIKE&nbsp;ZRSEG_22-MATNR,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;TXZ01&nbsp;&nbsp;LIKE&nbsp;ZRSEG_22-TXZ01,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;WERKS&nbsp;&nbsp;LIKE&nbsp;ZRSEG_22-WERKS,&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;WRBTR&nbsp;&nbsp;LIKE&nbsp;ZRSEG_22-WRBTR,&nbsp;&nbsp;"####&nbsp;(##&nbsp;x&nbsp;##)<br />
+&nbsp;&nbsp;STPRS&nbsp;&nbsp;LIKE&nbsp;ZEKPO_22-STPRS,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;WAERS&nbsp;&nbsp;LIKE&nbsp;ZEKKO_22-WAERS,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;MENGE&nbsp;&nbsp;LIKE&nbsp;ZRSEG_22-MENGE,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;MEINS&nbsp;&nbsp;LIKE&nbsp;ZEKPO_22-MEINS,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;BSTME&nbsp;&nbsp;LIKE&nbsp;ZRSEG_22-BSTME,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;MWSKZ&nbsp;&nbsp;LIKE&nbsp;ZRSEG_22-MWSKZ,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;WMWST&nbsp;&nbsp;LIKE&nbsp;ZRSEG_22-WMWST,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;DMBTR&nbsp;&nbsp;LIKE&nbsp;BSIK-DMBTR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##&nbsp;(###&nbsp;+&nbsp;##)<br />
+&nbsp;&nbsp;SGTXT&nbsp;&nbsp;LIKE&nbsp;ZRSEG_22-SGTXT,&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;SHKZG&nbsp;&nbsp;LIKE&nbsp;ZRSEG_22-SHKZG,&nbsp;"&nbsp;###&nbsp;##&nbsp;(S/H)<br />
+&nbsp;&nbsp;LOEKZ&nbsp;&nbsp;LIKE&nbsp;ZRSEG_22-LOEKZ,&nbsp;"&nbsp;##&nbsp;###&nbsp;(##&nbsp;##)<br />
+&nbsp;&nbsp;LIFNR&nbsp;&nbsp;LIKE&nbsp;ZEKKO_22-LIFNR,&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_ITEM.<br />
+DATA : GT_ITEM LIKE TABLE OF GS_ITEM.<br />
+<br />
+"## ##<br />
+DATA : BEGIN OF GS_RBKP,<br />
+&nbsp;&nbsp;BELNR&nbsp;LIKE&nbsp;ZRBKP_22-BELNR,&nbsp;"######<br />
+&nbsp;&nbsp;GJAHR&nbsp;LIKE&nbsp;ZRBKP_22-GJAHR,&nbsp;"####<br />
+&nbsp;&nbsp;BLART&nbsp;LIKE&nbsp;ZRBKP_22-BLART,&nbsp;"####<br />
+&nbsp;&nbsp;BLDAT&nbsp;LIKE&nbsp;ZRBKP_22-BLDAT,&nbsp;"###<br />
+&nbsp;&nbsp;BUDAT&nbsp;LIKE&nbsp;ZRBKP_22-BUDAT,&nbsp;"###<br />
+&nbsp;&nbsp;BUKRS&nbsp;LIKE&nbsp;ZRBKP_22-BUKRS,&nbsp;"####<br />
+&nbsp;&nbsp;LIFNR&nbsp;LIKE&nbsp;ZRBKP_22-LIFNR,&nbsp;"###&nbsp;(####)<br />
+&nbsp;&nbsp;WAERS&nbsp;LIKE&nbsp;ZRBKP_22-WAERS,&nbsp;"###<br />
+&nbsp;&nbsp;ZTERM&nbsp;LIKE&nbsp;ZRBKP_22-ZTERM,&nbsp;"####<br />
+&nbsp;&nbsp;BKTXT&nbsp;LIKE&nbsp;ZRBKP_22-BKTXT,&nbsp;"#####<br />
+&nbsp;&nbsp;XMWST&nbsp;LIKE&nbsp;ZRBKP_22-XMWST,&nbsp;"##&nbsp;##&nbsp;##&nbsp;(####)<br />
+&nbsp;&nbsp;MWSKZ&nbsp;LIKE&nbsp;ZRBKP_22-MWSKZ,&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;WMWST&nbsp;LIKE&nbsp;ZRBKP_22-WMWST,&nbsp;"##<br />
+&nbsp;&nbsp;RMWWR&nbsp;LIKE&nbsp;ZRBKP_22-RMWWR,&nbsp;"#&nbsp;##&nbsp;##&nbsp;(##&nbsp;###)<br />
+&nbsp;&nbsp;STBLG&nbsp;LIKE&nbsp;ZRBKP_22-STBLG,&nbsp;"##&nbsp;(####)<br />
+&nbsp;&nbsp;STJAH&nbsp;LIKE&nbsp;ZRBKP_22-STJAH,&nbsp;"##&nbsp;(##)<br />
+&nbsp;&nbsp;RBSTAT&nbsp;LIKE&nbsp;ZRBKP_22-RBSTAT,"##&nbsp;##<br />
+&nbsp;&nbsp;ZFBDT&nbsp;TYPE&nbsp;DATS,&nbsp;"&nbsp;##&nbsp;LIKE&nbsp;ZRBKP_22-ZFBDT&nbsp;(###&nbsp;##&nbsp;#)<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_RBKP.<br />
+DATA : GT_RBKP LIKE TABLE OF GS_RBKP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

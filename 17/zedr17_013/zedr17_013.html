@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR17_013</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR17_013</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR17_013<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR17_013 MESSAGE-ID zmed17. " message #### ##### ##<br />
+<br />
+   </div>
+   <div class="codeComment">
+**&nbsp;[program&nbsp;##&nbsp;-&nbsp;Syntax]<br />
+<br />
+******************************&nbsp;&nbsp;case~endcase&nbsp;*********************************************<br />
+*data&nbsp;:&nbsp;begin&nbsp;of&nbsp;gs_student.<br />
+*&nbsp;&nbsp;include&nbsp;type&nbsp;zedt17_002.<br />
+*&nbsp;&nbsp;data&nbsp;:&nbsp;end&nbsp;of&nbsp;gs_student.<br />
+*data&nbsp;:&nbsp;gt_student&nbsp;like&nbsp;table&nbsp;of&nbsp;gs_student.<br />
+*<br />
+*data&nbsp;:&nbsp;begin&nbsp;of&nbsp;gs_write,<br />
+*&nbsp;&nbsp;zmajor_name(10),<br />
+*&nbsp;end&nbsp;of&nbsp;gs_write.<br />
+<br />
+*case&nbsp;gs_student-zmajor.<br />
+*&nbsp;&nbsp;when&nbsp;'A'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gs_write-zmajor_name&nbsp;=&nbsp;'####&nbsp;&nbsp;'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gs_write-zmajor_name.<br />
+*&nbsp;&nbsp;when&nbsp;'B'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gs_write-zmajor_name&nbsp;=&nbsp;'####&nbsp;&nbsp;'.<br />
+*&nbsp;&nbsp;when&nbsp;'C'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gs_write-zmajor_name&nbsp;=&nbsp;'###&nbsp;&nbsp;&nbsp;'.<br />
+*&nbsp;&nbsp;when&nbsp;'D'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gs_write-zmajor_name&nbsp;=&nbsp;'#####&nbsp;&nbsp;'.<br />
+*&nbsp;&nbsp;when&nbsp;'E'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gs_write-zmajor_name&nbsp;=&nbsp;'######&nbsp;'.<br />
+*&nbsp;&nbsp;when&nbsp;'F'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gs_write-zmajor_name&nbsp;=&nbsp;'###&nbsp;&nbsp;&nbsp;&nbsp;'.<br />
+*&nbsp;&nbsp;when&nbsp;'G'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gs_write-zmajor_name&nbsp;=&nbsp;'###&nbsp;&nbsp;&nbsp;&nbsp;'.<br />
+*&nbsp;&nbsp;when&nbsp;'H'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gs_write-zmajor_name&nbsp;=&nbsp;'###&nbsp;&nbsp;&nbsp;&nbsp;'.<br />
+*endcase.<br />
+<br />
+******************************&nbsp;message&nbsp;*********************************************<br />
+*tables&nbsp;:&nbsp;zedt17_001.<br />
+*data&nbsp;:&nbsp;begin&nbsp;of&nbsp;gs_student.<br />
+*&nbsp;&nbsp;include&nbsp;type&nbsp;zedt17_001.<br />
+*&nbsp;&nbsp;data&nbsp;:&nbsp;end&nbsp;of&nbsp;gs_student.<br />
+*data&nbsp;:&nbsp;gt_student&nbsp;like&nbsp;table&nbsp;of&nbsp;gs_student.<br />
+*<br />
+*selection-screen&nbsp;begin&nbsp;of&nbsp;block&nbsp;b1&nbsp;with&nbsp;frame.<br />
+*&nbsp;&nbsp;select-options&nbsp;:&nbsp;s_zcode&nbsp;for&nbsp;zedt17_001-zcode.<br />
+*&nbsp;&nbsp;parameters&nbsp;:&nbsp;p_zpernr&nbsp;like&nbsp;zedt17_001-zpernr.<br />
+*&nbsp;&nbsp;parameters&nbsp;:&nbsp;p_zgen&nbsp;like&nbsp;zedt17_001-zgender.<br />
+*selection-screen&nbsp;end&nbsp;of&nbsp;block&nbsp;b1.<br />
+*<br />
+*if&nbsp;s_zcode&nbsp;is&nbsp;initial.<br />
+**&nbsp;&nbsp;message&nbsp;E000.&nbsp;"&nbsp;##&nbsp;#&nbsp;##&nbsp;#&nbsp;###&nbsp;##&nbsp;but&nbsp;###&nbsp;##X,&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;message&nbsp;I000.&nbsp;"&nbsp;##&nbsp;#&nbsp;##&nbsp;#&nbsp;###&nbsp;##&nbsp;but&nbsp;##&nbsp;###<br />
+*endif.<br />
+*<br />
+*perform&nbsp;get_data.<br />
+*if&nbsp;gt_student&nbsp;is&nbsp;initial.<br />
+*&nbsp;&nbsp;message&nbsp;i001.&nbsp;"&nbsp;##&nbsp;###&nbsp;##&nbsp;#&nbsp;###&nbsp;##&nbsp;##&nbsp;##<br />
+**&nbsp;&nbsp;message&nbsp;e001.&nbsp;"&nbsp;##&nbsp;###&nbsp;##&nbsp;#&nbsp;###&nbsp;##&nbsp;##&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;exit.<br />
+*endif.<br />
+*perform&nbsp;write_data.<br />
+*<br />
+**&---------------------------------------------------------------------*<br />
+**&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_DATA<br />
+**&---------------------------------------------------------------------*<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+**----------------------------------------------------------------------*<br />
+**&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+**&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+**----------------------------------------------------------------------*<br />
+*form&nbsp;get_data&nbsp;.<br />
+*select&nbsp;*&nbsp;from&nbsp;zedt17_001<br />
+*&nbsp;&nbsp;into&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;table&nbsp;gt_student<br />
+**&nbsp;&nbsp;where&nbsp;zcode&nbsp;=&nbsp;s_zcode.&nbsp;"&nbsp;parameters#&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;where&nbsp;zcode&nbsp;in&nbsp;s_zcode.<br />
+*endform.<br />
+**&---------------------------------------------------------------------*<br />
+**&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;WRITE_DATA<br />
+**&---------------------------------------------------------------------*<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+**----------------------------------------------------------------------*<br />
+**&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+**&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+**----------------------------------------------------------------------*<br />
+*form&nbsp;write_data&nbsp;.<br />
+*if&nbsp;gt_student[]&nbsp;is&nbsp;not&nbsp;initial.<br />
+*&nbsp;&nbsp;clear&nbsp;:&nbsp;gs_student.<br />
+*&nbsp;&nbsp;loop&nbsp;at&nbsp;gt_student&nbsp;into&nbsp;gs_student.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gs_student-zcode,&nbsp;gs_student-zkname.<br />
+*&nbsp;&nbsp;endloop.<br />
+*else.<br />
+*&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;'###&nbsp;##'.<br />
+*endif.<br />
+*endform.<br />
+<br />
+**************************************************************************************<br />
+<br />
+**&nbsp;[REPORT_EVENT]<br />
+*&nbsp;1.&nbsp;INITIALIZATION<br />
+**&nbsp;selection&nbsp;screen&nbsp;###&nbsp;###&nbsp;##&nbsp;##&nbsp;##&nbsp;##&nbsp;###<br />
+**&nbsp;##&nbsp;##&nbsp;or&nbsp;##&nbsp;####&nbsp;####&nbsp;##&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+tables : zedt17_001.<br />
+data : begin of gs_student.<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt17_001/dictionary-zedt17_001.html">zedt17_001</a>.<br />
+&nbsp;&nbsp;data&nbsp;:&nbsp;end&nbsp;of&nbsp;gs_student.<br />
+data : gt_student like table of gs_student.<br />
+<br />
+selection-screen begin of block b1 with frame.<br />
+&nbsp;&nbsp;select-options&nbsp;:&nbsp;s_zcode&nbsp;for&nbsp;zedt17_001-zcode.<br />
+&nbsp;&nbsp;parameters&nbsp;:&nbsp;p_zpernr&nbsp;like&nbsp;zedt17_001-zpernr.<br />
+&nbsp;&nbsp;parameters&nbsp;:&nbsp;p_zgen&nbsp;like&nbsp;zedt17_001-zgender&nbsp;default&nbsp;'M'&nbsp;modif&nbsp;id&nbsp;sc1.&nbsp;"&nbsp;##&nbsp;##&nbsp;sc1&nbsp;##&nbsp;##<br />
+selection-screen end of block b1.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*initialization.<br />
+*s_zcode-low&nbsp;=&nbsp;'SSU-02'.<br />
+*s_zcode-high&nbsp;=&nbsp;'SSU-99'.<br />
+*append&nbsp;s_zcode.<br />
+<br />
+   </div>
+   <div class="code">
+" start-of-selection ## # #### ## ## ##<br />
+initialization.<br />
+s_zcode-low = 'SSU-02'.<br />
+s_zcode-high = 'SSU-99'.<br />
+s_zcode-sign = 'I'. " include. ## ## ##<br />
+s_zcode-option = 'BT'. " between. low# high ### # ##<br />
+append s_zcode.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;2.&nbsp;AT&nbsp;SELECTION-SCREEN<br />
+**&nbsp;init#&nbsp;start-of-selection&nbsp;###&nbsp;####&nbsp;###&nbsp;###&nbsp;##<br />
+**&nbsp;cf)&nbsp;1,2&nbsp;##&nbsp;####&nbsp;###&nbsp;###&nbsp;###&nbsp;#.&nbsp;3##&nbsp;##&nbsp;##&nbsp;#.&nbsp;##&nbsp;##&nbsp;##<br />
+<br />
+**&nbsp;1)&nbsp;on&nbsp;field&nbsp;-&nbsp;selection&nbsp;screen##&nbsp;####&nbsp;##&nbsp;###&nbsp;##&nbsp;##.&nbsp;#####&nbsp;###&nbsp;##&nbsp;###&nbsp;##&nbsp;#####&nbsp;#<br />
+*at&nbsp;selection-screen&nbsp;on&nbsp;s_zcode.<br />
+*&nbsp;&nbsp;loop&nbsp;at&nbsp;s_zcode.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;s_zcode-low&nbsp;ne&nbsp;'SSU-01'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;'#####&nbsp;SSU-01##&nbsp;#####'&nbsp;type&nbsp;'E'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+*&nbsp;&nbsp;endloop.<br />
+<br />
+**&nbsp;2)&nbsp;on&nbsp;end&nbsp;of&nbsp;field&nbsp;-&nbsp;range&nbsp;table&nbsp;##/##&nbsp;#,&nbsp;#&nbsp;###&nbsp;##<br />
+*at&nbsp;selection-screen&nbsp;on&nbsp;end&nbsp;of&nbsp;s_zcode.<br />
+*&nbsp;&nbsp;loop&nbsp;at&nbsp;s_zcode.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;s_zcode-low&nbsp;ne&nbsp;'SSU-01'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;'#####&nbsp;SSU-01##&nbsp;#####'&nbsp;type&nbsp;'E'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+*&nbsp;&nbsp;endloop.<br />
+<br />
+**&nbsp;3)&nbsp;output&nbsp;-&nbsp;selection&nbsp;screen&nbsp;###&nbsp;layout&nbsp;###&nbsp;##<br />
+   </div>
+   <div class="code">
+at selection-screen output. " selection-screen# ##### #### ## ### ###<br />
+&nbsp;&nbsp;loop&nbsp;at&nbsp;screen.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;screen-group1&nbsp;=&nbsp;'SC1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-input&nbsp;=&nbsp;0.&nbsp;"&nbsp;##&nbsp;##(display-only).&nbsp;###&nbsp;##&nbsp;1(####)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;modify&nbsp;screen.&nbsp;"&nbsp;###&nbsp;###&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;endloop.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;3.&nbsp;START-OF-SELECTION<br />
+*&nbsp;initialization&nbsp;###&nbsp;##?<br />
+*&nbsp;-&gt;&nbsp;s_zcode#&nbsp;4##&nbsp;##(SIGN,&nbsp;OPTION,&nbsp;LOW,&nbsp;HIGH)#&nbsp;###&nbsp;###&nbsp;###.<br />
+*&nbsp;#&nbsp;#####&nbsp;LOW#&nbsp;HIGH&nbsp;##&nbsp;####&nbsp;##&nbsp;###&nbsp;SIGN#&nbsp;OPTION&nbsp;##&nbsp;####&nbsp;###.<br />
+*&nbsp;##&nbsp;####&nbsp;###&nbsp;SIGN&nbsp;###&nbsp;####&nbsp;'&nbsp;'(##)#&nbsp;##&nbsp;###,&nbsp;##&nbsp;###&nbsp;#('I'&nbsp;##&nbsp;'E')#&nbsp;####<br />
+*&nbsp;SELECT&nbsp;##&nbsp;####&nbsp;##&nbsp;###&nbsp;####&nbsp;#<br />
+*&nbsp;=&gt;&nbsp;initialization&nbsp;####&nbsp;&nbsp;sign#&nbsp;option&nbsp;#&nbsp;#####&nbsp;###<br />
+*start-of-selection.&nbsp;"&nbsp;initialization&nbsp;###&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;perform&nbsp;get_data.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;4.&nbsp;END-OF-SELECTION<br />
+*&nbsp;###&nbsp;###&nbsp;dump#&nbsp;#&nbsp;####<br />
+*&nbsp;select,&nbsp;modify#&nbsp;###&nbsp;####&nbsp;start-of-selection&nbsp;###<br />
+*&nbsp;###&nbsp;##&nbsp;###&nbsp;alv#&nbsp;###&nbsp;####&nbsp;end-of-selection#&nbsp;#####&nbsp;####&nbsp;##<br />
+*end-of-selection.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;perform&nbsp;write_data.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;get_data<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form get_data .<br />
+&nbsp;&nbsp;select&nbsp;*&nbsp;from&nbsp;zedt17_001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;into&nbsp;corresponding&nbsp;fields&nbsp;of&nbsp;table&nbsp;gt_student<br />
+&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;zcode&nbsp;in&nbsp;s_zcode.<br />
+endform.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;WRITE_DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form write_data .<br />
+&nbsp;&nbsp;loop&nbsp;at&nbsp;gt_student&nbsp;into&nbsp;gs_student.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/&nbsp;gs_student-zcode,&nbsp;gs_student-zkname.<br />
+&nbsp;&nbsp;endloop.<br />
+endform.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

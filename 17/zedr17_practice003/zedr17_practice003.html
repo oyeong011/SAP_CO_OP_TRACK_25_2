@@ -1,0 +1,684 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR17_PRACTICE003</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR17_PRACTICE003</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR17_PRACTICE003<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+report zedr17_practice003.<br />
+<br />
+tables : zedt17_100, zedt17_101. " ####(zedt17_100), ####(zedt17_101)<br />
+<br />
+" ####(zedt17_100)<br />
+data : begin of gs_order.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt17_100/dictionary-zedt17_100.html">zedt17_100</a>.<br />
+data : end of gs_order.<br />
+data : gt_order like table of gs_order. " ## ## itab<br />
+<br />
+" #### ## ### itab<br />
+data : begin of gs_order_print,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zordno&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_100-zordno,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zidcode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_100-zidcode,&nbsp;&nbsp;"&nbsp;ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmatnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_100-zmatnr,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmatname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_100-zmatname,&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmtart&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_100-zmtart,&nbsp;&nbsp;&nbsp;"&nbsp;####(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmtart_txt(10)&nbsp;,&nbsp;&nbsp;&nbsp;"&nbsp;####(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zvolum&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_100-zvolum,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vrkme&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_100-vrkme,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;znsamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_100-znsamt,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zslamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_100-zslamt,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdcamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_100-zdcamt,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zsale_fg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_100-zsale_fg,&nbsp;&nbsp;&nbsp;"&nbsp;##(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zsale_fg_txt(10)&nbsp;,&nbsp;"&nbsp;##(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zjdate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_100-zjdate,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zret_fg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_100-zret_fg,&nbsp;&nbsp;&nbsp;"&nbsp;####(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zret_fg_txt(10),&nbsp;&nbsp;"&nbsp;####&nbsp;(######&nbsp;##&nbsp;#)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zrdate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_100-zrdate,&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;(######&nbsp;##&nbsp;#)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end&nbsp;of&nbsp;gs_order_print.<br />
+data : gt_order_print like table of gs_order_print. " ## ## itab<br />
+<br />
+" ####(zedt17_101)<br />
+data : begin of gs_shipping.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zedt17_101/dictionary-zedt17_101.html">zedt17_101</a>.<br />
+data : end of gs_shipping.<br />
+data : gt_shipping like table of gs_shipping.<br />
+<br />
+" #### ## ### itab<br />
+data : begin of gs_shipping_print,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zordno&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_101-zordno,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zidcode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_101-zidcode,&nbsp;&nbsp;"&nbsp;ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmatnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_101-zmatnr,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmatname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_101-zmatname,&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmtart&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_101-zmtart,&nbsp;&nbsp;&nbsp;"&nbsp;####(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zmtart_txt(10)&nbsp;,&nbsp;&nbsp;&nbsp;"&nbsp;####(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zvolum&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_101-zvolum,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vrkme&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_101-vrkme,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zslamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_101-zslamt,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdflag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_101-zdflag,&nbsp;&nbsp;&nbsp;"&nbsp;####(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdflag_txt(10),&nbsp;&nbsp;&nbsp;"&nbsp;####(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdgubun&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_101-zdgubun,&nbsp;&nbsp;"&nbsp;##(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zdgubun_txt(10)&nbsp;,&nbsp;&nbsp;&nbsp;"&nbsp;##(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zddate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_101-zddate,&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zrdate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_101-zrdate,&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zflag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zedt17_101-zflag,&nbsp;&nbsp;&nbsp;"&nbsp;(######&nbsp;##&nbsp;#)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end&nbsp;of&nbsp;gs_shipping_print.<br />
+data : gt_shipping_print like table of gs_shipping_print.<br />
+<br />
+data gv_char_date(10). " yyyy.mm.dd## #### ## ###### ##<br />
+<br />
+data : gv_order_active_flag(1)." #### ## ### ##<br />
+data : gv_ship_active_flag(1)." #### ## ### ##<br />
+<br />
+" ## ## ##<br />
+constants : c_mul_krw type i value '100'. " krw ###<br />
+<br />
+" range ## ## ## - db### ## (####/####)<br />
+ranges : gr_jdate for gv_char_date.   "####<br />
+ranges : gr_shdate for gv_char_date. " ####<br />
+<br />
+" ####(ZORDNO), ##ID(ZIDCODE), ####(ZMATNR), ####/####(ZJDATE)<br />
+selection-screen begin of block b1 with frame.<br />
+select-options : s_zordno for zedt17_100-zordno. " ####<br />
+parameters : p_zidcd like zedt17_100-zidcode. " ##ID, ### 8#### ##<br />
+select-options : s_zmatnr for zedt17_100-zmatnr. " ####<br />
+select-options : s_ordate for gv_char_date modif id sc1. " ####, ## ### ## modif id ##<br />
+select-options : s_shdate for gv_char_date modif id sc2. " ####, ## ### ## modif id ##<br />
+selection-screen end of block b1.<br />
+<br />
+" radio button: ####(zedt17_100), ####(zedt17_101)<br />
+selection-screen begin of block b2 with frame.<br />
+parameters : p_order radiobutton group r1 default 'X' user-command uc1. " ####, selection-screen ## ### ###### user-command fcode ### (uc1)<br />
+parameters : p_ship radiobutton group r1. " ####<br />
+selection-screen end of block b2.<br />
+<br />
+" check box: ######/####(ZRET_FG)<br />
+selection-screen begin of block b3 with frame.<br />
+parameters : p_return as checkbox default 'X'. " ######<br />
+selection-screen end of block b3.<br />
+<br />
+initialization.<br />
+&nbsp;&nbsp;"&nbsp;3.&nbsp;#####&nbsp;#####&nbsp;##&nbsp;default#&nbsp;######&nbsp;##,&nbsp;###&nbsp;###&nbsp;01.01~&nbsp;###&nbsp;##&nbsp;##&nbsp;###&nbsp;###&nbsp;##&nbsp;FIX<br />
+&nbsp;&nbsp;data&nbsp;:&nbsp;lv_next_month_first_day&nbsp;type&nbsp;d.&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;##&nbsp;for&nbsp;###&nbsp;1##&nbsp;1&nbsp;##&nbsp;##&nbsp;#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;data&nbsp;:&nbsp;lv_date_low&nbsp;type&nbsp;d.&nbsp;"&nbsp;for&nbsp;'yyyy-mm-dd'&nbsp;-&gt;&nbsp;'yyyy.mm.01'<br />
+&nbsp;&nbsp;data&nbsp;:&nbsp;lv_date_high&nbsp;type&nbsp;d.&nbsp;"&nbsp;for&nbsp;'yyyy-mm-dd'&nbsp;-&gt;&nbsp;'yyyy.mm.30'<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;1#&nbsp;##<br />
+&nbsp;&nbsp;lv_date_low&nbsp;=&nbsp;sy-datum.&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;lv_date_low+6(2)&nbsp;=&nbsp;'01'.&nbsp;"&nbsp;6##&nbsp;####&nbsp;2##(dd##)#&nbsp;'01'#&nbsp;##<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;lv_next_month_first_day&nbsp;=&nbsp;sy-datum.&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;lv_next_month_first_day+6(2)&nbsp;=&nbsp;'01'.&nbsp;"&nbsp;###&nbsp;1##&nbsp;###<br />
+&nbsp;&nbsp;add&nbsp;1&nbsp;to&nbsp;lv_next_month_first_day+4(2).&nbsp;"&nbsp;4##&nbsp;####&nbsp;2##(mm)#&nbsp;1&nbsp;###&nbsp;#&nbsp;+=&nbsp;1<br />
+&nbsp;&nbsp;if&nbsp;lv_next_month_first_day+4(2)&nbsp;&gt;&nbsp;12.&nbsp;"&nbsp;12#&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_next_month_first_day+4(2)&nbsp;=&nbsp;'01'.&nbsp;"&nbsp;1##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;add&nbsp;1&nbsp;to&nbsp;lv_next_month_first_day(4).&nbsp;"&nbsp;##&nbsp;+=&nbsp;1<br />
+&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;1###&nbsp;##&nbsp;##&nbsp;##&nbsp;#&nbsp;###&nbsp;#&nbsp;###<br />
+&nbsp;&nbsp;lv_date_high&nbsp;=&nbsp;lv_next_month_first_day&nbsp;-&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;write&nbsp;lv_date_low&nbsp;&nbsp;to&nbsp;s_ordate-low&nbsp;&nbsp;using&nbsp;edit&nbsp;mask&nbsp;'____.__.__'.&nbsp;"&nbsp;'yyyy-mm-01'&nbsp;-&gt;&nbsp;'yyyy.mm.01'<br />
+&nbsp;&nbsp;write&nbsp;lv_date_high&nbsp;to&nbsp;s_ordate-high&nbsp;using&nbsp;edit&nbsp;mask&nbsp;'____.__.__'.&nbsp;"&nbsp;'yyyy-mm-30'&nbsp;-&gt;&nbsp;'yyyy.mm.30'<br />
+&nbsp;&nbsp;s_ordate-sign&nbsp;=&nbsp;'I'.&nbsp;"&nbsp;include.&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;s_ordate-option&nbsp;=&nbsp;'BT'.&nbsp;"&nbsp;between.&nbsp;low#&nbsp;high&nbsp;###&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;append&nbsp;s_ordate.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;write&nbsp;lv_date_low&nbsp;&nbsp;to&nbsp;s_shdate-low&nbsp;&nbsp;using&nbsp;edit&nbsp;mask&nbsp;'____.__.__'.&nbsp;"&nbsp;'yyyy-mm-01'&nbsp;-&gt;&nbsp;'yyyy.mm.01'<br />
+&nbsp;&nbsp;write&nbsp;lv_date_high&nbsp;to&nbsp;s_shdate-high&nbsp;using&nbsp;edit&nbsp;mask&nbsp;'____.__.__'.&nbsp;"&nbsp;'yyyy-mm-30'&nbsp;-&gt;&nbsp;'yyyy.mm.30'<br />
+&nbsp;&nbsp;s_shdate-sign&nbsp;=&nbsp;'I'.&nbsp;"&nbsp;include.&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;s_shdate-option&nbsp;=&nbsp;'BT'.&nbsp;"&nbsp;between.&nbsp;low#&nbsp;high&nbsp;###&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;append&nbsp;s_shdate.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;output##&nbsp;selection&nbsp;screen&nbsp;###&nbsp;layout&nbsp;##&nbsp;##.&nbsp;###&nbsp;###&nbsp;##<br />
+<br />
+at selection-screen output.<br />
+<br />
+&nbsp;&nbsp;if&nbsp;p_order&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;####&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_order_active_flag&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_ship_active_flag&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;elseif&nbsp;p_ship&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;####&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_order_active_flag&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_ship_active_flag&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;loop&nbsp;at&nbsp;screen.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;screen-group1&nbsp;=&nbsp;'SC1'.&nbsp;"&nbsp;##&nbsp;####&nbsp;###&nbsp;##&nbsp;(####&nbsp;###!!!)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;gv_order_active_flag.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;elseif&nbsp;screen-group1&nbsp;=&nbsp;'SC2'.&nbsp;"&nbsp;##&nbsp;####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;gv_ship_active_flag.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;modify&nbsp;screen.<br />
+&nbsp;&nbsp;endloop.<br />
+<br />
+start-of-selection. " inialization ## ### # #### ### error# ##<br />
+&nbsp;&nbsp;perform&nbsp;build_date_range.&nbsp;"&nbsp;##&nbsp;##&nbsp;yyyy.mm.dd&nbsp;-&gt;&nbsp;yyyymmdd<br />
+<br />
+&nbsp;&nbsp;if&nbsp;p_order&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;####&nbsp;#####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;perform&nbsp;get_order_data.&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;else.&nbsp;"&nbsp;####&nbsp;#####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;perform&nbsp;get_shipping_data.&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+end-of-selection.<br />
+&nbsp;&nbsp;if&nbsp;p_order&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;####&nbsp;#####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;perform&nbsp;write_order_data.&nbsp;"&nbsp;####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;else.&nbsp;"&nbsp;####&nbsp;#####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;perform&nbsp;write_shipping_data.&nbsp;"&nbsp;####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;BUILD_DATE_RANGE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form build_date_range .<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gr_jdate,&nbsp;gr_shdate.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##(##)##<br />
+&nbsp;&nbsp;loop&nbsp;at&nbsp;s_ordate.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;gr_jdate.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gr_jdate-sign&nbsp;=&nbsp;s_ordate-sign.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gr_jdate-option&nbsp;=&nbsp;s_ordate-option.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gr_jdate-low&nbsp;=&nbsp;s_ordate-low.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;replace&nbsp;all&nbsp;occurrences&nbsp;of&nbsp;'.'&nbsp;in&nbsp;gr_jdate-low&nbsp;with&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gr_jdate-high&nbsp;=&nbsp;s_ordate-high.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;replace&nbsp;all&nbsp;occurrences&nbsp;of&nbsp;'.'&nbsp;in&nbsp;gr_jdate-high&nbsp;with&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;append&nbsp;gr_jdate.<br />
+&nbsp;&nbsp;endloop.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;(#####&nbsp;###)<br />
+&nbsp;&nbsp;loop&nbsp;at&nbsp;s_shdate.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;gr_shdate.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gr_shdate-sign&nbsp;=&nbsp;s_shdate-sign.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gr_shdate-option&nbsp;=&nbsp;s_shdate-option.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gr_shdate-low&nbsp;=&nbsp;s_shdate-low.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;replace&nbsp;all&nbsp;occurrences&nbsp;of&nbsp;'.'&nbsp;in&nbsp;gr_shdate-low&nbsp;with&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gr_shdate-high&nbsp;=&nbsp;s_shdate-high.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;replace&nbsp;all&nbsp;occurrences&nbsp;of&nbsp;'.'&nbsp;in&nbsp;gr_shdate-high&nbsp;with&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;append&nbsp;gr_shdate.<br />
+&nbsp;&nbsp;endloop.<br />
+endform.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;MAP_order_TEXTS<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+" ZMTART(####), ZSALE_FG(##), ZRET_FG(####) ## ### ##-&gt;### #####<br />
+form map_order_texts using  p_mtart type zedt17_100-zmtart " ####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_sale_fg&nbsp;type&nbsp;zedt17_100-zsale_fg&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_ret_fg&nbsp;type&nbsp;zedt17_100-zret_fg&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changing&nbsp;&nbsp;p_mt_txt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_sale_txt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_ret_txt.<br />
+&nbsp;&nbsp;case&nbsp;p_mtart.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'001'.&nbsp;p_mt_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'002'.&nbsp;p_mt_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'003'.&nbsp;p_mt_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'004'.&nbsp;p_mt_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'005'.&nbsp;p_mt_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'006'.&nbsp;p_mt_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;endcase.<br />
+<br />
+&nbsp;&nbsp;case&nbsp;p_sale_fg.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'1'.&nbsp;p_sale_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'2'.&nbsp;p_sale_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;endcase.<br />
+<br />
+&nbsp;&nbsp;case&nbsp;p_ret_fg.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'1'.&nbsp;p_ret_txt&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'2'.&nbsp;p_ret_txt&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'3'.&nbsp;p_ret_txt&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;endcase.<br />
+endform.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;MAP_shipping_TEXTS<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+" ZMTART(####),ZDFLAG(####), ZDGUBUN(####) ## ### ##-&gt;### #####<br />
+form map_shipping_texts using   p_mtart type zedt17_101-zmtart " ####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_zdflag&nbsp;type&nbsp;zedt17_101-zdflag&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_zdgubun&nbsp;type&nbsp;zedt17_101-zdgubun&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changing&nbsp;&nbsp;p_mt_txt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_df_txt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_dg_txt.<br />
+&nbsp;&nbsp;case&nbsp;p_mtart.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'001'.&nbsp;p_mt_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'002'.&nbsp;p_mt_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'003'.&nbsp;p_mt_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'004'.&nbsp;p_mt_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'005'.&nbsp;p_mt_txt&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'006'.&nbsp;p_mt_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;endcase.<br />
+<br />
+&nbsp;&nbsp;case&nbsp;p_zdflag.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'1'.&nbsp;p_df_txt&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'2'.&nbsp;p_df_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'3'.&nbsp;p_df_txt&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;endcase.<br />
+<br />
+&nbsp;&nbsp;case&nbsp;p_zdgubun.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'1'.&nbsp;p_dg_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'2'.&nbsp;p_dg_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'3'.&nbsp;p_dg_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'4'.&nbsp;p_dg_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'5'.&nbsp;p_dg_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'6'.&nbsp;p_dg_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'7'.&nbsp;p_dg_txt&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;endcase.<br />
+endform.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;fmt_date<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form fmt_date  using p_date type d<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changing&nbsp;p_text.<br />
+&nbsp;&nbsp;if&nbsp;p_date&nbsp;is&nbsp;initial.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;p_text.<br />
+&nbsp;&nbsp;else.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;p_text&nbsp;=&nbsp;|{&nbsp;p_date+0(4)&nbsp;}.{&nbsp;p_date+4(2)&nbsp;}.{&nbsp;p_date+6(2)&nbsp;}|.&nbsp;"&nbsp;yyyymmdd&nbsp;-&gt;&nbsp;yyyy.mm.dd<br />
+&nbsp;&nbsp;endif.<br />
+endform.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_order_DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form get_order_data .<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gt_order,&nbsp;gt_order_print.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1)&nbsp;##&nbsp;###&nbsp;##&nbsp;(##:&nbsp;####,&nbsp;id,&nbsp;##,&nbsp;####)<br />
+&nbsp;&nbsp;if&nbsp;p_zidcd&nbsp;is&nbsp;initial.&nbsp;"&nbsp;####&nbsp;###&nbsp;#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;select&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;zedt17_100<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;into&nbsp;table&nbsp;gt_order<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;zordno&nbsp;in&nbsp;s_zordno<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;zmatnr&nbsp;in&nbsp;s_zmatnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;zjdate&nbsp;in&nbsp;gr_jdate.<br />
+&nbsp;&nbsp;else.&nbsp;"&nbsp;####&nbsp;##&nbsp;#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;select&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;zedt17_100<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;into&nbsp;table&nbsp;gt_order<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;zordno&nbsp;in&nbsp;s_zordno<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;zmatnr&nbsp;in&nbsp;s_zmatnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;zjdate&nbsp;in&nbsp;gr_jdate<br />
+&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;zidcode&nbsp;=&nbsp;p_zidcd.<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;loop&nbsp;at&nbsp;gt_order&nbsp;into&nbsp;gs_order.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;gs_order_print.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;move-corresponding&nbsp;gs_order&nbsp;to&nbsp;gs_order_print.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;p_return&nbsp;&lt;&gt;&nbsp;'X'&nbsp;and&nbsp;gs_order_print-zret_fg&nbsp;is&nbsp;not&nbsp;initial.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;#&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;perform&nbsp;map_order_texts&nbsp;using&nbsp;gs_order_print-zmtart<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_order_print-zsale_fg<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_order_print-zret_fg<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changing&nbsp;gs_order_print-zmtart_txt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_order_print-zsale_fg_txt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_order_print-zret_fg_txt.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;append&nbsp;gs_order_print&nbsp;to&nbsp;gt_order_print.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;gs_order_print.<br />
+&nbsp;&nbsp;endloop.<br />
+endform.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_shipping_DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form get_shipping_data .<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;gt_shipping,&nbsp;gt_shipping_print.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2)&nbsp;##&nbsp;###&nbsp;##&nbsp;(##:&nbsp;####,&nbsp;id,&nbsp;####,&nbsp;####)<br />
+&nbsp;&nbsp;if&nbsp;p_zidcd&nbsp;is&nbsp;initial.&nbsp;"&nbsp;####&nbsp;###&nbsp;#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;select&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;zedt17_101<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;into&nbsp;table&nbsp;gt_shipping&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;zordno&nbsp;in&nbsp;s_zordno&nbsp;"&nbsp;id<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;zmatnr&nbsp;in&nbsp;s_zmatnr&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;zddate&nbsp;in&nbsp;gr_shdate.&nbsp;"####<br />
+&nbsp;&nbsp;else.&nbsp;"&nbsp;####&nbsp;##&nbsp;#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;select&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;zedt17_101<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;into&nbsp;table&nbsp;gt_shipping<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;zordno&nbsp;in&nbsp;s_zordno<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;zmatnr&nbsp;in&nbsp;s_zmatnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;zddate&nbsp;in&nbsp;gr_shdate<br />
+&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;zidcode&nbsp;=&nbsp;p_zidcd.<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;loop&nbsp;at&nbsp;gt_shipping&nbsp;into&nbsp;gs_shipping.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;gs_shipping_print.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;move-corresponding&nbsp;gs_shipping&nbsp;to&nbsp;gs_shipping_print.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;p_return&nbsp;&lt;&gt;&nbsp;'X'&nbsp;and&nbsp;gs_shipping_print-zflag&nbsp;is&nbsp;not&nbsp;initial.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;#&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;perform&nbsp;map_shipping_texts&nbsp;using&nbsp;gs_shipping_print-zmtart<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_shipping_print-zdflag<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_shipping_print-zdgubun<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changing&nbsp;gs_shipping_print-zmtart_txt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_shipping_print-zdflag_txt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_shipping_print-zdgubun_txt.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;append&nbsp;gs_shipping_print&nbsp;to&nbsp;gt_shipping_print.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;gs_shipping_print.<br />
+&nbsp;&nbsp;endloop.<br />
+endform.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+**&---------------------------------------------------------------------*<br />
+**&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;write_order_data<br />
+**&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+" #### ### ###### ## ##<br />
+" ZORDNO(####), ZIDCODE(ID), ZMATNR(####), ZMATNAME(###), ZMTART(####),<br />
+" ZVOLUM(##), VRKME(##), ZNSAMT(####), ZSLAMT(####), ZDCAMT(####),<br />
+" ZSALE_FG(##), ZJDATE(####), ( ZRET_FG(####), ZRDATE(####) )<br />
+form write_order_data .<br />
+&nbsp;&nbsp;if&nbsp;gt_order_print&nbsp;is&nbsp;initial.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;/&nbsp;'###&nbsp;##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;return.<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;if&nbsp;p_return&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;&nbsp;/&nbsp;'-----------------------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;&nbsp;/<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;2&nbsp;'####'&nbsp;no-gap,&nbsp;10<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;12&nbsp;'ID'&nbsp;no-gap&nbsp;,&nbsp;20<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;22&nbsp;'####'&nbsp;no-gap,&nbsp;30<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;32&nbsp;'###'&nbsp;no-gap,&nbsp;46<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;48&nbsp;'####'&nbsp;no-gap,&nbsp;56<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;58&nbsp;'##'&nbsp;no-gap,&nbsp;62<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;64&nbsp;'##'&nbsp;no-gap,&nbsp;68<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;70&nbsp;'####'&nbsp;no-gap,&nbsp;85<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;87&nbsp;'####'&nbsp;no-gap,&nbsp;102<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;104&nbsp;'####'&nbsp;no-gap,&nbsp;119<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;121&nbsp;'##'&nbsp;no-gap,&nbsp;125<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;127&nbsp;'####'&nbsp;no-gap,&nbsp;137<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;139&nbsp;'####'&nbsp;no-gap,&nbsp;149<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;151&nbsp;'####'&nbsp;no-gap,&nbsp;161&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;&nbsp;/&nbsp;'-----------------------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;else.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;&nbsp;/&nbsp;'-----------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;&nbsp;/<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;2&nbsp;'####'&nbsp;no-gap,&nbsp;10<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;12&nbsp;'ID'&nbsp;no-gap&nbsp;,&nbsp;20<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;22&nbsp;'####'&nbsp;no-gap,&nbsp;30<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;32&nbsp;'###'&nbsp;no-gap,&nbsp;46<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;48&nbsp;'####'&nbsp;no-gap,&nbsp;56<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;58&nbsp;'##'&nbsp;no-gap,&nbsp;62<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;64&nbsp;'##'&nbsp;no-gap,&nbsp;68<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;70&nbsp;'####'&nbsp;no-gap,&nbsp;85<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;87&nbsp;'####'&nbsp;no-gap,&nbsp;102<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;104&nbsp;'####'&nbsp;no-gap,&nbsp;119<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;121&nbsp;'##'&nbsp;no-gap,&nbsp;125<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;127&nbsp;'####'&nbsp;no-gap,&nbsp;137&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;&nbsp;/&nbsp;'-----------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;loop&nbsp;at&nbsp;gt_order_print&nbsp;into&nbsp;gs_order_print.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;:&nbsp;lv_jdate(10).&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;:&nbsp;lv_rdate(10).&nbsp;&nbsp;"&nbsp;####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;lv_nsamt&nbsp;type&nbsp;p&nbsp;decimals&nbsp;0.&nbsp;"&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;lv_slamt&nbsp;type&nbsp;p&nbsp;decimals&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;lv_dcamt&nbsp;type&nbsp;p&nbsp;decimals&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;perform&nbsp;fmt_date&nbsp;using&nbsp;gs_order_print-zjdate&nbsp;changing&nbsp;lv_jdate.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;perform&nbsp;fmt_date&nbsp;using&nbsp;gs_order_print-zrdate&nbsp;changing&nbsp;lv_rdate.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_nsamt&nbsp;=&nbsp;gs_order_print-znsamt&nbsp;*&nbsp;c_mul_krw.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_slamt&nbsp;=&nbsp;gs_order_print-zslamt&nbsp;*&nbsp;c_mul_krw.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_dcamt&nbsp;=&nbsp;gs_order_print-zdcamt&nbsp;*&nbsp;c_mul_krw.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;p_return&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;2&nbsp;&nbsp;&nbsp;gs_order_print-zordno&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;10&nbsp;"&nbsp;####&nbsp;(8)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;12&nbsp;&nbsp;gs_order_print-zidcode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;20&nbsp;"&nbsp;ID&nbsp;(8)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;22&nbsp;&nbsp;gs_order_print-zmatnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;30&nbsp;"&nbsp;####&nbsp;(8)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;32&nbsp;&nbsp;gs_order_print-zmatname&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;46&nbsp;"&nbsp;###&nbsp;(4)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;48&nbsp;&nbsp;gs_order_print-zmtart_txt&nbsp;&nbsp;no-gap,&nbsp;56&nbsp;"&nbsp;####&nbsp;(8)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;58&nbsp;&nbsp;gs_order_print-zvolum&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;62&nbsp;"&nbsp;##&nbsp;(4)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;64&nbsp;&nbsp;gs_order_print-vrkme&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;68&nbsp;"&nbsp;##&nbsp;(4)<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;70&nbsp;&nbsp;gs_order_print-znsamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;85&nbsp;"&nbsp;####&nbsp;(15)<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;87&nbsp;&nbsp;gs_order_print-zslamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;102&nbsp;"&nbsp;####&nbsp;(15)<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;104&nbsp;&nbsp;gs_order_print-zdcamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;119&nbsp;"&nbsp;####&nbsp;(15)<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;70&nbsp;&nbsp;lv_nsamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;85&nbsp;"&nbsp;####&nbsp;(15)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;87&nbsp;&nbsp;lv_slamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;102&nbsp;"&nbsp;####&nbsp;(15)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;104&nbsp;&nbsp;lv_dcamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;119&nbsp;"&nbsp;####&nbsp;(15)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;121&nbsp;gs_order_print-zsale_fg_txt&nbsp;no-gap,&nbsp;125&nbsp;"&nbsp;##&nbsp;(4)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;127&nbsp;lv_jdate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;137&nbsp;"&nbsp;####&nbsp;(10)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;139&nbsp;gs_order_print-zret_fg_txt&nbsp;no-gap,&nbsp;149&nbsp;"&nbsp;####&nbsp;(10)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;151&nbsp;lv_rdate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;161&nbsp;'|'.&nbsp;"&nbsp;####&nbsp;(10)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;&nbsp;/&nbsp;'-----------------------------------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;else.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;2&nbsp;&nbsp;&nbsp;gs_order_print-zordno&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;10&nbsp;"&nbsp;####&nbsp;(8)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;12&nbsp;&nbsp;gs_order_print-zidcode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;20&nbsp;"&nbsp;ID&nbsp;(8)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;22&nbsp;&nbsp;gs_order_print-zmatnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;30&nbsp;"&nbsp;####&nbsp;(8)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;32&nbsp;&nbsp;gs_order_print-zmatname&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;46&nbsp;"&nbsp;###&nbsp;(4)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;48&nbsp;&nbsp;gs_order_print-zmtart_txt&nbsp;&nbsp;no-gap,&nbsp;56&nbsp;"&nbsp;####&nbsp;(8)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;58&nbsp;&nbsp;gs_order_print-zvolum&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;62&nbsp;"&nbsp;##&nbsp;(4)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;64&nbsp;&nbsp;gs_order_print-vrkme&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;68&nbsp;"&nbsp;##&nbsp;(4)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;70&nbsp;&nbsp;lv_nsamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;85&nbsp;"&nbsp;####&nbsp;(15)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;87&nbsp;&nbsp;lv_slamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;102&nbsp;"&nbsp;####&nbsp;(15)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;104&nbsp;&nbsp;lv_dcamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;119&nbsp;"&nbsp;####&nbsp;(15)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;121&nbsp;gs_order_print-zsale_fg_txt&nbsp;no-gap,&nbsp;125&nbsp;"&nbsp;##&nbsp;(4)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;127&nbsp;lv_jdate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;137&nbsp;'|'.&nbsp;"&nbsp;####&nbsp;(10)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;&nbsp;/&nbsp;'-----------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;endloop.<br />
+endform.<br />
+<br />
+   </div>
+   <div class="codeComment">
+**&---------------------------------------------------------------------*<br />
+**&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;write_shipping_data<br />
+**&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+" #### ### ###### ## ##<br />
+" ZORDNO(####), ZIDCODE(ID), ZMATNR(####), ZMATNAME(###), ZMTART(####),<br />
+" ZVOLUM(##), VRKME(##), ZSLAMT(####), ZDFLAG(####), ZDGUBUN(##), ZDDATE(####), ( ZRDATE(####) )<br />
+form write_shipping_data .<br />
+&nbsp;&nbsp;if&nbsp;gt_shipping_print&nbsp;is&nbsp;initial.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;/&nbsp;'###&nbsp;##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;return.<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;if&nbsp;p_return&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;&nbsp;/&nbsp;'-------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;&nbsp;/<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;2&nbsp;'####'&nbsp;no-gap,&nbsp;10<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;12&nbsp;'ID'&nbsp;no-gap&nbsp;,&nbsp;20<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;22&nbsp;'####'&nbsp;no-gap,&nbsp;30<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;32&nbsp;'###'&nbsp;no-gap,&nbsp;46<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;48&nbsp;'####'&nbsp;no-gap,&nbsp;56<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;58&nbsp;'##'&nbsp;no-gap,&nbsp;62<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;64&nbsp;'##'&nbsp;no-gap,&nbsp;68<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;70&nbsp;'####'&nbsp;no-gap,&nbsp;85<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;87&nbsp;'####'&nbsp;no-gap,&nbsp;97<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;99&nbsp;'##'&nbsp;no-gap,&nbsp;109<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;111&nbsp;'####'&nbsp;no-gap,&nbsp;121<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;123&nbsp;'####'&nbsp;no-gap,&nbsp;133&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;&nbsp;/&nbsp;'-------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;else.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;&nbsp;/&nbsp;'-------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;&nbsp;/<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;2&nbsp;'####'&nbsp;no-gap,&nbsp;10<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;12&nbsp;'ID'&nbsp;no-gap&nbsp;,&nbsp;20<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;22&nbsp;'####'&nbsp;no-gap,&nbsp;30<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;32&nbsp;'###'&nbsp;no-gap,&nbsp;46<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;48&nbsp;'####'&nbsp;no-gap,&nbsp;56<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;58&nbsp;'##'&nbsp;no-gap,&nbsp;62<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;64&nbsp;'##'&nbsp;no-gap,&nbsp;68<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;70&nbsp;'####'&nbsp;no-gap,&nbsp;85<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;87&nbsp;'####'&nbsp;no-gap,&nbsp;97<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;99&nbsp;'##'&nbsp;no-gap,&nbsp;109<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;111&nbsp;'####'&nbsp;no-gap,&nbsp;121&nbsp;'|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;&nbsp;/&nbsp;'-------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;loop&nbsp;at&nbsp;gt_shipping_print&nbsp;into&nbsp;gs_shipping_print.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;:&nbsp;lv_ddate(10).&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;:&nbsp;lv_rdate(10).&nbsp;&nbsp;"&nbsp;####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;lv_slamt&nbsp;type&nbsp;p&nbsp;decimals&nbsp;0."&nbsp;###&nbsp;###<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;perform&nbsp;fmt_date&nbsp;using&nbsp;gs_shipping_print-zddate&nbsp;changing&nbsp;lv_ddate.&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;perform&nbsp;fmt_date&nbsp;using&nbsp;gs_shipping_print-zrdate&nbsp;changing&nbsp;lv_rdate.&nbsp;&nbsp;"####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_slamt&nbsp;=&nbsp;gs_shipping_print-zslamt&nbsp;*&nbsp;c_mul_krw.&nbsp;&nbsp;"&nbsp;####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;p_return&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;2&nbsp;&nbsp;&nbsp;gs_shipping_print-zordno&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;10&nbsp;"&nbsp;####&nbsp;(8)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;12&nbsp;&nbsp;gs_shipping_print-zidcode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;20&nbsp;"&nbsp;ID&nbsp;(8)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;22&nbsp;&nbsp;gs_shipping_print-zmatnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;30&nbsp;"&nbsp;####&nbsp;(8)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;32&nbsp;&nbsp;gs_shipping_print-zmatname&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;46&nbsp;"&nbsp;###&nbsp;(4)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;48&nbsp;&nbsp;gs_shipping_print-zmtart_txt&nbsp;&nbsp;no-gap,&nbsp;56&nbsp;"&nbsp;####&nbsp;(8)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;58&nbsp;&nbsp;gs_shipping_print-zvolum&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;62&nbsp;"&nbsp;##&nbsp;(4)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;64&nbsp;&nbsp;gs_shipping_print-vrkme&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;68&nbsp;"&nbsp;##&nbsp;(4)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;70&nbsp;&nbsp;lv_slamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;85&nbsp;"&nbsp;####&nbsp;(15)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;87&nbsp;&nbsp;gs_shipping_print-zdflag_txt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;97&nbsp;"&nbsp;####&nbsp;&nbsp;(10)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;99&nbsp;&nbsp;gs_shipping_print-zdgubun_txt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;109&nbsp;"&nbsp;##&nbsp;(10)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;111&nbsp;gs_shipping_print-zddate&nbsp;&nbsp;no-gap,&nbsp;121&nbsp;"&nbsp;####&nbsp;(10)<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;123&nbsp;gs_shipping_print-ZRDATE&nbsp;&nbsp;no-gap,&nbsp;133&nbsp;'|'.&nbsp;"&nbsp;####&nbsp;(10)<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;123&nbsp;lv_rdate&nbsp;&nbsp;no-gap,&nbsp;133&nbsp;'|'.&nbsp;"&nbsp;####&nbsp;(10)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;&nbsp;/&nbsp;'-------------------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;else.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;/<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;2&nbsp;&nbsp;&nbsp;gs_shipping_print-zordno&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;10&nbsp;"&nbsp;####&nbsp;(8)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;12&nbsp;&nbsp;gs_shipping_print-zidcode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;20&nbsp;"&nbsp;ID&nbsp;(8)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;22&nbsp;&nbsp;gs_shipping_print-zmatnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;30&nbsp;"&nbsp;####&nbsp;(8)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;32&nbsp;&nbsp;gs_shipping_print-zmatname&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;46&nbsp;"&nbsp;###&nbsp;(4)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;48&nbsp;&nbsp;gs_shipping_print-zmtart_txt&nbsp;&nbsp;no-gap,&nbsp;56&nbsp;"&nbsp;####&nbsp;(8)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;58&nbsp;&nbsp;gs_shipping_print-zvolum&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;62&nbsp;"&nbsp;##&nbsp;(4)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;64&nbsp;&nbsp;gs_shipping_print-vrkme&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;68&nbsp;"&nbsp;##&nbsp;(4)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;70&nbsp;&nbsp;lv_slamt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;85&nbsp;"&nbsp;####&nbsp;(15)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;87&nbsp;&nbsp;gs_shipping_print-zdflag_txt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;97&nbsp;"&nbsp;####&nbsp;&nbsp;(10)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;99&nbsp;&nbsp;gs_shipping_print-zdgubun_txt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no-gap,&nbsp;109&nbsp;"&nbsp;##&nbsp;(10)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'|'&nbsp;no-gap,&nbsp;111&nbsp;gs_shipping_print-zddate&nbsp;&nbsp;no-gap,&nbsp;121&nbsp;'|'.&nbsp;"&nbsp;####&nbsp;(10)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write&nbsp;:&nbsp;&nbsp;/&nbsp;'-------------------------------------------------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;endloop.<br />
+endform.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

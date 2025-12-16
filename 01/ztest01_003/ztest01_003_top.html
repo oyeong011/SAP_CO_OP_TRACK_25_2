@@ -1,0 +1,889 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZTEST01_003_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZTEST01_003_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZTEST01_003_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;Tables<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES : EBAN, MARC , MAKT, MARA, EKKO, EKPO, EINE, EINA.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;CLASS<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS : LCL_EVENT_RECEIVER DEFINITION DEFERRED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LCL_ALV_GRID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEFINITION&nbsp;DEFERRED.<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;TYPE-POOLS<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TYPE-POOLS ICON.<br />
+TYPE-POOLS SLIS.<br />
+TYPE-POOLS SYM.<br />
+TYPE-POOLS LINE.<br />
+TYPE-POOLS COL.<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;VARIANT<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA : GV_OKCODE   TYPE SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_SAVEOK&nbsp;&nbsp;&nbsp;TYPE&nbsp;SY-DATUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_ANS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_CHG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_ERR_FLAG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_CNT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_CODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_TEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_TEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;GT_TEXT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_TEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STRING.<br />
+<br />
+DATA : GV_LCHR(1000).<br />
+DATA : GT_HTML LIKE W3HTML OCCURS 100 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_MIME&nbsp;LIKE&nbsp;W3MIME&nbsp;OCCURS&nbsp;100&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&--------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;CONSTANTS<br />
+*&--------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CONSTANTS : C_1 TYPE N           VALUE '1',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_2&nbsp;TYPE&nbsp;N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'2',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_3&nbsp;TYPE&nbsp;N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'3',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_4&nbsp;TYPE&nbsp;N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'4',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_5&nbsp;TYPE&nbsp;N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'5',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_6&nbsp;TYPE&nbsp;N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'6',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_7&nbsp;TYPE&nbsp;N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'7',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_8&nbsp;TYPE&nbsp;N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'8',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_9&nbsp;TYPE&nbsp;N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'9',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_0&nbsp;TYPE&nbsp;N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'0',<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_A&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'A',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_B&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'B',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_C&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'C',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_D&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'D',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_E&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'E',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_F&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'F',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_G&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'G',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_H&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'H',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_I&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'I',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_J&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'J',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_K&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'K',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_L&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'L',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_M&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'M',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_N&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'N',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_O&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'O',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_P&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'P',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_Q&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'Q',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_R&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'R',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_S&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'S',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_T&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'T',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_U&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'U',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_V&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'V',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_W&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'W',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_X&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'X',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_Y&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'Y',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_Z&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'Z'.<br />
+<br />
+CONSTANTS : C_EQ(2) TYPE C       VALUE 'EQ',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_NE(2)&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'NE'.<br />
+<br />
+CONSTANTS : GC_SPACE  TYPE C           VALUE SPACE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_GSFCAT&nbsp;TYPE&nbsp;CHAR12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'GS_FIELDCAT-'.<br />
+<br />
+CONSTANTS : C_INSR(4) TYPE C           VALUE 'INSR',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_DELE(4)&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'DELE',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_SAVE(4)&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'SAVE',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_BACK(4)&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'BACK',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_EXIT(4)&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'EXIT',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_ENTR(4)&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'ENTR',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_CANC(4)&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'CANC',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_SALL(4)&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'SALL',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_DALL(4)&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'DALL',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_TEXT(4)&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'TEXT'.<br />
+<br />
+CONSTANTS : C_BTN1(4) TYPE C           VALUE 'BTN1', "####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_BTN2(4)&nbsp;TYPE&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'BTN2'.&nbsp;"#####<br />
+<br />
+CONSTANTS : C_LGORT_2300 TYPE LGORT_D    VALUE '2300',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_LGORT_1200&nbsp;TYPE&nbsp;LGORT_D&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'1200',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_LGORT_1293&nbsp;TYPE&nbsp;LGORT_D&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'1293',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_LGORT_1292&nbsp;TYPE&nbsp;LGORT_D&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'1292'.<br />
+<br />
+CONSTANTS : C_KSCHL_PB00 TYPE KSCHA      VALUE 'PB00',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_MTART_ROH2&nbsp;TYPE&nbsp;MTART&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'ROH2'.<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;Types<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TYPES : BEGIN OF TY_100.<br />
+TYPES : EKGRP      LIKE EINE-EKGRP,    "####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKORG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;A017-EKORG,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EBAN-FLIEF,&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARC-WERKS,&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BANFN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EBAN-BANFN,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BNFPO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EBAN-BNFPO,&nbsp;&nbsp;&nbsp;&nbsp;"######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ICON(4),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERMSG(100),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKORG_TX&nbsp;&nbsp;&nbsp;LIKE&nbsp;T024E-EKOTX,&nbsp;&nbsp;&nbsp;"######<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKGRP_TX&nbsp;&nbsp;&nbsp;LIKE&nbsp;T024-EKNAM,&nbsp;&nbsp;&nbsp;&nbsp;"######<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS_TX&nbsp;&nbsp;&nbsp;LIKE&nbsp;T001W-NAME1,&nbsp;&nbsp;&nbsp;"#####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR_TX&nbsp;&nbsp;&nbsp;LIKE&nbsp;LFA1-NAME1,&nbsp;&nbsp;&nbsp;&nbsp;"#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MTART&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARA-MTART,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MTART_TX&nbsp;&nbsp;&nbsp;LIKE&nbsp;T134T-MTBEZ,&nbsp;&nbsp;&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATKL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARA-MATKL,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATKL_TX&nbsp;&nbsp;&nbsp;LIKE&nbsp;T023T-WGBEZ,&nbsp;&nbsp;&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARA-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAKTG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;MAKT-MAKTG,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKPO-EBELN,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKPO-EBELP,&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MINBM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EINE-MINBM,&nbsp;&nbsp;&nbsp;&nbsp;"######&nbsp;MOQ<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MENGE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EBAN-MENGE,&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EBAN-MEINS,&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INQTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EBAN-MENGE,&nbsp;&nbsp;&nbsp;&nbsp;"#####&nbsp;Input<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BADAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EBAN-BADAT,&nbsp;&nbsp;&nbsp;&nbsp;"#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LFDAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EBAN-LFDAT,&nbsp;&nbsp;&nbsp;&nbsp;"#####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KBETR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;KONP-KBETR,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KONWA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;KONP-KONWA,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZZMBMSTAT&nbsp;&nbsp;LIKE&nbsp;MARC-ZZMBMSTAT,&nbsp;"BM####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZZMBMTEXT&nbsp;&nbsp;LIKE&nbsp;MARC-ZZMBMTEXT,&nbsp;"BM####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZZMDNSTAT&nbsp;&nbsp;LIKE&nbsp;MARC-ZZMDNSTAT,&nbsp;"DN####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZZMDNTEXT&nbsp;&nbsp;LIKE&nbsp;MARC-ZZMDNTEXT,&nbsp;"DN####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARC-ZZMATNR3,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MINBM2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EINE-MINBM,&nbsp;&nbsp;&nbsp;&nbsp;"######&nbsp;MOQ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAKTG2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;MAKT-MAKTG,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EBAN-WAERS,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZZVSTAT&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;LFM1-ZZVSTAT,&nbsp;&nbsp;"#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZZVSTAT_TX&nbsp;LIKE&nbsp;DD07V-DDTEXT,&nbsp;&nbsp;"###&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MSG(100),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;###<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LAND1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;LFA1-LAND1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WEBAZ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARC-WEBAZ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PLIFZ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARC-PLIFZ,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"EINE-APLFZ&nbsp;&nbsp;#&nbsp;##,&nbsp;&nbsp;######.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EINA-MEINS,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"moq##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KNTTP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;KNTTP,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAKTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SAKTO,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"GL##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KOSTL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;KOSTL,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPERR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;LFB1-SPERR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOEVM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;LFB1-LOEVM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LABST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARD-LABST,&nbsp;&nbsp;&nbsp;&nbsp;"1100/1200&nbsp;##.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS_LABST&nbsp;&nbsp;LIKE&nbsp;MARA-MEINS,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"20190930&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LABST_2300&nbsp;LIKE&nbsp;MARD-LABST,&nbsp;"2300##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LABST_RES&nbsp;&nbsp;LIKE&nbsp;MARD-LABST,&nbsp;"##(PO)#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LABST_SUM&nbsp;&nbsp;LIKE&nbsp;MARD-LABST,&nbsp;"1200&nbsp;+&nbsp;2300&nbsp;+&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BSAKZ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKKO-BSAKZ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BISMT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARA-BISMT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FERTH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARA-FERTH,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPRME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EINE-BPRME,&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STYL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_STYL,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;attribute&nbsp;##.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCOL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_SCOL.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;color<br />
+TYPES  END OF TY_100.<br />
+<br />
+<br />
+TYPES : BEGIN OF TY_ALV,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O_DOCK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_DOCKING_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O_GRID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;LCL_ALV_GRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O_CONT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O_CUST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O_MR_TOOLBAR&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_TOOLBAR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_FIELDCAT&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_FIELDCAT&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_LAYO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_SORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_SORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_DROP_DOWN&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_DROP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_DROP_DOWN&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_DROP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_CELLTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_STYL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_CELLTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_STYL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_EXCLUDE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;UI_FUNCTIONS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_TOOLBAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STB_BUTTON,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_F4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_F4,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_F4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_F4,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_VARIANT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;DISVARIANT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_VARIANT_OUT&nbsp;TYPE&nbsp;DISVARIANT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_ALV.<br />
+<br />
+<br />
+DATA : GO_100  TYPE TY_ALV.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;Structure<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA : GT_DISP_100 TYPE TABLE OF TY_100 WITH HEADER LINE.<br />
+<br />
+<br />
+DATA : GT_EINA LIKE TABLE OF EINA WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_EINE&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;EINE&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+DATA : GT_ZMMT0020 LIKE TABLE OF ZMMT0020 WITH HEADER LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*###&nbsp;Itab<br />
+   </div>
+   <div class="code">
+DATA : GT_T024E LIKE TABLE OF T024E WITH HEADER LINE, "####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_T001W&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;T001W&nbsp;WITH&nbsp;HEADER&nbsp;LINE,&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_T024&nbsp;&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;T024&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_LFA1&nbsp;&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;LFA1&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_T134T&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;T134T&nbsp;WITH&nbsp;HEADER&nbsp;LINE,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_T023T&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;T023T&nbsp;WITH&nbsp;HEADER&nbsp;LINE,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_MAKT&nbsp;&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;MAKT&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE.&nbsp;"####<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;DATA&nbsp;:&nbsp;BEGIN&nbsp;OF&nbsp;GT_LIFNR&nbsp;OCCURS&nbsp;0,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;LIKE&nbsp;LFA1-LIFNR,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GT_LIFNR.<br />
+<br />
+   </div>
+   <div class="code">
+DATA : BEGIN OF GT_LABST_RES OCCURS 0,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MENGE&nbsp;TYPE&nbsp;LABST,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GT_LABST_RES.<br />
+<br />
+DATA : BEGIN OF GT_MOQ OCCURS 0,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;LIKE&nbsp;EINA-MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;LIKE&nbsp;EINA-LIFNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKORG&nbsp;LIKE&nbsp;EINE-EKORG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;LIKE&nbsp;EINE-WERKS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MINBM&nbsp;LIKE&nbsp;EINE-MINBM,&nbsp;"##&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPRME&nbsp;LIKE&nbsp;EINE-BPRME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;LIKE&nbsp;EINA-MEINS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INFNR&nbsp;LIKE&nbsp;EINE-INFNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GT_MOQ.<br />
+<br />
+DATA : BEGIN OF GT_KONP OCCURS 0,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;LIKE&nbsp;EINA-MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;LIKE&nbsp;EINA-LIFNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKORG&nbsp;LIKE&nbsp;EINE-EKORG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;LIKE&nbsp;EINE-WERKS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KBETR&nbsp;LIKE&nbsp;KONP-KBETR,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KONWA&nbsp;LIKE&nbsp;KONP-KONWA,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GT_KONP.<br />
+<br />
+DATA : BEGIN OF GT_LFM1 OCCURS 0,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKORG&nbsp;LIKE&nbsp;LFM1-EKORG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;LIKE&nbsp;LFM1-LIFNR,<br />
+   </div>
+   <div class="codeComment">
+*-S&nbsp;####&nbsp;##&nbsp;##&nbsp;##&nbsp;20191007&nbsp;by&nbsp;PWC096<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;LIKE&nbsp;LFM1-WAERS,<br />
+   </div>
+   <div class="codeComment">
+*-E<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GT_LFM1.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;BAPI<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA : GS_POHEADER  TYPE BAPIMEPOHEADER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POHEADERX&nbsp;TYPE&nbsp;BAPIMEPOHEADERX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_EBELN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;EBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_EBELP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;EBELP.<br />
+<br />
+DATA : GS_RETURN_PO     TYPE BAPIRET2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIMEPOITEM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEMX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIMEPOITEMX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POACCOUNT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIMEPOACCOUNT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POACCOUNTX&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIMEPOACCOUNTX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POSCHEDULE&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIMEPOSCHEDULE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POSCHEDULEX&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIMEPOSCHEDULX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POCOND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIMEPOCOND,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POCONDX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIMEPOCONDX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POCOMPONENTS&nbsp;&nbsp;TYPE&nbsp;BAPIMEPOCOMPONENT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POCOMPONENTSX&nbsp;TYPE&nbsp;BAPIMEPOCOMPONENTX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POSERVICES&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIESLLC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POSRVACCES&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;BAPIESKLC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_EXTENSIONIN&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIPAREX.<br />
+<br />
+DATA : GT_RETURN_PO     TYPE TABLE OF BAPIRET2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_POITEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOITEM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_POITEMX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOITEMX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_POACCOUNT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOACCOUNT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_POACCOUNTX&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOACCOUNTX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_POSCHEDULE&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOSCHEDULE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_POSCHEDULEX&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOSCHEDULX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_POCOND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOCOND,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_POCONDX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOCONDX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_POCOMPONENTS&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOCOMPONENT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_POCOMPONENTSX&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOCOMPONENTX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_POSERVICES&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BAPIESLLC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_POSRVACCES&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;BAPIESKLC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_EXTENSIONIN&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BAPIPAREX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_POHTEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOTEXTHEADER&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+DATA : GS_RETURN_PR     TYPE BAPIRET2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PRITEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIMEREQITEMIMP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PRITEMX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIMEREQITEMX.<br />
+<br />
+DATA : GT_RETURN_PR     TYPE TABLE OF BAPIRET2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_PRITEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEREQITEMIMP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_PRITEMX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEREQITEMX.<br />
+<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;BEGIN&nbsp;OF&nbsp;GT_EKPO&nbsp;OCCURS&nbsp;0,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;LIKE&nbsp;EKPO-EBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELP&nbsp;LIKE&nbsp;EKPO-EBELP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BANFN&nbsp;LIKE&nbsp;EKPO-BANFN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BNFPO&nbsp;LIKE&nbsp;EKPO-BNFPO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GT_EKPO.<br />
+<br />
+<br />
+DATA : G_LINE_NO  TYPE BAPIESLLC-LINE_NO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_EXT_LINE&nbsp;TYPE&nbsp;BAPIESLLC-EXT_LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_PCKGNO&nbsp;&nbsp;&nbsp;TYPE&nbsp;EBAN-PACKNO.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;Ranges<br />
+*----------------------------------------------------------------------*<br />
+<br />
+<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;For&nbsp;Table&nbsp;control<br />
+*----------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+CONTROLS: TC_110 TYPE TABLEVIEW USING SCREEN 0110.<br />
+<br />
+DATA : GV_TC_110_LINES LIKE SY-LOOPC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_CARRID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SCARR-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_CARRNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SCARR-CARRNAME.<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;Define&nbsp;:&nbsp;Objects<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA : GO_DOCKING          TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA : GO_DOCKING2         TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA : GO_CONT_100         TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GO_CONT_101         TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GO_CONT_110         TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GO_CONT_120         TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GO_CONT_130         TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GO_GRID_100         TYPE REF TO CL_GUI_ALV_GRID.<br />
+DATA : GO_GRID_110         TYPE REF TO CL_GUI_ALV_GRID.<br />
+DATA : GO_GRID_120         TYPE REF TO CL_GUI_ALV_GRID.<br />
+DATA : GO_SPLIT            TYPE REF TO CL_GUI_SPLITTER_CONTAINER.<br />
+DATA : GO_SPLIT2           TYPE REF TO CL_GUI_SPLITTER_CONTAINER.<br />
+DATA : GO_EDIT_200         TYPE REF TO CL_GUI_TEXTEDIT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*****<br />
+   </div>
+   <div class="code">
+DATA: G_TREE             TYPE REF TO CL_GUI_ALV_TREE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_HIERARCHY_HEADER&nbsp;TYPE&nbsp;TREEV_HHDR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_TOOLBAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_TOOLBAR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_LIST_COMMENTARY&nbsp;TYPE&nbsp;SLIS_T_LISTHEADER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_LOGO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SDYDO_VALUE.<br />
+<br />
+DATA : GT_FIELDCAT TYPE LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT&nbsp;TYPE&nbsp;LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_VARIANT&nbsp;&nbsp;TYPE&nbsp;DISVARIANT.<br />
+DATA : GT_STYL     TYPE LVC_T_STYL.<br />
+   </div>
+   <div class="codeComment">
+*DATA&nbsp;:&nbsp;gt_sort100&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_t_sort,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_sort300&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_t_sort,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_sort400&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_t_sort.<br />
+*DATA&nbsp;:&nbsp;gs_sort&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_s_sort.<br />
+   </div>
+   <div class="code">
+DATA : GS_LAYO    TYPE LVC_S_LAYO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_EXCLUDE&nbsp;TYPE&nbsp;UI_FUNCTIONS.&nbsp;"Tool&nbsp;Bar&nbsp;Button##<br />
+<br />
+DATA : GS_SCROLL           TYPE LVC_S_STBL.<br />
+   </div>
+   <div class="codeComment">
+*HTML&nbsp;Document&nbsp;Viewer<br />
+   </div>
+   <div class="code">
+DATA : GO_DOCUMENT         TYPE REF TO CL_DD_DOCUMENT.<br />
+DATA : GO_HTML             TYPE REF TO CL_GUI_HTML_VIEWER.<br />
+CONSTANTS : GC_ALV_GRID    TYPE SDYDO_ATTRIBUTE VALUE 'ALV_GRID',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_LINE_LENGTH&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;72.<br />
+DATA : GO_EVENT_RECEIVER  TYPE REF TO LCL_EVENT_RECEIVER.<br />
+DATA : GT_ROW              TYPE LVC_T_ROW.<br />
+DATA : GS_ROW              TYPE LVC_S_ROW.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------<br />
+   </div>
+   <div class="code">
+DATA : GT_COL TYPE LVC_T_SCOL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COL&nbsp;TYPE&nbsp;LVC_S_SCOL.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------<br />
+<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;ADD&nbsp;TEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DEFINE _ADD_TEXT_HEAD.<br />
+<br />
+&nbsp;&nbsp;call&nbsp;method&nbsp;&1-&gt;add_text<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sap_style&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;cl_dd_document=&gt;heading<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sap_fontsize&nbsp;=&nbsp;cl_dd_area=&gt;large<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sap_color&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;cl_dd_area=&gt;list_heading_int.<br />
+<br />
+&nbsp;&nbsp;call&nbsp;method&nbsp;&1-&gt;new_line.<br />
+   </div>
+   <div class="codeComment">
+*list_background_inv<br />
+   </div>
+   <div class="code">
+END-OF-DEFINITION.<br />
+DEFINE _ADD_TEXT.<br />
+<br />
+&nbsp;&nbsp;call&nbsp;method&nbsp;&1-&gt;add_text<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sap_style&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;cl_dd_document=&gt;list_background_inv<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sap_fontsize&nbsp;=&nbsp;cl_dd_area=&gt;large<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sap_color&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;cl_dd_area=&gt;list_heading_int.<br />
+<br />
+&nbsp;&nbsp;call&nbsp;method&nbsp;&1-&gt;new_line.<br />
+   </div>
+   <div class="codeComment">
+*list_background_inv<br />
+   </div>
+   <div class="code">
+END-OF-DEFINITION.<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;MACRO&nbsp;DEFINE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DEFINE __CLEAR_TAB.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;&1.<br />
+&nbsp;&nbsp;refresh&nbsp;&1.<br />
+<br />
+END-OF-DEFINITION.<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------<br />
+*&nbsp;MACRO&nbsp;REFRESH&nbsp;ALV<br />
+*----------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+DEFINE _REFRESHTAB.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;gs_scroll.<br />
+&nbsp;&nbsp;gs_scroll-row&nbsp;=&nbsp;&3.&nbsp;&nbsp;gs_scroll-col&nbsp;=&nbsp;&4.<br />
+&nbsp;&nbsp;call&nbsp;method&nbsp;&1-&gt;refresh_table_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_soft_refresh&nbsp;=&nbsp;&2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_stable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_scroll.<br />
+<br />
+END-OF-DEFINITION.<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------<br />
+*&nbsp;MACRO&nbsp;REFRESH&nbsp;ALV<br />
+*----------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+DEFINE _ALPHA_INPUT.<br />
+<br />
+&nbsp;&nbsp;call&nbsp;function&nbsp;'CONVERSION_EXIT_ALPHA_INPUT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input&nbsp;&nbsp;=&nbsp;&1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;importing<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output&nbsp;=&nbsp;&2.<br />
+<br />
+END-OF-DEFINITION.<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------<br />
+*&nbsp;confirm&nbsp;popup<br />
+*----------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+DEFINE _CONFIRM2.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;&4.<br />
+&nbsp;&nbsp;call&nbsp;function&nbsp;'POPUP_TO_CONFIRM_STEP'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;textline1&nbsp;=&nbsp;&1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;textline2&nbsp;=&nbsp;&2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;titel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;importing<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;answer&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&4.<br />
+<br />
+<br />
+END-OF-DEFINITION.<br />
+<br />
+DEFINE _CONFIRM.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'RSOS_POPUP_TO_CONFIRM'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;titlebar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_question&nbsp;=&nbsp;&1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_button_1&nbsp;=&nbsp;TEXT-t07<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_button_2&nbsp;=&nbsp;TEXT-t08<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;answer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&2.<br />
+END-OF-DEFINITION.<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------<br />
+*&nbsp;MACRO&nbsp;REFRESH&nbsp;ALV<br />
+*----------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+DEFINE _REFRESHTAB.<br />
+<br />
+&nbsp;&nbsp;clear&nbsp;gs_scroll.<br />
+&nbsp;&nbsp;gs_scroll-row&nbsp;=&nbsp;&3.&nbsp;&nbsp;gs_scroll-col&nbsp;=&nbsp;&4.<br />
+&nbsp;&nbsp;call&nbsp;method&nbsp;&1-&gt;refresh_table_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_soft_refresh&nbsp;=&nbsp;&2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_stable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_scroll.<br />
+<br />
+END-OF-DEFINITION.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------<br />
+*&nbsp;MACRO&nbsp;Modify&nbsp;cell<br />
+*----------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+DEFINE _MODI_CELL.<br />
+<br />
+&nbsp;&nbsp;call&nbsp;method&nbsp;&1-&gt;modify_cell<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_row_id&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_fieldname&nbsp;=&nbsp;&3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_value&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&4.<br />
+<br />
+END-OF-DEFINITION.<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------<br />
+*&nbsp;MACRO&nbsp;GET&nbsp;cell<br />
+*----------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+DEFINE _GET_CELL.<br />
+<br />
+&nbsp;&nbsp;call&nbsp;method&nbsp;&1-&gt;GET_CELL_VALUE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_row_id&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_fieldname&nbsp;=&nbsp;&3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_value&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&4.<br />
+<br />
+END-OF-DEFINITION.<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------<br />
+*&nbsp;MACRO&nbsp;Modify&nbsp;STYLE<br />
+*----------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+DEFINE _MODI_STYLE.<br />
+&nbsp;&nbsp;CASE&nbsp;&4.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;GC_1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;call&nbsp;method&nbsp;&1-&gt;modify_STYLE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_row_id&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_fieldname&nbsp;=&nbsp;&3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_STYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;CL_GUI_ALV_GRID=&gt;MC_STYLE_ENABLED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;GC_2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;call&nbsp;method&nbsp;&1-&gt;modify_STYLE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_row_id&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_fieldname&nbsp;=&nbsp;&3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_STYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;CL_GUI_ALV_GRID=&gt;MC_STYLE_DISABLED.<br />
+&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+END-OF-DEFINITION.<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------<br />
+*&nbsp;MACRO&nbsp;READ&nbsp;cell<br />
+*----------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+DEFINE _READ_CELL.<br />
+&nbsp;&nbsp;CASE&nbsp;&3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;GC_1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;&1-&gt;MT_GOOD_CELLS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;ROW_ID&nbsp;=&nbsp;&5<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FIELDNAME&nbsp;=&nbsp;&2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STYLE&nbsp;=&nbsp;CL_GUI_ALV_GRID=&gt;MC_STYLE_ENABLED<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRANSPORTING&nbsp;NO&nbsp;FIELDS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;GC_2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;&1-&gt;MT_GOOD_CELLS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;ROW_ID&nbsp;=&nbsp;&5<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FIELDNAME&nbsp;=&nbsp;&2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STYLE&nbsp;=&nbsp;CL_GUI_ALV_GRID=&gt;MC_STYLE_DISABLED<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRANSPORTING&nbsp;NO&nbsp;FIELDS.<br />
+&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&4 = SY-SUBRC.<br />
+END-OF-DEFINITION.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------<br />
+*&nbsp;MACRO&nbsp;Message&nbsp;popup<br />
+*----------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+DEFINE _MESSAGE_POPUP.<br />
+&nbsp;&nbsp;clear&nbsp;&6.<br />
+<br />
+&nbsp;&nbsp;call&nbsp;function&nbsp;'POPUP_TO_CONFIRM_STEP'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;defaultoption&nbsp;&nbsp;=&nbsp;&1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;titel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;textline1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;textline2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cancel_display&nbsp;=&nbsp;&5<br />
+&nbsp;&nbsp;&nbsp;&nbsp;importing<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;answer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;J#&nbsp;N###&nbsp;A##<br />
+<br />
+END-OF-DEFINITION.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------<br />
+*&nbsp;MACRO&nbsp;Clear&nbsp;Itab<br />
+*----------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+DEFINE _CLEAR.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;&1.<br />
+&nbsp;&nbsp;REFRESH&nbsp;:&nbsp;&1.<br />
+<br />
+END-OF-DEFINITION.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------<br />
+*&nbsp;MACRO&nbsp;Append&nbsp;Itab<br />
+*----------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+DEFINE _APPEND.<br />
+<br />
+&nbsp;&nbsp;append&nbsp;:&nbsp;&1.<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;&1.<br />
+<br />
+END-OF-DEFINITION.<br />
+<br />
+DEFINE _COLLECT.<br />
+<br />
+&nbsp;&nbsp;collect&nbsp;:&nbsp;&1.<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;&1.<br />
+<br />
+END-OF-DEFINITION.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------<br />
+*&nbsp;MACRO&nbsp;RANGES<br />
+*----------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+DEFINE _RANGES.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;&1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&1-SIGN&nbsp;&nbsp;&nbsp;=&nbsp;&2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&1-OPTION&nbsp;=&nbsp;&3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&1-LOW&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&4.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&1-HIGH&nbsp;&nbsp;&nbsp;=&nbsp;&5.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COLLECT&nbsp;:&nbsp;&1.<br />
+<br />
+END-OF-DEFINITION.<br />
+DEFINE _GET_APPEND.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;&2&nbsp;is&nbsp;not&nbsp;initial.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;append&nbsp;:&nbsp;&1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;:&nbsp;&1.<br />
+&nbsp;&nbsp;endif.<br />
+<br />
+END-OF-DEFINITION.<br />
+DEFINE _CONV.<br />
+&nbsp;&nbsp;case&nbsp;&1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;call&nbsp;function&nbsp;'CONVERSION_EXIT_ALPHA_INPUT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input&nbsp;&nbsp;=&nbsp;&2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;importing<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output&nbsp;=&nbsp;&3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'O'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;call&nbsp;function&nbsp;'CONVERSION_EXIT_ALPHA_OUTPUT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input&nbsp;&nbsp;=&nbsp;&2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;importing<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output&nbsp;=&nbsp;&3.<br />
+&nbsp;&nbsp;endcase.<br />
+END-OF-DEFINITION.<br />
+<br />
+DATA : MOUNT_EX LIKE  BAPICURR-BAPICURR.<br />
+<br />
+DEFINE _CONV_WAERS.<br />
+&nbsp;&nbsp;clear&nbsp;:&nbsp;mount_ex.<br />
+&nbsp;&nbsp;case&nbsp;&1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mount_ex&nbsp;=&nbsp;&3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;call&nbsp;function&nbsp;'BAPI_CURRENCY_CONV_TO_INTERNAL'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;currency&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount_external&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;mount_ex<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;max_number_of_digits&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;13<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;importing<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount_internal&nbsp;&nbsp;&nbsp;=&nbsp;&4.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;'O'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;call&nbsp;function&nbsp;'BAPI_CURRENCY_CONV_TO_EXTERNAL'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exporting<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;currency&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount_internal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;importing<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount_external&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mount_ex.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&4&nbsp;=&nbsp;mount_ex.<br />
+<br />
+&nbsp;&nbsp;endcase.<br />
+END-OF-DEFINITION.<br />
+<br />
+<br />
+DEFINE _SET_LAYOUT.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;&1-&gt;SET_FRONTEND_LAYOUT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_LAYOUT&nbsp;=&nbsp;&2.<br />
+<br />
+END-OF-DEFINITION.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

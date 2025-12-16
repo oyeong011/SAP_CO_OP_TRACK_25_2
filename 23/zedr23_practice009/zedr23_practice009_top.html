@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR23_PRACTICE009_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR23_PRACTICE009_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEDR23_PRACTICE009_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES : ZEDT23_102,<br />
+&nbsp;&nbsp;ZEDT23_103,<br />
+&nbsp;&nbsp;ZEDT23_104,<br />
+&nbsp;&nbsp;ZEDT23_105,<br />
+&nbsp;&nbsp;ZEDT23_106.<br />
+<br />
+CONSTANTS : TRUE TYPE C LENGTH 1 VALUE 'X',<br />
+&nbsp;&nbsp;GREEN&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;4&nbsp;VALUE&nbsp;'@08@',&nbsp;"###<br />
+&nbsp;&nbsp;RED&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;4&nbsp;VALUE&nbsp;'@0A@',&nbsp;"###<br />
+&nbsp;&nbsp;YELLOW&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;4&nbsp;VALUE&nbsp;'@09@'.&nbsp;"###<br />
+<br />
+DATA : Z_LASTDAY TYPE SY-DATUM.<br />
+<br />
+DATA : MAX_ZDEP TYPE ZEDT23_102-ZDEPCODE.<br />
+SELECT MAX( ZDEPCODE ) INTO MAX_ZDEP FROM ZEDT23_102.<br />
+<br />
+RANGES : GR_ZDEPCODE FOR ZEDT23_102-ZDEPCODE.<br />
+&nbsp;&nbsp;GR_ZDEPCODE-SIGN&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;GR_ZDEPCODE-OPTION&nbsp;=&nbsp;'BT'.<br />
+&nbsp;&nbsp;GR_ZDEPCODE-LOW&nbsp;=&nbsp;'SS0001'.<br />
+&nbsp;&nbsp;GR_ZDEPCODE-HIGH&nbsp;=&nbsp;MAX_ZDEP.<br />
+&nbsp;&nbsp;APPEND&nbsp;GR_ZDEPCODE.<br />
+<br />
+"2# ### - 104<br />
+DATA : BEGIN OF GS_01,<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT23_102-ZPERNR,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPCODE&nbsp;LIKE&nbsp;ZEDT23_102-ZDEPCODE,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;ZDEPCODE_STR&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;ZQFLAG&nbsp;LIKE&nbsp;ZEDT23_102-ZQFLAG,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZYEAR&nbsp;LIKE&nbsp;ZEDT23_104-ZYEAR,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT23_104-DATBI,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT23_104-DATAB,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZRANK&nbsp;LIKE&nbsp;ZEDT23_104-ZRANK,&nbsp;&nbsp;"##<br />
+END OF GS_01.<br />
+DATA : GT_01 LIKE TABLE OF GS_01.<br />
+<br />
+" 3#### - 106<br />
+DATA : BEGIN OF GS_02,<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT23_102-ZPERNR,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPCODE&nbsp;LIKE&nbsp;ZEDT23_102-ZDEPCODE,<br />
+&nbsp;&nbsp;ZQDATE&nbsp;LIKE&nbsp;ZEDT23_102-ZQDATE,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZQFLAG&nbsp;LIKE&nbsp;ZEDT23_102-ZQFLAG,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZYEAR&nbsp;LIKE&nbsp;ZEDT23_106-ZYEAR,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT23_106-DATBI,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT23_106-DATAB,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZWAERS&nbsp;TYPE&nbsp;WAERS,<br />
+&nbsp;&nbsp;ZSALARY&nbsp;LIKE&nbsp;ZEDT23_106-ZSALARY,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZBANKCODE&nbsp;LIKE&nbsp;ZEDT23_106-ZBANKCODE,&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;ZBANKCODE_STR&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;ZACCOUNT&nbsp;LIKE&nbsp;ZEDT23_106-ZACCOUNT,&nbsp;&nbsp;"####<br />
+END OF GS_02.<br />
+DATA : GT_02 LIKE TABLE OF GS_02.<br />
+<br />
+" 1#### - 102, 103<br />
+DATA : BEGIN OF GS_03,<br />
+&nbsp;&nbsp;ZLIGHT&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;4,&nbsp;"##<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT23_102-ZPERNR,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZPNAME&nbsp;LIKE&nbsp;ZEDT23_103-ZPNAME,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;ZDEPCODE&nbsp;LIKE&nbsp;ZEDT23_102-ZDEPCODE,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;ZDEPCODE_STR&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;DATBI&nbsp;LIKE&nbsp;ZEDT23_102-DATBI,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;DATAB&nbsp;LIKE&nbsp;ZEDT23_102-DATAB,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZDEPRANK&nbsp;LIKE&nbsp;ZEDT23_102-ZDEPRANK,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;ZDEPRANK_STR&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;ZGENDER&nbsp;LIKE&nbsp;ZEDT23_103-ZGENDER,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;ZGENDER_STR&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;ZEDATE&nbsp;LIKE&nbsp;ZEDT23_102-ZEDATE,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZADDRESS&nbsp;LIKE&nbsp;ZEDT23_103-ZADDRESS,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;ZQDATE&nbsp;LIKE&nbsp;ZEDT23_102-ZQDATE,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ZQFLAG&nbsp;LIKE&nbsp;ZEDT23_102-ZQFLAG,"####<br />
+END OF GS_03.<br />
+DATA : GT_03 LIKE TABLE OF GS_03.<br />
+<br />
+DATA : GS_VARIANT TYPE DISVARIANT.<br />
+<br />
+DATA : OK_CODE TYPE SY-UCOMM.<br />
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA : GC_SPLITTER TYPE REF TO CL_GUI_SPLITTER_CONTAINER.<br />
+DATA : GC_SPLITTER_ROW1 TYPE REF TO CL_GUI_SPLITTER_CONTAINER.<br />
+DATA : GC_ROW1 TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GC_ROW2 TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GC_CONTAINER1 TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA : GC_CONTAINER2 TYPE REF TO CL_GUI_CONTAINER.<br />
+<br />
+DATA : GC_GRID1 TYPE REF TO CL_GUI_ALV_GRID.<br />
+DATA : GC_GRID2 TYPE REF TO CL_GUI_ALV_GRID.<br />
+DATA : GC_GRID3 TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT.<br />
+DATA : GT_FIELDCAT1 TYPE LVC_T_FCAT.<br />
+DATA : GT_FIELDCAT2 TYPE LVC_T_FCAT.<br />
+DATA : GT_FIELDCAT3 TYPE LVC_T_FCAT.<br />
+<br />
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.<br />
+<br />
+DATA : GS_SORT TYPE LVC_S_SORT.<br />
+DATA : GT_SORT1 TYPE LVC_T_SORT.<br />
+DATA : GT_SORT2 TYPE LVC_T_SORT.<br />
+DATA : GT_SORT3 TYPE LVC_T_SORT.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

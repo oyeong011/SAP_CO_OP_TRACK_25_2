@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM05_004_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM05_004_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM05_004_TOP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES : ZRBKP_05, ZRSEG_05, ZEKKO_05, ZEKPO_05, ZBKPF_05, ZBSEG_05, ZBSIK_05.<br />
+"ZRBKP : ##-##, ZRSEG : ##-###, ZEKKO : ####-##, ZEKPO : ####-###<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;[1.&nbsp;##&nbsp;##&nbsp;##&nbsp;(##&nbsp;101#)]&nbsp;---<br />
+   </div>
+   <div class="code">
+DATA: BEGIN OF GS_COMMON_HEADER,<br />
+&nbsp;&nbsp;BUKRS&nbsp;TYPE&nbsp;ZEKKO_05-BUKRS,<br />
+&nbsp;&nbsp;EKGRP&nbsp;TYPE&nbsp;ZEKKO_05-EKGRP,<br />
+&nbsp;&nbsp;BEDAT&nbsp;TYPE&nbsp;ZEKKO_05-BEDAT,<br />
+&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;ZEKKO_05-LIFNR,<br />
+&nbsp;&nbsp;NAME1&nbsp;TYPE&nbsp;ZLFA1_05-NAME1,<br />
+&nbsp;&nbsp;BLDAT&nbsp;TYPE&nbsp;ZMKPF_05-BLDAT,<br />
+&nbsp;&nbsp;ZTERM&nbsp;TYPE&nbsp;ZLFB1_05-ZTERM,<br />
+END OF GS_COMMON_HEADER.<br />
+<br />
+DATA: BEGIN OF GS_AMOUNT_HEADER,<br />
+&nbsp;&nbsp;LIFNR&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKKO_05-LIFNR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;(###)<br />
+&nbsp;&nbsp;NAME1&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LFA1-NAME1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;(###)<br />
+&nbsp;&nbsp;ZAMOUNT&nbsp;&nbsp;TYPE&nbsp;ZRBKP_05-RMWWR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;[##]&nbsp;#&nbsp;##&nbsp;##&nbsp;(##&nbsp;RMWWR)<br />
+&nbsp;&nbsp;WAERS&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZRBKP_05-WAERS,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;MWSKZ&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZRSEG_05-MWSKZ,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;ZMEMO(20)&nbsp;TYPE&nbsp;C,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;ZBALANCE&nbsp;TYPE&nbsp;BSIK-DMBTR,<br />
+&nbsp;&nbsp;ICON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ICON_D,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+END OF GS_AMOUNT_HEADER.<br />
+<br />
+CONSTANTS: C_GREEN  TYPE ICON_D VALUE '@5B@', " ###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_RED&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ICON_D&nbsp;VALUE&nbsp;'@5C@',&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_YELLOW&nbsp;TYPE&nbsp;ICON_D&nbsp;VALUE&nbsp;'@5D@'.&nbsp;"&nbsp;###<br />
+<br />
+DATA: GV_TAX_RATE TYPE P LENGTH 2 DECIMALS 2.<br />
+<br />
+" [##] #### ### ZAMOUNT # ### ## ##<br />
+DATA: GV_SAVED_ZAMOUNT TYPE ZRBKP_05-RMWWR.<br />
+<br />
+DATA: OK_CODE TYPE SY-UCOMM.<br />
+<br />
+"### ###<br />
+DATA : GO_EVENT TYPE REF TO LCL_EVENT_HANDLER.<br />
+<br />
+"## ## ## ### ##(# ## # ## ### # ##)<br />
+DATA: GV_CALC_FLAG TYPE C.<br />
+<br />
+" [##] ## ## ### (#### ###)<br />
+DATA: GV_NEED_REFRESH TYPE C.<br />
+<br />
+" 1. ## ### ## ## ###<br />
+DATA: BALANCE TYPE ZRBKP_05-RMWWR.<br />
+<br />
+" 2. ### ### ###<br />
+DATA: ICON    TYPE ICON_D.<br />
+<br />
+" 3. ## ## ### (KRW #)<br />
+DATA: WAERS   TYPE ZRBKP_05-WAERS.<br />
+<br />
+TYPE-POOLS: ICON, VRM.<br />
+<br />
+" #### # ###<br />
+DATA: GT_VRM_VALUES TYPE VRM_VALUES,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_VRM_VALUE&nbsp;&nbsp;TYPE&nbsp;VRM_VALUE.<br />
+<br />
+"#<br />
+CONTROLS: TS_INFO TYPE TABSTRIP.<br />
+<br />
+" --- [##### ## ##] ---<br />
+DATA: GV_SUB_DYNNR TYPE SY-DYNNR VALUE '0101'.<br />
+<br />
+" --- [ALV ## ##] ---<br />
+DATA: GC_CUSTOM   TYPE REF TO CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_GRID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+DATA: GS_FIELDCAT TYPE LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT&nbsp;TYPE&nbsp;LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_LAYOUT&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_LAYO.<br />
+<br />
+"### 200 #<br />
+DATA : GC_DOCKING_200 TYPE REF TO CL_GUI_DOCKING_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_GRID_200&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+<br />
+<br />
+"ALV ###<br />
+DATA : BEGIN OF GS_ITEM,<br />
+&nbsp;&nbsp;CHECK&nbsp;&nbsp;TYPE&nbsp;C,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;###&nbsp;####<br />
+&nbsp;&nbsp;MBLNR&nbsp;&nbsp;LIKE&nbsp;ZMSEG_05-MBLNR,<br />
+&nbsp;&nbsp;MJAHR&nbsp;&nbsp;LIKE&nbsp;ZMSEG_05-MJAHR,<br />
+&nbsp;&nbsp;MBLPO&nbsp;&nbsp;LIKE&nbsp;ZMSEG_05-ZEILE,<br />
+&nbsp;&nbsp;BELNR&nbsp;&nbsp;LIKE&nbsp;ZRSEG_05-BELNR,&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;GJAHR&nbsp;&nbsp;LIKE&nbsp;ZRSEG_05-GJAHR,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;BUZEI&nbsp;&nbsp;LIKE&nbsp;ZRSEG_05-BUZEI,&nbsp;&nbsp;"##&nbsp;###<br />
+&nbsp;&nbsp;EBELN&nbsp;&nbsp;LIKE&nbsp;ZRSEG_05-EBELN,&nbsp;&nbsp;"PO##<br />
+&nbsp;&nbsp;EBELP&nbsp;&nbsp;LIKE&nbsp;ZRSEG_05-EBELP,&nbsp;&nbsp;"PO#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;MATNR&nbsp;&nbsp;LIKE&nbsp;ZRSEG_05-MATNR,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;TXZ01&nbsp;&nbsp;LIKE&nbsp;ZRSEG_05-TXZ01,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;WERKS&nbsp;&nbsp;LIKE&nbsp;ZRSEG_05-WERKS,&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;WRBTR&nbsp;&nbsp;LIKE&nbsp;ZRSEG_05-WRBTR,&nbsp;&nbsp;"####&nbsp;(##&nbsp;x&nbsp;##)<br />
+&nbsp;&nbsp;STPRS&nbsp;&nbsp;LIKE&nbsp;ZEKPO_05-STPRS,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;WAERS&nbsp;&nbsp;LIKE&nbsp;ZEKKO_05-WAERS,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;MENGE&nbsp;&nbsp;LIKE&nbsp;ZRSEG_05-MENGE,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;LGORT&nbsp;&nbsp;LIKE&nbsp;ZRSEG_05-LGORT,<br />
+&nbsp;&nbsp;POMENGE&nbsp;LIKE&nbsp;ZEKPO_05-MENGE,&nbsp;&nbsp;"&nbsp;PO#&nbsp;#&nbsp;##&nbsp;##&nbsp;(###)<br />
+&nbsp;&nbsp;REMENGE&nbsp;LIKE&nbsp;ZEKPO_05-MENGE,&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;#&nbsp;#&nbsp;##&nbsp;##&nbsp;(###)<br />
+&nbsp;&nbsp;LIFNR&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZEKKO_05-LIFNR,<br />
+&nbsp;&nbsp;MEINS&nbsp;&nbsp;LIKE&nbsp;ZEKPO_05-MEINS,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;BSTME&nbsp;&nbsp;LIKE&nbsp;ZRSEG_05-BSTME,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;MWSKZ&nbsp;&nbsp;LIKE&nbsp;ZRSEG_05-MWSKZ,&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;WMWST&nbsp;&nbsp;LIKE&nbsp;ZRSEG_05-WMWST,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;DMBTR&nbsp;&nbsp;LIKE&nbsp;BSIK-DMBTR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##&nbsp;(###&nbsp;+&nbsp;##)<br />
+&nbsp;&nbsp;SGTXT&nbsp;&nbsp;LIKE&nbsp;ZRSEG_05-SGTXT,&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;SHKZG&nbsp;&nbsp;LIKE&nbsp;ZRSEG_05-SHKZG,&nbsp;"&nbsp;###&nbsp;##&nbsp;(S/H)<br />
+&nbsp;&nbsp;IV_MENGE&nbsp;LIKE&nbsp;ZRSEG_05-MENGE,<br />
+&nbsp;&nbsp;IV_BELNR&nbsp;LIKE&nbsp;ZRSEG_05-BELNR,<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_ITEM.<br />
+DATA : GT_ITEM LIKE TABLE OF GS_ITEM.<br />
+" ### ### #### ## ### 100% ######.<br />
+DATA: GS_RBKP TYPE ZRBKP_05.<br />
+DATA: GT_RBKP TYPE TABLE OF ZRBKP_05.<br />
+<br />
+DATA: GS_RSEG TYPE ZRSEG_05.<br />
+DATA: GT_RSEG TYPE TABLE OF ZRSEG_05.<br />
+<br />
+"#### ##<br />
+DATA : BEGIN OF GS_EKKO,<br />
+&nbsp;&nbsp;EBELN&nbsp;LIKE&nbsp;ZEKKO_05-EBELN,&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;BUKRS&nbsp;LIKE&nbsp;ZEKKO_05-BUKRS,&nbsp;"####<br />
+&nbsp;&nbsp;EKGRP&nbsp;LIKE&nbsp;ZEKKO_05-EKGRP,&nbsp;"####<br />
+&nbsp;&nbsp;EKORG&nbsp;LIKE&nbsp;ZEKKO_05-EKORG,&nbsp;"####<br />
+&nbsp;&nbsp;LIFNR&nbsp;LIKE&nbsp;ZEKKO_05-LIFNR,&nbsp;"###<br />
+&nbsp;&nbsp;BEDAT&nbsp;LIKE&nbsp;ZEKKO_05-BEDAT,&nbsp;"###<br />
+&nbsp;&nbsp;WAERS&nbsp;LIKE&nbsp;ZEKKO_05-WAERS,&nbsp;"##<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_EKKO.<br />
+<br />
+"#### ###<br />
+DATA : BEGIN OF GS_EKPO,<br />
+&nbsp;&nbsp;EBELN&nbsp;LIKE&nbsp;ZEKPO_05-EBELN,&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;EBELP&nbsp;LIKE&nbsp;ZEKPO_05-EBELP,&nbsp;"##<br />
+&nbsp;&nbsp;MATNR&nbsp;LIKE&nbsp;ZEKPO_05-MATNR,&nbsp;"####<br />
+&nbsp;&nbsp;MAKTX&nbsp;LIKE&nbsp;ZEKPO_05-MAKTX,&nbsp;"###<br />
+&nbsp;&nbsp;MENGE&nbsp;LIKE&nbsp;ZEKPO_05-MENGE,&nbsp;"##<br />
+&nbsp;&nbsp;MEINS&nbsp;LIKE&nbsp;ZEKPO_05-MEINS,&nbsp;"##<br />
+&nbsp;&nbsp;BPRME&nbsp;LIKE&nbsp;ZEKPO_05-BPRME,&nbsp;"##2<br />
+&nbsp;&nbsp;PRDAT&nbsp;LIKE&nbsp;ZEKPO_05-PRDAT,&nbsp;"###<br />
+&nbsp;&nbsp;WERKS&nbsp;LIKE&nbsp;ZEKPO_05-WERKS,&nbsp;"###<br />
+&nbsp;&nbsp;LGORT&nbsp;LIKE&nbsp;ZEKPO_05-LGORT,&nbsp;"####<br />
+&nbsp;&nbsp;STPRS&nbsp;LIKE&nbsp;ZEKPO_05-STPRS,&nbsp;"##<br />
+&nbsp;&nbsp;"WEMNG&nbsp;LIKE&nbsp;ZEKPO_05-WEMNG,&nbsp;"##&nbsp;(##&nbsp;##&nbsp;###)<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_EKPO.<br />
+DATA : GT_EKPO LIKE TABLE OF GS_EKPO.<br />
+<br />
+DATA: BEGIN OF GS_PO_BASE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKPO_05-EBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKPO_05-EBELP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKPO_05-MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKPO_05-WERKS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LGORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKPO_05-LGORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKPO_05-MEINS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STPRS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKPO_05-STPRS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKKO_05-WAERS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POMENGE&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEKPO_05-MENGE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TXZ01&nbsp;TYPE&nbsp;ZEKPO_05-MAKTX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GR_QTY&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZMSEG_05-MENGE,&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;(EBELN+MATNR)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV_GR_QTY&nbsp;TYPE&nbsp;ZRSEG_05-MENGE,&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV_PO_QTY&nbsp;TYPE&nbsp;ZRSEG_05-MENGE,&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_PO_BASE.<br />
+<br />
+DATA: GT_PO_BASE LIKE STANDARD TABLE OF GS_PO_BASE.<br />
+DATA: BEGIN OF GS_GR_SUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;ZMSEG_05-EBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;ZMSEG_05-MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GR_QTY&nbsp;TYPE&nbsp;ZMSEG_05-MENGE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_GR_SUM.<br />
+<br />
+DATA: GT_GR_SUM LIKE STANDARD TABLE OF GS_GR_SUM.<br />
+DATA: BEGIN OF GS_IV_SUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;ZRSEG_05-EBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELP&nbsp;TYPE&nbsp;ZRSEG_05-EBELP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QTY&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZRSEG_05-MENGE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_IV_SUM.<br />
+<br />
+DATA: GT_IV_GR LIKE STANDARD TABLE OF GS_IV_SUM. " #### ##<br />
+DATA: GT_IV_PO LIKE STANDARD TABLE OF GS_IV_SUM. " ### ##<br />
+<br />
+<br />
+" # ##/PO ### ####<br />
+DATA: GV_SEL_TYPE TYPE C LENGTH 2 VALUE 'GR'.  " ## ##: 'GR'=####, 'PO'=PO##<br />
+<br />
+" # ### ## ## ###<br />
+DATA: GV_GR_EXIST TYPE C,  " ## ### ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_PO_EXIST&nbsp;TYPE&nbsp;C.&nbsp;&nbsp;"&nbsp;###&nbsp;PO&nbsp;##<br />
+<br />
+" # ### / PO# ### ### (## ##)<br />
+DATA: GT_ITEM_GR LIKE TABLE OF GS_ITEM,  " ## ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ITEM_PO&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_ITEM.&nbsp;&nbsp;"&nbsp;PO&nbsp;##&nbsp;(###)<br />
+<br />
+" # ##### ### ##<br />
+DATA: BEGIN OF GS_INV_HISTORY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZRSEG_05-EBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELP&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZRSEG_05-EBELP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BELNR&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZRSEG_05-BELNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GJAHR&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZRSEG_05-GJAHR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MENGE&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZRSEG_05-MENGE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRBTR&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZRSEG_05-WRBTR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WMWST&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZRSEG_05-WMWST,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DMBTR&nbsp;&nbsp;&nbsp;TYPE&nbsp;BSIK-DMBTR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BLDAT&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZRBKP_05-BLDAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_INV_HISTORY.<br />
+DATA: GT_INV_HISTORY LIKE TABLE OF GS_INV_HISTORY.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

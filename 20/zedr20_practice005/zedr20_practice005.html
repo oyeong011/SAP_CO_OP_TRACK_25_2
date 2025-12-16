@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR20_PRACTICE005</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR20_PRACTICE005</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR20_PRACTICE005<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR20_PRACTICE005.<br />
+<br />
+DATA: GV_TARGET TYPE SY-DATUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_RESULT&nbsp;TYPE&nbsp;SY-DATUM.<br />
+RANGES: GR_DATE FOR SY-DATUM.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.<br />
+&nbsp;&nbsp;PARAMETERS:&nbsp;P_YEAR&nbsp;LIKE&nbsp;BKPF-GJAHR.<br />
+&nbsp;&nbsp;PARAMETERS:&nbsp;P_MONTH&nbsp;LIKE&nbsp;BKPF-MONAT.<br />
+SELECTION-SCREEN END OF BLOCK B1.<br />
+<br />
+INITIALIZATION.<br />
+&nbsp;&nbsp;P_YEAR&nbsp;=&nbsp;SY-DATUM+0(4).<br />
+&nbsp;&nbsp;P_MONTH&nbsp;=&nbsp;SY-DATUM+4(2).<br />
+<br />
+START-OF-SELECTION.<br />
+&nbsp;&nbsp;GR_DATE-SIGN&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;GR_DATE-OPTION&nbsp;=&nbsp;'EQ'.<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;P_YEAR&nbsp;P_MONTH&nbsp;'01'&nbsp;INTO&nbsp;GR_DATE-LOW.<br />
+&nbsp;&nbsp;APPEND&nbsp;GR_DATE.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'RP_LAST_DAY_OF_MONTHS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAY_IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GR_DATE-LOW<br />
+&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LAST_DAY_OF_MONTH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GV_RESULT.<br />
+END-OF-SELECTION.<br />
+<br />
+IF SY-SUBRC = 0.<br />
+&nbsp;&nbsp;WRITE:/&nbsp;P_YEAR,&nbsp;'&nbsp;#&nbsp;',&nbsp;P_MONTH,&nbsp;'&nbsp;##&nbsp;#####&nbsp;',&nbsp;GV_RESULT,&nbsp;'&nbsp;###'.<br />
+ELSE.<br />
+&nbsp;&nbsp;WRITE:/&nbsp;'###&nbsp;######.'.<br />
+ENDIF.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

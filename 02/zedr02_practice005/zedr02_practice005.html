@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR02_PRACTICE005</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR02_PRACTICE005</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR02_PRACTICE005<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR02_PRACTICE005.<br />
+<br />
+"#### ##<br />
+PARAMETERS : P_YEAR TYPE BKPF-GJAHR DEFAULT SY-DATUM(4),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_MONTH&nbsp;TYPE&nbsp;BKPF-MONAT&nbsp;DEFAULT&nbsp;SY-DATUM+4(2).<br />
+<br />
+DATA : GV_LAST_DAY TYPE D, "### ## ### ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_FIRST_DAY&nbsp;TYPE&nbsp;D,&nbsp;"###&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_LAST_DAY_FORMAT&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10.&nbsp;"###&nbsp;#&nbsp;###&nbsp;##<br />
+<br />
+"RANGE ## ##<br />
+RANGES : GR_YEAR FOR BKPF-GJAHR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GR_MONTH&nbsp;FOR&nbsp;BKPF-MONAT.<br />
+<br />
+START-OF-SELECTION.<br />
+"#### ## ### ## RANGE### ##<br />
+GR_YEAR-SIGN = 'I'.<br />
+GR_YEAR-OPTION = 'EQ'.<br />
+GR_YEAR-LOW = P_YEAR.<br />
+APPEND GR_YEAR.<br />
+<br />
+GR_MONTH-SIGN = 'I'.<br />
+GR_MONTH-OPTION = 'EQ'.<br />
+GR_MONTH-LOW = P_MONTH.<br />
+APPEND GR_MONTH.<br />
+<br />
+"YYYYMM01 #### ##<br />
+CONCATENATE GR_YEAR-LOW GR_MONTH-LOW '01' INTO GV_FIRST_DAY.<br />
+<br />
+"### ## ## ## ##<br />
+CALL FUNCTION 'LAST_DAY_OF_MONTHS'<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DAY_IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GV_FIRST_DAY<br />
+&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;LAST_DAY_OF_MONTH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GV_LAST_DAY<br />
+&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;DAY_IN_NO_DATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+IF SY-SUBRC = 0.<br />
+&nbsp;&nbsp;"###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;WRITE:&nbsp;GV_LAST_DAY&nbsp;TO&nbsp;GV_LAST_DAY_FORMAT&nbsp;USING&nbsp;EDIT&nbsp;MASK&nbsp;'____.__.__'.<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;GR_YEAR-LOW,&nbsp;'#',&nbsp;GR_MONTH-LOW,&nbsp;'##&nbsp;#####',&nbsp;GV_LAST_DAY_FORMAT,&nbsp;'###'.<br />
+ENDIF.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

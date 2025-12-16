@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM09_004_PBO</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM09_004_PBO</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM09_004_PBO<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+MODULE STATUS_0100 OUTPUT.<br />
+&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'STATUS_0100'.<br />
+&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;'T100'.<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;SET_DYNNR&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE SET_DYNNR OUTPUT.<br />
+&nbsp;&nbsp;CASE&nbsp;TABSTRIP-ACTIVETAB.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'TAB1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNNR&nbsp;=&nbsp;'0101'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'TAB2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNNR&nbsp;=&nbsp;'0102'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNNR&nbsp;=&nbsp;'0101'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABSTRIP-ACTIVETAB&nbsp;=&nbsp;'TAB1'.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;SET_DROPDOWN&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE SET_DROPDOWN OUTPUT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_DROPDOWN_TAX.&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_DROPDOWN_ZTERM.&nbsp;"####<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;SET_HEADER_AND_ITEMS&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE SET_HEADER_AND_ITEMS OUTPUT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_HEADER.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_ITEMS.<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;SET_ICON&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE SET_ICON OUTPUT.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_ICON_TEXT&nbsp;TYPE&nbsp;STRING.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;gv_need_balance_calc&nbsp;=&nbsp;abap_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CALCULATE_BALANCE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_need_balance_calc&nbsp;=&nbsp;abap_false.&nbsp;"##&nbsp;##&nbsp;#&nbsp;####<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"###&nbsp;###&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;PERFORM&nbsp;CHECK_BALANCE_STATUS&nbsp;CHANGING&nbsp;LV_ICON_TEXT.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'ICON_CREATE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME&nbsp;=&nbsp;LV_ICON_TEXT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RESULT&nbsp;=&nbsp;ICON_ST1.<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;STATUS_0200&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE STATUS_0200 OUTPUT.<br />
+&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'STATUS_0200'.<br />
+&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;'T200'.<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;SET_ITEMS&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE SET_ITEMS OUTPUT.<br />
+&nbsp;&nbsp;IF&nbsp;GC_GRID_200&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CREATE_OBJECT_200.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;FIELD_CATALOG_200.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CLASS_EVENT_200.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CALL_ALV_200.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GC_GRID_200-&gt;REFRESH_TABLE_DISPLAY.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;SET_MIRO_LIST&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE SET_MIRO_LIST OUTPUT.<br />
+"#### ### ##<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;CREATE_OBJECT_MIRO.<br />
+&nbsp;&nbsp;PERFORM&nbsp;FIELD_CATALOG_MIRO_LIST.<br />
+&nbsp;&nbsp;PERFORM&nbsp;DELETE_TOOLBAR.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CLASS_EVENT_MIRO_LIST.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CALL_ALV_MIRO_LIST.<br />
+<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;SET_HEADER&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE SET_HEADER OUTPUT.<br />
+<br />
+&nbsp;&nbsp;BELNR_200&nbsp;=&nbsp;GS_HEADER_ALV-BELNR.<br />
+&nbsp;&nbsp;BLART_200&nbsp;=&nbsp;GS_HEADER_ALV-BLART.<br />
+&nbsp;&nbsp;BLDAT_200&nbsp;=&nbsp;GS_HEADER_ALV-BLDAT.<br />
+&nbsp;&nbsp;BUDAT_200&nbsp;=&nbsp;GS_HEADER_ALV-BUDAT.<br />
+ENDMODULE.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

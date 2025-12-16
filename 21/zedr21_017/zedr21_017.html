@@ -1,0 +1,476 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR21_017</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR21_017</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR21_017<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;##&nbsp;:&nbsp;ZEDT21_001&nbsp;+&nbsp;ZEDT21_002&nbsp;JOIN&nbsp;#<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;Field&nbsp;Catalog&nbsp;+&nbsp;Layout&nbsp;###&nbsp;ALV&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR21_017.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*TABLES:&nbsp;ZEDT21_001,&nbsp;ZEDT21_002.<br />
+*<br />
+*"-------------------------------------------------------<br />
+*"&nbsp;##&nbsp;##&nbsp;##<br />
+*"-------------------------------------------------------<br />
+*TYPES:&nbsp;BEGIN&nbsp;OF&nbsp;TY_JOIN,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCODE21&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT21_001-ZCODE21,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZPERNR21&nbsp;&nbsp;TYPE&nbsp;ZEDT21_001-ZPERNR21,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZKNAME21&nbsp;&nbsp;TYPE&nbsp;ZEDT21_001-ZKNAME21,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZENAME21&nbsp;&nbsp;TYPE&nbsp;ZEDT21_001-ZENAME21,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMAJOR21&nbsp;&nbsp;TYPE&nbsp;ZEDT21_002-ZMAJOR21,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMNAME21&nbsp;&nbsp;TYPE&nbsp;ZEDT21_002-ZMNAME21,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSUM21&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEDT21_002-ZSUM21,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZWAERS21&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;3,&nbsp;"&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CRDATE&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;D,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_JOIN.<br />
+*<br />
+*DATA:&nbsp;GS_JOIN&nbsp;TYPE&nbsp;TY_JOIN,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_JOIN&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;TY_JOIN.<br />
+*<br />
+*DATA:&nbsp;GS_FIELDCAT&nbsp;TYPE&nbsp;SLIS_FIELDCAT_ALV,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT&nbsp;TYPE&nbsp;SLIS_T_FIELDCAT_ALV,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_LAYOUT&nbsp;&nbsp;&nbsp;TYPE&nbsp;SLIS_LAYOUT_ALV.<br />
+*<br />
+*DATA:&nbsp;GS_SORT&nbsp;TYPE&nbsp;SLIS_SORTINFO_ALV.<br />
+*DATA:&nbsp;GT_SORT&nbsp;TYPE&nbsp;SLIS_T_SORTINFO_ALV.<br />
+*<br />
+*"-------------------------------------------------------<br />
+*"&nbsp;##&nbsp;##<br />
+*"-------------------------------------------------------<br />
+*START-OF-SELECTION.<br />
+*&nbsp;&nbsp;PERFORM&nbsp;GET_DATA.<br />
+*&nbsp;&nbsp;IF&nbsp;GT_JOIN&nbsp;IS&nbsp;INITIAL.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'###&nbsp;####&nbsp;####.'&nbsp;TYPE&nbsp;'I'.<br />
+*&nbsp;&nbsp;ELSE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;FIELD_CATALOG.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;ALV_LAYOUT.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CALL_ALV.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;ALV_SORT.<br />
+*<br />
+*&nbsp;&nbsp;ENDIF.<br />
+*"-------------------------------------------------------<br />
+*"&nbsp;SORT&nbsp;##(SORT)<br />
+*"-------------------------------------------------------<br />
+*FORM&nbsp;ALV_SORT.<br />
+*<br />
+*&nbsp;&nbsp;CLEAR&nbsp;GS_SORT.<br />
+*&nbsp;&nbsp;GS_SORT-SPOS&nbsp;=&nbsp;1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Sort&nbsp;position&nbsp;(1#&nbsp;##)<br />
+*&nbsp;&nbsp;GS_SORT-FIELDNAME&nbsp;=&nbsp;'ZCODE21'.&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;GS_SORT-UP&nbsp;=&nbsp;'&nbsp;'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;####<br />
+*&nbsp;&nbsp;GS_SORT-DOWN&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###<br />
+*&nbsp;&nbsp;APPEND&nbsp;GS_SORT&nbsp;TO&nbsp;GT_SORT.<br />
+*<br />
+*ENDFORM.<br />
+*<br />
+*"-------------------------------------------------------<br />
+*"&nbsp;###&nbsp;##&nbsp;(JOIN)<br />
+*"-------------------------------------------------------<br />
+*FORM&nbsp;GET_DATA.<br />
+*<br />
+*&nbsp;&nbsp;CLEAR&nbsp;GT_JOIN.<br />
+*<br />
+*&nbsp;&nbsp;SELECT<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;A~ZCODE21<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;A~ZPERNR21<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;A~ZKNAME21<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;A~ZENAME21<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;B~ZMAJOR21<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;B~ZMNAME21<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;B~ZSUM21<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_JOIN<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT21_001&nbsp;AS&nbsp;A<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;ZEDT21_002&nbsp;AS&nbsp;B<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZPERNR21&nbsp;=&nbsp;B~ZCODE21<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~ZPERNR21&nbsp;BETWEEN&nbsp;'SSU-01'&nbsp;AND&nbsp;'SSU-11'.<br />
+*<br />
+*&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_JOIN&nbsp;INTO&nbsp;GS_JOIN.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GS_JOIN-ZWAERS21&nbsp;=&nbsp;'KRW'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GS_JOIN-CRDATE&nbsp;&nbsp;&nbsp;=&nbsp;SY-DATUM.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;=&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_JOIN&nbsp;FROM&nbsp;GS_JOIN.<br />
+*&nbsp;&nbsp;ENDLOOP.<br />
+*<br />
+*ENDFORM.<br />
+*<br />
+*"-------------------------------------------------------<br />
+*"&nbsp;##&nbsp;####&nbsp;##<br />
+*"-------------------------------------------------------<br />
+*FORM&nbsp;FIELD_CATALOG.<br />
+*<br />
+*&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT,&nbsp;GT_FIELDCAT.<br />
+*<br />
+*&nbsp;&nbsp;"&nbsp;1.&nbsp;####<br />
+*&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;1.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZCODE21'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-KEY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###<br />
+*&nbsp;&nbsp;GS_FIELDCAT-JUST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'L'.&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+*<br />
+*&nbsp;&nbsp;"&nbsp;2.&nbsp;####<br />
+*&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZPERNR21'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-KEY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-JUST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'C'.&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+*<br />
+*&nbsp;&nbsp;"&nbsp;3.&nbsp;####&nbsp;(##)<br />
+*&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZMAJOR21'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-JUST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'R'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-NO_OUT&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+*<br />
+*&nbsp;&nbsp;"&nbsp;4.&nbsp;###<br />
+*&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;4.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZMNAME21'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'###'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-JUST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'L'.<br />
+*&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+*<br />
+*&nbsp;&nbsp;"&nbsp;5.&nbsp;####&nbsp;(##)<br />
+*&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;5.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZSUM21'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-CURRENCY&nbsp;&nbsp;=&nbsp;'KRW'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-DO_SUM&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+*&nbsp;&nbsp;GS_FIELDCAT-NO_ZERO&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;0&nbsp;##<br />
+*&nbsp;&nbsp;GS_FIELDCAT-NO_SIGN&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;GS_FIELDCAT-OUTPUTLEN&nbsp;=&nbsp;20.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;#<br />
+*&nbsp;&nbsp;GS_FIELDCAT-EMPHASIZE&nbsp;=&nbsp;'C300'.&nbsp;"&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+*<br />
+*&nbsp;&nbsp;"&nbsp;6.&nbsp;##<br />
+*&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;6.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZWAERS21'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'##'.<br />
+*&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+*<br />
+*&nbsp;&nbsp;"&nbsp;7.&nbsp;####<br />
+*&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;7.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZKNAME21'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-EMPHASIZE&nbsp;=&nbsp;'C710'.&nbsp;&nbsp;"&nbsp;##&nbsp;###<br />
+*&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+*<br />
+*&nbsp;&nbsp;"&nbsp;8.&nbsp;####<br />
+*&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;8.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZENAME21'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-JUST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'C'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-EMPHASIZE&nbsp;=&nbsp;'C510'.<br />
+*&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+*<br />
+*&nbsp;&nbsp;"&nbsp;9.&nbsp;###<br />
+*&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;9.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'CRDATE'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'###'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+*&nbsp;&nbsp;GS_FIELDCAT-EDIT_MASK&nbsp;=&nbsp;'____-__-__'.<br />
+*&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+*<br />
+*ENDFORM.<br />
+*<br />
+*"-------------------------------------------------------<br />
+*"&nbsp;Layout&nbsp;##<br />
+*"-------------------------------------------------------<br />
+*FORM&nbsp;ALV_LAYOUT.<br />
+*&nbsp;&nbsp;CLEAR&nbsp;GS_LAYOUT.<br />
+*&nbsp;&nbsp;GS_LAYOUT-ZEBRA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;GS_LAYOUT-NO_VLINE&nbsp;=&nbsp;'X'.&nbsp;"###&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;GS_LAYOUT-NO_HLINE&nbsp;=&nbsp;'X'.&nbsp;"GRID&nbsp;###&nbsp;###&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;GS_LAYOUT-COLWIDTH_OPTIMIZE&nbsp;=&nbsp;'X'.&nbsp;"&nbsp;##&nbsp;###<br />
+*&nbsp;&nbsp;"GS_LAYOUT-EDIT&nbsp;=&nbsp;'X'.&nbsp;"##&nbsp;##<br />
+*&nbsp;&nbsp;GS_LAYOUT-TOTALS_TEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'###'.&nbsp;"&nbsp;###&nbsp;###<br />
+*ENDFORM.<br />
+*<br />
+*"-------------------------------------------------------<br />
+*"&nbsp;ALV&nbsp;Display<br />
+*"-------------------------------------------------------<br />
+*FORM&nbsp;CALL_ALV.<br />
+*<br />
+*&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'REUSE_ALV_GRID_DISPLAY'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_CALLBACK_PROGRAM&nbsp;=&nbsp;SY-REPID<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_LAYOUT<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_FIELDCAT<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_SAVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'A'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_SORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_SORT<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_JOIN<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PROGRAM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+*<br />
+*&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'ALV&nbsp;##&nbsp;#&nbsp;##&nbsp;##.'.<br />
+*&nbsp;&nbsp;ENDIF.<br />
+*<br />
+*ENDFORM.<br />
+<br />
+<br />
+<br />
+<br />
+*--------------------------------------------------------------------*<br />
+*&nbsp;###&nbsp;##<br />
+*--------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: BEGIN OF GS_STUDENT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCOLOR&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;4,&nbsp;"###&nbsp;###&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCHECKBOX&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCODE21&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZEDT21_001-ZCODE21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZPERNR21&nbsp;&nbsp;LIKE&nbsp;ZEDT21_001-ZPERNR21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZKNAME21&nbsp;&nbsp;LIKE&nbsp;ZEDT21_001-ZKNAME21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZENAME21&nbsp;&nbsp;LIKE&nbsp;ZEDT21_001-ZENAME21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGUBUN21&nbsp;&nbsp;LIKE&nbsp;ZEDT21_001-ZGUBUN21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMAJOR21&nbsp;&nbsp;LIKE&nbsp;ZEDT21_002-ZMAJOR21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMNAME21&nbsp;&nbsp;LIKE&nbsp;ZEDT21_002-ZMNAME21,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_STUDENT.<br />
+<br />
+DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.<br />
+<br />
+DATA: GS_FIELDCAT TYPE SLIS_FIELDCAT_ALV,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT&nbsp;TYPE&nbsp;SLIS_T_FIELDCAT_ALV.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+*&nbsp;START-OF-SELECTION<br />
+*--------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_DATA.<br />
+&nbsp;&nbsp;PERFORM&nbsp;FIELD_CATALOG.<br />
+&nbsp;&nbsp;PERFORM&nbsp;MODIFY_DATA.<br />
+&nbsp;&nbsp;PERFORM&nbsp;ALV_DISPLAY.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+*&nbsp;FORM&nbsp;GET_DATA<br />
+*--------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_DATA.<br />
+&nbsp;&nbsp;SELECT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;A~ZCODE21<br />
+&nbsp;&nbsp;&nbsp;&nbsp;A~ZPERNR21<br />
+&nbsp;&nbsp;&nbsp;&nbsp;A~ZKNAME21<br />
+&nbsp;&nbsp;&nbsp;&nbsp;A~ZENAME21<br />
+&nbsp;&nbsp;&nbsp;&nbsp;A~ZGUBUN21<br />
+&nbsp;&nbsp;&nbsp;&nbsp;B~ZMAJOR21<br />
+&nbsp;&nbsp;&nbsp;&nbsp;B~ZMNAME21<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_STUDENT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZEDT21_001&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;ZEDT21_002&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZPERNR21&nbsp;=&nbsp;B~ZCODE21.&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;##<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'###&nbsp;##&nbsp;##:',&nbsp;LINES(&nbsp;GT_STUDENT&nbsp;),&nbsp;'#'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'###&nbsp;####&nbsp;####.'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+*&nbsp;FORM&nbsp;FIELD_CATALOG<br />
+*--------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM FIELD_CATALOG.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GT_FIELDCAT.<br />
+&nbsp;&nbsp;"&nbsp;0)&nbsp;###<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZCOLOR'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'##'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;(##&nbsp;/&nbsp;###&nbsp;#)<br />
+&nbsp;&nbsp;GS_FIELDCAT-ICON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ICON&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1)&nbsp;####<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZCHECKBOX'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-CHECKBOX&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2)&nbsp;####<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZCODE21'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;3)&nbsp;####<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZPERNR21'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;4)&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZKNAME21'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;5)&nbsp;###<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZENAME21'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;6)&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZGUBUN21'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;7)&nbsp;####<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZMAJOR21'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;8)&nbsp;###<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'ZMNAME21'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-SELTEXT_M&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+*&nbsp;FORM&nbsp;ALV_DISPLAY<br />
+*--------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_DISPLAY.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'REUSE_ALV_FIELDCATALOG_MERGE'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_PROGRAM_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-REPID<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_INTERNAL_TABNAME&nbsp;=&nbsp;'GS_STUDENT'&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_INCLNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-REPID<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CT_FIELDCAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_FIELDCAT.<br />
+*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'REUSE_ALV_GRID_DISPLAY'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCAT&nbsp;=&nbsp;GT_FIELDCAT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_STUDENT.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+*&nbsp;FORM&nbsp;MODIFY_DATA<br />
+*--------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+FORM MODIFY_DATA.<br />
+<br />
+<br />
+"###### #### ## ## ### ### ##<br />
+&nbsp;&nbsp;"#&nbsp;###(ZENAME)#&nbsp;##&nbsp;###&nbsp;ZCOLOR#&nbsp;ICON&nbsp;##&nbsp;##<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_STUDENT&nbsp;INTO&nbsp;GS_STUDENT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_STUDENT-ZENAME21&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_STUDENT-ZCOLOR&nbsp;=&nbsp;'@0A@'.&nbsp;&nbsp;&nbsp;"###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_STUDENT&nbsp;FROM&nbsp;GS_STUDENT&nbsp;INDEX&nbsp;SY-TABIX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_STUDENT.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

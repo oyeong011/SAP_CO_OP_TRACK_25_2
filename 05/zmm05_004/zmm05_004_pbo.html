@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM05_004_PBO</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM05_004_PBO</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM05_004_PBO<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+MODULE STATUS_0100 OUTPUT.<br />
+&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'S100'.<br />
+&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;'T100'.<br />
+&nbsp;&nbsp;GS_COMMON_HEADER-BLDAT&nbsp;=&nbsp;P_DATE.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;#&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GT_VRM_VALUES.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GV_GR_EXIST&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_VRM_VALUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_VRM_VALUE-KEY&nbsp;=&nbsp;'GR'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_VRM_VALUE-TEXT&nbsp;=&nbsp;'##&nbsp;##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_VRM_VALUE&nbsp;TO&nbsp;GT_VRM_VALUES.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GV_PO_EXIST&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_VRM_VALUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_VRM_VALUE-KEY&nbsp;=&nbsp;'PO'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_VRM_VALUE-TEXT&nbsp;=&nbsp;'PO&nbsp;##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_VRM_VALUE&nbsp;TO&nbsp;GT_VRM_VALUES.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;#&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;GT_VRM_VALUES&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'VRM_SET_VALUES'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'GV_SEL_TYPE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUES&nbsp;=&nbsp;GT_VRM_VALUES.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;#####&nbsp;###&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;GV_SEL_TYPE&nbsp;=&nbsp;'GR'&nbsp;AND&nbsp;GT_ITEM_GR&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GT_ITEM&nbsp;=&nbsp;GT_ITEM_GR.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;GV_SEL_TYPE&nbsp;=&nbsp;'PO'&nbsp;AND&nbsp;GT_ITEM_PO&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GT_ITEM&nbsp;=&nbsp;GT_ITEM_PO.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###/####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-NAME&nbsp;=&nbsp;'GV_SEL_TYPE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GV_GR_EXIST&nbsp;=&nbsp;'X'&nbsp;AND&nbsp;GV_PO_EXIST&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;#&nbsp;###&nbsp;####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-INPUT&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-REQUIRED&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;GV_GR_EXIST&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;####&nbsp;####&nbsp;(##&nbsp;##&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-INPUT&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_SEL_TYPE&nbsp;=&nbsp;'GR'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;GV_PO_EXIST&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;PO#&nbsp;###&nbsp;####&nbsp;####&nbsp;(PO&nbsp;##&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-INPUT&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_SEL_TYPE&nbsp;=&nbsp;'PO'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;#&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-INPUT&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;DISPLAY_ALV.<br />
+ENDMODULE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;STATUS_0101&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+module STATUS_0101 output.<br />
+&nbsp;&nbsp;GS_COMMON_HEADER-BLDAT&nbsp;=&nbsp;P_DATE.<br />
+&nbsp;&nbsp;IF&nbsp;GS_AMOUNT_HEADER-ICON&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_AMOUNT_HEADER-ICON&nbsp;=&nbsp;C_YELLOW.&nbsp;"&nbsp;###&nbsp;(@5D@)<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2.&nbsp;##&nbsp;##&nbsp;##&nbsp;(##&nbsp;##)<br />
+&nbsp;&nbsp;"&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-NAME&nbsp;=&nbsp;'GS_AMOUNT_HEADER-WAERS'.<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-INPUT&nbsp;=&nbsp;0.&nbsp;"&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;"&nbsp;ENDLOOP.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'xxxxxxxx'.<br />
+*&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;'xxx'.<br />
+   </div>
+   <div class="code">
+endmodule.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;STATUS_0200&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE STATUS_0200 OUTPUT.<br />
+&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'S200'.<br />
+&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;&nbsp;'T200'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;DISPLAY_ALV_200.<br />
+ENDMODULE.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;STATUS_0102&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE STATUS_0102 OUTPUT.<br />
+<br />
+<br />
+&nbsp;&nbsp;"&nbsp;1.&nbsp;###(ICON)&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;####&nbsp;#&nbsp;###&nbsp;'###(##)'&nbsp;###&nbsp;#####.<br />
+&nbsp;&nbsp;IF&nbsp;GS_AMOUNT_HEADER-ICON&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_AMOUNT_HEADER-ICON&nbsp;=&nbsp;C_YELLOW.&nbsp;&nbsp;"&nbsp;###&nbsp;(@5D@)<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;2.&nbsp;##&nbsp;##(WAERS)&nbsp;####<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;&nbsp;&nbsp;####&nbsp;##&nbsp;#####&nbsp;ALV&nbsp;#&nbsp;###&nbsp;##&nbsp;#####.<br />
+&nbsp;&nbsp;IF&nbsp;GS_AMOUNT_HEADER-WAERS&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ITEM&nbsp;INTO&nbsp;GS_ITEM&nbsp;INDEX&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_AMOUNT_HEADER-WAERS&nbsp;=&nbsp;GS_ITEM-WAERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;3.&nbsp;(##)&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##&nbsp;######&nbsp;###&nbsp;#####&nbsp;#&nbsp;###&nbsp;###&nbsp;#####.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###(ZAMOUNT)#&nbsp;###&nbsp;##&nbsp;####&nbsp;#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-NAME&nbsp;=&nbsp;'GS_AMOUNT_HEADER-ZAMOUNT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-INPUT&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###,&nbsp;##,&nbsp;##&nbsp;##&nbsp;##&nbsp;###(#####&nbsp;#)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-NAME&nbsp;=&nbsp;'GS_AMOUNT_HEADER-ICON'&nbsp;OR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-NAME&nbsp;=&nbsp;'GS_AMOUNT_HEADER-LIFNR'&nbsp;OR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-NAME&nbsp;=&nbsp;'GS_AMOUNT_HEADER-ZBALANCE'&nbsp;OR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-NAME&nbsp;=&nbsp;'GS_AMOUNT_HEADER-WAERS'&nbsp;OR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-NAME&nbsp;=&nbsp;'GS_AMOUNT_HEADER-NAME1'&nbsp;OR<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-NAME&nbsp;=&nbsp;'GS_AMOUNT_HEADER-MWSKZ'&nbsp;OR<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-NAME&nbsp;=&nbsp;'GS_AMOUNT_HEADER-ZMEMO'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-INPUT&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDMODULE.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

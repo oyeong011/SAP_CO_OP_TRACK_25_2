@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZMM02_004_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM02_004_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMM02_004_TOP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES: ZEKKO_02, ZEKPO_02, ZRBKP_02, ZRSEG_02, ZLFM1_02, ZLFB1_02.<br />
+TYPES: BEGIN OF TY_RBKP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zrbkp_02/dictionary-zrbkp_02.html">ZRBKP_02</a>.<br />
+TYPES:   ZCHECK TYPE C LENGTH 1, "####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZLIGHT&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;4,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_RBKP.<br />
+<br />
+TYPES: BEGIN OF TY_RSEG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zrseg_02/dictionary-zrseg_02.html">ZRSEG_02</a>.<br />
+TYPES:   ZCHECK TYPE C LENGTH 1, "####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_RSEG.<br />
+<br />
+DATA: GS_EKKO TYPE ZEKKO_02,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_EKKO&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZEKKO_02,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_EKPO&nbsp;TYPE&nbsp;ZEKPO_02,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_EKPO&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZEKPO_02,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_LFM1&nbsp;TYPE&nbsp;ZLFM1_02,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_LFB1&nbsp;TYPE&nbsp;ZLFB1_02,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_RBKP&nbsp;TYPE&nbsp;TY_RBKP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_RBKP&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;TY_RBKP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_RSEG&nbsp;TYPE&nbsp;TY_RSEG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_RSEG&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;TY_RSEG.<br />
+<br />
+DATA: BEGIN OF GS_PO,<br />
+&nbsp;&nbsp;ZCHECK&nbsp;TYPE&nbsp;C,&nbsp;"####<br />
+&nbsp;&nbsp;BUKRS&nbsp;TYPE&nbsp;ZEKKO_02-BUKRS,&nbsp;"####<br />
+&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;ZEKPO_02-EBELN,&nbsp;"######<br />
+&nbsp;&nbsp;MENGE&nbsp;TYPE&nbsp;ZEKPO_02-MENGE,&nbsp;"###&nbsp;##<br />
+&nbsp;&nbsp;MENGE_TOT&nbsp;TYPE&nbsp;ZEKPO_02-MENGE,&nbsp;"###<br />
+&nbsp;&nbsp;MENGE_OPEN&nbsp;TYPE&nbsp;ZEKPO_02-MENGE,&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;BSTME&nbsp;TYPE&nbsp;ZRSEG_02-BSTME,&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;STPRS&nbsp;TYPE&nbsp;ZEKPO_02-STPRS,&nbsp;"##<br />
+&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;ZEKKO_02-WAERS,&nbsp;"##<br />
+&nbsp;&nbsp;DMBTR&nbsp;TYPE&nbsp;DMBTR,&nbsp;"##<br />
+&nbsp;&nbsp;WRBTR&nbsp;TYPE&nbsp;ZRSEG_02-WRBTR,&nbsp;"####<br />
+&nbsp;&nbsp;WMWST&nbsp;TYPE&nbsp;ZRSEG_02-WMWST,&nbsp;"##<br />
+&nbsp;&nbsp;MWSKZ&nbsp;TYPE&nbsp;ZLFM1_02-MWSKZ,&nbsp;"####<br />
+&nbsp;&nbsp;SGTXT&nbsp;TYPE&nbsp;SGTXT,&nbsp;"######<br />
+&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;ZEKKO_02-LIFNR,&nbsp;"#####<br />
+&nbsp;&nbsp;EBELP&nbsp;TYPE&nbsp;ZEKPO_02-EBELP,&nbsp;"####<br />
+&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;ZEKPO_02-MATNR,&nbsp;"####<br />
+&nbsp;&nbsp;WERKS&nbsp;TYPE&nbsp;ZEKPO_02-WERKS,&nbsp;"###<br />
+&nbsp;&nbsp;BELNR&nbsp;TYPE&nbsp;ZRBKP_02-BELNR,&nbsp;"######<br />
+&nbsp;&nbsp;BUZEI&nbsp;TYPE&nbsp;ZRSEG_02-BUZEI,&nbsp;"#####<br />
+&nbsp;&nbsp;BKTXT&nbsp;TYPE&nbsp;ZRBKP_02-BKTXT,&nbsp;"#####<br />
+&nbsp;&nbsp;GJAHR&nbsp;TYPE&nbsp;ZRBKP_02-GJAHR,&nbsp;"####<br />
+&nbsp;&nbsp;BUDAT&nbsp;TYPE&nbsp;ZRBKP_02-BUDAT,&nbsp;"###<br />
+&nbsp;&nbsp;BLDAT&nbsp;TYPE&nbsp;ZRBKP_02-BLDAT,&nbsp;"###<br />
+&nbsp;&nbsp;RMWWR&nbsp;TYPE&nbsp;ZRBKP_02-RMWWR,&nbsp;"##<br />
+&nbsp;&nbsp;MAKTX&nbsp;TYPE&nbsp;ZEKPO_02-MAKTX,&nbsp;"###<br />
+&nbsp;&nbsp;XRECH&nbsp;TYPE&nbsp;ZRBKP_02-XRECH,&nbsp;"######(X#&nbsp;##,&nbsp;####&nbsp;####)<br />
+&nbsp;&nbsp;STBLG&nbsp;TYPE&nbsp;ZRBKP_02-STBLG,&nbsp;"#######<br />
+&nbsp;&nbsp;ZCANC&nbsp;TYPE&nbsp;ZRSEG_02-ZCANC,&nbsp;"#######(X#&nbsp;###&nbsp;###,&nbsp;####&nbsp;##)<br />
+&nbsp;&nbsp;MWSKZ1&nbsp;TYPE&nbsp;ZRBKP_02-MWSKZ1,&nbsp;"####(##)<br />
+&nbsp;&nbsp;WMWST1&nbsp;TYPE&nbsp;ZRBKP_02-WMWST1,&nbsp;"#&nbsp;##<br />
+&nbsp;&nbsp;XBLNR&nbsp;TYPE&nbsp;ZRBKP_02-XBLNR,&nbsp;"######<br />
+&nbsp;&nbsp;ZLIGHT&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;4,<br />
+&nbsp;&nbsp;ZCANDOC&nbsp;TYPE&nbsp;ZRSEG_02-ZCANDOC,&nbsp;"###&nbsp;###&nbsp;#####(X#&nbsp;###&nbsp;###&nbsp;###,&nbsp;####&nbsp;##)<br />
+END OF GS_PO.<br />
+DATA: GT_PO LIKE TABLE OF GS_PO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_PO_300&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_PO.<br />
+<br />
+DATA : OK_CODE TYPE SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_CUSTOM&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_CUSTOM300&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_GRID&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_GRID300&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT&nbsp;TYPE&nbsp;LVC_T_FCAT,&nbsp;"##&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT&nbsp;TYPE&nbsp;LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_LAYOUT&nbsp;TYPE&nbsp;LVC_S_LAYO,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_SORT&nbsp;TYPE&nbsp;LVC_T_SORT,&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SORT&nbsp;TYPE&nbsp;LVC_S_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_EVENT&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;EVENT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_EVENT300&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;EVENT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_BELNR&nbsp;TYPE&nbsp;ZRBKP_02-BELNR,&nbsp;"######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_GJAHR&nbsp;TYPE&nbsp;ZRBKP_02-GJAHR,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_REFRESH_200&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_BLDAT&nbsp;TYPE&nbsp;ZRBKP_02-BLDAT,&nbsp;"###(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_BUDAT&nbsp;TYPE&nbsp;ZRBKP_02-BUDAT,&nbsp;"###(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_RMWWR&nbsp;TYPE&nbsp;ZRBKP_02-RMWWR,&nbsp;"##(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_WAERS&nbsp;TYPE&nbsp;ZEKKO_02-WAERS,&nbsp;"##(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_WMWST&nbsp;TYPE&nbsp;ZRSEG_02-WMWST,&nbsp;"##(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_MWSKZ&nbsp;TYPE&nbsp;ZLFM1_02-MWSKZ,&nbsp;"####(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_MWSKZ_OLD&nbsp;TYPE&nbsp;ZLFM1_02-MWSKZ,&nbsp;"####&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_BUPLA&nbsp;TYPE&nbsp;ZRBKP_02-BUPLA,&nbsp;"###(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_SECCO&nbsp;TYPE&nbsp;ZRBKP_02-SECCO,&nbsp;"####(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_BKTXT&nbsp;TYPE&nbsp;ZRBKP_02-BKTXT,&nbsp;"###(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_BUKRS&nbsp;TYPE&nbsp;ZRBKP_02-BUKRS,&nbsp;"####(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_CALTAX&nbsp;TYPE&nbsp;C,&nbsp;"####&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_WMWST&nbsp;TYPE&nbsp;ZRSEG_02-WMWST,&nbsp;"####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_LIGHT&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;4,&nbsp;"##&nbsp;0###&nbsp;#####(#####&nbsp;0,&nbsp;#####&nbsp;##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_WAERS_OUT&nbsp;TYPE&nbsp;ZEKKO_02-WAERS,&nbsp;"##(##&nbsp;#)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_BALANCE&nbsp;TYPE&nbsp;ZRBKP_02-RMWWR,&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_SUM&nbsp;TYPE&nbsp;ZRBKP_02-RMWWR,&nbsp;"##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_SIMUL&nbsp;TYPE&nbsp;C.&nbsp;"#####&nbsp;####:&nbsp;1##&nbsp;##,&nbsp;0##&nbsp;##<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&SPWIZARD:&nbsp;FUNCTION&nbsp;CODES&nbsp;FOR&nbsp;TABSTRIP&nbsp;'TS_HEAD'<br />
+   </div>
+   <div class="code">
+CONSTANTS: BEGIN OF C_TS_HEAD,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TAB1&nbsp;LIKE&nbsp;SY-UCOMM&nbsp;VALUE&nbsp;'TS_HEAD_FC1',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TAB2&nbsp;LIKE&nbsp;SY-UCOMM&nbsp;VALUE&nbsp;'TS_HEAD_FC2',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;C_TS_HEAD.<br />
+   </div>
+   <div class="codeComment">
+*&SPWIZARD:&nbsp;DATA&nbsp;FOR&nbsp;TABSTRIP&nbsp;'TS_HEAD'<br />
+   </div>
+   <div class="code">
+CONTROLS:  TS_HEAD TYPE TABSTRIP.<br />
+DATA:      BEGIN OF G_TS_HEAD,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBSCREEN&nbsp;&nbsp;&nbsp;LIKE&nbsp;SY-DYNNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PROG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SY-REPID&nbsp;VALUE&nbsp;'ZMM02_004',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRESSED_TAB&nbsp;LIKE&nbsp;SY-UCOMM&nbsp;VALUE&nbsp;C_TS_HEAD-TAB1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;G_TS_HEAD.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

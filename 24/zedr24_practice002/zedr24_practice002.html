@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR24_PRACTICE002</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR24_PRACTICE002</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR24_PRACTICE002<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR24_PRACTICE002.<br />
+<br />
+"1. Declare Variables<br />
+"1-1. ### # ##<br />
+DATA : GS_ZEDT001 LIKE ZEDT24_001,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZEDT001&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;ZEDT24_001.<br />
+DATA : GS_ZEDT002 LIKE ZEDT24_002,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZEDT002&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;ZEDT24_002.<br />
+DATA : GS_ZEDT004 LIKE ZEDT24_004,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZEDT004&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;ZEDT24_004.<br />
+<br />
+"1-2. ## ## ### # ##<br />
+DATA : BEGIN OF GS_RESULT,<br />
+&nbsp;&nbsp;ZCODE&nbsp;LIKE&nbsp;ZEDT24_001-ZCODE,<br />
+&nbsp;&nbsp;ZKNAME&nbsp;LIKE&nbsp;ZEDT24_001-ZKNAME,<br />
+&nbsp;&nbsp;ZMAJOR_FLAG&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;1,&nbsp;"####&nbsp;T&nbsp;or&nbsp;F&nbsp;(bool)<br />
+&nbsp;&nbsp;ZTEL&nbsp;&nbsp;LIKE&nbsp;ZEDT24_001-ZTEL,<br />
+&nbsp;&nbsp;WARN&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;1,&nbsp;"##&nbsp;##&nbsp;##&nbsp;T&nbsp;or&nbsp;null&nbsp;(bool)<br />
+&nbsp;&nbsp;ZGENDER&nbsp;LIKE&nbsp;ZEDT24_001-ZGENDER,<br />
+END OF GS_RESULT,<br />
+GT_RESULT LIKE TABLE OF GS_RESULT.<br />
+<br />
+"1-3. ## ##<br />
+DATA : GV_MSUM LIKE ZEDT24_004-ZSUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_FSUM&nbsp;LIKE&nbsp;ZEDT24_004-ZSUM.<br />
+<br />
+"2. GET DATA FROM DICTONARY<br />
+SELECT * FROM ZEDT24_001 INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT001.<br />
+SELECT * FROM ZEDT24_002 INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT002.<br />
+SELECT * FROM ZEDT24_004 INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT004.<br />
+<br />
+"3. SORT BY ZCODE ZGRADE TO IDENTIFY THE WORST ZGRADE.<br />
+SORT GT_ZEDT004 BY ZCODE ASCENDING ZGRADE DESCENDING.<br />
+<br />
+"4. LOOP GT_ZEDT004.<br />
+LOOP AT GT_ZEDT004 INTO GS_ZEDT004.<br />
+&nbsp;&nbsp;IF&nbsp;GS_ZEDT004-ZCODE&nbsp;=&nbsp;GS_RESULT-ZCODE.&nbsp;"##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_RESULT.<br />
+<br />
+&nbsp;&nbsp;"##&nbsp;##&nbsp;##&nbsp;PASS&nbsp;-&gt;&nbsp;DOMAIN##&nbsp;#&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;"4-1.&nbsp;##&nbsp;##&nbsp;##&nbsp;##&nbsp;#&nbsp;##&nbsp;###(##,&nbsp;##,&nbsp;####(####)&nbsp;###)<br />
+&nbsp;&nbsp;IF&nbsp;GS_ZEDT004-ZGRADE&nbsp;&gt;=&nbsp;'D'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_RESULT-WARN&nbsp;=&nbsp;'T'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;IF&nbsp;GS_RESULT-WARN&nbsp;=&nbsp;'T'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ZEDT001&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_ZEDT004-ZCODE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;GS_ZEDT001&nbsp;BINARY&nbsp;SEARCH<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TRANSPORTING&nbsp;ZKNAME&nbsp;ZGENDER&nbsp;ZTEL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COMPARING&nbsp;ZCODE.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ZEDT001&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_ZEDT004-ZCODE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;GS_ZEDT001&nbsp;BINARY&nbsp;SEARCH<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TRANSPORTING&nbsp;ZKNAME&nbsp;ZGENDER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COMPARING&nbsp;ZCODE.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_ZEDT001&nbsp;TO&nbsp;GS_RESULT.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_ZEDT001.<br />
+<br />
+&nbsp;&nbsp;"4-2.&nbsp;##&nbsp;#&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;GS_RESULT-ZGENDER&nbsp;=&nbsp;'M'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;GS_ZEDT004-ZSUM&nbsp;TO&nbsp;GV_MSUM.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;GS_ZEDT004-ZSUM&nbsp;TO&nbsp;GV_FSUM.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"4-3.&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ZEDT002&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_ZEDT004-ZCODE<br />
+&nbsp;&nbsp;INTO&nbsp;GS_ZEDT002&nbsp;BINARY&nbsp;SEARCH<br />
+&nbsp;&nbsp;TRANSPORTING&nbsp;ZMAJOR.<br />
+&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_ZEDT002&nbsp;TO&nbsp;GS_RESULT.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GS_ZEDT004-ZMAJOR&nbsp;&lt;&gt;&nbsp;GS_ZEDT002-ZMAJOR."####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_RESULT-ZMAJOR_FLAG&nbsp;=&nbsp;'T'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_RESULT-ZMAJOR_FLAG&nbsp;=&nbsp;'F'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;GS_RESULT-ZCODE&nbsp;=&nbsp;GS_ZEDT004-ZCODE.<br />
+<br />
+&nbsp;&nbsp;"4-4.&nbsp;##&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;COLLECT&nbsp;GS_RESULT&nbsp;INTO&nbsp;GT_RESULT.<br />
+<br />
+ENDLOOP.<br />
+<br />
+"5. Printing<br />
+CLEAR GS_RESULT.<br />
+LOOP AT GT_RESULT INTO GS_RESULT.<br />
+&nbsp;&nbsp;AT&nbsp;FIRST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'--------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|&nbsp;&nbsp;####&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;####&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;##&nbsp;&nbsp;&nbsp;|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'--------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|',&nbsp;GS_RESULT-ZCODE,&nbsp;'|',&nbsp;GS_RESULT-ZKNAME,&nbsp;'|'.<br />
+&nbsp;&nbsp;IF&nbsp;GS_RESULT-ZMAJOR_FLAG&nbsp;=&nbsp;'T'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;'####'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;'|',&nbsp;GS_RESULT-ZTEL,&nbsp;'|'.<br />
+&nbsp;&nbsp;IF&nbsp;GS_RESULT-WARN&nbsp;=&nbsp;'T'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;'####&nbsp;|'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'--------------------------------------------------------------------'.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_RESULT.<br />
+&nbsp;&nbsp;AT&nbsp;LAST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'######&nbsp;:&nbsp;',&nbsp;GV_MSUM&nbsp;CURRENCY&nbsp;'KRW'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'######&nbsp;:&nbsp;',&nbsp;GV_FSUM&nbsp;CURRENCY&nbsp;'KRW'.<br />
+&nbsp;&nbsp;ENDAT.<br />
+ENDLOOP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

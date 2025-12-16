@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR20_PRACTICE002</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR20_PRACTICE002</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZEDR20_PRACTICE002<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZEDR20_PRACTICE002.<br />
+<br />
+DATA: GS_ZEDT001 TYPE ZEDT20_001.   " ZEDT20_001# #### ## ##### ##<br />
+DATA: GT_ZEDT001 LIKE TABLE OF GS_ZEDT001.    " ZEDT20_001# #### ## ###### ##<br />
+<br />
+DATA: GS_ZEDT002 TYPE ZEDT20_002.   " ZEDT20_002# #### ## ##### ##<br />
+DATA: GT_ZEDT002 LIKE TABLE OF GS_ZEDT002.    " ZEDT20_002# #### ## ###### ##<br />
+<br />
+DATA: GS_ZEDT004 TYPE ZEDT20_004.   " ZEDT20_004# #### ## ##### ##<br />
+DATA: GT_ZEDT004 LIKE TABLE OF GS_ZEDT004.    " ZEDT20_004# #### ## ###### ##<br />
+<br />
+DATA: BEGIN OF GS_MASTER,   " ### #### ### ##### ##<br />
+&nbsp;&nbsp;ZCODE&nbsp;TYPE&nbsp;ZEDT20_001-ZCODE,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ZCODE&nbsp;##<br />
+&nbsp;&nbsp;ZKNAME(10),&nbsp;&nbsp;&nbsp;"&nbsp;ZKNAME&nbsp;##<br />
+&nbsp;&nbsp;ZTARGET(10),&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ZTARGET&nbsp;##&nbsp;(##&nbsp;##)<br />
+&nbsp;&nbsp;ZTEL&nbsp;TYPE&nbsp;ZEDT20_001-ZTEL,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ZTEL&nbsp;##<br />
+&nbsp;&nbsp;ZBRIEF(10),&nbsp;&nbsp;&nbsp;"&nbsp;ZBRIEF&nbsp;##&nbsp;(##)<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_MASTER.&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;##&nbsp;##<br />
+DATA: GT_MASTER LIKE TABLE OF GS_MASTER.    " ### #### ### ###### ##<br />
+<br />
+DATA: BEGIN OF GS_SUM,    " #### #### # #### ### ##### ##<br />
+&nbsp;&nbsp;ZGENDER,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ZGEDNDER&nbsp;##<br />
+&nbsp;&nbsp;ZSUM&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;0,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ZSUM&nbsp;##&nbsp;#&nbsp;0##&nbsp;###<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_SUM.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;##&nbsp;##<br />
+DATA: GT_SUM LIKE TABLE OF GS_SUM.    " #### #### # #### ### ###### ##<br />
+<br />
+" ### #### #### ## ### ## ##<br />
+GS_SUM-ZGENDER = 'M'.<br />
+APPEND GS_SUM TO GT_SUM.    " #### append<br />
+<br />
+" ### #### #### ## ### ## ##<br />
+GS_SUM-ZGENDER = 'F'.<br />
+APPEND GS_SUM TO GT_SUM.    " #### append<br />
+<br />
+" ### ### #### ## ## KRW ## ##<br />
+CONSTANTS: C_KRW TYPE I VALUE 100.<br />
+<br />
+" ZEDT20_001# #### GT_ZEDT001# ###<br />
+SELECT * FROM ZEDT20_001<br />
+INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT001.<br />
+<br />
+" ZEDT20_002# #### GT_ZEDT002# ###<br />
+SELECT * FROM ZEDT20_002<br />
+INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT002.<br />
+<br />
+" ZEDT20_004# #### GT_ZEDT004# ###<br />
+SELECT * FROM ZEDT20_004<br />
+INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT004.<br />
+<br />
+" ### ## ## ### #### ## ##<br />
+SORT GT_ZEDT004 BY ZCODE ASCENDING ZGRADE DESCENDING.<br />
+<br />
+" ZCODE# #### ### # ## ### #### ### ## =&gt; ### ### ##<br />
+DELETE ADJACENT DUPLICATES FROM GT_ZEDT004 COMPARING ZCODE.<br />
+<br />
+CLEAR: GS_MASTER, GS_ZEDT001, GS_ZEDT002, GS_ZEDT004.   " ##### ###<br />
+<br />
+LOOP AT GT_ZEDT002 INTO GS_ZEDT002.   " LOOP## ##<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GS_ZEDT004,&nbsp;GS_ZEDT001,&nbsp;GS_MASTER.&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;###<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;###&nbsp;#####&nbsp;#####&nbsp;GT_ZEDT004#&nbsp;###&nbsp;###&nbsp;####&nbsp;###<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ZEDT004&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_ZEDT002-ZCODE&nbsp;INTO&nbsp;GS_ZEDT004.<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;NE&nbsp;0.&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;ENDIF.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;IF##&nbsp;##<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ZEDT001&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_ZEDT002-ZCODE&nbsp;INTO&nbsp;GS_ZEDT001.<br />
+<br />
+&nbsp;&nbsp;GS_MASTER-ZKNAME&nbsp;=&nbsp;GS_ZEDT001-ZKNAME.&nbsp;&nbsp;&nbsp;"&nbsp;GS_MASTER#&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;GS_MASTER-ZCODE&nbsp;=&nbsp;GS_ZEDT002-ZCODE.&nbsp;&nbsp;&nbsp;"&nbsp;GS_MASTER#&nbsp;ZCODE&nbsp;##<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;D##&nbsp;F#&nbsp;###&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;(&nbsp;GS_ZEDT004-ZGRADE&nbsp;=&nbsp;'D'&nbsp;)&nbsp;OR&nbsp;(&nbsp;GS_ZEDT004-ZGRADE&nbsp;=&nbsp;'F'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_MASTER-ZBRIEF&nbsp;=&nbsp;'####'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;ZBRIEF#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_MASTER-ZTEL&nbsp;=&nbsp;GS_ZEDT001-ZTEL.&nbsp;&nbsp;&nbsp;"&nbsp;GS_MASTER#&nbsp;ZTEL&nbsp;##<br />
+&nbsp;&nbsp;ENDIF.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;IF#&nbsp;##<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GS_ZEDT002-ZMAJOR&nbsp;NE&nbsp;GS_ZEDT004-ZMAJOR.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ZMAJOR##&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_MASTER-ZTARGET&nbsp;=&nbsp;'####'.&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;###<br />
+&nbsp;&nbsp;ENDIF.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;IF#&nbsp;##.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;######&nbsp;###&nbsp;append#<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_MASTER&nbsp;TO&nbsp;GT_MASTER.<br />
+<br />
+&nbsp;&nbsp;GS_SUM-ZGENDER&nbsp;=&nbsp;GS_ZEDT001-ZGENDER.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;GS_SUM#&nbsp;ZGENDER#&nbsp;##&nbsp;###&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;GS_SUM-ZSUM&nbsp;=&nbsp;GS_ZEDT004-ZSUM&nbsp;*&nbsp;C_KRW.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;GS_SUM#&nbsp;ZSUM#&nbsp;##&nbsp;###&nbsp;####&nbsp;C_KRW#&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;COLLECT&nbsp;GS_SUM&nbsp;INTO&nbsp;GT_SUM.&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;###&nbsp;######&nbsp;COLLECT#&nbsp;###<br />
+ENDLOOP.    " LOOP# ##.<br />
+<br />
+LOOP AT GT_MASTER INTO GS_MASTER.   " #### #### LOOP# ##<br />
+&nbsp;&nbsp;AT&nbsp;FIRST.&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;####&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'-------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|&nbsp;&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;&nbsp;&nbsp;&nbsp;|'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'-------------------------------------------------------------------------------'.<br />
+&nbsp;&nbsp;ENDAT.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;AT##&nbsp;##<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'|&nbsp;&nbsp;',&nbsp;GS_MASTER-ZCODE,&nbsp;'|',GS_MASTER-ZKNAME,'|&nbsp;&nbsp;',&nbsp;&nbsp;GS_MASTER-ZTARGET&nbsp;&nbsp;,'|&nbsp;&nbsp;'&nbsp;,GS_MASTER-ZTEL,'&nbsp;|',&nbsp;GS_MASTER-ZBRIEF,&nbsp;'|'.<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'-------------------------------------------------------------------------------'.<br />
+<br />
+<br />
+&nbsp;&nbsp;AT&nbsp;LAST.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;###&nbsp;####&nbsp;###&nbsp;###&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_SUM&nbsp;WITH&nbsp;KEY&nbsp;ZGENDER&nbsp;=&nbsp;'M'&nbsp;INTO&nbsp;GS_SUM.&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'######&nbsp;:',&nbsp;GS_SUM-ZSUM.&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_SUM&nbsp;WITH&nbsp;KEY&nbsp;ZGENDER&nbsp;=&nbsp;'F'&nbsp;INTO&nbsp;GS_SUM.&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'######&nbsp;:',&nbsp;GS_SUM-ZSUM.&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;ENDAT.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;AT##&nbsp;##<br />
+ENDLOOP.    " Loop# ##<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>

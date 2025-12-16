@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZEDR10_0917</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZEDR10_0917</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZED10_0917<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZED10_0917.<br />
+<br />
+DATA: GS_STUDENT TYPE ZEDT10_001,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_STUDENT&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_STUDENT.<br />
+<br />
+DATA: BEGIN OF GS_MAJOR,<br />
+&nbsp;&nbsp;ZCODE&nbsp;LIKE&nbsp;ZEDT10_004-ZCODE,<br />
+&nbsp;&nbsp;ZPERNR&nbsp;LIKE&nbsp;ZEDT10_004-ZPERNR,<br />
+&nbsp;&nbsp;ZMNAME&nbsp;LIKE&nbsp;ZEDT10_004-ZMNAME,<br />
+&nbsp;&nbsp;ZKNAME&nbsp;LIKE&nbsp;ZEDT10_001-ZKNAME,<br />
+END OF GS_MAJOR.<br />
+DATA: GT_MAJOR LIKE TABLE OF GS_MAJOR WITH NON-UNIQUE KEY ZCODE.<br />
+<br />
+CLEAR: GS_MAJOR, GS_STUDENT, GT_MAJOR, GT_STUDENT.<br />
+<br />
+SELECT *<br />
+&nbsp;&nbsp;FROM&nbsp;ZEDT10_001<br />
+&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@GT_STUDENT.<br />
+<br />
+SELECT ZCODE, ZPERNR, ZMNAME<br />
+&nbsp;&nbsp;FROM&nbsp;ZEDT10_004<br />
+&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@GT_MAJOR.<br />
+<br />
+DATA: GV_MAJOR_LINES TYPE I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_STUDENT_LINES&nbsp;TYPE&nbsp;I.<br />
+<br />
+SORT GT_MAJOR BY ZCODE.<br />
+SORT GT_STUDENT BY ZCODE.<br />
+<br />
+LOOP AT GT_STUDENT INTO GS_STUDENT.<br />
+&nbsp;&nbsp;IF&nbsp;SY-TABIX&nbsp;&gt;&nbsp;12.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ZEDT10_004#&nbsp;12####&nbsp;###.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GS_MAJOR.<br />
+&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_STUDENT&nbsp;TO&nbsp;GS_MAJOR.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MAJOR&nbsp;FROM&nbsp;GS_MAJOR&nbsp;INTO&nbsp;GS_MAJOR.<br />
+*&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MAJOR&nbsp;WITH&nbsp;TABLE&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_STUDENT-ZCODE&nbsp;INTO&nbsp;GS_MAJOR.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MAJOR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;ZCODE&nbsp;=&nbsp;GS_STUDENT-ZCODE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;GS_MAJOR<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;TRANSPORTING&nbsp;ZMNAME<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;MOVE-CORESPONDING&nbsp;#&nbsp;###&nbsp;###<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;COMPARING&nbsp;ZCODE<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;###&nbsp;#.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;TRANSPORTING#&nbsp;COMPARING#&nbsp;BINARY#&nbsp;###&nbsp;###&nbsp;#&nbsp;##.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;BINARY&nbsp;SEARCH<br />
+&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_STUDENT-ZKNAME&nbsp;=&nbsp;GS_MAJOR-ZKNAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;GS_STUDENT-ZCODE,&nbsp;GS_STUDENT-ZKNAME,&nbsp;GS_MAJOR-ZMNAME.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'###&nbsp;##&nbsp;##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDLOOP.<br />
+<br />
+" ###<br />
+ULINE: /.<br />
+WHILE SY-INDEX &lt;&gt; 8.<br />
+&nbsp;&nbsp;WRITE:/&nbsp;SY-INDEX.<br />
+ENDWHILE.<br />
+<br />
+uline: /.<br />
+DO 10 TIMES.<br />
+&nbsp;&nbsp;IF&nbsp;SY-INDEX&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;exit.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;stop.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;WRITE:/&nbsp;sy-INDEX.<br />
+ENDDO.<br />
+<br />
+WRITE:/ 'finish'.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 750</td>
+   </tr>
+</table>
+</body>
+</html>
