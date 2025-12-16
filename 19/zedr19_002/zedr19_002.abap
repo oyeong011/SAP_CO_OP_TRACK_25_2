@@ -1,0 +1,57 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR19_002
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR19_002.
+
+DATA : GV_TEXT1 VALUE 'A'.
+
+DATA : GV_TEXT2 LENGTH 3 TYPE C VALUE 'ABC'.
+
+DATA : GV_TEXT3(5) TYPE C VALUE 'ABCDE'.
+
+DATA : GV_TEXT4 TYPE STRING VALUE 'ABCDE'.
+
+DATA : GV_LEN TYPE i.
+
+
+
+DATA : GV_TIME TYPE T.
+
+
+
+DATA : GV_DATE TYPE D.
+
+
+
+GV_TIME = SY-UZEIT.
+
+GV_DATE = SY-DATUM.
+
+GV_LEN = STRLEN( GV_TEXT3 ).
+
+
+
+WRITE : GV_TEXT1.
+
+WRITE :/ GV_TEXT2.
+
+WRITE :/ GV_TEXT3.
+
+WRITE :/ GV_TEXT4.
+
+WRITE :/ GV_LEN.
+
+WRITE :/ GV_TIME.
+
+WRITE :/ GV_DATE.

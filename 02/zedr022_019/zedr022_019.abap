@@ -1,0 +1,281 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR022_019
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR022_019.
+
+
+
+
+*DATA : BEGIN OF GS_STUDENT.
+
+*  INCLUDE TYPE ZEDT022_001.
+
+*  DATA : END OF GS_STUDENT.
+
+*DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+*FORM ALV_DISPLAY.
+
+*
+
+*CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+
+*  EXPORTING
+
+*    I_STRUCTURE_NAME = 'ZEDT022_001'
+
+*  TABLES
+
+*    T_OUTTAB = GT_STUDENT.
+
+*
+
+*ENDFORM.
+
+
+
+
+
+
+TABLES : ZEDT022_002.
+
+
+
+DATA : GS_STUDENT TYPE ZEDT022_002.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+" ## #### ### #### ### ##
+
+DATA : GS_FIELDCAT TYPE SLIS_FIELDCAT_ALV.
+
+DATA : GT_FIELDCAT TYPE SLIS_T_FIELDCAT_ALV.
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+  SELECT-OPTIONS : S_ZCODE FOR ZEDT022_002-ZCODE.
+
+  PARAMETERS : P_ZPERNR LIKE ZEDT022_002-ZPERNR.
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+START-OF-SELECTION.
+
+  PERFORM GET_DATA.
+
+  PERFORM MODIFY_DATA.
+
+END-OF-SELECTION.
+
+  PERFORM ALV_DISPLAY.
+
+
+
+FORM GET_DATA.
+
+  SELECT *
+
+    FROM ZEDT022_002
+
+    INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT
+
+   WHERE ZCODE  IN S_ZCODE.
+
+ENDFORM.
+
+
+
+FORM MODIFY_DATA.
+
+ENDFORM.
+
+
+
+START-OF-SELECTION.
+
+PERFORM field_catalog.
+
+  PERFORM alv_display.
+
+
+
+
+
+" ## ##### ## ##
+
+
+
+FORM FIELD_CATALOG.
+
+
+
+  CLEAR : GS_STUDENT, GT_FIELDCAT.
+
+
+
+  GS_FIELDCAT-COL_POS = 1.
+
+  GS_FIELDCAT-FIELDNAME = 'ZCODE'. "ALV###, ####### ##### ### #
+
+  GS_FIELDCAT-SELTEXT_M = '####'. "### ## #
+
+  "GS_FIELDCAT-KEY = 'X'. "KEY## ##
+
+                         "-# ### ####? ### ##### ##
+
+                         "FIX_COLUMN## ##(ALV# ### #### ### ## ##, ### ### ##
+
+  "GS_FIELDCAT-JUST = 'L'. "JUST : ####(L,R,C) - ##
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 2.
+
+  GS_FIELDCAT-FIELDNAME = 'ZPERNR'.
+
+  GS_FIELDCAT-SELTEXT_M = '####'.
+
+  GS_FIELDCAT-JUST = 'C'. "##
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+
+
+
+*  CLEAR : GS_FIELDCAT.
+
+*  GS_FIELDCAT-COL_POS = 3.
+
+*  GS_FIELDCAT-FIELDNAME = 'ZKNAME'.
+
+*  GS_FIELDCAT-SELTEXT_M = '##'.
+
+*  GS_FIELDCAT-JUST = 'R'. "###
+
+*  "GS_FIELDCAT-NO_OUT = 'X'. "## ##
+
+*  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 4.
+
+  GS_FIELDCAT-FIELDNAME = 'ZMNAME'.
+
+  GS_FIELDCAT-SELTEXT_M = '###'.
+
+  "GS_FIELDCAT-CURRENCY = 'KRW'. "CURRENCY : CURRENCY ##
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 5.
+
+  GS_FIELDCAT-FIELDNAME = 'ZSUM'.
+
+  GS_FIELDCAT-SELTEXT_M = '####'.
+
+  GS_FIELDCAT-CURRENCY = 'KRW'.
+
+  "GS_FIELDCAT-DO_SUM = 'X'."## ##
+
+  "GS_FIELDCAT-NO_ZERO = 'X'."0# ##
+
+  "GS_FIELDCAT-NO_SIGN = 'X'."#### ##
+
+  "GS_FIELDCAT-OUTPUTLEN = 20. "### # ##
+
+  "GS_FIELDCAT-EMPHASIZE = 'X'. "## ##
+
+  "GS_FIELDCAT-EDIT = 'X'. "####
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 6.
+
+  GS_FIELDCAT-FIELDNAME = 'ZWARS'.
+
+  GS_FIELDCAT-SELTEXT_M = '##'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 7.
+
+  GS_FIELDCAT-FIELDNAME = 'CRDATE'.
+
+  GS_FIELDCAT-SELTEXT_M = '###'.
+
+  "GS_FIELDCAT-EDIT_MASK = '____-__-__'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+
+
+ENDFORM.
+
+
+
+FORM ALV_DISPLAY.
+
+  PERFORM FIELD_CATALOG.
+
+
+
+  CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+
+    EXPORTING
+
+      IT_FIELDCAT = GT_FIELDCAT
+
+    TABLES
+
+      T_OUTTAB    = GT_STUDENT.
+
+ENDFORM.
+
+
+
+" -> # #### ## ##### ## ## ## # ## #

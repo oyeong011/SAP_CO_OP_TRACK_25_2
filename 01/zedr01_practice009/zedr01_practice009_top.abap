@@ -1,0 +1,169 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR01_PRACTICE009_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES : ZEDT01_102 , ZEDT01_103 , ZEDT01_104 , ZEDT01_105 ,ZEDT01_106.
+
+
+
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+DATA : BEGIN OF GS_INFO_FIRST,             "#### ### ### # ###
+
+  ZPERNR TYPE ZEDT01_102-ZPERNR,           "####
+
+  ZDEPCODE TYPE ZEDT01_102-ZDEPCODE,       "##
+
+  ZDEPRANK TYPE ZEDT01_102-ZDEPRANK,       "##
+
+  ZQFLAG TYPE ZEDT01_102-ZQFLAG,           "####
+
+  ZQDATE TYPE ZEDT01_102-ZQDATE,           "###
+
+  ZEDATE TYPE ZEDT01_102-ZEDATE,           "####
+
+  DATBI TYPE ZEDT01_102-DATBI,             "##_####
+
+  DATAB TYPE ZEDT01_102-DATBI,             "##_####
+
+  ZPNAME TYPE ZEDT01_103-ZPNAME,           "##
+
+  ZGENDER TYPE ZEDT01_103-ZGENDER,         "##
+
+  ZADDRESS TYPE ZEDT01_103-ZADDRESS,       "##
+
+  ZGUBUN_COLOR TYPE C LENGTH 4,            "##_##
+
+  ZDEPCODE_NAME TYPE C LENGTH 16,          "##_##
+
+  ZDEPRANK_NAME TYPE C LENGTH 16,          "##_##
+
+  ZGENDER_NAME TYPE C LENGTH 12,           "##_##
+
+  END OF GS_INFO_FIRST.
+
+DATA : GT_INFO_FIRST LIKE TABLE OF GS_INFO_FIRST.
+
+
+
+DATA : BEGIN OF GS_INFO_SECOND,            "#### ### ### # ###
+
+  ZPERNR TYPE ZEDT01_104-ZPERNR,           "####
+
+  ZDEPCODE TYPE ZEDT01_104-ZDEPCODE,       "##
+
+  ZYEAR TYPE ZEDT01_104-ZYEAR,             "##_##
+
+  DATBI TYPE ZEDT01_104-DATBI,             "##_####
+
+  DATAB TYPE ZEDT01_104-DATBI,             "##_####
+
+  ZRANK TYPE ZEDT01_104-ZRANK,             "##
+
+  ZDEPCODE_NAME TYPE C LENGTH 16,          "##_##
+
+  END OF GS_INFO_SECOND.
+
+DATA : GT_INFO_SECOND LIKE TABLE OF GS_INFO_SECOND.
+
+
+
+DATA : BEGIN OF GS_INFO_THIRD,             "#### ### ### # ###
+
+  ZPERNR TYPE ZEDT01_106-ZPERNR,           "####
+
+  ZBANKCODE TYPE ZEDT01_106-ZBANKCODE,     "####
+
+  ZACCOUNT TYPE ZEDT01_106-ZACCOUNT,       "####
+
+  ZSALARY TYPE ZEDT01_106-ZSALARY,         "####
+
+  ZYEAR TYPE ZEDT01_106-ZYEAR,             "##_##
+
+  DATBI TYPE ZEDT01_106-DATBI,             "##_####
+
+  DATAB TYPE ZEDT01_106-DATBI,             "##_####
+
+  ZWAERS TYPE WAERS,                       "##
+
+  ZBANKCODE_NAME TYPE C LENGTH 20,         "##_##
+
+  END OF GS_INFO_THIRD.
+
+DATA : GT_INFO_THIRD LIKE TABLE OF GS_INFO_THIRD.
+
+
+
+RANGES : GR_BANKCODE_WAERS FOR ZEDT01_106-ZBANKCODE. "#### ## ## A##
+
+DATA : OK_CODE TYPE SY-UCOMM.                        " ### CODE
+
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER. "#### ### ##
+
+DATA : GC_DOCKING2 TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA : GC_SPLITTER TYPE REF TO CL_GUI_SPLITTER_CONTAINER.
+
+
+
+DATA : GC_FIRST_CONTAINER TYPE REF TO CL_GUI_CONTAINER.
+
+DATA : GC_SECOND_CONTAINER TYPE REF TO CL_GUI_CONTAINER.
+
+DATA : GC_THIRD_CONTAINER TYPE REF TO CL_GUI_CONTAINER.
+
+
+
+DATA : GC_FIRST_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+DATA : GC_SECOND_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+DATA : GC_THIRD_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA : GS_VARIANT TYPE DISVARIANT.
+
+
+
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT.            "ALV# ### ##
+
+DATA : GT_FIRST_FIELDCAT TYPE LVC_T_FCAT.
+
+DATA : GT_SECOND_FIELDCAT TYPE LVC_T_FCAT.
+
+DATA : GT_THIRD_FIELDCAT TYPE LVC_T_FCAT.
+
+
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+DATA : GS_SORT TYPE LVC_S_SORT.
+
+DATA : GT_SORT TYPE LVC_T_SORT.
+
+
+
+CONSTANTS : C_DATE_LEN TYPE I VALUE 10.        "ALV ### ## ##
+
+CONSTANTS : C_SALARY_LEN TYPE I VALUE 18.      "ALV ### #### ##
+
+CONSTANTS : C_CONTAINER_SIZE TYPE I VALUE 230. "ALV #### ##
+
+DATA : GV_LAST_DAY TYPE DATS.                  "DATS ### ## ____.__.__# ###### ##

@@ -1,0 +1,476 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR19_028
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR19_028.
+
+
+
+
+
+
+*DATA : GS_STUDENT TYPE ZEDT19_001.
+
+*DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+*
+
+*DATA : BEGIN OF GS_MAJOR,
+
+*  ZCODE LIKE ZEDT19_001-ZCODE19, "####
+
+*  ZPERNR LIKE ZEDT19_001-ZPERNR19, "####
+
+*  ZMNAME LIKE ZEDT19_001-ZMNAME19, "###
+
+*  END OF GS_MAJOR.
+
+*DATA : GT_MAJOR LIKE TABLE OF GS_MAJOR WITH NON-UNIQUE KEY ZCODE.
+
+*
+
+*CLEAR : GS_STUDENT,GT_STUDENT,GS_MAJOR, GT_MAJOR.
+
+*GS_STUDENT-ZPERNR19 = '000000001'.
+
+*GS_STUDENT-ZCODE19 = 'SSU-01'.
+
+*GS_STUDENT-ZKNAME19 = '###'.
+
+*GS_STUDENT-ZENAME19 = 'DONG'.
+
+*GS_STUDENT-ZGUBUN19 = 'M'.
+
+*GS_STUDENT-ZTEL19 = '01011112222'.
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*GS_STUDENT-ZPERNR19 = '000000002'.
+
+*GS_STUDENT-ZCODE19 = 'SSU-02'.
+
+*GS_STUDENT-ZKNAME19 = '###'.
+
+*GS_STUDENT-ZENAME19 = 'HOON'.
+
+*GS_STUDENT-ZGUBUN19 = 'M'.
+
+*GS_STUDENT-ZTEL19 = '01022223333'.
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*GS_STUDENT-ZPERNR19 = '000000003'.
+
+*GS_STUDENT-ZCODE19 = 'SSU-03'.
+
+*GS_STUDENT-ZKNAME19 = '##'.
+
+*GS_STUDENT-ZENAME19 = 'BIN'.
+
+*GS_STUDENT-ZGUBUN19 = 'M'.
+
+*GS_STUDENT-ZTEL19 = '01033334444'.
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*GS_STUDENT-ZPERNR19 = '000000004'.
+
+*GS_STUDENT-ZCODE19 = 'SSU-04'.
+
+*GS_STUDENT-ZKNAME19 = '##'.
+
+*GS_STUDENT-ZENAME19 = 'JENNY'.
+
+*GS_STUDENT-ZGUBUN19 = 'F'.
+
+*GS_STUDENT-ZTEL19 = '01044445555'.
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*GS_STUDENT-ZPERNR19 = '000000005'.
+
+*GS_STUDENT-ZCODE19 = 'SSU-05'.
+
+*GS_STUDENT-ZKNAME19 = '##'.
+
+*GS_STUDENT-ZENAME19 = 'KOOK'.
+
+*GS_STUDENT-ZGUBUN19 = 'M'.
+
+*GS_STUDENT-ZTEL19 = '01055556666'.
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*GS_MAJOR-ZPERNR = '000000001'.
+
+*GS_MAJOR-ZCODE = 'SSU-01'.
+
+*GS_MAJOR-ZMNAME = '####'.
+
+*APPEND GS_MAJOR TO GT_MAJOR.
+
+*
+
+*GS_MAJOR-ZPERNR = '000000002'.
+
+*GS_MAJOR-ZCODE = 'SSU-02'.
+
+*GS_MAJOR-ZMNAME = '#####'.
+
+*APPEND GS_MAJOR TO GT_MAJOR.
+
+*
+
+*GS_MAJOR-ZPERNR = '000000003'.
+
+*GS_MAJOR-ZCODE = 'SSU-03'.
+
+*GS_MAJOR-ZMNAME = '######'.
+
+*APPEND GS_MAJOR TO GT_MAJOR.
+
+*
+
+*GS_MAJOR-ZPERNR = '000000004'.
+
+*GS_MAJOR-ZCODE = 'SSU-04'.
+
+*GS_MAJOR-ZMNAME = '####'.
+
+*APPEND GS_MAJOR TO GT_MAJOR.
+
+*
+
+*GS_MAJOR-ZPERNR = '000000005'.
+
+*GS_MAJOR-ZCODE = 'SSU-05'.
+
+*GS_MAJOR-ZMNAME = '#####'.
+
+*APPEND GS_MAJOR TO GT_MAJOR.
+
+*
+
+*LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+*  CLEAR : GS_MAJOR.
+
+*  MOVE-CORRESPONDING GS_STUDENT TO GS_MAJOR.
+
+*  READ TABLE GT_MAJOR WITH KEY ZCODE = GS_STUDENT-ZCODE19.
+
+*  INTO GS_MAJOR.
+
+*
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE :/ GS_STUDENT-ZCODE19, GS_STUDENT-ZKNAME19, GS_MAJOR-ZMNAME.
+
+*  ELSE.
+
+*    WRITE :/ '#### #### #####.'.
+
+*  ENDIF.
+
+*ENDLOOP.
+
+
+
+*LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+*  CLEAR : GS_MAJOR.
+
+*  MOVE-CORRESPONDING GS_STUDENT TO GS_MAJOR.
+
+*  READ TABLE GT_MAJOR WITH KEY ZCODE = GS_STUDENT-ZCODE19
+
+*                               ZPERNR = GS_STUDENT-ZPERNR19
+
+*  INTO GS_MAJOR.
+
+*  "#### # # ### 2# ### ## Comma## ## # ### READ.
+
+*
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE :/ GS_STUDENT-ZCODE19, GS_STUDENT-ZKNAME19, GS_MAJOR-ZMNAME.
+
+*  ELSE.
+
+*    WRITE :/ '#### #### #####.'.
+
+*  ENDIF.
+
+*ENDLOOP.
+
+
+
+*LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+*  CLEAR : GS_MAJOR.
+
+*  MOVE-CORRESPONDING GS_STUDENT TO GS_MAJOR. "# ## GS_MAJOR ### ## #
+
+*
+
+*  READ TABLE GT_MAJOR WITH KEY ZCODE = GS_STUDENT-ZCODE19 INTO GS_MAJOR
+
+*  COMPARING ZCODE.
+
+*  " # ## GS_MAJOR ### ## #
+
+*
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE :/ GS_STUDENT-ZCODE19, GS_STUDENT-ZKNAME19, GS_MAJOR-ZMNAME. "READ TABLE# ## GT_MAJOR# GS_MAJOR ZCODE # # # ##
+
+*  ELSE.
+
+*    WRITE :/ '#### #### #####.'.
+
+*  ENDIF.
+
+*ENDLOOP.
+
+
+
+*LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+*  CLEAR : GS_MAJOR.
+
+*  MOVE-CORRESPONDING GS_STUDENT TO GS_MAJOR.
+
+*  READ TABLE GT_MAJOR WITH KEY ZCODE = GS_STUDENT-ZCODE19 INTO GS_MAJOR TRANSPORTING ZMNAME.
+
+*  "GT_MAJOR # ZKNAME #### ### READ ## (TRANSPORTING #### ### #### # ##)
+
+*
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE :/ GS_STUDENT-ZCODE19, GS_STUDENT-ZKNAME19, GS_MAJOR-ZMNAME.
+
+*  ELSE.
+
+*    WRITE :/ '#### #### #####.'.
+
+*  ENDIF.
+
+*ENDLOOP.
+
+
+
+*LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+*  CLEAR : GS_MAJOR.
+
+*  MOVE-CORRESPONDING GS_STUDENT TO GS_MAJOR.
+
+*  READ TABLE GT_MAJOR INTO GS_MAJOR INDEX SY-TABIX.
+
+*  "#### ##
+
+*
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE :/ GS_STUDENT-ZCODE19, GS_STUDENT-ZKNAME19, GS_MAJOR-ZMNAME.
+
+*  ELSE.
+
+*    WRITE :/ '#### #### #####.'.
+
+*  ENDIF.
+
+*ENDLOOP.
+
+
+
+*LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+*  CLEAR : GS_MAJOR.
+
+*  MOVE-CORRESPONDING GS_STUDENT TO GS_MAJOR.
+
+*  READ TABLE GT_MAJOR WITH KEY ZCODE = GS_STUDENT-ZCODE19 INTO GS_MAJOR BINARY SEARCH.
+
+*  "## ## #### ### ## ## ## ### ### #### ### ## ## ### ## # ### ## ### search
+
+*  " #### : SORT# ## ### ##
+
+*
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE :/ GS_STUDENT-ZCODE19, GS_STUDENT-ZKNAME19, GS_MAJOR-ZMNAME.
+
+*  ELSE.
+
+*    WRITE :/ '#### #### #####.'.
+
+*  ENDIF.
+
+*ENDLOOP.
+
+
+
+
+
+
+DATA : LV_NUM TYPE I.
+
+DATA : LV_SUM TYPE I.
+
+
+
+LV_NUM = 5.
+
+
+
+
+
+
+*DO LV_NUM TIMES. "LV_NUM## #### ##
+
+*  ADD SY-INDEX TO LV_SUM.
+
+*  WRITE :/ SY-INDEX.
+
+*
+
+*ENDDO.
+
+*
+
+*WRITE :/ 'INDEX ## :', LV_SUM.
+
+
+
+*DO LV_NUM TIMES. "LV_NUM## #### ##
+
+*  IF SY-INDEX = '3'.
+
+*    EXIT. "EXIT## ## #### ## (### ##)
+
+*  ENDIF.
+
+*
+
+*  ADD SY-INDEX TO LV_SUM.
+
+*  WRTIE :/ SY-INDEX.
+
+*
+
+*ENDDO.
+
+*
+
+*WRITE :/ 'INDEX ## :', LV_SUM.
+
+
+
+*DO LV_NUM TIMES. "LV_NUM## #### ##
+
+*  IF SY-INDEX = '3'.
+
+*    STOP. "STOP## ## #### ##
+
+*  ENDIF.
+
+*
+
+*  ADD SY-INDEX TO LV_SUM.
+
+*  WRTIE :/ SY-INDEX.
+
+*
+
+*ENDDO.
+
+*
+
+*WRITE :/ 'INDEX ## :', LV_SUM.
+
+
+
+*DO LV_NUM TIMES. "LV_NUM## #### ##
+
+*  IF SY-INDEX = '3'.
+
+*    CONTINUE. "CONTINUE## ## # ### #### ####
+
+*  ENDIF.
+
+*
+
+*  ADD SY-INDEX TO LV_SUM.
+
+*  WRTIE :/ SY-INDEX.
+
+*
+
+*ENDDO.
+
+*
+
+*WRITE :/ 'INDEX ## :', LV_SUM.
+
+
+
+*DO LV_NUM TIMES. "LV_NUM## #### ##
+
+*  CHECK SY-INDEX = '3'. "CHECK ## ###### ## #### # #### ##
+
+*
+
+*  ADD SY-INDEX TO LV_SUM.
+
+*  WRTIE :/ SY-INDEX.
+
+*
+
+*ENDDO.
+
+*
+
+*WRITE :/ 'INDEX ## :', LV_SUM.
+
+
+
+*WHILE GV_NUM = 5. "# ## ## ## #### ## ##
+
+*  GV_CHECK = 'X'.
+
+*ENDWHILE.
+
+*
+
+*IF GV_CHECK = 'X'.
+
+*  WRITE :/ '#######.'.
+
+*ENDIF.

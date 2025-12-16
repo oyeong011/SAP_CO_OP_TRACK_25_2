@@ -1,0 +1,43 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM14_001_SCR
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+
+
+  PARAMETERS : P_LIFNR TYPE LIFNR DEFAULT '1000000000' MODIF ID M1,  "#####
+
+               P_BUKRS TYPE BUKRS DEFAULT '1000',  "####
+
+               P_KTOKK TYPE KTOKK DEFAULT '1000' MODIF ID M2.  "#####
+
+
+
+  SELECTION-SCREEN ULINE.
+
+
+
+  SELECTION-SCREEN BEGIN OF LINE.
+
+    SELECTION-SCREEN COMMENT 2(2) TEXT-T01 FOR FIELD P_R1.  "##
+
+    PARAMETERS : P_R1 RADIOBUTTON GROUP RB1 DEFAULT 'X' USER-COMMAND UC1.
+
+    SELECTION-SCREEN COMMENT 15(2) TEXT-T02 FOR FIELD P_R2.  "##
+
+    PARAMETERS : P_R2 RADIOBUTTON GROUP RB1.
+
+  SELECTION-SCREEN END OF LINE.
+
+
+
+SELECTION-SCREEN END OF BLOCK B1.

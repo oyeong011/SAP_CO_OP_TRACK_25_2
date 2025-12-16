@@ -1,0 +1,221 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR15_002
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR15_002.
+
+
+
+"ABAP dictionary table# ## ###
+
+
+
+
+*DATA : GS_ZEDT15 TYPE ZEDT15_001.
+
+*
+
+*GS_ZEDT15-ZCODE = 'SSU-01'.
+
+*GS_ZEDT15-ZKNAME = '###'.
+
+*GS_ZEDT15-ZENAME = 'DONG'.
+
+*GS_ZEDT15-ZGENDER = 'M'.
+
+*GS_ZEDT15-ZTEL = '01011112222'.
+
+*
+
+*WRITE : / GS_ZEDT15-ZCODE.
+
+*WRITE : / GS_ZEDT15-ZKNAME.
+
+*WRITE : / GS_ZEDT15-ZENAME.
+
+*WRITE : / GS_ZEDT15-ZGENDER.
+
+*WRITE : / GS_ZEDT15-ZTEL.
+
+
+
+
+
+
+
+
+"Table #### #### ## ##
+
+
+
+
+*DATA : BEGIN OF GS_ZEDT15,
+
+*  ZCODE TYPE ZEDT15_001-ZCODE,
+
+*  ZKNAME TYPE ZEDT15_001-ZKNAME,
+
+*  ZENAME TYPE ZEDT15_001-ZENAME,
+
+*  ZGENDER TYPE ZEDT15_001-ZGENDER,
+
+*  ZTEL TYPE ZEDT15_001-ZTEL,
+
+*  END OF GS_ZEDT15.
+
+*
+
+*GS_ZEDT15-ZCODE = 'SSU-01'.
+
+*GS_ZEDT15-ZKNAME = '###'.
+
+*GS_ZEDT15-ZENAME = 'DONG'.
+
+*GS_ZEDT15-ZGENDER = 'M'.
+
+*GS_ZEDT15-ZTEL = '01011112222'.
+
+*
+
+*WRITE : / GS_ZEDT15-ZCODE.
+
+*WRITE : / GS_ZEDT15-ZKNAME.
+
+*WRITE : / GS_ZEDT15-ZENAME.
+
+*WRITE : / GS_ZEDT15-ZGENDER.
+
+*WRITE : / GS_ZEDT15-ZTEL.
+
+
+
+
+
+
+"DATA ELEMENT## ## TYPE+## ##
+
+
+
+
+*DATA : BEGIN OF GS_ZEDT15,
+
+*  ZCODE TYPE ZCODE15,
+
+*  ZKNAME TYPE ZKNAME15,
+
+*  ZENAME TYPE ZENAME15,
+
+*  ZGENDER TYPE ZGENDER15,
+
+*  ZTEL TYPE ZTEL15,
+
+*  END OF GS_ZEDT15.
+
+*
+
+*GS_ZEDT15-ZCODE = 'SSU-01'.
+
+*GS_ZEDT15-ZKNAME = '###'.
+
+*GS_ZEDT15-ZENAME = 'DONG'.
+
+*GS_ZEDT15-ZGENDER = 'M'.
+
+*GS_ZEDT15-ZTEL = '01011112222'.
+
+*
+
+*WRITE : / GS_ZEDT15-ZCODE.
+
+*WRITE : / GS_ZEDT15-ZKNAME.
+
+*WRITE : / GS_ZEDT15-ZENAME.
+
+*WRITE : / GS_ZEDT15-ZGENDER.
+
+*WRITE : / GS_ZEDT15-ZTEL.
+
+
+
+
+
+
+"STRUCTURE# ### TYPE##
+
+
+
+
+*DATA : GS_ZEDS15 TYPE ZEDS15_001.
+
+*
+
+*GS_ZEDS15-ZCODE = 'SSU-01'.
+
+*GS_ZEDS15-ZKNAME = '###'.
+
+*GS_ZEDS15-ZENAME = 'DONG'.
+
+*GS_ZEDS15-ZGENDER = 'M'.
+
+*GS_ZEDS15-ZTEL = '01011112222'.
+
+*
+
+*WRITE : / GS_ZEDS15-ZCODE.
+
+*WRITE : / GS_ZEDS15-ZKNAME.
+
+*WRITE : / GS_ZEDS15-ZENAME.
+
+*WRITE : / GS_ZEDS15-ZGENDER.
+
+*WRITE : / GS_ZEDS15-ZTEL.
+
+
+
+
+
+
+"TYPE GROUP ### TYPE##
+
+DATA : GS_ZEDG15 TYPE ZTG15_ZED15.
+
+DATA : GV_ZTITLE TYPE ZTG15_ZTITLE.
+
+
+
+GS_ZEDG15-ZCODE = 'SSU-01'.
+
+GS_ZEDG15-ZKNAME = '###'.
+
+GS_ZEDG15-ZENAME = 'DONG'.
+
+GS_ZEDG15-ZGENDER = 'M'.
+
+GS_ZEDG15-ZTEL = '01011112222'.
+
+GV_ZTITLE = '####'.
+
+
+
+WRITE : / GS_ZEDG15-ZCODE.
+
+WRITE : / GS_ZEDG15-ZKNAME.
+
+WRITE : / GS_ZEDG15-ZENAME.
+
+WRITE : / GS_ZEDG15-ZGENDER.
+
+WRITE : / GS_ZEDG15-ZTEL.
+
+WRITE : / GV_ZTITLE.

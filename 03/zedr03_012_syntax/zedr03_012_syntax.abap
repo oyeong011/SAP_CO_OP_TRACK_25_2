@@ -1,0 +1,103 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR03_012_SYNTAX
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR03_012_SYNTAX MESSAGE-ID ZME03.
+
+
+
+TABLES : ZEDT03_001.
+
+
+
+DATA : BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT03_001
+.
+
+DATA : END OF GS_STUDENT.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+  SELECT-OPTIONS : S_ZCODE FOR ZEDT03_001-ZCODE.
+
+  PARAMETERS : P_PERNR LIKE ZEDT03_001-ZPERNR.
+
+  PARAMETERS : P_ZGEN LIKE ZEDT03_001-ZGENDER.
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+IF S_ZCODE IS INITIAL.
+
+  MESSAGE I000.
+
+ENDIF.
+
+
+
+PERFORM GET_DATA.
+
+IF GT_STUDENT IS INITIAL.
+
+  MESSAGE I001.
+
+  EXIT.
+
+ENDIF.
+
+PERFORM WRITE_DATA.
+
+
+
+FORM GET_DATA.
+
+
+
+  SELECT * "## #### ####
+
+    FROM ZEDT03_001
+
+    INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT
+
+    WHERE ZCODE IN S_ZCODE
+
+      AND ZPERNR = P_PERNR
+
+      AND ZGENDER = P_ZGEN.
+
+
+
+
+
+ENDFORM.
+
+
+
+FORM WRITE_DATA .
+
+
+
+  LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+    WRITE :/ GS_STUDENT-ZCODE, GS_STUDENT-ZKNAME, GS_STUDENT-ZGENDER.
+
+  ENDLOOP.
+
+ENDFORM.

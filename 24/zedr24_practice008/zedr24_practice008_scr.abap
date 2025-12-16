@@ -1,0 +1,51 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR24_PRACTICE008_SCR
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+"1. ## ## ##
+
+"1-1. B1 ####, ## ID, ####, ## ##or#### ##
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+  SELECT-OPTIONS : S_ZORDNO FOR ZEDT24_100-ZORDNO.
+
+  PARAMETERS : P_IDCODE LIKE ZEDT24_100-ZIDCODE.
+
+  SELECT-OPTIONS : S_MATNR FOR ZEDT24_100-ZMATNR.
+
+  SELECT-OPTIONS : S_ZJDATE FOR ZEDT24_100-ZJDATE MODIF ID M1. "## ## ### ###
+
+  SELECT-OPTIONS : S_ZDDATE FOR ZEDT24_101-ZDDATE MODIF ID M2. "## ## ## # ###
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+"1-2. B2 ####or#### ##
+
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.
+
+  PARAMETERS : P_R1 RADIOBUTTON GROUP R1 DEFAULT 'X' USER-COMMAND UC1.  "## ##
+
+  PARAMETERS : P_R2 RADIOBUTTON GROUP R1.                               "## ##
+
+SELECTION-SCREEN END OF BLOCK B2.
+
+
+
+"1-3. B3 #### ## ## ##
+
+SELECTION-SCREEN BEGIN OF BLOCK B3 WITH FRAME.
+
+  PARAMETERS : P_CH1 AS CHECKBOX DEFAULT 'X' USER-COMMAND UC1 MODIF ID M3.  "#### ##
+
+SELECTION-SCREEN END OF BLOCK B3.

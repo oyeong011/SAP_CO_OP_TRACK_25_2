@@ -1,0 +1,77 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZWORK15_002_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TYPE-POOLS : OLE2.
+
+
+
+"pdf ## ##
+
+DATA : GV_DIR TYPE STRING,
+
+      GV_XLS_FILE TYPE STRING,
+
+      GV_PDF_FILE TYPE STRING,
+
+      GV_SEP TYPE C.
+
+
+
+"OLE OBJECT
+
+DATA : GO_EXCEL TYPE OLE2_OBJECT,
+
+      GO_WORKBOOKS TYPE OLE2_OBJECT,
+
+      GO_WORKBOOK TYPE OLE2_OBJECT,
+
+      GO_SHEET TYPE OLE2_OBJECT,
+
+      GO_CELL TYPE OLE2_OBJECT.
+
+
+
+
+
+"ZTCURR015# ##### ### ######
+
+DATA : GS_ZTCURR TYPE ZTCURR015,
+
+      GT_ZTCURR TYPE TABLE OF ZTCURR015.
+
+
+
+DATA OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER.
+
+DATA GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA GS_VARIANT TYPE DISVARIANT.
+
+
+
+DATA GS_FIELDCAT TYPE LVC_S_FCAT.
+
+DATA GT_FIELDCAT TYPE LVC_T_FCAT.
+
+
+
+DATA GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+DATA GS_SORT TYPE LVC_S_SORT.
+
+DATA GT_SORT TYPE LVC_T_SORT.

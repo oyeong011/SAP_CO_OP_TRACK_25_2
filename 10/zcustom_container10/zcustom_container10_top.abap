@@ -1,0 +1,57 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZCUSTOM_CONTAINER10_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES: ZEDT10_001.
+
+
+
+DATA: BEGIN OF GS_STUDENT,
+
+        ZCODE   LIKE ZEDT10_001-ZCODE,
+
+        ZPERNR  LIKE ZEDT10_001-ZPERNR,
+
+        ZKNAME  LIKE ZEDT10_001-ZKNAME,
+
+        ZENAME  LIKE ZEDT10_001-ZENAME,
+
+        ZGENDER LIKE ZEDT10_001-ZGENDER,
+
+        ZGNAME  TYPE C LENGTH 2,
+
+        ZTEL    LIKE ZEDT10_001-ZTEL,
+
+      END OF GS_STUDENT.
+
+
+
+DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+DATA OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA: GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER.
+
+DATA: GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA: GS_FCAT TYPE LVC_S_FCAT,
+
+      GT_FCAT TYPE LVC_T_FCAT.
+
+
+
+DATA: GS_SORT TYPE LVC_S_SORT,
+
+      GT_SORT TYPE LVC_T_SORT.
+
+DATA GS_LAYOUT TYPE LVC_S_LAYO.

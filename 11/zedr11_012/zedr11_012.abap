@@ -1,0 +1,119 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR11_012
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR11_012.
+
+TABLES : ZEDT11_001.
+
+DATA : GT_STUDENT TYPE TABLE OF ZEDT11_001,
+
+       GS_STUDENT TYPE ZEDT11_001.
+
+
+
+SELECT-OPTIONS: S_ZCODE FOR ZEDT11_001-ZPERNR MODIF ID SC1.
+
+
+
+INITIALIZATION.
+
+S_ZCODE-LOW = 'SSU-01'.
+
+S_ZCODE-HIGH = 'SSU-99'.
+
+APPEND S_ZCODE.
+
+
+
+AT SELECTION-SCREEN OUTPUT.
+
+  LOOP AT SCREEN.
+
+    IF SCREEN-GROUP1 = 'SC1'.
+
+      SCREEN-INPUT = 0.
+
+      ENDIF.
+
+      MODIFY SCREEN.
+
+      ENDLOOP.
+
+
+
+      START-OF-SELECTION.
+
+      PERFORM GET_DATA.
+
+      PERFORM MODIFY_DATA.
+
+      END-OF-SELECTION.
+
+      PERFORM ALV_DISPLAY.
+
+
+
+FORM GET_DATA.
+
+  CLEAR GT_STUDENT.
+
+  REFRESH GT_STUDENT.
+
+
+
+  SELECT * FROM ZEDT11_001
+
+    INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT
+
+    WHERE ZPERNR IN S_ZCODE.
+
+ENDFORM.
+
+
+
+FORM MODIFY_DATA.
+
+  LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+    CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
+
+      EXPORTING
+
+        INPUT  = GS_STUDENT-ZPERNR
+
+      IMPORTING
+
+        OUTPUT = GS_STUDENT-ZPERNR.
+
+    MODIFY GT_STUDENT FROM GS_STUDENT INDEX SY-TABIX.
+
+  ENDLOOP.
+
+ENDFORM.
+
+
+
+FORM ALV_DISPLAY.
+
+      CALL FUNCTION 'REUSE_ALV_LIST_DISPLAY'
+
+      EXPORTING
+
+        I_STRUCTURE_NAME = 'ZEDT00_001'
+
+        TABLES
+
+          T_OUTTAB = GT_STUDENT.
+
+      ENDFORM.

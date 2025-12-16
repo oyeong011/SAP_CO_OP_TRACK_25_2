@@ -1,0 +1,112 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR19_PRACTICE009
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR19_PRACTICE009 MESSAGE-ID ZMED19.
+
+
+
+include
+ZEDR19_PRACTICE009_TOP
+.
+
+include
+ZEDR19_PRACTICE009_SCR
+.
+
+include
+ZEDR19_PRACTICE009_F01
+.
+
+include
+ZEDR19_PRACTICE009_PBO
+.
+
+include
+ZEDR19_PRACTICE009_PAI
+.
+
+
+
+INITIALIZATION.
+
+  PERFORM SET_DATE.
+
+  IF P_DATE IS NOT INITIAL.
+
+    WRITE P_DATE TO P_DATE_D USING EDIT MASK '____.__.__'.
+
+  ENDIF.
+
+
+
+AT SELECTION-SCREEN OUTPUT.
+
+  PERFORM SET_SCREEN.
+
+
+
+START-OF-SELECTION.
+
+  PERFORM CHECK_DATA.
+
+
+
+  IF S_PERNR IS INITIAL.
+
+    MESSAGE I000.
+
+    EXIT.
+
+  ENDIF.
+
+  PERFORM GET_DATA.
+
+
+
+  IF GT_EMP_INFO[] IS NOT INITIAL.
+
+    CALL SCREEN 100.
+
+  ELSE.
+
+    MESSAGE I000.
+
+    EXIT.
+
+  ENDIF.
+
+
+
+
+
+
+*GUI Texts
+
+*----------------------------------------------------------
+
+* T100 --> #######
+
+
+
+
+
+*Messages
+
+*----------------------------------------------------------
+
+*
+
+* Message class: Hard coded
+
+*   ## ## # ### ######.

@@ -1,0 +1,379 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR02_003
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR02_003.
+
+"Data object# Assigning value (# ##)
+
+"MOVE A TO B
+
+
+
+
+*DATA : BEGIN OF GS_NAME,
+
+*  NAME1 TYPE C LENGTH 10,
+
+*  NAME2 TYPE C LENGTH 10,
+
+*  END OF GS_NAME.
+
+*
+
+*GS_NAME-NAME1 = '###'.
+
+*GS_NAME-NAME2 = '##'.
+
+*
+
+*"GS_NAME-NAME1 = GS_NAME-NAME2.
+
+*MOVE GS_NAME-NAME2 TO GS_NAME-NAME1.
+
+*
+
+*WRITE : GS_NAME-NAME1.
+
+*WRITE :/ GS_NAME-NAME2.
+
+
+
+
+
+
+"###(CONVERSION) ##
+
+
+
+
+*DATA : BEGIN OF GS_NAME,
+
+*  NAME1 TYPE C LENGTH 10,
+
+*  DEGREE1 TYPE P DECIMALS 2,
+
+*  END OF GS_NAME.
+
+*
+
+*GS_NAME-NAME1 = '##'.
+
+*GS_NAME-DEGREE1 = '35.12'.
+
+*
+
+*MOVE GS_NAME-DEGREE1 TO GS_NAME-NAME1.
+
+*
+
+*CONDENSE GS_NAME-NAME1 NO-GAPS.
+
+*
+
+*WRITE : GS_NAME-NAME1.
+
+*WRITE :/ GS_NAME-DEGREE1.
+
+
+
+
+
+
+"OFFSET# ### ##
+
+
+
+
+*DATA : GV_DATA1(8) VALUE 'ABCDEFGH',
+
+*      GV_DATA2(8) VALUE 'IJKLMNOP'.
+
+*DATA : GV_START TYPE I VALUE 2,
+
+*      GV_LENGTH TYPE I VALUE 4.
+
+*"MOVE GV_DATA1+2(3) TO GV_DATA2.
+
+*"MOVE GV_DATA1+GV_START(GV_LENGTH) TO GV_DATA2.
+
+*MOVE GV_DATA1+GV_START(GV_LENGTH) TO GV_DATA2+GV_START(GV_LENGTH).
+
+*WRITE : / GV_DATA2.
+
+
+
+
+
+
+"WRITE ## ##
+
+"Output to a field or internal table ####
+
+
+
+
+*DATA : BEGIN OF GS_NAME,
+
+*  NAME1 TYPE C LENGTH 10,
+
+*  NAME2 TYPE C LENGTH 10,
+
+*  END OF GS_NAME.
+
+*
+
+*GS_NAME-NAME1 = '###'.
+
+*GS_NAME-NAME2 = '##'.
+
+*
+
+*WRITE GS_NAME-NAME2 TO GS_NAME-NAME1.
+
+*
+
+*WRITE : GS_NAME-NAME1.
+
+*WRITE :/ GS_NAME-NAME2.
+
+
+
+
+
+
+"MOVE-CORRESPONDING
+
+
+
+
+*DATA : BEGIN OF GS_ZEDT02, "#####
+
+*  ZCODE TYPE ZEDT02_001-ZCODE, "####
+
+*  ZKNAME TYPE ZEDT02_001-ZKNAME, "##
+
+*  ZENAME TYPE ZEDT02_001-ZENAME, "####
+
+*  ZGENDER TYPE ZEDT02_001-ZGENDER, "##
+
+*  ZTEL TYPE ZEDT02_001-ZTEL, "####
+
+*  END OF GS_ZEDT02.
+
+*
+
+*"## ## ##
+
+**DATA : BEGIN OF GS_ZEDT02_2, "##### ###
+
+**  ZGENDER TYPE ZEDT02_001-ZGENDER, "##
+
+**  ZCODE TYPE ZEDT02_001-ZCODE, "####
+
+**  ZKNAME TYPE ZEDT02_001-ZKNAME, "##
+
+**  ZENAME TYPE ZEDT02_001-ZENAME, "####
+
+**  ZTEL TYPE ZEDT02_001-ZTEL, "####
+
+**  END OF GS_ZEDT02_2.
+
+*
+
+*"## ## ##
+
+*DATA : BEGIN OF GS_ZEDT02_2, "##### ###
+
+*  ZZZCODE TYPE ZEDT02_001-ZCODE, "####
+
+*  ZZZZKNAME TYPE ZEDT02_001-ZKNAME, "##
+
+*  ZZZZZENAME TYPE ZEDT02_001-ZENAME, "####
+
+*  ZZZZZZGENDER TYPE ZEDT02_001-ZGENDER, "##
+
+*  ZZZZZZZTEL TYPE ZEDT02_001-ZTEL, "####
+
+*  END OF GS_ZEDT02_2.
+
+*
+
+*GS_ZEDT02-ZCODE = 'SSU-01'.
+
+*GS_ZEDT02-ZKNAME = '###'.
+
+*GS_ZEDT02-ZENAME = 'DONG'.
+
+*GS_ZEDT02-ZGENDER = 'M'.
+
+*GS_ZEDT02-ZTEL = '01011112222'.
+
+*
+
+*MOVE-CORRESPONDING GS_ZEDT02 TO GS_ZEDT02_2.
+
+*
+
+*WRITE :/ GS_ZEDT02_2-ZZZCODE.
+
+*WRITE :/ GS_ZEDT02_2-ZZZZKNAME.
+
+*WRITE :/ GS_ZEDT02_2-ZZZZZENAME.
+
+*WRITE :/ GS_ZEDT02_2-ZZZZZZGENDER.
+
+*WRITE :/ GS_ZEDT02_2-ZZZZZZZTEL.
+
+
+
+
+
+
+"Data object# Variable declaration (## ## ##)
+
+"CONSTANTS
+
+"## ##
+
+
+
+
+*CONSTANTS : C_RATE TYPE I VALUE '100'.
+
+*
+
+*DATA : GV_SUM1 TYPE I,
+
+*      GV_SUM2 TYPE I,
+
+*      GV_SUM3 TYPE I.
+
+*
+
+*GV_SUM1 = '10.00'. "1000### ## ### # #
+
+*GV_SUM2 = '20.00'. "2000### ## ### # #
+
+*GV_SUM3 = '30.00'. "3000### ## ### # #
+
+*
+
+*GV_SUM1 = GV_SUM1 * C_RATE.
+
+*GV_SUM2 = GV_SUM2 * C_RATE.
+
+*GV_SUM3 = GV_SUM3 * C_RATE.
+
+*
+
+*WRITE :/ GV_SUM1, / GV_SUM2, / GV_SUM3.
+
+
+
+
+
+
+"### ##
+
+
+
+
+*CONSTANTS : BEGIN OF C_STUDENT,
+
+*  ZCODE(10) VALUE 'SSU-01',
+
+*  ZKNAME(10) VALUE '###',
+
+*  ZENAME(10) VALUE 'DONG',
+
+*  END OF C_STUDENT.
+
+*
+
+*  WRITE : / C_STUDENT-ZCODE, / C_STUDENT-ZKNAME, / C_STUDENT-ZENAME.
+
+
+
+
+
+
+"#### VS #####
+
+
+
+
+*CONSTANTS : C_NUM1 TYPE I VALUE '10'.
+
+*CONSTANTS : CNUM1 TYPE I VALUE '10'.
+
+*DATA : NUM1 TYPE I VALUE '10'.
+
+*NUM1 = NUM1 + 1.
+
+*CNUM1 = CNUM1 + 1. "## ###
+
+*WRITE : / C_NUM1, / NUM1.
+
+*WRIE : / CNUM1.
+
+
+
+
+
+
+"STATICS: ####### ## ##
+
+
+
+
+*STATICS lv_num TYPE I.
+
+*lv_num = lv_num + 1.
+
+*WRITE :/ 'STATIC Variable : ', lv_num.
+
+
+
+*DATA : GS ZEDG02 TYPE ZTG02_ZED02.
+
+*TABLES : ZEDT02_001.
+
+*SELECT SINGLE * FROM ZEDT02_001.
+
+*WRITE :/ ZEDT02_001-ZCODE.
+
+*WRITE :/ ZEDT02_001-ZKNAME.
+
+*WRITE :/ ZEDT02_001-ZENAME.
+
+*WRITE :/ ZEDT02_001-ZGENDER.
+
+*WRITE :/ ZEDT02_001-ZTEL.
+
+
+
+
+
+
+"TABLES
+
+"###### ### ### #### ## #### ## ### ### ### ### ## INTO ### ## ##
+
+TABLES : SCARR.
+
+SELECT * FROM SCARR.
+
+  WRITE : / SCARR-CARRID, SCARR-CARRNAME.
+
+ENDSELECT.

@@ -1,0 +1,95 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR01_PRACTICE005
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR01_PRACTICE005.
+
+
+
+PARAMETERS: P_ZYEAR LIKE BKPF-GJAHR DEFAULT SY-DATUM+0(4).
+
+PARAMETERS: P_MONTH LIKE BKPF-MONAT DEFAULT SY-DATUM+4(2).
+
+
+
+RANGES: GR_DATE FOR BKPF-MONAT.
+
+
+
+DATA: LV_YEAR  TYPE I,
+
+      LV_MONTH TYPE I,
+
+      LV_LASTDAY   TYPE N LENGTH 2,
+
+      LV_RESULT_DATE TYPE DATS,
+
+      LV_FORMAT_DATE TYPE C LENGTH 10.
+
+
+
+CLEAR GR_DATE.
+
+GR_DATE-SIGN = 'I'.
+
+GR_DATE-OPTION = 'BT'.
+
+GR_DATE-LOW = P_MONTH.
+
+APPEND GR_DATE.
+
+
+
+LV_YEAR  = P_ZYEAR.
+
+LV_MONTH = P_MONTH.
+
+
+
+CALL FUNCTION 'ZED01_LAST_DAY_OF_MONTHS'
+
+  EXPORTING
+
+    I_YEAR  = LV_YEAR
+
+    I_MONTH = LV_MONTH
+
+  IMPORTING
+
+    E_RESULT_DAY = LV_LASTDAY.
+
+
+
+GR_DATE-HIGH = LV_LASTDAY.
+
+APPEND GR_DATE.
+
+
+
+CONCATENATE P_ZYEAR P_MONTH LV_LASTDAY INTO LV_RESULT_DATE.
+
+CONCATENATE LV_RESULT_DATE+0(4) '.' LV_RESULT_DATE+4(2) '.' LV_RESULT_DATE+6(2)
+
+       INTO LV_FORMAT_DATE.
+
+
+
+IF GR_DATE-HIGH IS NOT INITIAL.
+
+  WRITE: / P_ZYEAR, '#', P_MONTH, '## #####', LV_FORMAT_DATE, '###'.
+
+ELSE.
+
+  WRITE :/ '#### ####.'.
+
+ENDIF.

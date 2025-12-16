@@ -1,0 +1,83 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR10_PRACTICE008_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES: ZEDT10_100, ZEDT10_101.
+
+
+
+DATA: BEGIN OF GS_ORDER,
+
+        ZCOLOR TYPE C LENGTH 4.
+
+    include structure
+ZEDT10_100
+.
+
+DATA: ZMANTNAME TYPE C LENGTH 13,
+
+      ZRETNAME  TYPE C LENGTH 13,
+
+      ZSALENAME TYPE C LENGTH 13,
+
+      END OF GS_ORDER.
+
+
+
+DATA: GT_ORDER LIKE TABLE OF GS_ORDER.
+
+
+
+DATA: BEGIN OF GS_DELIVERY,
+
+        ZCOLOR TYPE C LENGTH 4.
+
+    include structure
+ZEDT10_101
+.
+
+DATA: ZMANTNAME TYPE C LENGTH 13,
+
+      ZDEL_LOC  TYPE C LENGTH 13,
+
+      ZDFNAME   TYPE C LENGTH 13,
+
+      END OF GS_DELIVERY.
+
+
+
+DATA: GT_DELIVERY LIKE TABLE OF GS_DELIVERY.
+
+
+
+DATA: OK_CODE_0100 TYPE SY-UCOMM.
+
+DATA: OK_CODE_0200 TYPE SY-UCOMM.
+
+
+
+DATA: GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA: GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA: GS_FCAT TYPE LVC_S_FCAT.
+
+DATA: GT_FCAT TYPE LVC_T_FCAT.
+
+
+
+DATA: GS_SORT TYPE LVC_S_SORT.
+
+DATA: GT_SORT TYPE LVC_T_SORT.
+
+
+
+DATA: GS_LAYO TYPE LVC_S_LAYO.

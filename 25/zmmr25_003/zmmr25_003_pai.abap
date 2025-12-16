@@ -1,0 +1,79 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMMR25_003_PAI
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+MODULE USER_COMMAND_0100 INPUT.
+
+
+
+  CASE OK_CODE.
+
+    WHEN 'BTN_CREATE'.
+
+      PERFORM SAVE_GOODS_RECEIPT.
+
+      LEAVE TO SCREEN 0.
+
+  ENDCASE.
+
+  PERFORM REFRESH_GRID_DISPLAY.
+
+ENDMODULE.
+
+
+
+MODULE EXIT_COMMAND INPUT.
+
+  CASE OK_CODE.
+
+    WHEN 'CANC' OR 'BACK' OR 'EXIT'.
+
+      LEAVE TO SCREEN 0.
+
+  ENDCASE.
+
+ENDMODULE.
+
+
+
+MODULE USER_COMMAND_0101 INPUT.
+
+  CALL METHOD CL_GUI_CFW=>DISPATCH.
+
+ENDMODULE.
+
+
+
+MODULE USER_COMMAND_0200 INPUT.
+
+  CALL METHOD CL_GUI_CFW=>DISPATCH.
+
+
+
+  CASE OK_CODE.
+
+    WHEN 'BTN_DEL'.
+
+      PERFORM CANCEL_GOODS_RECEIPT.
+
+  ENDCASE.
+
+  PERFORM REFRESH_DETAIL_GRID.
+
+ENDMODULE.
+
+
+
+MODULE USER_COMMAND_0201 INPUT.
+
+  CALL METHOD CL_GUI_CFW=>DISPATCH.
+
+ENDMODULE.

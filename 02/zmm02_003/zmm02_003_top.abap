@@ -1,0 +1,115 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM02_003_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES: ZEKKO_02, ZEKPO_02, ZMKPF_02, ZMSEG_02.
+
+
+
+DATA: GS_EKKO TYPE ZEKKO_02,
+
+      GT_EKKO TYPE TABLE OF ZEKKO_02,
+
+      GS_MKPF TYPE ZMKPF_02,
+
+      GT_MKPF TYPE TABLE OF ZMKPF_02,
+
+      GS_MSEG TYPE ZMSEG_02,
+
+      GT_MSEG TYPE TABLE OF ZMSEG_02.
+
+
+
+DATA: BEGIN OF GS_PO,
+
+  ZCHECK TYPE C, "####
+
+  EBELN TYPE ZEKPO_02-EBELN, "######
+
+  EBELP TYPE ZEKPO_02-EBELP, "##
+
+  LIFNR TYPE ZEKKO_02-LIFNR, "###
+
+  BEDAT TYPE ZEKKO_02-BEDAT, "###
+
+  MATNR TYPE ZEKPO_02-MATNR, "####
+
+  MAKTX TYPE ZEKPO_02-MAKTX, "###
+
+  MENGE TYPE ZEKPO_02-MENGE, "##
+
+  MEINS TYPE ZEKPO_02-MEINS, "##
+
+  STPRS TYPE ZEKPO_02-STPRS, "##
+
+  WAERS TYPE ZEKKO_02-WAERS, "##
+
+  PRDAT TYPE ZEKPO_02-PRDAT, "###
+
+  WERKS TYPE ZEKPO_02-WERKS, "###
+
+  LGORT TYPE ZEKPO_02-LGORT, "####
+
+  MBLNR TYPE ZMKPF_02-MBLNR, "######
+
+  MJAHR TYPE ZMKPF_02-MJAHR, "####
+
+  ZEILE TYPE ZMSEG_02-ZEILE, "#####
+
+  BUDAT TYPE ZMKPF_02-BUDAT, "###
+
+  BLDAT TYPE ZMKPF_02-BLDAT, "###
+
+  BLART TYPE ZMKPF_02-BLART, "####
+
+  BWART TYPE ZMSEG_02-BWART, "####
+
+  DMBTR TYPE ZMSEG_02-DMBTR, "##
+
+  BSTMG TYPE ZEKPO_02-MENGE, "####
+
+  OPEN_QTY TYPE ZEKPO_02-MENGE, "##
+
+END OF GS_PO.
+
+DATA: GT_PO LIKE TABLE OF GS_PO.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM,
+
+       GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER,
+
+       GC_GRID TYPE REF TO CL_GUI_ALV_GRID,
+
+       GT_FIELDCAT TYPE LVC_T_FCAT, "## ####
+
+       GS_FIELDCAT TYPE LVC_S_FCAT,
+
+       GS_LAYOUT TYPE LVC_S_LAYO, "####
+
+       GT_SORT TYPE LVC_T_SORT, "##
+
+       GS_SORT TYPE LVC_S_SORT,
+
+       GO_EVENT TYPE REF TO EVENT,
+
+       G_MJAHR TYPE MJAHR, "####
+
+       G_BLART TYPE BLART, "####
+
+       G_BLDAT TYPE BLDAT, "###
+
+       G_BUDAT TYPE BUDAT, "###
+
+       G_EBELN TYPE EBELN, "######
+
+       G_WERKS TYPE ZWERKS02, "###
+
+       GV_ZEILE TYPE NUMC4. "#####

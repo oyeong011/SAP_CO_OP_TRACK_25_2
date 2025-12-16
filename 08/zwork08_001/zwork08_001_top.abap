@@ -1,0 +1,131 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZWORK08_001_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES: SSCRFIELDS, " ### ### ##
+
+        ZTCURR08. " ### ### ##
+
+
+
+" ALV ###, ALV VARIANT #### ## ##
+
+TYPE-POOLS: SLIS.
+
+
+
+" DB ### ### ### ### # ### ##
+
+DATA: BEGIN OF GS_ZTCURR08,
+
+  ZKURST LIKE ZTCURR08-KURST, " ####
+
+  ZFCURR LIKE ZTCURR08-FCURR, " ####
+
+  ZTCURR LIKE ZTCURR08-TCURR, " ####
+
+  ZGDATU LIKE ZTCURR08-GDATU, " ## ###
+
+  ZUKURS LIKE ZTCURR08-UKURS, " ##
+
+  ZFFACT LIKE ZTCURR08-FFACT, " ####
+
+  ZTFACT LIKE ZTCURR08-TFACT, " ####
+
+  ZCRNAME TYPE C LENGTH 10, " ###
+
+  ZRDATE TYPE SY-DATUM, " ###
+
+  END OF GS_ZTCURR08.
+
+
+
+" ### ### ##
+
+DATA: GT_ZTCURR08 LIKE TABLE OF GS_ZTCURR08.
+
+
+
+" ALV ### ### ### # ### ##
+
+DATA: BEGIN OF GS_ZTCURR08_ALV,
+
+  ZKURST TYPE KURST_CURR,
+
+  ZFCURR TYPE FCURR_CURR,
+
+  ZTCURR TYPE TCURR_CURR,
+
+  ZGDATU TYPE GDATU_INV,
+
+  ZUKURS TYPE UKURS_CURR,
+
+  ZFFACT TYPE FFACT_CURR,
+
+  ZTFACT TYPE TFACT_CURR,
+
+  ZENAME TYPE UNAME,
+
+  ZAEDAT TYPE SY-DATUM,
+
+  END OF GS_ZTCURR08_ALV.
+
+
+
+" ALV ### ### ### ##
+
+DATA: GT_ZTCURR08_ALV LIKE TABLE OF GS_ZTCURR08_ALV.
+
+" ## ### ### ## ## ###
+
+DATA: GT_EXCEL_DATA LIKE TABLE OF GS_ZTCURR08_ALV.
+
+
+
+" ## #### ###
+
+DATA: GT_RAW_DATA TYPE TRUXS_T_TEXT_DATA.
+
+
+
+" ### # ALV ### ##
+
+DATA: OK_CODE TYPE SY-UCOMM.
+
+
+
+" ALV ## ## ##
+
+DATA: GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA: GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+DATA: GO_EVENT_HANDLER TYPE REF TO LCL_EVENT_HANDLER.
+
+
+
+" ALV ### ###
+
+DATA: GS_SORT TYPE LVC_S_SORT.
+
+DATA: GT_SORT TYPE LVC_T_SORT.
+
+
+
+DATA: GS_FIELDCAT TYPE LVC_S_FCAT.
+
+DATA: GT_FIELDCAT TYPE LVC_T_FCAT.
+
+
+
+DATA: GS_LAYOUT TYPE LVC_S_LAYO.
+
+DATA: GS_VARIANT TYPE DISVARIANT.

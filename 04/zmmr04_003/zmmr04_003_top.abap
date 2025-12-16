@@ -1,0 +1,83 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMMR04_003_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA GS_FIELDCAT TYPE LVC_S_FCAT.
+
+DATA GT_FIELDCAT TYPE LVC_T_FCAT.
+
+
+
+DATA GS_LAYOUT TYPE LVC_S_LAYO.
+
+DATA GS_VARIANT TYPE DISVARIANT.
+
+
+
+DATA GO_EVENT TYPE REF TO EVENT.
+
+
+
+DATA : BEGIN OF GS_PO,
+
+  L_CHECK TYPE C,                 " ##(####)
+
+  EBELN TYPE ZEKPO04-EBELN,       " ######
+
+  EBELP TYPE ZEKPO04-EBELP,       " ##
+
+  LIFNR TYPE ZEKKO04-LIFNR,       " ###
+
+  BEDAT TYPE ZEKKO04-BEDAT,         " ###
+
+  ZMATNR TYPE ZEKPO04-ZMATNR,     " ####
+
+  ZMATNAME TYPE ZEKPO04-ZMATNAME, " ###
+
+  MENGE TYPE ZEKPO04-MENGE,       " ##
+
+  MEINS TYPE ZEKPO04-MEINS,       " ##
+
+  STPRS TYPE ZEKPO04-STPRS,       " ##
+
+  WAERS TYPE ZEKKO04-WAERS,       " ##
+
+  PRDAT TYPE ZEKPO04-PRDAT,       " ###
+
+  ZWERKS TYPE ZEKPO04-ZWERKS,     " ###
+
+  ZLGORT TYPE ZEKPO04-ZLGORT,     " ####
+
+  END OF GS_PO.
+
+DATA GT_PO LIKE TABLE OF GS_PO.
+
+
+
+DATA : BEGIN OF GS_RG.    " RECEIVINGE GOODS
+
+  include structure
+ZMSEG04
+.
+
+  DATA : L_CHECK TYPE C,  " ## ## ## ####
+
+  END OF GS_RG.
+
+DATA GT_RG LIKE TABLE OF GS_RG.

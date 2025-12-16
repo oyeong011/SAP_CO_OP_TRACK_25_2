@@ -1,0 +1,507 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM23_003_F01
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+
+
+FORM GET_PO.
+
+  DATA : LV_SUM TYPE Z23EKPO-MENGE. "##### ##
+
+
+
+  CLEAR GS_EKKO.
+
+  GV_FLAG = '0'.
+
+
+
+  SELECT SINGLE *
+
+    INTO CORRESPONDING FIELDS OF GS_EKKO
+
+    FROM Z23EKKO
+
+    WHERE EBELN EQ GV_EBELN.
+
+
+
+  IF GS_EKKO IS INITIAL.
+
+    MESSAGE '#### ## #######.' TYPE 'I'.
+
+    GV_FLAG = '1'.
+
+    RETURN.
+
+  ENDIF.
+
+
+
+  SELECT *
+
+    INTO CORRESPONDING FIELDS OF TABLE GT_EKPO
+
+    FROM Z23EKPO
+
+    WHERE EBELN EQ GV_EBELN
+
+    AND WERKS EQ GV_WERKS
+
+    AND ELIKZ NE 'X'.
+
+
+
+  IF GT_EKPO[] IS INITIAL.
+
+      MESSAGE '### #### ####.' TYPE 'I'.
+
+    IF OK_CODE EQ 'ADD'.
+
+      GV_FLAG = '1'.
+
+      RETURN.
+
+    ELSEIF OK_CODE EQ 'CREA'.
+
+      LEAVE TO SCREEN 0.
+
+    ENDIF.
+
+  ENDIF.
+
+
+
+  CLEAR GS_EKPO.
+
+  LOOP AT GT_EKPO INTO GS_EKPO.
+
+    CLEAR LV_SUM.
+
+    SELECT SUM( MENGE )
+
+      INTO LV_SUM
+
+      FROM Z23MSEG
+
+      WHERE EBELN EQ GS_EKPO-EBELN  "PO##
+
+      AND EBELP EQ GS_EKPO-EBELP    "####
+
+      AND WERKS EQ GS_EKPO-WERKS   "###
+
+      AND MATNR EQ GS_EKPO-MATNR.  "####
+
+
+
+    GS_EKPO-MENGE_R = GS_EKPO-MENGE - LV_SUM.
+
+    MODIFY GT_EKPO FROM GS_EKPO.
+
+
+
+  ENDLOOP.
+
+
+
+ENDFORM.
+
+
+
+
+
+FORM SAVE_MIGO.
+
+  DATA : LV_MKPF TYPE Z23MKPF,  " ####
+
+        LV_MSEG TYPE Z23MSEG,   " #####
+
+        LV_MAX_MBLNR TYPE MBLNR,  "######
+
+        LV_SUM TYPE Z23MSEG-MENGE,
+
+        LV_CNT TYPE I.
+
+
+
+  SELECT MAX( MBLNR ) INTO LV_MAX_MBLNR FROM Z23MKPF.
+
+
+
+  " ###### ##
+
+  IF LV_MAX_MBLNR IS INITIAL.
+
+    LV_MAX_MBLNR = '4999999999'.
+
+  ENDIF.
+
+
+
+  LV_MAX_MBLNR = LV_MAX_MBLNR + 1.
+
+
+
+  " ####(MKPF) ##
+
+  LV_MKPF-MBLNR = LV_MAX_MBLNR.   "######
+
+  LV_MKPF-MJAHR = GV_BUDAT+0(4).  "####(#### ##)
+
+  LV_MKPF-BLART = 'WE'.   "####
+
+  LV_MKPF-BLDAT = GS_EKKO-BEDAT.   "###
+
+  LV_MKPF-BUDAT = GV_BUDAT. "###
+
+  "MODIFY Z23MKPF FROM LV_MKPF.
+
+
+
+  " #####(MSEG) ##
+
+  CLEAR GS_EKPO.
+
+  DATA : NUM TYPE I VALUE 1.
+
+  LOOP AT GT_EKPO INTO GS_EKPO.
+
+    IF GS_EKPO-ZCHECK EQ 'X'.
+
+
+
+      LV_MSEG-MBLNR = LV_MKPF-MBLNR.  "######
+
+      LV_MSEG-MJAHR = GV_BUDAT+0(4).  "####
+
+      LV_MSEG-ZEILE = NUM.
+
+      LV_MSEG-MATNR = GS_EKPO-MATNR.  "####
+
+      LV_MSEG-MAKTX = GS_EKPO-MAKTX.  "###
+
+      LV_MSEG-WERKS = GS_EKPO-WERKS.  "###
+
+      LV_MSEG-LGORT = GS_EKPO-LGORT.  "####
+
+      LV_MSEG-LIFNR = GS_EKKO-LIFNR.  "#####
+
+      LV_MSEG-WAERS = GS_EKKO-WAERS.  "###
+
+      LV_MSEG-MENGE = GS_EKPO-MENGE_I.  "##
+
+      LV_MSEG-MEINS = GS_EKPO-MEINS.  "##
+
+      LV_MSEG-EBELN = GS_EKPO-EBELN.  "######
+
+      LV_MSEG-EBELP = GS_EKPO-EBELP.  "##
+
+      LV_MSEG-BUKRS = GS_EKKO-BUKRS.  "####
+
+      LV_MSEG-GJAHR = GV_BUDAT+0(4).  "#### (# ####)
+
+      "LV_MSEG-BELNR  "####
+
+      "LV_MSEG-SHKZG  "###
+
+      LV_MSEG-DMBTR = GS_EKPO-MENGE_I * GS_EKPO-STPRS.  "##
+
+      "LV_MSEG-BWART  "####
+
+      MODIFY Z23MSEG FROM LV_MSEG.
+
+      "INSERT Z23MSEG FROM LV_MSEG.
+
+
+
+      IF SY-SUBRC EQ 0.
+
+        LV_CNT = LV_CNT + 1.
+
+      ENDIF.
+
+
+
+      " ## PO## ## ##
+
+      PERFORM CHECK_ELIKZ USING GS_EKPO.
+
+
+
+      CLEAR : LV_MSEG, GS_EKPO.
+
+      NUM = NUM + 1.
+
+    ENDIF.
+
+  ENDLOOP.
+
+
+
+  IF LV_CNT NE 0.
+
+    MODIFY Z23MKPF FROM LV_MKPF.  "## ##
+
+    MESSAGE '### #######.' TYPE 'I'.
+
+    "LEAVE TO SCREEN 0.
+
+  ENDIF.
+
+
+
+ENDFORM.
+
+
+
+
+
+FORM CHECK_ELIKZ USING P_EKPO LIKE GS_EKPO.
+
+  DATA : LV_SUM TYPE Z23MSEG-MENGE,
+
+        LV_EKPO LIKE Z23EKPO.
+
+  LV_SUM = 0.
+
+  SELECT SINGLE *
+
+    INTO LV_EKPO
+
+    FROM Z23EKPO
+
+    WHERE EBELN EQ P_EKPO-EBELN
+
+    AND EBELP EQ P_EKPO-EBELP.
+
+
+
+  SELECT SUM( MENGE )
+
+    INTO LV_SUM
+
+    FROM Z23MSEG
+
+    WHERE EBELN EQ P_EKPO-EBELN
+
+    AND EBELP EQ P_EKPO-EBELP.
+
+    "AND MATNR EQ P_EKPO-MATNR
+
+    "AND WERKS EQ P_EKPO-WERKS.
+
+
+
+  IF LV_SUM EQ LV_EKPO-MENGE.
+
+    LV_EKPO-ELIKZ = 'X'.  "#######
+
+    MODIFY Z23EKPO FROM LV_EKPO.
+
+  ENDIF.
+
+
+
+ENDFORM.
+
+
+
+FORM GET_MIGO.
+
+  GV_FLAG = '0'.
+
+  SELECT *
+
+    INTO CORRESPONDING FIELDS OF TABLE GT_MSEG
+
+    FROM Z23MSEG
+
+    WHERE EBELN EQ GV_EBELN
+
+    AND WERKS EQ GV_WERKS.
+
+
+
+  IF GT_MSEG[] IS INITIAL.
+
+    MESSAGE '#### #### ####.' TYPE 'I'.
+
+    IF OK_CODE EQ 'SCH'.
+
+      GV_FLAG = '1'.
+
+    ELSEIF OK_CODE EQ 'DEL'.
+
+      LEAVE TO SCREEN 0.
+
+    ENDIF.
+
+  ENDIF.
+
+ENDFORM.
+
+
+
+FORM REMOVE_MIGO.
+
+  DATA : LV_SUM TYPE Z23MSEG-MENGE,
+
+        LV_EKPO LIKE Z23EKPO.
+
+
+
+  "##### ## ##.
+
+  LOOP AT GT_MSEG INTO GS_MSEG.
+
+    IF GS_MSEG-ZCHECK EQ 'X'.
+
+
+
+      CLEAR : LV_EKPO, LV_SUM.
+
+
+
+      DELETE FROM Z23MSEG
+
+        WHERE MBLNR EQ GS_MSEG-MBLNR  "######
+
+        AND MJAHR EQ GS_MSEG-MJAHR    "####
+
+        AND EBELN EQ GS_MSEG-EBELN  "######
+
+        AND EBELP EQ GS_MSEG-EBELP. "####
+
+
+
+     "PO### ##### ####### ##
+
+      SELECT SINGLE *
+
+        INTO LV_EKPO
+
+        FROM Z23EKPO
+
+        WHERE EBELN EQ GS_MSEG-EBELN  "PO ##
+
+        AND EBELP EQ GS_MSEG-EBELP   "####
+
+        AND WERKS EQ GS_MSEG-WERKS  "###
+
+        AND LGORT EQ GS_MSEG-LGORT. "####
+
+
+
+      SELECT SUM( MENGE )
+
+        INTO LV_SUM
+
+        FROM Z23MSEG
+
+        WHERE EBELN EQ GS_MSEG-EBELN
+
+        AND MATNR EQ GS_MSEG-MATNR
+
+        AND WERKS EQ GS_MSEG-WERKS
+
+        AND EBELP EQ GS_MSEG-EBELP.
+
+
+
+      IF LV_SUM NE LV_EKPO-MENGE.
+
+        LV_EKPO-ELIKZ = ''.  "#######
+
+        MODIFY Z23EKPO FROM LV_EKPO.
+
+      ENDIF.
+
+
+
+    ENDIF.
+
+
+
+    CLEAR GS_MSEG.
+
+  ENDLOOP.
+
+
+
+  IF SY-SUBRC EQ 0.
+
+    PERFORM REMOVE_MKPF.
+
+    MESSAGE '### #######.' TYPE 'I'.
+
+    PERFORM GET_MIGO.
+
+    "LEAVE TO SCREEN 0.
+
+  ENDIF.
+
+
+
+
+
+
+
+ENDFORM.
+
+
+
+"#### ## ## ##
+
+FORM REMOVE_MKPF.
+
+  DATA : LT_MKPF LIKE TABLE OF Z23MKPF.
+
+
+
+  SELECT MBLNR MJAHR
+
+    FROM Z23MKPF
+
+    INTO CORRESPONDING FIELDS OF TABLE LT_MKPF.
+
+
+
+  LOOP AT LT_MKPF INTO DATA(LS_MKPF).
+
+
+
+    SELECT COUNT(*)
+
+      FROM Z23MSEG
+
+      WHERE MBLNR EQ LS_MKPF-MBLNR
+
+      AND MJAHR EQ LS_MKPF-MJAHR.
+
+
+
+    IF SY-DBCNT EQ 0.
+
+      DELETE FROM Z23MKPF
+
+      WHERE MBLNR EQ LS_MKPF-MBLNR
+
+      AND MJAHR EQ LS_MKPF-MJAHR.
+
+    ENDIF.
+
+
+
+  ENDLOOP.
+
+
+
+ENDFORM.

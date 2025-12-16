@@ -1,0 +1,255 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR02_027
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR02_027.
+
+
+
+"20251027 FIELDSYMBOL ##
+
+
+
+"## ##
+
+
+
+
+*DATA : GV_VAR TYPE C VALUE 'A'. "GV_VAR = A
+
+*
+
+*"## ## ##
+
+*"### # ##### ## ### ## ### ##### ### # ## #### ##
+
+*FIELD-SYMBOLS <FS> TYPE C. "<FS>### ##
+
+*
+
+*"#### ### ##### ##
+
+*ASSIGN GV_VAR TO <FS>. "<FS>->GV_VAR ####
+
+*
+
+*"#### # ##
+
+*<FS> = 'B'. "B->GV_VAR
+
+*
+
+*WRITE: / GV_VAR.
+
+
+
+
+
+
+"Generic Type Field Symbol ##
+
+
+
+
+*DATA : GV_1 TYPE C VALUE 'A'.
+
+*DATA : GV_2 TYPE C VALUE 'B'.
+
+*DATA : GV_3 TYPE C VALUE 'C'.
+
+*
+
+*DATA: GV_FRAME(10).
+
+*DATA: GV_INDEX TYPE N.
+
+*
+
+*FIELD-SYMBOLS <FS> TYPE ANY.
+
+*
+
+*DO 3 TIMES.
+
+*  CLEAR GV_FRAME.
+
+*  GV_FRAME = 'GV_'.
+
+*  GV_INDEX = SY-INDEX.
+
+*  CONCATENATE GV_FRAME GV_INDEX INTO GV_FRAME.
+
+*
+
+*  ASSIGN (GV_FRAME) TO <FS>. "####
+
+*
+
+*  WRITE : / GV_FRAME, ':', <FS>.
+
+*ENDDO.
+
+
+
+
+
+
+"### assign
+
+
+
+
+*DATA: BEGIN OF GS_SUM,
+
+*  MON01 TYPE DMBTR VALUE '10.00',
+
+*  MON02 TYPE DMBTR VALUE '20.00',
+
+*  MON03 TYPE DMBTR VALUE '30.00',
+
+*  MON04 TYPE DMBTR VALUE '40.00',
+
+*  MON05 TYPE DMBTR VALUE '50.00',
+
+*  MON06 TYPE DMBTR VALUE '60.00',
+
+*END OF GS_SUM.
+
+*DATA: ZINDEX(2).
+
+*DATA: ZMON(6).
+
+*
+
+*FIELD-SYMBOLS : <FS1> LIKE GS_SUM,
+
+*                <FS2> TYPE ANY.
+
+*ASSIGN GS_SUM TO <FS1>.
+
+*
+
+*DO 6 TIMES.
+
+*  ZINDEX = SY-INDEX.
+
+*  CONCATENATE 'MON0' ZINDEX INTO ZMON.
+
+*  ASSIGN COMPONENT ZMON OF STRUCTURE <FS1> TO <FS2>.
+
+*  WRITE : / <FS2>.
+
+*ENDDO.
+
+
+
+
+
+
+"### ### ASSIGN
+
+
+
+
+*DATA: BEGIN OF GS_STUDENT,
+
+*  ZCODE LIKE ZEDT02_001-ZCODE,
+
+*  ZKNAME LIKE ZEDT02_001-ZKNAME,
+
+*  ZENAME LIKE ZEDT02_001-ZENAME,
+
+*END OF GS_STUDENT.
+
+*DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+*DATA: GV_ZCODE(10) VALUE 'ZCODE'.
+
+*
+
+*SELECT * FROM ZEDT02_001 INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT.
+
+*
+
+*FIELD-SYMBOLS <FS> TYPE ANY TABLE.
+
+*ASSIGN GT_STUDENT TO <FS>.
+
+*
+
+**READ TABLE <FS> WITH KEY (GV_ZCODE) = 'SSU-01' INTO GS_STUDENT.
+
+**
+
+**WRITE: / GS_STUDENT-ZCODE.
+
+**WRITE: / GS_STUDENT-ZKNAME.
+
+**WRITE: / GS_STUDENT-ZENAME.
+
+*
+
+*FIELD-SYMBOLS: <FS_GS_STUDENT> TYPE ANY.
+
+*
+
+*READ TABLE <FS> WITH KEY (GV_ZCODE) = 'SSU-01' ASSIGNING <FS_GS_STUDENT>.
+
+*
+
+*"##### ANY#### ##### #### ## ## ##
+
+*"-><FS_GS_STUDENT>-ZCODE , <FS_GS_STUDENT>-ZKNAME , <FS_GS_STUDENT>-ZENAME ###
+
+*WRITE <FS_GS_STUDENT>.
+
+
+
+
+
+
+"LOOP ## ## ## ##
+
+DATA: BEGIN OF GS_STUDENT,
+
+  ZCODE LIKE ZEDT02_001-ZCODE,
+
+  ZKNAME LIKE ZEDT02_001-ZKNAME,
+
+  ZENAME LIKE ZEDT02_001-ZENAME,
+
+  ZMEMO(10),
+
+END OF GS_STUDENT.
+
+DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+DATA: GV_ZCODE(10) VALUE 'ZCODE'.
+
+
+
+SELECT * FROM ZEDT02_001 INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT.
+
+
+
+"#### MODIFY #
+
+LOOP AT GT_STUDENT ASSIGNING FIELD-SYMBOL(<FS_T>).
+
+  IF <FS_T>-ZENAME = 'LEE'.
+
+    <FS_T>-ZMEMO = '####'.
+
+  ENDIF.
+
+ENDLOOP.

@@ -1,0 +1,55 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR10_1028_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES: ZEDT10_001.
+
+DATA: BEGIN OF GS_STUDENT,
+
+        ZCOLOR  TYPE C LENGTH 4,
+
+        ZCODE   LIKE ZEDT10_001-ZCODE,
+
+        ZPERNR  LIKE ZEDT10_001-ZPERNR,
+
+        ZKNAME  LIKE ZEDT10_001-ZKNAME,
+
+        ZENAME  LIKE ZEDT10_001-ZENAME,
+
+        ZGENDER LIKE ZEDT10_001-ZGENDER,
+
+        ZSUM    LIKE ZEDT10_002-ZSUM,
+
+        ZMAJOR  LIKE ZEDT10_002-ZMAJOR,
+
+        ZMNAME  LIKE ZEDT10_002-ZMNAME,
+
+      END OF GS_STUDENT.
+
+DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+DATA: OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA: GS_FIELDCAT TYPE SLIS_FIELDCAT_ALV,
+
+      GT_FIELDCAT TYPE SLIS_T_FIELDCAT_ALV,
+
+
+
+      GS_LAYOUT   TYPE SLIS_LAYOUT_ALV,
+
+
+
+      GS_SORT     TYPE SLIS_SORTINFO_ALV,
+
+      GT_SORT     TYPE SLIS_T_SORTINFO_ALV.

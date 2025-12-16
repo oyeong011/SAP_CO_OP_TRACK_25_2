@@ -1,0 +1,37 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMMR13_004_SCR
+
+*&---------------------------------------------------------------------*
+
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK A1 WITH FRAME TITLE TEXT-T01.
+
+
+
+  PARAMETERS : P1 TYPE ZEKKO_13-EBELN.    "PO ##"
+
+  PARAMETERS : P2 TYPE ZMARA_13-WERKS.    "###"
+
+  PARAMETERS : P3 TYPE BUDAT MODIF ID M1. "#####(=###)"
+
+
+
+  SELECTION-SCREEN BEGIN OF LINE.
+
+  PARAMETERS : P_R1 RADIOBUTTON GROUP RA1 DEFAULT 'X' USER-COMMAND U1.
+
+  SELECTION-SCREEN COMMENT 15(6) FOR FIELD P_R1.
+
+  PARAMETERS : P_R2 RADIOBUTTON GROUP RA1.
+
+  SELECTION-SCREEN COMMENT 35(6) FOR FIELD P_R2.
+
+
+
+  SELECTION-SCREEN END OF LINE.
+
+SELECTION-SCREEN END OF BLOCK A1.

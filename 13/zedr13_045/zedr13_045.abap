@@ -1,0 +1,84 @@
+
+REPORT ZEDR13_045.
+
+
+
+
+
+
+*DATA : LV_NUM TYPE I,
+
+*       LV_SUM TYPE I.
+
+
+
+*LV_NUM = 5.
+
+*DO LV_NUM TIMES.
+
+*  ADD SY-INDEX TO LV_SUM.
+
+*  WRITE :/ SY-INDEX.
+
+*ENDDO.
+
+*DO LV_NUM TIMES.
+
+*  IF SY-INDEX = '3'.
+
+**    EXIT.
+
+**    STOP.
+
+*    CONTINUE.
+
+*  ENDIF.
+
+*  ADD SY-INDEX TO LV_SUM.
+
+*  WRITE :/ SY-INDEX.
+
+*ENDDO.
+
+*DO LV_NUM TIMES.
+
+*  CHECK SY-INDEX = '3'.
+
+*
+
+*  ADD SY-INDEX TO LV_SUM.
+
+*  WRITE :/ SY-INDEX.
+
+*ENDDO.
+
+*
+
+*WRITE :/ 'INDEX##:', LV_SUM.
+
+
+
+
+
+
+DATA : GV_NUM TYPE I,
+
+       GV_CHECK TYPE C.
+
+GV_NUM = 5.
+
+
+
+WHILE GV_NUM = 5.
+
+  GV_CHECK = 'X'.
+
+ENDWHILE.
+
+
+
+IF GV_CHECK = 'X'.
+
+  WRITE :/ '#######.'.
+
+ENDIF.

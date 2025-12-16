@@ -1,0 +1,73 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR12_DO_8
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR12_DO_8.
+
+DATA: BEGIN OF GS_ZEDT12,
+
+  ZCODE TYPE ZEDT12_001-ZCODE, "####
+
+  ZKNAME TYPE ZEDT12_001-ZKNAME, "##
+
+  ZENAME TYPE ZEDT12_001-ZENAME, "####
+
+  ZGENDER TYPE ZEDT12_001-ZGUBUN, "##
+
+  ZTEL TYPE ZEDT12_001-ZTEL, "####
+
+  END OF GS_ZEDT12.
+
+
+
+  DATA: BEGIN OF GS_ZEDT12_2,
+
+  ZZZZCODE TYPE ZEDT12_001-ZCODE, "####
+
+  ZZZZKNAME TYPE ZEDT12_001-ZKNAME, "##
+
+  ZZZZENAME TYPE ZEDT12_001-ZENAME, "####
+
+  ZZZZGENDER TYPE ZEDT12_001-ZGUBUN, "##
+
+  ZZZZTEL TYPE ZEDT12_001-ZTEL, "####
+
+  END OF GS_ZEDT12_2.
+
+
+
+  GS_ZEDT12-ZCODE ='SSU01'.
+
+  GS_ZEDT12-ZKNAME = '###'.
+
+  GS_ZEDT12-ZENAME = 'KANG'.
+
+  GS_ZEDT12-ZGENDER = 'M'.
+
+  GS_ZEDT12-ZTEL = '123456789'.
+
+
+
+  MOVE GS_ZEDT12 TO GS_ZEDT12_2.  " MOVE TO# ###(ZZZZCODE)# ### ## ##, BUT MOVE-CORRESPONDING# # ## ###.
+
+
+
+  WRITE:/ GS_ZEDT12_2-ZZZZCODE.
+
+  WRITE:/ GS_ZEDT12_2-ZZZZKNAME.
+
+  WRITE:/ GS_ZEDT12_2-ZZZZENAME.
+
+  WRITE:/ GS_ZEDT12_2-ZZZZGENDER.
+
+  WRITE:/ GS_ZEDT12_2-ZZZZTEL.

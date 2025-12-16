@@ -1,0 +1,99 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZTEST01_003_SCR
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK A1 WITH FRAME TITLE TEXT-T01.
+
+
+
+SELECTION-SCREEN BEGIN OF LINE.
+
+SELECTION-SCREEN COMMENT 2(10) TEXT-T10.
+
+SELECTION-SCREEN COMMENT 15(6) TEXT-T03 FOR FIELD P_R1.
+
+PARAMETERS : P_R1 RADIOBUTTON GROUP RA1 DEFAULT 'X' USER-COMMAND U1.
+
+SELECTION-SCREEN COMMENT 31(6) TEXT-T04 FOR FIELD P_R2.
+
+PARAMETERS : P_R2 RADIOBUTTON GROUP RA1.
+
+SELECTION-SCREEN COMMENT 47(6) TEXT-T05 FOR FIELD P_R3.
+
+PARAMETERS : P_R3 RADIOBUTTON GROUP RA1.
+
+SELECTION-SCREEN COMMENT 63(10) TEXT-T06 FOR FIELD P_R4.
+
+PARAMETERS : P_R4 RADIOBUTTON GROUP RA1.
+
+SELECTION-SCREEN END OF LINE.
+
+
+
+SELECTION-SCREEN ULINE.
+
+
+
+SELECT-OPTIONS :
+
+
+
+
+*                 S_LFDAT   FOR EBAN-LFDAT,
+
+
+
+
+                 S_BADAT   FOR EBAN-BADAT DEFAULT SY-DATLO.
+
+
+
+SELECT-OPTIONS : S_EKORG   FOR EBAN-EKORG,
+
+                 S_EKGRP   FOR EBAN-EKGRP,
+
+                 S_WERKS   FOR EBAN-WERKS,
+
+                 S_FLIEF   FOR EBAN-FLIEF,
+
+                 S_MTART   FOR MARA-MTART,
+
+                 S_MATKL   FOR MARA-MATKL,
+
+                 S_MATNR   FOR MARA-MATNR,
+
+                 S_MAKTG   FOR MAKT-MAKTG,
+
+                 S_MATNR2  FOR MARA-MATNR,
+
+                 S_LFDAT   FOR EBAN-LFDAT,
+
+
+
+
+*                 S_BADAT   FOR EBAN-BADAT,
+
+
+
+
+                 S_BANFN   FOR EBAN-BANFN,
+
+                 S_EBELN   FOR EBAN-EBELN,
+
+                 S2_EKGRP   FOR EBAN-EKGRP. "#### 9*# #### ## ## ##. 20190522.
+
+
+
+
+
+SELECTION-SCREEN END OF BLOCK A1.

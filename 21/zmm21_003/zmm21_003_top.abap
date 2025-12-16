@@ -1,0 +1,147 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM21_003_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES : ZEKKO21, ZEKPO21, ZMKPF21, ZMSEG21.
+
+         "##      "######  "#### "## #####
+
+
+
+"#### ## ### ## ##
+
+
+
+DATA : GS_EKKO LIKE ZEKKO21.
+
+DATA : GT_EKKO LIKE TABLE OF GS_EKKO.
+
+
+
+DATA : GS_EKPO LIKE ZEKPO21.
+
+DATA : GT_EKPO LIKE TABLE OF GS_EKPO.
+
+"## ## ### ## ##
+
+DATA : BEGIN OF GS_STORE,
+
+  CHECK TYPE CHAR1, "####
+
+  EBELN TYPE ZMSEG21-EBELN, "######
+
+  EBELP TYPE ZEKPO21-EBELP, "##
+
+  LIFNR TYPE ZMSEG21-LIFNR, "#####
+
+  BEDAT TYPE ZEKKO21-BEDAT, "###
+
+  MATNR TYPE ZEKPO21-MATNR, "####
+
+  MAKTX TYPE ZEKPO21-MAKTX, "###
+
+  MENGE TYPE ZMSEG21-MENGE, "##
+
+  MEINS TYPE ZMSEG21-MEINS, "##
+
+  BUKRS TYPE ZEKKO21-BUKRS,
+
+  BPRME TYPE ZEKPO21-BPRME, "##
+
+  WAERS TYPE ZMSEG21-WAERS, "##
+
+  PRDAT TYPE ZEKPO21-PRDAT, "###
+
+  WERKS TYPE ZMSEG21-WERKS, "###
+
+  LGORT TYPE ZMSEG21-LGORT, "####
+
+  END OF GS_STORE.
+
+
+
+  DATA : GT_STORE LIKE TABLE OF GS_STORE.
+
+
+
+  DATA : GS_MKPF LIKE ZMKPF21.
+
+  DATA : GT_MKPF LIKE TABLE OF GS_MKPF.
+
+
+
+  DATA : GS_MSEG LIKE ZMSEG21.
+
+  DATA : GT_MSEG LIKE TABLE OF GS_MSEG.
+
+
+
+  DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+
+
+
+
+  "DOCKING CONTAINER ## ## ##
+
+  DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+
+
+
+
+  "### ## ##
+
+  DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+  DATA : GS_VARIANT TYPE DISVARIANT.
+
+
+
+  "## ### ###
+
+  DATA : GS_CHECK21 LIKE ZMSEG21.
+
+  DATA : GT_CHECK21 LIKE TABLE OF GS_CHECK21.
+
+
+
+  DATA : BEGIN OF GS_CHECK.
+
+    INCLUDE STRUCTURE GS_CHECK21.
+
+    DATA : CHECK TYPE C,
+
+          END OF GS_CHECK.
+
+  DATA : GT_CHECK LIKE TABLE OF GS_CHECK.
+
+
+
+  "###### ## ## ##
+
+  DATA : GS_FIELDCAT TYPE LVC_S_FCAT.
+
+  DATA : GT_FIELDCAT TYPE LVC_T_FCAT.
+
+  DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+  "ALV SORT ## ##
+
+  DATA : GS_SORT TYPE LVC_S_SORT.
+
+  DATA : GT_SORT TYPE LVC_T_SORT.
+
+  "EVENT ## ##
+
+  DATA : GO_EVENT TYPE REF TO EVENT.

@@ -1,0 +1,65 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR24_PRACTICE004
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR24_PRACTICE004.
+
+
+
+RANGES GR_ZCODE FOR ZEDT24_001-ZCODE.
+
+GR_ZCODE-LOW = 'SSU-90'.
+
+GR_ZCODE-HIGH = 'SSU-99'.
+
+GR_ZCODE-SIGN = 'I'.
+
+GR_ZCODE-OPTION = 'BT'.
+
+APPEND GR_ZCODE.
+
+
+
+DATA : GS_ZEDT24_001 LIKE ZEDT24_001,
+
+       GT_ZEDT24_001 LIKE TABLE OF GS_ZEDT24_001.
+
+
+
+SELECT * FROM ZEDT00_001
+
+  INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT24_001
+
+  WHERE ZCODE IN GR_ZCODE.
+
+
+
+LOOP AT GT_ZEDT24_001 INTO GS_ZEDT24_001.
+
+  CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
+
+  EXPORTING
+
+    INPUT = GS_ZEDT24_001-ZPERNR
+
+  IMPORTING
+
+    OUTPUT = GS_ZEDT24_001-ZPERNR.
+
+  MODIFY GT_ZEDT24_001 FROM GS_ZEDT24_001.
+
+ENDLOOP.
+
+
+
+MODIFY ZEDT24_001 FROM TABLE GT_ZEDT24_001.

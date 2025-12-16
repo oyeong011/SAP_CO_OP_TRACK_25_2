@@ -1,0 +1,89 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR19_036
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR19_036 MESSAGE-ID ZMED19_001.
+
+
+
+TABLES : ZEDT19_0001.
+
+
+
+DATA : BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT19_0001
+.
+
+  DATA : END OF GS_STUDENT.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+  SELECT-OPTIONS : S_ZCODE FOR ZEDT19_0001-ZCODE.
+
+  PARAMETERS : P_ZPERNR LIKE ZEDT19_0001-ZPERNR.
+
+  PARAMETERS : P_ZGEN LIKE ZEDT19_0001-ZGENDER.
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+IF S_ZCODE IS INITIAL.
+
+  MESSAGE I000. "## # ## # ### ##
+
+ENDIF.
+
+
+
+PERFORM GET_DATA.
+
+IF GT_STUDENT IS INITIAL.
+
+  MESSAGE I000.
+
+  EXIT.
+
+ENDIF.
+
+PERFORM WRITE_DATA.
+
+
+
+FORM GET_DATA .
+
+  SELECT * FROM ZEDT19_0001
+
+    INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT
+
+    WHERE ZCODE IN S_ZCODE.
+
+ENDFORM.
+
+
+
+FORM WRITE_DATA.
+
+  LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+    WRITE :/ GS_STUDENT-ZCODE, GS_STUDENT-ZKNAME.
+
+  ENDLOOP.
+
+ENDFORM.

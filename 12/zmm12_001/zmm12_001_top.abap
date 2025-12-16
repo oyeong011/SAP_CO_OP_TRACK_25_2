@@ -1,0 +1,243 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM12_001_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES: ZLFA1_12, ZLFB1_12, ZLFM1_12.
+
+TABLES: SSCRFIELDS.
+
+
+
+"1.#####
+
+
+
+
+*DATA : BEGIN OF GS_LFA1,
+
+*  MANDT LIKE ZLFA1_12-MANDT,  "CLIENT
+
+*  LIFNR LIKE ZLFA1_12-LIFNR,  "#####
+
+*  NAME1 LIKE ZLFA1_12-NAME1,  "####
+
+*  LAND1 LIKE ZLFA1_12-LAND1,  "###
+
+*  STRAS LIKE ZLFA1_12-STRAS,  "##
+
+*  KTOKK LIKE ZLFA1_12-KTOKK,  "## ##
+
+*  STCD1 LIKE ZLFA1_12-STCD1,  "## ##
+
+*  STCD2 LIKE ZLFA1_12-STCD2,  "### ##
+
+*END OF GS_LFA1.
+
+
+
+
+DATA: GS_LFA1 TYPE ZLFA1_12.
+
+DATA: GT_LFA1 LIKE TABLE OF GS_LFA1.
+
+
+
+"2.#######
+
+
+
+
+*DATA : BEGIN OF GS_LFB1,
+
+*  MANDT LIKE ZLFB1_12-MANDT,  "CLIENT
+
+*  LIFNR LIKE ZLFB1_12-LIFNR,  "#####
+
+*  BUKRS LIKE ZLFB1_12-BUKRS,  "####
+
+*  LOEVM LIKE ZLFB1_12-LOEVM,  "#####
+
+*  AKONT LIKE ZLFB1_12-AKONT,  "####
+
+*  ZTERM LIKE ZLFB1_12-ZTERM,  "####
+
+*END OF GS_LFB1.
+
+
+
+
+DATA: GS_LFB1 TYPE ZLFB1_12.
+
+DATA: GT_LFB1 LIKE TABLE OF GS_LFB1.
+
+
+
+"3.#######
+
+
+
+
+*DATA : BEGIN OF GS_LFM1,
+
+*  MANDT LIKE ZLFM1_12-MANDT,  "CLIENT
+
+*  LIFNR LIKE ZLFM1_12-LIFNR,  "#####
+
+*  EKORG LIKE ZLFM1_12-EKORG,  "####
+
+*  EKGRP LIKE ZLFM1_12-EKGRP,  "####
+
+*  LOEVM LIKE ZLFM1_12-LOEVM,  "#####
+
+*  WAERS LIKE ZLFM1_12-WAERS,  "######
+
+*  MWSKZ LIKE ZLFM1_12-MWSKZ,  "####
+
+*END OF GS_LFM1.
+
+
+
+
+DATA: GS_LFM1 TYPE ZLFM1_12.
+
+DATA: GT_LFM1 LIKE TABLE OF GS_LFM1.
+
+
+
+DATA : GV_MODE TYPE C.
+
+
+
+DATA: GV_LIFNR LIKE ZLFA1_12-LIFNR,  "#####
+
+      GV_NAME1 LIKE ZLFA1_12-NAME1,  "####
+
+      GV_LAND1 LIKE ZLFA1_12-LAND1,  "###
+
+      GV_KTOKK LIKE ZLFA1_12-KTOKK,  "## ##
+
+      GV_STCD1 LIKE ZLFA1_12-STCD1,  "## ##
+
+      GV_STCD2 LIKE ZLFA1_12-STCD2,  "### ##
+
+      GV_STRAS LIKE ZLFA1_12-STRAS,  "##
+
+
+
+      GV_BUKRS LIKE ZLFB1_12-BUKRS,  "####
+
+      GV_LOEVM LIKE ZLFB1_12-LOEVM,  "#####
+
+      GV_AKONT LIKE ZLFB1_12-AKONT,  "####
+
+      GV_ZTERM LIKE ZLFB1_12-ZTERM,  "####
+
+
+
+      GV_EKORG LIKE ZLFM1_12-EKORG,  "####
+
+      GV_EKGRP LIKE ZLFM1_12-EKGRP,  "####
+
+      GV_WAERS LIKE ZLFM1_12-WAERS,  "######
+
+      GV_MWSKZ LIKE ZLFM1_12-MWSKZ.  "####
+
+
+
+
+
+
+
+
+
+DATA: BEGIN OF GS_ALV_OUTPUT,
+
+         LIFNR TYPE ZLFA1_12-LIFNR,    " #####
+
+         NAME1 TYPE ZLFA1_12-NAME1,    " ####
+
+         LAND1 TYPE ZLFA1_12-LAND1,    " ###
+
+         KTOKK TYPE ZLFA1_12-KTOKK,    " #####
+
+         STCD1 TYPE ZLFA1_12-STCD1,    " ####
+
+         STCD2 TYPE ZLFA1_12-STCD2,    " #####
+
+         STRAS TYPE ZLFA1_12-STRAS,    " ##
+
+
+
+         BUKRS TYPE ZLFB1_12-BUKRS,    " ####
+
+         LOEVM TYPE ZLFB1_12-LOEVM,    " #####
+
+         AKONT TYPE ZLFB1_12-AKONT,    " ####
+
+         ZTERM TYPE ZLFB1_12-ZTERM,    " ####
+
+
+
+         EKORG TYPE ZLFM1_12-EKORG,    " ####
+
+         EKGRP TYPE ZLFM1_12-EKGRP,    " ####
+
+         WAERS TYPE ZLFM1_12-WAERS,    " ##
+
+         MWSKZ TYPE ZLFM1_12-MWSKZ,    " ####
+
+
+
+
+*         GV_MODE TYPE C LENGTH 1,
+
+
+
+
+       END OF GS_ALV_OUTPUT.
+
+DATA: GT_ALV_OUTPUT LIKE TABLE OF GS_ALV_OUTPUT.
+
+
+
+
+
+"ALV-EVENT##
+
+DATA: OK_CODE TYPE SY-UCOMM. "SCREEN 100#### ##### ## #####
+
+"## ### ##
+
+DATA : GO_EVENT TYPE REF TO EVENT.
+
+
+
+DATA: GS_VARIANT TYPE DISVARIANT.
+
+
+
+"ALV FIELDCAT
+
+DATA: GS_FIELDCAT TYPE LVC_S_FCAT.
+
+DATA: GT_FIELDCAT TYPE LVC_T_FCAT.
+
+
+
+" ALV ####
+
+DATA GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+" ALV
+
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.

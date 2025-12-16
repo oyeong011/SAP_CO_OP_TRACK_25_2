@@ -1,0 +1,75 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR03_002_DATA_OBJECT_MOVEC
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR03_002_DATA_OBJECT_MOVEC.
+
+
+
+DATA : BEGIN OF GS_ZEDT03,
+
+      ZCODE TYPE ZEDT03_001-ZCODE,
+
+      ZKNAME TYPE ZEDT03_001-ZKNAME,
+
+      ZENAME TYPE ZEDT03_001-ZENAME,
+
+      ZGENDER TYPE ZEDT03_001-ZGENDER,
+
+      ZTEL TYPE ZEDT03_001-ZTEL,
+
+      END OF GS_ZEDT03.
+
+
+
+DATA : BEGIN OF GS_ZEDT03_2,
+
+      HAHAHAZCODE TYPE ZEDT03_001-ZCODE,
+
+      ZKNAME TYPE ZEDT03_001-ZKNAME,
+
+      ZENAME TYPE ZEDT03_001-ZENAME,
+
+      ZGENDER TYPE ZEDT03_001-ZGENDER,
+
+      ZTEL TYPE ZEDT03_001-ZTEL,
+
+      END OF GS_ZEDT03_2.
+
+
+
+GS_ZEDT03-ZCODE = 'SSU-03'.
+
+GS_ZEDT03-ZKNAME = '##'.
+
+GS_ZEDT03-ZENAME = 'LANA'.
+
+GS_ZEDT03-ZGENDER = 'W'.
+
+GS_ZEDT03-ZTEL = '01088888888'.
+
+
+
+MOVE GS_ZEDT03 TO GS_ZEDT03_2.
+
+
+
+WRITE / GS_ZEDT03_2-HAHAHAZCODE.
+
+WRITE / GS_ZEDT03_2-ZKNAME.
+
+WRITE / GS_ZEDT03_2-ZENAME.
+
+WRITE / GS_ZEDT03_2-ZGENDER.
+
+WRITE / GS_ZEDT03_2-ZTEL.

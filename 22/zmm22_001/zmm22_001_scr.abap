@@ -1,0 +1,49 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM22_001_SCR
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+  PARAMETERS:
+
+    P_LIFNR TYPE LIFNR       MODIF ID M2,   "#####(## #)
+
+    P_BUKRS TYPE BUKRS       MODIF ID M0,   "####(##)
+
+    P_KTOKK LIKE ZLFA1_22-KTOKK MODIF ID M1."#####(## #)
+
+
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.
+
+  SELECTION-SCREEN BEGIN OF LINE.
+
+
+
+    PARAMETERS: P_CRE RADIOBUTTON GROUP R1 USER-COMMAND UC1 DEFAULT 'X'."##
+
+    SELECTION-SCREEN COMMENT 10(6) TEXT-001 FOR FIELD P_CRE.
+
+
+
+    PARAMETERS: P_VIEW RADIOBUTTON GROUP R1."##
+
+    SELECTION-SCREEN COMMENT 25(6) TEXT-002 FOR FIELD P_VIEW.
+
+
+
+  SELECTION-SCREEN END OF LINE.
+
+SELECTION-SCREEN END OF BLOCK B2.

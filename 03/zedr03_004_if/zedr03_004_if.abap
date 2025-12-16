@@ -1,0 +1,73 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR03_004_IF
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR03_004_IF.
+
+
+
+DATA : BEGIN OF GS_STUDENT,
+
+  ZPERNR LIKE ZEDT03_001-ZPERNR,
+
+  ZCODE LIKE ZEDT03_001-ZCODE,
+
+  ZKNAME LIKE ZEDT03_001-ZKNAME,
+
+  ZENAME LIKE ZEDT03_001-ZENAME,
+
+  ZGENDER LIKE ZEDT03_001-ZGENDER,
+
+  ZGNAME TYPE C LENGTH 4,
+
+  ZTEL LIKE ZEDT03_001-ZTEL,
+
+END OF GS_STUDENT.
+
+
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+CLEAR : GS_STUDENT, GT_STUDENT.
+
+
+
+GS_STUDENT-ZPERNR = '0000000001'.
+
+GS_STUDENT-ZCODE = 'SSU-03'.
+
+GS_STUDENT-ZKNAME = '##'.
+
+GS_STUDENT-ZENAME = 'JISOO'.
+
+GS_STUDENT-ZGENDER = 'F'.
+
+GS_STUDENT-ZTEL = '01088888888'.
+
+
+
+IF ( GS_STUDENT-ZGENDER = 'F' ) OR ( GS_STUDENT-ZKNAME = '###' ).
+
+  GS_STUDENT-ZGNAME = '###'.
+
+ENDIF.
+
+
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+CLEAR : GS_STUDENT.

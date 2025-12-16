@@ -1,0 +1,238 @@
+
+REPORT ZEDR09_002.
+
+
+
+
+
+
+* global data type ##
+
+* 1) table, view# ### type ##
+
+* 2) data type# ### type ##
+
+
+
+* 1) table, view# ### ## ##
+
+* - abap dictionary table# ## ### ##
+
+* - abap dictionart table ##### ## ## ##
+
+
+
+* - abap dictionary table# ## ### ##
+
+
+
+
+DATA : GS_ZEDT09 LIKE ZEDT09_001.
+
+
+
+GS_ZEDT09-ZCODE = 'ssu-09'.
+
+GS_ZEDT09-ZKNAME = '###'.
+
+GS_ZEDT09-ZENAME = 'kim'.
+
+GS_ZEDT09-ZGENDER = 'F'.
+
+GS_ZEDT09-ZTEL = '01072373114'.
+
+
+
+WRITE / GS_ZEDT09-ZCODE.
+
+WRITE / GS_ZEDT09-ZKNAME.
+
+WRITE / GS_ZEDT09-ZENAME.
+
+WRITE / GS_ZEDT09-ZGENDER.
+
+WRITE / GS_ZEDT09-ZTEL.
+
+
+
+
+
+
+* - abap dictionary table ##### ## ## ##
+
+
+
+
+DATA : BEGIN OF GS_ZEDT09_02,
+
+  ZCODE TYPE ZEDT09_001-ZCODE,
+
+  ZKNAME TYPE ZEDT09_001-ZKNAME,
+
+  ZENAME TYPE ZEDT09_001-ZENAME,
+
+  ZGENDER TYPE ZEDT09_001-ZGENDER,
+
+  ZTEL TYPE ZEDT09_001-ZTEL,
+
+  END OF GS_ZEDT09_02.
+
+
+
+GS_ZEDT09_02-ZCODE = 'ssu-09'.
+
+GS_ZEDT09_02-ZKNAME = '###'.
+
+GS_ZEDT09_02-ZENAME = 'kim'.
+
+GS_ZEDT09_02-ZGENDER = 'F'.
+
+GS_ZEDT09_02-ZTEL = '01072373114'.
+
+
+
+WRITE / GS_ZEDT09_02-ZCODE.
+
+WRITE / GS_ZEDT09_02-ZKNAME.
+
+WRITE / GS_ZEDT09_02-ZENAME.
+
+WRITE / GS_ZEDT09_02-ZGENDER.
+
+WRITE / GS_ZEDT09_02-ZTEL.
+
+
+
+
+
+
+* 2) data type# ### type ##
+
+* - data element
+
+* - structure
+
+* - type group -> ## # ### #
+
+
+
+* - data element# ### type ##
+
+
+
+
+DATA : BEGIN OF GS_ZEDT09_03,
+
+  ZCODE TYPE ZCODE09,
+
+  ZKNAME TYPE ZKNAME09,
+
+  ZENAME TYPE ZENAME09,
+
+  ZGENDER TYPE ZGENDER09,
+
+  ZTEL TYPE ZTEL09,
+
+  END OF GS_ZEDT09_03.
+
+
+
+GS_ZEDT09_03-ZCODE = 'ssu-09'.
+
+GS_ZEDT09_03-ZKNAME = '###'.
+
+GS_ZEDT09_03-ZENAME = 'kim'.
+
+GS_ZEDT09_03-ZGENDER = 'F'.
+
+GS_ZEDT09_03-ZTEL = '01072373114'.
+
+
+
+WRITE / GS_ZEDT09_03-ZCODE.
+
+WRITE / GS_ZEDT09_03-ZKNAME.
+
+WRITE / GS_ZEDT09_03-ZENAME.
+
+WRITE / GS_ZEDT09_03-ZGENDER.
+
+WRITE / GS_ZEDT09_03-ZTEL.
+
+
+
+
+
+
+* structure# ### type ##
+
+
+
+
+DATA : GS_ZEDS09_04 TYPE ZEDS09_001.
+
+
+
+GS_ZEDS09_04-ZCODE = 'ssu-09'.
+
+GS_ZEDS09_04-ZKNAME = '###'.
+
+GS_ZEDS09_04-ZENAME = 'kim'.
+
+GS_ZEDS09_04-ZGENDER = 'F'.
+
+GS_ZEDS09_04-ZTEL = '01072373114'.
+
+
+
+WRITE / GS_ZEDS09_04-ZCODE.
+
+WRITE / GS_ZEDS09_04-ZKNAME.
+
+WRITE / GS_ZEDS09_04-ZENAME.
+
+WRITE / GS_ZEDS09_04-ZGENDER.
+
+WRITE / GS_ZEDS09_04-ZTEL.
+
+
+
+
+
+
+* type group# ### type ##
+
+
+
+
+DATA : GS_ZEDG09 TYPE ZTG09_ZED09.
+
+DATA : GV_ZTITLE TYPE ZTG09_ZTITLE.
+
+
+
+GS_ZEDG09-ZCODE = 'ssu-09'.
+
+GS_ZEDG09-ZKNAME = '###'.
+
+GS_ZEDG09-ZENAME = 'kim'.
+
+GS_ZEDG09-ZGENDER = 'F'.
+
+GS_ZEDG09-ZTEL = '01072373114'.
+
+GV_ZTITLE = '#######'.
+
+
+
+WRITE / GS_ZEDG09-ZCODE.
+
+WRITE / GS_ZEDG09-ZKNAME.
+
+WRITE / GS_ZEDG09-ZENAME.
+
+WRITE / GS_ZEDG09-ZGENDER.
+
+WRITE / GS_ZEDG09-ZTEL.
+
+WRITE / GV_ZTITLE.

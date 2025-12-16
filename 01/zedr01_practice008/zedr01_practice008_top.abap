@@ -1,0 +1,139 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR01_PRACTICE008_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES : ZEDT01_100 , ZEDT01_101.
+
+
+
+DATA : BEGIN OF GS_ORDER,             "#### ### # ###
+
+  ZGUBUN TYPE C LENGTH 4,             "##_###
+
+  ZORDNO LIKE ZEDT01_100-ZORDNO,      "####
+
+  ZIDCODE LIKE ZEDT01_100-ZIDCODE,    "##ID
+
+  ZMATNR LIKE ZEDT01_100-ZMATNR,      "####
+
+  ZMATNAME LIKE ZEDT01_100-ZMATNAME,   "###
+
+  ZMTART LIKE ZEDT01_100-ZMTART,      "####
+
+  ZMTART_NAME TYPE C LENGTH 16,       "####_##
+
+  ZVOLUM LIKE ZEDT01_100-ZVOLUM,      "##
+
+  VRKME LIKE ZEDT01_100-VRKME,        "##
+
+  ZNSAMT LIKE ZEDT01_100-ZNSAMT,      "####
+
+  ZSLAMT LIKE ZEDT01_100-ZSLAMT,      "####
+
+  ZDCAMT LIKE ZEDT01_100-ZDCAMT,      "####
+
+  ZWAERS LIKE ZEDT01_100-ZWAERS,      "##
+
+  ZSALE_FG LIKE ZEDT01_100-ZSALE_FG , "####
+
+  ZSALE_FG_NAME TYPE C LENGTH 16,     "####_##
+
+  ZJDATE LIKE ZEDT01_100-ZJDATE,      "####
+
+  ZJDATE_SHOW TYPE C LENGTH 12,       "####_##
+
+  ZRET_FG TYPE C LENGTH 12,           "####
+
+  ZRET_FG_NAME TYPE C LENGTH 16,      "####_##
+
+  ZRDATE LIKE ZEDT01_100-ZRDATE,      "####
+
+  ZRDATE_SHOW TYPE C LENGTH 12,       "####_##
+
+  END OF GS_ORDER.
+
+DATA : GT_ORDER LIKE TABLE OF GS_ORDER.
+
+
+
+DATA : BEGIN OF GS_DELIVERY,         "#### ### # ###
+
+  ZGUBUN TYPE C LENGTH 4,            "##_###
+
+  ZORDNO LIKE ZEDT01_101-ZORDNO,     "####
+
+  ZIDCODE LIKE ZEDT01_101-ZIDCODE,   "##ID
+
+  ZMATNR LIKE ZEDT01_101-ZMATNR,     "####
+
+  ZMATNAME LIKE ZEDT01_101-ZMATNAME, "###
+
+  ZMTART LIKE ZEDT01_101-ZMTART,     "####
+
+  ZMTART_NAME TYPE C LENGTH 16,      "####_##
+
+  ZVOLUM LIKE ZEDT01_101-ZVOLUM,     "##
+
+  VRKME LIKE ZEDT01_101-VRKME,       "##
+
+  ZSLAMT LIKE ZEDT01_101-ZSLAMT,     "####
+
+  ZWAERS LIKE ZEDT01_101-ZWAERS,     "##
+
+  ZDFLAG LIKE ZEDT01_101-ZDFLAG,     "####
+
+  ZDFLAG_NAME TYPE C LENGTH 16,      "####_##
+
+  ZDGUBUN LIKE ZEDT01_101-ZDGUBUN ,  "####
+
+  ZDGUBUN_NAME TYPE C LENGTH 12,     "#####
+
+  ZDDATE LIKE ZEDT01_101-ZDDATE,     "####
+
+  ZDDATE_SHOW TYPE C LENGTH 12,      "####_##
+
+  ZRDATE LIKE ZEDT01_101-ZRDATE,     "####
+
+  ZRDATE_SHOW TYPE C LENGTH 12,      "####_##
+
+  ZFLAG LIKE ZEDT01_101-ZFLAG,       "####
+
+  END OF GS_DELIVERY.
+
+DATA : GT_DELIVERY LIKE TABLE OF GS_DELIVERY.
+
+
+
+RANGES : GR_CHECK FOR ZEDT01_100-ZRET_FG.   " RANGES - 1,2,3# ## #### ## #### ### #
+
+CONSTANTS : GV_GRID_SIZE TYPE I VALUE 2000. " ## - DOCKING CONTAINER SIZE
+
+DATA : OK_CODE TYPE SY-UCOMM.               " SCREEN OK_CODE
+
+
+
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER. "DOCKING CONTAINER #### ##
+
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.             "GRID ### ##
+
+
+
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT.                     "ALV FCAT ### ### ##
+
+DATA : GT_FIELDCAT TYPE LVC_T_FCAT.
+
+DATA : GS_VARIANT TYPE DISVARIANT.                      "ALV VARIANT ##
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.                       "ALV LAYOUT ##
+
+DATA : GS_SORT TYPE LVC_S_SORT.                         "ALV SORT ### ### ##
+
+DATA : GT_SORT TYPE LVC_T_SORT.

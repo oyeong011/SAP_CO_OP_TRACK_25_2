@@ -1,0 +1,75 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR12_PRACTICE004
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR12_PRACTICE004.
+
+
+
+DATA: GS_STUDENT TYPE ZEDT12_001.
+
+DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+TABLES: ZEDT12_001.
+
+
+
+RANGES GR_ZCODE FOR ZEDT12_001-ZCODE.
+
+CLEAR: GR_ZCODE.
+
+
+
+GR_ZCODE-SIGN = 'I'.
+
+GR_ZCODE-OPTION = 'BT'.
+
+GR_ZCODE-LOW = 'SSU-90'.
+
+GR_ZCODE-HIGH = 'SSU-92'.
+
+APPEND GR_ZCODE.
+
+
+
+SELECT * FROM ZEDT12_001
+
+  INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT
+
+  WHERE ZCODE IN GR_ZCODE.
+
+
+
+LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
+
+  EXPORTING
+
+    INPUT         = GS_STUDENT-ZPERNR
+
+  IMPORTING
+
+    OUTPUT        = GS_STUDENT-ZPERNR
+
+          .
+
+MODIFY GT_STUDENT FROM GS_STUDENT INDEX SY-TABIX.
+
+CLEAR GS_STUDENT.
+
+ENDLOOP.
+
+
+
+MODIFY ZEDT12_001 FROM TABLE GT_STUDENT.

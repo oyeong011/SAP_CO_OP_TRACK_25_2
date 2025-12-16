@@ -1,0 +1,413 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR16_003
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR16_003.
+
+
+
+" Data object# Assigning Value (# ##)
+
+" MOVE A TO B p.4
+
+
+
+"DATA : BEGIN OF GS_NAME,
+
+  "NAME1 TYPE C LENGTH 10,
+
+  "NAME2 TYPE C LENGTH 10,
+
+ " END OF GS_NAME.
+
+
+
+"GS_NAME-NAME1 = '###'.
+
+"GS_NAME-NAME2 = '##'.
+
+
+
+"GS_NAME-NAME1 = GS_NAME-NAME2.
+
+
+
+"WRITE : GS_NAME-NAME1.
+
+"WRITE :/ GS_NAME-NAME2.
+
+
+
+" Data object# Assigning Value (# ##)
+
+" MOVE A TO B p.5
+
+
+
+"MOVE GS_NAME-NAME2 TO GS_NAME-NAME1.
+
+
+
+"WRITE : GS_NAME-NAME1.
+
+"WRITE :/ GS_NAME-NAME2.
+
+
+
+" # ## (TYPE Conversions) ## p.6
+
+
+
+"DATA : BEGIN OF GS_NAME,
+
+ " NAME1 TYPE C LENGTH 10,
+
+ " DEGREE1 TYPE P DECIMALS 2,
+
+ " END OF GS_NAME.
+
+
+
+"GS_NAME-NAME1 = '##'.
+
+"GS_NAME-DEGREE1 = '35.12'.
+
+
+
+"MOVE GS_NAME-DEGREE1 TO GS_NAME-NAME1.
+
+
+
+"CONDENSE GS_NAME-NAME1 NO-GAPS.
+
+
+
+"WRITE : GS_NAME-NAME1.
+
+"WRITE :/ GS_NAME-DEGREE1.
+
+
+
+" Data object# Assigning value (# ##)
+
+" 2. OFFSET# ### # ##
+
+" MOVE A + P1(P2) TO B + P3(P4) p.8
+
+
+
+"DATA : GV_DATA1(8) VALUE 'ABCDEFGH',
+
+ "     GV_DATA2(8).
+
+"DATA : GV_START TYPE I VALUE 2,
+
+ "     GV_LENGTH TYPE I VALUE 4.
+
+
+
+"MOVE GV_DATA1+2(3) TO GV_DATA2.
+
+"WRITE :/ GV_DATA2.
+
+
+
+"MOVE GV_DATA1+GV_START(GV_LENGTH) TO GV_DATA2.
+
+"WRITE :/ GV_DATA2.
+
+
+
+
+
+" Data object# Assigning value (# ##)
+
+" 2. OFFSET# ### # ##
+
+" MOVE A + P1(P2) TO B + P3(P4) p.9
+
+
+
+"DATA : GV_DATA1(9) VALUE 'ABCDEFGH',
+
+ "     GV_DATA2(8) VALUE 'IJKLMNOP'.
+
+"DATA : GV_START TYPE I VALUE 2,
+
+ "     GV_LENGTH TYPE I VALUE 4.
+
+
+
+"MOVE GV_DATA1+GV_START(GV_LENGTH) TO GV_DATA2+GV_START(GV_LENGTH).
+
+"WRITE :/ GV_DATA2.
+
+
+
+" Data object# Assigning value (# ##)
+
+" 3. WRITE A TO B
+
+" Output to a field or internal table ## ## p.11
+
+
+
+"DATA : BEGIN OF GS_NAME,
+
+ " NAME1 TYPE C LENGTH 10,
+
+  "NAME2 TYPE C LENGTH 10,
+
+  "END OF GS_NAME.
+
+
+
+"GS_NAME-NAME1 = '###'.
+
+"GS_NAME-NAME2 = '##'.
+
+
+
+"WRITE GS_NAME-NAME2 TO GS_NAME-NAME1.
+
+
+
+"WRITE : GS_NAME-NAME1.
+
+"WRITE :/ GS_NAME-NAME2.
+
+
+
+
+
+" Data object# Assigning value (# ##)
+
+" 4. MOVE-CORRESPONDING p.13, 14, 15, 16, 17, 18
+
+
+
+DATA : BEGIN OF GS_ZEDT16,
+
+  ZCODE TYPE ZEDT16_001-ZCODE,
+
+  ZKNAME TYPE ZEDT16_001-ZKNAME,
+
+  ZENAME TYPE ZEDT16_001-ZENAME,
+
+  ZGENDER TYPE ZEDT16_001-ZGENDER,
+
+  ZTEL TYPE ZEDT16_001-ZTEL,
+
+  END OF GS_ZEDT16.
+
+
+
+DATA : BEGIN OF GS_ZEDT16_2,
+
+  ZZCODE TYPE ZEDT16_001-ZCODE,
+
+  ZZKNAME TYPE ZEDT16_001-ZKNAME,
+
+  ZZENAME TYPE ZEDT16_001-ZENAME,
+
+  ZZGENDER TYPE ZEDT16_001-ZGENDER,
+
+  ZZTEL TYPE ZEDT16_001-ZTEL,
+
+  END OF GS_ZEDT16_2.
+
+
+
+GS_ZEDT16-ZCODE = 'SSU-01'.
+
+GS_ZEDT16-ZKNAME = '###'.
+
+GS_ZEDT16-ZENAME = 'DONG'.
+
+GS_ZEDT16-ZGENDER = 'M'.
+
+GS_ZEDT16-ZTEL = '01011112222'.
+
+
+
+MOVE-CORRESPONDING GS_ZEDT16 TO GS_ZEDT16_2.
+
+
+
+WRITE :/ GS_ZEDT16_2-ZZCODE.
+
+WRITE :/ GS_ZEDT16_2-ZZKNAME.
+
+WRITE :/ GS_ZEDT16_2-ZZENAME.
+
+WRITE :/ GS_ZEDT16_2-ZZGENDER.
+
+WRITE :/ GS_ZEDT16_2-ZZTEL.
+
+
+
+
+
+" Data object# Variable declaration (######)
+
+" 1. Constants
+
+" ## ## : ### # p.21
+
+
+
+CONSTANTS : C_RATE TYPE I VALUE '100'.
+
+
+
+DATA : GV_SUM1 TYPE I,
+
+      GV_SUM2 TYPE I,
+
+      GV_SUM3 TYPE I.
+
+
+
+GV_SUM1 = '10.00'.
+
+GV_SUM2 = '20.00'.
+
+GV_SUM3 = '30.00'.
+
+
+
+GV_SUM1 = GV_SUM1 * C_RATE.
+
+GV_SUM2 = GV_SUM2 * C_RATE.
+
+GV_SUM3 = GV_SUM3 * C_RATE.
+
+
+
+WRITE :/ GV_SUM1.
+
+WRITE :/ GV_SUM2.
+
+WRITE :/ GV_SUM3.
+
+
+
+" Data object# Variable declaration
+
+" ### ## p.22
+
+
+
+CONSTANTS : BEGIN OF C_STUDENT,
+
+  ZCODE(10) VALUE 'SSU-01',
+
+  ZKNAME(10) VALUE '###',
+
+  ZENAME(10) VALUE 'DONG',
+
+  END OF C_STUDENT.
+
+
+
+WRITE :/ C_STUDENT-ZCODE.
+
+WRITE :/ C_STUDENT-ZKNAME.
+
+WRITE :/ C_STUDENT-ZENAME.
+
+
+
+
+
+" ## ## VS ##### p.23
+
+CONSTANTS : C_NUM1 TYPE I VALUE '10'.
+
+DATA : NUM1 TYPE I VALUE '10'.
+
+
+
+NUM1 = NUM1 + 1.
+
+
+
+WRITE :/ C_NUM1.
+
+WRITE :/ NUM1.
+
+
+
+
+
+" 2. STATICS p.24
+
+
+
+
+*STATICS lv_num TYPE i.
+
+*
+
+*lv_num = lv_num + 1.
+
+*
+
+*WRITE :/ 'STATIC Variable : ', lv_num.
+
+
+
+
+
+
+" 3. TABLES p.26
+
+
+
+TABLES : ZEDT16_001.
+
+
+
+SELECT SINGLE * FROM ZEDT16_001.
+
+
+
+WRITE :/ ZEDT16_001-ZCODE.
+
+WRITE :/ ZEDT16_001-ZKNAME.
+
+WRITE :/ ZEDT16_001-ZENAME.
+
+WRITE :/ ZEDT16_001-ZGENDER.
+
+WRITE :/ ZEDT16_001-ZTEL.
+
+
+
+" 3. TABLES p.27
+
+
+
+TABLES : SCARR.
+
+
+
+SELECT * FROM SCARR.
+
+
+
+  WRITE : / SCARR-CARRID, SCARR-CARRNAME.
+
+
+
+ENDSELECT.

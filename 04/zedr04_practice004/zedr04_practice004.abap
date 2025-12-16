@@ -1,0 +1,79 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR04_PRACTICE004
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR04_PRACTICE004.
+
+
+
+DATA : GS_STUDENT TYPE ZEDT04_001.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+DATA : GT_STUDENT_OUTPUT LIKE TABLE OF GS_STUDENT.  " #### ###
+
+
+
+
+
+
+*DATA : GV_ZPERNR TYPE ZEDT04_001-ZPERNR.
+
+
+
+
+
+
+RANGES GR_ZCODE FOR ZEDT04_001-ZCODE.
+
+GR_ZCODE-SIGN = 'I'.
+
+GR_ZCODE-OPTION = 'BT'.
+
+GR_ZCODE-LOW = 'SSU-90'.
+
+GR_ZCODE-HIGH = 'SSU-99'.
+
+APPEND GR_ZCODE.
+
+
+
+SELECT * FROM ZEDT00_001
+
+  INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT
+
+  WHERE ZCODE IN GR_ZCODE.
+
+
+
+LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+  CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
+
+    EXPORTING
+
+      INPUT         = GS_STUDENT-ZPERNR
+
+    IMPORTING
+
+      OUTPUT        = GS_STUDENT-ZPERNR
+
+            .
+
+  APPEND GS_STUDENT TO GT_STUDENT_OUTPUT.
+
+ENDLOOP.
+
+
+
+INSERT ZEDT04_001 FROM TABLE GT_STUDENT_OUTPUT ACCEPTING DUPLICATE KEYS.  " #### ### ##

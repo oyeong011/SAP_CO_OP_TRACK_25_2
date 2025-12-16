@@ -1,0 +1,190 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM15_002_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+*"#### ##
+
+*DATA : BEGIN OF GS_ZEKKO,
+
+*       MANDT TYPE ZEKKO_15-MANDT, "CLIENT
+
+*       EBELN TYPE ZEKKO_15-EBELN, "######
+
+*       BUKRS TYPE ZEKKO_15-BUKRS, "####
+
+*       EKGRP TYPE ZEKKO_15-EKGRP, "####
+
+*       EKORG TYPE ZEKKO_15-EKORG, "####
+
+*       LIFNR TYPE ZEKKO_15-LIFNR, "###
+
+*       BEDAT TYPE ZEKKO_15-BEDAT, "###
+
+*       WAERS TYPE ZEKKO_15-WAERS, "##
+
+*  END OF GS_ZEKKO.
+
+*DATA : GT_ZEKKO LIKE TABLE OF GS_ZEKKO.
+
+**DATA : GS_ZEKKO TYPE ZEKKO_15,
+
+**      GT_ZEKKO TYPE TABLE OF ZEKKO_15.
+
+*
+
+*"#### ###
+
+*DATA : BEGIN OF GS_ZEKPO,
+
+*       MANDT TYPE ZEKPO_15-MANDT, "CLIENT
+
+*       EBELN TYPE ZEKPO_15-EBELN, "######
+
+*       EBELP TYPE ZEKPO_15-EBELP, "##
+
+*       MATNR TYPE ZEKPO_15-ZMATNR, "####
+
+*       MAKTX TYPE ZEKPO_15-MAKTX, "###
+
+*       MENGE TYPE ZEKPO_15-MENGE, "##
+
+*       MEINS TYPE ZEKPO_15-MEINS, "##
+
+*       STPRS TYPE ZEKPO_15-STPRS, "##
+
+*       PRDAT TYPE ZEKPO_15-PRDAT, "###
+
+*       WERKS TYPE ZEKPO_15-ZWERKS, "###
+
+*       LGORT TYPE ZEKPO_15-ZLGORT, "####
+
+*  END OF GS_ZEKPO.
+
+*DATA : GT_ZEKPO LIKE TABLE OF GS_ZEKPO.
+
+*DATA : GS_ZEKPO TYPE ZEKPO_15,
+
+*      GT_ZEKPO TYPE TABLE OF ZEKPO_15.
+
+
+
+*
+
+
+
+
+"### #### ##
+
+DATA : GV_BUKRS TYPE ZEKKO_15-BUKRS, "####
+
+       GV_EKGRP TYPE ZEKKO_15-EKGRP, "####
+
+       GV_EKORG TYPE ZEKKO_15-EKORG, "####
+
+       GV_LIFNR TYPE ZEKKO_15-LIFNR, "###
+
+       GV_BEDAT TYPE ZEKKO_15-BEDAT. "###
+
+
+
+DATA : GV_WAERS TYPE ZEKKO_15-WAERS. "##
+
+DATA : GV_MWSKZ TYPE MWSKZ. "####
+
+
+
+
+
+"alv### ITAB
+
+DATA : BEGIN OF GS_ALV,
+
+
+
+
+*       EBELN TYPE ZEKPO_15-EBELN, "######
+
+
+
+
+       EBELP TYPE ZEKPO_15-EBELP, "##
+
+       MATNR TYPE ZEKPO_15-MATNR, "####
+
+       MAKTX TYPE ZEKPO_15-MAKTX, "###
+
+       MENGE TYPE ZEKPO_15-MENGE, "##
+
+       MEINS TYPE ZEKPO_15-MEINS, "##
+
+       STPRS TYPE ZEKPO_15-STPRS, "##
+
+       WAERS TYPE ZEKKO_15-WAERS, "##
+
+       MWSKZ TYPE ZLFM1_15-MWSKZ, "####
+
+       PRDAT TYPE ZEKPO_15-PRDAT, "###
+
+       WERKS TYPE ZEKPO_15-WERKS, "###
+
+       LGORT TYPE ZEKPO_15-LGORT, "####
+
+       END OF GS_ALV.
+
+DATA : GT_ALV LIKE TABLE OF GS_ALV.
+
+
+
+
+
+"usercommand#
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+"alv### ##
+
+DATA : GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER.
+
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT.
+
+DATA : GT_FIELDCAT TYPE LVC_T_FCAT.
+
+
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+"event#
+
+DATA : GO_EVENT TYPE REF TO EVENT.
+
+
+
+
+
+
+*DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+*DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+*
+
+*DATA : GS_VARIANT TYPE DISVARIANT.
+
+
+
+*DATA : GS_SORT TYPE LVC_S_SORT.
+
+*DATA : GT_SORT TYPE LVC_T_SORT.

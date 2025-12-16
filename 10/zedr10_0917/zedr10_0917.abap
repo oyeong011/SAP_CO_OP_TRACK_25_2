@@ -1,0 +1,193 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZED10_0917
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZED10_0917.
+
+
+
+DATA: GS_STUDENT TYPE ZEDT10_001,
+
+      GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+DATA: BEGIN OF GS_MAJOR,
+
+  ZCODE LIKE ZEDT10_004-ZCODE,
+
+  ZPERNR LIKE ZEDT10_004-ZPERNR,
+
+  ZMNAME LIKE ZEDT10_004-ZMNAME,
+
+  ZKNAME LIKE ZEDT10_001-ZKNAME,
+
+END OF GS_MAJOR.
+
+DATA: GT_MAJOR LIKE TABLE OF GS_MAJOR WITH NON-UNIQUE KEY ZCODE.
+
+
+
+CLEAR: GS_MAJOR, GS_STUDENT, GT_MAJOR, GT_STUDENT.
+
+
+
+SELECT *
+
+  FROM ZEDT10_001
+
+  INTO TABLE @GT_STUDENT.
+
+
+
+SELECT ZCODE, ZPERNR, ZMNAME
+
+  FROM ZEDT10_004
+
+  INTO TABLE @GT_MAJOR.
+
+
+
+DATA: GV_MAJOR_LINES TYPE I,
+
+      GV_STUDENT_LINES TYPE I.
+
+
+
+SORT GT_MAJOR BY ZCODE.
+
+SORT GT_STUDENT BY ZCODE.
+
+
+
+LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+  IF SY-TABIX > 12.
+
+    " ZEDT10_004# 12#### ###.
+
+    EXIT.
+
+  ENDIF.
+
+
+
+  CLEAR: GS_MAJOR.
+
+  MOVE-CORRESPONDING GS_STUDENT TO GS_MAJOR.
+
+
+
+
+*  READ TABLE GT_MAJOR FROM GS_MAJOR INTO GS_MAJOR.
+
+*  READ TABLE GT_MAJOR WITH TABLE KEY ZCODE = GS_STUDENT-ZCODE INTO GS_MAJOR.
+
+
+
+
+  READ TABLE GT_MAJOR
+
+    WITH KEY ZCODE = GS_STUDENT-ZCODE
+
+    INTO GS_MAJOR
+
+
+
+
+*    TRANSPORTING ZMNAME
+
+
+
+
+    " MOVE-CORESPONDING # ### ###
+
+
+
+
+*    COMPARING ZCODE
+
+
+
+
+    " ### #### ### #.
+
+    " ### TRANSPORTING# COMPARING# BINARY# ### ### # ##.
+
+    BINARY SEARCH
+
+    .
+
+
+
+  IF SY-SUBRC = 0.
+
+    GS_STUDENT-ZKNAME = GS_MAJOR-ZKNAME.
+
+    WRITE: / GS_STUDENT-ZCODE, GS_STUDENT-ZKNAME, GS_MAJOR-ZMNAME.
+
+  ELSE.
+
+    WRITE: / '### ## ##'.
+
+    " ## ### #### ##
+
+    STOP.
+
+  ENDIF.
+
+ENDLOOP.
+
+
+
+" ###
+
+ULINE: /.
+
+WHILE SY-INDEX <> 8.
+
+  WRITE:/ SY-INDEX.
+
+ENDWHILE.
+
+
+
+uline: /.
+
+DO 10 TIMES.
+
+  IF SY-INDEX = 8.
+
+    exit.
+
+
+
+
+*    stop.
+
+*    CONTINUE.
+
+
+
+
+  ENDIF.
+
+
+
+  WRITE:/ sy-INDEX.
+
+ENDDO.
+
+
+
+WRITE:/ 'finish'.

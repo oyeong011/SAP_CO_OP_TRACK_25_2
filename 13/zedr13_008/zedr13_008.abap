@@ -1,0 +1,24 @@
+
+REPORT ZEDR13_008.
+
+
+
+DATA : TEXT1 TYPE STRING,
+
+       TEXT2(8) TYPE C.
+
+
+
+TEXT1 = ' B P'.
+
+TEXT2 = 'AAAA'.
+
+
+
+OVERLAY TEXT1 WITH TEXT2.
+
+
+
+WRITE : TEXT1.
+
+WRITE :/ TEXT2.

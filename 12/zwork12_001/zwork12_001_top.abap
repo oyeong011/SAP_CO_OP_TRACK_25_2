@@ -1,0 +1,63 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZWORK12_001_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES: SSCRFIELDS, WWWDATATAB.
+
+TABLES: ZTCURR12.
+
+
+
+"## #### ## ##
+
+DATA : GT_FILE_TABLE TYPE FILETABLE,
+
+       GV_RC TYPE I,
+
+       GV_FILENAME TYPE STRING.
+
+
+
+DATA: BEGIN OF GS_ZTCURR.
+
+  include structure
+ZTCURR12
+.
+
+DATA: END OF GS_ZTCURR.
+
+DATA: GT_ZTCURR LIKE TABLE OF GS_ZTCURR.
+
+
+
+"ALV-EVENT##
+
+DATA: OK_CODE TYPE SY-UCOMM. "SCREEN 100#### ##### ## #####
+
+
+
+"## ### ##
+
+DATA : GO_EVENT TYPE REF TO EVENT.
+
+
+
+DATA: GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.  "#### ->F01## FORM CREATE_OBJECT
+
+DATA: GC_GRID TYPE REF TO CL_GUI_ALV_GRID.  "#### ->F01## FORM CREATE_OBJECT
+
+DATA: GS_FIELDCAT TYPE LVC_S_FCAT.
+
+DATA: GT_FIELDCAT TYPE LVC_T_FCAT.
+
+
+
+DATA : GS_VARIANT TYPE DISVARIANT.
+
+DATA GS_LAYOUT TYPE LVC_S_LAYO.

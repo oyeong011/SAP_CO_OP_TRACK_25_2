@@ -1,0 +1,283 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR25_PRACTICE002
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR25_PRACTICE002.
+
+
+
+CONSTANTS : C_RATE TYPE i VALUE 100.
+
+DATA : GV_MSUM TYPE i,
+
+       GV_FSUM TYPE i.
+
+
+
+" 1. ## ### (ZEDT25_001)
+
+DATA : BEGIN OF GS_STUDENT,
+
+         ZCODE   TYPE ZEDT25_001-ZCODE,
+
+         ZKNAME  TYPE ZEDT25_001-ZKNAME,
+
+         ZTEL    TYPE ZEDT25_001-ZTEL,
+
+         ZGENDER TYPE ZEDT25_001-ZGENDER,
+
+       END OF GS_STUDENT.
+
+
+
+" 2. ## ### (ZEDT25_002)
+
+DATA : BEGIN OF GS_MAJOR,
+
+         ZCODE   TYPE ZEDT25_002-ZCODE,
+
+         ZPERNR  TYPE ZEDT25_002-ZPERNR,
+
+         ZMAJOR  TYPE ZEDT25_002-ZMAJOR,
+
+       END OF GS_MAJOR.
+
+
+
+" 3. ## ### (ZEDT25_004)
+
+DATA : BEGIN OF GS_SCORE,
+
+         ZCODE   TYPE ZEDT25_004-ZCODE,
+
+         ZMAJOR  TYPE ZEDT25_004-ZMAJOR,
+
+         ZSUM    TYPE ZEDT25_004-ZSUM,    " ###
+
+         ZGRADE  TYPE ZEDT25_004-ZGRADE,
+
+       END OF GS_SCORE.
+
+
+
+" 4. ## ###
+
+DATA : BEGIN OF GS_RESULT,
+
+         ZCODE      TYPE ZEDT25_001-ZCODE,
+
+         ZKNAME     TYPE ZEDT25_001-ZKNAME,
+
+         ZTEL       TYPE ZEDT25_001-ZTEL,
+
+         ZMAJOR_TXT TYPE c LENGTH 10,
+
+         ZNOTE      TYPE c LENGTH 10,
+
+       END OF GS_RESULT.
+
+
+
+" 5. ## ###
+
+DATA : BEGIN OF GS_GENDER_SUM,
+
+         ZSEX    TYPE ZEDT25_001-ZGENDER,
+
+         ZAMOUNT TYPE i,
+
+       END OF GS_GENDER_SUM.
+
+
+
+" ## ###
+
+DATA : GT_STUDENT    LIKE TABLE OF GS_STUDENT,
+
+       GT_MAJOR      LIKE TABLE OF GS_MAJOR,
+
+       GT_SCORE      LIKE TABLE OF GS_SCORE,
+
+       GT_RESULT     LIKE TABLE OF GS_RESULT,
+
+       GT_GENDER_SUM LIKE TABLE OF GS_GENDER_SUM.
+
+
+
+" 2. ### ####
+
+SELECT * FROM ZEDT25_001 INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT.
+
+SELECT * FROM ZEDT25_002 INTO CORRESPONDING FIELDS OF TABLE GT_MAJOR.
+
+SELECT * FROM ZEDT25_004 INTO CORRESPONDING FIELDS OF TABLE GT_SCORE.
+
+
+
+SORT GT_STUDENT BY ZCODE.
+
+SORT GT_MAJOR   BY ZCODE.
+
+SORT GT_SCORE   BY ZCODE ZSUM ASCENDING.
+
+DELETE ADJACENT DUPLICATES FROM GT_SCORE COMPARING ZCODE.
+
+
+
+" 3. ## ##
+
+LOOP AT GT_SCORE INTO GS_SCORE.
+
+  CLEAR: GS_RESULT, GS_STUDENT, GS_MAJOR.
+
+
+
+  " ## ## READ
+
+  READ TABLE GT_STUDENT INTO GS_STUDENT
+
+       WITH KEY ZCODE = GS_SCORE-ZCODE
+
+       BINARY SEARCH.
+
+  IF SY-SUBRC <> 0.
+
+    CONTINUE.  " ## ## ### ##
+
+  ENDIF.
+
+
+
+  MOVE-CORRESPONDING GS_STUDENT TO GS_RESULT.
+
+
+
+  READ TABLE GT_MAJOR INTO GS_MAJOR
+
+       WITH KEY ZCODE = GS_SCORE-ZCODE
+
+       BINARY SEARCH.
+
+
+
+  " #### ##
+
+  IF SY-SUBRC = 0 AND GS_MAJOR-ZMAJOR <> GS_SCORE-ZMAJOR.
+
+    GS_RESULT-ZMAJOR_TXT = '####'.
+
+  ENDIF.
+
+
+
+  " #### ##
+
+  IF GS_SCORE-ZGRADE = 'D' OR GS_SCORE-ZGRADE = 'F'.
+
+    GS_RESULT-ZNOTE = '####'.
+
+  ELSE.
+
+    CLEAR GS_RESULT-ZNOTE.
+
+  ENDIF.
+
+
+
+  " ## ##
+
+  DATA L_GENDER_SUM LIKE GS_GENDER_SUM.
+
+  L_GENDER_SUM-ZSEX    = GS_STUDENT-ZGENDER.
+
+  L_GENDER_SUM-ZAMOUNT = GS_SCORE-ZSUM.   " ### ##
+
+  COLLECT L_GENDER_SUM INTO GT_GENDER_SUM.
+
+
+
+  " ### #### ##
+
+  APPEND GS_RESULT TO GT_RESULT.
+
+ENDLOOP.
+
+
+
+" 4. ##
+
+LOOP AT GT_RESULT INTO GS_RESULT.
+
+  AT FIRST.
+
+    ULINE AT (83).
+
+    WRITE :/ '|', (10) '####' CENTERED,
+
+             '|', (14) '##'     CENTERED,
+
+             '|', (10) '####' CENTERED,
+
+             '|', (15) '####' CENTERED,
+
+             '|', (10) '##'     CENTERED, '|'.
+
+    ULINE AT (83).
+
+  ENDAT.
+
+
+
+  WRITE :/ '|', (10) GS_RESULT-ZCODE,
+
+           '|', (14) GS_RESULT-ZKNAME,
+
+           '|', (10) GS_RESULT-ZMAJOR_TXT CENTERED,
+
+           '|', (15) GS_RESULT-ZTEL       CENTERED,
+
+           '|', (10) GS_RESULT-ZNOTE      CENTERED, '|'.
+
+
+
+  ULINE AT (83).
+
+ENDLOOP.
+
+
+
+" 5. ## ## ##
+
+SKIP 1.
+
+READ TABLE GT_GENDER_SUM INTO GS_GENDER_SUM WITH KEY ZSEX = 'M'.
+
+IF SY-SUBRC = 0.
+
+  GV_MSUM = GS_GENDER_SUM-ZAMOUNT * C_RATE.
+
+  WRITE :/ '### # ## : ', GV_MSUM.
+
+ENDIF.
+
+
+
+READ TABLE GT_GENDER_SUM INTO GS_GENDER_SUM WITH KEY ZSEX = 'F'.
+
+IF SY-SUBRC = 0.
+
+  GV_FSUM = GS_GENDER_SUM-ZAMOUNT * C_RATE.
+
+  WRITE :/ '### # ## : ', GV_FSUM.
+
+ENDIF.

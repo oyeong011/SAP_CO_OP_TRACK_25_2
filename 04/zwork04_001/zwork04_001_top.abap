@@ -1,0 +1,49 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZWORK04_001_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES : WWWDATATAB, SSCRFIELDS.
+
+
+
+DATA GS_RAW TYPE ALSMEX_TABLINE.  " ## RAW ###
+
+DATA GT_RAW LIKE TABLE OF GS_RAW.
+
+
+
+DATA GS_ZTCURR04 TYPE ZTCURR04.
+
+DATA GT_ZTCURR04 LIKE TABLE OF GS_ZTCURR04.
+
+
+
+DATA : GO_EVENT TYPE REF TO EVENT.  " EVENT## #### ZWORK04_001_CLS## ##
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA : GS_VARIANT TYPE DISVARIANT.
+
+
+
+DATA GS_FIELDCAT TYPE LVC_S_FCAT.
+
+DATA GT_FIELDCAT TYPE LVC_T_FCAT.
+
+
+
+DATA GS_LAYOUT TYPE LVC_S_LAYO.

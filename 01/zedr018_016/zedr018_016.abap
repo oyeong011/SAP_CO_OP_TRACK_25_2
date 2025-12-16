@@ -1,0 +1,107 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR018_016
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR018_016.
+
+
+
+DATA : GS_STUDENT TYPE ZEDT018_001.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+RANGES : S_ZCODE FOR ZEDT018_001-ZCODE.
+
+
+
+INITIALIZATION.
+
+  S_ZCODE-SIGN = 'I'.
+
+  S_ZCODE-OPTION = 'BT'.
+
+  S_ZCODE-LOW = 'SSU-01'.
+
+  S_ZCODE-HIGH = 'SSU-99'.
+
+  APPEND S_ZCODE.
+
+
+
+AT SELECTION-SCREEN OUTPUT.
+
+  LOOP AT SCREEN.
+
+    IF SCREEN-GROUP1 = 'SC1'.
+
+      SCREEN-INPUT = 0.
+
+    ENDIF.
+
+    MODIFY SCREEN.
+
+  ENDLOOP.
+
+
+
+START-OF-SELECTION.
+
+  PERFORM GET_DATA.
+
+  PERFORM MODIFY_DATA.
+
+
+
+END-OF-SELECTION.
+
+  PERFORM ALV_DISPLAY.
+
+
+
+
+
+FORM ALV_DISPLAY.
+
+  CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+
+    EXPORTING
+
+      I_STRUCTURE_NAME = 'ZEDT018_001'
+
+    TABLES
+
+      T_OUTTAB         = GT_STUDENT.
+
+ENDFORM.
+
+
+
+FORM GET_DATA.
+
+  SELECT * FROM ZEDT018_001 INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT
+
+    WHERE ZCODE IN S_ZCODE.
+
+
+
+ENDFORM.
+
+
+
+FORM MODIFY_DATA.
+
+
+
+ENDFORM.

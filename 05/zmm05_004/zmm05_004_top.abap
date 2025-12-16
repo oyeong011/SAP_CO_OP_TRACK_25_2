@@ -1,0 +1,423 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM05_004_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES : ZRBKP_05, ZRSEG_05, ZEKKO_05, ZEKPO_05, ZBKPF_05, ZBSEG_05, ZBSIK_05.
+
+"ZRBKP : ##-##, ZRSEG : ##-###, ZEKKO : ####-##, ZEKPO : ####-###
+
+
+
+
+
+
+* --- [1. ## ## ## (## 101#)] ---
+
+
+
+
+DATA: BEGIN OF GS_COMMON_HEADER,
+
+  BUKRS TYPE ZEKKO_05-BUKRS,
+
+  EKGRP TYPE ZEKKO_05-EKGRP,
+
+  BEDAT TYPE ZEKKO_05-BEDAT,
+
+  LIFNR TYPE ZEKKO_05-LIFNR,
+
+  NAME1 TYPE ZLFA1_05-NAME1,
+
+  BLDAT TYPE ZMKPF_05-BLDAT,
+
+  ZTERM TYPE ZLFB1_05-ZTERM,
+
+END OF GS_COMMON_HEADER.
+
+
+
+DATA: BEGIN OF GS_AMOUNT_HEADER,
+
+  LIFNR    TYPE ZEKKO_05-LIFNR,    " ### ## (###)
+
+  NAME1    TYPE LFA1-NAME1,        " ### ## (###)
+
+  ZAMOUNT  TYPE ZRBKP_05-RMWWR,    " [##] # ## ## (## RMWWR)
+
+  WAERS    TYPE ZRBKP_05-WAERS,    " ##
+
+  MWSKZ    TYPE ZRSEG_05-MWSKZ,    " ####
+
+  ZMEMO(20) TYPE C,                " ## ##
+
+  ZBALANCE TYPE BSIK-DMBTR,
+
+  ICON     TYPE ICON_D,            " ###
+
+END OF GS_AMOUNT_HEADER.
+
+
+
+CONSTANTS: C_GREEN  TYPE ICON_D VALUE '@5B@', " ###
+
+           C_RED    TYPE ICON_D VALUE '@5C@', " ###
+
+           C_YELLOW TYPE ICON_D VALUE '@5D@'. " ###
+
+
+
+DATA: GV_TAX_RATE TYPE P LENGTH 2 DECIMALS 2.
+
+
+
+" [##] #### ### ZAMOUNT # ### ## ##
+
+DATA: GV_SAVED_ZAMOUNT TYPE ZRBKP_05-RMWWR.
+
+
+
+DATA: OK_CODE TYPE SY-UCOMM.
+
+
+
+"### ###
+
+DATA : GO_EVENT TYPE REF TO LCL_EVENT_HANDLER.
+
+
+
+"## ## ## ### ##(# ## # ## ### # ##)
+
+DATA: GV_CALC_FLAG TYPE C.
+
+
+
+" [##] ## ## ### (#### ###)
+
+DATA: GV_NEED_REFRESH TYPE C.
+
+
+
+" 1. ## ### ## ## ###
+
+DATA: BALANCE TYPE ZRBKP_05-RMWWR.
+
+
+
+" 2. ### ### ###
+
+DATA: ICON    TYPE ICON_D.
+
+
+
+" 3. ## ## ### (KRW #)
+
+DATA: WAERS   TYPE ZRBKP_05-WAERS.
+
+
+
+TYPE-POOLS: ICON, VRM.
+
+
+
+" #### # ###
+
+DATA: GT_VRM_VALUES TYPE VRM_VALUES,
+
+      GS_VRM_VALUE  TYPE VRM_VALUE.
+
+
+
+"#
+
+CONTROLS: TS_INFO TYPE TABSTRIP.
+
+
+
+" --- [##### ## ##] ---
+
+DATA: GV_SUB_DYNNR TYPE SY-DYNNR VALUE '0101'.
+
+
+
+" --- [ALV ## ##] ---
+
+DATA: GC_CUSTOM   TYPE REF TO CL_GUI_CUSTOM_CONTAINER,
+
+      GC_GRID     TYPE REF TO CL_GUI_ALV_GRID.
+
+DATA: GS_FIELDCAT TYPE LVC_S_FCAT,
+
+      GT_FIELDCAT TYPE LVC_T_FCAT,
+
+      GS_LAYOUT   TYPE LVC_S_LAYO.
+
+
+
+"### 200 #
+
+DATA : GC_DOCKING_200 TYPE REF TO CL_GUI_DOCKING_CONTAINER,
+
+       GC_GRID_200 TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+
+
+"ALV ###
+
+DATA : BEGIN OF GS_ITEM,
+
+  CHECK  TYPE C,              "## ### ####
+
+  MBLNR  LIKE ZMSEG_05-MBLNR,
+
+  MJAHR  LIKE ZMSEG_05-MJAHR,
+
+  MBLPO  LIKE ZMSEG_05-ZEILE,
+
+  BELNR  LIKE ZRSEG_05-BELNR,  "## ##
+
+  GJAHR  LIKE ZRSEG_05-GJAHR,  "####
+
+  BUZEI  LIKE ZRSEG_05-BUZEI,  "## ###
+
+  EBELN  LIKE ZRSEG_05-EBELN,  "PO##
+
+  EBELP  LIKE ZRSEG_05-EBELP,  "PO# ## ##
+
+  MATNR  LIKE ZRSEG_05-MATNR,  "####
+
+  TXZ01  LIKE ZRSEG_05-TXZ01,  "####
+
+  WERKS  LIKE ZRSEG_05-WERKS,  "###
+
+  WRBTR  LIKE ZRSEG_05-WRBTR,  "#### (## x ##)
+
+  STPRS  LIKE ZEKPO_05-STPRS,  "##
+
+  WAERS  LIKE ZEKKO_05-WAERS,  "##
+
+  MENGE  LIKE ZRSEG_05-MENGE,  "##
+
+  LGORT  LIKE ZRSEG_05-LGORT,
+
+  POMENGE LIKE ZEKPO_05-MENGE,  " PO# # ## ## (###)
+
+  REMENGE LIKE ZEKPO_05-MENGE,  " ## ## ## # # ## ## (###)
+
+  LIFNR   LIKE ZEKKO_05-LIFNR,
+
+  MEINS  LIKE ZEKPO_05-MEINS,  "##
+
+  BSTME  LIKE ZRSEG_05-BSTME,  "##
+
+  MWSKZ  LIKE ZRSEG_05-MWSKZ,  "####
+
+  WMWST  LIKE ZRSEG_05-WMWST,  "##
+
+  DMBTR  LIKE BSIK-DMBTR,     "## ## (### + ##)
+
+  SGTXT  LIKE ZRSEG_05-SGTXT,  "###
+
+  SHKZG  LIKE ZRSEG_05-SHKZG, " ### ## (S/H)
+
+  IV_MENGE LIKE ZRSEG_05-MENGE,
+
+  IV_BELNR LIKE ZRSEG_05-BELNR,
+
+  END OF GS_ITEM.
+
+DATA : GT_ITEM LIKE TABLE OF GS_ITEM.
+
+" ### ### #### ## ### 100% ######.
+
+DATA: GS_RBKP TYPE ZRBKP_05.
+
+DATA: GT_RBKP TYPE TABLE OF ZRBKP_05.
+
+
+
+DATA: GS_RSEG TYPE ZRSEG_05.
+
+DATA: GT_RSEG TYPE TABLE OF ZRSEG_05.
+
+
+
+"#### ##
+
+DATA : BEGIN OF GS_EKKO,
+
+  EBELN LIKE ZEKKO_05-EBELN, "#### ##
+
+  BUKRS LIKE ZEKKO_05-BUKRS, "####
+
+  EKGRP LIKE ZEKKO_05-EKGRP, "####
+
+  EKORG LIKE ZEKKO_05-EKORG, "####
+
+  LIFNR LIKE ZEKKO_05-LIFNR, "###
+
+  BEDAT LIKE ZEKKO_05-BEDAT, "###
+
+  WAERS LIKE ZEKKO_05-WAERS, "##
+
+  END OF GS_EKKO.
+
+
+
+"#### ###
+
+DATA : BEGIN OF GS_EKPO,
+
+  EBELN LIKE ZEKPO_05-EBELN, "#### ##
+
+  EBELP LIKE ZEKPO_05-EBELP, "##
+
+  MATNR LIKE ZEKPO_05-MATNR, "####
+
+  MAKTX LIKE ZEKPO_05-MAKTX, "###
+
+  MENGE LIKE ZEKPO_05-MENGE, "##
+
+  MEINS LIKE ZEKPO_05-MEINS, "##
+
+  BPRME LIKE ZEKPO_05-BPRME, "##2
+
+  PRDAT LIKE ZEKPO_05-PRDAT, "###
+
+  WERKS LIKE ZEKPO_05-WERKS, "###
+
+  LGORT LIKE ZEKPO_05-LGORT, "####
+
+  STPRS LIKE ZEKPO_05-STPRS, "##
+
+  "WEMNG LIKE ZEKPO_05-WEMNG, "## (## ## ###)
+
+  END OF GS_EKPO.
+
+DATA : GT_EKPO LIKE TABLE OF GS_EKPO.
+
+
+
+DATA: BEGIN OF GS_PO_BASE,
+
+        EBELN     TYPE ZEKPO_05-EBELN,
+
+        EBELP     TYPE ZEKPO_05-EBELP,
+
+        MATNR     TYPE ZEKPO_05-MATNR,
+
+        WERKS     TYPE ZEKPO_05-WERKS,
+
+        LGORT     TYPE ZEKPO_05-LGORT,
+
+        MEINS     TYPE ZEKPO_05-MEINS,
+
+        STPRS     TYPE ZEKPO_05-STPRS,
+
+        WAERS     TYPE ZEKKO_05-WAERS,
+
+        POMENGE   TYPE ZEKPO_05-MENGE,
+
+        TXZ01 TYPE ZEKPO_05-MAKTX,
+
+        GR_QTY    TYPE ZMSEG_05-MENGE,   " ## ## (EBELN+MATNR)
+
+        IV_GR_QTY TYPE ZRSEG_05-MENGE,   " #### ##
+
+        IV_PO_QTY TYPE ZRSEG_05-MENGE,   " ### ##
+
+      END OF GS_PO_BASE.
+
+
+
+DATA: GT_PO_BASE LIKE STANDARD TABLE OF GS_PO_BASE.
+
+DATA: BEGIN OF GS_GR_SUM,
+
+        EBELN TYPE ZMSEG_05-EBELN,
+
+        MATNR TYPE ZMSEG_05-MATNR,
+
+        GR_QTY TYPE ZMSEG_05-MENGE,
+
+      END OF GS_GR_SUM.
+
+
+
+DATA: GT_GR_SUM LIKE STANDARD TABLE OF GS_GR_SUM.
+
+DATA: BEGIN OF GS_IV_SUM,
+
+        EBELN TYPE ZRSEG_05-EBELN,
+
+        EBELP TYPE ZRSEG_05-EBELP,
+
+        QTY   TYPE ZRSEG_05-MENGE,
+
+      END OF GS_IV_SUM.
+
+
+
+DATA: GT_IV_GR LIKE STANDARD TABLE OF GS_IV_SUM. " #### ##
+
+DATA: GT_IV_PO LIKE STANDARD TABLE OF GS_IV_SUM. " ### ##
+
+
+
+
+
+" # ##/PO ### ####
+
+DATA: GV_SEL_TYPE TYPE C LENGTH 2 VALUE 'GR'.  " ## ##: 'GR'=####, 'PO'=PO##
+
+
+
+" # ### ## ## ###
+
+DATA: GV_GR_EXIST TYPE C,  " ## ### ##
+
+      GV_PO_EXIST TYPE C.  " ### PO ##
+
+
+
+" # ### / PO# ### ### (## ##)
+
+DATA: GT_ITEM_GR LIKE TABLE OF GS_ITEM,  " ## ##
+
+      GT_ITEM_PO LIKE TABLE OF GS_ITEM.  " PO ## (###)
+
+
+
+" # ##### ### ##
+
+DATA: BEGIN OF GS_INV_HISTORY,
+
+        EBELN   TYPE ZRSEG_05-EBELN,
+
+        EBELP   TYPE ZRSEG_05-EBELP,
+
+        BELNR   TYPE ZRSEG_05-BELNR,
+
+        GJAHR   TYPE ZRSEG_05-GJAHR,
+
+        MENGE   TYPE ZRSEG_05-MENGE,
+
+        WRBTR   TYPE ZRSEG_05-WRBTR,
+
+        WMWST   TYPE ZRSEG_05-WMWST,
+
+        DMBTR   TYPE BSIK-DMBTR,
+
+        BLDAT   TYPE ZRBKP_05-BLDAT,
+
+      END OF GS_INV_HISTORY.
+
+DATA: GT_INV_HISTORY LIKE TABLE OF GS_INV_HISTORY.

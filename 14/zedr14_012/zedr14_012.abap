@@ -1,0 +1,251 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR14_012
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR14_012.
+
+
+
+"ITAB ## ##
+
+
+
+"WORK AREA ##
+
+DATA : GS_STUDENT TYPE ZEDT00_001.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+DATA : BEGIN OF GS_MAJOR,
+
+  ZCODE LIKE ZEDT00_001,
+
+  ZPERNR LIKE ZEDT00_001,
+
+  ZMNAME LIKE ZEDT00_001,
+
+  ZKNAME LIKE ZEDT00_001,
+
+  END OF GS_MAJOR.
+
+DATA : GT_MAJOR LIKE TABLE OF GS_MAJOR.
+
+
+
+CLEAR : GS_STUDENT, GT_STUDENT, GS_MAJOR, GT_MAJOR.
+
+GS_STUDENT-ZPERNR = '0000000001'.
+
+GS_STUDENT-ZCODE = 'SSU-01'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'DONG'.
+
+GS_STUDENT-ZGENDER = 'M'.
+
+GS_STUDENT-ZTEL = '01011112222'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+GS_MAJOR-ZPERNR = '0000000001'.
+
+GS_MAJOR-ZCODE = 'SSU-01'.
+
+GS_MAJOR-ZMNAME = '####'.
+
+GS_MAJOR-ZKNAME = '###'.
+
+APPEND GS_MAJOR TO GT_MAJOR.
+
+
+
+GS_STUDENT-ZPERNR = '0000000002'.
+
+GS_STUDENT-ZCODE = 'SSU-02'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'CHOI'.
+
+GS_STUDENT-ZGENDER = 'F'.
+
+GS_STUDENT-ZTEL = '01011112222'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+GS_MAJOR-ZPERNR = '0000000002'.
+
+GS_MAJOR-ZCODE = 'SSU-02'.
+
+GS_MAJOR-ZMNAME = '####'.
+
+GS_MAJOR-ZKNAME = '###'.
+
+APPEND GS_MAJOR TO GT_MAJOR.
+
+
+
+"## WORK AREA ##
+
+
+
+
+*LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+*  CLEAR : GS_MAJOR.
+
+*
+
+*  READ TABLE GT_MAJOR WITH KEY ZCODE = GS_STUDENT-ZCODE
+
+*                               ZPERNR = GS_STUDENT-ZPERNR
+
+*  INTO GS_MAJOR.
+
+*
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE :/ GS_STUDENT-ZCODE, GS_STUDENT-ZKNAME.
+
+*  ELSE.
+
+*    WRITE :/ '#### #### #####.'.
+
+*  ENDIF.
+
+*ENDLOOP.
+
+*
+
+*WRITE :/ '------------------------------------------------------'.
+
+*"COMPARING
+
+*LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+*  CLEAR : GS_MAJOR.
+
+*  MOVE-CORRESPONDING GS_STUDENT TO GS_MAJOR.
+
+*
+
+*  READ TABLE GT_MAJOR WITH KEY ZCODE = GS_STUDENT-ZCODE
+
+*                               ZPERNR = GS_STUDENT-ZPERNR
+
+*  INTO GS_MAJOR COMPARING ZCODE.
+
+*
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE :/ GS_STUDENT-ZCODE, GS_STUDENT-ZKNAME, GS_MAJOR-ZMNAME.
+
+*  ELSE.
+
+*    WRITE :/ '#### #### #####.'.
+
+*  ENDIF.
+
+*ENDLOOP.
+
+
+
+
+
+
+WRITE :/ '------------------------------------------------------'.
+
+"TRANSPORTING
+
+
+
+
+*BREAK-POINT.
+
+
+
+
+LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+  CLEAR : GS_MAJOR.
+
+  MOVE-CORRESPONDING GS_STUDENT TO GS_MAJOR.
+
+
+
+  READ TABLE GT_MAJOR WITH KEY ZCODE = GS_STUDENT-ZCODE INTO GS_MAJOR
+
+  TRANSPORTING ZMNAME.    " GS_MAJOR-ZKNAME# # #### ##
+
+
+
+  IF SY-SUBRC = 0.
+
+    GS_STUDENT-ZKNAME = GS_MAJOR-ZKNAME.
+
+    WRITE :/ GS_STUDENT-ZCODE, GS_STUDENT-ZKNAME, GS_MAJOR-ZMNAME.
+
+  ELSE.
+
+    WRITE :/ '#### #### #####.'.
+
+  ENDIF.
+
+ENDLOOP.
+
+
+
+WRITE :/ '------------------------------------------------------'.
+
+"INDEX / BINARY SEARCH
+
+LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+  CLEAR : GS_MAJOR.
+
+  MOVE-CORRESPONDING GS_STUDENT TO GS_MAJOR.
+
+
+
+
+
+
+*  READ TABLE GT_MAJOR INTO GS_MAJOR INDEX SY-TABIX.
+
+
+
+
+  READ TABLE GT_MAJOR WITH KEY ZCODE = GS_STUDENT-ZCODE INTO GS_MAJOR BINARY SEARCH.
+
+
+
+  IF SY-SUBRC = 0.
+
+    WRITE :/ GS_STUDENT-ZCODE, GS_STUDENT-ZKNAME, GS_MAJOR-ZMNAME.
+
+  ELSE.
+
+    WRITE :/ '#### #### #####.'.
+
+  ENDIF.
+
+ENDLOOP.

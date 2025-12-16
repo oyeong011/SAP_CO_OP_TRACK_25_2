@@ -1,0 +1,47 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM03_001_SCR
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+"### ## ##
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME TITLE TEXT-B01.
+
+  PARAMETERS:
+
+    P_LIFNR TYPE ZEDT03_LFA1-LIFNR      MODIF ID DSP,  " ###: #####
+
+    P_BUKRS TYPE BUKRS                  MODIF ID COM,  " ##: ####
+
+    P_KTOKK TYPE ZEDT03_LFA1-KTOKK      MODIF ID CRE.  " ###: ####
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+"## / ##  ##
+
+SELECTION-SCREEN BEGIN OF BLOCK B0 WITH FRAME TITLE TEXT-B00.
+
+  SELECTION-SCREEN BEGIN OF LINE.
+
+    PARAMETERS: P_CRE  RADIOBUTTON GROUP M1 DEFAULT 'X' USER-COMMAND U1.
+
+    SELECTION-SCREEN COMMENT 3(10) TEXT-C01 FOR FIELD P_CRE.
+
+
+
+    PARAMETERS: P_DISP RADIOBUTTON GROUP M1.
+
+    SELECTION-SCREEN COMMENT 18(10) TEXT-C02 FOR FIELD P_DISP.
+
+  SELECTION-SCREEN END OF LINE.
+
+SELECTION-SCREEN END OF BLOCK B0.

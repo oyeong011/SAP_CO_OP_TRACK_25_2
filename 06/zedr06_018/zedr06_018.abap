@@ -1,0 +1,85 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR06_018
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR06_018.
+
+
+
+DATA : BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT06_001
+.
+
+DATA : END OF GS_STUDENT.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+GS_STUDENT-ZCODE = 'SSU-01'.
+
+
+
+PERFORM GET_DATA TABLES GT_STUDENT.
+
+
+
+CLEAR : GS_STUDENT.
+
+LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+  WRITE :/ GS_STUDENT-ZCODE, GS_STUDENT-ZKNAME.
+
+ENDLOOP.
+
+
+
+FORM GET_DATA TABLES PT_STUDENT LIKE GT_STUDENT.
+
+
+
+  DATA : LS_STUDENT LIKE GS_STUDENT.
+
+
+
+  LS_STUDENT-ZCODE = 'SSU-01'.
+
+
+
+  SELECT SINGLE ZKNAME FROM ZEDT06_001
+
+    INTO LS_STUDENT-ZKNAME
+
+    WHERE ZCODE = LS_STUDENT-ZCODE.
+
+    APPEND LS_STUDENT TO PT_STUDENT.
+
+
+
+   LS_STUDENT-ZCODE = 'SSU-02'.
+
+
+
+  SELECT SINGLE ZKNAME FROM ZEDT06_001
+
+    INTO LS_STUDENT-ZKNAME
+
+    WHERE ZCODE = LS_STUDENT-ZCODE.
+
+    APPEND LS_STUDENT TO PT_STUDENT.
+
+
+
+ENDFORM.

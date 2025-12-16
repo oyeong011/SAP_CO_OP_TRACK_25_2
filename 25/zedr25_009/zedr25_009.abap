@@ -1,0 +1,163 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR25_009
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR25_009.
+
+
+
+DATA : BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT25_001
+.
+
+  DATA : END OF GS_STUDENT.
+
+DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+"CLEAR : GS_STUDENT, GT_STUDENT.
+
+
+
+
+
+
+*GS_STUDENT-MANDT = SY-MANDT.
+
+*GS_STUDENT-ZCODE = 'SSU-13'.
+
+*GS_STUDENT-ZPERNR = '000000011'.
+
+*GS_STUDENT-ZKNAME = '###'.
+
+*GS_STUDENT-ZENAME = 'DO'.
+
+*GS_STUDENT-ZGENDER = 'F'.
+
+*GS_STUDENT-ZTEL = '01028774455'.
+
+
+
+
+"APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+
+
+
+*GS_STUDENT-ZCODE = 'SSU-14'.
+
+*GS_STUDENT-ZPERNR = '000000014'.
+
+
+
+*GS_STUDENT-MANDT = SY-MANDT.
+
+*GS_STUDENT-ZCODE = 'SSU-14'.
+
+*GS_STUDENT-ZPERNR = '000000011'.
+
+*GS_STUDENT-ZKNAME = '###'.
+
+*GS_STUDENT-ZENAME = 'DO'.
+
+*GS_STUDENT-ZGENDER = 'F'.
+
+*GS_STUDENT-ZTEL = '01028774455'.
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+
+
+
+GS_STUDENT-ZCODE = 'SSU-11'.
+
+GS_STUDENT-ZPERNR = '000000011'.
+
+GS_STUDENT-ZKNAME = '##'.
+
+GS_STUDENT-ZENAME = 'DO'.
+
+GS_STUDENT-ZGENDER = 'F'.
+
+GS_STUDENT-ZTEL = '01028774455'.
+
+"APPEND GS_STUDENT TO GT_STUDENT.
+
+MODIFY ZEDT25_001 FROM GS_STUDENT.
+
+
+
+"INSERT INTO ZEDT25_001 VALUES GS_STUDENT. "# ### ##
+
+"INSERT ZEDT25_001 FROM TABLE GT_STUDENT. "## ## ##(## ### ##)
+
+
+
+"UPDATE ZEDT25_001 FROM GS_STUDENT. " GT_STUDENT# ### # #
+
+
+
+
+
+
+*UPDATE ZEDT25_001 SET ZENAME = 'JUNG' "# X
+
+*WHERE ZCODE = 'SSU-03'.
+
+
+
+
+
+
+"DELETE ZEDT25_001 FROM GS_STUDENT.
+
+"DELETE FROM ZEDT25_001 WHERE ZTEL = '212-3333-3333'.
+
+
+
+MODIFY ZEDT25_001 FROM TABLE GT_STUDENT. "## ## ### ## x, ### ##
+
+
+
+"BREAK-POINT.
+
+
+
+
+*IF SY-SUBRC = 0.
+
+*  WRITE :/ '##'.
+
+*ELSE.
+
+*  WRITE :/ '##'.
+
+*ENDIF.
+
+
+
+
+
+
+IF SY-SUBRC = 0.
+
+  WRITE :/ '##### ##'.
+
+ENDIF.

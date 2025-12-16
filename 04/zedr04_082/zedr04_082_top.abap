@@ -1,0 +1,55 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR04_082_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES : ZEDT04_001.  " SELECT-OPTIONS# #### ##
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM. " ##(100# ##### ### ### ##)
+
+
+
+DATA : BEGIN OF GS_STUDENT,
+
+  ZCODE LIKE ZEDT04_001-ZCODE,    "####
+
+  ZPERNR LIKE ZEDT04_001-ZPERNR,  " ####
+
+  ZKNAME LIKE ZEDT04_001-ZKNAME,  " ##
+
+  ZENAME LIKE ZEDT04_001-ZENAME,  " ###
+
+  ZGENDER LIKE ZEDT04_001-ZGENDER," ##
+
+  END OF GS_STUDENT.
+
+DATA GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+" ## ####. FUNCTION 'REUSE_ALV_GRID_DISPLAY'## ##
+
+DATA GS_FIELDCAT TYPE SLIS_FIELDCAT_ALV.
+
+DATA GT_FIELDCAT TYPE SLIS_T_FIELDCAT_ALV.
+
+
+
+" ALV ####
+
+DATA GS_LAYOUT TYPE SLIS_LAYOUT_ALV.
+
+
+
+" ALV SORT ### ##
+
+DATA GS_SORT TYPE SLIS_SORTINFO_ALV.
+
+DATA GT_SORT TYPE SLIS_T_SORTINFO_ALV.

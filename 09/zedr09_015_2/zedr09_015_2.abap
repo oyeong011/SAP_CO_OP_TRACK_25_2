@@ -1,0 +1,99 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR09_015_2
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR09_015_2.
+
+
+
+DATA : GS_STUDENT TYPE ZEDT09_001,
+
+       GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+DATA : BEGIN OF GS_MAJOR,
+
+  ZCODE LIKE ZEDT09_001-ZCODE,
+
+  ZPERNR LIKE ZEDT09_001-ZPERNR,
+
+  ZMNAME LIKE ZEDT09_002-ZMNAME,
+
+END OF GS_MAJOR.
+
+
+
+DATA : GT_MAJOR LIKE TABLE OF GS_MAJOR.
+
+
+
+CLEAR : GS_STUDENT, GT_STUDENT, GS_MAJOR, GT_MAJOR.
+
+GS_STUDENT-ZCODE = 'ssu-01'.
+
+GS_STUDENT-ZPERNR = '0000000001'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'DONG'.
+
+GS_STUDENT-ZGENDER = 'M'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+GS_MAJOR-ZCODE = 'ssu-01'.
+
+GS_MAJOR-ZPERNR = '0000000001'.
+
+GS_MAJOR-ZMNAME = '#####'.
+
+APPEND GS_MAJOR TO GT_MAJOR.
+
+
+
+SORT GT_STUDENT BY ZCODE.
+
+SORT GT_MAJOR BY ZCODE.
+
+
+
+LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+  CLEAR : GS_MAJOR.
+
+
+
+  READ TABLE GT_MAJOR WITH KEY ZCODE = GS_STUDENT-ZCODE
+
+  INTO GS_MAJOR
+
+  BINARY SEARCH.
+
+
+
+  IF sy-subrc = 0.
+
+    WRITE : GS_STUDENT-ZCODE, GS_STUDENT-ZKNAME, GS_MAJOR-ZMNAME.
+
+  ELSE.
+
+    WRITE : / '#### ## #####.'.
+
+  ENDIF.
+
+
+
+ENDLOOP.

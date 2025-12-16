@@ -1,0 +1,61 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR15_032_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES : ZEDT15_001.
+
+
+
+DATA : BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT15_001
+.
+
+  DATA : END OF GS_STUDENT.
+
+
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM. "### ## ### ####### ##
+
+
+
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA : GO_EVENT TYPE REF TO EVENT.
+
+
+
+"SET_TABLE_FOR_FIRST_DISPLAY# PARAMETERS## ASSOCIATED TYPE
+
+DATA : GS_VARIANT TYPE DISVARIANT.
+
+
+
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT.
+
+DATA : GT_FIELDCAT TYPE LVC_T_FCAT.
+
+
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+DATA : GS_SORT TYPE LVC_S_SORT.
+
+DATA : GT_SORT TYPE LVC_T_SORT.

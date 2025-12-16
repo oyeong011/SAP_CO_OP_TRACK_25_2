@@ -1,0 +1,67 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR14_PRACTICE004
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR14_PRACTICE004.
+
+
+
+"FUNCTION ##1
+
+DATA : GS_TABLE TYPE ZEDT00_001,
+
+       GT_TABLE LIKE TABLE OF GS_TABLE.
+
+
+
+RANGES GR_ZCODE FOR ZEDT00_001-ZCODE.
+
+GR_ZCODE-SIGN = 'I'.
+
+GR_ZCODE-OPTION = 'BT'.
+
+GR_ZCODE-LOW = 'SSU-90'.
+
+GR_ZCODE-HIGH = 'SSU-99'.
+
+APPEND GR_ZCODE.
+
+
+
+SELECT * FROM ZEDT00_001
+
+  INTO CORRESPONDING FIELDS OF TABLE GT_TABLE
+
+  WHERE ZCODE IN GR_ZCODE.
+
+
+
+LOOP AT GT_TABLE INTO GS_TABLE.
+
+  CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
+
+  EXPORTING
+
+    INPUT = GS_TABLE-ZPERNR
+
+  IMPORTING
+
+    OUTPUT = GS_TABLE-ZPERNR.
+
+  MODIFY GT_TABLE FROM GS_TABLE.
+
+ENDLOOP.
+
+
+
+MODIFY ZEDT14_001 FROM TABLE GT_TABLE.

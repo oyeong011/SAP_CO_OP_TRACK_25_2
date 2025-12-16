@@ -1,0 +1,617 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM23_004_F01
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+FORM GET_PO.
+
+  GV_FLAG = '0'.
+
+  CLEAR GS_EKKO.
+
+  SELECT SINGLE *
+
+    INTO CORRESPONDING FIELDS OF GS_EKKO
+
+    FROM Z23EKKO
+
+    WHERE EBELN EQ GV_EBELN.
+
+
+
+  IF GS_EKKO IS INITIAL.  "#### ##
+
+    MESSAGE '##### #### ####.' TYPE 'I'.
+
+    GV_FLAG = '1'.
+
+    RETURN.
+
+  ENDIF.
+
+
+
+  SELECT *
+
+    INTO CORRESPONDING FIELDS OF TABLE GT_EKPO
+
+    FROM Z23EKPO
+
+    WHERE EBELN EQ GV_EBELN
+
+    AND WERKS EQ GV_WERKS.
+
+
+
+  IF GT_EKPO[] IS INITIAL.  "##### ##
+
+    MESSAGE '#### #### ####.' TYPE 'I'.
+
+    IF OK_CODE EQ 'ADD'.
+
+      GV_FLAG = '1'.
+
+      RETURN.
+
+    ELSEIF OK_CODE EQ 'CREA'.
+
+      LEAVE TO SCREEN 0.
+
+    ENDIF.
+
+  ENDIF.
+
+
+
+  DATA : LS_RSEG TYPE Z23RSEG.
+
+
+
+  " ## #### # ## ##
+
+  LOOP AT GT_EKPO INTO DATA(LS_EKPO).
+
+
+
+    SELECT SINGLE *
+
+      INTO CORRESPONDING FIELDS OF LS_RSEG
+
+      FROM Z23RSEG
+
+      WHERE EBELN EQ LS_EKPO-EBELN
+
+      AND EBELP EQ LS_EKPO-EBELP.
+
+
+
+    DELETE GT_EKPO
+
+    WHERE EBELN EQ LS_RSEG-EBELN
+
+    AND EBELP EQ LS_RSEG-EBELP.
+
+
+
+  ENDLOOP.
+
+
+
+  PERFORM FILL_RBKP.
+
+
+
+ENDFORM.
+
+
+
+FORM FILL_RBKP.
+
+  DATA : LV_MAX_BELNR TYPE RE_BELNR.
+
+
+
+  SELECT MAX( BELNR ) INTO LV_MAX_BELNR FROM Z23RBKP.
+
+
+
+  IF LV_MAX_BELNR IS INITIAL.
+
+    LV_MAX_BELNR = 5100000000 - 1.
+
+  ENDIF.
+
+
+
+  LV_MAX_BELNR = LV_MAX_BELNR + 1.
+
+
+
+  CLEAR GS_RBKP.
+
+  GS_RBKP-BELNR = LV_MAX_BELNR. "####. ####(51)
+
+  GS_RBKP-GJAHR = GV_BUDAT+0(4).  "####
+
+  GS_RBKP-BLART = 'RE'.   "####
+
+  GS_RBKP-BLDAT = GV_BUDAT. "###(##### ###) <- INPUT
+
+  GS_RBKP-BUDAT = GV_BUDAT. "###(## ###) <- INPUT
+
+  GS_RBKP-BUKRS = GS_EKKO-BUKRS.  "####
+
+  GS_RBKP-LIFNR = GS_EKKO-LIFNR.  "###
+
+  GS_RBKP-WAERS = GS_EKKO-WAERS.  "###
+
+
+
+  "####
+
+  SELECT SINGLE ZTERM
+
+    INTO GS_RBKP-ZTERM
+
+    FROM Z23LFB1
+
+    WHERE BUKRS EQ GS_RBKP-BUKRS.
+
+
+
+  GS_RBKP-BKTXT = | { GS_EKKO-EBELN }#### |. "#####
+
+
+
+  "####
+
+  SELECT SINGLE MWSKZ
+
+    INTO GS_RBKP-BWSKZ
+
+    FROM Z23LFM1
+
+    WHERE LIFNR EQ GS_EKKO-LIFNR.
+
+
+
+  "GS_RBKP-WMWST = "## <- ####
+
+  "GS_RBKP-RMWWR = "## (## + ##) <- INPUT / ####
+
+
+
+  " ## ### #### ##.
+
+  "GS_RBKP-STBLG = "#######
+
+  "GS_RBKP-STJAH = "#####
+
+  "GS_RBKP-RBSTAT = "####
+
+
+
+ENDFORM.
+
+
+
+FORM CALCULATE_TAX.
+
+  DATA : LV_SUM TYPE P DECIMALS 2.
+
+
+
+  LOOP AT GT_EKPO INTO DATA(LS_EKPO).
+
+    IF LS_EKPO-ZCHECK EQ 'X'.
+
+      "LV_SUM = LV_SUM + LS_EKPO-MENGE * LS_EKPO-STPRS.
+
+      LV_SUM = LV_SUM + LS_EKPO-MENGE * LS_EKPO-WRBTR.  "## * ####
+
+    ENDIF.
+
+  ENDLOOP.
+
+
+
+  IF GS_RBKP-BWSKZ EQ 'V1'.
+
+    GS_RBKP-WMWST = LV_SUM * '0.1'. "## ##
+
+  ELSE.
+
+    GS_RBKP-WMWST = '0'.
+
+  ENDIF.
+
+
+
+  GS_RBKP-RMWWR = GS_RBKP-WMWST + LV_SUM. " # ## ## ##
+
+
+
+ENDFORM.
+
+
+
+FORM SAVE_RBKP.
+
+  MODIFY Z23RBKP FROM GS_RBKP.
+
+ENDFORM.
+
+
+
+FORM SAVE_RSEG.
+
+  DATA : LV_RSEG TYPE Z23RSEG,
+
+        LV_CNT TYPE I,
+
+        LV_SUM TYPE P DECIMALS 2,
+
+        LV_WMWST TYPE FWSTEV,
+
+        LV_RMWWR TYPE RMWWR.
+
+
+
+  " ## # ## ##
+
+  LOOP AT GT_EKPO INTO DATA(LS_EKPO).
+
+    IF LS_EKPO-ZCHECK EQ 'X'.
+
+      "LV_SUM = LV_SUM + LS_EKPO-MENGE * LS_EKPO-STPRS.
+
+      LV_SUM = LV_SUM + LS_EKPO-MENGE * LS_EKPO-WRBTR.  " ##*####
+
+    ENDIF.
+
+  ENDLOOP.
+
+
+
+  IF GS_RBKP-BWSKZ EQ 'V1'.
+
+    LV_WMWST = LV_SUM * '0.1'.
+
+  ELSE.
+
+    LV_WMWST = '0'.
+
+  ENDIF.
+
+
+
+  LV_RMWWR = LV_WMWST + LV_SUM.
+
+
+
+  IF GS_RBKP-RMWWR NE LV_RMWWR
+
+    OR GS_RBKP-WMWST NE LV_WMWST.
+
+    MESSAGE '### ### ######.' TYPE 'I'.
+
+    EXIT.
+
+  ENDIF.
+
+
+
+  " ## ##
+
+  CLEAR GS_EKPO.
+
+  DATA : NUM TYPE I VALUE 1.
+
+  LOOP AT GT_EKPO INTO GS_EKPO.
+
+    IF GS_EKPO-ZCHECK EQ 'X'.
+
+      LV_RSEG-BELNR = GS_RBKP-BELNR.  "######
+
+      LV_RSEG-GJAHR = GS_RBKP-GJAHR.  "####
+
+      LV_RSEG-BUZEI = NUM. "## ####
+
+      LV_RSEG-EBELN = GS_EKPO-EBELN.  "######
+
+      LV_RSEG-EBELP = GS_EKPO-EBELP.  "#### ####
+
+      LV_RSEG-MATNR = GS_EKPO-MATNR.  "####
+
+      LV_RSEG-TXZ01 = GS_EKPO-MAKTX.  "###
+
+      LV_RSEG-WERKS = GS_EKPO-WERKS.  "###
+
+      LV_RSEG-WRBTR = GS_EKPO-WRBTR.  "####
+
+      LV_RSEG-MENGE = GS_EKPO-MENGE.  "PO##
+
+      LV_RSEG-BSTME = GS_EKPO-MEINS.  "##
+
+      LV_RSEG-MWSKZ = GS_RBKP-BWSKZ.  "####
+
+      "LV_RSEG-WMWST = GS_RBKP-WMWST.  "##
+
+      "LV_RSEG-SGTXT  "###
+
+
+
+      MODIFY Z23RSEG FROM LV_RSEG.
+
+
+
+      IF SY-SUBRC EQ 0.
+
+        LV_CNT = LV_CNT + 1.
+
+      ENDIF.
+
+
+
+      CLEAR : LV_RSEG, GS_EKPO.
+
+      NUM = NUM + 1.
+
+    ENDIF.
+
+  ENDLOOP.
+
+
+
+  IF LV_CNT NE 0.
+
+    PERFORM SAVE_RBKP.
+
+    MESSAGE '#########.' TYPE 'I'.
+
+    PERFORM GET_PO.
+
+  ENDIF.
+
+
+
+ENDFORM.
+
+
+
+FORM SIMULATION.
+
+  DATA : LV_SUM TYPE P DECIMALS 2,
+
+        LV_WMWST TYPE FWSTEV,
+
+        LV_RMWWR TYPE RMWWR.
+
+
+
+  LOOP AT GT_EKPO INTO DATA(LS_EKPO).
+
+    IF LS_EKPO-ZCHECK EQ 'X'.
+
+      LV_SUM = LV_SUM + LS_EKPO-MENGE * LS_EKPO-WRBTR.
+
+    ENDIF.
+
+  ENDLOOP.
+
+
+
+  IF GS_RBKP-BWSKZ EQ 'V1'.
+
+    LV_WMWST = LV_SUM * '0.1'.
+
+  ELSE.
+
+    LV_WMWST = '0'.
+
+  ENDIF.
+
+
+
+  LV_RMWWR = LV_WMWST + LV_SUM.
+
+
+
+  IF GS_RBKP-RMWWR NE LV_RMWWR
+
+    OR GS_RBKP-WMWST NE LV_WMWST.
+
+    MESSAGE '### ### ######.' TYPE 'I'.
+
+  ELSEIF GS_RBKP-RMWWR EQ 0.
+
+    MESSAGE '### ######.' TYPE 'I'.
+
+  ELSE.
+
+    MESSAGE '## ##(##) ##.' TYPE 'I'.
+
+  ENDIF.
+
+
+
+ENDFORM.
+
+
+
+
+
+FORM GET_RBKP.
+
+  GV_FLAG = '0'.
+
+  DATA : LS_RBKP_ITAB LIKE GS_RBKP_ITAB.
+
+
+
+  CLEAR GT_RSEG.
+
+  SELECT BELNR GJAHR BUZEI EBELN WERKS
+
+    INTO CORRESPONDING FIELDS OF TABLE GT_RSEG
+
+    FROM Z23RSEG
+
+    WHERE EBELN EQ GV_EBELN
+
+    AND WERKS EQ GV_WERKS.
+
+
+
+  IF GT_RSEG[] IS INITIAL.
+
+    MESSAGE '### #### ####.' TYPE 'I'.
+
+    IF OK_CODE EQ 'SCH'.
+
+      GV_FLAG = '1'.
+
+      RETURN.
+
+    ELSEIF OK_CODE EQ 'DEL'.
+
+      LEAVE TO SCREEN 0.
+
+    ENDIF.
+
+    RETURN.
+
+  ENDIF.
+
+
+
+  DELETE ADJACENT DUPLICATES FROM GT_RSEG COMPARING BELNR GJAHR.
+
+
+
+  CLEAR GT_RBKP_ITAB.
+
+
+
+  SELECT
+
+    BELNR  "######
+
+    GJAHR "####
+
+    BLDAT "###
+
+    BUDAT "###
+
+    BUKRS "####
+
+    LIFNR "###
+
+    BKTXT "#####
+
+    RMWWR "# ####
+
+    WAERS "## #
+
+    INTO CORRESPONDING FIELDS OF TABLE GT_RBKP_ITAB
+
+
+
+    FROM Z23RBKP
+
+    FOR ALL ENTRIES IN GT_RSEG
+
+    WHERE BELNR EQ GT_RSEG-BELNR "######
+
+    AND GJAHR EQ GT_RSEG-GJAHR.  "####
+
+
+
+ENDFORM.
+
+
+
+FORM REMOVE_RBKP.
+
+  DATA : LS_RBKP TYPE Z23RBKP.
+
+
+
+  LOOP AT GT_RBKP_ITAB INTO DATA(LINE).
+
+    IF LINE-ZCHECK EQ 'X'.
+
+
+
+      PERFORM REMOVE_RSEG USING LINE-BELNR LINE-GJAHR.
+
+
+
+      SELECT *
+
+        INTO CORRESPONDING FIELDS OF LS_RBKP
+
+        FROM Z23RBKP
+
+        WHERE BELNR EQ LINE-BELNR
+
+        AND GJAHR EQ LINE-GJAHR.
+
+      ENDSELECT.
+
+
+
+      DELETE Z23RBKP FROM LS_RBKP.
+
+    ENDIF.
+
+  ENDLOOP.
+
+
+
+  IF SY-SUBRC EQ 0.
+
+    MESSAGE '### ### ### ##(##)#####.' TYPE 'I'.
+
+    PERFORM GET_RBKP.
+
+  ENDIF.
+
+
+
+ENDFORM.
+
+
+
+FORM REMOVE_RSEG USING P_BELNR TYPE RE_BELNR
+
+      P_GJAHR TYPE GJAHR.
+
+  DATA : LT_RSEG LIKE TABLE OF Z23RSEG.
+
+
+
+  SELECT *
+
+    FROM Z23RSEG
+
+    INTO CORRESPONDING FIELDS OF TABLE LT_RSEG
+
+    WHERE BELNR EQ P_BELNR
+
+    AND GJAHR EQ P_GJAHR.
+
+
+
+  DELETE Z23RSEG FROM TABLE LT_RSEG.
+
+
+
+ENDFORM.

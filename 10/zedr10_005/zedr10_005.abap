@@ -1,0 +1,277 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR10_005
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR10_005.
+
+
+
+" HEADER ## ##
+
+
+
+
+*DATA: BEGIN OF GS_STUDENT,
+
+*  ZCODE TYPE C LENGTH 10,
+
+*  ZKNAME TYPE C LENGTH 10,
+
+*  ZENAME TYPE C LENGTH 10,
+
+*  ZCLASS TYPE C,
+
+*END OF GS_STUDENT.
+
+
+
+*DATA: GS_STUDENT2 LIKE GS_STUDENT.
+
+*
+
+*DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+*DATA: GT_STUDENT2 LIKE TABLE OF GS_STUDENT.
+
+*
+
+*GS_STUDENT-ZCODE = 'SSU-01'.
+
+*GS_STUDENT-ZKNAME ='###'.
+
+*GS_STUDENT-ZENAME = 'GANG'.
+
+*
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*GS_STUDENT-ZCODE = 'SSU-02'.
+
+*GS_STUDENT-ZKNAME ='###'.
+
+*GS_STUDENT-ZENAME = 'GAM'.
+
+
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+
+
+
+" HEADER # COPY## ##
+
+" BODY# #### ###
+
+
+
+
+*MOVE GS_STUDENT TO GS_STUDENT2.
+
+*APPEND GS_STUDENT TO GT_STUDENT2.
+
+
+
+
+
+*BREAK-POINT.
+
+
+
+
+
+
+" HEADER ## ##
+
+
+
+
+*DATA: BEGIN OF GT_STUDENT OCCURS 0,
+
+*  ZCODE TYPE C LENGTH 10,
+
+*  ZKNAME TYPE C LENGTH 10,
+
+*  ZENAME TYPE C LENGTH 10,
+
+*  ZCLASS TYPE C,
+
+*END OF GT_STUDENT.
+
+*
+
+*DATA: BEGIN OF GT_STUDENT2 OCCURS 0,
+
+*  ZCLASS TYPE C,
+
+*  ZCODE TYPE C LENGTH 10,
+
+*  ZKNAME TYPE C LENGTH 10,
+
+*  ZENAME TYPE C LENGTH 10,
+
+*END OF GT_STUDENT2.
+
+*
+
+*GT_STUDENT-ZCODE = 'SSU-01'.
+
+*GT_STUDENT-ZKNAME ='###'.
+
+*GT_STUDENT-ZENAME = 'GANG'.
+
+*
+
+*APPEND GT_STUDENT.
+
+*
+
+*GT_STUDENT-ZCODE = 'SSU-02'.
+
+*GT_STUDENT-ZKNAME ='###'.
+
+*GT_STUDENT-ZENAME = 'GAM'.
+
+*
+
+*" BODY COPY## HEADER# #### ### #### COPY #
+
+**MOVE GT_STUDENT[] TO GT_STUDENT2[].
+
+*
+
+*" HEADER COPY## #### ###
+
+**MOVE GT_STUDENT TO GT_STUDENT2.
+
+*
+
+*" MOVE-CORRESPONDING# ### #
+
+*MOVE GT_STUDENT[] TO GT_STUDENT2[].
+
+*
+
+**MOVE-CORRESPONDING GT_STUDENT[] TO GT_STUDENT2[].
+
+*
+
+*BREAK-POINT.
+
+
+
+
+
+
+DATA: BEGIN OF GS_STUDENT,
+
+  ZCODE TYPE C LENGTH 10,
+
+  ZKNAME TYPE C LENGTH 10,
+
+  ZENAME TYPE C LENGTH 10,
+
+END OF GS_STUDENT.
+
+
+
+
+
+
+*DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+*
+
+*GS_STUDENT-ZCODE = 'SSU-02'.
+
+*GS_STUDENT-ZKNAME ='###'.
+
+*GS_STUDENT-ZENAME = 'GAM'.
+
+*
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*BREAK-POINT.
+
+*
+
+*" INTERNAL TABLE DATA ##
+
+*CLEAR: GT_STUDENT.
+
+
+
+
+
+
+DATA: BEGIN OF GT_STUDENT OCCURS 0,
+
+  ZCODE TYPE C LENGTH 10,
+
+  ZKNAME TYPE C LENGTH 10,
+
+  ZENAME TYPE C LENGTH 10,
+
+END OF GT_STUDENT.
+
+
+
+GT_STUDENT-ZCODE = 'SSU-01'.
+
+GT_STUDENT-ZKNAME ='###'.
+
+GT_STUDENT-ZENAME = 'GANG'.
+
+
+
+APPEND GT_STUDENT.
+
+
+
+GT_STUDENT-ZCODE = 'SSU-02'.
+
+GT_STUDENT-ZKNAME ='###'.
+
+GT_STUDENT-ZENAME = 'GAM'.
+
+
+
+" HEADER # ### HEADER# ##
+
+" #### ##
+
+
+
+
+*CLEAR: GT_STUDENT.
+
+
+
+
+
+
+" HEADER # ### BODY## ##
+
+" #### ##
+
+CLEAR: GT_STUDENT[].
+
+
+
+BREAK-POINT.

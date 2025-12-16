@@ -1,0 +1,79 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR06_031_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES ZEDT06_001.
+
+
+
+DATA : BEGIN OF GS_STUDENT,
+
+  ZCOLOR TYPE C LENGTH 4,
+
+  ZCODE LIKE ZEDT06_001-ZCODE,
+
+  ZPERNR LIKE ZEDT06_001-ZPERNR,
+
+  ZKNAME LIKE ZEDT06_001-ZKNAME,
+
+  ZENAME LIKE ZEDT06_001-ZENAME,
+
+  ZGENDER LIKE ZEDT06_001-ZGENDER,
+
+  ZSUM LIKE ZEDT06_002-ZSUM,
+
+  ZMAJOR LIKE ZEDT06_002-ZMAJOR,
+
+  ZMNAME LIKE ZEDT06_002-ZMNAME,
+
+  END OF GS_STUDENT.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+" ## ## ## ## ##
+
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+
+
+" ### ## ## ## ##
+
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+" ## ### ## FIELD CAT
+
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT.
+
+DATA : GT_FIELDCAT TYPE LVC_T_FCAT.
+
+" ## ### ## LAYOUT
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+" ## ### ## SORT
+
+DATA : GS_SORT TYPE LVC_S_SORT.
+
+DATA : GT_SORT TYPE LVC_T_SORT.
+
+
+
+" #### ## ## ##
+
+DATA : GS_VARIANT TYPE DISVARIANT.

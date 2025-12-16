@@ -1,0 +1,241 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM02_004_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES: ZEKKO_02, ZEKPO_02, ZRBKP_02, ZRSEG_02, ZLFM1_02, ZLFB1_02.
+
+TYPES: BEGIN OF TY_RBKP.
+
+         include structure
+ZRBKP_02
+.
+
+TYPES:   ZCHECK TYPE C LENGTH 1, "####
+
+         ZLIGHT TYPE C LENGTH 4,
+
+       END OF TY_RBKP.
+
+
+
+TYPES: BEGIN OF TY_RSEG.
+
+         include structure
+ZRSEG_02
+.
+
+TYPES:   ZCHECK TYPE C LENGTH 1, "####
+
+       END OF TY_RSEG.
+
+
+
+DATA: GS_EKKO TYPE ZEKKO_02,
+
+      GT_EKKO TYPE TABLE OF ZEKKO_02,
+
+      GS_EKPO TYPE ZEKPO_02,
+
+      GT_EKPO TYPE TABLE OF ZEKPO_02,
+
+      GS_LFM1 TYPE ZLFM1_02,
+
+      GS_LFB1 TYPE ZLFB1_02,
+
+      GS_RBKP TYPE TY_RBKP,
+
+      GT_RBKP TYPE TABLE OF TY_RBKP,
+
+      GS_RSEG TYPE TY_RSEG,
+
+      GT_RSEG TYPE TABLE OF TY_RSEG.
+
+
+
+DATA: BEGIN OF GS_PO,
+
+  ZCHECK TYPE C, "####
+
+  BUKRS TYPE ZEKKO_02-BUKRS, "####
+
+  EBELN TYPE ZEKPO_02-EBELN, "######
+
+  MENGE TYPE ZEKPO_02-MENGE, "### ##
+
+  MENGE_TOT TYPE ZEKPO_02-MENGE, "###
+
+  MENGE_OPEN TYPE ZEKPO_02-MENGE, "## ##
+
+  BSTME TYPE ZRSEG_02-BSTME, "## ##
+
+  STPRS TYPE ZEKPO_02-STPRS, "##
+
+  WAERS TYPE ZEKKO_02-WAERS, "##
+
+  DMBTR TYPE DMBTR, "##
+
+  WRBTR TYPE ZRSEG_02-WRBTR, "####
+
+  WMWST TYPE ZRSEG_02-WMWST, "##
+
+  MWSKZ TYPE ZLFM1_02-MWSKZ, "####
+
+  SGTXT TYPE SGTXT, "######
+
+  LIFNR TYPE ZEKKO_02-LIFNR, "#####
+
+  EBELP TYPE ZEKPO_02-EBELP, "####
+
+  MATNR TYPE ZEKPO_02-MATNR, "####
+
+  WERKS TYPE ZEKPO_02-WERKS, "###
+
+  BELNR TYPE ZRBKP_02-BELNR, "######
+
+  BUZEI TYPE ZRSEG_02-BUZEI, "#####
+
+  BKTXT TYPE ZRBKP_02-BKTXT, "#####
+
+  GJAHR TYPE ZRBKP_02-GJAHR, "####
+
+  BUDAT TYPE ZRBKP_02-BUDAT, "###
+
+  BLDAT TYPE ZRBKP_02-BLDAT, "###
+
+  RMWWR TYPE ZRBKP_02-RMWWR, "##
+
+  MAKTX TYPE ZEKPO_02-MAKTX, "###
+
+  XRECH TYPE ZRBKP_02-XRECH, "######(X# ##, #### ####)
+
+  STBLG TYPE ZRBKP_02-STBLG, "#######
+
+  ZCANC TYPE ZRSEG_02-ZCANC, "#######(X# ### ###, #### ##)
+
+  MWSKZ1 TYPE ZRBKP_02-MWSKZ1, "####(##)
+
+  WMWST1 TYPE ZRBKP_02-WMWST1, "# ##
+
+  XBLNR TYPE ZRBKP_02-XBLNR, "######
+
+  ZLIGHT TYPE C LENGTH 4,
+
+  ZCANDOC TYPE ZRSEG_02-ZCANDOC, "### ### #####(X# ### ### ###, #### ##)
+
+END OF GS_PO.
+
+DATA: GT_PO LIKE TABLE OF GS_PO,
+
+      GT_PO_300 LIKE TABLE OF GS_PO.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM,
+
+       GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER,
+
+       GC_CUSTOM300 TYPE REF TO CL_GUI_CUSTOM_CONTAINER,
+
+       GC_GRID TYPE REF TO CL_GUI_ALV_GRID,
+
+       GC_GRID300 TYPE REF TO CL_GUI_ALV_GRID,
+
+       GT_FIELDCAT TYPE LVC_T_FCAT, "## ####
+
+       GS_FIELDCAT TYPE LVC_S_FCAT,
+
+       GS_LAYOUT TYPE LVC_S_LAYO, "####
+
+       GT_SORT TYPE LVC_T_SORT, "##
+
+       GS_SORT TYPE LVC_S_SORT,
+
+       GO_EVENT TYPE REF TO EVENT,
+
+       GO_EVENT300 TYPE REF TO EVENT,
+
+       GV_BELNR TYPE ZRBKP_02-BELNR, "######
+
+       GV_GJAHR TYPE ZRBKP_02-GJAHR, "####
+
+       GV_REFRESH_200 TYPE C,
+
+       G_BLDAT TYPE ZRBKP_02-BLDAT, "###(##)
+
+       G_BUDAT TYPE ZRBKP_02-BUDAT, "###(##)
+
+       G_RMWWR TYPE ZRBKP_02-RMWWR, "##(##)
+
+       G_WAERS TYPE ZEKKO_02-WAERS, "##(##)
+
+       G_WMWST TYPE ZRSEG_02-WMWST, "##(##)
+
+       G_MWSKZ TYPE ZLFM1_02-MWSKZ, "####(##)
+
+       G_MWSKZ_OLD TYPE ZLFM1_02-MWSKZ, "#### ### ##
+
+       G_BUPLA TYPE ZRBKP_02-BUPLA, "###(##)
+
+       G_SECCO TYPE ZRBKP_02-SECCO, "####(##)
+
+       G_BKTXT TYPE ZRBKP_02-BKTXT, "###(##)
+
+       G_BUKRS TYPE ZRBKP_02-BUKRS, "####(##)
+
+       G_CALTAX TYPE C, "#### ####
+
+       GV_WMWST TYPE ZRSEG_02-WMWST, "#### ## ##
+
+       G_LIGHT TYPE C LENGTH 4, "## 0### #####(##### 0, ##### ##)
+
+       G_WAERS_OUT TYPE ZEKKO_02-WAERS, "##(## #)
+
+       G_BALANCE TYPE ZRBKP_02-RMWWR, "##
+
+       G_SUM TYPE ZRBKP_02-RMWWR, "## ### ##
+
+       GV_SIMUL TYPE C. "##### ####: 1## ##, 0## ##
+
+
+
+
+
+
+*&SPWIZARD: FUNCTION CODES FOR TABSTRIP 'TS_HEAD'
+
+
+
+
+CONSTANTS: BEGIN OF C_TS_HEAD,
+
+             TAB1 LIKE SY-UCOMM VALUE 'TS_HEAD_FC1',
+
+             TAB2 LIKE SY-UCOMM VALUE 'TS_HEAD_FC2',
+
+           END OF C_TS_HEAD.
+
+
+
+
+*&SPWIZARD: DATA FOR TABSTRIP 'TS_HEAD'
+
+
+
+
+CONTROLS:  TS_HEAD TYPE TABSTRIP.
+
+DATA:      BEGIN OF G_TS_HEAD,
+
+             SUBSCREEN   LIKE SY-DYNNR,
+
+             PROG        LIKE SY-REPID VALUE 'ZMM02_004',
+
+             PRESSED_TAB LIKE SY-UCOMM VALUE C_TS_HEAD-TAB1,
+
+           END OF G_TS_HEAD.

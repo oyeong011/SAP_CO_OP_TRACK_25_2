@@ -1,0 +1,45 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM15_002_SCR
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+  PARAMETERS : P_BUKRS1 TYPE BUKRS MODIF ID M1. "####
+
+  PARAMETERS : P_LIFNR1 TYPE LIFNR MODIF ID M1. "###
+
+  PARAMETERS : P_BEDAT TYPE EBDAT MODIF ID M1. "###
+
+
+
+  PARAMETERS : P_LIFNR2 TYPE LIFNR MODIF ID M2. "#####
+
+  PARAMETERS : P_BUKRS2 TYPE BUKRS MODIF ID M2. "####
+
+  PARAMETERS : P_EBELN TYPE EBELN MODIF ID M2. "PO##
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.
+
+  "####
+
+  PARAMETERS : P_R1 RADIOBUTTON GROUP G1 DEFAULT 'X' USER-COMMAND UC1.
+
+  "####
+
+  PARAMETERS : P_R2 RADIOBUTTON GROUP G1.
+
+SELECTION-SCREEN END OF BLOCK B2.

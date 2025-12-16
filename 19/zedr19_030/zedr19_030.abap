@@ -1,0 +1,245 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR19_029
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR19_029.
+
+
+
+TYPES : BEGIN OF TY_RESULT,
+
+        ZCODE TYPE ZEDT19_0001-ZCODE,
+
+        ZNAME TYPE ZEDT19_0001-ZKNAME,
+
+        LV_STOP TYPE C LENGTH 10,
+
+        LV_MAJOR TYPE C LENGTH 10,
+
+        LV_TEL TYPE C LENGTH 20,
+
+        END OF TY_RESULT.
+
+
+
+TYPES : BEGIN OF TY_SUM,
+
+        ZGENDER TYPE ZEDT19_0001-ZGENDER,
+
+        AMOUNT TYPE ZEDT19_004-ZSUM,
+
+        END OF TY_SUM.
+
+
+
+DATA : GT_SUM TYPE SORTED TABLE OF TY_SUM WITH UNIQUE KEY ZGENDER,
+
+       GS_SUM TYPE TY_SUM.
+
+
+
+DATA : GT_RESULT TYPE SORTED TABLE OF TY_RESULT WITH UNIQUE KEY ZCODE,
+
+       GS_RESULT TYPE TY_RESULT.
+
+
+
+"### ## ##
+
+DATA : LV_TEL TYPE C LENGTH 20,
+
+       LV_FEMALE TYPE ZEDT19_004-ZSUM,
+
+       LV_MAJOR TYPE C LENGTH 20,
+
+       LV_STOP TYPE C LENGTH 20,
+
+       LV_MALE TYPE ZEDT19_004-ZSUM.
+
+
+
+DATA : GT_ZEDT001 TYPE STANDARD TABLE OF ZEDT19_0001 WITH DEFAULT KEY,
+
+       GT_ZEDT002 TYPE STANDARD TABLE OF ZEDT19_002 WITH DEFAULT KEY,
+
+       GT_ZEDT004 TYPE STANDARD TABLE OF ZEDT19_004 WITH DEFAULT KEY.
+
+
+
+DATA : GS_ZEDT001 TYPE ZEDT19_0001,
+
+       GS_ZEDT002 TYPE ZEDT19_002,
+
+       GS_ZEDT004 TYPE ZEDT19_004.
+
+
+
+SELECT * FROM ZEDT19_0001 INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT001.
+
+SELECT * FROM ZEDT19_002 INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT002.
+
+SELECT * FROM ZEDT19_004 INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT004.
+
+
+
+"##
+
+SORT GT_ZEDT001 BY ZCODE.
+
+SORT GT_ZEDT002 BY ZCODE.
+
+SORT GT_ZEDT004 BY ZCODE ZGRADE DESCENDING.
+
+
+
+DELETE ADJACENT DUPLICATES FROM GT_ZEDT004 COMPARING ZCODE.
+
+
+
+CLEAR : GS_ZEDT001, GS_RESULT.
+
+
+
+LOOP AT GT_ZEDT004 INTO GS_ZEDT004.
+
+
+
+  CLEAR : GS_ZEDT002, LV_MAJOR, LV_TEL, LV_STOP.
+
+
+
+  "### ### ## #### # ##
+
+  READ TABLE GT_ZEDT001 WITH KEY ZCODE = GS_ZEDT004-ZCODE INTO GS_ZEDT001.
+
+  READ TABLE GT_ZEDT002 WITH KEY ZCODE = GS_ZEDT004-ZCODE INTO GS_ZEDT002.
+
+
+
+  IF gs_zedt004-zgrade = ' '.
+
+    CONTINUE.
+
+  ELSE.
+
+    IF SY-SUBRC = 0 AND GS_ZEDT002-ZMAJOR <> GS_ZEDT004-ZMAJOR.
+
+      LV_MAJOR = '####'.
+
+    ENDIF.
+
+
+
+    IF GS_ZEDT004-ZGRADE = 'D' OR GS_ZEDT004-ZGRADE = 'F'.
+
+      LV_STOP = '####'.
+
+      LV_TEL = GS_ZEDT001-ZTEL.
+
+    ELSE.
+
+      LV_STOP = ' '.
+
+      LV_TEL = ' '.
+
+    ENDIF.
+
+  ENDIF.
+
+
+
+  CLEAR GS_RESULT.
+
+  GS_RESULT-ZCODE = GS_ZEDT001-ZCODE.
+
+  GS_RESULT-ZNAME = GS_ZEDT001-ZKNAME.
+
+  GS_RESULT-LV_STOP = LV_STOP.
+
+  GS_RESULT-LV_MAJOR = LV_MAJOR.
+
+  GS_RESULT-LV_TEL = LV_TEL.
+
+  APPEND gs_result TO gt_result.
+
+
+
+  CLEAR: GS_SUM, gs_result.
+
+  GS_SUM-ZGENDER = GS_ZEDT001-ZGENDER.
+
+  GS_SUM-AMOUNT = GS_ZEDT004-ZSUM.
+
+  COLLECT GS_SUM INTO GT_SUM.
+
+
+
+ENDLOOP.
+
+
+
+LOOP AT GT_RESULT INTO GS_RESULT.
+
+  READ TABLE GT_SUM INTO GS_SUM INDEX SY-TABIX.
+
+
+
+  IF GS_SUM-ZGENDER = 'M'.
+
+    LV_MALE = GS_SUM-AMOUNT * 100.
+
+  ELSE.
+
+    LV_FEMALE = GS_SUM-AMOUNT * 100.
+
+  ENDIF.
+
+
+
+  AT FIRST.
+
+
+
+  WRITE :/ '-------------------------------------------------------------------------------------'.
+
+  WRITE :/ '|  ####  |         ##         |   ####    |     ####     |    ##    |'.
+
+  WRITE :/ '-------------------------------------------------------------------------------------'.
+
+
+
+  ENDAT.
+
+
+
+    WRITE :/ '|', GS_RESULT-ZCODE, '|', GS_RESULT-ZNAME,'|',GS_RESULT-LV_MAJOR,'   |', GS_RESULT-LV_TEL, '|',GS_RESULT-LV_STOP,'|'.
+
+  WRITE :/ ''.
+
+
+
+
+
+
+
+  AT LAST.
+
+   WRITE :/ '### ## :', LV_MALE DECIMALS 0.
+
+   WRITE :/ '### ## :', LV_FEMALE DECIMALS 0.
+
+  ENDAT.
+
+
+
+ENDLOOP.

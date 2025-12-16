@@ -1,0 +1,213 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMMR25_003_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES : ZEDT25_ZMKPF, ZEDT25_ZMSEG, ZEDT25_ZEKKO, ZEDT25_ZEKPO.
+
+
+
+" ## ## ## (ZMKPF ###) - Screen 0100## ##
+
+DATA : BEGIN OF GS_MKPF,
+
+  MBLNR LIKE ZEDT25_ZMKPF-MBLNR,  "## ####
+
+  MJAHR LIKE ZEDT25_ZMKPF-MJAHR,  "####
+
+  BLART LIKE ZEDT25_ZMKPF-BLART,  "####
+
+  BLDAT LIKE ZEDT25_ZMKPF-BLDAT,  "####
+
+  BUDAT LIKE ZEDT25_ZMKPF-BUDAT,  "####
+
+  EBELN LIKE ZEDT25_ZEKKO-EBELN,  "####
+
+  WERKS LIKE ZEDT25_ZEKPO-WERKS,  "###
+
+END OF GS_MKPF.
+
+DATA : GT_MKPF LIKE TABLE OF GS_MKPF.
+
+
+
+" ## ## ### (ZMSEG ###) - ###### ##
+
+DATA : BEGIN OF GS_MSEG,
+
+  MBLNR  LIKE ZEDT25_ZMSEG-MBLNR,   "######
+
+  MJAHR  LIKE ZEDT25_ZMSEG-MJAHR,   "####
+
+  ZEILE  LIKE ZEDT25_ZMSEG-ZEILE,   "## (PO ### ##)
+
+  BWART  LIKE ZEDT25_ZMSEG-BWART,   "####
+
+  MATNR  LIKE ZEDT25_ZMSEG-MATNR,   "####
+
+  ZWERKS LIKE ZEDT25_ZMSEG-ZWERKS,  "### (### ###)
+
+  ZLGORT LIKE ZEDT25_ZMSEG-ZLGORT,  "#### (### ###)
+
+  LIFNR  LIKE ZEDT25_ZMSEG-LIFNR,   "####
+
+  WAERS  LIKE ZEDT25_ZMSEG-WAERS,   "##
+
+  MENGE  LIKE ZEDT25_ZMSEG-MENGE,   "##
+
+  MEINS  LIKE ZEDT25_ZMSEG-MEINS,   "##
+
+  EBELN  LIKE ZEDT25_ZMSEG-EBELN,   "## ##
+
+  BUKRS  LIKE ZEDT25_ZMSEG-BUKRS,   "####
+
+  GJAHR  LIKE ZEDT25_ZMSEG-GJAHR,   "####
+
+  BELNR  LIKE ZEDT25_ZMSEG-BELNR,   "## ####
+
+  SHKZG  LIKE ZEDT25_ZMSEG-SHKZG,   "####
+
+  DMBTR  LIKE ZEDT25_ZMSEG-DMBTR,   "##
+
+
+
+  CHECK      TYPE C,
+
+  EBELP      TYPE EBELP,       " PO ## ## (10, 20...)
+
+  MAKTX      TYPE MAKTX,       " ###
+
+  PO_MENGE   TYPE MENGE_D,     " PO ##
+
+  BLDAT      TYPE BLDAT,       " ## ## (## ##)
+
+  BUDAT      TYPE BUDAT,       " ## ## (## ##)
+
+  BLART      TYPE BLART,       " ## ## (## ##)
+
+  STATUS_TXT TYPE C LENGTH 10, " ## (##/##)
+
+  END OF GS_MSEG.
+
+DATA : GT_MSEG LIKE TABLE OF GS_MSEG.
+
+
+
+" ## ## ### (ALV ## ##)
+
+DATA : BEGIN OF GS_DISPLAY,
+
+  CHECK    TYPE C,                 "## ##
+
+  BWART    LIKE ZEDT25_ZMSEG-BWART,    "####
+
+  EBELN    LIKE ZEDT25_ZEKPO-EBELN,    "####
+
+  EBELP    LIKE ZEDT25_ZEKPO-EBELP,    "##
+
+  LIFNR    LIKE ZEDT25_ZEKKO-LIFNR,    "####
+
+  BEDAT    LIKE ZEDT25_ZEKKO-BEDAT,    "####
+
+  MATNR    LIKE ZEDT25_ZEKPO-MATNR,    "####
+
+  MAKTX    LIKE ZEDT25_ZEKPO-MAKTX,    "###
+
+  MENGE    LIKE ZEDT25_ZEKPO-MENGE,    "PO ## ##
+
+  WEMNG    LIKE ZEDT25_ZEKPO-MENGE,    "## ## ##
+
+  OPEN_QTY LIKE ZEDT25_ZEKPO-MENGE,    "### ##
+
+  GR_QTY   LIKE ZEDT25_ZEKPO-MENGE,    "## ## ##
+
+
+
+  MEINS    LIKE ZEDT25_ZEKPO-MEINS,    "##
+
+  STPRS    LIKE ZEDT25_ZEKPO-STPRS,    "##
+
+  WAERS    LIKE ZEDT25_ZEKKO-WAERS,    "##
+
+  PRDAT    LIKE ZEDT25_ZEKPO-PRDAT,    "###
+
+  WERKS    LIKE ZEDT25_ZEKPO-WERKS,    "###
+
+  LGORT    LIKE ZEDT25_ZEKPO-LGORT,    "####
+
+  END OF GS_DISPLAY.
+
+DATA : GT_DISPLAY LIKE TABLE OF GS_DISPLAY.
+
+
+
+" #### ## - Screen 0200## ##
+
+DATA : BEGIN OF GS_PO_HEADER.
+
+  include structure
+ZEDT25_ZEKKO
+.
+
+  DATA : WERKS TYPE WERKS_D.
+
+DATA : END OF GS_PO_HEADER.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+" #### ###
+
+DATA : BEGIN OF GS_PO_ITEM.
+
+  include structure
+ZEDT25_ZEKPO
+.
+
+  DATA : WEMNG LIKE ZEDT25_ZEKPO-MENGE.  "## ## ##
+
+DATA : END OF GS_PO_ITEM.
+
+DATA : GT_PO_ITEM LIKE TABLE OF GS_PO_ITEM.
+
+
+
+" ### ## # ALV ## ##
+
+DATA : GO_EVENT TYPE REF TO LCL_EVENT_HANDLER,
+
+       GY_DYNNR TYPE SY-DYNNR VALUE '0101'.
+
+
+
+" Screen 0100# ALV
+
+DATA : GC_CONTAINER TYPE REF TO CL_GUI_CUSTOM_CONTAINER,
+
+       GC_GRID      TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+" Screen 0200# ALV
+
+DATA : GC_CONTAINER_201 TYPE REF TO CL_GUI_CUSTOM_CONTAINER,
+
+       GC_GRID_201      TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+" ALV ## ####
+
+DATA : GS_FC TYPE LVC_S_FCAT,
+
+       GT_FC TYPE LVC_T_FCAT.

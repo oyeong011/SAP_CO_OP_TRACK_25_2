@@ -1,0 +1,93 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR03_004_INSERT
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR03_004_INSERT.
+
+
+
+DATA : BEGIN OF GS_STUDENT,
+
+  ZCODE TYPE C LENGTH 10,
+
+  ZKNAME TYPE C LENGTH 10,
+
+  ZENAME TYPE C LENGTH 10,
+
+  ZSUM TYPE I,
+
+END OF GS_STUDENT.
+
+
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+CLEAR : GS_STUDENT.
+
+GS_STUDENT-ZCODE = 'SSU-02'.
+
+GS_STUDENT-ZKNAME = '##'.
+
+GS_STUDENT-ZENAME = 'ROSE'.
+
+GS_STUDENT-ZSUM = '10000'.
+
+COLLECT GS_STUDENT INTO GT_STUDENT.
+
+
+
+CLEAR : GS_STUDENT.
+
+GS_STUDENT-ZCODE = 'SSU-03'.
+
+GS_STUDENT-ZKNAME = '##'.
+
+GS_STUDENT-ZENAME = 'JISOO'.
+
+GS_STUDENT-ZSUM = '10000'.
+
+COLLECT GS_STUDENT INTO GT_STUDENT.
+
+
+
+CLEAR : GS_STUDENT.
+
+GS_STUDENT-ZCODE = 'SSU-01'.
+
+GS_STUDENT-ZKNAME = '##'.
+
+GS_STUDENT-ZENAME = 'JENNIE'.
+
+GS_STUDENT-ZSUM = '10000'.
+
+COLLECT GS_STUDENT INTO GT_STUDENT.
+
+
+
+CLEAR : GS_STUDENT.
+
+GS_STUDENT-ZCODE = 'SSU-02'.
+
+GS_STUDENT-ZKNAME = '##'.
+
+GS_STUDENT-ZENAME = 'ROSE'.
+
+GS_STUDENT-ZSUM = '10000'.
+
+COLLECT GS_STUDENT INTO GT_STUDENT.
+
+
+
+BREAK-POINT.

@@ -1,0 +1,219 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR09_028_3
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR09_028_3.
+
+
+
+
+
+"1. #### #### ######
+
+DATA : BEGIN OF GS_STUDENT,
+
+  ZCOLOR TYPE C LENGTH 4,         "### ##### ## ##, ### LENGTH 4# ##
+
+  ZCODE LIKE ZEDT09_001-ZCODE,
+
+  ZPERNR LIKE ZEDT09_001-ZPERNR,
+
+  ZKNAME LIKE ZEDT09_001-ZKNAME,
+
+  ZENAME LIKE ZEDT09_001-ZENAME,
+
+  ZGENDER LIKE ZEDT09_001-ZGENDER,
+
+  ZMAJOR LIKE ZEDT09_002-ZMAJOR,
+
+  ZMNAME LIKE ZEDT09_002-ZMNAME,
+
+  END OF GS_STUDENT.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+DATA : GS_FIELDCAT TYPE SLIS_FIELDCAT_ALV,
+
+       GT_FIELDCAT TYPE SLIS_T_FIELDCAT_ALV.
+
+
+
+START-OF-SELECTION.
+
+  PERFORM GET_DATA.
+
+  PERFORM MODIFY_DATA.  "## ##
+
+
+
+
+
+END-OF-SELECTION.
+
+  PERFORM ALV_DISPLAY.
+
+
+
+
+
+FORM GET_DATA.
+
+  SELECT a~ZCODE
+
+         a~ZPERNR
+
+         a~ZKNAME
+
+         a~ZENAME
+
+         a~ZGENDER
+
+         b~ZMAJOR
+
+         b~ZMNAME
+
+    FROM ZEDT09_001 AS a
+
+    INNER JOIN ZEDT09_002 AS b
+
+    ON a~ZCODE = b~ZCODE
+
+    INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT.
+
+
+
+  "#### db ##
+
+  GS_STUDENT-ZCODE = 'ssu-90'.
+
+  GS_STUDENT-ZENAME = ''.
+
+  APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+ENDFORM.
+
+
+
+"2. ###### # ## ##
+
+FORM MODIFY_DATA.
+
+
+
+   "###### #### #### ###
+
+   "## ## ##### ### ####
+
+   "=> ## ##
+
+
+
+   CLEAR : GS_STUDENT.
+
+   LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+     IF GS_STUDENT-ZENAME IS INITIAL.
+
+       "ICON# ## ### ## ## -> SLIS## ICON ####!
+
+       GS_STUDENT-ZCOLOR = '@0A@'.
+
+     ENDIF.
+
+
+
+     MODIFY GT_STUDENT FROM GS_STUDENT INDEX sy-tabix.
+
+   ENDLOOP.
+
+ENDFORM.
+
+
+
+
+
+FORM ALV_DISPLAY.
+
+  PERFORM FIELD_CATALOG.
+
+  PERFORM CALL_DISPLAY.
+
+ENDFORM.
+
+
+
+"3. ## #### ##
+
+FORM FIELD_CATALOG.
+
+
+
+  "#### ## ##
+
+  CLEAR : GS_FIELDCAT, GT_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 1.
+
+  GS_FIELDCAT-FIELDNAME = 'ZCOLOR'.
+
+  GS_FIELDCAT-SELTEXT_M = '##'.
+
+  GS_FIELDCAT-ICON      = 'X'.        "icon ### ####
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 2.
+
+  GS_FIELDCAT-FIELDNAME = 'ZCODE'.
+
+  GS_FIELDCAT-SELTEXT_M = '####'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 3.
+
+  GS_FIELDCAT-FIELDNAME = 'ZPERNR'.
+
+  GS_FIELDCAT-SELTEXT_M = '####'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+ENDFORM.
+
+
+
+FORM CALL_DISPLAY.
+
+  CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+
+    EXPORTING
+
+      IT_FIELDCAT = GT_FIELDCAT
+
+    TABLES
+
+      T_OUTTAB = GT_STUDENT.
+
+ENDFORM.

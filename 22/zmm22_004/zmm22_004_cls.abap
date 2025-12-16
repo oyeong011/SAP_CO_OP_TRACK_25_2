@@ -1,0 +1,67 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM22_004_CLS
+
+*&---------------------------------------------------------------------*
+
+
+
+
+CLASS LCL_EVENT_HANDLER DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS:
+
+      HANDLE_DATA_CHANGED
+
+        FOR EVENT DATA_CHANGED OF CL_GUI_ALV_GRID
+
+        IMPORTING ER_DATA_CHANGED,
+
+    "##
+
+    HANDLE_DOUBLE_CLICK
+
+        FOR EVENT DOUBLE_CLICK OF CL_GUI_ALV_GRID
+
+        IMPORTING E_ROW E_COLUMN.
+
+ENDCLASS.
+
+
+
+CLASS LCL_EVENT_HANDLER IMPLEMENTATION.
+
+  METHOD HANDLE_DATA_CHANGED.
+
+    PERFORM DATA_CHANGED_LOGIC USING ER_DATA_CHANGED.
+
+    CALL METHOD CL_GUI_CFW=>SET_NEW_OK_CODE
+
+      EXPORTING NEW_CODE = 'REFRESH'.
+
+  ENDMETHOD.
+
+
+
+  "####
+
+  METHOD HANDLE_DOUBLE_CLICK.
+
+    " ### ## #### ## ## ##
+
+    PERFORM GET_DETAIL_DATA USING E_ROW-INDEX.
+
+
+
+    " ## ### ## PBO ##
+
+    CALL METHOD CL_GUI_CFW=>SET_NEW_OK_CODE
+
+      EXPORTING NEW_CODE = 'REFRESH'.
+
+  ENDMETHOD.
+
+ENDCLASS.

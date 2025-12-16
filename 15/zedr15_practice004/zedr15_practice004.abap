@@ -1,0 +1,107 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR15_PRACTICE004
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR15_PRACTICE004.
+
+
+
+"1) ### # ###### ##
+
+DATA : GS_ZEDT15_001 TYPE ZEDT15_001.
+
+DATA : GT_ZEDT15_001 LIKE TABLE OF GS_ZEDT15_001.
+
+DATA : GT_IN LIKE TABLE OF GS_ZEDT15_001,
+
+      GV_LENGTH TYPE I.
+
+
+
+"2) RANGE## ##
+
+RANGES : GR_ZCODE FOR ZEDT15_001-ZCODE.
+
+
+
+CLEAR GR_ZCODE.
+
+GR_ZCODE-SIGN = 'I'.
+
+GR_ZCODE-OPTION = 'BT'.
+
+GR_ZCODE-LOW = 'SSU-90'.
+
+GR_ZCODE-HIGH = 'SSU-99'.
+
+APPEND GR_ZCODE.
+
+
+
+"3) ZEDT00_001## SELECT
+
+SELECT * FROM ZEDT00_001
+
+  INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT15_001
+
+  WHERE ZCODE IN GR_ZCODE.
+
+
+
+IF SY-SUBRC <> 0.
+
+  WRITE : /'# #### ##'.
+
+  EXIT.
+
+ENDIF.
+
+
+
+"4)FUNCTION####  0### ('CONVERSION_EXIT_ALPHA_INPUT')
+
+LOOP AT GT_ZEDT15_001 INTO GS_ZEDT15_001.
+
+
+
+  GV_LENGTH = STRLEN( GS_ZEDT15_001-ZPERNR ).
+
+
+
+  IF GV_LENGTH <> 10.
+
+    CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
+
+      EXPORTING
+
+        INPUT         = GS_ZEDT15_001-ZPERNR
+
+      IMPORTING
+
+        OUTPUT        = GS_ZEDT15_001-ZPERNR
+
+              .
+
+    APPEND GS_ZEDT15_001 TO GT_IN.
+
+  ENDIF.
+
+ENDLOOP.
+
+
+
+"5)# ###(ZEDT15_001)# insert
+
+DELETE ZEDT15_001 FROM TABLE GT_IN.
+
+INSERT ZEDT15_001 FROM TABLE GT_IN.

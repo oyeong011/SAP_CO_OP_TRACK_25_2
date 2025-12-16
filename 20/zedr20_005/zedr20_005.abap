@@ -1,0 +1,258 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR20_005
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR20_005.
+
+
+
+
+
+
+*" #### ## ITAB ##
+
+*DATA: BEGIN OF GS_STUDENT,
+
+*  ZCODE TYPE C LENGTH 10,
+
+*  ZKNAME(10),
+
+*  ZENAME(10),
+
+*  ZCLASS,
+
+*  END OF GS_STUDENT.
+
+*
+
+*DATA: BEGIN OF GS_STUDENT2,
+
+*  ZCLASS,
+
+*  ZCODE TYPE C LENGTH 10,
+
+*  ZKNAME(10),
+
+*  ZENAME(10),
+
+*  "ZCLASS,
+
+*  END OF GS_STUDENT2.
+
+*
+
+*DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT,
+
+*      GT_STUDENT2 LIKE TABLE OF GS_STUDENT2.
+
+*
+
+*GS_STUDENT-ZCODE = 'SSU-01'.
+
+*GS_STUDENT-ZKNAME = '###'.
+
+*GS_STUDENT-ZENAME = 'DONG'.
+
+*
+
+**GS_STUDENT2-ZCODE = 'SSU-01'.
+
+**GS_STUDENT2-ZKNAME = '###'.
+
+**GS_STUDENT2-ZENAME = 'DONG'.
+
+*
+
+**" ## copy
+
+**APPEND GS_STUDENT TO GT_STUDENT.
+
+**
+
+**MOVE GS_STUDENT TO GS_STUDENT2.
+
+**
+
+**APPEND GS_STUDENT2 TO GT_STUDENT2.
+
+*
+
+**" ## copy
+
+**APPEND GS_STUDENT TO GT_STUDENT.
+
+**
+
+**MOVE GT_STUDENT[] TO GT_STUDENT2[].
+
+**
+
+**BREAK-POINT.
+
+*
+
+*" MOVE_CORRESPONDING #### !!!!
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+*MOVE-CORRESPONDING GT_STUDENT TO GT_STUDENT2.
+
+*BREAK-POINT.
+
+
+
+*" #### ## ITAB ##
+
+*DATA: BEGIN OF GT_STUDENT OCCURS 0,
+
+*  ZCODE(10),
+
+*  ZKNAME(10),
+
+*  ZENAME(10),
+
+*  END OF GT_STUDENT.
+
+*
+
+*DATA: BEGIN OF GT_STUDENT2 OCCURS 0,
+
+*  ZCLASS,
+
+*  ZCODE(10),
+
+*  ZKNAME(10),
+
+*  ZENAME(10),
+
+*  END OF GT_STUDENT2.
+
+*
+
+*GT_STUDENT-ZCODE = 'SSU-01'.
+
+*GT_STUDENT-ZKNAME = '###'.
+
+*GT_STUDENT-ZENAME = 'DONG'.
+
+*
+
+**" ## copy
+
+**APPEND GT_STUDENT.
+
+**
+
+**MOVE-CORRESPONDING GT_STUDENT TO GT_STUDENT2.
+
+**
+
+**APPEND GT_STUDENT2.
+
+*
+
+**" ## copy
+
+**APPEND GT_STUDENT.
+
+**MOVE-CORRESPONDING GT_STUDENT[] TO GT_STUDENT2[].
+
+
+
+*" ##### ## Internal Table: BODY CLEAR
+
+*DATA: BEGIN OF GS_STUDENT,
+
+*  ZCODE(10),
+
+*  ZKNAME(10),
+
+*  ZENAME(10),
+
+*  END OF GS_STUDENT.
+
+*
+
+*DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+*
+
+*GS_STUDENT-ZCODE = 'SSU-01'.
+
+*GS_STUDENT-ZKNAME = '###'.
+
+*GS_STUDENT-ZENAME = 'DONG'.
+
+*
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*BREAK-POINT.
+
+*
+
+*CLEAR: GT_STUDENT.
+
+*
+
+*BREAK-POINT.
+
+
+
+
+
+
+" ##### ## Internal Table : HEADER CLEAR
+
+
+
+
+*DATA: BEGIN OF GT_STUDENT OCCURS 0,
+
+*  ZCODE(10),
+
+*  ZKNAME(10),
+
+*  ZENAME(10),
+
+*  END OF GT_STUDENT.
+
+*
+
+*GT_STUDENT-ZCODE = 'SSU-01'.
+
+*GT_STUDENT-ZKNAME = '###'.
+
+*GT_STUDENT-ZENAME = 'DONG'.
+
+*
+
+**" ## clear ## ####
+
+**APPEND GT_STUDENT.
+
+**CLEAR: GT_STUDENT.
+
+**BREAK-POINT.
+
+*
+
+*" ## ### ## ####
+
+*APPEND GT_STUDENT.
+
+*CLEAR: GT_STUDENT[].
+
+*BREAK-POINT.

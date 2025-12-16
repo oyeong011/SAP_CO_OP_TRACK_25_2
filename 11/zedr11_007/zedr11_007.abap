@@ -1,0 +1,557 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR11_007
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR11_007.
+
+"INSERT
+
+
+
+
+*DATA : BEGIN OF GS_STUDENT.
+
+*  INCLUDE TYPE ZEDT11_001.
+
+*  DATA : END OF GS_STUDENT.
+
+*  DATA : GT_STUDENT LIKE  TABLE OF GS_STUDENT.
+
+*
+
+*  GS_STUDENT-MANDT = SY-MANDT.
+
+*  GS_STUDENT-ZCODE = 'SSU-26'.
+
+*  GS_STUDENT-ZPERNR = '0000000011'.
+
+*  GS_STUDENT-ZKNAME = '###'.
+
+*  GS_STUDENT-ZENAME = 'DO'.
+
+*  GS_STUDENT-ZGENDER = 'F'.
+
+*  GS_STUDENT-ZTEL = '01000001111'.
+
+*
+
+*  INSERT INTO ZEDT11_001 VALUES GS_STUDENT.
+
+*
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE : / '##'.
+
+*    ELSE.
+
+*      WRITE : / '##'.
+
+*      ENDIF.
+
+
+
+
+
+
+
+
+
+*DATA : BEGIN OF GS_STUDENT.
+
+*  INCLUDE TYPE ZEDT11_001.
+
+*  DATA : END OF GS_STUDENT.
+
+*  DATA : GT_STUDENT LIKE  TABLE OF GS_STUDENT.
+
+*
+
+*CLEAR: GS_STUDENT, GT_STUDENT.
+
+*  GS_STUDENT-MANDT = SY-MANDT.
+
+*  GS_STUDENT-ZCODE = 'SSU-27'.
+
+*  GS_STUDENT-ZPERNR = '0000000012'.
+
+*  GS_STUDENT-ZKNAME = '###'.
+
+*  GS_STUDENT-ZENAME = 'DA'.
+
+*  GS_STUDENT-ZGENDER = 'F'.
+
+*  GS_STUDENT-ZTEL = '01000002222'.
+
+*  APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*  CLEAR: GS_STUDENT.
+
+*    GS_STUDENT-MANDT = SY-MANDT.
+
+*  GS_STUDENT-ZCODE = 'SSU-28'.
+
+*  GS_STUDENT-ZPERNR = '0000000013'.
+
+*  GS_STUDENT-ZKNAME = '###'.
+
+*  GS_STUDENT-ZENAME = 'CHA'.
+
+*  GS_STUDENT-ZGENDER = 'M'.
+
+*  GS_STUDENT-ZTEL = '01000003333'.
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*  INSERT ZEDT11_001 FROM TABLE GT_STUDENT.
+
+*
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE : / '##'.
+
+*    ELSE.
+
+*      WRITE : / '##'.
+
+*      ENDIF.
+
+*      BREAK-POINT.
+
+
+
+
+
+
+
+
+"UPDATE
+
+
+
+
+
+
+*DATA : BEGIN OF GS_STUDENT.
+
+*  INCLUDE TYPE ZEDT11_001.
+
+*  DATA : END OF GS_STUDENT.
+
+*  DATA : GT_STUDENT LIKE  TABLE OF GS_STUDENT.
+
+*
+
+*  GS_STUDENT-MANDT = SY-MANDT.
+
+*  GS_STUDENT-ZCODE = 'SSU-12'.
+
+*  GS_STUDENT-ZPERNR = '0000000012'.
+
+*  GS_STUDENT-ZKNAME = '###'.
+
+*  GS_STUDENT-ZENAME = 'JAE'.
+
+*  GS_STUDENT-ZGENDER = 'M'.
+
+*  GS_STUDENT-ZTEL = '01000002222'.
+
+*
+
+*
+
+*  UPDATE ZEDT11_001 FROM GS_STUDENT.
+
+*
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE : / '### ## ##'.
+
+*    ELSE.
+
+*      WRITE : / '##'.
+
+*      ENDIF.
+
+
+
+
+
+
+
+*DATA : BEGIN OF GS_STUDENT.
+
+*  INCLUDE TYPE ZEDT11_001.
+
+*  DATA : END OF GS_STUDENT.
+
+*  DATA : GT_STUDENT LIKE  TABLE OF GS_STUDENT.
+
+*
+
+*CLEAR : GS_STUDENT, GT_STUDENT.
+
+*  GS_STUDENT-ZCODE = 'SSU-11'.
+
+*  GS_STUDENT-ZPERNR = '0000000011'.
+
+*  GS_STUDENT-ZKNAME = '##'.
+
+*  GS_STUDENT-ZENAME = 'YOON'.
+
+*  GS_STUDENT-ZGENDER = 'F'.
+
+*  GS_STUDENT-ZTEL = '01000002222'.
+
+*  APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*CLEAR : GS_STUDENT, GT_STUDENT.
+
+*  GS_STUDENT-ZCODE = 'SSU-12'.
+
+*  GS_STUDENT-ZPERNR = '0000000012'.
+
+*  GS_STUDENT-ZKNAME = '###'.
+
+*  GS_STUDENT-ZENAME = 'HOON'.
+
+*  GS_STUDENT-ZGENDER = 'M'.
+
+*  GS_STUDENT-ZTEL = '01000002222'.
+
+*  APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*
+
+*  UPDATE ZEDT11_001 FROM TABLE GT_STUDENT.
+
+*
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE : / '### ## ##'.
+
+*    ELSE.
+
+*      WRITE : / '##'.
+
+*      ENDIF.
+
+
+
+
+
+
+
+
+
+
+
+
+"UPDATE SET
+
+
+
+
+*DATA : BEGIN OF GS_STUDENT.
+
+*  INCLUDE TYPE ZEDT11_001.
+
+*  DATA : END OF GS_STUDENT.
+
+*  DATA : GT_STUDENT LIKE  TABLE OF GS_STUDENT.
+
+*
+
+*UPDATE ZEDT11_001 SET ZENAME = 'JUNG'
+
+*WHERE ZCODE = 'SSU-03'.
+
+*
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE : / '### ## ##'.
+
+*    ELSE.
+
+*      WRITE : / '##'.
+
+*      ENDIF.
+
+
+
+
+
+
+
+
+
+
+"DELETE
+
+
+
+
+*DATA : BEGIN OF GS_STUDENT.
+
+*  INCLUDE TYPE ZEDT11_001.
+
+*  DATA : END OF GS_STUDENT.
+
+*  DATA : GT_STUDENT LIKE  TABLE OF GS_STUDENT.
+
+*
+
+*GS_STUDENT-ZCODE = 'SSU-14'.
+
+*GS_STUDENT-ZPERNR = '0000000014'.
+
+*
+
+*DELETE ZEDT11_001 FROM GS_STUDENT.
+
+*
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE : / '### ## ##'.
+
+*    ELSE.
+
+*      WRITE : / '##'.
+
+*      ENDIF.
+
+
+
+
+
+*DATA : BEGIN OF GS_STUDENT.
+
+*  INCLUDE TYPE ZEDT11_001.
+
+*  DATA : END OF GS_STUDENT.
+
+*  DATA : GT_STUDENT LIKE  TABLE OF GS_STUDENT.
+
+*
+
+*
+
+*DELETE FROM ZEDT11_001 WHERE ZTEL = '01000002222'.
+
+*
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE : / '### ## ##'.
+
+*    ELSE.
+
+*      WRITE : / '##'.
+
+*      ENDIF.
+
+
+
+
+
+
+
+*DATA : BEGIN OF GS_STUDENT.
+
+*  INCLUDE TYPE ZEDT11_001.
+
+*  DATA : END OF GS_STUDENT.
+
+*  DATA : GT_STUDENT LIKE  TABLE OF GS_STUDENT.
+
+*CLEAR : GS_STUDENT, GT_STUDENT.
+
+*GS_STUDENT-ZCODE = 'SSU-10'.
+
+*GS_STUDENT-ZPERNR = '0000000010'.
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*CLEAR : GS_STUDENT, GT_STUDENT.
+
+*GS_STUDENT-ZCODE = 'SSU-13'.
+
+*GS_STUDENT-ZPERNR = '0000000013'.
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*DELETE ZEDT11_001 FROM TABLE GT_STUDENT.
+
+*
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE : / '### ## ##'.
+
+*    ELSE.
+
+*      WRITE : / '##'.
+
+*      ENDIF.
+
+
+
+
+
+
+
+
+
+
+"MODIFY
+
+
+
+
+
+
+*DATA : BEGIN OF GS_STUDENT.
+
+*  INCLUDE TYPE ZEDT11_001.
+
+*  DATA : END OF GS_STUDENT.
+
+*  DATA : GT_STUDENT LIKE  TABLE OF GS_STUDENT.
+
+*
+
+*
+
+*  GS_STUDENT-ZCODE = 'SSU-11'.
+
+*  GS_STUDENT-ZPERNR = '0000000011'.
+
+*  GS_STUDENT-ZKNAME = '##'.
+
+*  GS_STUDENT-ZENAME = 'YOON'.
+
+*  GS_STUDENT-ZGENDER = 'F'.
+
+*  GS_STUDENT-ZTEL = '01000002222'.
+
+*
+
+*  MODIFY ZEDT11_001 FROM GS_STUDENT.
+
+*
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE : / '### ## ##'.
+
+*    ELSE.
+
+*      WRITE : / '##'.
+
+*      ENDIF.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DATA : BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT11_001
+.
+
+  DATA : END OF GS_STUDENT.
+
+  DATA : GT_STUDENT LIKE  TABLE OF GS_STUDENT.
+
+
+
+CLEAR: GS_STUDENT, GT_STUDENT.
+
+  GS_STUDENT-ZCODE = 'SSU-10'.
+
+  GS_STUDENT-ZPERNR = '0000000010'.
+
+  GS_STUDENT-ZKNAME = '###'.
+
+  GS_STUDENT-ZENAME = 'JOON'.
+
+  GS_STUDENT-ZGENDER = 'M'.
+
+  GS_STUDENT-ZTEL = '01012220000'.
+
+  APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+  CLEAR: GS_STUDENT.
+
+  GS_STUDENT-ZCODE = 'SSU-11'.
+
+  GS_STUDENT-ZPERNR = '0000000011'.
+
+  GS_STUDENT-ZKNAME = '##'.
+
+  GS_STUDENT-ZENAME = 'YOON'.
+
+  GS_STUDENT-ZGENDER = 'F'.
+
+  GS_STUDENT-ZTEL = '01000002222'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+  MODIFY ZEDT11_001 FROM TABLE GT_STUDENT.
+
+
+
+  IF SY-SUBRC = 0.
+
+    WRITE : / '##### ##'.
+
+    ELSE.
+
+      WRITE : / '##'.
+
+      ENDIF.
+
+
+
+      BREAK-POINT.

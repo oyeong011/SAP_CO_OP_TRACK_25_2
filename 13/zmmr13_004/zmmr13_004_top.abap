@@ -1,0 +1,131 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMMR13_004_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+DATA : GS_LFA1 TYPE ZLFA1_13, "#####"
+
+       GT_LFA1 LIKE TABLE OF GS_LFA1,
+
+       GS_LFB1 TYPE ZLFB1_13, "#######"
+
+       GT_LFB1 LIKE TABLE OF GS_LFB1,
+
+       GS_LFM1 TYPE ZLFM1_13, "#######"
+
+       GT_LFM1 LIKE TABLE OF GS_LFM1,
+
+       GS_EKKO TYPE ZEKKO_13, "######"
+
+       GT_EKKO LIKE TABLE OF GS_EKKO,
+
+       GS_EKPO TYPE ZEKPO_13, "#######"
+
+       GT_EKPO LIKE TABLE OF GS_EKPO,
+
+       GS_RBKP TYPE ZRBKP_13, "####"
+
+       GT_RBKP LIKE TABLE OF GS_RBKP,
+
+       GS_RSEG TYPE ZRSEG_13, "#####",
+
+       GT_RSEG LIKE TABLE OF GS_RSEG,
+
+       GV_CHECK TYPE C,
+
+       GV_COLOR TYPE C LENGTH 4,
+
+       GV_BALANCE LIKE ZRSEG_13-WRBTR,
+
+       GV_ORDER TYPE ZEKKO_13-EBELN.
+
+
+
+DATA : BEGIN OF GS_DISPLAY,
+
+       MARK TYPE C LENGTH 1,
+
+       LIFNR TYPE ZRBKP_13-LIFNR, "####"
+
+       BUDAT TYPE ZRBKP_13-BUDAT, "### (#####)"
+
+       BLDAT TYPE ZRBKP_13-BLDAT, "###"
+
+       BUKRS TYPE ZRBKP_13-BUKRS, "####"
+
+       RMWWR TYPE ZRBKP_13-RMWWR, "##"
+
+       WMWST1 TYPE ZRBKP_13-WMWST1,
+
+       BLART TYPE ZRBKP_13-BLART.
+
+       include structure
+ZRSEG_13
+.
+
+DATA : END OF GS_DISPLAY.
+
+DATA : GT_DISPLAY LIKE TABLE OF GS_DISPLAY.
+
+
+
+DATA : BEGIN OF GS_ITEM,
+
+      MARK TYPE C LENGTH 1.
+
+      include structure
+ZRSEG_13
+.
+
+DATA : END OF GS_ITEM.
+
+DATA : GT_ITEM LIKE TABLE OF GS_ITEM.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA : GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER.
+
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA : GO_EVENT TYPE REF TO EVENT.
+
+
+
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT,
+
+       GT_FIELDCAT TYPE LVC_T_FCAT.
+
+
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+DATA : GS_SORT TYPE LVC_S_SORT.
+
+DATA : GT_SORT TYPE LVC_T_SORT.
+
+
+
+DATA : GS_VARIANT TYPE DISVARIANT.
+
+
+
+DATA: GT_EXCLUDE TYPE UI_FUNCTIONS,
+
+      GS_EXCLUDE TYPE UI_FUNC.

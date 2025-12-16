@@ -1,0 +1,156 @@
+
+**&---------------------------------------------------------------------*
+
+**& Report ZEDR20_004
+
+**&---------------------------------------------------------------------*
+
+**&
+
+**&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR20_004.
+
+
+
+
+*
+
+*"INTERNAL TABLE
+
+*" ### -> ######
+
+*
+
+**" ##### ## ITAB ##
+
+**DATA: GS_ZEDT20 TYPE ZEDT20_001.
+
+**DATA: GT_ZEDT20 TYPE TABLE OF ZEDT20_001.
+
+**GS_ZEDT20-ZCODE = 'SSU-01'.
+
+**GS_ZEDT20-ZPERNR = '0000000001'.
+
+**GS_ZEDT20-ZKNAME = '###'.
+
+**GS_ZEDT20-ZENAME = 'DONG'.
+
+**GS_ZEDT20-ZGENDER = 'M'.
+
+**GS_ZEDT20-ZTEL = '01011112222'.
+
+**
+
+**"BREAK-POINT.
+
+**
+
+**APPEND GS_ZEDT20 TO GT_ZEDT20.
+
+**"BREAK-POINT.
+
+**GS_ZEDT20-ZCODE = 'SSU-02'.
+
+**GS_ZEDT20-ZPERNR = '0000000002'.
+
+**GS_ZEDT20-ZKNAME = '##'.
+
+**GS_ZEDT20-ZENAME = 'JENNY'.
+
+**GS_ZEDT20-ZGENDER = 'F'.
+
+**GS_ZEDT20-ZTEL = '01022223333'.
+
+**
+
+**"BREAK-POINT.
+
+**
+
+**APPEND GS_ZEDT20 TO GT_ZEDT20.
+
+**BREAK-POINT.
+
+*
+
+**" ##### ## ITAB ## (### + ITAB)
+
+**DATA: GT_ZEDT20 TYPE ZEDT20_001 OCCURS 0 WITH HEADER LINE.
+
+**
+
+**GT_ZEDT20-ZCODE = 'SSU-01'.
+
+**GT_ZEDT20-ZPERNR = '0000000001'.
+
+**GT_ZEDT20-ZKNAME = '###'.
+
+**GT_ZEDT20-ZENAME = 'DONG'.
+
+**GT_ZEDT20-ZGENDER = 'M'.
+
+**GT_ZEDT20-ZTEL = '01011112222'.
+
+**
+
+**"BREAK-POINT.
+
+**
+
+**APPEND GT_ZEDT20 TO GT_ZEDT20.
+
+**
+
+**BREAK-POINT.
+
+*
+
+*DATA: BEGIN OF GS_STUDENT,    " ### ##
+
+*  ZPERNR TYPE ZEDT20_001-ZPERNR,    " ####
+
+*  ZCODE TYPE ZEDT20_001-ZCODE,    " ####
+
+*  ZKNAME TYPE ZEDT20_001-ZKNAME,    " ##
+
+*  ZENAME TYPE ZEDT20_001-ZENAME,    " ####
+
+*  ZGENDER TYPE ZEDT20_001-ZGENDER,    " ##
+
+*  ZTEL TYPE ZEDT20_001-ZTEL,    " ####
+
+*  ZMNAME TYPE ZEDT20_001-ZMNAME,    " ##
+
+*  END OF GS_STUDENT.
+
+*
+
+*DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.    " ### ### ##
+
+*
+
+*GS_STUDENT-ZCODE = 'SSU-01'.
+
+*GS_STUDENT-ZPERNR = '0000000001'.
+
+*GS_STUDENT-ZKNAME = '###'.
+
+*GS_STUDENT-ZENAME = 'DONG'.
+
+*GS_STUDENT-ZGENDER = 'M'.
+
+*GS_STUDENT-ZTEL = '01011112222'.
+
+*GS_STUDENT-ZMNAME = '####'.
+
+*
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*BREAK-POINT.

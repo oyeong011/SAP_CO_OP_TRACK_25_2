@@ -1,0 +1,111 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR03_012_EVENT
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR03_012_EVENT.
+
+
+
+DATA : BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT03_001
+.
+
+DATA : END OF GS_STUDENT.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+TABLES : ZEDT03_001.
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+  SELECT-OPTIONS : S_ZCODE FOR ZEDT03_001-ZCODE.
+
+  PARAMETERS : P_ZPERNR LIKE ZEDT03_001-ZPERNR.
+
+  PARAMETERS : P_ZGEN LIKE ZEDT03_001-ZGENDER DEFAULT 'M' MODIF ID SC1.
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+INITIALIZATION.
+
+S_ZCODE-LOW = 'SSU-02'.
+
+S_ZCODE-HIGH = 'SSU-99'.
+
+APPEND S_ZCODE. " APPEND# ### ## ###!
+
+
+
+AT SELECTION-SCREEN OUTPUT.
+
+  LOOP AT SCREEN.
+
+    IF SCREEN-GROUP1 = 'SC1'.
+
+      SCREEN-INPUT = 0.
+
+    ENDIF.
+
+    MODIFY SCREEN.
+
+  ENDLOOP.
+
+
+
+START-OF-SELECTION.
+
+  PERFORM GET_DATA.
+
+
+
+END-OF-SELECTION.
+
+  PERFORM WRITE_DATA.
+
+
+
+
+
+FORM GET_DATA.
+
+  SELECT * FROM ZEDT03_001
+
+    INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT
+
+    WHERE ZCODE IN S_ZCODE.
+
+ENDFORM.
+
+
+
+
+
+
+
+FORM WRITE_DATA.
+
+  LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+    WRITE :/ GS_STUDENT-ZCODE, GS_STUDENT-ZKNAME.
+
+  ENDLOOP.
+
+ENDFORM.

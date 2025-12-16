@@ -1,0 +1,77 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR24_021_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+"SCR## (SELECT-OPTIONS)## ### #
+
+TABLES : ZEDT24_001.
+
+
+
+"1. ## #### ##### ### ###, ### ##
+
+DATA : BEGIN OF GS_STUDENT,
+
+  ZCOLOR TYPE C LENGTH 4,
+
+  ZCODE LIKE ZEDT24_001-ZCODE,
+
+  ZPERNR LIKE ZEDT24_001-ZPERNR,
+
+  ZKNAM LIKE ZEDT24_001-ZKNAME,
+
+  ZENAME LIKE ZEDT24_001-ZENAME,
+
+  ZGENDER LIKE ZEDT24_001-ZGENDER,
+
+  ZSUM LIKE ZEDT24_002-ZSUM,
+
+  ZMAJOR LIKE ZEDT24_002-ZMAJOR,
+
+  ZMNAME LIKE ZEDT24_002-ZMNAME,
+
+  END OF GS_STUDENT.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+"2. ALV : ## #### ##
+
+DATA : GS_FIELDCAT TYPE SLIS_FIELDCAT_ALV.
+
+DATA : GT_FIELDCAT TYPE SLIS_T_FIELDCAT_ALV.
+
+
+
+"3. ALV : #### ##
+
+DATA : GS_LAYOUT TYPE SLIS_LAYOUT_ALV.
+
+
+
+"4. ALV : ### ###, ### ##
+
+DATA : GS_SORT TYPE SLIS_SORTINFO_ALV.
+
+DATA : GT_SORT TYPE SLIS_T_SORTINFO_ALV.
+
+
+
+DATA : PBO_CALL TYPE I VALUE 0.
+
+DATA : PAI_CALL TYPE I VALUE 0.
+
+
+
+"5. ### # ### ## ##
+
+DATA : OK_CODE TYPE SY-UCOMM. "### ## ### ### ####### ### ## ##.

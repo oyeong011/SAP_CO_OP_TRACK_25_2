@@ -1,0 +1,133 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM14_003_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES : ZLFA1_14, ZEKKO_14, ZEKPO_14, ZMKPF_14, ZMSEG_14.
+
+
+
+TYPES : BEGIN OF TY_100.
+
+TYPES : MBLNR TYPE ZMKPF_14-MBLNR,  "######
+
+        MJAHR TYPE ZMKPF_14-MJAHR,  "####
+
+        BLART TYPE ZMKPF_14-BLART,  "####
+
+        BLDAT TYPE ZMKPF_14-BLDAT,  "## ###
+
+        BUDAT TYPE ZMKPF_14-BUDAT,  "###
+
+        LIFNR TYPE ZEKKO_14-LIFNR,  "#####
+
+        BUKRS TYPE ZEKKO_14-BUKRS,  "####
+
+        BEDAT TYPE ZEKKO_14-BEDAT,  "PO ###
+
+        WAERS TYPE ZEKKO_14-WAERS,  "##
+
+        EBELN TYPE ZEKPO_14-EBELN,  "######
+
+        EBELP TYPE ZEKPO_14-EBELP,  "######
+
+        MATNR TYPE ZEKPO_14-MATNR,  "####
+
+        MAKTX TYPE ZEKPO_14-MAKTX,  "###
+
+        PRDAT TYPE ZEKPO_14-PRDAT,  "###
+
+        WERKS TYPE ZEKPO_14-WERKS,  "###
+
+        LGORT TYPE ZEKPO_14-LGORT,  "####
+
+        MEINS TYPE ZEKPO_14-MEINS,  "##
+
+        STPRS TYPE ZEKPO_14-STPRS,  "##
+
+        MENGE TYPE ZEKPO_14-MENGE,  "##
+
+        PO_MENGE TYPE ZMSEG_14-MENGE,  "PO##
+
+        OPEN_MENGE TYPE ZMSEG_14-MENGE,  "PO##
+
+        GR_MENGE TYPE ZMSEG_14-MENGE,  "####
+
+        ZCHECK TYPE C LENGTH 1.
+
+TYPES END OF TY_100.
+
+
+
+TYPES : BEGIN OF TY_200.
+
+        include structure
+ZMSEG_14
+.
+
+TYPES : ZCHECK TYPE C LENGTH 1,
+
+        END OF TY_200.
+
+
+
+DATA : BEGIN OF GS_100,
+
+       NAME1 TYPE ZLFA1_14-NAME1,  "####
+
+       GJAHR TYPE ZMSEG_14-GJAHR,  "####
+
+       BLART TYPE ZMKPF_14-BLART,  "####
+
+       BLDAT TYPE ZMKPF_14-BLDAT,  "###
+
+       BUDAT TYPE ZMKPF_14-BUDAT.  "###
+
+DATA END OF GS_100.
+
+
+
+DATA : GS_CREATE TYPE TY_100,
+
+       GT_CREATE TYPE TABLE OF TY_100.
+
+
+
+DATA : GS_OUT TYPE TY_200,
+
+       GT_OUT TYPE TABLE OF TY_200.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA : GS_FCAT TYPE LVC_S_FCAT,
+
+       GT_FCAT TYPE LVC_T_FCAT.
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+DATA : GO_CUSTOM_100 TYPE REF TO CL_GUI_CUSTOM_CONTAINER.
+
+DATA : GO_GRID_100 TYPE REF TO CL_GUI_ALV_GRID.
+
+DATA : GO_EVENT_100 TYPE REF TO LCL_EVENT_RECEIVER.
+
+
+
+DATA : GO_CUSTOM_200 TYPE REF TO CL_GUI_CUSTOM_CONTAINER.
+
+DATA : GO_GRID_200 TYPE REF TO CL_GUI_ALV_GRID.
+
+DATA : GO_EVENT_200 TYPE REF TO LCL_EVENT_RECEIVER.

@@ -1,0 +1,153 @@
+
+*&---------------------------------------------------------------------*
+
+*& Include ZMMR25_002_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TYPE-POOLS: LVC.
+
+
+
+TABLES : ZEDT25_LFA1,
+
+         ZEDT25_LFB1,
+
+         ZEDT25_LFM1,
+
+         ZEDT25_ZEKKO, " ##
+
+         ZEDT25_ZEKPO, " ###
+
+         ZMARA25,
+
+         MAKT.
+
+
+
+CONSTANTS : C_MODE_CREATE TYPE C VALUE 'C',
+
+            C_MODE_DISP   TYPE C VALUE 'D',
+
+            GC_SAVE       TYPE SY-UCOMM VALUE 'SAVE',
+
+            GC_BACK       TYPE SY-UCOMM VALUE 'BACK',
+
+            GC_EXIT       TYPE SY-UCOMM VALUE 'EXIT',
+
+            GC_CANC       TYPE SY-UCOMM VALUE 'CANC'.
+
+
+
+DATA : GV_MODE TYPE C.
+
+
+
+" PO ## ###
+
+TYPES : TY_EKKO TYPE ZEDT25_ZEKKO.
+
+DATA : GT_EKKO TYPE STANDARD TABLE OF TY_EKKO WITH DEFAULT KEY,
+
+       GS_EKKO TYPE TY_EKKO.
+
+
+
+" PO ### ### (DB)
+
+TYPES : TY_EKPO TYPE ZEDT25_ZEKPO.
+
+DATA : GT_EKPO TYPE STANDARD TABLE OF TY_EKPO WITH DEFAULT KEY,
+
+       GS_EKPO TYPE TY_EKPO.
+
+
+
+" PO ### ALV ### ##
+
+TYPES : BEGIN OF TY_EKPO_ALV,
+
+         EBELP TYPE ZEDT25_ZEKPO-EBELP,
+
+         MATNR TYPE ZEDT25_ZEKPO-MATNR,   " ZMATNR
+
+         MAKTX TYPE ZEDT25_ZEKPO-MAKTX,
+
+         MENGE TYPE ZEDT25_ZEKPO-MENGE,
+
+         STPRS TYPE ZEDT25_ZEKPO-STPRS,
+
+         MEINS TYPE ZEDT25_ZEKPO-MEINS,
+
+         WAERS TYPE WAERS,                " ### ##(##/LFM1 ###)
+
+         MWSKZ TYPE ZEDT25_LFM1-MWSKZ,    " ZMWSKZ
+
+         PRDAT TYPE ZEDT25_ZEKPO-PRDAT,
+
+         WERKS TYPE ZEDT25_ZEKPO-WERKS,   " ZWERKS
+
+         LGORT TYPE ZEDT25_ZEKPO-LGORT,   " ZLGORT
+
+         BPRME TYPE ZEDT25_ZEKPO-BPRME,
+
+         CELLTAB TYPE LVC_T_STYL,
+
+       END OF TY_EKPO_ALV.
+
+
+
+DATA : GT_EKPO_ALV TYPE STANDARD TABLE OF TY_EKPO_ALV WITH DEFAULT KEY,
+
+       GS_EKPO_ALV TYPE TY_EKPO_ALV.
+
+
+
+" ALV ##
+
+DATA : GO_CONTAINER TYPE REF TO CL_GUI_CUSTOM_CONTAINER,
+
+       GO_ALV       TYPE REF TO CL_GUI_ALV_GRID,
+
+       GO_HANDLER   TYPE REF TO LCL_EVENT_RECEIVER.
+
+
+
+" ALV ####/######
+
+DATA : GT_FCAT   TYPE LVC_T_FCAT,
+
+       GS_FCAT   TYPE LVC_S_FCAT,
+
+       GS_LAYOUT TYPE LVC_S_LAYO,
+
+       GS_STBL   TYPE LVC_S_STBL.
+
+
+
+" OK ##
+
+DATA : OK_CODE TYPE SY-UCOMM,
+
+       GV_CODE TYPE SY-UCOMM.
+
+
+
+" ## ### ##
+
+DATA : GV_BUKRS_DISP TYPE BUKRS,
+
+       GV_LIFNR_DISP TYPE LIFNR,
+
+       GV_BEDAT_DISP TYPE DATUM,
+
+       GV_EKORG_DISP TYPE EKORG,
+
+       GV_EKGRP_DISP TYPE EKGRP,
+
+       GV_WAERS_DISP TYPE WAERS.

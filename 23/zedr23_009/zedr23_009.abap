@@ -1,0 +1,217 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR23_009
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR23_009.
+
+
+
+"*** DB TABLE ## ***"
+
+DELETE FROM ZEDT23_001 WHERE ZCODE = 'SSU-26' OR ZCODE = 'SSU-27'.
+
+
+
+BREAK-POINT.
+
+DATA : BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT23_001
+.
+
+  DATA : END OF GS_STUDENT.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT WITH NON-UNIQUE KEY ZCODE.
+
+
+
+GS_STUDENT-MANDT = SY-MANDT.
+
+GS_STUDENT-ZCODE = 'SSU-26'.
+
+GS_STUDENT-ZPERNR = '0000000026'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'DO'.
+
+GS_STUDENT-ZGENDER = 'F'.
+
+GS_STUDENT-ZTEL = '01000001111'.
+
+
+
+" INSERT INTO [TABLE] VALUES [STRUCTURE]
+
+" # ## ##
+
+INSERT INTO ZEDT23_001 VALUES GS_STUDENT.
+
+
+
+IF SY-SUBRC = 0.
+
+  WRITE : /'Structure Insert ##'.
+
+ENDIF.
+
+
+
+" INSTERT [TABLE] FROM TABLE [INTERNAL TABLE]
+
+" ### ## ##
+
+" INSTERT [TABLE] FROM TABLE [INTERNAL TABLE] ACCEPTING DUPLICATE KEY
+
+" ## # ### ## ## # ### continue
+
+CLEAR GS_STUDENT.
+
+
+
+GS_STUDENT-MANDT = SY-MANDT.
+
+GS_STUDENT-ZCODE = 'SSU-27'.
+
+GS_STUDENT-ZPERNR = '0000000027'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'FA'.
+
+GS_STUDENT-ZGENDER = 'F'.
+
+GS_STUDENT-ZTEL = '01000001111'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+INSERT ZEDT23_001 FROM TABLE GT_STUDENT.
+
+IF SY-SUBRC = 0.
+
+  WRITE : /'Itable Insert ##'.
+
+ENDIF.
+
+
+
+BREAK-POINT.
+
+
+
+" UPDATE [TABLE] FROM GS_STUDENT. : # ##
+
+" UPDATE [TABLE] FROM TBLE [ITAB] : ITable ## #### Update
+
+" UPDATE [TABLE] SET FIELD = '###' WHERE [##]
+
+CLEAR GS_STUDENT.
+
+
+
+GS_STUDENT-MANDT = SY-MANDT.
+
+GS_STUDENT-ZCODE = 'SSU-26'.
+
+GS_STUDENT-ZPERNR = '0000000026'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'Update'.
+
+GS_STUDENT-ZGENDER = 'None'.
+
+GS_STUDENT-ZTEL = '01000001111'.
+
+UPDATE ZEDT23_001 FROM GS_STUDENT.
+
+IF SY-SUBRC = 0.
+
+  WRITE : /'Structure Update ##'.
+
+ELSE.
+
+  WRITE : /'Update not executed'.
+
+  EXIT.
+
+ENDIF.
+
+"UPDATE ZEDT23_001 FROM TABLE GT_STUDENT.
+
+UPDATE ZEDT23_001 SET ZKNAME = '###' WHERE ZCODE = 'SSU-27'.
+
+BREAK-POINT.
+
+
+
+" DELETE [TABLE] FROM [STRUCTURE]
+
+" DELETE FROM [TABLE] WHERE [##]
+
+" DELETE [TABLE] FROM TABLE [ITAB]
+
+
+
+" MODIFY : ## Key ## ### Update, ### Insert
+
+" MODIFY [TALBE] FROM [STRUCTURE]
+
+" MODIFY [TABLE] FROM TABLE [ITAB]
+
+CLEAR GS_STUDENT.
+
+GS_STUDENT-MANDT = SY-MANDT.
+
+GS_STUDENT-ZCODE = 'SSU-26'.
+
+GS_STUDENT-ZPERNR = '0000000026'.
+
+GS_STUDENT-ZKNAME = 'Modify#~'.
+
+GS_STUDENT-ZENAME = 'Update'.
+
+GS_STUDENT-ZGENDER = 'None'.
+
+GS_STUDENT-ZTEL = '01000001111'.
+
+MODIFY ZEDT23_001 FROM GS_STUDENT.
+
+IF SY-SUBRC = 0.
+
+  WRITE : /'Structure Modify ##'.
+
+ELSE.
+
+  WRITE : /'Modify not executed'.
+
+  EXIT.
+
+ENDIF.
+
+BREAK-POINT.
+
+
+
+DELETE FROM ZEDT23_001 WHERE ZCODE = 'SSU-26' OR ZCODE = 'SSU-27'.
+
+BREAK-POINT.
+
+
+
+" ## DATA BEGIN OF ## # #~
+
+RANGES GR_SCARR FOR SCARR-CARRID.

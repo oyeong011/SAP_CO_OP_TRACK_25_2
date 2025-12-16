@@ -1,0 +1,75 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR12_DBTINSERT003
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR12_DBTINSERT003.
+
+DATA: BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT12_001
+.
+
+  DATA: END OF GS_STUDENT.
+
+ DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+ CLEAR: GS_STUDENT, GT_STUDENT.
+
+
+
+ GS_STUDENT-MANDT = SY-MANDT.
+
+ GS_STUDENT-ZCODE = 'SSU-27'.
+
+ GS_STUDENT-ZPERNR = '0000000027'.
+
+ GS_STUDENT-ZKNAME = '###'.
+
+ GS_STUDENT-ZENAME = 'GA'.
+
+ GS_STUDENT-ZGENDER = 'F'.
+
+ GS_STUDENT-ZTEL = '01002001111'.
+
+ APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+ CLEAR: GS_STUDENT.
+
+ GS_STUDENT-MANDT = SY-MANDT.
+
+ GS_STUDENT-ZCODE = 'SSU-30'.
+
+ GS_STUDENT-ZPERNR = '0000000030'.
+
+ GS_STUDENT-ZKNAME = '###'.
+
+ GS_STUDENT-ZENAME = 'JU'.
+
+ GS_STUDENT-ZGENDER = 'M'.
+
+ GS_STUDENT-ZTEL = '01022601111'.
+
+ APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+ "INSERT INTO ZEDT12_001 VALUES GS_STUDENT. ### ## ###.
+
+ "INSERT ZEDT12_001 FROM TABLE GT_STUDENT. ### ### ###, ####### # ### ##
+
+ INSERT ZEDT12_001 FROM TABLE GT_STUDENT ACCEPTING DUPLICATE KEYS.

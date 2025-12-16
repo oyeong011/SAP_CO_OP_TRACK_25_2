@@ -1,0 +1,111 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM14_001_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES : ZLFA1_14, ZLFB1_14, ZLFM1_14.
+
+
+
+TYPES : BEGIN OF TY_100.
+
+TYPES : LIFNR LIKE ZLFA1_14-LIFNR,  "#####
+
+        BUKRS LIKE ZLFB1_14-BUKRS,  "####
+
+        KTOKK LIKE ZLFA1_14-KTOKK,  "#####
+
+        NAME1 LIKE ZLFA1_14-NAME1,  "####
+
+        LAND1 LIKE ZLFA1_14-LAND1,  "###
+
+        STCD1 LIKE ZLFA1_14-STCD1,  "####
+
+        STCD2 LIKE ZLFA1_14-STCD2,  "#####
+
+        STRAS LIKE ZLFA1_14-STRAS,  "##
+
+        AKONT LIKE ZLFB1_14-AKONT,  "##
+
+        ZTERM LIKE ZLFB1_14-ZTERM,  "####
+
+        EKORG LIKE ZLFM1_14-EKORG,  "####
+
+        EKGRP LIKE ZLFM1_14-EKGRP,  "####
+
+        WAERS LIKE ZLFM1_14-WAERS,  "######
+
+        MWSKZ LIKE ZLFM1_14-MWSKZ.  "####
+
+TYPES END OF TY_100.
+
+
+
+DATA : BEGIN OF GS_DATA,
+
+       LIFNR TYPE ZLFA1_14-LIFNR,  "####
+
+       BUKRS TYPE ZLFB1_14-BUKRS,  "####
+
+       KTOKK TYPE ZLFA1_14-KTOKK,  "####
+
+       NAME1 TYPE ZLFA1_14-NAME1,
+
+       LAND1 TYPE ZLFA1_14-LAND1,
+
+       STCD1 TYPE ZLFA1_14-STCD1,
+
+       STCD2 TYPE ZLFA1_14-STCD2,
+
+       STRAS TYPE ZLFA1_14-STRAS,
+
+       AKONT TYPE ZLFB1_14-AKONT,
+
+       ZTERM TYPE ZLFB1_14-ZTERM,
+
+       EKORG TYPE ZLFM1_14-EKORG,
+
+       EKGRP TYPE ZLFM1_14-EKGRP,
+
+       WAERS TYPE ZLFM1_14-WAERS,
+
+       MWSKZ TYPE ZLFM1_14-MWSKZ,
+
+       END OF GS_DATA.
+
+
+
+DATA : GS_OUT TYPE TY_100,
+
+       GT_OUT TYPE TABLE OF TY_100.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+DATA : GV_MODE TYPE C.
+
+DATA : GV_SAVED TYPE C.
+
+
+
+DATA : GS_FCAT TYPE LVC_S_FCAT,
+
+       GT_FCAT TYPE LVC_T_FCAT.
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+DATA : GO_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA : GO_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+DATA : GO_EVENT TYPE REF TO LCL_EVENT_RECEIVER.

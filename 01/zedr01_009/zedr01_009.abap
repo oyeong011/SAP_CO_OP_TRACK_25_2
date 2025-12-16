@@ -1,0 +1,492 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR01_009
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR01_009.
+
+
+
+DATA : GS_STUDENT TYPE ZEDT00_001.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+DATA : BEGIN OF GS_MAJOR,
+
+  ZCODE LIKE ZEDT00_001-ZCODE, " ####
+
+  ZPERNR LIKE ZEDT00_001-ZPERNR, " ####
+
+  ZKNAME LIKE ZEDT00_001-ZKNAME,
+
+  ZMNAME LIKE ZEDT00_004-ZMNAME, " ###
+
+  END OF GS_MAJOR.
+
+
+
+
+*DATA : GT_MAJOR LIKE TABLE OF GS_MAJOR WITH NON-UNIQUE KEY ZCODE.
+
+
+
+
+DATA : GT_MAJOR LIKE TABLE OF GS_MAJOR.
+
+
+
+
+*&---------------------------------------------------------------------*
+
+
+
+
+CLEAR : GS_STUDENT , GT_STUDENT ,GS_MAJOR ,GT_MAJOR.
+
+GS_STUDENT-ZPERNR = '0000000001'.
+
+GS_STUDENT-ZCODE = 'SSU-01'.
+
+
+
+
+*GS_STUDENT-ZKNAME = '###'.
+
+
+
+
+GS_STUDENT-ZENAME = 'DONG'.
+
+GS_STUDENT-ZGENDER = 'M'.
+
+GS_STUDENT-ZTEL = '01011112222'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+GS_MAJOR-ZPERNR = '0000000001'.
+
+GS_MAJOR-ZCODE = 'SSU-01'.
+
+GS_MAJOR-ZMNAME = '####'.
+
+GS_MAJOR-ZKNAME = '###'.
+
+APPEND GS_MAJOR TO GT_MAJOR.
+
+
+
+
+*&---------------------------------------------------------------------*
+
+
+
+
+CLEAR : GS_STUDENT,GS_MAJOR.
+
+GS_STUDENT-ZPERNR = '0000000002'.
+
+GS_STUDENT-ZCODE = 'SSU-02'.
+
+
+
+
+*GS_STUDENT-ZKNAME = '###'.
+
+
+
+
+GS_STUDENT-ZENAME = 'HOON'.
+
+GS_STUDENT-ZGENDER = 'M'.
+
+GS_STUDENT-ZTEL = '01022223333'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+GS_MAJOR-ZPERNR = '0000000002'.
+
+GS_MAJOR-ZCODE = 'SSU-02'.
+
+GS_MAJOR-ZMNAME = '#####'.
+
+GS_MAJOR-ZKNAME = '###'.
+
+APPEND GS_MAJOR TO GT_MAJOR.
+
+
+
+
+*&---------------------------------------------------------------------*
+
+
+
+
+CLEAR : GS_STUDENT,GS_MAJOR.
+
+GS_STUDENT-ZPERNR = '0000000003'.
+
+GS_STUDENT-ZCODE = 'SSU-03'.
+
+
+
+
+*GS_STUDENT-ZKNAME = '##'.
+
+
+
+
+GS_STUDENT-ZENAME = 'BIN'.
+
+GS_STUDENT-ZGENDER = 'M'.
+
+GS_STUDENT-ZTEL = '01033334444'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+GS_MAJOR-ZPERNR = '0000000003'.
+
+GS_MAJOR-ZCODE = 'SSU-03'.
+
+GS_MAJOR-ZMNAME = '######'.
+
+GS_MAJOR-ZKNAME = '##'.
+
+APPEND GS_MAJOR TO GT_MAJOR.
+
+
+
+
+*&---------------------------------------------------------------------*
+
+
+
+
+CLEAR : GS_STUDENT,GS_MAJOR.
+
+GS_STUDENT-ZPERNR = '0000000004'.
+
+GS_STUDENT-ZCODE = 'SSU-04'.
+
+
+
+
+*GS_STUDENT-ZKNAME = '##'.
+
+
+
+
+GS_STUDENT-ZENAME = 'JENNY'.
+
+GS_STUDENT-ZGENDER = 'F'.
+
+GS_STUDENT-ZTEL = '01044445555'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+GS_MAJOR-ZPERNR = '0000000004'.
+
+GS_MAJOR-ZCODE = 'SSU-04'.
+
+GS_MAJOR-ZMNAME = '####'.
+
+GS_MAJOR-ZKNAME = '##'.
+
+APPEND GS_MAJOR TO GT_MAJOR.
+
+
+
+
+*&---------------------------------------------------------------------*
+
+
+
+
+CLEAR : GS_STUDENT,GS_MAJOR.
+
+GS_STUDENT-ZPERNR = '0000000005'.
+
+GS_STUDENT-ZCODE = 'SSU-05'.
+
+
+
+
+*GS_STUDENT-ZKNAME = '##'.
+
+
+
+
+GS_STUDENT-ZENAME = 'KOOK'.
+
+GS_STUDENT-ZGENDER = 'M'.
+
+GS_STUDENT-ZTEL = '01055556666'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+GS_MAJOR-ZPERNR = '0000000005'.
+
+GS_MAJOR-ZCODE = 'SSU-05'.
+
+GS_MAJOR-ZMNAME = '#####'.
+
+GS_MAJOR-ZKNAME = '##'.
+
+APPEND GS_MAJOR TO GT_MAJOR.
+
+
+
+
+
+
+*LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+*  CLEAR : GS_MAJOR.
+
+*  READ TABLE GT_MAJOR FROM GS_MAJOR INTO GS_MAJOR.
+
+**  MOVE-CORRESPONDING GS_STUDENT TO GS_MAJOR.
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE : / GS_STUDENT-ZCODE , GS_STUDENT-ZKNAME, GS_MAJOR-ZMNAME.
+
+*  ELSE.
+
+*    WRITE : / '#### #### #####.'.
+
+*  ENDIF.
+
+*ENDLOOP.
+
+
+
+*LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+*  CLEAR : GS_MAJOR.
+
+*  READ TABLE GT_MAJOR WITH TABLE KEY ZCODE = GS_STUDENT-ZCODE INTO GS_MAJOR.
+
+*
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE : / GS_STUDENT-ZCODE , GS_STUDENT-ZKNAME ,GS_MAJOR-ZMNAME.
+
+*  ELSE.
+
+*    WRITE : / '#### #### #####.'.
+
+*  ENDIF.
+
+*ENDLOOP.
+
+
+
+*LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+*  CLEAR : GS_MAJOR.
+
+*
+
+*  READ TABLE GT_MAJOR WITH KEY ZCODE = GS_STUDENT-ZCODE INTO GS_MAJOR.
+
+*
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE : / GS_STUDENT-ZCODE, GS_STUDENT-ZKNAME, GS_MAJOR-ZMNAME.
+
+*  ELSE.
+
+*    WRITE : '#### #### #####.'.
+
+*  ENDIF.
+
+*ENDLOOP.
+
+
+
+*LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+*  CLEAR : GS_MAJOR.
+
+*
+
+*  READ TABLE GT_MAJOR WITH KEY ZCODE = GS_STUDENT-ZCODE
+
+*                               ZPERNR = GS_STUDENT-ZPERNR INTO GS_MAJOR.
+
+*
+
+*  IF SY-SUBRC = 0.
+
+*    WRITE : / GS_STUDENT-ZCODE, GS_STUDENT-ZKNAME, GS_MAJOR-ZMNAME.
+
+*  ELSE.
+
+*    WRITE : '#### #### #####.'.
+
+*  ENDIF.
+
+*ENDLOOP.
+
+
+
+
+
+
+LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+  CLEAR : GS_MAJOR.
+
+  MOVE-CORRESPONDING GS_STUDENT TO GS_MAJOR.
+
+
+
+  READ TABLE GT_MAJOR WITH KEY ZCODE = GS_STUDENT-ZCODE INTO GS_MAJOR COMPARING ZCODE.
+
+
+
+  IF SY-SUBRC = 0.
+
+    WRITE : / GS_STUDENT-ZCODE, GS_STUDENT-ZKNAME, GS_MAJOR-ZMNAME.
+
+  ELSE.
+
+    WRITE : '#### #### #####.'.
+
+  ENDIF.
+
+ENDLOOP.
+
+
+
+
+
+
+*LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+*  CLEAR : GS_MAJOR.
+
+*  MOVE-CORRESPONDING GS_STUDENT TO GS_MAJOR.
+
+*
+
+**  READ TABLE GT_MAJOR WITH KEY ZCODE = GS_STUDENT-ZCODE INTO GS_MAJOR.
+
+**  READ TABLE GT_MAJOR WITH KEY ZCODE = GS_STUDENT-ZCODE INTO GS_MAJOR TRANSPORTING ZMNAME.
+
+**  READ TABLE GT_MAJOR INTO GS_MAJOR INDEX SY-TABIX.
+
+*  READ TABLE GT_MAJOR WITH KEY ZCODE = GS_STUDENT-ZCODE INTO GS_MAJOR BINARY SEARCH.
+
+*  IF SY-SUBRC = 0.
+
+*    GS_STUDENT-ZKNAME = GS_MAJOR-ZKNAME.
+
+*    WRITE : / GS_STUDENT-ZCODE, GS_STUDENT-ZKNAME, GS_MAJOR-ZMNAME.
+
+*  ELSE.
+
+*    WRITE : '#### #### #####.'.
+
+*  ENDIF.
+
+*ENDLOOP.
+
+
+
+*DATA : LV_NUM TYPE I.
+
+*DATA : LV_SUM TYPE I.
+
+*
+
+*LV_NUM = 5.
+
+*
+
+*DO LV_NUM TIMES.
+
+*
+
+**  IF SY-INDEX = '3'.
+
+**    EXIT.
+
+**  ENDIF.
+
+*
+
+**  IF SY-INDEX = '3'.
+
+**    STOP.
+
+**  ENDIF.
+
+*  CHECK SY-INDEX = '3'.
+
+*  ADD SY-INDEX TO LV_SUM.
+
+*  WRITE : / SY-INDEX.
+
+*
+
+*ENDDO.
+
+*
+
+*WRITE : / 'INDEX## : ' , LV_SUM.
+
+*
+
+*DATA : GV_NUM TYPE I.
+
+*DATA : GV_CHECK TYPE C.
+
+*
+
+*GV_NUM = 5.
+
+*
+
+*WHILE GV_NUM = 5.
+
+*  GV_CHECK = 'X'.
+
+*  GV_NUM = GV_NUM - 1.
+
+*ENDWHILE.
+
+*
+
+*
+
+*IF GV_CHECK = 'X'.
+
+*  WRITE : / '#######.'.
+
+*  GV_CHECK = 'O'.
+
+*ENDIF.

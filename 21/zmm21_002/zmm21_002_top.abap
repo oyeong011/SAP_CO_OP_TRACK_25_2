@@ -1,0 +1,147 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM21_002_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES : ZEKKO21, "## ## ##
+
+         ZEKPO21, "## ## ##
+
+         ZEDT21_200, "#####
+
+         ZLFM1_21, "#######
+
+         ZLFB1_21.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+
+
+"## ## ### ##
+
+DATA : BEGIN OF GS_PRODUCT,
+
+  EBELP TYPE ZEKPO21-EBELP, "##
+
+  ZMATNR TYPE ZEDT21_200-ZMATNR, "####
+
+  ZMAKTX TYPE ZEDT21_200-ZMATNAME, "###
+
+  MENGE TYPE ZEKPO21-MENGE, "PO##
+
+  STPRS TYPE ZEDT21_200-STPRS, "##
+
+  MEINS TYPE ZEDT21_200-MEINS, "##
+
+  WAERS TYPE ZLFM1_21-WAERS, "##
+
+  MWSKZ TYPE ZLFM1_21-MWSKZ, "####
+
+  PRDAT TYPE ZEKPO21-PRDAT, "###
+
+  ZWERKS TYPE ZEDT21_200-ZWERKS, "###
+
+  ZLGORT TYPE ZEDT21_200-ZLGORT, "####
+
+  END OF GS_PRODUCT.
+
+
+
+ "## ### ### ##
+
+  DATA : GT_PRODUCT LIKE TABLE OF GS_PRODUCT.
+
+
+
+  "DOCKING CONTAINER ## ## ##
+
+  DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+
+
+
+
+  "### ## ##
+
+  DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+  DATA : GS_VARIANT TYPE DISVARIANT.
+
+
+
+
+
+  "###### ## ## ##
+
+  DATA : GS_FIELDCAT TYPE LVC_S_FCAT.
+
+  DATA : GT_FIELDCAT TYPE LVC_T_FCAT.
+
+  DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+  "ALV SORT ## ##
+
+  DATA : GS_SORT TYPE LVC_S_SORT.
+
+  DATA : GT_SORT TYPE LVC_T_SORT.
+
+  "EVENT ## ##
+
+  DATA : GO_EVENT TYPE REF TO EVENT.
+
+
+
+    DATA: ET_INDEX_ROWS TYPE LVC_T_ROW,   " ### ## ###
+
+      GS_INDEX_ROWS TYPE LVC_S_ROW.   " ### ## ##
+
+
+
+  DATA: GS_ITAB LIKE GS_PRODUCT,  " GT_PRODUCT ### ##
+
+        GS_DEL  LIKE GS_PRODUCT.  " ## ###
+
+
+
+  DATA : GT_ITAB LIKE TABLE OF GS_PRODUCT.
+
+  DATA : GT_DEL  LIKE TABLE OF GS_PRODUCT.
+
+
+
+  DATA :  GS_EKKOC LIKE ZEKKO21.
+
+  DATA :  GT_EKKOC LIKE TABLE OF GS_EKKOC.
+
+
+
+  DATA :  GS_EKPOC LIKE ZEKPO21.
+
+  DATA :  GT_EKPOC LIKE TABLE OF GS_EKPOC.
+
+
+
+  "### EKPO, EKKO ###
+
+
+
+  DATA : GS_EKPO LIKE ZEKPO21.
+
+  DATA : GT_EKPO LIKE TABLE OF GS_EKPO.
+
+
+
+  DATA : GS_EKKO LIKE ZEKKO21.
+
+  DATA : GT_EKKO LIKE TABLE OF GS_EKKO.

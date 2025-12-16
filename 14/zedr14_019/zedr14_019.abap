@@ -1,0 +1,85 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR14_019
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR14_019.
+
+
+
+"SUBROUTINE ##
+
+DATA : BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT00_001
+.
+
+  DATA : END OF GS_STUDENT.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+
+
+
+*DATA : GV_ZCODE LIKE ZEDT00_001-ZCODE.
+
+*DATA : GV_ZKNAME LIKE ZEDT00_001-ZKNAME.
+
+*
+
+*PERFORM GET_DATA_3(ZEDR14_018) IF FOUND CHANGING GT_STUDENT.
+
+*
+
+*LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+*  WRITE :/ GS_STUDENT-ZCODE, GS_STUDENT-ZKNAME.
+
+*ENDLOOP.
+
+
+
+
+
+
+"DYNAMIC
+
+DATA : GV_PNAME(20) VALUE 'ZEDR14_018'.
+
+DATA : GV_FORMNAME(20) VALUE 'GET_DATA_3'.
+
+
+
+TRANSLATE GV_PNAME TO UPPER CASE.
+
+TRANSLATE GV_FORMNAME TO UPPER CASE.
+
+
+
+PERFORM (GV_FORMNAME) IN PROGRAM (GV_PNAME) IF FOUND CHANGING GT_STUDENT.
+
+
+
+LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+  WRITE :/ GS_STUDENT-ZCODE, GS_STUDENT-ZKNAME.
+
+ENDLOOP.
+
+
+
+"PERFORM ON COMMIT
+
+DATA : GV_FLAG.

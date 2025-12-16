@@ -1,0 +1,145 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR04_PRACTICE008_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES : ZEDT04_100, ZEDT04_101.  " SELECT-OPTIONS# ##
+
+
+
+CONSTANTS : C_X TYPE C VALUE 'X'.
+
+RANGES R_ZID FOR ZEDT04_100-ZIDCODE.  " ### ##ID# ## RANGES ##
+
+DATA GV_DATE TYPE D.                  " ## ## ## ##
+
+
+
+DATA GS_ORD TYPE ZEDT04_100.      " ## ##
+
+DATA GT_ORD LIKE TABLE OF GS_ORD.
+
+
+
+DATA : BEGIN OF GS_WRITE_ORD,     " ## ## ###
+
+  ZCOLOR TYPE C LENGTH 4,             " ### ### (## ##)
+
+  ZORDNO TYPE ZEDT04_100-ZORDNO,      " ####
+
+  ZIDCODE TYPE ZEDT04_100-ZIDCODE,    " ##ID
+
+  ZMATNR TYPE ZEDT04_100-ZMATNR,      " ####
+
+  ZMATNAME TYPE ZEDT04_100-ZMATNAME,  " ###
+
+  ZMTART_NAME TYPE C LENGTH 8,        " #### (##)
+
+  ZVOLUM TYPE ZEDT04_100-ZVOLUM,      " ##
+
+  VRKME TYPE ZEDT04_100-VRKME,        " ##
+
+  ZNSAMT TYPE ZEDT04_100-ZNSAMT,      " ####
+
+  ZSLAMT TYPE ZEDT04_100-ZSLAMT,      " ####
+
+  ZDCAMT TYPE ZEDT04_100-ZDCAMT,      " ####
+
+  ZWAERS TYPE ZEDT04_100-ZWAERS,      " ##
+
+  ZSALE_FG_NAME TYPE C LENGTH 6,      " #### (## OR ##)
+
+  ZJDATE TYPE ZEDT04_100-ZJDATE,      " ####
+
+  ZRET_FG_NAME TYPE C LENGTH 10,      " #### (##)
+
+  ZRDATE TYPE ZEDT04_100-ZRDATE,      " ####
+
+  END OF GS_WRITE_ORD.
+
+DATA GT_WRITE_ORD LIKE TABLE OF GS_WRITE_ORD.
+
+
+
+DATA GS_DEL TYPE ZEDT04_101.      " ## ##
+
+DATA GT_DEL LIKE TABLE OF GS_DEL.
+
+
+
+DATA : BEGIN OF GS_WRITE_DEL,     " ## ## ###
+
+  ZCOLOR TYPE C LENGTH 4,             " ### ### (## ##)
+
+  ZORDNO TYPE ZEDT04_101-ZORDNO,      " ####
+
+  ZIDCODE TYPE ZEDT04_101-ZIDCODE,    " ##ID
+
+  ZMATNR TYPE ZEDT04_101-ZMATNR,      " ####
+
+  ZMATNAME TYPE ZEDT04_101-ZMATNAME,  " ###
+
+  ZMTART_NAME TYPE C LENGTH 8,        " #### (##)
+
+  ZVOLUM TYPE ZEDT04_101-ZVOLUM,      " ##
+
+  VRKME TYPE ZEDT04_101-VRKME,        " ##
+
+  ZSLAMT TYPE ZEDT04_101-ZSLAMT,      " ####
+
+  ZWAERS TYPE ZEDT04_101-ZWAERS,      " ##
+
+  ZDFLAG_NAME TYPE C LENGTH 10,       " #### (##)
+
+  ZDGUBUN_NAME TYPE C LENGTH 8,       " #### (##)
+
+  ZDDATE TYPE ZEDT04_101-ZDDATE,      " ####
+
+  ZRDATE TYPE ZEDT04_101-ZRDATE,      " ####
+
+  ZFLAG TYPE ZEDT04_101-ZFLAG,        " ####
+
+  END OF GS_WRITE_DEL.
+
+DATA GT_WRITE_DEL LIKE TABLE OF GS_WRITE_DEL.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM. " ##### ### ### ##
+
+
+
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA : GS_VARIANT TYPE DISVARIANT.  " ALV####(####ID, #####, #### ## # ##)
+
+
+
+" ## ####. FUNCTION 'SET_TABLE_FOR_FIRST_DISPLAY'## ##
+
+DATA GS_FIELDCAT TYPE LVC_S_FCAT.
+
+DATA GT_FIELDCAT TYPE LVC_T_FCAT.
+
+
+
+" ALV ####
+
+DATA GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+" ALV SORT ### ##
+
+DATA GS_SORT TYPE LVC_S_SORT.
+
+DATA GT_SORT TYPE LVC_T_SORT.

@@ -1,0 +1,203 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR20_PRACTICE008_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES: ZEDT20_100, ZEDT20_101.
+
+
+
+CONSTANTS: C_GREEN(4) VALUE 'C50'.
+
+
+
+DATA: GV_TODAY TYPE SY-DATUM.
+
+RANGES: R_DATE FOR GV_TODAY.
+
+FIELD-SYMBOLS <FS_T> TYPE STANDARD TABLE.
+
+FIELD-SYMBOLS <FS_CAT> TYPE STANDARD TABLE.
+
+
+
+DATA: BEGIN OF GS_ZJDATA.
+
+  DATA: ZORDNO TYPE ZEDT20_100-ZORDNO,    " ####
+
+        ZIDCODE TYPE ZEDT20_100-ZIDCODE,    " ##ID
+
+        ZMATNR TYPE ZEDT20_100-ZMATNR,    " ####
+
+        ZMATNAME TYPE ZEDT20_100-ZMATNAME,    " ###
+
+        ZMTART TYPE ZEDT20_100-ZMTART,    " ####
+
+        ZVOLUM TYPE ZEDT20_100-ZVOLUM,    " ##
+
+        VRKME TYPE ZEDT20_100-VRKME,    " ##
+
+        ZNSAMT TYPE ZEDT20_100-ZNSAMT,    " ####
+
+        ZSLAMT TYPE ZEDT20_100-ZSLAMT,    " ####
+
+        ZDCAMT TYPE ZEDT20_100-ZDCAMT,    " ####
+
+        ZWAERS TYPE ZEDT20_100-ZWAERS,    " ##
+
+        ZSALE_FG TYPE ZEDT20_100-ZSALE_FG,    " ####
+
+        ZJDATE TYPE ZEDT20_100-ZJDATE,    " ####
+
+        ZRET_FG TYPE ZEDT20_100-ZRET_FG,    " ####
+
+        ZRDATE TYPE ZEDT20_100-ZRDATE.    " ####
+
+  DATA: END OF GS_ZJDATA.
+
+DATA: GT_ZJDATA LIKE TABLE OF GS_ZJDATA.
+
+
+
+DATA: BEGIN OF GS_ZJALV.
+
+  DATA: ZCOLOR(4),    " ##
+
+        ZORDNO TYPE ZEDT20_100-ZORDNO,    " ####
+
+        ZIDCODE TYPE ZEDT20_100-ZIDCODE,    " ##ID
+
+        ZMATNR TYPE ZEDT20_100-ZMATNR,    " ####
+
+        ZMATNAME TYPE ZEDT20_100-ZMATNAME,    " ###
+
+        ZMTART_KR(5),    " ####
+
+        ZVOLUM TYPE ZEDT20_100-ZVOLUM,    " ##
+
+        VRKME TYPE ZEDT20_100-VRKME,    " ##
+
+        ZNSAMT TYPE ZEDT20_100-ZNSAMT,    " ####
+
+        ZSLAMT TYPE ZEDT20_100-ZSLAMT,    " ####
+
+        ZDCAMT TYPE ZEDT20_100-ZDCAMT,    " ####
+
+        ZWAERS TYPE ZEDT20_100-ZWAERS,    " ##
+
+        ZSALE_KR(2),    " ####
+
+        ZJDATE TYPE ZEDT20_100-ZJDATE,    " ####
+
+        ZRET_KR(4),    " ####
+
+        ZRDATE TYPE ZEDT20_100-ZRDATE.    " ####
+
+  DATA: END OF GS_ZJALV.
+
+DATA: GT_ZJALV LIKE TABLE OF GS_ZJALV.
+
+
+
+DATA: BEGIN OF GS_ZDDATA.
+
+  DATA: ZORDNO TYPE ZEDT20_100-ZORDNO,    " ####
+
+        ZIDCODE TYPE ZEDT20_100-ZIDCODE,    " ##ID
+
+        ZMATNR TYPE ZEDT20_100-ZMATNR,    " ####
+
+        ZMATNAME TYPE ZEDT20_100-ZMATNAME,    " ###
+
+        ZMTART TYPE ZEDT20_100-ZMTART,    " ####
+
+        ZVOLUM TYPE ZEDT20_100-ZVOLUM,    " ##
+
+        VRKME TYPE ZEDT20_100-VRKME,    " ##
+
+        ZSLAMT TYPE ZEDT20_100-ZSLAMT,    " ####
+
+        ZWAERS TYPE ZEDT20_100-ZWAERS,    " ##
+
+        ZDFLAG TYPE ZEDT20_101-ZDFLAG,    " ####
+
+        ZDGUBUN TYPE ZEDT20_101-ZDGUBUN,    " ####
+
+        ZDDATE TYPE ZEDT20_101-ZDDATE,    " ####
+
+        ZRDATE TYPE ZEDT20_101-ZRDATE,    " ####
+
+        ZFLAG TYPE ZEDT20_101-ZFLAG.    " ####
+
+  DATA: END OF GS_ZDDATA.
+
+DATA: GT_ZDDATA LIKE TABLE OF GS_ZDDATA.
+
+
+
+DATA: BEGIN OF GS_ZDALV.
+
+  DATA: ZCOLOR(4),    " ##
+
+        ZORDNO TYPE ZEDT20_100-ZORDNO,    " ####
+
+        ZIDCODE TYPE ZEDT20_100-ZIDCODE,    " ##ID
+
+        ZMATNR TYPE ZEDT20_100-ZMATNR,    " ####
+
+        ZMATNAME TYPE ZEDT20_100-ZMATNAME,    " ###
+
+        ZMTART_KR(5),    " ####
+
+        ZVOLUM TYPE ZEDT20_100-ZVOLUM,    " ##
+
+        VRKME TYPE ZEDT20_100-VRKME,    " ##
+
+        ZSLAMT TYPE ZEDT20_100-ZSLAMT,    " ####
+
+        ZWAERS TYPE ZEDT20_100-ZWAERS,    " ##
+
+        ZDFLAG_KR(4),    " ####
+
+        ZDGUBUN_KR(5),    " ####
+
+        ZDDATE TYPE ZEDT20_101-ZDDATE,    " ####
+
+        ZRDATE TYPE ZEDT20_101-ZRDATE,    " ####
+
+        ZFLAG TYPE ZEDT20_101-ZFLAG.    " ####
+
+  DATA: END OF GS_ZDALV.
+
+DATA: GT_ZDALV LIKE TABLE OF GS_ZDALV.
+
+
+
+DATA: GT_FIELDCAT TYPE LVC_T_FCAT.
+
+DATA: GS_FIELDCAT TYPE LVC_S_FCAT.
+
+DATA: GS_LAYOUT TYPE LVC_S_LAYO.
+
+DATA: GS_SORT TYPE LVC_S_SORT.
+
+DATA: GT_SORT TYPE LVC_T_SORT.
+
+
+
+DATA: OK_CODE TYPE SY-UCOMM.
+
+DATA: GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA: GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA: GS_VARIANT TYPE DISVARIANT.

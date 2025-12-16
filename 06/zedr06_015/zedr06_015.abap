@@ -1,0 +1,128 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR06_015
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR06_015.
+
+
+
+" ## ##
+
+" LOWER CASE
+
+" DEFAULT 'M'
+
+" NO-DISPLAY
+
+
+
+
+*PARAMETERS : P_ZCODE LIKE ZEDT06_001-ZCODE LOWER CASE VISIBLE LENGTH 3.
+
+*PARAMETERS : P_ZPERNR TYPE C LENGTH 10 .
+
+*PARAMETERS : PZGEN LIKE ZEDT06_001-ZGENDER DEFAULT 'M'.
+
+*PARAMETERS : P_R1 RADIOBUTTON GROUP R1 DEFAULT 'X'.
+
+*PARAMETERS : P_R2 RADIOBUTTON GROUP R1.
+
+*PARAMETERS : Z_CHECK AS CHECKBOX DEFAULT 'X'.
+
+*
+
+*IF R1 = 'X'.
+
+*  WRITE :/ '## ## ##'.
+
+*ELSEIF R2 = 'X'.
+
+*  WRITE :/ '## ##'.
+
+*ENDIF.
+
+
+
+*&---------------------------------------------------------------------*
+
+
+
+
+DATA : GT_STUDENT TYPE TABLE OF ZEDT06_001.
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+PARAMETERS : P_ZCODE LIKE ZEDT06_001-ZCODE.
+
+PARAMETERS : P_ZPERNR TYPE C LENGTH 10 NO-DISPLAY.
+
+PARAMETERS : P_ZGEN LIKE ZEDT06_001-ZGENDER DEFAULT 'M'.
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.
+
+SELECTION-SCREEN BEGIN OF LINE.
+
+  PARAMETERS : P_R1 RADIOBUTTON GROUP R1 DEFAULT 'X'.
+
+SELECTION-SCREEN POSITION 3.
+
+SELECTION-SCREEN COMMENT (10) FOR FIELD P_R1.
+
+  PARAMETERS : P_R2 RADIOBUTTON GROUP R1.
+
+SELECTION-SCREEN POSITION 15.
+
+SELECTION-SCREEN COMMENT (10) FOR FIELD P_R2.
+
+SELECTION-SCREEN END OF LINE.
+
+SELECTION-SCREEN END OF BLOCK B2.
+
+
+
+
+
+SELECT * FROM ZEDT06_001
+
+  INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT
+
+  WHERE ZCODE = P_ZCODE
+
+  AND ZGENDER = P_ZGEN.
+
+
+
+IF GT_STUDENT[] IS NOT INITIAL.
+
+  WRITE :/ '### ##'.
+
+ELSE.
+
+  WRITE :/ '### ##'.
+
+ENDIF.
+
+
+
+
+
+
+
+
+*&---------------------------------------------------------------------*

@@ -1,0 +1,127 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR16_004
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR16_004.
+
+
+
+" p. 10
+
+DATA : GS_ZEDT16 TYPE ZEDT16_001.
+
+DATA : GT_ZEDT16 TYPE TABLE OF ZEDT16_001.
+
+
+
+GS_ZEDT16-ZCODE = 'SSU-01'.
+
+GS_ZEDT16-ZPERNR = '0000000001'.
+
+GS_ZEDT16-ZKNAME = '###'.
+
+GS_ZEDT16-ZENAME = 'DONG'.
+
+GS_ZEDT16-ZGENDER = 'M'.
+
+GS_ZEDT16-ZTEL = '01011112222'.
+
+
+
+
+
+
+
+APPEND GS_ZEDT16 TO GT_ZEDT16.
+
+
+
+GS_ZEDT16-ZCODE = 'SSU-02'.
+
+GS_ZEDT16-ZPERNR = '0000000002'.
+
+GS_ZEDT16-ZKNAME = '##'.
+
+GS_ZEDT16-ZENAME = 'JENNY'.
+
+GS_ZEDT16-ZGENDER = 'F'.
+
+GS_ZEDT16-ZTEL = '010222223333'.
+
+
+
+
+
+
+
+APPEND GS_ZEDT16 TO GT_ZEDT16.
+
+
+
+
+
+
+*BREAK-POINT.
+
+
+
+
+
+
+
+
+" p.35
+
+
+
+DATA : BEGIN OF GS_STUDENT, "### ##
+
+  ZPERNR TYPE ZEDT16_001-ZPERNR, "####
+
+  ZCODE TYPE ZEDT16_001-ZCODE, "####
+
+  ZKNAME TYPE ZEDT16_001-ZKNAME, "##
+
+  ZENAME TYPE ZEDT16_001-ZENAME, "####
+
+  ZGENDER TYPE ZEDT16_001-ZGENDER, "##
+
+  ZTEL TYPE ZEDT16_001-ZTEL, "####
+
+  ZMNAME TYPE ZEDT16_002-ZMNAME, "##
+
+  END OF GS_STUDENT.
+
+
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+GS_STUDENT-ZCODE = 'SSU-01'.
+
+GS_STUDENT-ZPERNR = '0000000001'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'DONG'.
+
+GS_STUDENT-ZGENDER = 'M'.
+
+GS_STUDENT-ZTEL = '01011112222'.
+
+GS_STUDENT-ZMNAME = '####'.
+
+
+
+APPEND GS_STUDENT TO GT_STUDENT.

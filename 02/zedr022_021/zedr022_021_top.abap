@@ -1,0 +1,83 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include  ZEDR022_021_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES : ZEDT00_001.
+
+
+
+"25-10-28##
+
+DATA : BEGIN OF GS_STUDENT,
+
+  ZCOLOR TYPE C LENGTH 4,
+
+  ZCODE LIKE ZEDT00_001-ZCODE,     "####
+
+  ZPERNR LIKE ZEDT00_001-ZPERNR,    "####
+
+  ZKNAME LIKE ZEDT00_001-ZKNAME,    "##
+
+  ZENAME LIKE ZEDT00_001-ZENAME,    "##
+
+  ZGENDER LIKE ZEDT00_001-ZGENDER,  "##
+
+  ZSUM LIKE ZEDT00_002-ZSUM,      "##
+
+  ZMAJOR LIKE ZEDT00_002-ZMAJOR,    "##
+
+  ZMNAME LIKE ZEDT00_002-ZMNAME,    "###
+
+END OF GS_STUDENT.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+
+
+
+*DATA : GS_STUDENT TYPE ZEDT00_001.
+
+*DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM. "### ## ### ### ###### ### ## ####### ### ## ##
+
+
+
+"## ## ##
+
+DATA : GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER.
+
+
+
+"### ##
+
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT.
+
+DATA : GT_FIELDCAT TYPE LVC_T_FCAT.
+
+
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+DATA : GS_SORT TYPE LVC_S_SORT.
+
+DATA : GT_SORT TYPE LVC_T_SORT.

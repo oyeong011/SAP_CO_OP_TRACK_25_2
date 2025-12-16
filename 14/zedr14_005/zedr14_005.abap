@@ -1,0 +1,282 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR14_005
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR14_005.
+
+
+
+
+
+
+*# ## Internal table # ##
+
+
+
+
+
+
+DATA : BEGIN OF GS_STUDENT,
+
+  ZCODE TYPE C LENGTH 10,
+
+  ZKNAME TYPE C LENGTH 10,
+
+  ZENAME TYPE C LENGTH 10,
+
+  ZCLASS TYPE C LENGTH 10,
+
+  END OF GS_STUDENT.
+
+
+
+DATA : BEGIN OF GS_STUDENT2,
+
+  ZCODE TYPE C LENGTH 10,
+
+  ZKNAME TYPE C LENGTH 10,
+
+  ZENAME TYPE C LENGTH 10,
+
+  ZCLASS TYPE C LENGTH 10,
+
+  END OF GS_STUDENT2.
+
+
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+DATA : GT_STUDENT2 LIKE TABLE OF GS_STUDENT.
+
+
+
+GS_STUDENT-ZCODE = 'SSU-01'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'DONG'.
+
+
+
+
+
+
+*GS_STUDENT2-ZCODE = 'SSU-01'.
+
+*GS_STUDENT2-ZKNAME = '###'.
+
+*GS_STUDENT2-ZENAME = 'DONG'.
+
+*
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+*APPEND GS_STUDENT TO GT_STUDENT2.
+
+
+
+*&---------------------------------------------------------------------*
+
+
+
+*MOVE
+
+
+
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+MOVE GS_STUDENT TO GS_STUDENT2.   "## COPY
+
+
+
+APPEND GS_STUDENT2 TO GT_STUDENT2.
+
+
+
+MOVE GT_STUDENT[] TO GT_STUDENT2[].   "## COPY
+
+
+
+
+*BREAK-POINT.
+
+
+
+*&---------------------------------------------------------------------*
+
+
+
+*## ### ### ITAB
+
+
+
+
+DATA : BEGIN OF GT_STUDENT3 OCCURS 0,
+
+  ZCODE TYPE C LENGTH 10,
+
+  ZKNAME TYPE C LENGTH 10,
+
+  ZENAME TYPE C LENGTH 10,
+
+  END OF GT_STUDENT3.
+
+
+
+DATA : BEGIN OF GT_STUDENT4 OCCURS 0,
+
+  ZCLASS TYPE C,
+
+  ZCODE TYPE C LENGTH 10,
+
+  ZKNAME TYPE C LENGTH 10,
+
+  ZENAME TYPE C LENGTH 10,
+
+  END OF GT_STUDENT4.
+
+
+
+GT_STUDENT3-ZCODE = 'SSU-01'.
+
+GT_STUDENT3-ZKNAME = '###'.
+
+GT_STUDENT3-ZENAME = 'DONG'.
+
+
+
+APPEND GT_STUDENT3.
+
+
+
+
+
+
+*MOVE-CORRESPONDING GT_STUDENT3 TO GT_STUDENT4.  "## COPY
+
+
+
+*APPEND GT_STUDENT4.
+
+
+
+
+
+
+MOVE-CORRESPONDING GT_STUDENT3[] TO GT_STUDENT4[].   "## COPY
+
+
+
+
+*BREAK-POINT.
+
+
+
+*&---------------------------------------------------------------------*
+
+
+
+*CLEAR - ## ## ## X
+
+
+
+
+DATA : BEGIN OF GS_STUDENT5,
+
+  ZCODE TYPE C LENGTH 10,
+
+  ZKNAME TYPE C LENGTH 10,
+
+  ZENAME TYPE C LENGTH 10,
+
+  END OF GS_STUDENT5.
+
+
+
+DATA : GT_STUDENT5 LIKE TABLE OF GS_STUDENT5.
+
+
+
+GS_STUDENT5-ZCODE = 'SSU-01'.
+
+GS_STUDENT5-ZKNAME = '###'.
+
+GS_STUDENT5-ZENAME = 'DONG'.
+
+
+
+APPEND GS_STUDENT5 TO GT_STUDENT5.
+
+
+
+
+
+
+*BREAK-POINT.
+
+
+
+
+
+
+CLEAR : GT_STUDENT5.
+
+
+
+
+
+
+*CLEAR - ## ## ##
+
+
+
+
+DATA : BEGIN OF GT_STUDENT6 OCCURS 0,
+
+  ZCODE TYPE C LENGTH 10,
+
+  ZKNAME TYPE C LENGTH 10,
+
+  ZENAME TYPE C LENGTH 10,
+
+  END OF GT_STUDENT6.
+
+
+
+GT_STUDENT6-ZCODE = 'SSU-01'.
+
+GT_STUDENT6-ZKNAME = '###'.
+
+GT_STUDENT6-ZENAME = 'DONG'.
+
+
+
+APPEND GT_STUDENT6.
+
+
+
+CLEAR : GT_STUDENT6.  "## CLEAR(### ####)
+
+
+
+CLEAR : GT_STUDENT6[].  "## CLEAR
+
+
+
+
+
+
+*BREAK-POINT.

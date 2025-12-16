@@ -1,0 +1,81 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZCUSTOM_CONTAINER24_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES : ZEDT24_001, ZEDT24_002.
+
+
+
+"1. ## #### ##### ### ###, ### ##
+
+DATA : BEGIN OF GS_STUDENT,
+
+  ZCOLOR TYPE C LENGTH 4,
+
+  ZCODE LIKE ZEDT24_001-ZCODE,
+
+  ZPERNR LIKE ZEDT24_001-ZPERNR,
+
+  ZKNAME LIKE ZEDT24_001-ZKNAME,
+
+  ZENAME LIKE ZEDT24_001-ZENAME,
+
+  ZGENDER LIKE ZEDT24_001-ZGENDER,
+
+  ZSUM LIKE ZEDT24_002-ZSUM,
+
+  ZMAJOR LIKE ZEDT24_002-ZMAJOR,
+
+  ZMNAME LIKE ZEDT24_002-ZMNAME,
+
+  END OF GS_STUDENT.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+"2. ALV ## #### ##
+
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT.
+
+DATA : GT_FIELDCAT TYPE LVC_T_FCAT.
+
+
+
+"3. ALV ####
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+"4. ALV : SORT
+
+DATA : GS_SORT TYPE LVC_S_SORT.
+
+DATA : GT_SORT TYPE LVC_T_SORT.
+
+
+
+"5. OK_CODE
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+"6. ## ## ##
+
+DATA : GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER.
+
+
+
+"7. ### ##
+
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.

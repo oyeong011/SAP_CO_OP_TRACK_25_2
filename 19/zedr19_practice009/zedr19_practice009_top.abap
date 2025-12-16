@@ -1,0 +1,187 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR19_PRACTICE009_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES: ZEDT19_102,
+
+        ZEDT19_103,
+
+        ZEDT19_104,
+
+        ZEDT19_105,
+
+        ZEDT19_106.
+
+
+
+DATA : ls_105 TYPE ZEDT19_105,
+
+       lv_db_amt TYPE p DECIMALS 2,
+
+       lv_mon_i TYPE i.
+
+
+
+" #### ### ###
+
+TYPES: BEGIN OF TY_EMP_INFO,
+
+         ICON      TYPE CHAR4,
+
+         ZPERNR    TYPE ZEDT19_102-ZPERNR,    "####
+
+         ZPNAME    TYPE ZEDT19_103-ZPNAME,    "####
+
+         ZDEPCODE  TYPE ZEDT19_102-ZDEPCODE,  "####
+
+         ZDEPNAME  TYPE CHAR20,               "###
+
+         ZDEPRANK  TYPE ZEDT19_102-ZDEPRANK,  "####
+
+         ZRANKNAME TYPE CHAR20,               "###
+
+         ZEDATE    TYPE ZEDT19_102-ZEDATE,    "###
+
+         ZQDATE    TYPE ZEDT19_102-ZQDATE,    "###
+
+         ZQFLAG    TYPE ZEDT19_102-ZQFLAG,    "####(##/##)
+
+         ZQFLAG_T  TYPE CHAR4,              "####(##)
+
+         ZGENDER   TYPE CHAR4,   "##(##)
+
+         ZADDRESS  TYPE ZEDT19_103-ZADDRESS,   "##
+
+         ZBANKCODE TYPE ZEDT19_106-ZBANKCODE, "####
+
+         ZBANKNAME TYPE CHAR20,               "###
+
+         ZACCOUNT TYPE ZEDT19_106-ZACCOUNT,   "####
+
+         ZYEAR TYPE CHAR4, "##
+
+         ZRANK TYPE ZEDT19_104-ZRANK, "####
+
+         ZSALARY  TYPE ZEDT19_106-ZSALARY, "####
+
+
+
+         ZDATE_D TYPE CHAR10,
+
+         ZQDATE_D TYPE CHAR10,
+
+         ZQDATE_T  TYPE CHAR10,
+
+
+
+         WAERS TYPE WAERS, "###
+
+       END OF TY_EMP_INFO.
+
+
+
+
+
+
+*ALV ### Internal Tables
+
+
+
+
+DATA: GT_EMP_INFO TYPE TABLE OF TY_EMP_INFO,  "#### ###
+
+      GS_EMP_INFO TYPE TY_EMP_INFO.
+
+
+
+
+
+
+* CONSTANTS ##
+
+
+
+
+CONSTANTS: C_X           TYPE C VALUE 'X',
+
+           C_MALE        TYPE C VALUE 'M',           "##
+
+           C_FEMALE      TYPE C VALUE 'F',           "##
+
+           C_MALE_T      TYPE C VALUE '##',
+
+           C_FEMALE_T    TYPE C VALUE '##'.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA : GC_SPLITTER TYPE REF TO CL_GUI_SPLITTER_CONTAINER,
+
+       GC_SPLITTER2 TYPE REF TO CL_GUI_SPLITTER_CONTAINER.
+
+
+
+DATA : GC_CONTAINER1 TYPE REF TO CL_GUI_CONTAINER.
+
+DATA : GC_CONTAINER2 TYPE REF TO CL_GUI_CONTAINER.
+
+DATA : GC_CONTAINER3 TYPE REF TO CL_GUI_CONTAINER.
+
+DATA : GC_CONTAINER4 TYPE REF TO CL_GUI_CONTAINER.
+
+
+
+DATA : GC_GRID1 TYPE REF TO CL_GUI_ALV_GRID.
+
+DATA : GC_GRID2 TYPE REF TO CL_GUI_ALV_GRID.
+
+DATA : GC_GRID3 TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA : GS_VARIANT TYPE DISVARIANT.
+
+
+
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT.
+
+DATA : GT_FIELDCAT1 TYPE LVC_T_FCAT.
+
+DATA : GT_FIELDCAT2 TYPE LVC_T_FCAT.
+
+DATA : GT_FIELDCAT3 TYPE LVC_T_FCAT.
+
+
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+DATA : GS_SORT TYPE LVC_S_SORT.
+
+DATA : GT_SORT1 TYPE LVC_T_SORT.
+
+DATA : GT_SORT2 TYPE LVC_T_SORT.
+
+DATA : GT_SORT3 TYPE LVC_T_SORT.
+
+
+
+RANGES: R_DATE   FOR ZEDT19_102-DATAB,        "#### ##
+
+        R_PERNR  FOR ZEDT19_102-ZPERNR,       "#### ##
+
+        R_YEAR   FOR ZEDT19_104-ZYEAR.        "## ##

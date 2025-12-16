@@ -1,0 +1,85 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZWORK25_001_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES:ZTCURR25,
+
+        SSCRFIELDS.
+
+
+
+TYPES: BEGIN OF TY_DATA,
+
+         MANDT      TYPE MANDT,
+
+         KURST      TYPE ZTCURR25-KURST,
+
+         FCURR      TYPE ZTCURR25-FCURR,
+
+         TCURR      TYPE ZTCURR25-TCURR,
+
+         GDATU      TYPE ZTCURR25-GDATU,    " INVERTED DATE
+
+         GDATU_DISP TYPE CHAR8,             " ###
+
+         UKURS      TYPE P LENGTH 16 DECIMALS 5, "## ### 5##
+
+         FFACT      TYPE ZTCURR25-FFACT,
+
+         TFACT      TYPE ZTCURR25-TFACT,
+
+         UNAME      TYPE SYUNAME,
+
+         DATUM      TYPE SYDATUM,
+
+       END OF TY_DATA.
+
+
+
+DATA: GT_DATA     TYPE TABLE OF TY_DATA,
+
+      GS_DATA     TYPE TY_DATA.
+
+
+
+" ALV ##
+
+DATA: GO_DOCKING       TYPE REF TO CL_GUI_DOCKING_CONTAINER,
+
+      GO_ALV           TYPE REF TO CL_GUI_ALV_GRID,
+
+      GO_EVENT_HANDLER TYPE REF TO LCL_EVENT_HANDLER.
+
+
+
+DATA: GT_FIELDCAT TYPE LVC_T_FCAT,
+
+      GS_LAYOUT   TYPE LVC_S_LAYO.
+
+
+
+DATA: GV_OKCODE   TYPE SY-UCOMM.
+
+
+
+DATA: GV_GDATU    TYPE GDATU_INV.  " ### INVERTED DATE
+
+
+
+" EXCEL ####
+
+DATA: GT_EXCEL    TYPE TABLE OF ALSMEX_TABLINE,
+
+      GS_EXCEL    TYPE ALSMEX_TABLINE.
+
+
+
+CONSTANTS: GC_UCOMM_FKEY1 TYPE SYUCOMM VALUE 'FC01'.  " FUNCTION KEY 1
+
+CONSTANTS: GC_TMPL_OBJID TYPE WWWDATATAB-OBJID VALUE 'ZCURR25_TEMPLATE'. " swm0## ### ###

@@ -1,0 +1,77 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR24_999_REVIEW
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR24_999_REVIEW.
+
+
+
+TABLES : ZEDT24_001.
+
+
+
+DATA : BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT24_001
+.
+
+  DATA : END OF GS_STUDENT.
+
+
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+  SELECT-OPTIONS : S_ZCODE FOR ZEDT24_001-ZCODE.
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.
+
+  PARAMETERS : P_ZGEN LIKE ZEDT24_001-ZGENDER.
+
+SELECTION-SCREEN END OF BLOCK B2.
+
+
+
+SELECT * FROM ZEDT24_001
+
+  INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT
+
+  WHERE ZCODE IN S_ZCODE AND ZGENDER = P_ZGEN.
+
+
+
+IF GT_STUDENT[] IS NOT INITIAL.
+
+  CLEAR : GS_STUDENT.
+
+  LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+    WRITE :/ GS_STUDENT-ZCODE, GS_STUDENT-ZKNAME.
+
+  ENDLOOP.
+
+ELSE.
+
+  WRITE :/ '### ##'.
+
+ENDIF.

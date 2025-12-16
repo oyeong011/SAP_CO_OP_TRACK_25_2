@@ -1,0 +1,141 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR02_PRACTICE008_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+"### ####
+
+TABLES : ZEDT02_101, ZEDT02_100.
+
+
+
+"#### ### ### ##
+
+DATA: BEGIN OF GS_ORDER.
+
+  include structure
+ZEDT02_100
+.
+
+DATA : END OF GS_ORDER.
+
+DATA : GT_ORDER LIKE TABLE OF GS_ORDER.
+
+
+
+"#### ### ### ##
+
+DATA: BEGIN OF GS_SHIP.
+
+  include structure
+ZEDT02_101
+.
+
+DATA : END OF GS_SHIP.
+
+DATA : GT_SHIP LIKE TABLE OF GS_SHIP.
+
+
+
+"### ### ### ##
+
+DATA: BEGIN OF GS_OUTPUT,
+
+  ZCOLOR TYPE C LENGTH 4, "##(###)
+
+  ZORDNO LIKE ZEDT02_100-ZORDNO, "####
+
+  ZIDCODE LIKE ZEDT02_100-ZIDCODE, "##ID
+
+  ZMATNR LIKE ZEDT02_100-ZMATNR, "####
+
+  ZMTART TYPE C LENGTH 10, "####
+
+  ZMATNAME LIKE ZEDT02_100-ZMATNAME, "###
+
+  ZVOLUM LIKE ZEDT02_100-ZVOLUM, "##
+
+  VOLUM LIKE ZEDT02_100-VOLUM, "Volume
+
+  VRKME LIKE ZEDT02_100-VRKME, "Sales Unit
+
+  ZNSAMT LIKE ZEDT02_100-ZNSAMT, "####
+
+  ZSLAMT LIKE ZEDT02_100-ZSLAMT, "####
+
+  ZDCAMT LIKE ZEDT02_100-ZDCAMT, "####
+
+  ZWAERS LIKE ZEDT02_100-ZWAERS, "##
+
+  ZSALE_FG TYPE C LENGTH 10, "##(####)
+
+  ZRET_FG TYPE C LENGTH 10, "####
+
+  ZJDATE LIKE ZEDT02_100-ZJDATE, "####
+
+  ZRDATE TYPE C LENGTH 10, "####
+
+  ZDFLAG TYPE C LENGTH 10, "####
+
+  ZDGUBUN TYPE C LENGTH 10, "####
+
+  ZDDATE LIKE ZEDT02_101-ZDDATE, "####
+
+END OF GS_OUTPUT.
+
+DATA: GT_OUTPUT LIKE TABLE OF GS_OUTPUT.
+
+
+
+DATA: GV_SDATE TYPE D, GV_EDATE TYPE D. "#### ### ### ###, ##
+
+RANGES : GR_REFUND FOR ZEDT02_100-ZRDATE. "#### ## ### ### RANGE ##
+
+
+
+CONSTANTS: GC_STAT_NRT TYPE C LENGTH 4 VALUE '@08@', "##X->###
+
+           GC_STAT_RTN TYPE C LENGTH 4 VALUE '@0A@'. "##->###
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA: GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER. "## ## ##
+
+
+
+DATA: GC_GRID TYPE REF TO CL_GUI_ALV_GRID. "### ##
+
+
+
+DATA : GS_VARIANT TYPE DISVARIANT. "#### ##
+
+
+
+"## ####
+
+DATA: GT_FIELDCAT1 TYPE LVC_T_FCAT, "####
+
+      GT_FIELDCAT2 TYPE LVC_T_FCAT, "####
+
+      GS_FIELDCAT TYPE LVC_S_FCAT.
+
+
+
+DATA: GS_LAYOUT TYPE LVC_S_LAYO. "####
+
+
+
+"##
+
+DATA: GT_SORT TYPE LVC_T_SORT,
+
+      GS_SORT TYPE LVC_S_SORT.

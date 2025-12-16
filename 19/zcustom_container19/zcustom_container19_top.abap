@@ -1,0 +1,73 @@
+
+* ZCUSTOM_CONTAINER19_TOP
+
+
+
+
+TABLES: zedt19_0001.
+
+
+
+DATA: ok_code TYPE sy-ucomm.
+
+
+
+DATA : BEGIN OF GS_STUDENT,
+
+  ICON TYPE C LENGTH 4,
+
+  ZCODE LIKE ZEDT19_0001-ZCODE,
+
+  ZPERNR LIKE ZEDT19_0001-ZPERNR,
+
+  ZKNAME LIKE ZEDT19_0001-ZKNAME,
+
+  ZENAME LIKE ZEDT19_0001-ZENAME,
+
+  ZGENDER LIKE ZEDT19_0001-ZGENDER,
+
+  ZTEL LIKE ZEDT19_0001-ZTEL,
+
+  ZSUM LIKE ZEDT19_0001-ZSUM,
+
+  ZMAJOR LIKE ZEDT19_0001-ZMAJOR,
+
+  ZMNAME LIKE ZEDT19_0001-ZMNAME,
+
+  END OF GS_STUDENT.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+DATA : GS_SAVE TYPE zedt19_0001,
+
+       GT_SAVE like TABLE OF gs_save.
+
+
+
+" LVC ALV
+
+DATA: gs_layout   TYPE lvc_s_layo,
+
+      gt_fieldcat TYPE lvc_t_fcat,
+
+      gs_fieldcat TYPE lvc_s_fcat,
+
+      gt_sort     TYPE lvc_t_sort.
+
+
+
+" ####/###
+
+DATA: gc_custom TYPE REF TO cl_gui_custom_container,
+
+      gc_grid   TYPE REF TO cl_gui_alv_grid.
+
+
+
+DATA : GO_EVENT TYPE REF TO EVENT.
+
+
+
+DATA : GV_CHECK TYPE ABAP_BOOL.

@@ -1,0 +1,207 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR23_011
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR23_011.
+
+"*** PARAMETERs ***"
+
+
+
+TABLES : ZEDT23_001.  " SELECT-OPTIONS # # ### ##
+
+
+
+DATA : BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT23_001
+.
+
+  DATA : END OF GS_STUDENT.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+
+
+
+
+" ### Text Elements # Text ## # #!! -> ###!!
+
+" DEFAULT
+
+" LOWER CASE
+
+" OBLIGATORY : # ## # ## ##
+
+" NO-DISPLAY
+
+" VISIBLE LENGTH : ### ### ### ##
+
+" SEARCH HELP : (F4)
+
+" CHECKBOX
+
+" CHECKBOX DEFAULT 'X' : 'X'# ### ##(TRUE)# ##.
+
+" RADIOBUTTON GROUP R1 : R1 # ### ## ##
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.  "BLOCK ##
+
+  PARAMETERS : P_ZCODE LIKE ZEDT23_001-ZCODE. "DATA# # ###, TYPE, ## ## ##
+
+  PARAMETERS : P_ZPERNR TYPE C LENGTH 10 NO-DISPLAY MODIF ID M1.
+
+  PARAMETERS : P_ZGEN LIKE ZEDT23_001 DEFAULT 'F' MODIF ID M2.
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.
+
+
+
+  SELECTION-SCREEN BEGIN OF LINE.               " # #### #### ## #
+
+    PARAMETERS : P_R1 RADIOBUTTON GROUP R1 USER-COMMAND UC1.  "UC1 : Enter ### #
+
+  SELECTION-SCREEN POSITION 3.
+
+  SELECTION-SCREEN COMMENT (10) FOR FIELD P_R1.
+
+    PARAMETERS : P_R2 RADIOBUTTON GROUP R1.
+
+  SELECTION-SCREEN POSITION 20.   "## #### ### ##
+
+  SELECTION-SCREEN COMMENT (10) FOR FIELD P_R2.
+
+  SELECTION-SCREEN END OF LINE.
+
+
+
+PARAMETERS : Z_CHECK AS CHECKBOX DEFAULT 'X'.
+
+
+
+"PARAMETERS : P_R2 RADIOBUTTON GROUP R1.
+
+SELECTION-SCREEN END OF BLOCK B2.
+
+
+
+IF Z_CHECK = 'X'.
+
+  WRITE : /'##'.
+
+ENDIF.
+
+IF P_R1 = 'X'.
+
+  WRITE : / '##'.
+
+ELSEIF P_R2 = 'X'.
+
+  WRITE : / '####. ###### ### ## ####.'.
+
+ENDIF.
+
+
+
+SELECT * FROM ZEDT23_001
+
+  INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT
+
+  WHERE ZCODE = P_ZCODE
+
+  AND ZGENDER = P_ZGEN.
+
+
+
+IF GT_STUDENT[] IS NOT INITIAL.
+
+  WRITE : /'### ##'.
+
+ENDIF.
+
+
+
+" SELECT-OPTIONS ~ FOR ~
+
+" SIGN E OPTION EQ : ### ## #### ##
+
+" NO INTERVAL : ### ### ## ###
+
+" NO EXTENSION : ### Multiple Selection ## ##
+
+" VISIBLE LENGTH
+
+SELECT-OPTIONS : S_ZCODE FOR ZEDT23_001-ZCODE DEFAULT 'SSU-01' TO 'SSU-03'.
+
+
+
+SELECT * FROM ZEDT23_001 INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT
+
+  WHERE ZCODE IN S_ZCODE. "=> "IN"## ###
+
+
+
+IF GT_STUDENT[] IS NOT INITIAL.
+
+  CLEAR GS_STUDENT.
+
+  LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+    WRITE : / GS_STUDENT-ZCODE, GS_STUDENT-ZKNAME.
+
+  ENDLOOP.
+
+ENDIF.
+
+
+
+
+
+" MODIF ID : #### ## ## ##. ex) #### ### ## ## ## ##
+
+
+
+AT SELECTION-SCREEN OUTPUT.
+
+  LOOP AT SCREEN.
+
+    IF SCREEN-GROUP1 = 'M2'.
+
+      "SCREEN-INTENSIFIED = '1' "####. 1# ##
+
+      "SCREEN-DISPLAY_3D = '1'  "####
+
+      "SCREEN-INVISIBLE = '1'   "###(*) ##. ## ### # ###?
+
+      IF P_R1 = 'X'.
+
+        SCREEN-ACTIVE = '1'.
+
+      ELSEIF P_R2 = 'X'.
+
+        SCREEN-ACTIVE = '0'.
+
+      ENDIF.
+
+    ENDIF.
+
+    MODIFY SCREEN.
+
+  ENDLOOP.

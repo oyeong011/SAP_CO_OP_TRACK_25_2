@@ -1,0 +1,57 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM08_001_SCR
+
+*&---------------------------------------------------------------------*
+
+
+
+
+" ### ## ## ##
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+  PARAMETERS P_LIFNR TYPE ZEDT08_LFA1-LIFNR MODIF ID F1. " #####
+
+  PARAMETERS P_BUKRS TYPE ZEDT08_LFB1-BUKRS MODIF ID COM. " ####
+
+  PARAMETERS P_KTOKK TYPE ZEDT08_LFA1-KTOKK MODIF ID CR. " #####
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+" ## ## ## ##
+
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.
+
+
+
+  SELECTION-SCREEN BEGIN OF LINE.
+
+    " ## ## ##
+
+    PARAMETERS: P_CREATE RADIOBUTTON GROUP R1 DEFAULT 'X' USER-COMMAND UC1.
+
+    SELECTION-SCREEN COMMENT 3(10) text_c01 FOR FIELD P_CREATE.
+
+
+
+    " ## ## # ###
+
+    SELECTION-SCREEN POSITION 30.
+
+
+
+    " ## ## ##
+
+    PARAMETERS: P_FIND RADIOBUTTON GROUP R1.
+
+    SELECTION-SCREEN COMMENT 32(10) text_c02 FOR FIELD P_FIND.
+
+  SELECTION-SCREEN END OF LINE.
+
+
+
+SELECTION-SCREEN END OF BLOCK B2.

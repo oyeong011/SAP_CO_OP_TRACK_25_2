@@ -1,0 +1,159 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZPROJECT19_002_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES : ZPDT19_004, ZPDT19_005, ZPDT19_003, ZEDT19_200.
+
+
+
+CONSTANTS : C_X TYPE CHAR1 VALUE 'X'.
+
+CONSTANTS : C_A TYPE CHAR1 VALUE 'A'.
+
+
+
+TYPES : BEGIN OF TY_001,
+
+  EBELP LIKE ZPDT19_005-EBELP, "##
+
+  ZMATNR LIKE ZPDT19_005-ZMATNR, "####
+
+  MENGE LIKE ZPDT19_005-MENGE, "##
+
+  MEINS LIKE ZPDT19_005-MEINS, "##
+
+  WAERS LIKE ZPDT19_004-WAERS, "##
+
+  ZMWSKZ LIKE ZPDT19_003-ZMWSKZ, "####
+
+  PRDAT LIKE ZPDT19_005-PRDAT, "###
+
+  ZWERKS LIKE ZPDT19_005-ZWERKS, "###
+
+  ZLGORT LIKE ZPDT19_005-ZLGORT, "####
+
+  LIFNR LIKE ZPDT19_004-LIFNR,
+
+  EBELN LIKE ZPDT19_004-EBELN, "######
+
+  ZMATNAME LIKE ZPDT19_005-ZMATNAME, "###
+
+  BUKRS LIKE ZPDT19_004-BUKRS, "####
+
+  BEDAT LIKE ZPDT19_004-BEDAT, "###
+
+  STPRS TYPE STPRS, "##
+
+  END OF TY_001.
+
+
+
+DATA : gs_001 TYPE ty_001.
+
+DATA : gt_001 TYPE TABLE OF ty_001.
+
+
+
+DATA : gs_002 TYPE zpdt19_004.
+
+DATA : GT_002 TYPE TABLE OF ZPDT19_004.
+
+
+
+DATA : GS_003 TYPE ZPDT19_005.
+
+DATA : GT_003 TYPE TABLE OF ZPDT19_005.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+
+
+DATA : GC_SPLITTER TYPE REF TO CL_GUI_SPLITTER_CONTAINER.
+
+
+
+DATA : GC_CONTAINER1 TYPE REF TO CL_GUI_CONTAINER.
+
+DATA : GC_CONTAINER2 TYPE REF TO CL_GUI_CONTAINER.
+
+DATA : GC_CONTAINER3 TYPE REF TO CL_GUI_CONTAINER.
+
+
+
+DATA : GC_GRID1 TYPE REF TO CL_GUI_ALV_GRID.
+
+DATA : GC_GRID2 TYPE REF TO CL_GUI_ALV_GRID.
+
+DATA : GC_GRID3 TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT,
+
+       GT_FIELDCAT1 TYPE LVC_T_FCAT.
+
+DATA : GT_FIELDCAT2 TYPE LVC_T_FCAT.
+
+DATA : GT_FIELDCAT3 TYPE LVC_T_FCAT.
+
+
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+DATA : GS_SORT TYPE LVC_S_SORT,
+
+       GT_SORT TYPE LVC_T_SORT.
+
+
+
+DATA : GS_VARIANT TYPE DISVARIANT.
+
+
+
+DATA: gr_alv     TYPE REF TO cl_gui_alv_grid,
+
+      gr_handler TYPE REF TO lcl_event_handler.
+
+
+
+" F4 ### ##
+
+DATA: gt_f4 TYPE lvc_t_f4,   " ALV F4 ## ###
+
+      ls_f4 TYPE lvc_s_f4.   " ALV F4 ##
+
+
+
+DATA: lt_values TYPE TABLE OF ty_f4,  " ### # ###
+
+      ls_value  TYPE ty_f4.
+
+
+
+DATA gv_f4_field TYPE fieldname.   " F4 ### ### ##
+
+
+
+DATA gv_f4_rowid TYPE i.         " F4# ## ALV row ##
+
+
+
+DATA: gv_waers  TYPE waers,
+
+      gv_zmwskz TYPE zmwskz19.

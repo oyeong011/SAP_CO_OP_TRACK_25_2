@@ -1,0 +1,24 @@
+
+REPORT ZEDR13_003.
+
+DATA : TEXT1 TYPE STRING,
+
+       TEXT2(4) TYPE C.
+
+
+
+TEXT1 = 'ABAP'.
+
+TEXT2 = 'B'.
+
+
+
+FIND TEXT2 IN TEXT1.
+
+
+
+IF SY-SUBRC = 0.
+
+  WRITE TEXT2.
+
+ENDIF.

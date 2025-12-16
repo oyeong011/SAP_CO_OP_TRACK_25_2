@@ -1,0 +1,77 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR04_066
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR04_066.
+
+
+
+DATA : BEGIN OF GS_SPFLI,
+
+  CARRID TYPE SPFLI-CARRID,
+
+  CONNID TYPE SPFLI-CONNID,
+
+  END OF GS_SPFLI.
+
+DATA : GT_SPFLI LIKE TABLE OF GS_SPFLI.
+
+
+
+DATA : BEGIN OF GS_SFLIGHT,
+
+  CARRID TYPE SFLIGHT-CARRID,
+
+  CONNID TYPE SFLIGHT-CONNID,
+
+  FLDATE TYPE SFLIGHT-FLDATE,
+
+  PRICE TYPE SFLIGHT-PRICE,
+
+  END OF GS_SFLIGHT.
+
+DATA GT_SFLIGHT LIKE TABLE OF GS_SFLIGHT.
+
+
+
+SELECT CARRID CONNID
+
+  FROM SPFLI
+
+  INTO CORRESPONDING FIELDS OF TABLE GT_SPFLI " ## ### ### ##
+
+  WHERE CARRID LIKE 'A%'.
+
+
+
+IF GT_SPFLI IS NOT INITIAL. " ### #### NULL## DB FULL SCAN ## #### ## ##
+
+  SELECT CARRID CONNID FLDATE PRICE
+
+    INTO CORRESPONDING FIELDS OF TABLE GT_SFLIGHT
+
+    FROM SFLIGHT                  " DB####
+
+    FOR ALL ENTRIES IN GT_SPFLI   " ### #### #### ##
+
+    WHERE CARRID = GT_SPFLI-CARRID AND CONNID = GT_SPFLI-CONNID.
+
+ENDIF.
+
+
+
+LOOP AT GT_SFLIGHT INTO GS_SFLIGHT.
+
+  WRITE : / GS_SFLIGHT-CARRID, GS_SFLIGHT-CONNID, GS_SFLIGHT-FLDATE, GS_SFLIGHT-PRICE.
+
+ENDLOOP.

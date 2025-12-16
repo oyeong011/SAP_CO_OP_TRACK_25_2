@@ -1,0 +1,147 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM14_002_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES : ZEKKO_14, ZEKPO_14, ZMARA_14.
+
+
+
+TYPES : BEGIN OF TY_100.
+
+TYPES : EBELN TYPE ZEKKO_14-EBELN,  "######
+
+        BUKRS TYPE ZEKKO_14-BUKRS,  "####
+
+        EKGRP TYPE ZEKKO_14-EKGRP,  "####
+
+        EKORG TYPE ZEKKO_14-EKORG,  "####
+
+        LIFNR TYPE ZEKKO_14-LIFNR,  "#####
+
+        BEDAT TYPE ZEKKO_14-BEDAT,  "###
+
+        WAERS TYPE ZEKKO_14-WAERS,  "##
+
+        EBELP TYPE ZEKPO_14-EBELP,  "##
+
+        MWSKZ TYPE ZEKPO_14-MWSKZ,  "####
+
+        MATNR TYPE ZEKPO_14-MATNR,  "####
+
+        MAKTX TYPE ZEKPO_14-MAKTX,  "###
+
+        MENGE TYPE ZEKPO_14-MENGE,  "##
+
+        MEINS TYPE ZEKPO_14-MEINS,  "##1
+
+        BPRME TYPE ZEKPO_14-BPRME,  "##2
+
+        PRDAT TYPE ZEKPO_14-PRDAT,  "###
+
+        WERKS TYPE ZEKPO_14-WERKS,  "###
+
+        LGORT TYPE ZEKPO_14-LGORT,  "####
+
+        STPRS TYPE ZEKPO_14-STPRS.  "##
+
+TYPES END OF TY_100.
+
+
+
+DATA : BEGIN OF GS_100,
+
+       EBELN TYPE ZEKKO_14-EBELN,  "######
+
+       BUKRS TYPE ZEKKO_14-BUKRS,  "####
+
+       EKGRP TYPE ZEKKO_14-EKGRP,  "####
+
+       EKORG TYPE ZEKKO_14-EKORG,  "####
+
+       WAERS TYPE ZEKKO_14-WAERS,  "##
+
+       LIFNR TYPE ZEKKO_14-LIFNR,  "#####
+
+       BEDAT TYPE ZEKKO_14-BEDAT,  "###
+
+       MWSKZ TYPE ZEKPO_14-MWSKZ,  "###
+
+
+
+
+*       EBELP TYPE ZEKPO_14-EBELP,  "##
+
+*       MATNR TYPE ZEKPO_14-MATNR,  "####
+
+*       MAKTX TYPE ZEKPO_14-MAKTX,  "###
+
+*       MENGE TYPE ZEKPO_14-MENGE,  "##
+
+*       MEINS TYPE ZEKPO_14-MEINS,  "##1
+
+*       BPRME TYPE ZEKPO_14-BPRME,  "##2
+
+*       PRDAT TYPE ZEKPO_14-PRDAT,  "###
+
+*       WERKS TYPE ZEKPO_14-WERKS,  "###
+
+*       LGORT TYPE ZEKPO_14-LGORT,  "####
+
+*       STPRS TYPE ZEKPO_14-STPRS,  "##
+
+
+
+
+       END OF GS_100.
+
+
+
+DATA : GS_CREATE TYPE TY_100,
+
+       GT_CREATE TYPE TABLE OF TY_100.
+
+
+
+DATA : GS_OUT TYPE TY_100,
+
+       GT_OUT TYPE TABLE OF TY_100.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+DATA : GV_MODE TYPE C.
+
+DATA : GV_SAVED TYPE C.
+
+
+
+DATA : GS_FCAT TYPE LVC_S_FCAT,
+
+       GT_FCAT TYPE LVC_T_FCAT.
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+DATA : GO_CUSTOM_100 TYPE REF TO CL_GUI_CUSTOM_CONTAINER.
+
+DATA : GO_GRID_100 TYPE REF TO CL_GUI_ALV_GRID.
+
+DATA : GO_EVENT_100 TYPE REF TO LCL_EVENT_RECEIVER.
+
+
+
+DATA : GO_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA : GO_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+DATA : GO_EVENT TYPE REF TO LCL_EVENT_RECEIVER.

@@ -1,0 +1,133 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR25_014
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+" ###
+
+" /H -> ###
+
+" /N, /O
+
+
+
+REPORT ZEDR25_014 MESSAGE-ID ZME25.
+
+
+
+TABLES : ZEDT25_001.
+
+
+
+DATA : BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT25_001
+.
+
+  DATA : END OF GS_STUDENT.
+
+DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+
+
+
+*CASE GS_STUDENT-ZMAJOR.
+
+*  WHEN 'A'.
+
+*    GS_WRITE-ZMAJOR_NAME = '####'.
+
+*  WHEN 'B'.
+
+*    GS_WRITE-ZMAJOR_NAME = '####'.
+
+*ENDCASE.
+
+
+
+
+
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+  SELECT-OPTIONS : S_ZCODE FOR ZEDT25_001-ZCODE.
+
+  PARAMETERS : P_ZPERNR LIKE ZEDT25_001-ZPERNR.
+
+  PARAMETERS : P_ZGEN LIKE ZEDT25_001-ZGENDER DEFAULT 'M'.
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+IF S_ZCODE IS INITIAL.
+
+  "MESSAGE E000.
+
+  MESSAGE I001.
+
+ENDIF.
+
+
+
+PERFORM GET_DATA.
+
+IF GT_STUDENT IS INITIAL.
+
+  MESSAGE I001.
+
+  EXIT.
+
+ENDIF.
+
+PERFORM WRITE_DATA.
+
+
+
+" ### ## ##
+
+FORM GET_DATA.
+
+  SELECT * FROM ZEDT25_001
+
+    INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT
+
+    WHERE ZCODE   IN S_ZCODE
+
+      AND ZPERNR = P_ZPERNR
+
+      AND ZGENDER = P_ZGEN.
+
+ENDFORM.
+
+
+
+" ### ## ##
+
+FORM WRITE_DATA.
+
+  LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+    WRITE: / GS_STUDENT-ZCODE,
+
+             GS_STUDENT-ZPERNR,
+
+             GS_STUDENT-ZGENDER.
+
+  ENDLOOP.
+
+ENDFORM.

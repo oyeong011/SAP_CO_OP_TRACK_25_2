@@ -1,0 +1,73 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR02_028_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES : ZEDT02_001.
+
+
+
+
+*DATA: BEGIN OF GS_STUDENT,
+
+*  ZCODE LIKE ZEDT02_001-ZCODE, "####
+
+*  ZPERNR LIKE ZEDT02_001-ZPERNR, "####
+
+*  ZKNAME LIKE ZEDT02_001-ZKNAME, "##
+
+*  ZENAME LIKE ZEDT02_001-ZENAME, "###
+
+*  ZGENDER LIKE ZEDT02_001-ZGENDER, "##
+
+*END OF GS_STUDENT.
+
+*DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+
+DATA: GS_STUDENT TYPE ZEDT02_001,
+
+      GT_STUDENT TYPE TABLE OF ZEDT02_001.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA: GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER. "## ## ##
+
+DATA: GC_GRID TYPE REF TO CL_GUI_ALV_GRID. "### ##
+
+
+
+DATA: GO_EVENT TYPE REF TO EVENT.
+
+
+
+DATA : GS_VARIANT TYPE DISVARIANT.
+
+
+
+DATA: GT_FIELDCAT TYPE LVC_T_FCAT,
+
+      GS_FIELDCAT TYPE LVC_S_FCAT.
+
+
+
+DATA: GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+DATA: GT_SORT TYPE LVC_T_SORT,
+
+      GS_SORT TYPE LVC_S_SORT.

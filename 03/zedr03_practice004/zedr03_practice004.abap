@@ -1,0 +1,77 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR03_PRACTICE004
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR03_PRACTICE004.
+
+
+
+DATA : BEGIN OF GS_ZEDT001.
+
+  include structure
+ZEDT00_001
+.
+
+DATA : END OF GS_ZEDT001.
+
+DATA : GT_ZEDT001 LIKE TABLE OF GS_ZEDT001.
+
+DATA : GV_CHANGE_PERNR TYPE N.
+
+
+
+RANGES GR_ZCODE FOR ZEDT00_001-ZCODE.
+
+
+
+GR_ZCODE-SIGN = 'I'.
+
+GR_ZCODE-LOW = 'SSU-90'.
+
+GR_ZCODE-HIGH = 'SSU-99'.
+
+GR_ZCODE-OPTION = 'BT'.
+
+APPEND GR_ZCODE.
+
+
+
+SELECT * FROM ZEDT00_001
+
+  INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT001
+
+  WHERE ZCODE IN GR_ZCODE.
+
+
+
+LOOP AT GT_ZEDT001 INTO GS_ZEDT001.
+
+  CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
+
+    EXPORTING
+
+      INPUT         = GS_ZEDT001-ZPERNR
+
+   IMPORTING
+
+     OUTPUT        =  GS_ZEDT001-ZPERNR.
+
+
+
+  MODIFY GT_ZEDT001 FROM GS_ZEDT001 INDEX SY-TABIX.
+
+ENDLOOP.
+
+
+
+INSERT ZEDT03_001 FROM TABLE GT_ZEDT001 ACCEPTING DUPLICATE KEYS.

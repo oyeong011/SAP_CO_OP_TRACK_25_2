@@ -1,0 +1,97 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZWORK10_2_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES: ZTCURR10.
+
+TABLES: SSCRFIELDS.
+
+
+
+INCLUDE OLE2INCL.
+
+TYPE-POOLS: OLE2.
+
+
+
+CONSTANTS: C_TEMPLATE_ID TYPE WWWDATATAB-OBJID VALUE 'ZWORK10_002_TEMPLATE'.
+
+
+
+DATA: OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA: GT_FIELD_TAB TYPE TABLE OF DFIES,
+
+      GS_FIELD_TAB TYPE DFIES.
+
+
+
+TYPES: BEGIN OF TY_GDATU,
+
+         GDATU TYPE ZTCURR10-GDATU,
+
+       END OF TY_GDATU.
+
+
+
+DATA: GT_GDATU      TYPE TABLE OF TY_GDATU,
+
+      GV_GDATU_CONV TYPE D,
+
+      GT_VALUE_TAB  TYPE TABLE OF DDSHRETVAL,
+
+      GS_VALUE_TAB  TYPE DDSHRETVAL.
+
+
+
+DATA: GS_EXCEL_DATA TYPE ZTCURR10,
+
+      GT_EXCEL_DATA LIKE TABLE OF GS_EXCEL_DATA.
+
+
+
+DATA: GV_TEMPLATE_PATH TYPE RLGRAP-FILENAME,       " ### ## ##
+
+      GV_OUTPUT_PATH   TYPE STRING,       " ## ## ##
+
+      GV_TEMP_DIR      TYPE STRING,       " ## ####
+
+      EXCEL            TYPE OLE2_OBJECT,  " Excel Application
+
+      WORKBOOK         TYPE OLE2_OBJECT.  " Workbook
+
+
+
+TYPES: T_C(1500) TYPE C,   " ##### #### ## ####### #### #### ## ##
+
+       T_DATA    TYPE TABLE OF T_C.
+
+DATA: GT_CLIPBOARD TYPE T_DATA."TABLE OF STRING.
+
+
+
+
+
+DATA: GC_GRID   TYPE REF TO CL_GUI_ALV_GRID,
+
+      GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER.
+
+
+
+DATA: GS_FCAT TYPE LVC_S_FCAT,
+
+      GT_FCAT TYPE LVC_T_FCAT,
+
+      GS_LAYO TYPE LVC_S_LAYO,
+
+      GS_SORT TYPE LVC_S_SORT,
+
+      GT_SORT TYPE LVC_T_SORT.

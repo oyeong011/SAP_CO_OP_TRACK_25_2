@@ -1,0 +1,53 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR12_ZDOCKING_CONTAINER_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES: ZEDT12_001.
+
+
+
+DATA: GS_STUDENT TYPE ZEDT12_001.
+
+DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+DATA: OK_CODE TYPE SY-UCOMM. "SCREEN 100#### ##### ## #####
+
+
+
+DATA: GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.  "#### ->F01## FORM CREATE_OBJECT
+
+DATA: GC_GRID TYPE REF TO CL_GUI_ALV_GRID.  "#### ->F01## FORM CREATE_OBJECT
+
+
+
+"##########,  PERFORM ALV_LAYOUT## #### #####
+
+DATA: GS_VARIANT TYPE DISVARIANT.
+
+
+
+DATA: GS_FIELDCAT TYPE LVC_S_FCAT.
+
+DATA: GT_FIELDCAT TYPE LVC_T_FCAT.
+
+
+
+" ALV ####
+
+DATA GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+" ALV SORT ### ##
+
+DATA GS_SORT TYPE LVC_S_SORT.
+
+DATA GT_SORT TYPE LVC_T_SORT.

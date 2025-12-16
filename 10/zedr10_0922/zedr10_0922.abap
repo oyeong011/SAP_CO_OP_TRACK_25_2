@@ -1,0 +1,205 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR10_0922
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR10_0922.
+
+
+
+DATA: BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT10_001
+.
+
+DATA: END OF GS_STUDENT.
+
+
+
+DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+" ## ### ##
+
+
+
+
+*DATA: BEGIN OF _GS_STUDENT.
+
+*  INCLUDE TYPE ZEDT00_001.
+
+*DATA: END OF _GS_STUDENT.
+
+*
+
+*DATA: _GT_STUDENT LIKE TABLE OF _GS_STUDENT.
+
+*
+
+*
+
+*SELECT *
+
+*  INTO TABLE @_GT_STUDENT
+
+*  FROM ZEDT00_001.
+
+*
+
+*MOVE-CORRESPONDING _GT_STUDENT[] TO GT_STUDENT[].
+
+*
+
+*INSERT ZEDT10_001 FROM TABLE GT_STUDENT.
+
+
+
+
+
+
+GS_STUDENT-ZCODE = 'SSU-90'.
+
+GS_STUDENT-ZPERNR = '90'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'DO'.
+
+GS_STUDENT-ZGENDER = 'F'.
+
+GS_STUDENT-ZTEL = '01000001111'.
+
+
+
+
+
+
+*INSERT INTO ZEDT10_001 VALUES GS_STUDENT.
+
+
+
+
+INSERT ZEDT10_001 FROM GS_STUDENT.
+
+
+
+IF SY-SUBRC = 0.
+
+  WRITE:/ '##'.
+
+ELSE.
+
+  WRITE:/ '##'.
+
+ENDIF.
+
+
+
+GS_STUDENT-ZTEL = '010-0000-1111'.
+
+
+
+" DASH# ##
+
+UPDATE ZEDT10_001 FROM GS_STUDENT.
+
+
+
+
+
+GS_STUDENT-ZCODE = 'SSU-91'.
+
+GS_STUDENT-ZPERNR = '91'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'DA'.
+
+GS_STUDENT-ZGENDER = 'F'.
+
+GS_STUDENT-ZTEL = '010-0000-2222'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+" ### #### ###.
+
+INSERT ZEDT10_001 FROM TABLE GT_STUDENT ACCEPTING DUPLICATE KEYS.
+
+
+
+GS_STUDENT-ZCODE = 'SSU-91'.
+
+GS_STUDENT-ZPERNR = '91'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'RAMI'.
+
+GS_STUDENT-ZGENDER = 'M'.
+
+GS_STUDENT-ZTEL = '010-2222-2222'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+" ### #### ###. (SY-SUBRC 4# ## ##)
+
+INSERT ZEDT10_001 FROM TABLE GT_STUDENT ACCEPTING DUPLICATE KEYS.
+
+
+
+IF SY-SUBRC = 0.
+
+  WRITE:/ '##'.
+
+ELSE.
+
+  WRITE:/ '##'.
+
+ENDIF.
+
+
+
+
+
+
+*SELECT SINGLE *
+
+*  INTO GS_STUDENT
+
+*  FROM ZEDT10_001
+
+*  WHERE ZPERNR = '90'.
+
+
+
+
+
+
+UPDATE ZEDT10_001
+
+  SET ZENAME = 'YEOP' ZKNAME = '###'
+
+  WHERE ZPERNR = '90'.
+
+
+
+BREAK-POINT.
+
+" ### ### ## ##
+
+DELETE FROM ZEDT10_001 WHERE ZPERNR >= '90'.

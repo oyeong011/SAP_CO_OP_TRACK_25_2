@@ -1,0 +1,95 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZWORK10_1_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES: SSCRFIELDS.
+
+
+
+CONSTANTS C_KURST TYPE C VALUE 'M'.
+
+CONSTANTS C_TEMPLATE_FILE_NAME TYPE STRING VALUE 'TEMPLATE.xls'.
+
+CONSTANTS C_TEMPLATE_PATH TYPE STRING VALUE '%USERPROFILE%\Documents'.
+
+CONSTANTS C_TEMPLATE_ID TYPE STRING VALUE 'ZED10_WORK01_TEMPLATE'.
+
+
+
+DATA: GS_FUNCTXT TYPE SMP_DYNTXT.
+
+
+
+
+
+
+* 1. ## #### ## ### # ## ###
+
+
+
+
+TYPES: BEGIN OF TY_EXCEL_DATA,
+
+         KURST TYPE KURST_CURR,   " #### ### M ##
+
+
+
+         FCURR TYPE FCURR_CURR,  " ## ##
+
+         TCURR TYPE TCURR_CURR,  " ## ##
+
+
+
+         GDATU TYPE GDATU_INV, " #### ##
+
+
+
+         UKURS TYPE UKURS_CURR,  " ## ##, ##
+
+
+
+         FFACT TYPE FFACT_CURR,  " #### ##
+
+         TFACT TYPE TFACT_CURR,  " #### ##
+
+         ERNAM TYPE ERNAM,
+
+         ERDAT TYPE ERDAT,
+
+       END OF TY_EXCEL_DATA.
+
+
+
+DATA: GT_EXCEL_DATA TYPE TABLE OF TY_EXCEL_DATA,
+
+      GS_EXCEL_DATA TYPE TY_EXCEL_DATA.
+
+
+
+DATA: GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER,
+
+      GC_GRID    TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA: GS_FCAT TYPE LVC_S_FCAT,
+
+      GT_FCAT TYPE LVC_T_FCAT.
+
+
+
+DATA: GT_SORT TYPE LVC_T_SORT,
+
+      GS_SORT TYPE LVC_S_SORT.
+
+
+
+DATA: GS_LAYO TYPE LVC_S_LAYO.
+
+DATA: OK_CODE TYPE SY-UCOMM.

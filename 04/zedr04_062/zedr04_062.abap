@@ -1,0 +1,187 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR04_062
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR04_062.
+
+
+
+DATA : BEGIN OF GS_SCARR,       " SAP CARRIER(###)
+
+  CARRID LIKE SCARR-CARRID,
+
+  CARRNAME LIKE SCARR-CARRNAME,
+
+  END OF GS_SCARR.
+
+DATA GT_SCARR LIKE TABLE OF GS_SCARR.
+
+
+
+" 1. INTO ### ~ ENDSELECT#,   LIKE 'S%'
+
+WRITE / '  1. INTO ### ~ ENDSELECT#,    LIKE %'.
+
+
+
+SELECT CARRID CARRNAME INTO GS_SCARR
+
+  FROM SCARR
+
+  WHERE CARRID LIKE '%A'.  " ### ## ### # # ##### ##.
+
+
+
+  WRITE : / GS_SCARR-CARRID, GS_SCARR-CARRNAME.
+
+ENDSELECT.
+
+
+
+" 2. SINGLE ~ INTO ##_##,    ##### =
+
+WRITE / '  2. SINGLE INTO ##_##,    ##### ='.
+
+
+
+SELECT SINGLE CARRID CARRNAME INTO ( GS_SCARR-CARRID, GS_SCARR-CARRNAME )
+
+  FROM SCARR
+
+  WHERE CARRID = 'AA'.
+
+WRITE : / GS_SCARR-CARRID, GS_SCARR-CARRNAME.
+
+
+
+" 3. INTO TABLE ###_###,    WHERE ~ IN ##
+
+WRITE / '  3. INTO TABLE ###_###,   WHERE ~ IN ##'.
+
+
+
+SELECT CARRID CARRNAME INTO TABLE GT_SCARR  " ### ### ## TABLE # ## #
+
+  FROM SCARR
+
+  WHERE CARRID IN ( 'AA', 'AC' ).
+
+
+
+LOOP AT GT_SCARR INTO GS_SCARR.
+
+  WRITE : / GS_SCARR-CARRID, GS_SCARR-CARRNAME.
+
+ENDLOOP.
+
+
+
+" 4. INTO CORRESPONDING FIELD OF TABLE ###_###,   BETWEEN A AND B
+
+WRITE / '  4. INTO CORRESPONDING FIELD OF TABLE ###_###,    BETWEEN A AND B'.
+
+
+
+SELECT CARRNAME CARRID                          " ## ##
+
+  INTO CORRESPONDING FIELDS OF TABLE GT_SCARR   " ## # ## ## ### ###
+
+  FROM SCARR
+
+  WHERE CARRID BETWEEN 'AA' AND 'AC'.   " INTERVAL ##. ## ##.
+
+
+
+LOOP AT GT_SCARR INTO GS_SCARR.
+
+  WRITE : / GS_SCARR-CARRID, GS_SCARR-CARRNAME.
+
+ENDLOOP.
+
+
+
+" 5. APPENDING ###_###
+
+WRITE / '  5. APPENDING ###_### '.
+
+
+
+SELECT CARRID CARRNAME
+
+  FROM SCARR
+
+  INTO TABLE GT_SCARR  " FROM## INTO# ## ### #.
+
+  WHERE CARRID = 'AC'.
+
+
+
+SELECT CARRID CARRNAME
+
+  FROM SCARR
+
+  APPENDING TABLE GT_SCARR  " INTO ## APPENDING## ##. ### ## ## CLEAR#.
+
+  WHERE CARRID = 'AF'.
+
+
+
+LOOP AT GT_SCARR INTO GS_SCARR.
+
+  WRITE : / GS_SCARR-CARRID, GS_SCARR-CARRNAME.
+
+ENDLOOP.
+
+
+
+" 6. WHERE ~ IN RANGES##
+
+WRITE / '  6. WHERE ~ IN RANGES##'.
+
+
+
+RANGES GR_SCARR FOR SCARR-CARRID.
+
+
+
+GR_SCARR-SIGN = 'I'.
+
+GR_SCARR-OPTION = 'CP'.
+
+GR_SCARR-LOW = '*A'.  " ### * = LIKE ### %
+
+APPEND GR_SCARR.  " APPEND GR_SCARR TO GR_SCARR[].
+
+
+
+GR_SCARR-LOW = 'A*'.
+
+APPEND GR_SCARR.  " ### ## ##. IN RANGES## ## # # ## #### #
+
+
+
+SELECT CARRID CARRNAME
+
+  FROM SCARR
+
+  INTO TABLE GT_SCARR
+
+  WHERE CARRID IN GR_SCARR.
+
+
+
+LOOP AT GT_SCARR INTO GS_SCARR.
+
+  WRITE : / GS_SCARR-CARRID, GS_SCARR-CARRNAME.
+
+ENDLOOP.

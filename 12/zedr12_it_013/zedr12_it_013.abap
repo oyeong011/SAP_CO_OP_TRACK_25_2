@@ -1,0 +1,87 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR12_IT_13
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR12_IT_013.
+
+DATA: BEGIN OF GS_STUDENT,
+
+  ZCODE(10) TYPE C,
+
+  ZKNAME(10) TYPE C,
+
+  ZENAME(10) TYPE C,
+
+  ZSUM TYPE I,
+
+  END OF GS_STUDENT.
+
+
+
+  DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+  CLEAR: GS_STUDENT.
+
+  GS_STUDENT-ZCODE = 'SSU-02'.
+
+  GS_STUDENT-ZKNAME = '###'.
+
+  GS_STUDENT-ZENAME = 'LEE'.
+
+  GS_STUDENT-ZSUM = '10000'.
+
+  "APPEND GS_STUDENT TO GT_STUDENT. "#### ## ##
+
+  "INSERT GS_STUDENT INTO TABLE GT_STUDENT. "## ## ## ##
+
+  COLLECT GS_STUDENT INTO GT_STUDENT.
+
+
+
+  CLEAR: GS_STUDENT.
+
+  GS_STUDENT-ZCODE = 'SSU-02'.
+
+  GS_STUDENT-ZKNAME = '###'.
+
+  GS_STUDENT-ZENAME = 'LEE'.
+
+  GS_STUDENT-ZSUM = '10000'.
+
+  "APPEND GS_STUDENT TO GT_STUDENT.
+
+  "INSERT GS_STUDENT INTO TABLE GT_STUDENT. "## ## ## ## INTO TABLE
+
+  COLLECT GS_STUDENT INTO GT_STUDENT.
+
+
+
+  CLEAR: GS_STUDENT.
+
+  GS_STUDENT-ZCODE = 'SSU-03'.
+
+  GS_STUDENT-ZKNAME = '###'.
+
+  GS_STUDENT-ZENAME = 'SONG'.
+
+  GS_STUDENT-ZSUM = '10000'.
+
+  "APPEND GS_STUDENT TO GT_STUDENT.
+
+  "INSERT GS_STUDENT INTO  GT_STUDENT INDEX 2. "## ## ## ## INTO ~ INDEX
+
+  COLLECT GS_STUDENT INTO GT_STUDENT.
+
+  BREAK-POINT.

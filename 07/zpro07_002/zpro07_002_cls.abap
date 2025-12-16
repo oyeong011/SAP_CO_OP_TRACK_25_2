@@ -1,0 +1,49 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZPRO07_002_CLS
+
+*&---------------------------------------------------------------------*
+
+
+
+
+CLASS event DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS on_f4 FOR EVENT onf4 OF cl_gui_alv_grid
+
+      IMPORTING
+
+        e_fieldname
+
+        es_row_no
+
+        er_event_data
+
+        et_bad_cells
+
+        e_display.
+
+ENDCLASS.
+
+
+
+CLASS event IMPLEMENTATION.
+
+  METHOD on_f4.
+
+    PERFORM alv_on_f4 USING e_fieldname
+
+                             es_row_no-row_id
+
+                             er_event_data
+
+                             et_bad_cells
+
+                             e_display.
+
+  ENDMETHOD.
+
+ENDCLASS.

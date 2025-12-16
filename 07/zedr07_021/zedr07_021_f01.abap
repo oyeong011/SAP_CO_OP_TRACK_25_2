@@ -1,0 +1,875 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR07_021_F01
+
+*&---------------------------------------------------------------------*
+
+
+
+*&---------------------------------------------------------------------*
+
+*&      Form  SET_INIT
+
+*&---------------------------------------------------------------------*
+
+*       text
+
+*----------------------------------------------------------------------*
+
+*  -->  p1        text
+
+*  <--  p2        text
+
+*----------------------------------------------------------------------*
+
+
+
+
+FORM SET_INIT .
+
+
+
+ENDFORM.
+
+
+
+
+*&---------------------------------------------------------------------*
+
+*&      Form  CREATE_OBJECT
+
+*&---------------------------------------------------------------------*
+
+*       text
+
+*----------------------------------------------------------------------*
+
+*  -->  p1        text
+
+*  <--  p2        text
+
+*----------------------------------------------------------------------*
+
+
+
+
+FORM CREATE_OBJECT .
+
+
+
+CREATE OBJECT GC_DOCKING
+
+  EXPORTING
+
+
+
+
+*    PARENT                      =
+
+
+
+
+    REPID                       = sy-repid
+
+    DYNNR                       = sy-dynnr
+
+
+
+
+*    SIDE                        = DOCK_AT_LEFT
+
+
+
+
+    EXTENSION                   = 2000
+
+
+
+
+*    STYLE                       =
+
+*    LIFETIME                    = lifetime_default
+
+*    CAPTION                     =
+
+*    METRIC                      = 0
+
+*    RATIO                       =
+
+*    NO_AUTODEF_PROGID_DYNNR     =
+
+*    NAME                        =
+
+*  EXCEPTIONS
+
+*    CNTL_ERROR                  = 1
+
+*    CNTL_SYSTEM_ERROR           = 2
+
+*    CREATE_ERROR                = 3
+
+*    LIFETIME_ERROR              = 4
+
+*    LIFETIME_DYNPRO_DYNPRO_LINK = 5
+
+*    others                      = 6
+
+
+
+
+    .
+
+IF SY-SUBRC <> 0.
+
+
+
+
+* MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+
+*            WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+
+
+
+
+ENDIF.
+
+
+
+CREATE OBJECT GC_SPLITTER
+
+  EXPORTING
+
+
+
+
+*    LINK_DYNNR        =
+
+*    LINK_REPID        =
+
+*    SHELLSTYLE        =
+
+*    LEFT              =
+
+*    TOP               =
+
+*    WIDTH             =
+
+*    HEIGHT            =
+
+*    METRIC            = cntl_metric_dynpro
+
+*    ALIGN             = 15
+
+
+
+
+    PARENT            = gc_docking
+
+    ROWS              = 2
+
+    COLUMNS           = 1
+
+
+
+
+*    NO_AUTODEF_PROGID_DYNNR =
+
+*    NAME              =
+
+*  EXCEPTIONS
+
+*    CNTL_ERROR        = 1
+
+*    CNTL_SYSTEM_ERROR = 2
+
+*    others            = 3
+
+
+
+
+    .
+
+IF SY-SUBRC <> 0.
+
+
+
+
+* MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+
+*            WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+
+
+
+
+ENDIF.
+
+
+
+CALL METHOD GC_SPLITTER->GET_CONTAINER
+
+  EXPORTING
+
+    ROW       = 1
+
+    COLUMN    = 1
+
+  RECEIVING
+
+    CONTAINER = gc_container1
+
+    .
+
+
+
+CALL METHOD GC_SPLITTER->GET_CONTAINER
+
+  EXPORTING
+
+    ROW       = 2
+
+    COLUMN    = 1
+
+  RECEIVING
+
+    CONTAINER = gc_container2
+
+    .
+
+
+
+  CREATE OBJECT GC_GRID1
+
+    EXPORTING
+
+
+
+
+*      I_SHELLSTYLE      = 0
+
+*      I_LIFETIME        =
+
+
+
+
+      I_PARENT          = gc_container1
+
+
+
+
+*      I_APPL_EVENTS     = space
+
+*      I_PARENTDBG       =
+
+*      I_APPLOGPARENT    =
+
+*      I_GRAPHICSPARENT  =
+
+*      I_NAME            =
+
+*      I_FCAT_COMPLETE   = SPACE
+
+*    EXCEPTIONS
+
+*      ERROR_CNTL_CREATE = 1
+
+*      ERROR_CNTL_INIT   = 2
+
+*      ERROR_CNTL_LINK   = 3
+
+*      ERROR_DP_CREATE   = 4
+
+*      others            = 5
+
+
+
+
+      .
+
+  IF SY-SUBRC <> 0.
+
+
+
+
+*   MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+
+*              WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+
+
+
+
+  ENDIF.
+
+
+
+  CREATE OBJECT GC_GRID2
+
+    EXPORTING
+
+
+
+
+*      I_SHELLSTYLE      = 0
+
+*      I_LIFETIME        =
+
+
+
+
+      I_PARENT          = gc_container2
+
+
+
+
+*      I_APPL_EVENTS     = space
+
+*      I_PARENTDBG       =
+
+*      I_APPLOGPARENT    =
+
+*      I_GRAPHICSPARENT  =
+
+*      I_NAME            =
+
+*      I_FCAT_COMPLETE   = SPACE
+
+*    EXCEPTIONS
+
+*      ERROR_CNTL_CREATE = 1
+
+*      ERROR_CNTL_INIT   = 2
+
+*      ERROR_CNTL_LINK   = 3
+
+*      ERROR_DP_CREATE   = 4
+
+*      others            = 5
+
+
+
+
+      .
+
+  IF SY-SUBRC <> 0.
+
+
+
+
+*   MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+
+*              WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+
+
+
+
+  ENDIF.
+
+
+
+ENDFORM.
+
+
+
+
+*&---------------------------------------------------------------------*
+
+*&      Form  FIELD_CATALOG
+
+*&---------------------------------------------------------------------*
+
+*       text
+
+*----------------------------------------------------------------------*
+
+*  -->  p1        text
+
+*  <--  p2        text
+
+*----------------------------------------------------------------------*
+
+
+
+
+FORM FIELD_CATALOG .
+
+
+
+  CLEAR : gs_fieldcat.
+
+
+
+  gs_fieldcat-col_pos = 1.
+
+  gs_fieldcat-fieldname = 'ZCODE'.
+
+  gs_fieldcat-coltext = '####'.
+
+  APPEND gs_fieldcat TO gt_fieldcat.
+
+
+
+  CLEAR : gs_fieldcat.
+
+
+
+  gs_fieldcat-col_pos = 2.
+
+  gs_fieldcat-fieldname = 'ZPERNR'.
+
+  gs_fieldcat-coltext = '####'.
+
+  APPEND gs_fieldcat TO gt_fieldcat.
+
+
+
+  CLEAR : gs_fieldcat.
+
+
+
+  gs_fieldcat-col_pos = 3.
+
+  gs_fieldcat-fieldname = 'ZKNAME'.
+
+  gs_fieldcat-coltext = '####'.
+
+  APPEND gs_fieldcat TO gt_fieldcat.
+
+
+
+  CLEAR : gs_fieldcat.
+
+
+
+  gs_fieldcat-col_pos = 4.
+
+  gs_fieldcat-fieldname = 'ZENAME'.
+
+  gs_fieldcat-coltext = '####'.
+
+  APPEND gs_fieldcat TO gt_fieldcat.
+
+
+
+  CLEAR : gs_fieldcat.
+
+
+
+  gs_fieldcat-col_pos = 5.
+
+  gs_fieldcat-fieldname = 'ZGENDER'.
+
+  gs_fieldcat-coltext = '##'.
+
+  APPEND gs_fieldcat TO gt_fieldcat.
+
+
+
+  CLEAR : gs_fieldcat.
+
+
+
+  gs_fieldcat-col_pos = 6.
+
+  gs_fieldcat-fieldname = 'ZSUM'.
+
+  gs_fieldcat-coltext = '#'.
+
+  APPEND gs_fieldcat TO gt_fieldcat.
+
+
+
+  CLEAR : gs_fieldcat.
+
+
+
+  gs_fieldcat-col_pos = 7.
+
+  gs_fieldcat-fieldname = 'ZMAJOR'.
+
+  gs_fieldcat-coltext = '####'.
+
+  APPEND gs_fieldcat TO gt_fieldcat.
+
+
+
+  CLEAR : gs_fieldcat.
+
+
+
+  gs_fieldcat-col_pos = 8.
+
+  gs_fieldcat-fieldname = 'ZMNAME'.
+
+  gs_fieldcat-coltext = '###'.
+
+  APPEND gs_fieldcat TO gt_fieldcat.
+
+
+
+
+
+ENDFORM.
+
+
+
+
+*&---------------------------------------------------------------------*
+
+*&      Form  ALV_LAYOUT
+
+*&---------------------------------------------------------------------*
+
+*       text
+
+*----------------------------------------------------------------------*
+
+*  -->  p1        text
+
+*  <--  p2        text
+
+*----------------------------------------------------------------------*
+
+
+
+
+FORM ALV_LAYOUT .
+
+  CLEAR gs_layout.
+
+  gs_layout-zebra = 'X'.
+
+
+
+  CLEAR gs_variant.
+
+  gs_variant-report = sy-repid.
+
+  gs_variant-username = sy-uname.
+
+ENDFORM.
+
+
+
+
+*&---------------------------------------------------------------------*
+
+*&      Form  ALV_SORT
+
+*&---------------------------------------------------------------------*
+
+*       text
+
+*----------------------------------------------------------------------*
+
+*  -->  p1        text
+
+*  <--  p2        text
+
+*----------------------------------------------------------------------*
+
+
+
+
+FORM ALV_SORT .
+
+
+
+ENDFORM.
+
+
+
+
+*&---------------------------------------------------------------------*
+
+*&      Form  CALL_ALV
+
+*&---------------------------------------------------------------------*
+
+*       text
+
+*----------------------------------------------------------------------*
+
+*  -->  p1        text
+
+*  <--  p2        text
+
+*----------------------------------------------------------------------*
+
+
+
+
+FORM CALL_ALV .
+
+  PERFORM alv_display.
+
+ENDFORM.
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+
+*&      Form  ALV_DISPLAY
+
+*&---------------------------------------------------------------------*
+
+*       text
+
+*----------------------------------------------------------------------*
+
+*  -->  p1        text
+
+*  <--  p2        text
+
+*----------------------------------------------------------------------*
+
+
+
+
+FORM ALV_DISPLAY .
+
+
+
+CALL METHOD GC_GRID1->SET_TABLE_FOR_FIRST_DISPLAY
+
+  EXPORTING
+
+
+
+
+*    I_BUFFER_ACTIVE               =
+
+*    I_BYPASSING_BUFFER            =
+
+*    I_CONSISTENCY_CHECK           =
+
+*    I_STRUCTURE_NAME              =
+
+
+
+
+    IS_VARIANT                    = gs_variant
+
+    I_SAVE                        = 'A'
+
+
+
+
+*    I_DEFAULT                     = 'X'
+
+
+
+
+    IS_LAYOUT                     = gs_layout
+
+
+
+
+*    IS_PRINT                      =
+
+*    IT_SPECIAL_GROUPS             =
+
+*    IT_TOOLBAR_EXCLUDING          =
+
+*    IT_HYPERLINK                  =
+
+*    IT_ALV_GRAPHICS               =
+
+*    IT_EXCEPT_QINFO               =
+
+*    IR_SALV_ADAPTER               =
+
+
+
+
+  CHANGING
+
+    IT_OUTTAB                     = gt_student
+
+    IT_FIELDCATALOG               = gt_fieldcat
+
+    IT_SORT                       = gt_sort
+
+
+
+
+*    IT_FILTER                     =
+
+*  EXCEPTIONS
+
+*    INVALID_PARAMETER_COMBINATION = 1
+
+*    PROGRAM_ERROR                 = 2
+
+*    TOO_MANY_LINES                = 3
+
+*    others                        = 4
+
+
+
+
+        .
+
+IF SY-SUBRC <> 0.
+
+
+
+
+* Implement suitable error handling here
+
+
+
+
+ENDIF.
+
+
+
+CALL METHOD GC_GRID2->SET_TABLE_FOR_FIRST_DISPLAY
+
+  EXPORTING
+
+
+
+
+*    I_BUFFER_ACTIVE               =
+
+*    I_BYPASSING_BUFFER            =
+
+*    I_CONSISTENCY_CHECK           =
+
+*    I_STRUCTURE_NAME              =
+
+
+
+
+    IS_VARIANT                    = gs_variant
+
+    I_SAVE                        = 'A'
+
+
+
+
+*    I_DEFAULT                     = 'X'
+
+
+
+
+    IS_LAYOUT                     = gs_layout
+
+
+
+
+*    IS_PRINT                      =
+
+*    IT_SPECIAL_GROUPS             =
+
+*    IT_TOOLBAR_EXCLUDING          =
+
+*    IT_HYPERLINK                  =
+
+*    IT_ALV_GRAPHICS               =
+
+*    IT_EXCEPT_QINFO               =
+
+*    IR_SALV_ADAPTER               =
+
+
+
+
+  CHANGING
+
+    IT_OUTTAB                     = gt_student
+
+    IT_FIELDCATALOG               = gt_fieldcat
+
+    IT_SORT                       = gt_sort
+
+
+
+
+*    IT_FILTER                     =
+
+*  EXCEPTIONS
+
+*    INVALID_PARAMETER_COMBINATION = 1
+
+*    PROGRAM_ERROR                 = 2
+
+*    TOO_MANY_LINES                = 3
+
+*    others                        = 4
+
+
+
+
+        .
+
+IF SY-SUBRC <> 0.
+
+
+
+
+* Implement suitable error handling here
+
+
+
+
+ENDIF.
+
+
+
+ENDFORM.
+
+
+
+
+*&---------------------------------------------------------------------*
+
+*&      Form  GET_DATA
+
+*&---------------------------------------------------------------------*
+
+*       text
+
+*----------------------------------------------------------------------*
+
+*  -->  p1        text
+
+*  <--  p2        text
+
+*----------------------------------------------------------------------*
+
+
+
+
+FORM GET_DATA .
+
+  SELECT
+
+    a~zcode, a~zpernr, a~zkname, a~zename, a~zgender,
+
+    b~zsum, b~zmajor, b~zmname
+
+
+
+  FROM zedt07_001 as a
+
+    LEFT OUTER JOIN zedt07_002 as b
+
+    ON a~zpernr = b~zpernr
+
+
+
+  WHERE
+
+    a~zcode IN @s_zcode
+
+
+
+  INTO CORRESPONDING FIELDS OF TABLE @gt_student.
+
+
+
+ENDFORM.

@@ -1,0 +1,235 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR06_010
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR06_010.
+
+
+
+DATA : BEGIN OF GS_STUDENT,
+
+  ZCODE TYPE C LENGTH 10,
+
+  ZKNAME TYPE C LENGTH 10,
+
+  ZENAME TYPE C LENGTH 10,
+
+  ZGENDER TYPE C,
+
+  ZGNAME TYPE C LENGTH 10,
+
+  ZTEL TYPE C LENGTH 10,
+
+END OF GS_STUDENT.
+
+
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+CLEAR : GS_STUDENT.
+
+GS_STUDENT-ZCODE = 'SSU-06'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'KWON'.
+
+GS_STUDENT-ZGENDER = 'M'.
+
+GS_STUDENT-ZTEL = '0109926861'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+CLEAR : GS_STUDENT.
+
+GS_STUDENT-ZCODE = 'SSU-06'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'KWON'.
+
+GS_STUDENT-ZGENDER = 'M'.
+
+GS_STUDENT-ZTEL = '0109926861'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+CLEAR : GS_STUDENT.
+
+GS_STUDENT-ZCODE = 'SSU-06'.
+
+GS_STUDENT-ZKNAME = '##'.
+
+GS_STUDENT-ZENAME = 'KWON'.
+
+GS_STUDENT-ZGENDER = 'M'.
+
+GS_STUDENT-ZTEL = '0109926861'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+"----------------------------------------------------
+
+
+
+SORT GT_STUDENT BY ZCODE ZKNAME ZENAME ZGENDER.
+
+
+
+CLEAR : GS_STUDENT.
+
+
+
+LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+  GS_STUDENT-ZGNAME = '####'.
+
+
+
+  AT FIRST.
+
+    GS_STUDENT-ZGNAME = '####'.
+
+  ENDAT.
+
+
+
+  MODIFY GT_STUDENT FROM GS_STUDENT TRANSPORTING ZGNAME.
+
+
+
+  CLEAR : GS_STUDENT.
+
+ENDLOOP.
+
+
+
+BREAK-POINT.
+
+
+
+"----------------------------------------------------
+
+
+
+CLEAR : GS_STUDENT.
+
+
+
+LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+  GS_STUDENT-ZGNAME = '####'.
+
+
+
+  AT LAST.
+
+    GS_STUDENT-ZGNAME = '####'.
+
+  ENDAT.
+
+
+
+  MODIFY GT_STUDENT FROM GS_STUDENT TRANSPORTING ZGNAME.
+
+
+
+  CLEAR : GS_STUDENT.
+
+ENDLOOP.
+
+
+
+"----------------------------------------------------
+
+
+
+CLEAR : GS_STUDENT.
+
+
+
+SORT GT_STUDENT BY ZCODE ZKNAME ZENAME ZGENDER.
+
+
+
+LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+  GS_STUDENT-ZGNAME = '####'.
+
+
+
+  AT NEW ZENAME.
+
+    GS_STUDENT-ZGNAME = '####'.
+
+  ENDAT.
+
+
+
+  MODIFY GT_STUDENT FROM GS_STUDENT TRANSPORTING ZGNAME.
+
+
+
+  CLEAR : GS_STUDENT.
+
+ENDLOOP.
+
+
+
+"----------------------------------------------------
+
+
+
+CLEAR : GS_STUDENT.
+
+
+
+SORT GT_STUDENT BY ZCODE ZKNAME ZENAME ZGENDER.
+
+
+
+LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+  GS_STUDENT-ZGNAME = '####'.
+
+
+
+  AT END OF ZENAME.
+
+    GS_STUDENT-ZGNAME = '####'.
+
+  ENDAT.
+
+
+
+  MODIFY GT_STUDENT FROM  GS_STUDENT TRANSPORTING ZGNAME.
+
+
+
+  CLEAR : GS_STUDENT.
+
+
+
+ENDLOOP.
+
+
+
+"----------------------------------------------------

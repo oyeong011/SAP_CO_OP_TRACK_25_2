@@ -1,0 +1,219 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM22_004_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES : ZRBKP_22, ZRSEG_22, ZEKKO_22, ZEKPO_22.
+
+"ZRBKP : ##-##, ZRSEG : ##-###, ZEKKO : ####-##, ZEKPO : ####-###
+
+
+
+DATA: OK_CODE TYPE SY-UCOMM.
+
+
+
+"### ###
+
+DATA : GO_EVENT TYPE REF TO LCL_EVENT_HANDLER.
+
+
+
+"## ## ## ### ##(# ## # ## ### # ##)
+
+DATA: GV_CALC_FLAG TYPE C.
+
+
+
+" 1. ## ### ## ## ###
+
+DATA: BALANCE TYPE ZRBKP_22-RMWWR.
+
+
+
+" 2. ### ### ###
+
+DATA: ICON    TYPE ICON_D.
+
+
+
+" 3. ## ## ### (KRW #)
+
+DATA: WAERS   TYPE ZRBKP_22-WAERS.
+
+
+
+TYPE-POOLS: ICON, VRM.
+
+
+
+"#
+
+CONTROLS: TS_INFO TYPE TABSTRIP.
+
+
+
+" --- [##### ## ##] ---
+
+DATA: GV_SUB_DYNNR TYPE SY-DYNNR VALUE '0110'.
+
+
+
+" --- [ALV ## ##] ---
+
+DATA: GC_CUSTOM   TYPE REF TO CL_GUI_CUSTOM_CONTAINER,
+
+      GC_GRID     TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA: GS_FIELDCAT TYPE LVC_S_FCAT,
+
+      GT_FIELDCAT TYPE LVC_T_FCAT,
+
+      GS_LAYOUT   TYPE LVC_S_LAYO.
+
+
+
+"### 200 #
+
+DATA : GC_DOCKING_200 TYPE REF TO CL_GUI_DOCKING_CONTAINER,
+
+       GC_GRID_200 TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+" ## ##(Docking) ## ##
+
+DATA : GC_DOCK_LEFT TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA : GC_GRID_LEFT TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+" ## ## ### ###
+
+DATA : BEGIN OF GS_DOC_LIST,
+
+         BELNR     TYPE ZRBKP_22-BELNR, " ####
+
+         GJAHR     TYPE ZRBKP_22-GJAHR, " ##
+
+         BUDAT     TYPE ZRBKP_22-BUDAT, " ### (## ##)
+
+         LIFNR     TYPE ZRBKP_22-LIFNR, " ###
+
+         WAERS     TYPE ZRBKP_22-WAERS, " ##
+
+         RMWWR     TYPE ZRBKP_22-RMWWR, " ##
+
+       END OF GS_DOC_LIST.
+
+DATA : GT_DOC_LIST LIKE TABLE OF GS_DOC_LIST.
+
+
+
+"ALV ###
+
+DATA : BEGIN OF GS_ITEM,
+
+  CHECK  TYPE C,              "## ### ####
+
+  BELNR  LIKE ZRSEG_22-BELNR,  "## ##
+
+  GJAHR  LIKE ZRSEG_22-GJAHR,  "####
+
+  BUZEI  LIKE ZRSEG_22-BUZEI,  "## ###
+
+  EBELN  LIKE ZRSEG_22-EBELN,  "PO##
+
+  EBELP  LIKE ZRSEG_22-EBELP,  "PO# ## ##
+
+  MATNR  LIKE ZRSEG_22-MATNR,  "####
+
+  TXZ01  LIKE ZRSEG_22-TXZ01,  "####
+
+  WERKS  LIKE ZRSEG_22-WERKS,  "###
+
+  WRBTR  LIKE ZRSEG_22-WRBTR,  "#### (## x ##)
+
+  STPRS  LIKE ZEKPO_22-STPRS,  "##
+
+  WAERS  LIKE ZEKKO_22-WAERS,  "##
+
+  MENGE  LIKE ZRSEG_22-MENGE,  "##
+
+  MEINS  LIKE ZEKPO_22-MEINS,  "##
+
+  BSTME  LIKE ZRSEG_22-BSTME,  "##
+
+  MWSKZ  LIKE ZRSEG_22-MWSKZ,  "####
+
+  WMWST  LIKE ZRSEG_22-WMWST,  "##
+
+  DMBTR  LIKE BSIK-DMBTR,     "## ## (### + ##)
+
+  SGTXT  LIKE ZRSEG_22-SGTXT,  "###
+
+  SHKZG  LIKE ZRSEG_22-SHKZG, " ### ## (S/H)
+
+  LOEKZ  LIKE ZRSEG_22-LOEKZ, " ## ### (## ##)
+
+  LIFNR  LIKE ZEKKO_22-LIFNR, " ###
+
+  END OF GS_ITEM.
+
+DATA : GT_ITEM LIKE TABLE OF GS_ITEM.
+
+
+
+"## ##
+
+DATA : BEGIN OF GS_RBKP,
+
+  BELNR LIKE ZRBKP_22-BELNR, "######
+
+  GJAHR LIKE ZRBKP_22-GJAHR, "####
+
+  BLART LIKE ZRBKP_22-BLART, "####
+
+  BLDAT LIKE ZRBKP_22-BLDAT, "###
+
+  BUDAT LIKE ZRBKP_22-BUDAT, "###
+
+  BUKRS LIKE ZRBKP_22-BUKRS, "####
+
+  LIFNR LIKE ZRBKP_22-LIFNR, "### (####)
+
+  WAERS LIKE ZRBKP_22-WAERS, "###
+
+  ZTERM LIKE ZRBKP_22-ZTERM, "####
+
+  BKTXT LIKE ZRBKP_22-BKTXT, "#####
+
+  XMWST LIKE ZRBKP_22-XMWST, "## ## ## (####)
+
+  MWSKZ LIKE ZRBKP_22-MWSKZ, "## ##
+
+  WMWST LIKE ZRBKP_22-WMWST, "##
+
+  RMWWR LIKE ZRBKP_22-RMWWR, "# ## ## (## ###)
+
+  STBLG LIKE ZRBKP_22-STBLG, "## (####)
+
+  STJAH LIKE ZRBKP_22-STJAH, "## (##)
+
+  RBSTAT LIKE ZRBKP_22-RBSTAT,"## ##
+
+  ZFBDT TYPE DATS, " ## LIKE ZRBKP_22-ZFBDT (### ## #)
+
+  END OF GS_RBKP.
+
+DATA : GT_RBKP LIKE TABLE OF GS_RBKP.

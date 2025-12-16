@@ -1,0 +1,189 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR23_012
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR23_012.
+
+
+
+
+
+
+*** PERFORM ***
+
+
+
+
+DATA : GV_ZCODE LIKE ZEDT23_001-ZCODE.
+
+DATA : GV_ZKNAME LIKE ZEDT23_001-ZKNAME.
+
+
+
+DATA : BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT23_001
+.
+
+  DATA : END OF GS_STUDENT.
+
+  DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+" Actual parameter : #### ##
+
+" Formal parameter : ## ##
+
+" USING, USING VALUE, CHANGING
+
+" USING : P_## ## # GV_## ## ##
+
+" == CHANGING == CHANGING VALUE
+
+" USING VALUE : P_## ## # GV_## # ### ##.
+
+GV_ZCODE = 'SSU-01'.
+
+GV_ZKNAME = 'Jenny'.
+
+
+
+PERFORM GET_DATA USING GV_ZCODE GV_ZKNAME.
+
+WRITE : / GV_ZCODE, GV_ZKNAME.
+
+
+
+" ###, ######
+
+PERFORM GET_STRUCTURE USING GS_STUDENT GT_STUDENT.
+
+LOOP AT GT_STUDENT INTO DATA(line).
+
+  WRITE : / line-ZCODE, line-ZKNAME.
+
+ENDLOOP.
+
+
+
+
+
+
+
+
+
+
+
+
+
+FORM GET_DATA USING VALUE(P_ZCODE) P_ZKNAME.  "P_ZCODE# ## X / P_ZKNAME# ## O
+
+  DATA : LV_ZCODE LIKE ZEDT23_001-ZCODE. "LV : LOCAL VARIABLE
+
+  LV_ZCODE = 'SSU-02'.
+
+
+
+  SELECT SINGLE ZKNAME FROM ZEDT23_001
+
+    INTO P_ZKNAME
+
+    WHERE ZCODE = LV_ZCODE.
+
+  P_ZCODE = LV_ZCODE. "P_ZCODE ## GV_ZCODE# ###.
+
+ENDFORM.
+
+
+
+
+
+" ###, Itable # ## #####~!
+
+FORM GET_STRUCTURE USING PS_STUDENT STRUCTURE GS_STUDENT
+
+                         PT_STUDENT LIKE GT_STUDENT.
+
+  " USING PT_STUDENT TYPE STANDARD TABLE.
+
+
+
+  PS_STUDENT-ZCODE = 'SSU-03'.
+
+  SELECT SINGLE ZKNAME FROM ZEDT23_001
+
+    INTO PS_STUDENT-ZKNAME
+
+    WHERE ZCODE EQ PS_STUDENT-ZCODE.
+
+    APPEND PS_STUDENT TO PT_STUDENT.
+
+
+
+  "## ## ###?
+
+  DATA : LS_STUDENT LIKE GS_STUDENT.
+
+  LS_STUDENT-ZCODE = 'SSU-04'.
+
+  SELECT SINGLE ZKNAME FROM ZEDT23_001
+
+    INTO LS_STUDENT-ZKNAME
+
+    WHERE ZCODE EQ LS_STUDENT-ZCODE.
+
+    APPEND LS_STUDENT TO PT_STUDENT.
+
+ENDFORM.
+
+
+
+" ## (##) ###### ##### PERFORM ## ## ##!
+
+" => PERFORM GET_DATA(ZEDR23_012) IF FOUND USING VALUE(GV_ZCODE) GV_ZKNAME.
+
+" ## ## Subroutine ### #### #### ##.
+
+" DATA : GV_NEWNAME(20) VALUE 'NEW_NAME'.
+
+" DATA : GV_PNAME(20) VLAUE 'ZEDR23_012'.
+
+" => PERFORM (GV_NEWNAME) IN PROGRAM(GV_PNAME) IF FOUND USING VALUE(GV_ZCODE) GV_ZKNAME.
+
+
+
+FORM DELETE_DATA USING PS_STUDENT LIKE GS_STUDENT
+
+  PT_STUDENT LIKE GT_STUDENT
+
+  P_FLAG.
+
+  DELETE PT_STUDENT WHERE ZCODE EQ PS_STUDENT-ZCODE.
+
+  IF SY-SUBRC = 0.
+
+    P_FLAG = 'X'.
+
+  ENDIF.
+
+ENDFORM.
+
+
+
+FORM INSERT_DATA USING PS_STUDENT LIKE GS_STUDENT
+
+      PT_STUDENT LIKE GT_STUDENT.
+
+  APPEND PS_STUDENT TO PT_STUDENT.
+
+ENDFORM.

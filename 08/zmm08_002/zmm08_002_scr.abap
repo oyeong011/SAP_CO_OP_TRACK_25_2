@@ -1,0 +1,71 @@
+
+**&---------------------------------------------------------------------*
+
+**&  Include           ZMM08_002_SCR
+
+**&---------------------------------------------------------------------*
+
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME TITLE TEXT-B01.
+
+
+
+  " 1. ## ### ##
+
+  PARAMETERS: P_LIFNR TYPE ZEDT08_EKKO-LIFNR MODIF ID M1,               " 1. ###
+
+              P_BEDAT TYPE ZEDT08_EKKO-BEDAT MODIF ID M1 DEFAULT SY-DATUM, " 2. ###
+
+              P_BUKRS TYPE ZEDT08_EKKO-BUKRS MODIF ID M1.               " 3. ####
+
+
+
+  " 2. ## ### ##
+
+  PARAMETERS: P_EBELN TYPE ZEDT08_EKKO-EBELN MODIF ID M2,
+
+              P_BUKR2 TYPE ZEDT08_EKKO-BUKRS MODIF ID M2,
+
+              P_LIFN2 TYPE ZEDT08_EKKO-LIFNR MODIF ID M2.
+
+
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+" ## ## ##
+
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME TITLE TEXT-B02.
+
+
+
+  SELECTION-SCREEN BEGIN OF LINE.
+
+    " ## ### ##
+
+    PARAMETERS: P_C RADIOBUTTON GROUP R1 DEFAULT 'X' USER-COMMAND UC1.
+
+    SELECTION-SCREEN COMMENT 3(10) TEXT_C01 FOR FIELD P_C.
+
+
+
+    " ## ##
+
+    SELECTION-SCREEN POSITION 30.
+
+
+
+    " ## ### ##
+
+    PARAMETERS: P_Q RADIOBUTTON GROUP R1.
+
+    SELECTION-SCREEN COMMENT 32(10) TEXT_C02 FOR FIELD P_Q.
+
+  SELECTION-SCREEN END OF LINE.
+
+
+
+SELECTION-SCREEN END OF BLOCK B2.

@@ -1,0 +1,83 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR12_DBTINSERT002
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR12_DBTINSERT002.
+
+DATA: BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT12_001
+.
+
+  DATA: END OF GS_STUDENT.
+
+ DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+ CLEAR: GS_STUDENT, GT_STUDENT.
+
+
+
+ GS_STUDENT-MANDT = SY-MANDT.
+
+ GS_STUDENT-ZCODE = 'SSU-27'.
+
+ GS_STUDENT-ZPERNR = '0000000027'.
+
+ GS_STUDENT-ZKNAME = '###'.
+
+ GS_STUDENT-ZENAME = 'GA'.
+
+ GS_STUDENT-ZGENDER = 'F'.
+
+ GS_STUDENT-ZTEL = '01002001111'.
+
+ APPEND GS_STUDENT TO GT_STUDENT.  "DATA TABLE# ##### DUMP ERROR ## 003## ##
+
+ CLEAR: GS_STUDENT.
+
+ GS_STUDENT-MANDT = SY-MANDT.
+
+ GS_STUDENT-ZCODE = 'SSU-29'.
+
+ GS_STUDENT-ZPERNR = '0000000029'.
+
+ GS_STUDENT-ZKNAME = '##'.
+
+ GS_STUDENT-ZENAME = 'AAAA'.
+
+ GS_STUDENT-ZGENDER = 'M'.
+
+ GS_STUDENT-ZTEL = '01022201111'.
+
+ APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+ "INSERT INTO ZEDT12_001 VALUES GS_STUDENT. ### ## ###.
+
+ INSERT ZEDT12_001 FROM TABLE GT_STUDENT.
+
+
+
+ IF SY-SUBRC = 0.
+
+   WRITE:/ '##'.
+
+ ELSE.
+
+   WRITE:/ '##'.
+
+ ENDIF.

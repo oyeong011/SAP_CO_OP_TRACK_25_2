@@ -1,0 +1,107 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR12_DBTSELECT003
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR12_DBTSELECT003.
+
+DATA: BEGIN OF GS_SCARR,
+
+  ZCHECK TYPE C,
+
+  CARRID LIKE SCARR-CARRID,
+
+  CARRNAME LIKE SCARR-CARRNAME,
+
+END OF GS_SCARR.
+
+DATA: GT_SCARR LIKE TABLE OF GS_SCARR.
+
+
+
+"IT# 2## ####, SELECT ### APPENDING# ###. #####.
+
+
+
+
+*SELECT CARRID "AIRLINE CODE
+
+*       CARRNAME "AIRLINE NAME
+
+*  FROM SCARR
+
+*  INTO CORRESPONDING FIELDS OF TABLE GT_SCARR
+
+*  WHERE CARRID = 'AA'.
+
+*
+
+*SELECT CARRID "AIRLINE CODE
+
+*       CARRNAME "AIRLINE NAME
+
+*  FROM SCARR
+
+*  APPENDING CORRESPONDING FIELDS OF TABLE GT_SCARR
+
+*  WHERE CARRID = 'AB'.
+
+
+
+
+
+
+"WHERE#######################
+
+" 2) BETWEEN A AND B
+
+SELECT CARRID "AIRLINE CODE
+
+       CARRNAME "AIRLINE NAME
+
+  FROM SCARR
+
+  INTO CORRESPONDING FIELDS OF TABLE GT_SCARR
+
+  WHERE CARRID BETWEEN 'AA' AND 'AB'.
+
+"3) STRING ## WHERE FIELD LIKE 'B%'
+
+SELECT CARRID
+
+       CARRNAME
+
+  FROM SCARR
+
+  APPENDING CORRESPONDING FIELDS OF TABLE GT_SCARR
+
+  WHERE CARRID LIKE 'S%'.
+
+"4)LIST VALUE
+
+  SELECT CARRID
+
+         CARRNAME
+
+    FROM SCARR
+
+    APPENDING CORRESPONDING FIELDS OF TABLE GT_SCARR
+
+    WHERE CARRID IN ('LH', 'NW').   "## ##### ## ##### ,RANGE TABLE ###.
+
+
+
+LOOP AT GT_SCARR INTO GS_SCARR.
+
+  WRITE:/ GS_SCARR-CARRID, GS_SCARR-CARRNAME.
+
+ENDLOOP.

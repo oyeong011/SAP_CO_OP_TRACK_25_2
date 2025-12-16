@@ -1,0 +1,77 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR20_PRACTICE004
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR20_PRACTICE004.
+
+
+
+TABLES: ZEDT20_001.
+
+
+
+DATA: BEGIN OF GS_ZEDT20_001.
+
+  include structure
+ZEDT20_001
+.
+
+  DATA: END OF GS_ZEDT20_001.
+
+DATA: GT_ZEDT20_001 LIKE TABLE OF GS_ZEDT20_001.
+
+
+
+RANGES: GR_ZPERNR FOR ZEDT20_001-ZPERNR.
+
+GR_ZPERNR-OPTION = 'BT'.
+
+GR_ZPERNR-SIGN = 'I'.
+
+GR_ZPERNR-LOW = '90'.
+
+GR_ZPERNR-HIGH = '99'.
+
+APPEND GR_ZPERNR.
+
+
+
+SELECT *
+
+  FROM ZEDT00_001
+
+  INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT20_001
+
+  WHERE ZPERNR IN GR_ZPERNR.
+
+
+
+LOOP AT GT_ZEDT20_001 INTO GS_ZEDT20_001.
+
+  CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
+
+    EXPORTING
+
+      INPUT         = GS_ZEDT20_001-ZPERNR
+
+    IMPORTING
+
+      OUTPUT        = GS_ZEDT20_001-ZPERNR.
+
+  MODIFY GT_ZEDT20_001 FROM GS_ZEDT20_001 TRANSPORTING ZPERNR WHERE ZCODE = GS_ZEDT20_001-ZCODE.
+
+ENDLOOP.
+
+
+
+INSERT ZEDT20_001 FROM TABLE GT_ZEDT20_001 ACCEPTING DUPLICATE KEYS.

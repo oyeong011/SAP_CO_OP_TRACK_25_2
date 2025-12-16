@@ -1,0 +1,115 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM23_001_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES : Z23LFA1, Z23LFB1, Z23LFM1.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM,
+
+      GV_DYNNR TYPE SY-DYNNR VALUE '0101'.  "SUBSCREEN ## ## ##
+
+
+
+DATA : GV_FLAG TYPE C LENGTH 1 VALUE '0'.
+
+
+
+
+
+DATA : GV_LIFNR LIKE Z23LFA1-LIFNR,  "#####
+
+       GV_BUKRS LIKE Z23LFB1-BUKRS, "####
+
+       GV_KTOKK LIKE Z23LFA1-KTOKK."#####
+
+
+
+DATA : GV_NAME1 LIKE Z23LFA1-NAME1,  "####
+
+      GV_LAND1 LIKE Z23LFA1-LAND1,   "##
+
+      GV_STCD1 LIKE Z23LFA1-STCD1,    "#### / ###### 3000# ##
+
+      GV_STCD2 LIKE Z23LFA1-STCD2,    "#####
+
+      GV_STRAS LIKE Z23LFA1-STRAS,    "##
+
+      GV_LOEVM LIKE Z23LFB1-LOEVM,    "#####.
+
+      GV_AKONT LIKE Z23LFB1-AKONT,  "##
+
+      GV_ZTERM LIKE Z23LFB1-ZTERM,  "####
+
+      GV_EKORG LIKE Z23LFM1-EKORG,  "####
+
+      GV_EKGRP LIKE Z23LFM1-EKGRP,  "####
+
+      GV_WAERS LIKE Z23LFM1-WAERS,  "######
+
+      GV_MWSKZ LIKE Z23LFM1-MWSKZ."####
+
+
+
+
+
+"CONTROLS CTR_300 TYPE TABLEVIEW USING SCREEN '0300'.  "TABLE CONTROL ##
+
+DATA : GT_LFA1 TYPE TABLE OF Z23LFA1,
+
+      GS_LFA1 TYPE Z23LFA1.
+
+
+
+"### ###
+
+DATA : BEGIN OF GS_PRINT,
+
+      LIFNR LIKE Z23LFA1-LIFNR,  "#####
+
+      BUKRS LIKE Z23LFB1-BUKRS, "####
+
+      NAME1 LIKE Z23LFA1-NAME1,  "####
+
+      LAND1 LIKE Z23LFA1-LAND1,   "##
+
+      KTOKK LIKE Z23LFA1-KTOKK,"#####
+
+      KTOKK_STR TYPE STRING,
+
+      STCD1 LIKE Z23LFA1-STCD1,    "#### / ###### 3000# ##
+
+      STCD2 LIKE Z23LFA1-STCD2,    "#####
+
+      STRAS LIKE Z23LFA1-STRAS,    "##
+
+      AKONT LIKE Z23LFB1-AKONT,  "##
+
+      AKONT_STR TYPE STRING,
+
+      ZTERM LIKE Z23LFB1-ZTERM,  "####
+
+      ZTERM_STR TYPE STRING,
+
+      EKORG LIKE Z23LFM1-EKORG,  "####
+
+      EKGRP LIKE Z23LFM1-EKGRP,  "####
+
+      WAERS LIKE Z23LFM1-WAERS,  "######
+
+      MWSKZ LIKE Z23LFM1-MWSKZ,"####
+
+      MWSKZ_STR TYPE STRING,
+
+  END OF GS_PRINT.
+
+  DATA : GT_PRINT LIKE TABLE OF GS_PRINT.

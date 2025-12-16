@@ -1,0 +1,171 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR02_002
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR02_002.
+
+
+
+"Table , View# ### TYPE ##
+
+
+
+
+*"ABAP Dictionary Table# ## ### ##
+
+*DATA : GS_ZEDT02 TYPE ZEDT02_001.
+
+
+
+*"ABAP Dictionary Table ## ### ## ## ##
+
+*DATA : BEGIN OF GS_ZEDT02,
+
+*  ZCODE TYPE ZEDT02_001-ZCODE,
+
+*  ZKNAME TYPE ZEDT02_001-ZKNAME,
+
+*  ZENAME TYPE ZEDT02_001-ZKNAME,
+
+*  ZGENDER TYPE ZEDT02_001-ZGENDER,
+
+*  ZTEL TYPE ZEDT02_001-ZTEL,
+
+*  END OF GS_ZEDT02.
+
+
+
+
+
+
+"DATA TYPE# ### TYPE ##
+
+
+
+
+*"DATA ELEMENT
+
+*DATA : BEGIN OF GS_ZEDT02,
+
+*  ZCODE TYPE ZCODE02,
+
+*  ZKNAME TYPE ZKNAME02,
+
+*  ZENAME TYPE ZKNAME02,
+
+*  ZGENDER TYPE ZGUBUN02,
+
+*  ZTEL TYPE ZTEL02,
+
+*  END OF GS_ZEDT02.
+
+
+
+
+
+
+"##
+
+
+
+
+*GS_ZEDT02-ZCODE = 'SSU-01'.
+
+*GS_ZEDT02-ZKNAME = '###'.
+
+*GS_ZEDT02-ZENAME = 'DONG'.
+
+*GS_ZEDT02-ZGENDER = 'M'.
+
+*GS_ZEDT02-ZTEL = '01011112222'.
+
+*
+
+*WRITE :/ GS_ZEDT02-ZCODE.
+
+*WRITE :/ GS_ZEDT02-ZKNAME.
+
+*WRITE :/ GS_ZEDT02-ZENAME.
+
+*WRITE :/ GS_ZEDT02-ZGENDER.
+
+*WRITE :/ GS_ZEDT02-ZTEL.
+
+
+
+*"STRUCTURE# ### TYPE ##
+
+*DATA : GS_ZEDS02 TYPE ZEDT02_001.
+
+*
+
+*GS_ZEDS02-ZCODE = 'SSU-01'.
+
+*GS_ZEDS02-ZKNAME = '###'.
+
+*GS_ZEDS02-ZENAME = 'DONG'.
+
+*GS_ZEDS02-ZGENDER = 'M'.
+
+*GS_ZEDS02-ZTEL = '01011112222'.
+
+*
+
+*WRITE :/ GS_ZEDS02-ZCODE.
+
+*WRITE :/ GS_ZEDS02-ZKNAME.
+
+*WRITE :/ GS_ZEDS02-ZENAME.
+
+*WRITE :/ GS_ZEDS02-ZGENDER.
+
+*WRITE :/ GS_ZEDS02-ZTEL.
+
+
+
+
+
+
+"TYPE GROUP ### TYPE ##
+
+DATA : GS_ZEDG02 TYPE ZTG02_ZED02.
+
+DATA : GV_ZTITLE TYPE ZTG02_ZTITLE.
+
+
+
+GS_ZEDG02-ZCODE = 'SSU-01'.
+
+GS_ZEDG02-ZKNAME = '###'.
+
+GS_ZEDG02-ZENAME = 'DONG'.
+
+GS_ZEDG02-ZGENDER = 'M'.
+
+GS_ZEDG02-ZTEL = '01011112222'.
+
+GV_ZTITLE = '####'.
+
+
+
+WRITE :/ GS_ZEDG02-ZCODE.
+
+WRITE :/ GS_ZEDG02-ZKNAME.
+
+WRITE :/ GS_ZEDG02-ZENAME.
+
+WRITE :/ GS_ZEDG02-ZGENDER.
+
+WRITE :/ GS_ZEDG02-ZTEL.
+
+WRITE :/ GV_ZTITLE.

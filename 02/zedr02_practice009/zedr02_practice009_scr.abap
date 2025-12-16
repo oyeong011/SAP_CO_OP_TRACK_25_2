@@ -1,0 +1,27 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR02_PRACTICE009_SCR
+
+*&---------------------------------------------------------------------*
+
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+  SELECT-OPTIONS : S_ZPERNR FOR ZEDT02_102-ZPERNR. "####
+
+  PARAMETERS : P_DATE TYPE SY-DATUM MODIF ID M1. "####
+
+  PARAMETERS : P_DEPCO TYPE ZEDT02_102-ZDEPCODE MODIF ID M1. "####
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.
+
+  PARAMETERS : P_RE AS CHECKBOX MODIF ID M1. "#####
+
+SELECTION-SCREEN END OF BLOCK B2.

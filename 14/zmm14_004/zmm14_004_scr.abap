@@ -1,0 +1,47 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM14_004_SCR
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME TITLE TEXT-T01.
+
+
+
+  SELECTION-SCREEN SKIP 1.
+
+
+
+  PARAMETERS : P_EBELN TYPE EBELN DEFAULT 4500000003,  "####
+
+               P_WERKS TYPE WERKS DEFAULT 1000, "###
+
+               P_BUDAT TYPE BUDAT DEFAULT SY-DATUM MODIF ID M1.  "#####
+
+
+
+  SELECTION-SCREEN ULINE.
+
+
+
+  SELECTION-SCREEN BEGIN OF LINE.
+
+    SELECTION-SCREEN COMMENT 2(4) TEXT-T02 FOR FIELD P_R1.   "####
+
+    PARAMETERS : P_R1 RADIOBUTTON GROUP RB1 DEFAULT 'X' USER-COMMAND UC1.
+
+    SELECTION-SCREEN COMMENT 18(4) TEXT-T03 FOR FIELD P_R2.  "####
+
+    PARAMETERS : P_R2 RADIOBUTTON GROUP RB1.
+
+  SELECTION-SCREEN END OF LINE.
+
+
+
+SELECTION-SCREEN END OF BLOCK B1.

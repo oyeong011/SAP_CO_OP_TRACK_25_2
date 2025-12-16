@@ -1,0 +1,115 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM10_ME21N_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES: ZEDT10_LFA1, ZEDT10_LFB1.
+
+
+
+CONSTANTS:
+
+
+
+
+*  C_WAERS TYPE C LENGTH 3 VALUE 'KRW',
+
+
+
+
+  C_MEINS TYPE C LENGTH 2 VALUE 'EA',
+
+  C_MENGE TYPE MENGE_D VALUE 1.
+
+
+
+DATA: GS_LFRM1 TYPE ZEDT10_LFM1.
+
+
+
+DATA: BEGIN OF GS_EKKO.
+
+    include structure
+ZEDT10_EKKO
+.
+
+DATA: LIFNR_NAME TYPE NAME1_GP,
+
+      END OF GS_EKKO.
+
+
+
+DATA: OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA: GT_EKKO LIKE TABLE OF GS_EKKO,
+
+      GS_EKPO TYPE ZEDT10_EKPO,
+
+      GT_EKPO LIKE TABLE OF GS_EKPO.
+
+
+
+DATA: GS_LFM1 TYPE ZEDT10_LFM1.
+
+
+
+" alv ### ##
+
+DATA: BEGIN OF GS_ITEM,
+
+        BUKRS TYPE BUKRS,
+
+        EKGRP TYPE EKGRP,
+
+        EKORG TYPE EKORG,
+
+        LIFNR TYPE LIFNR,
+
+        BEDAT TYPE BEDAT,
+
+        WAERS TYPE WAERS.
+
+    include structure
+ZEDT10_EKPO
+.
+
+DATA: ICON    TYPE C,
+
+      MWSKZ   TYPE ZEDT10_LFM1-MWSKZ,
+
+      CELLTAB TYPE LVC_T_STYL,
+
+      END OF GS_ITEM.
+
+DATA: GT_ITEM LIKE TABLE OF GS_ITEM.
+
+
+
+
+
+DATA: GV_EBELN TYPE EBELN. " ### ### Po ##.
+
+
+
+DATA:
+
+  GO_CONTAINER_ITEM TYPE REF TO CL_GUI_CUSTOM_CONTAINER,
+
+  GO_ALV_ITEM       TYPE REF TO CL_GUI_ALV_GRID,
+
+  GT_FIELDCAT_ITEM  TYPE LVC_T_FCAT,
+
+  GS_LAYOUT         TYPE LVC_S_LAYO.
+
+
+
+DATA: GT_MATNR_F4_DATA TYPE TABLE OF ZMARA10.
+
+DATA: GT_DELETED TYPE ZEDT10_EKPO.

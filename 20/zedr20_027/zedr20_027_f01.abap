@@ -1,0 +1,569 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR20_027_F01
+
+*&---------------------------------------------------------------------*
+
+*&---------------------------------------------------------------------*
+
+*&      Form  SET_DEFAULT
+
+*&---------------------------------------------------------------------*
+
+*       text
+
+*----------------------------------------------------------------------*
+
+*  -->  p1        text
+
+*  <--  p2        text
+
+*----------------------------------------------------------------------*
+
+
+
+
+FORM SET_DEFAULT .
+
+  S_ZCODE-LOW = 'SSU-01'.
+
+  S_ZCODE-HIGH = 'SSU-99'.
+
+  APPEND S_ZCODE.
+
+ENDFORM.
+
+
+
+
+*&---------------------------------------------------------------------*
+
+*&      Form  GET_DATA
+
+*&---------------------------------------------------------------------*
+
+*       text
+
+*----------------------------------------------------------------------*
+
+*  -->  p1        text
+
+*  <--  p2        text
+
+*----------------------------------------------------------------------*
+
+
+
+
+FORM GET_DATA .
+
+  SELECT *
+
+    FROM ZEDT20_002
+
+    INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT
+
+    WHERE ZCODE IN S_ZCODE.
+
+ENDFORM.
+
+
+
+
+*&---------------------------------------------------------------------*
+
+*&      Form  CREATE_OBJECT
+
+*&---------------------------------------------------------------------*
+
+*       text
+
+*----------------------------------------------------------------------*
+
+*  -->  p1        text
+
+*  <--  p2        text
+
+*----------------------------------------------------------------------*
+
+
+
+
+FORM CREATE_OBJECT .
+
+CREATE OBJECT GC_DOCKING
+
+  EXPORTING
+
+
+
+
+*    PARENT                      =
+
+
+
+
+    REPID                       = SY-REPID
+
+    DYNNR                       = SY-DYNNR
+
+
+
+
+*    SIDE                        = DOCK_AT_LEFT
+
+
+
+
+    EXTENSION                   = 2000
+
+
+
+
+*    STYLE                       =
+
+*    LIFETIME                    = lifetime_default
+
+*    CAPTION                     =
+
+*    METRIC                      = 0
+
+*    RATIO                       =
+
+*    NO_AUTODEF_PROGID_DYNNR     =
+
+*    NAME                        =
+
+*  EXCEPTIONS
+
+*    CNTL_ERROR                  = 1
+
+*    CNTL_SYSTEM_ERROR           = 2
+
+*    CREATE_ERROR                = 3
+
+*    LIFETIME_ERROR              = 4
+
+*    LIFETIME_DYNPRO_DYNPRO_LINK = 5
+
+*    others                      = 6
+
+
+
+
+    .
+
+IF SY-SUBRC <> 0.
+
+
+
+
+* MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+
+*            WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+
+
+
+
+ENDIF.
+
+CREATE OBJECT GC_GRID
+
+  EXPORTING
+
+
+
+
+*    I_SHELLSTYLE      = 0
+
+*    I_LIFETIME        =
+
+
+
+
+    I_PARENT          = GC_DOCKING
+
+
+
+
+*    I_APPL_EVENTS     = space
+
+*    I_PARENTDBG       =
+
+*    I_APPLOGPARENT    =
+
+*    I_GRAPHICSPARENT  =
+
+*    I_NAME            =
+
+*    I_FCAT_COMPLETE   = SPACE
+
+*  EXCEPTIONS
+
+*    ERROR_CNTL_CREATE = 1
+
+*    ERROR_CNTL_INIT   = 2
+
+*    ERROR_CNTL_LINK   = 3
+
+*    ERROR_DP_CREATE   = 4
+
+*    others            = 5
+
+
+
+
+    .
+
+IF SY-SUBRC <> 0.
+
+
+
+
+* MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+
+*            WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+
+
+
+
+ENDIF.
+
+
+
+ENDFORM.
+
+
+
+
+*&---------------------------------------------------------------------*
+
+*&      Form  FIELDCAT
+
+*&---------------------------------------------------------------------*
+
+*       text
+
+*----------------------------------------------------------------------*
+
+*  -->  p1        text
+
+*  <--  p2        text
+
+*----------------------------------------------------------------------*
+
+
+
+
+FORM FIELDCAT .
+
+CLEAR: GT_FIELDCAT, GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 1.
+
+  GS_FIELDCAT-FIELDNAME = 'ZCODE'.
+
+  GS_FIELDCAT-SCRTEXT_M = '####'.
+
+  GS_FIELDCAT-JUST = 'L'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR: GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 2.
+
+  GS_FIELDCAT-FIELDNAME = 'ZPERNR'.
+
+  GS_FIELDCAT-SCRTEXT_M = '####'.
+
+  GS_FIELDCAT-JUST = 'R'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR: GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 3.
+
+  GS_FIELDCAT-FIELDNAME = 'ZMAJOR'.
+
+  GS_FIELDCAT-SCRTEXT_M = '##'.
+
+  GS_FIELDCAT-NO_OUT = 'X'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR: GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 4.
+
+  GS_FIELDCAT-FIELDNAME = 'ZMNAME'.
+
+  GS_FIELDCAT-SCRTEXT_M = '###'.
+
+  GS_FIELDCAT-KEY = 'X'.
+
+  GS_FIELDCAT-JUST = 'L'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR: GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 5.
+
+  GS_FIELDCAT-FIELDNAME = 'ZSUM'.
+
+  GS_FIELDCAT-SCRTEXT_M = '####'.
+
+  GS_FIELDCAT-DO_SUM = 'X'.
+
+  GS_FIELDCAT-CURRENCY = 'KRW'.
+
+  GS_FIELDCAT-JUST = 'R'.
+
+  GS_FIELDCAT-NO_ZERO = 'X'.
+
+  GS_FIELDCAT-NO_SIGN = 'X'.
+
+  GS_FIELDCAT-EDIT = 'X'.
+
+  GS_FIELDCAT-OUTPUTLEN = 20.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR: GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 6.
+
+  GS_FIELDCAT-FIELDNAME = 'ZWAERS'.
+
+  GS_FIELDCAT-SCRTEXT_M = '##'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR: GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 7.
+
+  GS_FIELDCAT-FIELDNAME = 'CRDATE'.
+
+  GS_FIELDCAT-SCRTEXT_M = '####'.
+
+  GS_FIELDCAT-EDIT = 'X'.
+
+  GS_FIELDCAT-OUTPUTLEN = 11.
+
+  GS_FIELDCAT-EDIT_MASK = '____-__-__'.
+
+  GS_FIELDCAT-NO_CONVEXT = 'X'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+ENDFORM.
+
+
+
+
+*&---------------------------------------------------------------------*
+
+*&      Form  ALV_SORT
+
+*&---------------------------------------------------------------------*
+
+*       text
+
+*----------------------------------------------------------------------*
+
+*  -->  p1        text
+
+*  <--  p2        text
+
+*----------------------------------------------------------------------*
+
+
+
+
+FORM ALV_SORT .
+
+  CLEAR: GS_SORT.
+
+  GS_SORT-SPOS = 1.
+
+  GS_SORT-FIELDNAME = 'ZMNAME'.
+
+  GS_SORT-SUBTOT = 'X'.
+
+  APPEND GS_SORT TO GT_SORT.
+
+ENDFORM.
+
+
+
+
+*&---------------------------------------------------------------------*
+
+*&      Form  ALV_LAYOUT
+
+*&---------------------------------------------------------------------*
+
+*       text
+
+*----------------------------------------------------------------------*
+
+*  -->  p1        text
+
+*  <--  p2        text
+
+*----------------------------------------------------------------------*
+
+
+
+
+FORM ALV_LAYOUT .
+
+  CLEAR: GS_LAYOUT.
+
+  GS_LAYOUT-ZEBRA = 'X'.
+
+
+
+  CLEAR: GS_VARIANT.
+
+  GS_VARIANT-REPORT = SY-REPID.
+
+  GS_VARIANT-USERNAME = SY-UNAME.
+
+ENDFORM.
+
+
+
+
+*&---------------------------------------------------------------------*
+
+*&      Form  CALL_ALV
+
+*&---------------------------------------------------------------------*
+
+*       text
+
+*----------------------------------------------------------------------*
+
+*  -->  p1        text
+
+*  <--  p2        text
+
+*----------------------------------------------------------------------*
+
+
+
+
+FORM CALL_ALV .
+
+CALL METHOD GC_GRID->SET_TABLE_FOR_FIRST_DISPLAY
+
+  EXPORTING
+
+
+
+
+*    I_BUFFER_ACTIVE               =
+
+*    I_BYPASSING_BUFFER            =
+
+*    I_CONSISTENCY_CHECK           =
+
+*    I_STRUCTURE_NAME              =
+
+
+
+
+    IS_VARIANT                    = GS_VARIANT
+
+    I_SAVE                        = 'A'
+
+
+
+
+*    I_DEFAULT                     = 'X'
+
+
+
+
+    IS_LAYOUT                     = GS_LAYOUT
+
+
+
+
+*    IS_PRINT                      =
+
+*    IT_SPECIAL_GROUPS             =
+
+*    IT_TOOLBAR_EXCLUDING          =
+
+*    IT_HYPERLINK                  =
+
+*    IT_ALV_GRAPHICS               =
+
+*    IT_EXCEPT_QINFO               =
+
+*    IR_SALV_ADAPTER               =
+
+
+
+
+  CHANGING
+
+    IT_OUTTAB                     = GT_STUDENT
+
+    IT_FIELDCATALOG               = GT_FIELDCAT
+
+    IT_SORT                       = GT_SORT
+
+
+
+
+*    IT_FILTER                     =
+
+*  EXCEPTIONS
+
+*    INVALID_PARAMETER_COMBINATION = 1
+
+*    PROGRAM_ERROR                 = 2
+
+*    TOO_MANY_LINES                = 3
+
+*    others                        = 4
+
+
+
+
+        .
+
+IF SY-SUBRC <> 0.
+
+
+
+
+* Implement suitable error handling here
+
+
+
+
+ENDIF.
+
+
+
+ENDFORM.

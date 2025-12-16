@@ -1,0 +1,95 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM12_012_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES: ZRBKP_12, ZRSEG_12, ZEKPO_12, ZEKKO_12, SSCRFIELDS.
+
+"## ##/### ### ### (ALV#)
+
+DATA: BEGIN OF GS_PO,
+
+  L_CHECK TYPE C,                  " ##(####)
+
+  EBELN TYPE ZEKPO_12-EBELN,       " ######
+
+  EBELP TYPE ZEKPO_12-EBELP,       " ##
+
+  LIFNR TYPE ZEKKO_12-LIFNR,       " ###
+
+  MATNAME TYPE ZEKPO_12-MATNAME,   " ###
+
+  MENGE TYPE ZEKPO_12-MENGE,       " ##
+
+  MEINS TYPE ZEKPO_12-MEINS,       " ##
+
+  STPRS TYPE ZEKPO_12-STPRS,       " ##
+
+  WAERS TYPE ZEKKO_12-WAERS,       " ##
+
+  MWSKZ TYPE ZEKPO_12-MWSKZ,       " ####
+
+  NETAM TYPE ZRSEG_12-NETAM,       " ###
+
+  MWSTS TYPE ZRSEG_12-MWSTS,       " ##
+
+  GROSS TYPE ZRSEG_12-GROSS,       " ###
+
+  END OF GS_PO.
+
+DATA: GT_PO LIKE TABLE OF GS_PO.
+
+
+
+DATA : BEGIN OF GS_INVOICE.
+
+  include structure
+ZRSEG_12
+.
+
+  DATA : L_CHECK TYPE C,  " ## ## ## ####
+
+  MATNAME TYPE ZEKPO_12-MATNAME, " ###
+
+  WAERS TYPE ZEKKO_12-WAERS,       " ##
+
+  END OF GS_INVOICE.
+
+DATA GT_INVOICE LIKE TABLE OF GS_INVOICE.
+
+
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA: GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA: GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA: GS_FIELDCAT TYPE LVC_S_FCAT.
+
+DATA: GT_FIELDCAT TYPE LVC_T_FCAT.
+
+DATA: GS_FIELDCAT2 TYPE LVC_S_FCAT.
+
+DATA: GT_FIELDCAT2 TYPE LVC_T_FCAT.
+
+
+
+DATA: GS_LAYOUT TYPE LVC_S_LAYO.
+
+DATA: GS_VARIANT TYPE DISVARIANT.
+
+
+
+DATA: GO_EVENT TYPE REF TO EVENT.

@@ -1,0 +1,237 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR14_PRACTICE002
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR14_PRACTICE002.
+
+
+
+"READ ##
+
+"### ### ##
+
+DATA : GT_ZEDT001 TYPE TABLE OF ZEDT14_001,
+
+       GT_ZEDT002 TYPE TABLE OF ZEDT14_002,
+
+       GT_ZEDT004 TYPE TABLE OF ZEDT14_004.
+
+DATA : GS_ZEDT001 TYPE ZEDT14_001,
+
+       GS_ZEDT002 TYPE ZEDT14_002,
+
+       GS_ZEDT004 TYPE ZEDT14_004.
+
+
+
+TYPES : BEGIN OF ZTG_FINAL,
+
+  ZCODE TYPE ZCODE14,
+
+  ZKNAME TYPE ZKNAME14,
+
+  ZJGGUBUN TYPE C LENGTH 10,
+
+  ZTEL TYPE ZTEL14,
+
+  ZHSGUBUN TYPE C LENGTH 10,
+
+  END OF ZTG_FINAL.
+
+
+
+"### ### ##
+
+DATA : GT_FINAL TYPE TABLE OF ZTG_FINAL,
+
+       GS_FINAL TYPE ZTG_FINAL.
+
+
+
+"### ##
+
+SELECT * FROM ZEDT14_001 INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT001.
+
+SELECT * FROM ZEDT14_002 INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT002.
+
+SELECT * FROM ZEDT14_004 INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT004.
+
+
+
+"#### ##
+
+DATA : LV_MSUM TYPE ZEDT14_004-ZSUM,
+
+       LV_FSUM TYPE ZEDT14_004-ZSUM,
+
+       LV_SUM TYPE ZEDT14_004-ZSUM,
+
+       LV_GFLAG TYPE ZTG_FINAL-ZHSGUBUN,    "####
+
+       LV_ZMAJOR TYPE ZEDT14_004-ZMAJOR.    "####
+
+
+
+"### ##
+
+SORT GT_ZEDT001 BY ZCODE.
+
+SORT GT_ZEDT002 BY ZCODE.
+
+SORT GT_ZEDT004 BY ZCODE.
+
+
+
+"MODIFY LOOP
+
+LOOP AT GT_ZEDT004 INTO GS_ZEDT004.
+
+
+
+  CHECK GS_ZEDT004-ZGRADE IS NOT INITIAL.   "CHECK ##
+
+  CLEAR : GS_FINAL.
+
+
+
+  AT NEW ZCODE.
+
+    LV_GFLAG = ''.
+
+  ENDAT.
+
+
+
+  IF GS_ZEDT004-ZGRADE = 'D' OR GS_ZEDT004-ZGRADE = 'F'.
+
+    LV_GFLAG = '####'.
+
+  ENDIF.
+
+
+
+  LV_ZMAJOR = GS_ZEDT004-ZMAJOR.
+
+  LV_SUM = GS_ZEDT004-ZSUM.
+
+
+
+  AT END OF ZCODE.
+
+    READ TABLE GT_ZEDT001 WITH KEY ZCODE = GS_ZEDT004-ZCODE INTO GS_ZEDT001
+
+    COMPARING ZCODE.    "READ ~ COMPARING ##
+
+    READ TABLE GT_ZEDT002 WITH KEY ZCODE = GS_ZEDT004-ZCODE INTO GS_ZEDT002
+
+    COMPARING ZCODE.
+
+
+
+    GS_FINAL-ZCODE = GS_ZEDT004-ZCODE.
+
+    GS_FINAL-ZKNAME = GS_ZEDT001-ZKNAME.
+
+    IF GS_ZEDT002-ZMAJOR <> LV_ZMAJOR.
+
+      GS_FINAL-ZJGGUBUN = '####'.
+
+    ENDIF.
+
+
+
+    GS_FINAL-ZHSGUBUN = LV_GFLAG.
+
+    IF GS_FINAL-ZHSGUBUN = '####'.
+
+      GS_FINAL-ZTEL = GS_ZEDT001-ZTEL.
+
+    ENDIF.
+
+
+
+    IF GS_ZEDT001-ZGENDER = 'M'.
+
+      LV_MSUM = LV_MSUM + LV_SUM.
+
+    ELSE.
+
+      LV_FSUM = LV_FSUM + LV_SUM.
+
+    ENDIF.
+
+
+
+    COLLECT GS_FINAL INTO GT_FINAL.   "COLLECT ##
+
+  ENDAT.
+
+
+
+ENDLOOP.
+
+
+
+"WRITE LOOP
+
+LOOP AT GT_FINAL INTO GS_FINAL.
+
+  AT FIRST.
+
+    ULINE AT /01(66).
+
+    WRITE : /01 '|', 02(10) '####' CENTERED,
+
+             12 '|', 13(15) '##' CENTERED,
+
+             28 '|', 29(10) '####' CENTERED,
+
+             39 '|', 40(15) '####' CENTERED,
+
+             55 '|', 56(10) '##' CENTERED,
+
+             66 '|'.
+
+    ULINE AT /01(66).
+
+  ENDAT.
+
+
+
+  WRITE : /01 '|', 02(10) GS_FINAL-ZCODE CENTERED,
+
+             12 '|', 13(15) GS_FINAL-ZKNAME,
+
+             28 '|', 29(10) GS_FINAL-ZJGGUBUN CENTERED,
+
+             39 '|', 40(15) GS_FINAL-ZTEL CENTERED,
+
+             55 '|', 56(10) GS_FINAL-ZHSGUBUN CENTERED,
+
+             66 '|'.
+
+  ULINE AT /01(66).
+
+
+
+  AT LAST.
+
+    WRITE :/ '###### :', LV_MSUM CURRENCY 'KRW'.
+
+    WRITE :/ '###### :', LV_FSUM CURRENCY 'KRW'.
+
+  ENDAT.
+
+
+
+ENDLOOP.

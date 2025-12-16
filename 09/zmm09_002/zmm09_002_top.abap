@@ -1,0 +1,167 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM09_002_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES : ZEKPO_09,
+
+         ZEKKO_09,
+
+         ZMARA09.
+
+"### ###
+
+CONTROLS TC_ITEMS TYPE TABLEVIEW USING SCREEN '0100'.
+
+
+
+DATA : GS_LFA1 TYPE ZLFA1_09,
+
+       GS_LFB1 TYPE ZLFB1_09.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+
+
+"###100 ####
+
+DATA : GF_EKORG TYPE ZLFM1_09-EKORG,
+
+       GF_EKGRP TYPE ZLFM1_09-EKGRP,
+
+       GF_BUKRS TYPE ZLFB1_09-BUKRS,
+
+       GF_NAME1 TYPE ZLFA1_09-NAME1,
+
+       GF_BEDAT TYPE DATS.
+
+
+
+"###100 ### ##
+
+DATA : BEGIN OF GS_ITEM,
+
+  MARK TYPE C LENGTH 1,   "### ## ##
+
+  EBELP LIKE ZEKPO_09-EBELP, "##
+
+ "MATNR LIKE ZEKPO_09-MATNR, "####
+
+  MATNR LIKE ZMARA09-ZMATNR,
+
+  MAKTX LIKE ZEKPO_09-MAKTX, "####
+
+  PSTYP LIKE ZEKPO_09-PSTYP, "### #### (##### ##### ##)
+
+  MENGE LIKE ZEKPO_09-MENGE, "PO##
+
+  STPRS LIKE ZEKPO_09-STPRS, "##
+
+
+
+
+*  STPRS TYPE P DECIMALS 2,
+
+
+
+
+  MEINS LIKE ZEKPO_09-MEINS, "##
+
+  WAERS LIKE ZEKKO_09-WAERS, "##
+
+  MWSKZ LIKE ZEKPO_09-MWSKZ, "####
+
+  PRDAT LIKE ZEKPO_09-PRDAT, "###
+
+  WERKS LIKE ZEKPO_09-WERKS, "###
+
+  LGORT LIKE ZEKPO_09-LGORT, "####
+
+END OF GS_ITEM.
+
+DATA : GT_ITEM LIKE TABLE OF GS_ITEM.
+
+
+
+"#### ### ## ##
+
+DATA : ZMATNAME LIKE ZMARA09-ZMATNAME, "###
+
+       STPRS LIKE ZMARA09-STPRS,       "##
+
+       MEINS LIKE ZMARA09-MEINS.       "##
+
+
+
+"#### ## ###, #### ## ###
+
+DATA : GS_EKKO TYPE ZEKKO_09,
+
+       GS_EKPO TYPE ZEKPO_09.
+
+DATA : GT_EKKO LIKE TABLE OF GS_EKKO,
+
+       GT_EKPO LIKE TABLE OF GS_EKPO.
+
+
+
+"docking ####, grid ## ####
+
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+"######, ####, ## ## ##
+
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT,
+
+       GT_FIELDCAT TYPE LVC_T_FCAT.
+
+
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+"alv
+
+DATA : BEGIN OF GS_ALV,
+
+  EBELP LIKE ZEKPO_09-EBELP, "##
+
+  MATNR LIKE ZEKPO_09-MATNR, "####
+
+  MAKTX LIKE ZEKPO_09-MATNR, "###
+
+  MENGE LIKE ZEKPO_09-MENGE, "PO##
+
+  STPRS LIKE ZEKPO_09-STPRS, "##
+
+  MEINS LIKE ZEKPO_09-MEINS, "##
+
+  WAERS LIKE ZEKKO_09-WAERS, "##
+
+  MWSKZ LIKE ZEKPO_09-MWSKZ, "####
+
+  BEDAT LIKE ZEKKO_09-BEDAT, "###
+
+  WERKS LIKE ZEKPO_09-WERKS, "###
+
+  LGORT LIKE ZEKPO_09-LGORT, "####
+
+END OF GS_ALV.
+
+DATA : GT_ALV LIKE TABLE OF GS_ALV.

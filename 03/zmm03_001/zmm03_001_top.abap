@@ -1,0 +1,171 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM03_001_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+"&----------### ##----------&"
+
+DATA : GS_LFA1 TYPE ZEDT03_LFA1,      "## ###
+
+       GT_LFA1 LIKE TABLE OF GS_LFA1,
+
+       GS_LFB1 TYPE ZEDT03_LFB1,      "#### ###
+
+       GT_LFB1 LIKE TABLE OF GS_LFB1,
+
+       GS_LFM1 TYPE ZEDT03_LFM1,      "####### ###
+
+       GT_LFM1 LIKE TABLE OF GS_LFM1.
+
+
+
+"### ### ### ###
+
+DATA : GV_LIFNR LIKE ZEDT03_LFA1-LIFNR, "#####
+
+       GV_NAME1 LIKE ZEDT03_LFA1-NAME1, "####
+
+       GV_LAND1 LIKE ZEDT03_LFA1-LAND1, "###
+
+       GV_KTOKK LIKE ZEDT03_LFA1-KTOKK, "#####
+
+       GV_STCD1 LIKE ZEDT03_LFA1-STCD1, "####
+
+       GV_STCD2 LIKE ZEDT03_LFA1-STCD2, "#####
+
+       GV_STRAS LIKE ZEDT03_LFA1-STRAS, "##
+
+       GV_BUKRS LIKE ZEDT03_LFB1-BUKRS, "####
+
+       GV_LOEVM LIKE ZEDT03_LFB1-LOEVM, "#####
+
+       GV_AKONT LIKE ZEDT03_LFB1-AKONT, "####
+
+       GV_ZTERM LIKE ZEDT03_LFB1-ZTERM, "####
+
+       GV_EKORG LIKE ZEDT03_LFM1-EKORG, "####
+
+       GV_EKGRP LIKE ZEDT03_LFM1-EKGRP, "####
+
+       GV_WAERS LIKE ZEDT03_LFM1-WAERS, "######
+
+       GV_MWSKZ LIKE ZEDT03_LFM1-MWSKZ. "####
+
+
+
+DATA : BEGIN OF GS_MASTER,
+
+       LIFNR LIKE ZEDT03_LFA1-LIFNR, "#####
+
+       NAME1 LIKE ZEDT03_LFA1-NAME1, "####
+
+       LAND1 LIKE ZEDT03_LFA1-LAND1, "###
+
+       KTOKK LIKE ZEDT03_LFA1-KTOKK, "#####
+
+       STCD1 LIKE ZEDT03_LFA1-STCD1, "####
+
+       STCD2 LIKE ZEDT03_LFA1-STCD2, "#####
+
+       STRAS LIKE ZEDT03_LFA1-STRAS, "##
+
+       BUKRS LIKE ZEDT03_LFB1-BUKRS, "####
+
+       LOEVM LIKE ZEDT03_LFB1-LOEVM, "#####
+
+       AKONT LIKE ZEDT03_LFB1-AKONT, "####
+
+       ZTERM LIKE ZEDT03_LFB1-ZTERM, "####
+
+       EKORG LIKE ZEDT03_LFM1-EKORG, "####
+
+       EKGRP LIKE ZEDT03_LFM1-EKGRP, "####
+
+       WAERS LIKE ZEDT03_LFM1-WAERS, "######
+
+       MWSKZ LIKE ZEDT03_LFM1-MWSKZ, "####
+
+      END OF GS_MASTER.
+
+DATA : GT_MASTER LIKE TABLE OF GS_MASTER.
+
+
+
+"## ### ## ##
+
+DATA : GV_NR_RANGE TYPE INRI-NRRANGENR.          "#### ##
+
+DATA : GV_NEW_LIFNR TYPE ZEDT03_LFA1-LIFNR.
+
+
+
+
+
+
+* ## ## #### ##
+
+
+
+
+CONSTANTS : GC_NR_OBJ TYPE INRI-OBJECT VALUE 'ZVENDNO_03',
+
+            GC_NR_M1 TYPE INRI-NRRANGENR VALUE 'M1',
+
+            GC_NR_M2 TYPE INRI-NRRANGENR VALUE 'M2',
+
+            GC_NR_M3 TYPE INRI-NRRANGENR VALUE 'M3',
+
+            GC_NR_M4 TYPE INRI-NRRANGENR VALUE 'M4',
+
+            GC_NR_M5 TYPE INRI-NRRANGENR VALUE 'M5',
+
+            GC_NR_M6  TYPE INRI-NRRANGENR VALUE 'M6',
+
+            GC_NR_M9  TYPE INRI-NRRANGENR VALUE 'M9'.
+
+
+
+
+
+"&----------ALV ###----------&"
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER. "## ####
+
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID. " ###
+
+
+
+DATA : GO_EVENT TYPE REF TO EVENT.
+
+
+
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT. "## ####
+
+DATA : GT_FIELDCAT TYPE LVC_T_FCAT.
+
+
+
+DATA : GS_VARIANT TYPE DISVARIANT.
+
+
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO. "####
+
+
+
+DATA : GS_SORT TYPE LVC_S_SORT. "SORT
+
+DATA : GT_SORT TYPE LVC_T_SORT.

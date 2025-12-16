@@ -1,0 +1,172 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR20_009
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR20_009.
+
+
+
+
+
+
+*DATA: BEGIN OF GS_STUDENT,    " ### ##
+
+*  ZPERNR TYPE ZEDT20_001-ZPERNR,    " ####
+
+*  ZCODE TYPE ZEDT20_001-ZCODE,    " ####
+
+*  ZKNAME TYPE ZEDT20_001-ZKNAME,    " ##
+
+*  ZENAME TYPE ZEDT20_001-ZENAME,    " ####
+
+*  ZGENDER TYPE ZEDT20_001-ZGENDER,    " ##
+
+*  ZGNAME TYPE C LENGTH 4,   " ## ##
+
+*  ZTEL TYPE ZEDT20_001-ZTEL,    " ####
+
+*  END OF GS_STUDENT.
+
+*
+
+**" 1. TABLE KEY# ### ## ##
+
+**DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT WITH NON-UNIQUE KEY ZCODE.    " ### ### ##
+
+*DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+*
+
+*CLEAR: GS_STUDENT.
+
+*
+
+*GS_STUDENT-ZCODE = 'SSU-01'.
+
+*GS_STUDENT-ZPERNR = '0000000001'.
+
+*GS_STUDENT-ZKNAME = '###'.
+
+*GS_STUDENT-ZENAME = 'DONG'.
+
+*GS_STUDENT-ZGENDER = 'M'."'F'."'M'.
+
+*GS_STUDENT-ZTEL = '01011112222'.
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*GS_STUDENT-ZCODE = 'SSU-03'.
+
+*GS_STUDENT-ZPERNR = '0000000003'.
+
+*GS_STUDENT-ZKNAME = '###'.
+
+*GS_STUDENT-ZENAME = 'SON'.
+
+*GS_STUDENT-ZGENDER = 'F'."'F'."'M'.
+
+*GS_STUDENT-ZTEL = '01033334444'.
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*GS_STUDENT-ZCODE = 'SSU-02'.
+
+*GS_STUDENT-ZPERNR = '0000000002'.
+
+*GS_STUDENT-ZKNAME = '###'.
+
+*GS_STUDENT-ZENAME = 'HOON'.
+
+*GS_STUDENT-ZGENDER = 'M'."'F'."'M'.
+
+*GS_STUDENT-ZTEL = '01022223333'.
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*SORT GT_STUDENT BY ZCODE.
+
+*
+
+*BREAK-POINT.
+
+**GS_STUDENT-ZENAME = 'KANG'.
+
+**GS_STUDENT-ZGENDER = 'F'.
+
+*"MODIFY TABLE GT_STUDENT FROM GS_STUDENT TRANSPORTING ZGENDER.   " 2. TABLE KEY# ### ## #### ##
+
+*
+
+*CLEAR: GS_STUDENT.
+
+**" 3. WHERE## ### ##
+
+**LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+**  IF GS_STUDENT-ZGENDER = 'M'.
+
+**    GS_STUDENT-ZGNAME = '##'.
+
+**  ELSEIF GS_STUDENT-ZGENDER = 'F'.
+
+**    GS_STUDENT-ZGNAME = '##'.
+
+**  ELSE.
+
+**    GS_STUDENT-ZGNAME = '##'.
+
+**  ENDIF.
+
+**  MODIFY GT_STUDENT FROM GS_STUDENT TRANSPORTING ZGNAME
+
+**    WHERE ZCODE = GS_STUDENT-ZCODE.
+
+**  CLEAR GS_STUDENT.
+
+**ENDLOOP.
+
+*
+
+*" 4. INDEX# ### ## ##
+
+*LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+*  IF GS_STUDENT-ZGENDER = 'M'.
+
+*    GS_STUDENT-ZGNAME = '##'.
+
+*  ELSEIF GS_STUDENT-ZGENDER = 'F'.
+
+*    GS_STUDENT-ZGNAME = '##'.
+
+*  ELSE.
+
+*    GS_STUDENT-ZGNAME = '##'.
+
+*  ENDIF.
+
+*
+
+*  MODIFY GT_STUDENT FROM GS_STUDENT INDEX SY-TABIX TRANSPORTING ZGNAME.
+
+*  CLEAR GS_STUDENT.
+
+*ENDLOOP.
+
+*BREAK-POINT.

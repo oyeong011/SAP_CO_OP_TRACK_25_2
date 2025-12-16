@@ -1,0 +1,95 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR04_038
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR04_038.
+
+
+
+" ###(##) ##
+
+DATA : BEGIN OF GS_STUDENT,
+
+  ZCODE TYPE C LENGTH 10,
+
+  ZKNAME TYPE C LENGTH 10,
+
+  ZENAME TYPE C LENGTH 10,
+
+  END OF GS_STUDENT.
+
+
+
+" ### ### ##
+
+DATA GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+GS_STUDENT-ZCODE = 'SSU-02'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'LEE'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+GS_STUDENT-ZCODE = 'SSU-01'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'DONG'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+GS_STUDENT-ZCODE = 'SSU-03'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'SONG'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+GS_STUDENT-ZCODE = 'SSU-04'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'LEE'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+BREAK-POINT.
+
+
+
+"SORT GT_STUDENT.           "####
+
+"SORT GT_STUDENT ASCENDING. "####
+
+"SORT GT_STUDENT DESCENDING. "####
+
+"SORT GT_STUDENT BY ZKNAME. "ZKNAME## ####
+
+"SORT GT_STUDENT BY ZKNAME DESCENDING. "ZKNAME## ####
+
+SORT GT_STUDENT BY ZKNAME DESCENDING ZCODE DESCENDING.
+
+
+
+BREAK-POINT.

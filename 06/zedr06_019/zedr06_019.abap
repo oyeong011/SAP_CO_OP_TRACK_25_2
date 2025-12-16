@@ -1,0 +1,225 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR06_019
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR06_019.
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+
+
+
+
+" ### ##
+
+
+
+
+*TABLES : ZEDT06_001.
+
+*
+
+*DATA : BEGIN OF GS_STUDENT.
+
+*  INCLUDE TYPE ZEDT06_001.
+
+*  DATA : END OF GS_STUDENT.
+
+*DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+*
+
+*SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+*  SELECT-OPTIONS : S_ZCODE FOR ZEDT06_001-ZCODE.
+
+*  PARAMETERS : P_ZPERNR LIKE ZEDT06_001-ZCODE.
+
+*  PARAMETERS : P_ZGEN LIKE ZEDT06_001-ZGENDER.
+
+*SELECTION-SCREEN END OF BLOCK B1.
+
+*
+
+*IF S_ZCODE IS INITIAL.
+
+*  WRITE :/ 'ZCODE# ######'.
+
+*  "MESSAGE I100.
+
+*ENDIF.
+
+*
+
+*PERFORM GET_DATA.
+
+*IF GT_STUDENT IS INITIAL.
+
+*  WRITE :/ '### ### ####.'.
+
+*  EXIT.
+
+*ENDIF.
+
+*
+
+*FORM GET_DATA.
+
+*  SELECT * FROM ZEDT06_001
+
+*    INTO CORRESPONDING FIELDS OF TABLE  GT_STUDENT
+
+*    WHERE ZCODE = S_ZCODE
+
+*    AND ZGENDER = P_ZGEN.
+
+*ENDFORM.
+
+
+
+*&---------------------------------------------------------------------*
+
+
+
+
+" ### ### # ### ## ##
+
+TABLES : ZEDT06_001, ZEDT06_002.
+
+
+
+DATA : BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT06_001
+.
+
+  DATA : END OF GS_STUDENT.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+DATA : BEGIN OF GS_STUDENT002.
+
+  include structure
+ZEDT06_002
+.
+
+  DATA : END OF GS_STUDENT002.
+
+DATA : GT_STUDENT002 LIKE TABLE OF GS_STUDENT002.
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+  SELECT-OPTIONS : S_ZCODE FOR ZEDT06_001-ZCODE.
+
+  PARAMETERS : P_ZPERNR LIKE ZEDT06_001-ZCODE.
+
+  PARAMETERS : P_ZGEN LIKE ZEDT06_001-ZGENDER.
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+IF S_ZCODE[] IS INITIAL.
+
+  WRITE :/ 'ZCODE# ######'.
+
+  EXIT.
+
+ENDIF.
+
+
+
+PERFORM GET_DATA.
+
+PERFORM GET_DATA002.
+
+
+
+IF GT_STUDENT IS INITIAL.
+
+  WRITE :/ '### ### ####.'.
+
+  EXIT.
+
+ENDIF.
+
+
+
+LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+  READ TABLE GT_STUDENT002 INTO GS_STUDENT002
+
+    WITH KEY ZCODE = GS_STUDENT-ZCODE.
+
+
+
+  IF SY-SUBRC = 0.
+
+    WRITE: / GS_STUDENT-ZCODE,
+
+             GS_STUDENT-ZKNAME,
+
+             GS_STUDENT-ZGENDER,
+
+             GS_STUDENT002-ZSUM.
+
+    ELSE.
+
+    WRITE: / GS_STUDENT-ZCODE,
+
+             GS_STUDENT-ZKNAME,
+
+             GS_STUDENT-ZGENDER,
+
+             'N/A'.  " ## ## ## ##
+
+   ENDIF.
+
+
+
+ENDLOOP.
+
+
+
+FORM GET_DATA.
+
+  SELECT * FROM ZEDT06_001
+
+    INTO CORRESPONDING FIELDS OF TABLE  GT_STUDENT
+
+    WHERE ZCODE IN S_ZCODE
+
+    AND ZGENDER = P_ZGEN.
+
+ENDFORM.
+
+
+
+FORM GET_DATA002.
+
+  SELECT * FROM ZEDT06_002
+
+    INTO CORRESPONDING FIELDS OF TABLE  GT_STUDENT002
+
+    WHERE ZCODE IN S_ZCODE.
+
+ENDFORM.

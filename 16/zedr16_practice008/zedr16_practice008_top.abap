@@ -1,0 +1,169 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR16_PRACTICE008_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES : ZEDT16_100, ZEDT16_101.
+
+
+
+DATA : BEGIN OF GS_ORDER.
+
+    include structure
+ZEDT16_100
+.
+
+DATA : END OF GS_ORDER.
+
+DATA : GT_ORDER LIKE TABLE OF GS_ORDER.
+
+
+
+DATA : BEGIN OF GS_ORDER_ALV,
+
+         ICON       TYPE CHAR4,
+
+         ZORDNO     LIKE ZEDT16_100-ZORDNO, "####
+
+         ZIDCODE    LIKE ZEDT16_100-ZIDCODE, "##ID
+
+         ZMATNR     LIKE ZEDT16_100-ZMATNR, "####
+
+         ZMTART     LIKE ZEDT16_100-ZMTART, "####
+
+         ZMTARTNAME TYPE CHAR10, "#####
+
+         ZMATNAME   LIKE ZEDT16_100-ZMATNAME, "###
+
+         ZVOLUM     LIKE ZEDT16_100-ZVOLUM, "##
+
+         VRKME      LIKE ZEDT16_100-VRKME, "####
+
+         ZNSAMT     LIKE ZEDT16_100-ZNSAMT, "####
+
+         ZSLAMT     LIKE ZEDT16_100-ZSLAMT, "####
+
+         ZDCAMT     LIKE ZEDT16_100-ZDCAMT, "####
+
+         ZWAERS     LIKE ZEDT16_100-ZWAERS, "##
+
+         ZDC_FG     LIKE ZEDT16_100-ZDC_FG, "####
+
+         ZDCNAME    TYPE CHAR10, "#####
+
+         ZSALE_FG   LIKE ZEDT16_100-ZSALE_FG, "####
+
+         ZSALENAME  TYPE CHAR2, "#####
+
+         ZRET_FG    LIKE ZEDT16_100-ZRET_FG, "####
+
+         ZRETNAME   TYPE CHAR4, "#####
+
+         ZJDATE     LIKE ZEDT16_100-ZJDATE, "####
+
+         ZRDATE     LIKE ZEDT16_100-ZRDATE, "####
+
+       END OF GS_ORDER_ALV.
+
+DATA : GT_ORDER_ALV LIKE TABLE OF GS_ORDER_ALV.
+
+
+
+DATA : BEGIN OF GS_DELIVER.
+
+    include structure
+ZEDT16_101
+.
+
+DATA : END OF GS_DELIVER.
+
+DATA : GT_DELIVER LIKE TABLE OF GS_DELIVER.
+
+
+
+DATA : BEGIN OF GS_DELIVER_ALV,
+
+         ICON        TYPE CHAR4,
+
+         ZORDNO      LIKE ZEDT16_101-ZORDNO, "####
+
+         ZIDCODE     LIKE ZEDT16_101-ZIDCODE, "##ID
+
+         ZMATNR      LIKE ZEDT16_101-ZMATNR, "####
+
+         ZMTART      LIKE ZEDT16_101-ZMTART, "####
+
+         ZMTARTNAME  TYPE CHAR10, "#####
+
+         ZMATNAME    LIKE ZEDT16_101-ZMATNAME, "###
+
+         ZVOLUM      LIKE ZEDT16_101-ZVOLUM, "##
+
+         VRKME       LIKE ZEDT16_101-VRKME, "####
+
+         ZSLAMT      LIKE ZEDT16_101-ZSLAMT, "####
+
+         ZWAERS      LIKE ZEDT16_101-ZWAERS, "##
+
+         ZDFLAG      LIKE ZEDT16_101-ZDFLAG, "####
+
+         ZDNAME      TYPE CHAR10, "#####
+
+         ZDGUBUN     LIKE ZEDT16_101-ZDGUBUN, "####
+
+         ZDGUBUNNAME TYPE CHAR3, "#####
+
+         ZDDATE      LIKE ZEDT16_101-ZDDATE, "####
+
+         ZRDATE      LIKE ZEDT16_101-ZRDATE, "####
+
+         ZFLAG       LIKE ZEDT16_101-ZFLAG, "FLAG
+
+       END OF GS_DELIVER_ALV.
+
+DATA : GT_DELIVER_ALV LIKE TABLE OF GS_DELIVER_ALV.
+
+
+
+" ## ## ### ## range table
+
+RANGES : GR_ZSALE_FG FOR ZEDT16_100-ZSALE_FG.
+
+RANGES : GR_ZFLAG FOR ZEDT16_101-ZFLAG.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+
+
+DATA : GC_GRID1 TYPE REF TO CL_GUI_ALV_GRID.
+
+DATA : GC_GRID2 TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA : GS_VARIANT TYPE DISVARIANT.
+
+
+
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT.
+
+DATA : GT_FIELDCAT TYPE LVC_T_FCAT.
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+DATA : GS_SORT TYPE LVC_S_SORT .
+
+DATA : GT_SORT TYPE LVC_T_SORT.

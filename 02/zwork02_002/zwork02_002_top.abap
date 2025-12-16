@@ -1,0 +1,105 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZWORK02_002_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES: ZTCURR02.
+
+
+
+DATA: BEGIN OF GS_TCURR,
+
+  MANDT LIKE ZTCURR02-MANDT, "#####
+
+  KURST LIKE ZTCURR02-KURST, "## ##
+
+  FCURR LIKE ZTCURR02-FCURR, "## ##
+
+  TCURR LIKE ZTCURR02-TCURR, "####
+
+  GDATU LIKE ZTCURR02-GDATU, "## ## ###
+
+  UKURS LIKE ZTCURR02-UKURS, "##
+
+  FFACT LIKE ZTCURR02-FFACT, "## ## ### ##
+
+  TFACT LIKE ZTCURR02-TFACT, "## ## ### ##
+
+  AENAME LIKE ZTCURR02-AENAME, "###
+
+  AEDATE LIKE ZTCURR02-AEDATE, "###
+
+  SORT_KEY TYPE I, "###
+
+END OF GS_TCURR.
+
+
+
+DATA: GT_TCURR LIKE TABLE OF GS_TCURR.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA: GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER.
+
+
+
+DATA: GC_GRID TYPE REF TO CL_GUI_ALV_GRID. "### ##
+
+
+
+DATA: GO_EVENT TYPE REF TO EVENT.
+
+
+
+DATA : GS_VARIANT TYPE DISVARIANT.
+
+
+
+DATA: GT_FIELDCAT TYPE LVC_T_FCAT,
+
+      GS_FIELDCAT TYPE LVC_S_FCAT.
+
+
+
+DATA: GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+DATA: GT_SORT TYPE LVC_T_SORT,
+
+      GS_SORT TYPE LVC_S_SORT.
+
+DATA: GO_EXCEL     TYPE OLE2_OBJECT,  " ## #### ##
+
+      GO_WORKBOOK  TYPE OLE2_OBJECT,  " #### ## ## (###)
+
+      GO_WORKSHEET TYPE OLE2_OBJECT.  " #### ## ####
+
+
+
+DATA: GV_TEMP_DIR TYPE STRING, "## ## ##
+
+      GV_FOLDER_PATH TYPE STRING, "PDF ### ## ##
+
+      GV_TEMP_NAME TYPE STRING VALUE 'pdf_template.xlsx', "## ### ###
+
+      GV_FILENAME TYPE STRING VALUE 'template.pdf', "PDF###
+
+      GV_OBJ_NAME TYPE W3OBJID VALUE 'Z_PDF_TEMPLATE', "SMW0# ### ## ##
+
+      GV_TEMP_PATH TYPE RLGRAP-FILENAME, "## ### ## ##
+
+      GV_FILE_PATH TYPE RLGRAP-FILENAME, "PDF ## ##
+
+      GV_SEPARATOR TYPE C LENGTH 1, "## ## ###
+
+      GV_CANCEL_FLAG TYPE C LENGTH 1. "## ## ## ###

@@ -1,0 +1,453 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR06_007
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR06_007.
+
+
+
+DATA : BEGIN OF GS_STUDENT,
+
+  ZPERNR LIKE ZEDT06_001-ZPERNR,
+
+  ZCODE LIKE ZEDT06_001-ZCODE,
+
+  ZKNAME LIKE ZEDT06_001-ZKNAME,
+
+  ZENAME LIKE ZEDT06_001-ZKNAME,
+
+  ZGENDER LIKE ZEDT06_001-ZGENDER,
+
+  ZGNAME TYPE C LENGTH 4,
+
+  ZTEL LIKE ZEDT06_001-ZTEL,
+
+  END OF GS_STUDENT.
+
+
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+CLEAR : GS_STUDENT, GT_STUDENT.
+
+
+
+GS_STUDENT-ZPERNR = '00000001'.
+
+GS_STUDENT-ZCODE = 'SSU-06'.
+
+GS_STUDENT-ZKNAME = '##'.
+
+GS_STUDENT-ZENAME = 'KWON'.
+
+GS_STUDENT-ZGENDER = 'M'.
+
+GS_STUDENT-ZTEL = '0109926861'.
+
+
+
+IF GS_STUDENT-ZGENDER = 'M'.
+
+  GS_STUDENT-ZGNAME = '##'.
+
+ENDIF.
+
+
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+CLEAR : GS_STUDENT.
+
+
+
+"--------------------------------------------------
+
+
+
+DATA : GT_STUDENT_001 LIKE TABLE OF GS_STUDENT.
+
+
+
+CLEAR : GS_STUDENT, GT_STUDENT.
+
+
+
+GS_STUDENT-ZPERNR = '00000001'.
+
+GS_STUDENT-ZCODE = 'SSU-06'.
+
+GS_STUDENT-ZKNAME = '##'.
+
+GS_STUDENT-ZENAME = 'KWON'.
+
+GS_STUDENT-ZGENDER = 'F'.
+
+GS_STUDENT-ZTEL = '0109926861'.
+
+
+
+IF GS_STUDENT-ZGENDER = 'M'.
+
+  GS_STUDENT-ZGNAME = '##'.
+
+ELSE.
+
+  GS_STUDENT-ZGNAME = '##'.
+
+ENDIF.
+
+
+
+APPEND GS_STUDENT TO GT_STUDENT_001.
+
+
+
+CLEAR : GS_STUDENT.
+
+
+
+" BREAK-POINT.
+
+
+
+"-------------------------------------------------------
+
+
+
+DATA : GT_STUDENT_002 LIKE TABLE OF GS_STUDENT.
+
+
+
+CLEAR : GS_STUDENT, GT_STUDENT_002.
+
+
+
+GS_STUDENT-ZPERNR = '00000001'.
+
+GS_STUDENT-ZCODE = 'SSU-06'.
+
+GS_STUDENT-ZKNAME = '##'.
+
+GS_STUDENT-ZENAME = 'KWON'.
+
+GS_STUDENT-ZGENDER = 'Q'.
+
+GS_STUDENT-ZTEL = '0109926861'.
+
+
+
+IF GS_STUDENT-ZGENDER = 'M'.
+
+  GS_STUDENT-ZGNAME = '##'.
+
+ELSEIF GS_STUDENT-ZGENDER = 'F'.
+
+  GS_STUDENT-ZGNAME = '##'.
+
+ELSE.
+
+    GS_STUDENT-ZGNAME = '##'.
+
+ENDIF.
+
+
+
+APPEND GS_STUDENT TO GT_STUDENT_002.
+
+
+
+CLEAR : GS_STUDENT.
+
+
+
+"-------------------------------------------------------
+
+
+
+DATA : GT_STUDENT_003 LIKE TABLE OF GS_STUDENT.
+
+
+
+CLEAR : GS_STUDENT, GT_STUDENT_003.
+
+
+
+GS_STUDENT-ZPERNR = '00000001'.
+
+GS_STUDENT-ZCODE = 'SSU-06'.
+
+GS_STUDENT-ZKNAME = '##'.
+
+GS_STUDENT-ZENAME = 'KWON'.
+
+GS_STUDENT-ZGENDER = 'Q'.
+
+GS_STUDENT-ZTEL = '0109926861'.
+
+
+
+IF ( GS_STUDENT-ZGENDER = 'M' ) AND ( GS_STUDENT-ZKNAME = '##' ).
+
+  GS_STUDENT-ZGNAME = '##'.
+
+ENDIF.
+
+
+
+APPEND GS_STUDENT TO GT_STUDENT_003.
+
+
+
+CLEAR : GS_STUDENT.
+
+
+
+"BREAK-POINT.
+
+
+
+"-------------------------------------------------------
+
+
+
+DATA : GT_STUDENT_004 LIKE TABLE OF GS_STUDENT.
+
+
+
+CLEAR : GS_STUDENT, GT_STUDENT_004.
+
+
+
+GS_STUDENT-ZPERNR = '00000001'.
+
+GS_STUDENT-ZCODE = 'SSU-06'.
+
+GS_STUDENT-ZKNAME = '##'.
+
+GS_STUDENT-ZENAME = 'KWON'.
+
+GS_STUDENT-ZGENDER = 'Q'.
+
+GS_STUDENT-ZTEL = '0109926861'.
+
+
+
+IF ( GS_STUDENT-ZGENDER = 'M' ) OR ( GS_STUDENT-ZKNAME = '##' ).
+
+  GS_STUDENT-ZGNAME = '##'.
+
+ENDIF.
+
+
+
+APPEND GS_STUDENT TO GT_STUDENT_004.
+
+
+
+CLEAR : GS_STUDENT.
+
+
+
+"BREAK-POINT.
+
+
+
+"-------------------------------------------------------
+
+
+
+"##
+
+DATA : GV_NUM1 TYPE I.
+
+DATA : GV_NUM2 TYPE I.
+
+DATA : GV_NUM3 TYPE I.
+
+
+
+
+
+WRITE :/ '**1#-IF## WIRTE# ##'.
+
+GV_NUM1 = '100'.
+
+GV_NUM2 = '120'.
+
+WRITE :/ GV_NUM1.
+
+WRITE :/ GV_NUM2.
+
+
+
+IF GV_NUM1 < GV_NUM2.
+
+  WRITE :/ 'GV_NUM1# GV_NUM2## ####'.
+
+ELSE.
+
+  WRITE :/ 'GV_NUM2# GV_NUM1## ####'.
+
+ENDIF.
+
+WRITE :/.
+
+
+
+
+
+
+
+WRITE :/ '**2#-IF## WIRTE# ##'.
+
+GV_NUM3 = '110'.
+
+WRITE :/ GV_NUM1.
+
+WRITE :/ GV_NUM2.
+
+WRITE :/ GV_NUM3.
+
+
+
+IF GV_NUM1 < GV_NUM2.
+
+  IF GV_NUM1 < GV_NUM3.
+
+    WRITE :/ 'GV_NUM1# GV_NUM2, GV_NUM3## ####.'.
+
+  ELSEIF GV_NUM1 > GV_NUM3.
+
+    WRITE :/ 'GV_NUM3# GV_NUM1, GV_NUM2## ####.'.
+
+  ELSE.
+
+    WRITE :/ 'GV_NUM3# GV_NUM1# ## GV_NUM2## ####.'.
+
+  ENDIF.
+
+ELSEIF GV_NUM1 > GV_NUM2.
+
+  IF GV_NUM2 < GV_NUM3.
+
+    WRITE :/ 'GV_NUM2# GV_NUM1, GV_NUM3## ####.'.
+
+  ELSEIF GV_NUM2 > GV_NUM3.
+
+    WRITE :/ 'GV_NUM3# GV_NUM1, GV_NUM2## ####.'.
+
+  ELSE.
+
+    WRITE :/ 'GV_NUM3# GV_NUM2# ##  GV_NUM1## ####.'.
+
+  ENDIF.
+
+ELSE.
+
+  IF GV_NUM1 < GV_NUM3.
+
+    WRITE :/ 'GV_NUM1# GV_NUM2# ## GV_NUM3## ####.'.
+
+  ELSEIF GV_NUM1 > GV_NUM3.
+
+    WRITE :/ 'GV_NUM3# GV_NUM1, GV_NUM2## ####.'.
+
+  ELSE.
+
+    WRITE :/ 'GV_NUM1# GV_NUM2# GV_NUM3# ## ####.'.
+
+  ENDIF.
+
+ENDIF.
+
+WRITE :/.
+
+
+
+
+
+
+
+WRITE :/ '**3#-ELSE## WIRTE# ##'.
+
+GV_NUM1 = '100'.
+
+GV_NUM2 = '100'.
+
+WRITE :/ GV_NUM1.
+
+WRITE :/ GV_NUM2.
+
+
+
+IF GV_NUM1 > GV_NUM2.
+
+  WRITE :/ 'GV_NUM1# GV_NUM2## ###.'.
+
+ELSEIF GV_NUM1 < GV_NUM2.
+
+  WRITE :/ 'GV_NUM2# GV_NUM1## ###.'.
+
+ELSE.
+
+  WRITE: / 'GV_NUM1# GV_NUM2# ####.'.
+
+ENDIF.
+
+WRITE :/.
+
+
+
+
+
+WRITE :/ '**4#-NUN1, NUM2, NUN3##### #### WIRTE# ##'.
+
+GV_NUM1 = '100'.
+
+GV_NUM2 = '120'.
+
+GV_NUM3 = '110'.
+
+
+
+IF GV_NUM1 < GV_NUM2.
+
+  IF GV_NUM2 < GV_NUM3.
+
+    WRITE :/ 'GV_NUM3#' , GV_NUM3 , '## #####.'.
+
+  ELSE.
+
+    WRITE :/ 'GV_NUM2#' , GV_NUM2 , '## #####.'.
+
+  ENDIF.
+
+ELSE.
+
+  IF GV_NUM1 < GV_NUM3.
+
+    WRITE :/ 'GV_NUM3#', GV_NUM3 , '## #####.'.
+
+  ELSE.
+
+    WRITE :/ 'GV_NUM1#' , GV_NUM1 , '## #####.'.
+
+  ENDIF.
+
+ENDIF.
+
+WRITE :/.

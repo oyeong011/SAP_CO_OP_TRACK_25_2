@@ -1,0 +1,97 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM02_002_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES: ZMARA_02, ZEKKO_02, ZEKPO_02, ZLFM1_02.
+
+
+
+DATA: GS_MARA TYPE ZMARA_02,
+
+      GS_EKKO TYPE ZEKKO_02,
+
+      GS_EKPO TYPE ZEKPO_02,
+
+      GS_LFM1 TYPE ZLFM1_02,
+
+      GT_MARA TYPE TABLE OF ZMARA_02,
+
+      GT_EKKO TYPE TABLE OF ZEKKO_02,
+
+      GT_EKPO TYPE TABLE OF ZEKPO_02,
+
+      GT_LFM1 TYPE TABLE OF ZLFM1_02.
+
+
+
+DATA: BEGIN OF GS_PO,
+
+  EBELP TYPE EBELP,
+
+  MATNR TYPE ZMATNR02,
+
+  MAKTX TYPE MAKTX,
+
+  MENGE LIKE ZMARA_02-MENGE,
+
+  BPRME TYPE BPRME,
+
+  MEINS TYPE MEINS,
+
+  WAERS TYPE WAERS,
+
+  MWSKZ TYPE MWSKZ,
+
+  PRDAT TYPE PRDAT,
+
+  WERKS TYPE ZWERKS02,
+
+  LGORT TYPE ZLGORT02,
+
+  STPRS TYPE STPRS,
+
+END OF GS_PO.
+
+DATA: GT_PO LIKE TABLE OF GS_PO.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM,
+
+       GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER,
+
+       GC_GRID TYPE REF TO CL_GUI_ALV_GRID,
+
+       GT_FIELDCAT TYPE LVC_T_FCAT, "## ####
+
+       GS_FIELDCAT TYPE LVC_S_FCAT,
+
+       GS_LAYOUT TYPE LVC_S_LAYO, "####
+
+       GT_SORT TYPE LVC_T_SORT, "##
+
+       GS_SORT TYPE LVC_S_SORT,
+
+       GO_EVENT TYPE REF TO EVENT,
+
+       GV_SUBRC TYPE SY-SUBRC, "SUBRC ##
+
+       G_EBELN TYPE EBELN,
+
+       G_BUKRS TYPE BUKRS,
+
+       G_EKGRP TYPE EKGRP,
+
+       G_EKORG TYPE EKORG,
+
+       G_LIFNR TYPE LIFNR,
+
+       G_BEDAT TYPE ZEKKO_02-BEDAT,
+
+       G_WAERS TYPE WAERS.

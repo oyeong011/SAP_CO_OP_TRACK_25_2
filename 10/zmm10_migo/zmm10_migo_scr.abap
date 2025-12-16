@@ -1,0 +1,55 @@
+
+*&---------------------------------------------------------------------*
+
+*& Include          ZMM10_MIGO_SCR
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+" 2. ## ### ## ## (Modif ID: CRE)
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME TITLE TEXT-T02.
+
+PARAMETERS: P_EBELN TYPE ZEDT10_EKPO-EBELN MODIF ID CRE, " #### ##
+
+            P_WERKS TYPE ZEDT10_EKPO-WERKS MODIF ID CRE, " ###
+
+            P_BUDAT TYPE ZEDT10_MKPF-BUDAT MODIF ID DIS DEFAULT SY-DATUM. " ###
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+" 3. ## ### ## ## (Modif ID: DIS)
+
+
+
+
+*SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME TITLE TEXT-T03.
+
+*" #### #### ZSH10_MBLNR ##
+
+*PARAMETERS: P_MBLNR TYPE ZEDT10_MKPF-MBLNR MODIF ID DIS MATCHCODE OBJECT ZSH10_MBLNR,
+
+*            P_MJAHR TYPE ZEDT10_MKPF-MJAHR MODIF ID DIS DEFAULT SY-DATUM(4).
+
+*SELECTION-SCREEN END OF BLOCK B2.
+
+
+
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B0 WITH FRAME TITLE TEXT-T01.
+
+" 1. ## ## ## (### ##)
+
+PARAMETERS: R_CREA RADIOBUTTON GROUP G1 DEFAULT 'X' USER-COMMAND UC1, " ## ##
+
+            R_DISP RADIOBUTTON GROUP G1.                              " ## ##
+
+SELECTION-SCREEN END OF BLOCK B0.

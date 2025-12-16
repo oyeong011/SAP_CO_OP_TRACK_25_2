@@ -1,0 +1,179 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR15_004
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR15_004.
+
+
+
+
+
+"##### ## ######
+
+
+
+
+*DATA : GS_ZEDT15 TYPE ZEDT15_001. "###(STRUCTURE) ##
+
+*DATA : GT_ZEDT15 TYPE TABLE OF ZEDT15_001. "###### ##
+
+*
+
+*GS_ZEDT15-ZCODE = 'SSU-01'.
+
+*GS_ZEDT15-ZPERNR = '0000000001'.
+
+*GS_ZEDT15-ZKNAME = '###'.
+
+*GS_ZEDT15-ZENAME = 'DONG'.
+
+*GS_ZEDT15-ZGENDER = 'M'.
+
+*GS_ZEDT15-ZTEL = '01011112222'.
+
+*
+
+**BREAK-POINT.
+
+*
+
+*APPEND GS_ZEDT15 TO GT_ZEDT15.
+
+*
+
+**BREAK-POINT.
+
+*
+
+*GS_ZEDT15-ZCODE = 'SSU-02'.
+
+*GS_ZEDT15-ZPERNR = '0000000002'.
+
+*GS_ZEDT15-ZKNAME = '##'.
+
+*GS_ZEDT15-ZENAME = 'JENNY'.
+
+*GS_ZEDT15-ZGENDER = 'F'.
+
+*GS_ZEDT15-ZTEL = '01022223333'.
+
+*
+
+**BREAK-POINT.
+
+*
+
+*APPEND GS_ZEDT15 TO GT_ZEDT15.
+
+*
+
+*BREAK-POINT.
+
+
+
+
+
+
+"##### ## ###### (###+ITAB) - # #### ##
+
+
+
+
+*DATA : GT_ZEDT15 TYPE ZEDT15_001 OCCURS 0 WITH HEADER LINE.
+
+*DATA : GT_ZEDT15 LIKE ZEDT15_001 OCCURS 0 WITH HEADER LINE.
+
+*DATA : GT_ZEDT15 TYPE TABLE OF ZEDT15_001 WITH HEADER LINE.
+
+*DATA : GT_ZEDT15 LIKE TABLE OF ZEDT15_001 WITH HEADER LINE.
+
+*
+
+*GT_ZEDT15-ZCODE = 'SSU-01'.
+
+*GT_ZEDT15-ZPERNR = '0000000001'.
+
+*GT_ZEDT15-ZKNAME = '###'.
+
+*GT_ZEDT15-ZENAME = 'DONG'.
+
+*GT_ZEDT15-ZGENDER = 'M'.
+
+*GT_ZEDT15-ZTEL = '01011112222'.
+
+*
+
+*BREAK-POINT.
+
+*
+
+*APPEND GT_ZEDT15 TO GT_ZEDT15.
+
+*APPEND GT_ZEDT15. " TO GT_ZEDT15 ####
+
+*
+
+*BREAK-POINT.
+
+
+
+
+
+
+"##### ## ###### (BEGIN OF~ END OF)
+
+DATA : BEGIN OF GS_STUDENT, "### ##
+
+  ZPERNR TYPE ZEDT15_001-ZPERNR, "#### (TYPE->LIKE ##)
+
+  ZCODE TYPE ZEDT15_001-ZCODE, "####
+
+  ZKNAME TYPE ZEDT15_001-ZKNAME, "##
+
+  ZENAME TYPE ZEDT15_001-ZENAME, "####
+
+  ZGENDER TYPE ZEDT15_001-ZGENDER, "##
+
+  ZTEL TYPE ZEDT15_001-ZTEL, "####
+
+  ZMNAME TYPE ZEDT15_002-ZMNAME, "##
+
+  END OF GS_STUDENT.
+
+
+
+  DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT. "###### ## (LIKE->TYPE ##)
+
+
+
+  GS_STUDENT-ZCODE = 'SSU-01'.
+
+  GS_STUDENT-ZPERNR = '0000000001'.
+
+  GS_STUDENT-ZKNAME = '###'.
+
+  GS_STUDENT-ZENAME = 'DONG'.
+
+  GS_STUDENT-ZGENDER = 'M'.
+
+  GS_STUDENT-ZTEL = '01011112222'.
+
+  GS_STUDENT-ZMNAME = '####'.
+
+
+
+  BREAK-POINT.
+
+
+
+  APPEND GS_STUDENT TO GT_STUDENT.

@@ -1,0 +1,77 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR04_026
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR04_026.
+
+
+
+DATA : BEGIN OF GS_ZEDT04,
+
+  ZCODE TYPE ZEDT04_001-ZCODE,
+
+  ZKNAME TYPE ZEDT04_001-ZKNAME,
+
+  ZENAME TYPE ZEDT04_001-ZENAME,
+
+  ZGENDER TYPE ZEDT04_001-ZGENDER,
+
+  ZTEL TYPE ZEDT04_001-ZTEL,
+
+  END OF GS_ZEDT04.
+
+
+
+DATA : BEGIN OF GS_ZEDT04_2,
+
+  ZCODE111 TYPE ZEDT04_001-ZCODE,
+
+  ZKNAME111 TYPE ZEDT04_001-ZKNAME,
+
+  ZENAME111 TYPE ZEDT04_001-ZENAME,
+
+  ZGENDER111 TYPE ZGENDER04,  " ### ##, ### ## ## DATA ELEMENT# ## ##
+
+  ZTEL111 TYPE ZEDT04_001-ZTEL,
+
+  END OF GS_ZEDT04_2.
+
+
+
+GS_ZEDT04-ZCODE = 'SSU-04'.
+
+GS_ZEDT04-ZKNAME = '###'.
+
+GS_ZEDT04-ZENAME = 'KOO'.
+
+GS_ZEDT04-ZGENDER = 'M'.
+
+GS_ZEDT04-ZTEL = '01011112222'.
+
+
+
+MOVE GS_ZEDT04 TO GS_ZEDT04_2.
+
+"MOVE-CORRESPONDING GS_ZEDT04 TO GS_ZEDT04_2.  " ### ### #### ###
+
+
+
+WRITE : / GS_ZEDT04_2-ZCODE111,
+
+/ GS_ZEDT04_2-ZKNAME111,
+
+/ GS_ZEDT04_2-ZENAME111,
+
+/ GS_ZEDT04_2-ZGENDER111,
+
+/ GS_ZEDT04_2-ZTEL111.

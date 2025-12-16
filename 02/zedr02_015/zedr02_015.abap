@@ -1,0 +1,453 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR02_015
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR02_015.
+
+
+
+"SELECT
+
+
+
+
+*DATA: BEGIN OF GS_SCARR,
+
+*  ZCHECK TYPE C,
+
+*  CARRID LIKE SCARR-CARRID,
+
+*  CARRNAME LIKE SCARR-CARRNAME,
+
+*END OF GS_SCARR.
+
+*DATA: GT_SCARR LIKE TABLE OF GS_SCARR.
+
+
+
+
+
+
+"INTO
+
+"1)###(WORK AREA)
+
+"SELECT~ENDSELECT ### ## ### ### Application Server# Database## ###### ##
+
+
+
+
+*SELECT CARRID CARRNAME INTO GS_SCARR
+
+*  FROM SCARR
+
+*  WHERE CARRID = 'AA'.
+
+*
+
+*  WRITE: / GS_SCARR-CARRID, GS_SCARR-CARRNAME.
+
+*ENDSELECT.
+
+
+
+
+
+
+"WHERE### ## SELECT Single Line
+
+
+
+
+*SELECT SINGLE CARRID CARRNAME INTO ( GS_SCARR-CARRID, GS_SCARR-CARRNAME )
+
+*  FROM SCARR
+
+*  WHERE CARRID = 'AA'.
+
+*
+
+*WRITE: / GS_SCARR-CARRID, GS_SCARR-CARRNAME.
+
+
+
+
+
+
+"2) INTERNAL TABLE
+
+
+
+
+*SELECT CARRID   "Airline Code
+
+*       CARRNAME "Airline name
+
+*  FROM SCARR
+
+*  "CORRESPONDING FIELDS OF TABLE: ### ## #### ## ## ###
+
+*  INTO CORRESPONDING FIELDS OF TABLE GT_SCARR
+
+**  WHERE CARRID BETWEEN 'AA' AND 'AB'.
+
+**  WHERE CARRID LIKE 'A%'. "CARRID# A# #### ## ##
+
+*  WHERE CARRID IN ( 'AA', 'AC' ). "## ### ## ### ## ###
+
+
+
+*SELECT CARRID   "Airline Code
+
+*       CARRNAME "Airline name
+
+*  FROM SCARR
+
+*  APPENDING CORRESPONDING FIELDS OF TABLE GT_SCARR
+
+*  "APPENDING: ## INDEX2# #### ##
+
+*  WHERE CARRID = 'AB'.
+
+
+
+
+
+
+"5. RANGE TABLE
+
+
+
+
+*RANGES : GR_SCARR FOR SCARR-CARRID.
+
+
+
+
+
+
+"##-OPTION
+
+
+
+
+*CLEAR : GR_SCARR.
+
+*
+
+*GR_SCARR-SIGN = 'I'. "#### ##
+
+*GR_SCARR-OPTION = 'CP'. "####
+
+*GR_SCARR-LOW = '*A'. "##### ## ##
+
+*APPEND GR_SCARR.
+
+*
+
+*DATA: BEGIN OF GS_SCARR.
+
+*  INCLUDE TYPE SCARR.
+
+*DATA: END OF GS_SCARR.
+
+*DATA: GT_SCARR LIKE TABLE OF GS_SCARR.
+
+*
+
+*SELECT * FROM SCARR
+
+*  INTO CORRESPONDING FIELDS OF TABLE GT_SCARR
+
+*  WHERE CARRID IN GR_SCARR.
+
+
+
+
+
+
+"##-LOW, HIGH
+
+
+
+
+*GR_SCARR-SIGN = 'I'. "#### ##
+
+*GR_SCARR-OPTION = 'EQ'. "##
+
+*GR_SCARR-LOW = 'AA'. "LOW# #### ### ##
+
+*APPEND GR_SCARR.
+
+*
+
+*GR_SCARR-LOW = 'AC'.
+
+*APPEND GR_SCARR.
+
+*
+
+*SELECT CARRID   "Airline Code
+
+*       CARRNAME "Airline name
+
+*  FROM SCARR
+
+*  INTO CORRESPONDING FIELDS OF TABLE GT_SCARR
+
+*  WHERE CARRID IN GR_SCARR.
+
+*
+
+*LOOP AT GT_SCARR INTO GS_SCARR.
+
+*  WRITE: / GS_SCARR-CARRID, GS_SCARR-CARRNAME.
+
+*ENDLOOP.
+
+
+
+
+
+
+"6. GROUPING
+
+
+
+
+*DATA: BEGIN OF GS_SFLIGHT,
+
+*  CARRID TYPE SFLIGHT-CARRID,
+
+*  CONNID TYPE SFLIGHT-CONNID,
+
+*  GV_SUM TYPE I,
+
+*END OF GS_SFLIGHT.
+
+*DATA: GT_SFLIGHT LIKE TABLE OF GS_SFLIGHT.
+
+*
+
+*SELECT CARRID "Airline Code
+
+*       CONNID "Flight Connection Number
+
+*       AVG( PRICE ) AS GV_SUM "Airfare "Aggregate### #### ### ###
+
+*  INTO CORRESPONDING FIELDS OF TABLE GT_SFLIGHT
+
+*  FROM SFLIGHT GROUP BY CARRID CONNID
+
+*  HAVING AVG( PRICE ) > 1000 "GROUP BY# ### ### # PRICE# 1000### #### ##
+
+**  ORDER BY CONNID DESCENDING. "CONNID #### #### ##
+
+*  ORDER BY GV_SUM. "PRICE# ## ### ### ##
+
+*
+
+*LOOP AT GT_SFLIGHT INTO GS_SFLIGHT.
+
+*  WRITE: / GS_SFLIGHT-CARRID, GS_SFLIGHT-CONNID, GS_SFLIGHT-GV_SUM.
+
+*ENDLOOP.
+
+
+
+
+
+
+"9.SUBQUERY
+
+
+
+
+*DATA: BEGIN OF GS_SFLIGHT,
+
+*  CARRID TYPE SFLIGHT-CARRID,
+
+*  CONNID TYPE SFLIGHT-CONNID,
+
+*  PRICE TYPE SFLIGHT-PRICE,
+
+*END OF GS_SFLIGHT.
+
+*DATA: GT_SFLIGHT LIKE TABLE OF GS_SFLIGHT.
+
+*
+
+*SELECT CARRID "Airline Code
+
+*       CONNID "Flight Connection Number
+
+*       PRICE  "Airfare
+
+*  INTO CORRESPONDING FIELDS OF TABLE GT_SFLIGHT
+
+*  FROM SFLIGHT AS A "## ##
+
+*  "SFLIGHT #### CARRID ## ## #### ###
+
+*  WHERE CARRID IN ( SELECT CARRID
+
+*                      FROM SPFLI
+
+*                      WHERE CARRID = A~CARRID
+
+*                        AND CONNID = A~CONNID )
+
+*  AND CARRID = 'AA'
+
+*  AND CONNID LIKE '00%'.
+
+*
+
+*LOOP AT GT_SFLIGHT INTO GS_SFLIGHT.
+
+*  WRITE: / GS_SFLIGHT-CARRID, GS_SFLIGHT-CONNID, GS_SFLIGHT-PRICE.
+
+*ENDLOOP.
+
+
+
+
+
+
+"10. JOIN
+
+
+
+
+*DATA: BEGIN OF GS_SFLIGHT,
+
+*  CARRID TYPE SFLIGHT-CARRID,
+
+*  CONNID TYPE SFLIGHT-CONNID,
+
+*  CARRNAME TYPE SCARR-CARRNAME,
+
+*END OF GS_SFLIGHT.
+
+*DATA: GT_SFLIGHT LIKE TABLE OF GS_SFLIGHT.
+
+*
+
+*SELECT A~CARRID    "Airline Code
+
+*       A~CONNID    "Flight Connection Number
+
+*       B~CARRNAME  "Airline name
+
+*  INTO CORRESPONDING FIELDS OF TABLE GT_SFLIGHT
+
+*  FROM SFLIGHT AS A "## ##
+
+*  "INNER JOIN SCARR AS B
+
+*  LEFT OUTER JOIN SCARR AS B "ABAP OPEN SQL## LEFT OUTER JOIN# ##
+
+*  ON A~CARRID = B~CARRID
+
+*  WHERE A~CARRID = 'AA'.
+
+*"WHERE ### ON ### #### ### WHERE ## ## ####, # #### #### ## ON #### # #### JOIN
+
+*
+
+*LOOP AT GT_SFLIGHT INTO GS_SFLIGHT.
+
+*  WRITE: / GS_SFLIGHT-CARRID, GS_SFLIGHT-CONNID, GS_SFLIGHT-CARRNAME.
+
+*ENDLOOP.
+
+
+
+
+
+
+"11. FOR ALL ENTRIES
+
+DATA: BEGIN OF GS_SPFLI,
+
+  CARRID TYPE SPFLI-CARRID,
+
+  CONNID TYPE SPFLI-CONNID,
+
+END OF GS_SPFLI.
+
+DATA: GT_SPFLI LIKE TABLE OF GS_SPFLI.
+
+
+
+DATA: BEGIN OF GS_SFLIGHT,
+
+  CARRID TYPE SFLIGHT-CARRID,
+
+  CONNID TYPE SFLIGHT-CONNID,
+
+  FLDATE TYPE SFLIGHT-FLDATE,
+
+  PRICE TYPE SFLIGHT-PRICE,
+
+END OF GS_SFLIGHT.
+
+DATA: GT_SFLIGHT LIKE TABLE OF GS_SFLIGHT.
+
+
+
+SELECT CARRID    "Airline Code
+
+       CONNID    "Flight Connection Number
+
+  FROM SPFLI
+
+  INTO CORRESPONDING FIELDS OF TABLE GT_SPFLI
+
+  WHERE CARRID LIKE 'A%'.
+
+
+
+"GT_SPFLI# NULL### FULL SCAN## MEMORY DUMP ##->IF# ##
+
+IF GT_SPFLI IS NOT INITIAL.
+
+  SELECT CARRID    "Airline Code
+
+         CONNID    "Flight Connection Number
+
+         FLDATE
+
+         PRICE
+
+    FROM SFLIGHT
+
+    INTO CORRESPONDING FIELDS OF TABLE GT_SFLIGHT
+
+    FOR ALL ENTRIES IN GT_SPFLI
+
+    "WHERE# GT_SPFLI# ### #### ### ##-> LIKE, BETWEEN, IN# ## #### ## _>##### ## ##
+
+    WHERE CARRID = GT_SPFLI-CARRID
+
+      AND CONNID = GT_SPFLI-CONNID.
+
+ENDIF.
+
+
+
+LOOP AT GT_SFLIGHT INTO GS_SFLIGHT.
+
+  WRITE: / GS_SFLIGHT-CARRID, GS_SFLIGHT-CONNID, GS_SFLIGHT-FLDATE, GS_SFLIGHT-PRICE.
+
+ENDLOOP.

@@ -1,0 +1,169 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR16_016
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT zedr16_016.
+
+
+
+
+
+
+*PARAMETERS : p_zcode LIKE zedt16_001-zcode VISIBLE LENGTH 5.
+
+*PARAMETERS : p_zpernr TYPE c LENGTH 10 NO-DISPLAY.
+
+*PARAMETERS : p_znum TYPE p DECIMALS 2.
+
+*PARAMETERS : p_zgen LIKE zedt16_001-zgender DEFAULT 'M'.
+
+*PARAMETERS : p_r1 RADIOBUTTON GROUP r1 DEFAULT 'X'.
+
+*PARAMETERS : p_r2 RADIOBUTTON GROUP r1.
+
+*PARAMETERS : z_check AS CHECKBOX DEFAULT 'X'.
+
+*
+
+*IF p_r1 = 'X'.
+
+*  WRITE :/ '#### ##'.
+
+*ELSEif p_r2 = 'X'.
+
+*  WRITE :/ '## ##'.
+
+*ENDIF.
+
+
+
+*SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME.
+
+*PARAMETERS : p_zcode LIKE zedt16_001-zcode.
+
+*PARAMETERS : p_zpernr TYPE c LENGTH 10 NO-DISPLAY.
+
+*PARAMETERS : p_zgen LIKE zedt16_001-zgender DEFAULT 'M'.
+
+*SELECTION-SCREEN END OF BLOCK b1.
+
+*
+
+*SELECTION-SCREEN BEGIN OF BLOCK b2 WITH FRAME.
+
+*PARAMETERS : p_r1 RADIOBUTTON GROUP r1 DEFAULT 'X'.
+
+*PARAMETERS : p_r2 RADIOBUTTON GROUP r1.
+
+*PARAMETERS : z_check AS CHECKBOX DEFAULT 'X'.
+
+*SELECTION-SCREEN END OF BLOCK b2.
+
+
+
+
+
+
+
+
+" p. 24
+
+
+
+
+*SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME.
+
+*PARAMETERS : p_zcode LIKE zedt16_001-zcode.
+
+*PARAMETERS : p_zpernr TYPE c LENGTH 10 NO-DISPLAY.
+
+*PARAMETERS : p_zgen LIKE zedt16_001-zgender DEFAULT 'M'.
+
+*SELECTION-SCREEN END OF BLOCK b1.
+
+*
+
+*SELECTION-SCREEN BEGIN OF BLOCK b2 WITH FRAME.
+
+*SELECTION-SCREEN BEGIN OF LINE.
+
+*PARAMETERS : p_r1 RADIOBUTTON GROUP r1 DEFAULT 'X'.
+
+*SELECTION-SCREEN POSITION 3.
+
+*SELECTION-SCREEN COMMENT (10) FOR FIELD p_r1.
+
+*PARAMETERS : p_r2 RADIOBUTTON GROUP r1.
+
+*SELECTION-SCREEN POSITION 20.
+
+*SELECTION-SCREEN COMMENT (10) FOR FIELD p_r2.
+
+*SELECTION-SCREEN END OF LINE.
+
+*SELECTION-SCREEN END OF BLOCK b2.
+
+
+
+
+
+
+
+
+" p.25
+
+
+
+" # ##
+
+DATA gs_student TYPE zedt16_001.
+
+
+
+" ## ###
+
+DATA gt_student TYPE TABLE OF zedt16_001.
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME.
+
+PARAMETERS : p_zcode LIKE zedt16_001-zcode.
+
+PARAMETERS : p_zpernr TYPE c LENGTH 10 NO-DISPLAY.
+
+PARAMETERS : p_zgen LIKE zedt16_001-zgender DEFAULT 'M'.
+
+SELECTION-SCREEN END OF BLOCK b1.
+
+
+
+SELECT * FROM zedt16_001
+
+  INTO CORRESPONDING FIELDS OF TABLE gt_student
+
+  WHERE zcode = p_zcode
+
+  AND zgender = p_zgen.
+
+
+
+IF gt_student[] IS NOT INITIAL.
+
+  WRITE :/ '### ##'.
+
+ELSE.
+
+  WRITE :/ '### ##'.
+
+ENDIF.

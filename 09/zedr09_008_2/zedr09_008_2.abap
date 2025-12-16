@@ -1,0 +1,105 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR09_008_2
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR09_008_2.
+
+
+
+
+
+DATA : BEGIN OF GS_STUDENT,
+
+  ZCODE TYPE ZEDT09_001-ZCODE,
+
+  ZPERNR TYPE ZEDT09_001-ZPERNR,
+
+  ZKNAME TYPE ZEDT09_001-ZKNAME,
+
+  ZENAME TYPE ZEDT09_001-ZENAME,
+
+  ZGENDER TYPE ZEDT09_001-ZGENDER,
+
+  ZGNAME TYPE C LENGTH 20,
+
+END OF GS_STUDENT.
+
+
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+CLEAR : GS_STUDENT, GT_STUDENT.
+
+GS_STUDENT-ZCODE = 'ssu-01'.
+
+GS_STUDENT-ZPERNR = '0000000001'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'KANG'.
+
+GS_STUDENT-ZGENDER = 'M'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+GS_STUDENT-ZCODE = 'ssu-01'.
+
+GS_STUDENT-ZPERNR = '0000000001'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'KANG2'.
+
+GS_STUDENT-ZGENDER = 'M'.
+
+APPEND GS_STUDENT TO GT_STUDENT.  "### ## insert
+
+
+
+
+
+GS_STUDENT-ZCODE = 'ssu-03'.
+
+GS_STUDENT-ZPERNR = '0000000003'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'SON'.
+
+GS_STUDENT-ZGENDER = 'F'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+SORT GT_STUDENT.
+
+
+
+
+
+" DELETE ADJACENT DUPLICATES FROM GT_STUDENT. "###### #, ## ### ### ## ##
+
+
+
+DELETE ADJACENT DUPLICATES FROM GT_STUDENT COMPARING ZCODE.
+
+
+
+
+
+break-point.

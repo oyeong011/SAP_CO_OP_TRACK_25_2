@@ -1,0 +1,75 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR12_PERFORM005
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR12_PERFORM005.
+
+" Parameter ######
+
+DATA: BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT12_001
+.
+
+  DATA: END OF GS_STUDENT.
+
+  DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+
+
+PERFORM GET_DATA USING GT_STUDENT.
+
+LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+ WRITE:/ GS_STUDENT-ZCODE, GS_STUDENT-ZKNAME.
+
+ENDLOOP.
+
+
+
+FORM GET_DATA USING PT_STUDENT TYPE STANDARD TABLE.
+
+
+
+  DATA: LS_STUDENT LIKE GS_STUDENT.
+
+  LS_STUDENT-ZCODE = 'SSU-03'.
+
+
+
+  SELECT SINGLE ZKNAME FROM ZEDT12_001
+
+    INTO LS_STUDENT-ZKNAME
+
+    WHERE ZCODE = LS_STUDENT-ZCODE.
+
+    APPEND LS_STUDENT TO PT_STUDENT.
+
+
+
+  LS_STUDENT-ZCODE = 'SSU-04'.
+
+    SELECT SINGLE ZKNAME FROM ZEDT12_001
+
+      INTO LS_STUDENT-ZKNAME
+
+      WHERE ZCODE = LS_STUDENT-ZCODE.
+
+      APPEND LS_STUDENT TO PT_STUDENT.
+
+
+
+ENDFORM.

@@ -1,0 +1,51 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZDOCKING_CONTAINER10_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES: ZEDT10_001.
+
+
+
+DATA: GS_STUDENT LIKE ZEDT10_001.
+
+
+
+DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+DATA: OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA: GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA: GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA: GS_FCAT TYPE LVC_S_FCAT,
+
+      GT_FCAT TYPE LVC_T_FCAT.
+
+
+
+DATA: GS_SORT TYPE LVC_S_SORT,
+
+      GT_SORT TYPE LVC_T_SORT.
+
+
+
+DATA: GS_LAYO TYPE LVC_S_LAYO.
+
+
+
+DATA: GS_VARIANT TYPE DISVARIANT.

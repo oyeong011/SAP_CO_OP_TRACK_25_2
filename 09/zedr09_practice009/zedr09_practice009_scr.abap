@@ -1,0 +1,29 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR09_PRACTICE009_SCR
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+  SELECT-OPTIONS : S_PERNR FOR ZEDT09_102-ZPERNR.  "####
+
+  SELECT-OPTIONS : S_DATBI FOR ZEDT09_102-DATBI NO INTERVALS NO-EXTENSION.   "####
+
+  SELECT-OPTIONs : S_DEPCO FOR ZEDT09_102-ZDEPCODE NO INTERVALS NO-EXTENSION. "####
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.
+
+  PARAMETERS : Z_CHECK AS CHECKBOX.
+
+SELECTION-SCREEN END OF BLOCK B2.

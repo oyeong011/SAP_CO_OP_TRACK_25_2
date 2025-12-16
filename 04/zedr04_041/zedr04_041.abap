@@ -1,0 +1,85 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR04_041
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR04_041.
+
+
+
+" ###(##) ##
+
+DATA : BEGIN OF GS_STUDENT,
+
+  ZCODE TYPE C LENGTH 10,
+
+  ZKNAME TYPE C LENGTH 10,
+
+  ZENAME TYPE C LENGTH 10,
+
+  ZSUM TYPE I,
+
+  END OF GS_STUDENT.
+
+
+
+" ### ### ##
+
+DATA GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+CLEAR GS_STUDENT.
+
+GS_STUDENT-ZCODE = 'SSU-02'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'LEE'.
+
+GS_STUDENT-ZSUM = 10000.
+
+COLLECT GS_STUDENT INTO GT_STUDENT.
+
+
+
+CLEAR GS_STUDENT.
+
+GS_STUDENT-ZCODE = 'SSU-02'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'LEE'.
+
+GS_STUDENT-ZSUM = 10000.
+
+COLLECT GS_STUDENT INTO GT_STUDENT.
+
+" ### ## ZCODE, ZKNAME, ZENAME# ## #### #### ### ## ZSUM ## ###
+
+
+
+CLEAR GS_STUDENT.
+
+GS_STUDENT-ZCODE = 'SSU-03'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'SONG'.
+
+GS_STUDENT-ZSUM = 10000.
+
+COLLECT GS_STUDENT INTO GT_STUDENT.
+
+
+
+BREAK-POINT.

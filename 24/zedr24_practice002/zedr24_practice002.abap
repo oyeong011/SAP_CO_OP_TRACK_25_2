@@ -1,0 +1,243 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR24_PRACTICE002
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR24_PRACTICE002.
+
+
+
+"1. Declare Variables
+
+"1-1. ### # ##
+
+DATA : GS_ZEDT001 LIKE ZEDT24_001,
+
+       GT_ZEDT001 LIKE TABLE OF ZEDT24_001.
+
+DATA : GS_ZEDT002 LIKE ZEDT24_002,
+
+       GT_ZEDT002 LIKE TABLE OF ZEDT24_002.
+
+DATA : GS_ZEDT004 LIKE ZEDT24_004,
+
+       GT_ZEDT004 LIKE TABLE OF ZEDT24_004.
+
+
+
+"1-2. ## ## ### # ##
+
+DATA : BEGIN OF GS_RESULT,
+
+  ZCODE LIKE ZEDT24_001-ZCODE,
+
+  ZKNAME LIKE ZEDT24_001-ZKNAME,
+
+  ZMAJOR_FLAG TYPE C LENGTH 1, "#### T or F (bool)
+
+  ZTEL  LIKE ZEDT24_001-ZTEL,
+
+  WARN TYPE C LENGTH 1, "## ## ## T or null (bool)
+
+  ZGENDER LIKE ZEDT24_001-ZGENDER,
+
+END OF GS_RESULT,
+
+GT_RESULT LIKE TABLE OF GS_RESULT.
+
+
+
+"1-3. ## ##
+
+DATA : GV_MSUM LIKE ZEDT24_004-ZSUM,
+
+       GV_FSUM LIKE ZEDT24_004-ZSUM.
+
+
+
+"2. GET DATA FROM DICTONARY
+
+SELECT * FROM ZEDT24_001 INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT001.
+
+SELECT * FROM ZEDT24_002 INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT002.
+
+SELECT * FROM ZEDT24_004 INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT004.
+
+
+
+"3. SORT BY ZCODE ZGRADE TO IDENTIFY THE WORST ZGRADE.
+
+SORT GT_ZEDT004 BY ZCODE ASCENDING ZGRADE DESCENDING.
+
+
+
+"4. LOOP GT_ZEDT004.
+
+LOOP AT GT_ZEDT004 INTO GS_ZEDT004.
+
+  IF GS_ZEDT004-ZCODE = GS_RESULT-ZCODE. "## ### ##
+
+    CONTINUE.
+
+  ENDIF.
+
+
+
+  CLEAR GS_RESULT.
+
+
+
+  "## ## ## PASS -> DOMAIN## # ##### ##
+
+  "4-1. ## ## ## ## # ## ###(##, ##, ####(####) ###)
+
+  IF GS_ZEDT004-ZGRADE >= 'D'.
+
+    GS_RESULT-WARN = 'T'.
+
+  ENDIF.
+
+  IF GS_RESULT-WARN = 'T'.
+
+    READ TABLE GT_ZEDT001 WITH KEY ZCODE = GS_ZEDT004-ZCODE
+
+    INTO GS_ZEDT001 BINARY SEARCH
+
+    TRANSPORTING ZKNAME ZGENDER ZTEL
+
+    COMPARING ZCODE.
+
+  ELSE.
+
+    READ TABLE GT_ZEDT001 WITH KEY ZCODE = GS_ZEDT004-ZCODE
+
+    INTO GS_ZEDT001 BINARY SEARCH
+
+    TRANSPORTING ZKNAME ZGENDER
+
+    COMPARING ZCODE.
+
+  ENDIF.
+
+  MOVE-CORRESPONDING GS_ZEDT001 TO GS_RESULT.
+
+  CLEAR GS_ZEDT001.
+
+
+
+  "4-2. ## # ### ##
+
+  IF GS_RESULT-ZGENDER = 'M'.
+
+    ADD GS_ZEDT004-ZSUM TO GV_MSUM.
+
+  ELSE.
+
+    ADD GS_ZEDT004-ZSUM TO GV_FSUM.
+
+  ENDIF.
+
+
+
+  "4-3. ## ## ##
+
+  READ TABLE GT_ZEDT002 WITH KEY ZCODE = GS_ZEDT004-ZCODE
+
+  INTO GS_ZEDT002 BINARY SEARCH
+
+  TRANSPORTING ZMAJOR.
+
+  MOVE-CORRESPONDING GS_ZEDT002 TO GS_RESULT.
+
+
+
+  IF GS_ZEDT004-ZMAJOR <> GS_ZEDT002-ZMAJOR."#### ##
+
+    GS_RESULT-ZMAJOR_FLAG = 'T'.
+
+  ELSE.
+
+    GS_RESULT-ZMAJOR_FLAG = 'F'.
+
+  ENDIF.
+
+  GS_RESULT-ZCODE = GS_ZEDT004-ZCODE.
+
+
+
+  "4-4. ## #### ##
+
+  COLLECT GS_RESULT INTO GT_RESULT.
+
+
+
+ENDLOOP.
+
+
+
+"5. Printing
+
+CLEAR GS_RESULT.
+
+LOOP AT GT_RESULT INTO GS_RESULT.
+
+  AT FIRST.
+
+    WRITE :/ '--------------------------------------------------------------------'.
+
+    WRITE :/ '|  ####  |    ##    | #### |     ####     |   ##   |'.
+
+    WRITE :/ '--------------------------------------------------------------------'.
+
+  ENDAT.
+
+
+
+  WRITE :/ '|', GS_RESULT-ZCODE, '|', GS_RESULT-ZKNAME, '|'.
+
+  IF GS_RESULT-ZMAJOR_FLAG = 'T'.
+
+    WRITE : '####'.
+
+  ELSE.
+
+    WRITE : '        '.
+
+  ENDIF.
+
+  WRITE : '|', GS_RESULT-ZTEL, '|'.
+
+  IF GS_RESULT-WARN = 'T'.
+
+    WRITE : '#### |'.
+
+  ELSE.
+
+    WRITE : '         |'.
+
+  ENDIF.
+
+  WRITE :/ '--------------------------------------------------------------------'.
+
+
+
+  CLEAR GS_RESULT.
+
+  AT LAST.
+
+    WRITE :/ '###### : ', GV_MSUM CURRENCY 'KRW'.
+
+    WRITE :/ '###### : ', GV_FSUM CURRENCY 'KRW'.
+
+  ENDAT.
+
+ENDLOOP.

@@ -1,0 +1,73 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR018_PRACTICE004
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR018_PRACTICE004.
+
+
+
+DATA : GS_STUDENT TYPE ZEDT00_001.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+RANGES GR_SCARR FOR ZEDT00_001-ZCODE.
+
+
+
+CLEAR GR_SCARR.
+
+GR_SCARR-SIGN = 'I'.
+
+GR_SCARR-OPTION = 'BT'.
+
+GR_SCARR-LOW = 'SSU-90'.
+
+GR_SCARR-HIGH = 'SSU-99'.
+
+APPEND GR_SCARR.
+
+
+
+SELECT * FROM ZEDT00_001
+
+  INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT
+
+  WHERE ZCODE IN GR_SCARR.
+
+
+
+LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+  CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
+
+    EXPORTING
+
+      INPUT  = GS_STUDENT-ZPERNR
+
+    IMPORTING
+
+      OUTPUT = GS_STUDENT-ZPERNR.
+
+
+
+  MODIFY GT_STUDENT FROM GS_STUDENT INDEX SY-TABIX.
+
+  CLEAR GS_STUDENT.
+
+ENDLOOP.
+
+
+
+MODIFY ZEDT018_001 FROM TABLE GT_STUDENT.

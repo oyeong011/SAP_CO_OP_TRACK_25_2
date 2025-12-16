@@ -1,0 +1,163 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR04_017
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR04_017.
+
+
+
+" 1. Table# ### ## ##
+
+DATA GS_ZEDT04 TYPE ZEDT04_001.
+
+
+
+" 2. Table ## ### ### ## ##
+
+
+
+
+*DATA : BEGIN OF GS_ZEDT04,
+
+*  ZCODE TYPE ZEDT04_001-ZCODE,
+
+*  ZKNAME TYPE ZEDT04_001-ZKNAME,
+
+*  ZENAME TYPE ZEDT04_001-ZENAME,
+
+*  ZGENDER TYPE ZEDT04_001-ZGENDER,
+
+*  ZTEL TYPE ZEDT04_001-ZTEL,
+
+*  END OF GS_ZEDT04.
+
+
+
+
+
+
+" 3. Data ELEMENT# ### ## ##
+
+
+
+
+*DATA : BEGIN OF GS_ZEDT04,
+
+*  ZCODE TYPE ZCODE04,
+
+*  ZKNAME TYPE ZKNAME04,
+
+*  ZENAME TYPE ZENAME04,
+
+*  ZGENDER TYPE ZGENDER04,
+
+*  ZTEL TYPE ZTEL04,
+
+*  END OF GS_ZEDT04.
+
+
+
+
+
+
+GS_ZEDT04-ZCODE = 'SSU-04'.
+
+GS_ZEDT04-ZKNAME = '###'.
+
+GS_ZEDT04-ZENAME = 'KOO'.
+
+GS_ZEDT04-ZGENDER = 'M'.
+
+GS_ZEDT04-ZTEL = '01011112222'.
+
+
+
+WRITE : / GS_ZEDT04-ZCODE,
+
+/ GS_ZEDT04-ZKNAME,
+
+/ GS_ZEDT04-ZENAME,
+
+/ GS_ZEDT04-ZGENDER,
+
+/ GS_ZEDT04-ZTEL.
+
+WRITE / '------------------------------------'.
+
+
+
+" 4. ABAP Dictionary Structure# ### ## ##
+
+DATA GS_ZEDS04 TYPE ZEDS04_001.
+
+
+
+GS_ZEDS04-ZCODE = 'SSU-04'.
+
+GS_ZEDS04-ZKNAME = '###'.
+
+GS_ZEDS04-ZENAME = 'KOO'.
+
+GS_ZEDS04-ZGENDER = 'M'.
+
+GS_ZEDS04-ZTEL = '01033334444'.
+
+
+
+WRITE / GS_ZEDS04-ZCODE.
+
+WRITE / GS_ZEDS04-ZKNAME.
+
+WRITE / GS_ZEDS04-ZENAME.
+
+WRITE / GS_ZEDS04-ZGENDER.
+
+WRITE / GS_ZEDS04-ZTEL.
+
+WRITE / '------------------------------------'.
+
+
+
+" 5. TYPE GROUP# ### ## ##
+
+DATA GS_ZEDG04 TYPE ZTG04_ZED04.
+
+DATA GV_ZTITLE TYPE ZTG04_ZTITLE.
+
+
+
+GS_ZEDG04-ZCODE = 'SSU-01'.
+
+GS_ZEDG04-ZKNAME = '###'.
+
+GS_ZEDG04-ZENAME = 'DONG'.
+
+GS_ZEDG04-ZGENDER = 'M'.
+
+GS_ZEDG04-ZTEL = '01055556666'.
+
+GV_ZTITLE = '#####'.
+
+
+
+WRITE / GS_ZEDG04-ZCODE.
+
+WRITE / GS_ZEDG04-ZKNAME.
+
+WRITE / GS_ZEDG04-ZENAME.
+
+WRITE / GS_ZEDG04-ZGENDER.
+
+WRITE / GS_ZEDG04-ZTEL.
+
+WRITE / GV_ZTITLE.

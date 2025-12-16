@@ -1,0 +1,55 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR04_065
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR04_065.
+
+
+
+DATA : BEGIN OF GS_SFLIGHT,
+
+  CARRID TYPE SFLIGHT-CARRID,
+
+  CONNID TYPE SFLIGHT-CONNID,
+
+  CARRNAME TYPE SCARR-CARRNAME,
+
+  END OF GS_SFLIGHT.
+
+DATA GT_SFLIGHT LIKE TABLE OF GS_SFLIGHT.
+
+
+
+SELECT A~CARRID A~CONNID B~CARRNAME
+
+  INTO CORRESPONDING FIELDS OF TABLE GT_SFLIGHT
+
+
+
+
+*  FROM SFLIGHT AS A INNER JOIN SCARR AS B ON A~CARRID = B~CARRID
+
+
+
+
+  FROM SFLIGHT AS A LEFT OUTER JOIN SCARR AS B ON A~CARRID = B~CARRID " ABAP OPEN SQL## LEFT OUTER JOIN# ##
+
+  WHERE A~CARRID = 'AA'.
+
+
+
+LOOP AT GT_SFLIGHT INTO GS_SFLIGHT.
+
+  WRITE : / GS_SFLIGHT-CARRID, GS_SFLIGHT-CONNID, GS_SFLIGHT-CARRNAME.
+
+ENDLOOP.

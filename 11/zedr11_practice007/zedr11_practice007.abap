@@ -1,0 +1,1222 @@
+
+*&---------------------------------------------------------------------*
+
+*& REPORT ZEDR11_PRACTICE007
+
+*&---------------------------------------------------------------------*
+
+*& ## ## - #### ##: #### ## #### ## ##
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+REPORT ZEDR11_PRACTICE007.
+
+
+
+TABLES: ZEDT11_101, ZEDT11_102, ZEDT11_103, ZEDT11_104, ZEDT11_105, ZEDT11_106.
+
+
+
+
+
+
+* ###
+
+
+
+
+DATA: BEGIN OF GS_EMP,
+
+        ZPERNR    TYPE ZEDT11_102-ZPERNR,
+
+        ZPNAME    TYPE ZEDT11_103-ZPNAME,
+
+        ZDEPCODE  TYPE ZEDT11_102-ZDEPCODE,
+
+        ZDEPNAME  TYPE CHAR20,
+
+        ZDEPRANK  TYPE ZEDT11_102-ZDEPRANK,
+
+        ZRANKNAME TYPE CHAR20,
+
+        ZEDATE    TYPE ZEDT11_102-ZEDATE,
+
+        ZQDATE    TYPE ZEDT11_102-ZQDATE,
+
+        ZQFLAG    TYPE ZEDT11_102-ZQFLAG,
+
+        ZQFLAG_T  TYPE CHAR10,
+
+        ZGENDER   TYPE ZEDT11_103-ZGENDER,
+
+        ZADDRESS  TYPE ZEDT11_103-ZADDRESS,
+
+        ZBANKCODE TYPE ZEDT11_106-ZBANKCODE,
+
+        ZBANKNAME TYPE CHAR20,
+
+        ZACCOUNT  TYPE ZEDT11_106-ZACCOUNT,
+
+      END OF GS_EMP.
+
+
+
+DATA: BEGIN OF GS_SAL,
+
+        ZPERNR    TYPE ZEDT11_102-ZPERNR,
+
+        ZPNAME    TYPE ZEDT11_103-ZPNAME,
+
+        ZDEPCODE  TYPE ZEDT11_102-ZDEPCODE,
+
+        ZDEPNAME  TYPE CHAR20,
+
+        ZDEPRANK  TYPE ZEDT11_102-ZDEPRANK,
+
+        ZRANKNAME TYPE CHAR20,
+
+        ZEDATE    TYPE ZEDT11_102-ZEDATE,
+
+        ZQDATE    TYPE ZEDT11_102-ZQDATE,
+
+        ZQFLAG    TYPE ZEDT11_102-ZQFLAG,
+
+        ZSALARY   TYPE ZEDT11_106-ZSALARY,
+
+        ZPAY_AMT  TYPE ZEDT11_106-ZSALARY,
+
+        ZRANK     TYPE ZEDT11_104-ZRANK,
+
+        ZMON01    TYPE ZEDT11_105-ZMON01,
+
+        ZMON02    TYPE ZEDT11_105-ZMON02,
+
+        ZMON03    TYPE ZEDT11_105-ZMON03,
+
+        ZMON04    TYPE ZEDT11_105-ZMON04,
+
+        ZMON05    TYPE ZEDT11_105-ZMON05,
+
+        ZMON06    TYPE ZEDT11_105-ZMON06,
+
+        ZMON07    TYPE ZEDT11_105-ZMON07,
+
+        ZMON08    TYPE ZEDT11_105-ZMON08,
+
+        ZMON09    TYPE ZEDT11_105-ZMON09,
+
+        ZMON10    TYPE ZEDT11_105-ZMON10,
+
+        ZMON11    TYPE ZEDT11_105-ZMON11,
+
+        ZMON12    TYPE ZEDT11_105-ZMON12,
+
+      END OF GS_SAL.
+
+
+
+DATA: BEGIN OF GS_EVAL,
+
+        ZPERNR     TYPE ZEDT11_102-ZPERNR,
+
+        ZPNAME     TYPE ZEDT11_103-ZPNAME,
+
+        ZDEPCODE   TYPE ZEDT11_102-ZDEPCODE,
+
+        ZDEPNAME   TYPE CHAR20,
+
+        ZDEPRANK   TYPE ZEDT11_102-ZDEPRANK,
+
+        ZRANKNAME  TYPE CHAR20,
+
+        ZQFLAG     TYPE ZEDT11_102-ZQFLAG,
+
+        ZQFLAG_T   TYPE CHAR10,
+
+        ZRANK      TYPE ZEDT11_104-ZRANK,
+
+        ZSALARY    TYPE ZEDT11_106-ZSALARY,
+
+        ZMONTH_AMT TYPE ZEDT11_105-ZMON01, " ####
+
+      END OF GS_EVAL.
+
+
+
+DATA: GT_EMP  LIKE TABLE OF GS_EMP,
+
+      GT_SAL  LIKE TABLE OF GS_SAL,
+
+      GT_EVAL LIKE TABLE OF GS_EVAL.
+
+
+
+CONSTANTS: C_CHECK  TYPE C VALUE 'X',
+
+           C_MALE   TYPE C VALUE 'M',
+
+           C_FEMALE TYPE C VALUE 'F',
+
+           C_RANK_A TYPE C VALUE 'A',
+
+           C_BONUS  TYPE P DECIMALS 2 VALUE '50000.00',
+
+           C_QUIT   TYPE C VALUE 'X',
+
+           C_ACTIVE TYPE CHAR10 VALUE '##',
+
+           C_QUIT_T TYPE CHAR10 VALUE '##'.
+
+
+
+DATA: GT_FCAT   TYPE SLIS_T_FIELDCAT_ALV,
+
+      GS_FCAT   TYPE SLIS_FIELDCAT_ALV,
+
+      GT_SORT   TYPE SLIS_T_SORTINFO_ALV,
+
+      GS_SORT   TYPE SLIS_SORTINFO_ALV,
+
+      GS_LAYOUT TYPE SLIS_LAYOUT_ALV.
+
+
+
+
+
+
+* ####
+
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+  SELECT-OPTIONS S_PERNR FOR ZEDT11_102-ZPERNR   MODIF ID ALL.
+
+  SELECT-OPTIONS S_DATE  FOR ZEDT11_102-DATAB    MODIF ID M1.
+
+  SELECT-OPTIONS S_DEPT  FOR ZEDT11_102-ZDEPCODE MODIF ID M1.
+
+  PARAMETERS: P_YEAR  TYPE ZEDT11_104-ZYEAR MODIF ID M2,
+
+              P_MONTH TYPE NUMC2            MODIF ID M2.
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.
+
+  PARAMETERS: P_RAD1 RADIOBUTTON GROUP RB1 DEFAULT 'X' USER-COMMAND UC1,
+
+              P_RAD2 RADIOBUTTON GROUP RB1,
+
+              P_RAD3 RADIOBUTTON GROUP RB1.
+
+SELECTION-SCREEN END OF BLOCK B2.
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B3 WITH FRAME.
+
+  PARAMETERS: P_CH1 AS CHECKBOX DEFAULT 'X' MODIF ID M1.
+
+SELECTION-SCREEN END OF BLOCK B3.
+
+
+
+INITIALIZATION.              PERFORM GET_LAST_DAY.
+
+AT SELECTION-SCREEN OUTPUT.  PERFORM SET_SCREEN.
+
+START-OF-SELECTION.
+
+  PERFORM PREPARE_INPUT_DATA.
+
+  PERFORM CHECK_INPUT.
+
+  PERFORM MAIN_PROCESS.
+
+
+
+
+
+
+*---------------------------------------------------------------------*
+
+
+
+
+FORM GET_LAST_DAY.
+
+  P_YEAR  = SY-DATUM(4).
+
+  P_MONTH = SY-DATUM+4(2).
+
+  S_DATE-SIGN   = 'I'.
+
+  S_DATE-OPTION = 'BT'.
+
+  S_DATE-LOW    = SY-DATUM(4) && '0101'.
+
+  CALL FUNCTION 'RP_LAST_DAY_OF_MONTHS'
+
+    EXPORTING DAY_IN = SY-DATUM
+
+    IMPORTING LAST_DAY_OF_MONTH = S_DATE-HIGH.
+
+  APPEND S_DATE.
+
+ENDFORM.
+
+
+
+
+
+
+*---------------------------------------------------------------------*
+
+
+
+
+FORM SET_SCREEN.
+
+  LOOP AT SCREEN.
+
+    CASE SCREEN-GROUP1.
+
+      WHEN 'M1'.  SCREEN-ACTIVE = COND I( WHEN P_RAD1 = C_CHECK THEN 1 ELSE 0 ).
+
+      WHEN 'M2'.  SCREEN-ACTIVE = COND I( WHEN P_RAD2 = C_CHECK OR P_RAD3 = C_CHECK THEN 1 ELSE 0 ).
+
+      WHEN 'ALL'. SCREEN-ACTIVE = 1.
+
+    ENDCASE.
+
+    MODIFY SCREEN.
+
+  ENDLOOP.
+
+ENDFORM.
+
+
+
+
+
+
+*---------------------------------------------------------------------*
+
+
+
+
+FORM PREPARE_INPUT_DATA.
+
+  IF S_PERNR[] IS NOT INITIAL.
+
+    LOOP AT S_PERNR.
+
+      IF S_PERNR-LOW IS NOT INITIAL.
+
+        CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
+
+          EXPORTING INPUT = S_PERNR-LOW IMPORTING OUTPUT = S_PERNR-LOW.
+
+      ENDIF.
+
+      IF S_PERNR-HIGH IS NOT INITIAL.
+
+        CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
+
+          EXPORTING INPUT = S_PERNR-HIGH IMPORTING OUTPUT = S_PERNR-HIGH.
+
+      ENDIF.
+
+      MODIFY S_PERNR.
+
+    ENDLOOP.
+
+  ENDIF.
+
+ENDFORM.
+
+
+
+
+
+
+*---------------------------------------------------------------------*
+
+
+
+
+FORM CHECK_INPUT.
+
+  IF P_RAD1 = C_CHECK.
+
+    IF S_DATE[] IS INITIAL. MESSAGE '##### ######' TYPE 'E'. ENDIF.
+
+  ELSEIF P_RAD2 = C_CHECK.
+
+    IF P_YEAR IS INITIAL OR P_MONTH IS INITIAL.
+
+      MESSAGE '####/## ######' TYPE 'E'.
+
+    ENDIF.
+
+    IF P_MONTH < 1 OR P_MONTH > 12. MESSAGE '## 1~12 ### ###' TYPE 'E'. ENDIF.
+
+  ELSEIF P_RAD3 = C_CHECK.
+
+    IF P_YEAR IS INITIAL. MESSAGE '##### ######' TYPE 'E'. ENDIF.
+
+  ENDIF.
+
+ENDFORM.
+
+
+
+
+
+
+*---------------------------------------------------------------------*
+
+
+
+
+FORM MAIN_PROCESS.
+
+  IF P_RAD1 = C_CHECK.
+
+    PERFORM GET_EMP_INFO.
+
+    PERFORM DISPLAY_EMP.
+
+  ELSEIF P_RAD2 = C_CHECK.
+
+    PERFORM GET_PAY_INFO.
+
+    PERFORM DISPLAY_PAY.
+
+  ELSEIF P_RAD3 = C_CHECK.
+
+    PERFORM GET_PAY_INFO.
+
+    PERFORM BUILD_EVAL_FROM_PAY.
+
+    PERFORM DISPLAY_EVAL.
+
+  ENDIF.
+
+ENDFORM.
+
+
+
+
+
+
+*---------------------------------------------------------------------*
+
+
+
+
+FORM GET_EMP_INFO.
+
+  SELECT A~ZPERNR, A~ZDEPRANK, A~ZDEPCODE, A~ZEDATE, A~ZQDATE, A~ZQFLAG,
+
+         B~ZGENDER, B~ZPNAME, B~ZADDRESS,
+
+         C~ZBANKCODE, C~ZACCOUNT
+
+    FROM ZEDT11_102 AS A
+
+    LEFT OUTER JOIN ZEDT11_103 AS B ON A~ZPERNR = B~ZPERNR
+
+    LEFT OUTER JOIN ZEDT11_106 AS C ON A~ZPERNR = C~ZPERNR
+
+    WHERE A~ZPERNR IN @S_PERNR
+
+    INTO CORRESPONDING FIELDS OF TABLE @GT_EMP.
+
+
+
+  IF GT_EMP IS INITIAL.
+
+    MESSAGE '### #### ####.' TYPE 'S' DISPLAY LIKE 'E'.
+
+    LEAVE LIST-PROCESSING.
+
+  ENDIF.
+
+
+
+  SORT GT_EMP BY ZPERNR ASCENDING.
+
+
+
+  IF S_DEPT[] IS NOT INITIAL.
+
+    DELETE GT_EMP WHERE ZDEPCODE NOT IN S_DEPT.
+
+  ENDIF.
+
+
+
+  IF P_CH1 = C_CHECK.
+
+    DELETE GT_EMP WHERE ZQFLAG = C_QUIT AND ZQDATE IS NOT INITIAL.
+
+  ELSE.
+
+    DELETE GT_EMP WHERE ZQDATE <= S_DATE-HIGH AND ZQFLAG = C_QUIT.
+
+  ENDIF.
+
+
+
+  PERFORM CONVERT_KO.
+
+ENDFORM.
+
+
+
+
+
+
+*---------------------------------------------------------------------*
+
+
+
+
+FORM CONVERT_KO.
+
+  FIELD-SYMBOLS: <LS> LIKE LINE OF GT_EMP.
+
+  LOOP AT GT_EMP ASSIGNING <LS>.
+
+    <LS>-ZGENDER  = COND #( WHEN <LS>-ZGENDER = C_MALE   THEN '##'
+
+                            WHEN <LS>-ZGENDER = C_FEMALE THEN '##'
+
+                            ELSE <LS>-ZGENDER ).
+
+    <LS>-ZQFLAG_T = COND #( WHEN <LS>-ZQFLAG IS NOT INITIAL THEN C_QUIT_T ELSE C_ACTIVE ).
+
+
+
+    PERFORM CONVERT_COMMON USING <LS>-ZDEPCODE <LS>-ZDEPRANK <LS>-ZBANKCODE
+
+                           CHANGING <LS>-ZDEPNAME <LS>-ZRANKNAME <LS>-ZBANKNAME.
+
+  ENDLOOP.
+
+ENDFORM.
+
+
+
+
+
+
+*---------------------------------------------------------------------*
+
+
+
+
+FORM CONVERT_COMMON USING P_DEPCODE P_DEPRANK P_BANKCODE
+
+                    CHANGING P_DEPNAME P_RANKNAME P_BANKNAME.
+
+  CASE P_DEPCODE.
+
+    WHEN 'SS0001'. P_DEPNAME = '###'.
+
+    WHEN 'SS0002'. P_DEPNAME = '###'.
+
+    WHEN 'SS0003'. P_DEPNAME = '###'.
+
+    WHEN 'SS0004'. P_DEPNAME = '###'.
+
+    WHEN 'SS0005'. P_DEPNAME = '###'.
+
+    WHEN 'SS0006'. P_DEPNAME = '###'.
+
+  ENDCASE.
+
+
+
+  CASE P_DEPRANK.
+
+    WHEN 'A'. P_RANKNAME = '##'.
+
+    WHEN 'B'. P_RANKNAME = '##'.
+
+    WHEN 'C'. P_RANKNAME = '##'.
+
+    WHEN 'D'. P_RANKNAME = '##'.
+
+    WHEN 'E'. P_RANKNAME = '##'.
+
+    WHEN 'F'. P_RANKNAME = '##'.
+
+    WHEN 'G'. P_RANKNAME = '##'.
+
+  ENDCASE.
+
+
+
+  IF P_BANKCODE IS NOT INITIAL.
+
+    CASE P_BANKCODE.
+
+      WHEN '001'. P_BANKNAME = '##'.
+
+      WHEN '002'. P_BANKNAME = '##'.
+
+      WHEN '003'. P_BANKNAME = '##'.
+
+      WHEN '004'. P_BANKNAME = '##'.
+
+      WHEN '005'. P_BANKNAME = '###'.
+
+    ENDCASE.
+
+  ENDIF.
+
+ENDFORM.
+
+
+
+
+
+
+*---------------------------------------------------------------------*
+
+
+
+
+FORM DISPLAY_EMP.
+
+  PERFORM SET_FIELDCAT_EMP.
+
+  PERFORM SET_SORT_EMP.
+
+  GS_LAYOUT-ZEBRA = 'X'.
+
+  GS_LAYOUT-COLWIDTH_OPTIMIZE = 'X'.
+
+  CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+
+    EXPORTING I_CALLBACK_PROGRAM = SY-REPID
+
+              IS_LAYOUT          = GS_LAYOUT
+
+              IT_FIELDCAT        = GT_FCAT
+
+              IT_SORT            = GT_SORT
+
+    TABLES    T_OUTTAB           = GT_EMP.
+
+ENDFORM.
+
+
+
+
+
+
+*---------------------------------------------------------------------*
+
+
+
+
+FORM SET_FIELDCAT_EMP.
+
+  CLEAR GT_FCAT.
+
+  PERFORM ADD_FCAT USING 'ZPERNR'    '####'   '10'.
+
+  PERFORM ADD_FCAT USING 'ZPNAME'    '####'   '15'.
+
+  PERFORM ADD_FCAT USING 'ZDEPCODE'  '####'   '10'.
+
+  PERFORM ADD_FCAT USING 'ZDEPNAME'  '###'     '20'.
+
+  PERFORM ADD_FCAT USING 'ZRANKNAME' '###'     '15'.
+
+  PERFORM ADD_FCAT USING 'ZEDATE'    '###'     '10'.
+
+  PERFORM ADD_FCAT USING 'ZQFLAG_T'  '####'   '10'.
+
+  PERFORM ADD_FCAT USING 'ZGENDER'   '##'       '10'.
+
+  PERFORM ADD_FCAT USING 'ZADDRESS'  '##'       '30'.
+
+  PERFORM ADD_FCAT USING 'ZBANKCODE' '####'   '10'.
+
+  PERFORM ADD_FCAT USING 'ZBANKNAME' '###'     '20'.
+
+  PERFORM ADD_FCAT USING 'ZACCOUNT'  '####'   '20'.
+
+ENDFORM.
+
+
+
+
+
+
+*---------------------------------------------------------------------*
+
+
+
+
+FORM ADD_FCAT USING P_FIELDNAME TYPE CHAR30 P_TEXT TYPE CHAR50 P_OUTPUTLEN TYPE CHAR10.
+
+  CLEAR GS_FCAT.
+
+  GS_FCAT-FIELDNAME = P_FIELDNAME.
+
+  GS_FCAT-SELTEXT_M = P_TEXT.
+
+  GS_FCAT-OUTPUTLEN = P_OUTPUTLEN.
+
+  IF P_FIELDNAME = 'ZPERNR'. GS_FCAT-NO_CONVEXT = 'X'. ENDIF.
+
+  APPEND GS_FCAT TO GT_FCAT.
+
+ENDFORM.
+
+
+
+
+
+
+*---------------------------------------------------------------------*
+
+
+
+
+FORM SET_SORT_EMP.
+
+  CLEAR GT_SORT.
+
+  CLEAR GS_SORT. GS_SORT-FIELDNAME = 'ZPERNR'.   GS_SORT-UP = 'X'. APPEND GS_SORT TO GT_SORT.
+
+  CLEAR GS_SORT. GS_SORT-FIELDNAME = 'ZDEPCODE'. GS_SORT-UP = 'X'. APPEND GS_SORT TO GT_SORT.
+
+ENDFORM.
+
+
+
+
+
+
+*---------------------------------------------------------------------*
+
+
+
+
+FORM GET_PAY_INFO.
+
+  DATA: LV_LAST_DAY TYPE D,
+
+        LV_DAYIN    TYPE D,
+
+        LV_AMT      TYPE P DECIMALS 2,
+
+        LV_FLAG     TYPE C VALUE 'X',
+
+        LS_MON      TYPE ZEDT11_105.
+
+
+
+  CONCATENATE P_YEAR P_MONTH '01' INTO LV_DAYIN.
+
+  CALL FUNCTION 'RP_LAST_DAY_OF_MONTHS'
+
+    EXPORTING DAY_IN = LV_DAYIN
+
+    IMPORTING LAST_DAY_OF_MONTH = LV_LAST_DAY.
+
+
+
+  CLEAR GT_SAL.
+
+  SELECT A~ZPERNR, A~ZDEPCODE, A~ZDEPRANK, A~ZEDATE, A~ZQFLAG, A~ZQDATE,
+
+         B~ZPNAME,
+
+         C~ZSALARY,
+
+         D~ZRANK
+
+    FROM ZEDT11_102 AS A
+
+    INNER JOIN ZEDT11_103 AS B ON A~ZPERNR = B~ZPERNR
+
+    LEFT  JOIN ZEDT11_106 AS C ON A~ZPERNR = C~ZPERNR
+
+    LEFT  JOIN ZEDT11_104 AS D ON A~ZPERNR = D~ZPERNR AND D~ZYEAR = @P_YEAR
+
+    WHERE A~ZPERNR IN @S_PERNR
+
+    INTO CORRESPONDING FIELDS OF TABLE @GT_SAL.
+
+
+
+  IF GT_SAL IS INITIAL.
+
+    MESSAGE '## ### ####.' TYPE 'S' DISPLAY LIKE 'E'.
+
+    LEAVE LIST-PROCESSING.
+
+  ENDIF.
+
+
+
+  SORT GT_SAL BY ZPERNR ASCENDING.
+
+
+
+  IF S_DEPT[] IS NOT INITIAL.
+
+    DELETE GT_SAL WHERE ZDEPCODE NOT IN S_DEPT.
+
+  ENDIF.
+
+
+
+  DELETE GT_SAL WHERE ZEDATE >= LV_DAYIN.
+
+  DELETE GT_SAL WHERE ZQFLAG = C_QUIT AND ZQDATE < LV_DAYIN.
+
+  DELETE GT_SAL WHERE ZRANK IS INITIAL.
+
+
+
+  FIELD-SYMBOLS: <LS_SAL> LIKE LINE OF GT_SAL, <F_MON> TYPE ANY.
+
+  LOOP AT GT_SAL ASSIGNING <LS_SAL>.
+
+    LV_AMT = ( <LS_SAL>-ZSALARY * 100 ) / 12.
+
+    IF <LS_SAL>-ZRANK = C_RANK_A.
+
+      LV_AMT = LV_AMT + C_BONUS.
+
+    ENDIF.
+
+
+
+    IF P_RAD2 = C_CHECK.
+
+      SELECT SINGLE * FROM ZEDT11_105 INTO @LS_MON
+
+        WHERE ZPERNR = @<LS_SAL>-ZPERNR AND ZYEAR = @P_YEAR.
+
+      IF SY-SUBRC <> 0.
+
+        CLEAR LS_MON.
+
+        LS_MON-ZPERNR = <LS_SAL>-ZPERNR.
+
+        LS_MON-ZYEAR  = P_YEAR.
+
+      ENDIF.
+
+
+
+      DATA(LV_FIELD) = |ZMON{ P_MONTH }|.
+
+      ASSIGN COMPONENT LV_FIELD OF STRUCTURE LS_MON TO <F_MON>.
+
+      IF SY-SUBRC = 0. <F_MON> = LV_AMT. ENDIF.
+
+
+
+      MODIFY ZEDT11_105 FROM LS_MON.
+
+      IF SY-SUBRC <> 0.
+
+        LV_FLAG = SPACE.
+
+        EXIT.
+
+      ENDIF.
+
+    ENDIF.
+
+
+
+    DATA(LV_FIELD_DISP) = |ZMON{ P_MONTH }|.
+
+    ASSIGN COMPONENT LV_FIELD_DISP OF STRUCTURE <LS_SAL> TO <F_MON>.
+
+    IF SY-SUBRC = 0. <F_MON> = LV_AMT. ENDIF.
+
+
+
+    <LS_SAL>-ZSALARY = <LS_SAL>-ZSALARY * 100.
+
+  ENDLOOP.
+
+
+
+  IF P_RAD2 = C_CHECK.
+
+    IF LV_FLAG = C_CHECK.
+
+      COMMIT WORK.
+
+      MESSAGE '### #######.' TYPE 'S'.
+
+    ELSE.
+
+      ROLLBACK WORK.
+
+      MESSAGE '#### ##' TYPE 'E'.
+
+    ENDIF.
+
+  ENDIF.
+
+
+
+  PERFORM CONVERT_KO_PAY.
+
+ENDFORM.
+
+
+
+
+
+
+*---------------------------------------------------------------------*
+
+
+
+
+FORM CONVERT_KO_PAY.
+
+  FIELD-SYMBOLS: <LS> LIKE LINE OF GT_SAL.
+
+  DATA: LV_BANKNAME TYPE CHAR20.
+
+  LOOP AT GT_SAL ASSIGNING <LS>.
+
+    PERFORM CONVERT_COMMON USING <LS>-ZDEPCODE <LS>-ZDEPRANK ''
+
+                           CHANGING <LS>-ZDEPNAME <LS>-ZRANKNAME LV_BANKNAME.
+
+  ENDLOOP.
+
+ENDFORM.
+
+
+
+
+
+
+*---------------------------------------------------------------------*
+
+
+
+
+FORM SET_FIELDCAT_PAY_INFO.
+
+  CLEAR GT_FCAT.
+
+  PERFORM ADD_FCAT USING 'ZPERNR'    '####'  '12'.
+
+  PERFORM ADD_FCAT USING 'ZPNAME'    '####'  '12'.
+
+  PERFORM ADD_FCAT USING 'ZDEPCODE'  '####'  '8'.
+
+  PERFORM ADD_FCAT USING 'ZDEPNAME'  '###'    '10'.
+
+  PERFORM ADD_FCAT USING 'ZRANKNAME' '###'    '8'.
+
+  PERFORM ADD_FCAT USING 'ZEDATE'    '###'    '10'.
+
+
+
+  DATA LS_SALARY TYPE SLIS_FIELDCAT_ALV.
+
+  CLEAR LS_SALARY.
+
+  LS_SALARY-FIELDNAME     = 'ZSALARY'.
+
+  LS_SALARY-SELTEXT_M     = '####'.
+
+  LS_SALARY-OUTPUTLEN     = 20.
+
+  LS_SALARY-DECIMALS_OUT  = 0.
+
+  LS_SALARY-DO_SUM        = 'X'.
+
+  APPEND LS_SALARY TO GT_FCAT.
+
+
+
+  PERFORM ADD_FCAT USING 'ZRANK' '####' '6'.
+
+
+
+  DATA(LV_FIELD) = |ZMON{ P_MONTH }|.
+
+  DATA(LV_TEXT)  = |{ P_MONTH }####|.
+
+  DATA LS_MON TYPE SLIS_FIELDCAT_ALV.
+
+  CLEAR LS_MON.
+
+  LS_MON-FIELDNAME    = LV_FIELD.
+
+  LS_MON-SELTEXT_M    = LV_TEXT.
+
+  LS_MON-OUTPUTLEN    = 20.
+
+  LS_MON-DECIMALS_OUT = 0.
+
+  LS_MON-DO_SUM       = 'X'.
+
+  APPEND LS_MON TO GT_FCAT.
+
+
+
+  CLEAR GT_SORT.
+
+  CLEAR GS_SORT. GS_SORT-FIELDNAME = 'ZPERNR'. GS_SORT-UP = 'X'. APPEND GS_SORT TO GT_SORT.
+
+ENDFORM.
+
+
+
+
+
+
+*---------------------------------------------------------------------*
+
+
+
+
+FORM DISPLAY_PAY.
+
+  PERFORM SET_FIELDCAT_PAY_INFO.
+
+  GS_LAYOUT-ZEBRA = 'X'.
+
+  GS_LAYOUT-COLWIDTH_OPTIMIZE = 'X'.
+
+  CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+
+    EXPORTING I_CALLBACK_PROGRAM = SY-REPID
+
+              IS_LAYOUT          = GS_LAYOUT
+
+              IT_FIELDCAT        = GT_FCAT
+
+              IT_SORT            = GT_SORT
+
+    TABLES    T_OUTTAB           = GT_SAL.
+
+ENDFORM.
+
+
+
+
+
+
+*---------------------------------------------------------------------*
+
+
+
+
+FORM BUILD_EVAL_FROM_PAY.
+
+  CLEAR GT_EVAL.
+
+  FIELD-SYMBOLS: <S> LIKE LINE OF GT_SAL, <F_MON> TYPE ANY.
+
+  DATA LV_FIELD TYPE CHAR6.
+
+  LV_FIELD = |ZMON{ P_MONTH }|.
+
+
+
+  LOOP AT GT_SAL ASSIGNING <S>.
+
+    ASSIGN COMPONENT LV_FIELD OF STRUCTURE <S> TO <F_MON>.
+
+    IF SY-SUBRC <> 0. CONTINUE. ENDIF.
+
+    IF <F_MON> = 0. CONTINUE. ENDIF.
+
+
+
+    DATA LS_E LIKE GS_EVAL.
+
+    CLEAR LS_E.
+
+    LS_E-ZPERNR     = <S>-ZPERNR.
+
+    LS_E-ZPNAME     = <S>-ZPNAME.
+
+    LS_E-ZDEPCODE   = <S>-ZDEPCODE.
+
+    LS_E-ZDEPNAME   = <S>-ZDEPNAME.
+
+    LS_E-ZDEPRANK   = <S>-ZDEPRANK.
+
+    LS_E-ZRANKNAME  = <S>-ZRANKNAME.
+
+    LS_E-ZQFLAG     = <S>-ZQFLAG.
+
+    LS_E-ZQFLAG_T   = COND #( WHEN <S>-ZQFLAG IS NOT INITIAL THEN C_QUIT_T ELSE C_ACTIVE ).
+
+    LS_E-ZRANK      = <S>-ZRANK.
+
+    LS_E-ZSALARY    = <S>-ZSALARY.
+
+    LS_E-ZMONTH_AMT = <F_MON>.
+
+    APPEND LS_E TO GT_EVAL.
+
+  ENDLOOP.
+
+ENDFORM.
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+
+*& Form DISPLAY_EVAL
+
+*&---------------------------------------------------------------------*
+
+
+
+
+FORM DISPLAY_EVAL.
+
+  CLEAR GT_FCAT.
+
+  PERFORM ADD_FCAT USING 'ZPERNR'    '####' '10'.
+
+  PERFORM ADD_FCAT USING 'ZPNAME'    '####' '15'.
+
+  PERFORM ADD_FCAT USING 'ZDEPNAME'  '###'   '15'.
+
+  PERFORM ADD_FCAT USING 'ZRANKNAME' '###'   '10'.
+
+  PERFORM ADD_FCAT USING 'ZQFLAG_T'  '##'     '10'.
+
+  PERFORM ADD_FCAT USING 'ZRANK'     '####' '10'.
+
+
+
+  " #### ## ## (# ## ## ### ###, ## ### # ##)
+
+  DATA LV_TEXT TYPE CHAR20.
+
+  LV_TEXT = |{ P_MONTH }####|.
+
+
+
+  DATA LFC_MON TYPE SLIS_FIELDCAT_ALV.
+
+  CLEAR LFC_MON.
+
+  LFC_MON-FIELDNAME    = 'ZMONTH_AMT'.
+
+  LFC_MON-SELTEXT_M    = LV_TEXT.
+
+  LFC_MON-OUTPUTLEN    = 20.
+
+  LFC_MON-DECIMALS_OUT = 0.
+
+  LFC_MON-DO_SUM       = 'X'. " ## ### ## (## ### ## ##)
+
+  APPEND LFC_MON TO GT_FCAT.
+
+
+
+  " [##] ## ## ### ##
+
+  PERFORM SET_SORT_EVAL.
+
+
+
+  GS_LAYOUT-ZEBRA = 'X'.
+
+  GS_LAYOUT-COLWIDTH_OPTIMIZE = 'X'.
+
+
+
+  CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+
+    EXPORTING
+
+      IS_LAYOUT   = GS_LAYOUT
+
+      IT_FIELDCAT = GT_FCAT
+
+      IT_SORT     = GT_SORT
+
+    TABLES
+
+      T_OUTTAB    = GT_EVAL.
+
+ENDFORM.
+
+
+
+
+
+
+*&---------------------------------------------------------------------*
+
+*& Form SET_SORT_EVAL
+
+*&---------------------------------------------------------------------*
+
+
+
+
+FORM SET_SORT_EVAL.
+
+  CLEAR: GT_SORT, GS_SORT.
+
+
+
+  " [##] #### ###/##(SUBTOT) ## -> #### ## ## ### ##
+
+  GS_SORT-FIELDNAME = 'ZPERNR'.
+
+  GS_SORT-UP        = 'X'.
+
+  APPEND GS_SORT TO GT_SORT.
+
+ENDFORM.
+
+
+
+
+
+
+
+
+*Messages
+
+*----------------------------------------------------------
+
+*
+
+* Message class: Hard coded
+
+*   ##### ######

@@ -1,0 +1,1197 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZED23_PRACTICE008_F01
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+
+
+FORM GET_DATE.
+
+  DATA :LV_YEAR TYPE I,
+
+        LV_MONTH TYPE I,
+
+        LV_NEXT_MONTH TYPE SY-DATUM,
+
+        LV_TODAY TYPE SY-DATUM.
+
+
+
+  " ### ##+# + 01
+
+  ZSTART_DAY = SY-DATUM.
+
+  ZSTART_DAY+6(2) = '01'.
+
+
+
+  " ### ## ### #
+
+  LV_TODAY = SY-DATUM.
+
+  LV_YEAR = LV_TODAY+0(4).
+
+  LV_MONTH = LV_TODAY+4(2).
+
+
+
+  IF LV_MONTH = 12.
+
+    LV_NEXT_MONTH = |{ LV_YEAR + 1 }0101 |.
+
+  ELSE.
+
+    LV_NEXT_MONTH = |{ LV_YEAR }{ LV_MONTH + 1 WIDTH = 2 PAD = '0' }01 |.
+
+  ENDIF.
+
+
+
+  ZEND_DAY = LV_NEXT_MONTH - 1.
+
+
+
+ENDFORM.
+
+
+
+
+
+FORM SET_INIT.
+
+
+
+  S_ZJDATE-LOW = ZSTART_DAY.
+
+  S_ZJDATE-HIGH = ZEND_DAY.
+
+  S_ZJDATE-SIGN = 'I'.
+
+  APPEND S_ZJDATE.
+
+
+
+  S_ZDDATE-LOW = ZSTART_DAY.
+
+  S_ZDDATE-HIGH = ZEND_DAY.
+
+  S_ZDDATE-SIGN = 'I'.
+
+  APPEND S_ZDDATE.
+
+
+
+ENDFORM.
+
+
+
+FORM ASSO.
+
+  LOOP AT SCREEN.
+
+    IF SCREEN-GROUP1 = 'M1'.  "####
+
+      IF P_R1 = TRUE.
+
+        SCREEN-ACTIVE = '1'.
+
+      ELSEIF P_R2 = TRUE.
+
+        SCREEN-ACTIVE = '0'.
+
+      ENDIF.
+
+      MODIFY SCREEN.
+
+     ENDIF.
+
+
+
+     IF SCREEN-GROUP1 = 'M2'. "####
+
+       IF P_R1 = TRUE.
+
+         SCREEN-ACTIVE = '0'.
+
+       ELSEIF P_R2 = TRUE.
+
+         SCREEN-ACTIVE = '1'.
+
+       ENDIF.
+
+       MODIFY SCREEN.
+
+     ENDIF.
+
+   ENDLOOP.
+
+
+
+ENDFORM.
+
+
+
+FORM GET_DATA.
+
+
+
+  IF S_ZID[] IS NOT INITIAL.
+
+    LOOP AT S_ZID INTO DATA(line).
+
+       READ TABLE GR_ZIDCODE WITH KEY low = line-low TRANSPORTING NO FIELDS.
+
+       IF SY-SUBRC <> 0.
+
+         MESSAGE '#### ## ## ID ###.' TYPE 'E'.
+
+       ENDIF.
+
+    ENDLOOP.
+
+  ENDIF.
+
+
+
+  IF S_ZORDNO IS INITIAL AND S_ZJDATE IS INITIAL.
+
+    MESSAGE '####/##### ######.' TYPE 'E'.
+
+  ENDIF.
+
+
+
+  IF P_R1 EQ TRUE.
+
+    SELECT * FROM ZEDT23_100
+
+      INTO CORRESPONDING FIELDS OF TABLE GT_100
+
+      WHERE ZORDNO IN S_ZORDNO "####
+
+      AND ZIDCODE IN S_ZID "##ID
+
+      AND ZMATNR IN S_ZMATNR"####
+
+      AND ZJDATE IN S_ZJDATE."####
+
+  ELSEIF P_R2 EQ TRUE.
+
+    SELECT * FROM ZEDT23_101
+
+      INTO CORRESPONDING FIELDS OF TABLE GT_101
+
+      WHERE ZORDNO IN S_ZORDNO  "####
+
+      AND ZIDCODE IN S_ZID      "##ID
+
+      AND ZMATNR IN S_ZMATNR    "####
+
+      AND ZDDATE IN S_ZDDATE.   "####
+
+  ENDIF.
+
+ENDFORM.
+
+
+
+FORM REMOVE_REFUND.
+
+  IF P_CHECK NE TRUE.
+
+    IF P_R1 EQ TRUE.
+
+      LOOP AT GT_100 INTO DATA(line).
+
+        IF line-ZRET_FG IS NOT INITIAL.
+
+          DELETE GT_100 INDEX SY-TABIX.
+
+        ENDIF.
+
+      ENDLOOP.
+
+    ELSEIF P_R2 EQ TRUE.
+
+      LOOP AT GT_101 INTO DATA(line2).
+
+        IF line2-ZFLAG EQ 'X'.
+
+          DELETE GT_101 INDEX SY-TABIX.
+
+        ENDIF.
+
+      ENDLOOP.
+
+    ENDIF.
+
+  ENDIF.
+
+
+
+ENDFORM.
+
+
+
+FORM VAL_TO_DESC.
+
+  IF P_R1 EQ TRUE.  "####, ####, ####
+
+    LOOP AT GT_100 INTO DATA(line).
+
+      CASE line-ZMTART.
+
+        WHEN '001'.
+
+          line-ZMTART_STR = '##'.
+
+        WHEN '002'.
+
+          line-ZMTART_STR = '##'.
+
+        WHEN '003'.
+
+          line-ZMTART_STR = '##'.
+
+        WHEN '004'.
+
+          line-ZMTART_STR = '##'.
+
+        WHEN '005'.
+
+          line-ZMTART_STR = '##'.
+
+        WHEN '006'.
+
+          line-ZMTART_STR = '###'.
+
+      ENDCASE.
+
+
+
+      CASE line-ZSALE_FG.
+
+        WHEN '1'.
+
+          line-ZSALE_FG_STR = '##'.
+
+          line-ZLIGHT = '3'.
+
+        WHEN '2'.
+
+          line-ZSALE_FG_STR = '##'.
+
+          line-ZLIGHT = '1'.
+
+      ENDCASE.
+
+
+
+      CASE line-ZRET_FG.
+
+        WHEN '1'.
+
+          line-ZRET_FG_STR = '####'.
+
+        WHEN '2'.
+
+          line-ZRET_FG_STR = '####'.
+
+        WHEN '3'.
+
+          line-ZRET_FG_STR = '####'.
+
+      ENDCASE.
+
+
+
+      MODIFY GT_100 FROM line
+
+      TRANSPORTING ZMTART_STR ZSALE_FG_STR ZRET_FG_STR ZLIGHT
+
+      WHERE ZORDNO = line-ZORDNO.
+
+    ENDLOOP.
+
+
+
+  ELSEIF P_R2 EQ TRUE. " ####, ####, ###
+
+    LOOP AT GT_101 INTO DATA(line2).
+
+      CASE line2-ZMTART.
+
+        WHEN '001'.
+
+          line2-ZMTART_STR = '##'.
+
+        WHEN '002'.
+
+          line2-ZMTART_STR = '##'.
+
+        WHEN '003'.
+
+          line2-ZMTART_STR = '##'.
+
+        WHEN '004'.
+
+          line2-ZMTART_STR = '##'.
+
+        WHEN '005'.
+
+          line2-ZMTART_STR = '##'.
+
+        WHEN '006'.
+
+          line2-ZMTART_STR = '###'.
+
+      ENDCASE.
+
+
+
+      CASE line2-ZDFLAG.
+
+        WHEN '1'.
+
+          line2-ZDFLAG_STR = '####'.
+
+        WHEN '2'.
+
+          line2-ZDFLAG_STR = '###'.
+
+        WHEN '3'.
+
+          line2-ZDFLAG_STR = '####'.
+
+      ENDCASE.
+
+
+
+      CASE line2-ZDGUBUN.
+
+        WHEN '1'.
+
+          line2-ZDGUBUN_STR = '###'.
+
+        WHEN '2'.
+
+          line2-ZDGUBUN_STR = '###'.
+
+        WHEN '3'.
+
+          line2-ZDGUBUN_STR = '###'.
+
+        WHEN '4'.
+
+          line2-ZDGUBUN_STR = '###'.
+
+        WHEN '5'.
+
+          line2-ZDGUBUN_STR = '###'.
+
+        WHEN '6'.
+
+          line2-ZDGUBUN_STR = '###'.
+
+        WHEN '7'.
+
+          line2-ZDGUBUN_STR = '###'.
+
+      ENDCASE.
+
+
+
+      CASE line2-ZFLAG.
+
+        WHEN 'X'.
+
+          line2-ZLIGHT = '1'.  "##-##
+
+        WHEN OTHERS.
+
+          line2-ZLIGHT = '3'.  "##-##
+
+      ENDCASE.
+
+
+
+      MODIFY GT_101 FROM line2
+
+      TRANSPORTING ZMTART_STR ZDFLAG_STR ZDGUBUN_STR ZLIGHT
+
+      WHERE ZORDNO EQ line2-ZORDNO.
+
+    ENDLOOP.
+
+
+
+  ENDIF.
+
+ENDFORM.
+
+
+
+
+
+
+
+FORM CREATE_OBJECT.
+
+  CREATE OBJECT GC_DOCKING
+
+    EXPORTING
+
+
+
+
+*      PARENT                      =
+
+
+
+
+      REPID                       = SY-REPID
+
+      DYNNR                       = SY-DYNNR
+
+
+
+
+*      SIDE                        = DOCK_AT_LEFT
+
+
+
+
+      EXTENSION                   = 2000
+
+
+
+
+*      STYLE                       =
+
+*      LIFETIME                    = lifetime_default
+
+*      CAPTION                     =
+
+*      METRIC                      = 0
+
+*      RATIO                       =
+
+*      NO_AUTODEF_PROGID_DYNNR     =
+
+*      NAME                        =
+
+*    EXCEPTIONS
+
+*      CNTL_ERROR                  = 1
+
+*      CNTL_SYSTEM_ERROR           = 2
+
+*      CREATE_ERROR                = 3
+
+*      LIFETIME_ERROR              = 4
+
+*      LIFETIME_DYNPRO_DYNPRO_LINK = 5
+
+*      others                      = 6
+
+
+
+
+      .
+
+  IF SY-SUBRC <> 0.
+
+
+
+
+*   MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+
+*              WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+
+
+
+
+  ENDIF.
+
+
+
+
+
+CREATE OBJECT GC_GRID
+
+  EXPORTING
+
+
+
+
+*    I_SHELLSTYLE      = 0
+
+*    I_LIFETIME        =
+
+
+
+
+    I_PARENT          = GC_DOCKING
+
+
+
+
+*    I_APPL_EVENTS     = space
+
+*    I_PARENTDBG       =
+
+*    I_APPLOGPARENT    =
+
+*    I_GRAPHICSPARENT  =
+
+*    I_NAME            =
+
+*    I_FCAT_COMPLETE   = SPACE
+
+*  EXCEPTIONS
+
+*    ERROR_CNTL_CREATE = 1
+
+*    ERROR_CNTL_INIT   = 2
+
+*    ERROR_CNTL_LINK   = 3
+
+*    ERROR_DP_CREATE   = 4
+
+*    others            = 5
+
+
+
+
+    .
+
+IF SY-SUBRC <> 0.
+
+
+
+
+* MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+
+*            WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+
+
+
+
+ENDIF.
+
+
+
+ENDFORM.
+
+
+
+
+
+FORM FIELD_CATALOG_100.
+
+  CLEAR : GS_FIELDCAT, GT_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 1.
+
+  GS_FIELDCAT-FIELDNAME = 'ZLIGHT'.
+
+  GS_FIELDCAT-COLTEXT = '##'.
+
+  GS_FIELDCAT-TECH = ''.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 2.
+
+  GS_FIELDCAT-FIELDNAME = 'ZORDNO'.
+
+  GS_FIELDCAT-COLTEXT = '####'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 3.
+
+  GS_FIELDCAT-FIELDNAME = 'ZIDCODE'.
+
+  GS_FIELDCAT-COLTEXT = '##ID'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 4.
+
+  GS_FIELDCAT-FIELDNAME = 'ZMATNR'.
+
+  GS_FIELDCAT-COLTEXT = '####'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 5.
+
+  GS_FIELDCAT-FIELDNAME = 'ZMATNAME'.
+
+  GS_FIELDCAT-COLTEXT = '###'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 6.
+
+  GS_FIELDCAT-FIELDNAME = 'ZMTART_STR'.
+
+  GS_FIELDCAT-COLTEXT = '####'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 7.
+
+  GS_FIELDCAT-FIELDNAME = 'ZVOLUM'.
+
+  GS_FIELDCAT-COLTEXT = '##'.
+
+  GS_FIELDCAT-QFIELDNAME = 'VRKME'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 8.
+
+  GS_FIELDCAT-FIELDNAME = 'VRKME'.
+
+  GS_FIELDCAT-COLTEXT = '##'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 9.
+
+  GS_FIELDCAT-FIELDNAME = 'ZNSAMT'.
+
+  GS_FIELDCAT-COLTEXT = '####'.
+
+  GS_FIELDCAT-CFIELDNAME = 'ZWAERS'.
+
+  GS_FIELDCAT-DO_SUM = 'X'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 10.
+
+  GS_FIELDCAT-FIELDNAME = 'ZSLAMT'.
+
+  GS_FIELDCAT-COLTEXT = '####'.
+
+  GS_FIELDCAT-CFIELDNAME = 'ZWAERS'.
+
+  GS_FIELDCAT-DO_SUM = 'X'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 11.
+
+  GS_FIELDCAT-FIELDNAME = 'ZDCAMT'.
+
+  GS_FIELDCAT-COLTEXT = '####'.
+
+  GS_FIELDCAT-CFIELDNAME = 'ZWAERS'.
+
+  GS_FIELDCAT-DO_SUM = 'X'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 12.
+
+  GS_FIELDCAT-FIELDNAME = 'ZWAERS'.
+
+  GS_FIELDCAT-EMPHASIZE = 'X'.
+
+  GS_FIELDCAT-COLTEXT = '##'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 13.
+
+  GS_FIELDCAT-FIELDNAME = 'ZSALE_FG_STR'.
+
+  GS_FIELDCAT-COLTEXT = '####'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 14.
+
+  GS_FIELDCAT-FIELDNAME = 'ZJDATE'.
+
+  GS_FIELDCAT-COLTEXT = '####'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 15.
+
+  GS_FIELDCAT-FIELDNAME = 'ZRET_FG_STR'.
+
+  GS_FIELDCAT-COLTEXT = '####'.
+
+  IF P_CHECK NE TRUE.
+
+    GS_FIELDCAT-NO_OUT = 'X'.
+
+  ENDIF.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 16.
+
+  GS_FIELDCAT-FIELDNAME = 'ZRDATE'.
+
+  GS_FIELDCAT-COLTEXT = '####'.
+
+  IF P_CHECK NE TRUE.
+
+    GS_FIELDCAT-NO_OUT = 'X'.
+
+  ENDIF.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+ENDFORM.
+
+
+
+FORM FIELD_CATALOG_101.
+
+  CLEAR : GS_FIELDCAT, GT_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 1.
+
+  GS_FIELDCAT-FIELDNAME = 'ZLIGHT'.
+
+  GS_FIELDCAT-COLTEXT = '##'.
+
+  GS_FIELDCAT-TECH = ''.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 2.
+
+  GS_FIELDCAT-FIELDNAME = 'ZORDNO'.
+
+  GS_FIELDCAT-COLTEXT = '####'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 3.
+
+  GS_FIELDCAT-FIELDNAME = 'ZIDCODE'.
+
+  GS_FIELDCAT-COLTEXT = '##ID'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 4.
+
+  GS_FIELDCAT-FIELDNAME = 'ZMATNR'.
+
+  GS_FIELDCAT-COLTEXT = '####'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 5.
+
+  GS_FIELDCAT-FIELDNAME = 'ZMATNAME'.
+
+  GS_FIELDCAT-COLTEXT = '###'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 6.
+
+  GS_FIELDCAT-FIELDNAME = 'ZMTART_STR'.
+
+  GS_FIELDCAT-COLTEXT = '####'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 7.
+
+  GS_FIELDCAT-FIELDNAME = 'ZVOLUM'.
+
+  GS_FIELDCAT-COLTEXT = '##'.
+
+  GS_FIELDCAT-QFIELDNAME = 'VRKME'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 8.
+
+  GS_FIELDCAT-FIELDNAME = 'VRKME'.
+
+  GS_FIELDCAT-COLTEXT = '##'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 9.
+
+  GS_FIELDCAT-FIELDNAME = 'ZSLAMT'.
+
+  GS_FIELDCAT-COLTEXT = '####'.
+
+  GS_FIELDCAT-CFIELDNAME = 'ZWAERS'.
+
+  GS_FIELDCAT-DO_SUM = 'X'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 10.
+
+  GS_FIELDCAT-FIELDNAME = 'ZWAERS'.
+
+  GS_FIELDCAT-COLTEXT = '##'.
+
+  GS_FIELDCAT-EMPHASIZE = 'X'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 11.
+
+  GS_FIELDCAT-FIELDNAME = 'ZDFLAG_STR'.
+
+  GS_FIELDCAT-COLTEXT = '####'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 12.
+
+  GS_FIELDCAT-FIELDNAME = 'ZDGUBUN_STR'.
+
+  GS_FIELDCAT-COLTEXT = '####'.
+
+  GS_FIELDCAT-EMPHASIZE = 'X'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 13.
+
+  GS_FIELDCAT-FIELDNAME = 'ZDDATE'.
+
+  GS_FIELDCAT-COLTEXT = '####'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 14.
+
+  GS_FIELDCAT-FIELDNAME = 'ZRDATE'.
+
+  GS_FIELDCAT-COLTEXT = '####'.
+
+  IF P_CHECK NE TRUE.
+
+    GS_FIELDCAT-NO_OUT = 'X'.
+
+  ENDIF.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 15.
+
+  GS_FIELDCAT-FIELDNAME = 'ZFLAG'.
+
+  GS_FIELDCAT-COLTEXT = '####'.
+
+  GS_FIELDCAT-EMPHASIZE = 'X'.
+
+  IF P_CHECK NE TRUE.
+
+    GS_FIELDCAT-NO_OUT = 'X'.
+
+  ENDIF.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+
+
+
+
+ENDFORM.
+
+
+
+FORM ALV_LAYOUT.
+
+  CLEAR GS_LAYOUT.
+
+  GS_LAYOUT-ZEBRA = 'X'.
+
+  GS_LAYOUT-CWIDTH_OPT = 'X'.
+
+
+
+  GS_LAYOUT-EXCP_FNAME = 'ZLIGHT'.
+
+  GS_LAYOUT-EXCP_LED = 'X'.
+
+
+
+  CLEAR GS_VARIANT.
+
+  GS_VARIANT-REPORT = SY-REPID.
+
+  GS_VARIANT-USERNAME = SY-UNAME.
+
+ENDFORM.
+
+
+
+FORM ALV_SORT.
+
+  CLEAR : GS_SORT, GT_SORT.
+
+  GS_SORT-SPOS = 1.
+
+  GS_SORT-FIELDNAME = 'ZIDCODE'.
+
+  GS_SORT-UP = 'X'.
+
+  GS_SORT-SUBTOT = 'X'.
+
+  APPEND GS_SORT TO GT_SORT.
+
+ENDFORM.
+
+
+
+FORM CALL_ALV.
+
+
+
+  FIELD-SYMBOLS : <FS_ITAB> TYPE STANDARD TABLE.
+
+  IF P_R1 EQ TRUE.
+
+    ASSIGN GT_100 TO <FS_ITAB>.
+
+  ELSEIF P_R2 EQ TRUE.
+
+    ASSIGN GT_101 TO <FS_ITAB>.
+
+  ENDIF.
+
+
+
+  CALL METHOD GC_GRID->SET_TABLE_FOR_FIRST_DISPLAY
+
+    EXPORTING
+
+
+
+
+*      I_BUFFER_ACTIVE               =
+
+*      I_BYPASSING_BUFFER            =
+
+*      I_CONSISTENCY_CHECK           =
+
+*      I_STRUCTURE_NAME              =
+
+
+
+
+      IS_VARIANT                    = GS_VARIANT
+
+      I_SAVE                        = 'A'
+
+
+
+
+*      I_DEFAULT                     = 'X'
+
+
+
+
+      IS_LAYOUT                     = GS_LAYOUT
+
+
+
+
+*      IS_PRINT                      =
+
+*      IT_SPECIAL_GROUPS             =
+
+*      IT_TOOLBAR_EXCLUDING          =
+
+*      IT_HYPERLINK                  =
+
+*      IT_ALV_GRAPHICS               =
+
+*      IT_EXCEPT_QINFO               =
+
+*      IR_SALV_ADAPTER               =
+
+
+
+
+    CHANGING
+
+      IT_OUTTAB                     = <FS_ITAB>
+
+      IT_FIELDCATALOG               = GT_FIELDCAT
+
+      IT_SORT                       = GT_SORT
+
+
+
+
+*      IT_FILTER                     =
+
+*    EXCEPTIONS
+
+*      INVALID_PARAMETER_COMBINATION = 1
+
+*      PROGRAM_ERROR                 = 2
+
+*      TOO_MANY_LINES                = 3
+
+*      others                        = 4
+
+
+
+
+          .
+
+  IF SY-SUBRC <> 0.
+
+
+
+
+*   Implement suitable error handling here
+
+
+
+
+  ENDIF.
+
+
+
+ENDFORM.

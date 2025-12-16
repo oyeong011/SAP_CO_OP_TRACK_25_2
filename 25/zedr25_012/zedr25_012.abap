@@ -1,0 +1,511 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR25_012
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR25_012.
+
+
+
+
+
+DATA : BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT25_001
+.
+
+  DATA : END OF GS_STUDENT.
+
+DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+
+*DATA : GV_FLAG.
+
+*
+
+*" COMMIT
+
+*SELECT SINGLE * FROM ZEDT25_001
+
+*  INTO GS_STUDENT WHERE ZCODE = 'SSU-01'.
+
+*
+
+*PERFORM DELETE_DATA USING GS_STUDENT.
+
+*PERFORM INSERT_DATA ON COMMIT.
+
+*
+
+*IF GV_FLAG = 'X'.
+
+*  COMMIT WORK.
+
+*ENDIF.
+
+
+
+*DATA : GV_ZCODE LIKE ZEDT25_001-ZCODE.
+
+*DATA : GV_ZKNAME LIKE ZEDT25_001-ZKNAME.
+
+
+
+
+
+
+" #### : ## ##### ##### ### ## ### #### ##
+
+
+
+
+
+
+*DATA : GV_PNAME(20) VALUE 'ZEDR25_014'.
+
+*DATA : GV_FORMNAME(20) VALUE 'GET_DATA'.
+
+
+
+
+
+
+"TRANSLATE GV_PNAME TO UPPER CASE.
+
+TRANSLATE GV_FORMNAME TO UPPER CASE.
+
+
+
+"GV_ZCODE = 'SSU-01'.
+
+
+
+"PERFORM GET_DATA USING GV_ZCODE CHANGING GV_ZKNAME.
+
+"PERFORM GET_DATA USING GS_STUDENT GT_STUDENT.
+
+"PERFORM GET_DATA USING GT_STUDENT.
+
+
+
+
+*PERFORM GET_DATA CHANGING GT_STUDENT.
+
+
+
+*PERFORM (GV_FORMNAME) IN PROGRAM (GV_PNAME) IF FOUND CHANGING GT_STUDENT.
+
+
+
+*WRITE : / GV_ZCODE.
+
+*WRITE : / GV_ZKNAME.
+
+
+
+
+
+
+PERFORM GET_DATA CHANGING GT_STUDENT.
+
+
+
+LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+  WRITE : / GS_STUDENT-ZCODE, GS_STUDENT-ZKNAME.
+
+ENDLOOP.
+
+
+
+
+
+" #### ### #### ##
+
+
+
+
+*DO 2 TIMES.
+
+*  PERFORM SY-INDEX OF SUBR1 SUBR2.
+
+*ENDDO.
+
+*FORM SUBR1.
+
+*  WRITE :/ SY-INDEX, '## ####'.
+
+*ENDFORM.
+
+*FORM SUBR2.
+
+*  WRITE :/ SY-INDEX, '## ####'.
+
+*ENDFORM.
+
+*&---------------------------------------------------------------------*
+
+*&      Form  GET_DATA
+
+*&---------------------------------------------------------------------*
+
+*       text
+
+*----------------------------------------------------------------------*
+
+*  -->  p1        text
+
+*  <--  p2        text
+
+*----------------------------------------------------------------------*
+
+
+
+*FORM DELETE_DATA USING PS_STUDENT LIKE GS_STUDENT.
+
+*  DELETE ZEDT25_001 FROM PS_STUDENT.
+
+*  IF SY-SUBRC = 0.
+
+*    GV_FLAG = 'X'.
+
+*  ENDIF.
+
+*ENDFORM.
+
+*
+
+*FORM INSERT_DATA.
+
+*  INSERT ZEDT25_001 FROM GS_STUDENT.
+
+*ENDFORM.
+
+
+
+* #### ##
+
+*FORM GET_DATA USING P_ZCODE P_KNAME.
+
+*  DATA : LV_ZCODE LIKE ZEDT25_001-ZCODE.
+
+*  "WRITE : / 'PERFORM TEST'.
+
+*  LV_ZCODE = 'SSU_001'.
+
+*  SELECT SINGLE ZKNAME FROM ZEDT25_001
+
+*  INTO P_KNAME
+
+*  WHERE ZCODE = P_ZCODE.
+
+*
+
+* P_ZCODE = LV_ZCODE.
+
+*
+
+*ENDFORM.
+
+
+
+
+
+
+" ## ## ##
+
+
+
+
+*FORM GET_DATA USING VALUE P_ZCODE P_KNAME.
+
+*  DATA : LV_ZCODE LIKE ZEDT25_001-ZCODE.
+
+*  "WRITE : / 'PERFORM TEST'.
+
+*  LV_ZCODE = 'SSU_001'.
+
+*  SELECT SINGLE ZKNAME FROM ZEDT25_001
+
+*  INTO P_KNAME
+
+*  WHERE ZCODE = P_ZCODE.
+
+*
+
+* P_ZCODE = LV_ZCODE.
+
+*
+
+*ENDFORM.
+
+
+
+
+
+
+" USING# CHAINGING ### ### ## ### #### # ## # ### ## # ##
+
+
+
+" #### #### ##
+
+
+
+
+*FORM GET_DATA USING P_ZCODE CHANGING VALUE(P_ZKNAME).
+
+*  SELECT SINGLE ZKNAME FROM ZEDT25_001
+
+*    INTO P_ZKNAME
+
+*    WHERE ZCODE = P_ZCODE.
+
+*  P_ZKNAME = 'TEST'.
+
+*
+
+*ENDFORM.
+
+
+
+
+
+
+" ACTUAL PARAMETER# ## ## ##
+
+
+
+
+*FORM GET_DATA USING P_ZCODE TYPE C CHANGING P_ZKNAME TYPE C.
+
+*  SELECT SINGLE ZKNAME FROM ZEDT25_001
+
+*    INTO P_ZKNAME
+
+*    WHERE ZCODE = P_ZCODE.
+
+*  "P_ZKNAME = 'TEST'.
+
+*
+
+*ENDFORM.
+
+
+
+
+
+
+" ACTUAL PARAMETER# ## ### ## ##
+
+
+
+
+*FORM GET_DATA USING P_ZCODE LIKE ZEDT25_001-ZCODE CHANGING P_ZKNAME LIKE ZEDT25_001-ZKNAME.
+
+*  SELECT SINGLE ZKNAME FROM ZEDT25_001
+
+*    INTO P_ZKNAME
+
+*    WHERE ZCODE = P_ZCODE.
+
+*  "P_ZKNAME = 'TEST'.
+
+*
+
+*ENDFORM.
+
+
+
+*FORM GET_DATA USING PS_STUDENT STRUCTURE GS_STUDENT
+
+*                    PT_STUDENT LIKE GT_STUDENT.
+
+*
+
+*  " # ## ###
+
+*  PS_STUDENT-ZCODE = 'SSU-01'.
+
+*  SELECT SINGLE ZKNAME
+
+*    INTO PS_STUDENT-ZKNAME
+
+*    FROM ZEDT25_001
+
+*    WHERE ZCODE = PS_STUDENT-ZCODE.
+
+*  APPEND PS_STUDENT TO PT_STUDENT.
+
+*
+
+*  " # ## ###
+
+*  PS_STUDENT-ZCODE = 'SSU-02'.
+
+*  SELECT SINGLE ZKNAME
+
+*    INTO PS_STUDENT-ZKNAME
+
+*    FROM ZEDT25_001
+
+*    WHERE ZCODE = PS_STUDENT-ZCODE.
+
+*  APPEND PS_STUDENT TO PT_STUDENT.
+
+*
+
+*ENDFORM.
+
+
+
+*FORM GET_DATA USING PS_STUDENT LIKE GS_STUDENT
+
+*                    PT_STUDENT LIKE GT_STUDENT.
+
+*
+
+*  " # ## ###
+
+*  PS_STUDENT-ZCODE = 'SSU-01'.
+
+*  SELECT SINGLE ZKNAME
+
+*    INTO PS_STUDENT-ZKNAME
+
+*    FROM ZEDT25_001
+
+*    WHERE ZCODE = PS_STUDENT-ZCODE.
+
+*  APPEND PS_STUDENT TO PT_STUDENT.
+
+*
+
+*  " # ## ###
+
+*  PS_STUDENT-ZCODE = 'SSU-02'.
+
+*  SELECT SINGLE ZKNAME
+
+*    INTO PS_STUDENT-ZKNAME
+
+*    FROM ZEDT25_001
+
+*    WHERE ZCODE = PS_STUDENT-ZCODE.
+
+*  APPEND PS_STUDENT TO PT_STUDENT.
+
+*
+
+*ENDFORM.
+
+
+
+
+
+
+
+
+" #### ### ### ## ### #
+
+
+
+
+*FORM GET_DATA USING PT_STUDENT TYPE STANDARD TABLE.
+
+*
+
+*  DATA : LS_STUDENT LIKE GS_STUDENT.
+
+*
+
+*  LS_STUDENT-ZCODE = 'SSU-01'.
+
+*
+
+*  SELECT SINGLE ZKNAME FROM ZEDT25_001
+
+*    INTO LS_STUDENT-ZKNAME
+
+*    WHERE ZCODE = LS_STUDENT-ZCODE.
+
+*  APPEND LS_STUDENT TO PT_STUDENT.
+
+*
+
+* LS_STUDENT-ZCODE = 'SSU-02'.
+
+*
+
+*
+
+*  SELECT SINGLE ZKNAME FROM ZEDT25_001
+
+*    INTO LS_STUDENT-ZKNAME
+
+*    WHERE ZCODE = LS_STUDENT-ZCODE.
+
+*  APPEND LS_STUDENT TO PT_STUDENT.
+
+*
+
+*ENDFORM.
+
+
+
+
+
+
+
+
+FORM GET_DATA CHANGING PT_STUDENT LIKE GT_STUDENT.
+
+
+
+  DATA : LS_STUDENT LIKE GS_STUDENT.
+
+
+
+  LS_STUDENT-ZCODE = 'SSU-01'.
+
+
+
+  SELECT SINGLE ZKNAME FROM ZEDT25_001
+
+    INTO LS_STUDENT-ZKNAME
+
+    WHERE ZCODE = LS_STUDENT-ZCODE.
+
+  APPEND LS_STUDENT TO PT_STUDENT.
+
+
+
+ LS_STUDENT-ZCODE = 'SSU-02'.
+
+
+
+
+
+  SELECT SINGLE ZKNAME FROM ZEDT25_001
+
+    INTO LS_STUDENT-ZKNAME
+
+    WHERE ZCODE = LS_STUDENT-ZCODE.
+
+  APPEND LS_STUDENT TO PT_STUDENT.
+
+
+
+ENDFORM.

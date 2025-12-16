@@ -1,0 +1,205 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZPRACTICE008_CONTAINER18_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+TABLES : ZEDT018_100, ZEDT018_101.
+
+
+
+CONSTANTS : C_DMIN TYPE DATE VALUE '19000101',
+
+            C_DMAX TYPE DATE VALUE '99991231',
+
+            C_NMIN TYPE C LENGTH 10 VALUE '0000000000',
+
+            C_NMAX TYPE C LENGTH 10 VALUE '9999999999',
+
+            C_ID   TYPE C LENGTH 10 VALUE 'SSU-**',
+
+            C_X    TYPE C LENGTH 1 VALUE 'X'.
+
+
+
+RANGES : GR_ZID FOR ZEDT018_100-ZIDCODE,
+
+  GR_ZORDNO FOR ZEDT018_100-ZORDNO,
+
+  GR_ZMATNR FOR ZEDT018_100-ZMATNR,
+
+  GR_ZJDATE FOR ZEDT018_100-ZJDATE,
+
+  GR_ZDDATE FOR ZEDT018_101-ZDDATE.
+
+RANGES : LR_DATE FOR SY-DATUM. "range ## -> month
+
+
+
+DATA : LV_FIRST TYPE D.
+
+DATA : LV_LAST TYPE D.
+
+
+
+DATA : BEGIN OF GS_ORDER,
+
+         ZORDNO       LIKE ZEDT018_100-ZORDNO,
+
+         ZIDCODE      LIKE ZEDT018_100-ZIDCODE,
+
+         ZMATNR       LIKE ZEDT018_100-ZMATNR,
+
+         ZMTART       LIKE ZEDT018_100-ZMTART,
+
+         ZMATNAME     LIKE ZEDT018_100-ZMATNAME,
+
+         ZVOLUM       LIKE ZEDT018_100-ZVOLUM,
+
+         VRKME        LIKE ZEDT018_100-VRKME,
+
+         ZNSAMT       LIKE ZEDT018_100-ZNSAMT,
+
+         ZSLAMT       LIKE ZEDT018_100-ZSLAMT,
+
+         ZDCAMT       LIKE ZEDT018_100-ZDCAMT,
+
+         ZWAERS       LIKE ZEDT018_100-ZWAERS,
+
+         ZDC_FG       LIKE ZEDT018_100-ZDC_FG,
+
+         ZSALE_FG     LIKE ZEDT018_100-ZSALE_FG,
+
+         ZRET_FG      LIKE ZEDT018_100-ZRET_FG,
+
+         ZJDATE       LIKE ZEDT018_100-ZJDATE,
+
+         ZRDATE       LIKE ZEDT018_100-ZRDATE,
+
+
+
+         "## ###
+
+         C_ZMTART(10) TYPE C, "####
+
+         C_ZDC(6)     TYPE C, "####
+
+         C_ZSALE(5)   TYPE C, "####
+
+         C_ZRET(10)   TYPE C, "####
+
+         C_ICON(4)    TYPE C, "ALV ###
+
+
+
+         I_ZSLAMT     TYPE I,
+
+         I_ZNSAMT     TYPE I,
+
+         I_ZDCAMT     TYPE I,
+
+
+
+       END OF GS_ORDER.
+
+DATA : GT_ORDER LIKE TABLE OF GS_ORDER.
+
+
+
+
+
+DATA : BEGIN OF GS_DELIVERY,
+
+         ZORDNO       LIKE ZEDT018_100-ZORDNO,
+
+         ZIDCODE      LIKE ZEDT018_100-ZIDCODE,
+
+         ZMATNR       LIKE ZEDT018_100-ZMATNR,
+
+         ZMATNAME     LIKE ZEDT018_100-ZMATNAME,
+
+         ZMTART       LIKE ZEDT018_100-ZMTART,
+
+         ZVOLUM       LIKE ZEDT018_100-ZVOLUM,
+
+         VRKME        LIKE ZEDT018_100-VRKME,
+
+         ZSLAMT       LIKE ZEDT018_100-ZSLAMT,
+
+         ZWAERS       LIKE ZEDT018_100-ZWAERS,
+
+         ZDFLAG       LIKE ZEDT018_101-ZDFLAG,
+
+         ZRDATE       LIKE ZEDT018_101-ZRDATE,
+
+         ZDGUBUN      LIKE ZEDT018_101-ZDGUBUN,
+
+         ZDDATE       LIKE ZEDT018_101-ZDDATE,
+
+         ZFLAG        LIKE ZEDT018_101-ZFLAG,
+
+
+
+         "## ###
+
+         C_ZMTART(10) TYPE C, "####
+
+         C_ZDFLAG(8)  TYPE C, "####
+
+         C_ZDGUBUN(8) TYPE C, "####
+
+         C_ICON(4)    TYPE C, "ALV ###
+
+
+
+         I_ZSLAMT     TYPE I,
+
+
+
+       END OF GS_DELIVERY.
+
+DATA : GT_DELIVERY LIKE TABLE OF GS_DELIVERY.
+
+
+
+DATA: PV_ZRET TYPE C. "#### ####
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+"DOCKING CONTAINER ##
+
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+
+
+"### ##.
+
+DATA : GC_GRID_0100 TYPE REF TO CL_GUI_ALV_GRID.
+
+DATA : GC_GRID_0200 TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+"#### ## ## ##
+
+DATA : GS_VARIANT TYPE DISVARIANT.
+
+
+
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT.
+
+DATA : GT_FIELDCAT TYPE LVC_T_FCAT.
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+DATA : GS_SORT TYPE LVC_S_SORT.
+
+DATA : GT_SORT TYPE LVC_T_SORT.

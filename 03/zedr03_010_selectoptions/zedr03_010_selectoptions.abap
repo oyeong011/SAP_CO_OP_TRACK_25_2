@@ -1,0 +1,79 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR03_010_SELECTOPTIONS
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR03_010_SELECTOPTIONS.
+
+
+
+TABLES : ZEDT03_001.
+
+
+
+DATA : BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT03_001
+.
+
+  DATA : END OF GS_STUDENT.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+  SELECT-OPTIONS : S_ZCODE FOR ZEDT03_001-ZCODE.
+
+  PARAMETERS : P_ZPERNR LIKE ZEDT03_001-ZPERNR MODIF ID M1.
+
+  PARAMETERS : P_ZGEN LIKE ZEDT03_001-ZGENDER MODIF ID M2.
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.
+
+  PARAMETERS : P_R1 RADIOBUTTON GROUP R1 DEFAULT 'X' USER-COMMAND UC1.
+
+  PARAMETERS : P_R2 RADIOBUTTON GROUP R1.
+
+SELECTION-SCREEN END OF BLOCK B2.
+
+
+
+AT SELECTION-SCREEN OUTPUT.
+
+  LOOP AT SCREEN.
+
+    IF SCREEN-GROUP1 = 'M2'.
+
+      IF P_R1 = 'X'.
+
+        SCREEN-ACTIVE = '1'.
+
+      ELSEIF P_R2 = 'X'.
+
+        SCREEN-ACTIVE = '0'.
+
+      ENDIF.
+
+      MODIFY SCREEN.
+
+    ENDIF.
+
+  ENDLOOP.

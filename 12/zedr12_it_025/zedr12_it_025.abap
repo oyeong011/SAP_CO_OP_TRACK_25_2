@@ -1,0 +1,138 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR12_IT_025
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR12_IT_025.
+
+DATA: BEGIN OF GS_STUDENT, "### ##
+
+  ZPERNR TYPE ZEDT12_001-ZPERNR, "####
+
+  ZCODE TYPE ZEDT12_001-ZCODE, "####
+
+  ZKNAME TYPE ZEDT12_001-ZKNAME, "##
+
+  ZENAME TYPE ZEDT12_001-ZENAME, "####
+
+  ZGENDER TYPE ZEDT12_001-ZGENDER, "##
+
+  ZGNAME TYPE C LENGTH 4,
+
+  ZTEL TYPE ZEDT12_001-ZTEL, "####
+
+
+
+  END OF GS_STUDENT.
+
+
+
+  DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+  CLEAR: GS_STUDENT, GT_STUDENT.
+
+
+
+GS_STUDENT-ZCODE = 'SSU-01'.
+
+GS_STUDENT-ZPERNR = '0000000001'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'KANG'.
+
+GS_STUDENT-ZGENDER = 'M'.
+
+GS_STUDENT-ZTEL = '01011111111'.  "HEADER(###)# ### ##.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+GS_STUDENT-ZCODE = 'SSU-02'.
+
+GS_STUDENT-ZPERNR = '0000000002'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'LEE'.
+
+GS_STUDENT-ZGENDER = 'M'.
+
+GS_STUDENT-ZTEL = '01011111112'.  "HEADER(###)# ### ##.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+CLEAR: GS_STUDENT.
+
+
+
+GS_STUDENT-ZCODE = 'SSU-03'.
+
+GS_STUDENT-ZPERNR = '0000000003'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'SON'.
+
+GS_STUDENT-ZGENDER = 'F'.
+
+GS_STUDENT-ZTEL = '01011111113'.  "HEADER(###)# ### ##.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+CLEAR: GS_STUDENT.
+
+
+
+LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+  GS_STUDENT-ZGNAME = '####'.
+
+
+
+  AT FIRST. "## #, ### #### ### ## ### # ##.
+
+    GS_STUDENT-ZGNAME = '####'.  "###(###) ZGNAME# #### ####, #### ### ## ##.
+
+  ENDAT.
+
+
+
+  CLEAR: GS_STUDENT.
+
+ENDLOOP.
+
+
+
+
+
+
+*LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+*  GS_STUDENT-ZGNAME = '####'.
+
+*
+
+*  AT FIRST. "## #, ### #### ### ## ### # ##.
+
+*    GS_STUDENT-ZGNAME = '####'.
+
+*  ENDAT.
+
+*
+
+*  CLEAR: GS_STUDENT.
+
+*ENDLOOP.

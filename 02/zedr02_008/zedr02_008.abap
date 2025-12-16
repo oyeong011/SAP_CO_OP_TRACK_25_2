@@ -1,0 +1,193 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR02_008
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR02_008.
+
+DATA : BEGIN OF GS_STUDENT,
+
+  ZPERNR LIKE ZEDT02_001-ZPERNR, "####
+
+  ZCODE LIKE ZEDT02_001-ZCODE, "####
+
+  ZKNAME LIKE ZEDT02_001-ZKNAME, "##
+
+  ZENAME LIKE ZEDT02_001-ZENAME, "####
+
+  ZGENDER LIKE ZEDT02_001-ZGENDER, "##
+
+  ZGNAME TYPE C LENGTH 4, "####
+
+  ZTEL LIKE ZEDT02_001-ZTEL, "####
+
+END OF GS_STUDENT.
+
+
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+CLEAR : GS_STUDENT, GT_STUDENT.
+
+
+
+GS_STUDENT-ZPERNR = '0000000001'.
+
+GS_STUDENT-ZCODE = 'SSU-01'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'DONG'.
+
+GS_STUDENT-ZGENDER = 'M'.
+
+GS_STUDENT-ZTEL = '01011112222'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+CLEAR : GS_STUDENT.
+
+GS_STUDENT-ZPERNR = '0000000002'.
+
+GS_STUDENT-ZCODE = 'SSU-02'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'LEE'.
+
+GS_STUDENT-ZGENDER = 'M'.
+
+GS_STUDENT-ZTEL = '01022223333'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+CLEAR : GS_STUDENT.
+
+GS_STUDENT-ZPERNR = '0000000003'.
+
+GS_STUDENT-ZCODE = 'SSU-03'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'SON'.
+
+GS_STUDENT-ZGENDER = 'F'.
+
+GS_STUDENT-ZTEL = '01033334444'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+CLEAR : GS_STUDENT.
+
+BREAK-POINT.
+
+
+
+"##
+
+
+
+
+*LOOP AT GT_STUDENT INTO GS_STUDENT.
+
+*  IF GS_STUDENT-ZGENDER = 'M'.
+
+*    GS_STUDENT-ZGNAME = '##'.
+
+*  ELSEIF GS_STUDENT-ZGENDER = 'F'.
+
+*    GS_STUDENT-ZGNAME = '##'.
+
+*  ELSE.
+
+*    GS_STUDENT-ZGNAME = '##'.
+
+*  ENDIF.
+
+*
+
+*  CLEAR : GS_STUDENT.
+
+*ENDLOOP.
+
+
+
+
+
+
+"## # ##
+
+
+
+
+*LOOP AT GT_STUDENT INTO GS_STUDENT WHERE ZGENDER = 'F'.
+
+*  IF GS_STUDENT-ZGENDER = 'M'.
+
+*    GS_STUDENT-ZGNAME = '##'.
+
+*  ELSEIF GS_STUDENT-ZGENDER = 'F'.
+
+*    GS_STUDENT-ZGNAME = '##'.
+
+*  ELSE.
+
+*    GS_STUDENT-ZGNAME = '##'.
+
+*  ENDIF.
+
+*
+
+*  CLEAR : GS_STUDENT.
+
+*ENDLOOP.
+
+
+
+
+
+
+"INDEX ##
+
+LOOP AT GT_STUDENT INTO GS_STUDENT FROM 2 TO 3.
+
+  IF GS_STUDENT-ZGENDER = 'M'.
+
+    GS_STUDENT-ZGNAME = '##'.
+
+  ELSEIF GS_STUDENT-ZGENDER = 'F'.
+
+    GS_STUDENT-ZGNAME = '##'.
+
+  ELSE.
+
+    GS_STUDENT-ZGNAME = '##'.
+
+  ENDIF.
+
+
+
+  CLEAR : GS_STUDENT.
+
+ENDLOOP.
+
+
+
+BREAK-POINT.

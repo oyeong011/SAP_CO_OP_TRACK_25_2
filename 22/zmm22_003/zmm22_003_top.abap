@@ -1,0 +1,219 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM22_003_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES : ZMKPF_22, ZMSEG_22, ZEKKO_22, ZEKPO_22.
+
+"MKPF : ## ## / MSEG : ## ###, EKKO : PO-##, EKPO : PO-###
+
+
+
+
+
+
+*CLASS EVENT DEFINITION DEFERRED.
+
+*DATA : GO_EVENT TYPE REF TO EVENT.
+
+
+
+
+"CLASS LCL_EVENT_HANDLER DEFINITION DEFERRED.
+
+DATA : GO_EVENT TYPE REF TO LCL_EVENT_HANDLER.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA : BEGIN OF GS_HEADER,"##
+
+       MBLNR TYPE ZMKPF_22-MBLNR,"######(5000000000-##### 5### ##)
+
+       MJAHR TYPE ZMKPF_22-MJAHR,"####(#### ### ##)
+
+       BLART TYPE ZMKPF_22-BLART,"####(WE)
+
+       BLDAT TYPE ZMKPF_22-BLDAT,"###
+
+       BUDAT TYPE ZMKPF_22-BUDAT,"###
+
+       END OF GS_HEADER.
+
+
+
+DATA : BEGIN OF GS_ITEM,"###
+
+  MARK TYPE C LENGTH 1,      "######"
+
+  EBELN TYPE ZEKKO_22-EBELN, "######"
+
+  EBELP TYPE ZEKPO_22-EBELP, "####"
+
+  LIFNR TYPE ZEKKO_22-LIFNR, "###"
+
+  BEDAT TYPE ZEKKO_22-BEDAT, "###"
+
+  WAERS TYPE ZEKKO_22-WAERS, "##"
+
+  MATNR TYPE ZEKPO_22-MATNR, "####"
+
+  MAKTX TYPE ZEKPO_22-MAKTX,"###"
+
+  MENGE TYPE ZEKPO_22-MENGE, "##"
+
+  MEINS TYPE ZEKPO_22-MEINS, "##"
+
+  STPRS TYPE ZEKPO_22-STPRS, "##"
+
+  PRDAT TYPE ZEKPO_22-PRDAT, "###"
+
+  WERKS TYPE ZEKPO_22-WERKS, "###"
+
+  LGORT TYPE ZEKPO_22-LGORT, "####"
+
+  WEMNG TYPE MENGE_D,        "#####"
+
+  REMNG TYPE MENGE_D,        "## ##"
+
+  ERFMG TYPE MENGE_D,        "## ## ##"
+
+  END OF GS_ITEM,
+
+  GT_ITEM LIKE TABLE OF GS_ITEM.
+
+
+
+" ##### ### ##
+
+TYPES: BEGIN OF TY_WEMNG,
+
+         EBELN TYPE ZMSEG_22-EBELN,
+
+         EBELP TYPE ZMSEG_22-ZEILE,
+
+         WEMNG TYPE MENGE_D,
+
+       END OF TY_WEMNG.
+
+DATA: LT_WEMNG TYPE TABLE OF TY_WEMNG.
+
+
+
+" 1. [##] ## ### ###
+
+DATA: BEGIN OF GS_DOC_LIST,
+
+        MBLNR TYPE ZMKPF_22-MBLNR,
+
+        MJAHR TYPE ZMKPF_22-MJAHR,
+
+        BUDAT TYPE ZMKPF_22-BUDAT,"###
+
+        LIST_TEXT TYPE CHAR50,
+
+      END OF GS_DOC_LIST.
+
+DATA: GT_DOC_LIST LIKE TABLE OF GS_DOC_LIST.
+
+
+
+DATA: BEGIN OF GS_LIST_200,
+
+        MARK   TYPE C LENGTH 1,          " 1. ##(##)
+
+        MBLNR  TYPE ZMKPF_22-MBLNR,      " 2. ######
+
+        ZEILE  TYPE ZMSEG_22-ZEILE,      " 3. #####
+
+        LIFNR  TYPE ZMSEG_22-LIFNR,      " 4. ###
+
+        MATNR  TYPE ZMSEG_22-MATNR,      " 5. ####
+
+        MAKTX  TYPE ZEKPO_22-MAKTX,      " 5-1. ### (###)
+
+        MENGE  TYPE ZMSEG_22-MENGE,      " 6. ##
+
+        MEINS  TYPE ZMSEG_22-MEINS,      " 7. ##
+
+        DMBTR  TYPE ZMSEG_22-DMBTR,      " 8. ##
+
+        WAERS  TYPE ZMSEG_22-WAERS,      " 9. ##
+
+        ZWERKS TYPE ZMSEG_22-ZWERKS,     " 10. ###
+
+        ZLGORT TYPE ZMSEG_22-ZLGOPT,     " 11. ####
+
+        BWART  TYPE ZMSEG_22-BWART,      " 12. ####
+
+        EBELN  TYPE ZMSEG_22-EBELN,      " 13. ####
+
+        EBELP  TYPE ZMSEG_22-ZEILE,      " 14. PO##
+
+        BUKRS  TYPE ZEKKO_22-BUKRS,      " 15. ####
+
+
+
+        " ## ###
+
+        MJAHR  TYPE ZMKPF_22-MJAHR,
+
+        BUDAT  TYPE ZMKPF_22-BUDAT,
+
+      END OF GS_LIST_200.
+
+DATA: GT_LIST_200 LIKE TABLE OF GS_LIST_200.
+
+
+
+"### 100#
+
+DATA : GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER.
+
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+" 2. ## 200# (##: ##) - [## ##]
+
+DATA : GC_DOCK_LEFT TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA : GC_GRID_LEFT TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+" 3. ## 200# (##: ##) - [## ##]
+
+DATA : GC_DOCK_BOTTOM TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA : GC_GRID_BOTTOM TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT,
+
+       GT_FIELDCAT TYPE LVC_T_FCAT.
+
+
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+DATA : GS_SORT TYPE LVC_S_SORT.
+
+DATA : GT_SORT TYPE LVC_T_SORT.
+
+
+
+DATA : GS_VARIANT TYPE DISVARIANT.

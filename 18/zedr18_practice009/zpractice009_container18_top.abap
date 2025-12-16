@@ -1,0 +1,239 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZPRACTICE009_CONTAINER18_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES : ZEDT18_102, ZEDT18_104, ZEDT18_106. "#######,####,####
+
+
+
+
+
+CONSTANTS : C_DMIN TYPE DATE VALUE '19000101',
+
+            C_DMAX TYPE DATE VALUE '99991231',
+
+            C_NMIN TYPE C LENGTH 10 VALUE '0000000000',
+
+            C_NMAX TYPE C LENGTH 10 VALUE '9999999999',
+
+            C_ID   TYPE C LENGTH 10 VALUE 'SS****',
+
+            C_X    TYPE C LENGTH 1 VALUE 'X'.
+
+
+
+DATA : BEGIN OF GS_PERNR, "##########
+
+         ZPERNR   LIKE ZEDT18_102-ZPERNR, "####
+
+         ZPNAME   LIKE ZEDT18_103-ZPNAME, "####
+
+         ZDEPCODE LIKE ZEDT18_102-ZDEPCODE, "####
+
+         ZDEPRANK LIKE ZEDT18_102-ZDEPRANK, "##
+
+         ZEDATE   LIKE ZEDT18_102-ZEDATE, "####
+
+         ZQDATE   LIKE ZEDT18_102-ZQDATE, "####
+
+         ZQFLAG   LIKE ZEDT18_102-ZQFLAG, "####
+
+         ZGENDER  LIKE ZEDT18_103-ZGENDER, "##
+
+         ZADDRESS LIKE ZEDT18_103-ZADDRESS, "##
+
+         DATBI    LIKE ZEDT18_102-DATBI, "####
+
+         DATAB    LIKE ZEDT18_102-DATAB, "####
+
+       END OF GS_PERNR.
+
+DATA : GT_PERNR LIKE TABLE OF GS_PERNR.
+
+
+
+DATA : BEGIN OF GS_PERNR_ALV, "####### ALV ###
+
+         CODE(4), "##
+
+         ZPERNR            LIKE ZEDT18_102-ZPERNR, "####
+
+         ZPNAME            LIKE ZEDT18_103-ZPNAME, "##
+
+         ZDEPCODE          LIKE ZEDT18_102-ZDEPCODE, "####
+
+         ZDEPCODE_NAME(10), "##
+
+         DATBI             LIKE ZEDT18_102-DATBI, "####
+
+         DATAB             LIKE ZEDT18_102-DATAB, "####
+
+         ZDEPRANK_NAME(6),  "##
+
+         ZGENDER_NAME(4), "##
+
+         ZEDATE            LIKE ZEDT18_102-ZEDATE, "####
+
+         ZADDRESS          LIKE ZEDT18_103-ZADDRESS, "##
+
+         ZQDATE            LIKE ZEDT18_102-ZQDATE, "####
+
+         ZQFLAG            LIKE ZEDT18_102-ZQFLAG, "####
+
+       END OF GS_PERNR_ALV.
+
+DATA : GT_PERNR_ALV LIKE TABLE OF GS_PERNR_ALV.
+
+
+
+DATA : BEGIN OF GS_SALARY, "#######
+
+         ZPERNR    LIKE ZEDT18_106-ZPERNR, "####
+
+         ZYEAR     LIKE ZEDT18_106-ZYEAR, "##
+
+         DATBI     LIKE ZEDT18_106-DATBI, "####
+
+         DATAB     LIKE ZEDT18_106-DATAB, "####
+
+         ZSALARY   LIKE ZEDT18_106-ZSALARY, "####
+
+         ZBANKCODE LIKE ZEDT18_106-ZBANKCODE, "####
+
+         ZACCOUNT  LIKE ZEDT18_106-ZACCOUNT, "####
+
+       END OF GS_SALARY.
+
+DATA : GT_SALARY LIKE TABLE OF GS_SALARY.
+
+
+
+DATA : BEGIN OF GS_SALARY_ALV, "####### ALV ###
+
+         ZPERNR         LIKE ZEDT18_106-ZPERNR, "####
+
+         ZYEAR          LIKE ZEDT18_106-ZYEAR, "##
+
+         DATBI          LIKE ZEDT18_106-DATBI, "####
+
+         DATAB          LIKE ZEDT18_106-DATAB, "####
+
+         ZSALARY        LIKE ZEDT18_106-ZSALARY, "####
+
+         ZWAERS         TYPE WAERS, "##
+
+         ZBANK_NAME(10),  "###
+
+         ZACCOUNT       LIKE ZEDT18_106-ZACCOUNT, "####
+
+       END OF GS_SALARY_ALV.
+
+DATA : GT_SALARY_ALV LIKE TABLE OF GS_SALARY_ALV.
+
+
+
+DATA : BEGIN OF GS_ASSESS, "#####
+
+         ZPERNR   LIKE ZEDT18_104-ZPERNR, "####
+
+         ZDEPCODE LIKE ZEDT18_104-ZDEPCODE, "####
+
+         ZYEAR    LIKE ZEDT18_104-ZYEAR, "##
+
+         DATBI    LIKE ZEDT18_104-DATBI, "####
+
+         DATAB    LIKE ZEDT18_104-DATAB, "####
+
+         ZRANK    LIKE ZEDT18_104-ZRANK, "####
+
+       END OF GS_ASSESS.
+
+DATA : GT_ASSESS LIKE TABLE OF GS_ASSESS.
+
+
+
+DATA : BEGIN OF GS_ASSESS_ALV, "##### ALV ###
+
+         ZPERNR            LIKE ZEDT18_104-ZPERNR, "####
+
+         ZDEPCODE_NAME(10), "##
+
+         ZYEAR             LIKE ZEDT18_104-ZYEAR, "##
+
+         DATBI             LIKE ZEDT18_104-DATBI, "####
+
+         DATAB             LIKE ZEDT18_104-DATAB, "####
+
+         ZRANK             LIKE ZEDT18_104-ZRANK, "##
+
+       END OF GS_ASSESS_ALV.
+
+DATA : GT_ASSESS_ALV LIKE TABLE OF GS_ASSESS_ALV.
+
+
+
+RANGES : GR_FG FOR ZEDT18_102-ZQFLAG. "### ##
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+
+
+DATA : GC_SPLITTER TYPE REF TO CL_GUI_SPLITTER_CONTAINER.
+
+DATA : GC_SPLITTER2 TYPE REF TO CL_GUI_SPLITTER_CONTAINER.
+
+
+
+DATA : GC_CONTAINER1 TYPE REF TO CL_GUI_CONTAINER.
+
+DATA : GC_CONTAINER2 TYPE REF TO CL_GUI_CONTAINER.
+
+DATA : GC_CONTAINER3 TYPE REF TO CL_GUI_CONTAINER.
+
+DATA : GC_CONTAINER4 TYPE REF TO CL_GUI_CONTAINER.
+
+
+
+DATA : GC_GRID1 TYPE REF TO CL_GUI_ALV_GRID.
+
+DATA : GC_GRID2 TYPE REF TO CL_GUI_ALV_GRID.
+
+DATA : GC_GRID3 TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA : GS_VARIANT TYPE DISVARIANT. "#### ## ## ##
+
+
+
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT.
+
+DATA : GT_FIELDCAT1 TYPE LVC_T_FCAT.
+
+DATA : GT_FIELDCAT2 TYPE LVC_T_FCAT.
+
+DATA : GT_FIELDCAT3 TYPE LVC_T_FCAT.
+
+
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+DATA : GS_SORT TYPE LVC_S_SORT.
+
+DATA : GT_SORT TYPE LVC_T_SORT.

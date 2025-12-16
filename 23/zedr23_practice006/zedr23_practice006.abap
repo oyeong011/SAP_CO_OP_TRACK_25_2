@@ -1,0 +1,1498 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR23_PRACTICE006
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR23_PRACTICE006 MESSAGE-ID ZMED23.
+
+
+
+
+
+
+*** ###### ***
+
+
+
+
+
+
+CONSTANTS : TRUE TYPE C LENGTH 1 VALUE 'X'.
+
+
+
+TABLES : ZEDT23_102.
+
+
+
+DATA : ZSTART_DAY TYPE SY-DATUM,
+
+      ZEND_DAY TYPE SY-DATUM.
+
+
+
+
+
+" #### : ### ## Itab
+
+DATA : BEGIN OF GS_01,
+
+  ZPERNR LIKE ZEDT23_102-ZPERNR, "####
+
+  ZDEPCODE LIKE ZEDT23_102-ZDEPCODE, "####
+
+  ZEDATE LIKE ZEDT23_102-ZEDATE, "###
+
+  ZQDATE LIKE ZEDT23_102-ZQDATE, "### or ####
+
+  ZQFLAG LIKE ZEDT23_102-ZQFLAG, "####
+
+  ZDEPRANK LIKE ZEDT23_102-ZDEPRANK, "####
+
+  ZDEPCODE_STR TYPE STRING, "###
+
+  ZDEPRANK_STR TYPE STRING, "###
+
+  ZQFLAG_STR TYPE STRING, "####
+
+
+
+  ZPNAME LIKE ZEDT23_103-ZPNAME, "####
+
+  ZGENDER LIKE ZEDT23_103-ZGENDER, "##
+
+  ZADDRESS LIKE ZEDT23_103-ZADDRESS, "##
+
+  ZGENDER_STR TYPE STRING, "##_STR
+
+
+
+  ZBANKCODE LIKE ZEDT23_106-ZBANKCODE, "####
+
+  ZACCOUNT LIKE ZEDT23_106-ZACCOUNT,"####
+
+  ZBANKCODE_STR TYPE STRING, "###
+
+  END OF GS_01.
+
+DATA : GT_01 LIKE TABLE OF GS_01.
+
+
+
+" #### : ### ##
+
+DATA : BEGIN OF GS_02,
+
+  ZPERNR LIKE ZEDT23_102-ZPERNR, "####
+
+  ZEDATE LIKE ZEDT23_102-ZEDATE, "###
+
+  ZQDATE LIKE ZEDT23_102-ZQDATE, "### or ####
+
+  ZQFLAG LIKE ZEDT23_102-ZQFLAG, "####
+
+
+
+  ZYEAR LIKE ZEDT23_104-ZYEAR,  "####
+
+  DATBI LIKE ZEDT23_104-DATBI,  "####_FROM
+
+  DATAB LIKE ZEDT23_104-DATAB,  "####_TO
+
+  ZRANK LIKE ZEDT23_104-ZRANK,  "####
+
+
+
+  ZSALARY LIKE ZEDT23_106-ZSALARY,  "####
+
+END OF GS_02.
+
+DATA : GT_02 LIKE TABLE OF GS_02.
+
+
+
+" #### ###
+
+DATA : BEGIN OF GS_03,
+
+  ZPERNR LIKE ZEDT23_102-ZPERNR, "####
+
+  ZDEPCODE LIKE ZEDT23_102-ZDEPCODE, "####
+
+  ZEDATE LIKE ZEDT23_102-ZEDATE, "###
+
+  ZDEPRANK LIKE ZEDT23_102-ZDEPRANK, "####
+
+  ZDEPCODE_STR TYPE STRING, "###
+
+  ZDEPRANK_STR TYPE STRING, "###
+
+
+
+  ZPNAME LIKE ZEDT23_103-ZPNAME, "####
+
+  ZMON LIKE ZEDT23_105-ZMON01,   " ## MONTHLY_FEE
+
+  ZRANK LIKE ZEDT23_104-ZRANK,  "####
+
+  ZSALARY LIKE ZEDT23_106-ZSALARY,  "####
+
+
+
+END OF GS_03.
+
+DATA : GT_03 LIKE TABLE OF GS_03.
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+  SELECT-OPTIONS : S_PERNR FOR ZEDT23_102-ZPERNR.             " ####
+
+  SELECT-OPTIONS : S_DATE FOR ZEDT23_102-DATBI MODIF ID M1.         " ##
+
+  SELECT-OPTIONS : S_DEP FOR ZEDT23_102-ZDEPCODE NO INTERVALS NO-EXTENSION MODIF ID M1.   " ##
+
+  PARAMETERS : P_YEAR TYPE N LENGTH 4 MODIF ID M2 DEFAULT SY-DATUM(4).  "##
+
+  PARAMETERS : P_MONTH TYPE N LENGTH 2 MODIF ID M2 DEFAULT SY-DATUM+4(2). "#
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.
+
+  PARAMETERS : P_R1 RADIOBUTTON GROUP R1 USER-COMMAND UC1 DEFAULT 'X'. "####
+
+  PARAMETERS : P_R2 RADIOBUTTON GROUP R1.   "####
+
+  PARAMETERS : P_R3 RADIOBUTTON GROUP R1.   "####
+
+SELECTION-SCREEN END OF BLOCK B2.
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B3 WITH FRAME.
+
+  PARAMETERS : P_CHECK AS CHECKBOX DEFAULT TRUE MODIF ID M1.
+
+SELECTION-SCREEN END OF BLOCK B3.
+
+
+
+
+
+INITIALIZATION.
+
+  RANGES : GR_ZMONTH FOR P_MONTH.
+
+    GR_ZMONTH-SIGN = 'I'.
+
+    GR_ZMONTH-OPTION = 'BT'.
+
+    GR_ZMONTH-LOW = '01'.
+
+    GR_ZMONTH-HIGH = '12'.
+
+    APPEND GR_ZMONTH.
+
+
+
+  PERFORM GET_DATE.
+
+  S_DATE-LOW = ZSTART_DAY.
+
+  S_DATE-HIGH = ZEND_DAY.
+
+  S_DATE-SIGN = 'I'.
+
+  APPEND S_DATE.
+
+
+
+
+
+AT SELECTION-SCREEN OUTPUT.
+
+  LOOP AT SCREEN.
+
+    IF SCREEN-GROUP1 = 'M1'.  "##, ##
+
+      IF P_R1 = TRUE.
+
+        SCREEN-ACTIVE = '1'.
+
+      ELSEIF P_R2 = TRUE.
+
+        SCREEN-ACTIVE = '0'.
+
+      ELSEIF P_R3 = TRUE.
+
+        SCREEN-ACTIVE = '0'.
+
+      ENDIF.
+
+      MODIFY SCREEN.
+
+     ENDIF.
+
+
+
+     IF SCREEN-GROUP1 = 'M2'. "##, #
+
+       IF P_R2 = TRUE.
+
+         SCREEN-ACTIVE = '1'.
+
+       ELSEIF P_R3 = TRUE.
+
+         SCREEN-ACTIVE = '1'.
+
+       ELSEIF P_R1 = TRUE.
+
+         SCREEN-ACTIVE = '0'.
+
+       ENDIF.
+
+       MODIFY SCREEN.
+
+     ENDIF.
+
+   ENDLOOP.
+
+
+
+START-OF-SELECTION.
+
+
+
+
+
+  IF P_R1 EQ TRUE.
+
+
+
+    IF S_DATE IS INITIAL.
+
+      MESSAGE I000.
+
+      EXIT.
+
+    ENDIF.
+
+
+
+    PERFORM GET_DATA.
+
+    PERFORM VAL_TO_DESC_01.
+
+    PERFORM REMOVE_DATA_01 USING P_CHECK.
+
+    PERFORM ALV_DISPLAY.
+
+
+
+  ELSEIF P_R2 EQ TRUE.
+
+
+
+    IF P_YEAR IS INITIAL AND P_MONTH IS INITIAL.
+
+      MESSAGE I000.
+
+      EXIT.
+
+    ELSEIF P_MONTH NOT IN GR_ZMONTH.
+
+      MESSAGE '### ## #####.' TYPE 'I'.
+
+      EXIT.
+
+    ENDIF.
+
+
+
+    PERFORM UPDATE_MONTHLY_FEE.
+
+
+
+  ELSEIF P_R3 EQ TRUE.
+
+
+
+    IF P_YEAR IS INITIAL AND P_MONTH IS INITIAL.
+
+      MESSAGE I000.
+
+      EXIT.
+
+    ELSEIF P_MONTH NOT IN GR_ZMONTH.
+
+      MESSAGE '### ## #####.' TYPE 'I'.
+
+      EXIT.
+
+    ENDIF.
+
+
+
+    PERFORM GET_DATA.
+
+    PERFORM GET_SALARY.
+
+    PERFORM ALV_DISPLAY.
+
+
+
+  ENDIF.
+
+
+
+
+
+FORM GET_DATE.
+
+  DATA :LV_YEAR TYPE I,
+
+        LV_MONTH TYPE I,
+
+        LV_NEXT_MONTH TYPE SY-DATUM,
+
+        LV_TODAY TYPE SY-DATUM.
+
+
+
+  " ### ## + 0101
+
+  ZSTART_DAY = SY-DATUM.
+
+  ZSTART_DAY+4(4) = '0101'.
+
+
+
+  " ### ## ### #
+
+  LV_TODAY = SY-DATUM.
+
+  LV_YEAR = LV_TODAY+0(4).
+
+  LV_MONTH = LV_TODAY+4(2).
+
+
+
+  IF LV_MONTH = 12.
+
+    LV_NEXT_MONTH = |{ LV_YEAR + 1 }0101 |.
+
+  ELSE.
+
+    LV_NEXT_MONTH = |{ LV_YEAR }{ LV_MONTH + 1 WIDTH = 2 PAD = '0' }01 |.
+
+  ENDIF.
+
+  ZEND_DAY = LV_NEXT_MONTH - 1.
+
+
+
+ENDFORM.
+
+
+
+
+
+FORM GET_DATA.
+
+  "####
+
+  IF P_R1 EQ TRUE.
+
+    SELECT A~ZPERNR A~ZDEPCODE A~ZEDATE A~ZQDATE A~ZDEPRANK A~ZQFLAG "102
+
+      B~ZPNAME B~ZGENDER B~ZADDRESS "103
+
+      C~ZBANKCODE C~ZACCOUNT "106
+
+      INTO CORRESPONDING FIELDS OF TABLE GT_01
+
+      FROM ZEDT23_102 AS A
+
+      INNER JOIN ZEDT23_103 AS B ON A~ZPERNR EQ B~ZPERNR
+
+      INNER JOIN ZEDT23_106 AS C ON A~ZPERNR EQ C~ZPERNR
+
+      WHERE A~DATBI IN S_DATE
+
+      AND A~ZPERNR IN S_PERNR
+
+      AND A~ZDEPCODE IN S_DEP.
+
+    IF GT_01 IS INITIAL.
+
+      MESSAGE I001.
+
+      EXIT.
+
+    ENDIF.
+
+
+
+  "####
+
+  ELSEIF P_R3 EQ TRUE.
+
+      SELECT A~ZPERNR A~ZDEPCODE A~ZEDATE A~ZDEPRANK "102
+
+        B~ZPNAME  "103
+
+        C~ZRANK "104
+
+        D~ZSALARY "106
+
+      INTO CORRESPONDING FIELDS OF TABLE GT_03
+
+      FROM ZEDT23_102 AS A
+
+      INNER JOIN ZEDT23_103 AS B ON A~ZPERNR EQ B~ZPERNR
+
+      INNER JOIN ZEDT23_104 AS C ON A~ZPERNR EQ C~ZPERNR
+
+      INNER JOIN ZEDT23_106 AS D ON A~ZPERNR EQ D~ZPERNR
+
+        WHERE A~ZPERNR IN S_PERNR.
+
+      IF GT_03 IS INITIAL.
+
+        MESSAGE I001.
+
+        EXIT.
+
+      ENDIF.
+
+  ENDIF.
+
+
+
+ENDFORM.
+
+
+
+FORM VAL_TO_DESC_01.
+
+  LOOP AT GT_01 INTO DATA(line).
+
+    " ###
+
+    CASE line-ZDEPCODE.
+
+      WHEN 'SS0001'.
+
+        line-ZDEPCODE_STR = '###'.
+
+      WHEN 'SS0002'.
+
+        line-ZDEPCODE_STR = '###'.
+
+      WHEN 'SS0003'.
+
+        line-ZDEPCODE_STR = '###'.
+
+      WHEN 'SS0004'.
+
+        line-ZDEPCODE_STR = '###'.
+
+      WHEN 'SS0005'.
+
+        line-ZDEPCODE_STR = '###'.
+
+      WHEN 'SS0006'.
+
+        line-ZDEPCODE_STR = '###'.
+
+      WHEN OTHERS.
+
+    ENDCASE.
+
+
+
+    " ###
+
+    CASE line-ZDEPRANK.
+
+      WHEN 'A'.
+
+        line-ZDEPRANK_STR = '##'.
+
+      WHEN 'B'.
+
+        line-ZDEPRANK_STR = '##'.
+
+      WHEN 'C'.
+
+        line-ZDEPRANK_STR = '##'.
+
+      WHEN 'D'.
+
+        line-ZDEPRANK_STR = '##'.
+
+      WHEN 'E'.
+
+        line-ZDEPRANK_STR = '##'.
+
+      WHEN 'F'.
+
+        line-ZDEPRANK_STR = '##'.
+
+      WHEN 'G'.
+
+        line-ZDEPRANK_STR = '##'.
+
+    ENDCASE.
+
+
+
+    "####
+
+    IF line-ZQFLAG EQ TRUE.
+
+      line-ZQFLAG_STR = '##'.
+
+    ELSE.
+
+      line-ZQFLAG_STR = '##'.
+
+    ENDIF.
+
+
+
+  " ##
+
+    CASE line-ZGENDER.
+
+      WHEN 'M'.
+
+        line-ZGENDER_STR = '##'.
+
+      WHEN 'F'.
+
+        line-ZGENDER_STR = '##'.
+
+    ENDCASE.
+
+
+
+  " ###
+
+    CASE line-ZBANKCODE.
+
+      WHEN '001'.
+
+        line-ZBANKCODE_STR = '##'.
+
+      WHEN '002'.
+
+        line-ZBANKCODE_STR = '##'.
+
+      WHEN '003'.
+
+        line-ZBANKCODE_STR = '##'.
+
+      WHEN '004'.
+
+        line-ZBANKCODE_STR = '##'.
+
+      WHEN '005'.
+
+        line-ZBANKCODE_STR = '###'.
+
+    ENDCASE.
+
+
+
+    MODIFY GT_01 FROM line
+
+    TRANSPORTING ZDEPCODE_STR ZDEPRANK_STR ZQFLAG_STR ZGENDER_STR ZBANKCODE_STR
+
+    WHERE ZPERNR = line-ZPERNR.
+
+  ENDLOOP.
+
+
+
+ENDFORM.
+
+
+
+
+
+FORM REMOVE_DATA_01 USING P_CHECK TYPE C.
+
+
+
+    LOOP AT GT_01 INTO DATA(line).
+
+      "#### ## : ## #### '##'# ## # ##
+
+      IF P_CHECK EQ TRUE.
+
+        IF line-ZQFLAG_STR EQ '##'.
+
+          DELETE GT_01 INDEX SY-TABIX.
+
+        ENDIF.
+
+      "#### ## X : ## AND #### < S_DATE-HIGH # ## ##
+
+      ELSE.
+
+        IF line-ZQFLAG_STR EQ '##' AND line-ZQDATE <= S_DATE-HIGH.
+
+          DELETE GT_01 INDEX SY-TABIX.
+
+        ENDIF.
+
+      ENDIF.
+
+    ENDLOOP.
+
+
+
+ENDFORM.
+
+
+
+" ALV ##
+
+DATA : GS_FIELDCAT TYPE SLIS_FIELDCAT_ALV.
+
+DATA : GT_FIELDCAT TYPE SLIS_T_FIELDCAT_ALV.
+
+DATA : GS_LAYOUT TYPE SLIS_LAYOUT_ALV,
+
+      GS_SORT TYPE SLIS_SORTINFO_ALV,
+
+      GT_SORT TYPE SLIS_T_SORTINFO_ALV.
+
+
+
+FORM ALV_DISPLAY.
+
+  PERFORM FIELD_CATALOG.
+
+  PERFORM ALV_LAYOUT.
+
+  PERFORM ALV_SORT.
+
+  PERFORM CALL_ALV.
+
+ENDFORM.
+
+
+
+FORM ALV_LAYOUT.
+
+  CLEAR GS_LAYOUT.
+
+  GS_LAYOUT-ZEBRA = 'X'.
+
+  GS_LAYOUT-COLWIDTH_OPTIMIZE = 'X'.
+
+ENDFORM.
+
+
+
+FORM ALV_SORT.
+
+  CLEAR GS_LAYOUT.
+
+  GS_SORT-SPOS = 1.
+
+  GS_SORT-FIELDNAME = 'ZPERNR'.
+
+  GS_SORT-UP = 'X'.
+
+  APPEND GS_SORT TO GT_SORT.
+
+ENDFORM.
+
+
+
+FORM CALL_ALV.
+
+  IF P_R1 EQ TRUE.
+
+    CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+
+     EXPORTING
+
+       IT_FIELDCAT                       = GT_FIELDCAT
+
+       IS_LAYOUT                         = GS_LAYOUT
+
+       IT_SORT                           = GT_SORT
+
+      TABLES
+
+        T_OUTTAB                          = GT_01.
+
+  ELSEIF P_R3 EQ TRUE.
+
+    CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+
+     EXPORTING
+
+       IT_FIELDCAT                       = GT_FIELDCAT
+
+       IS_LAYOUT                         = GS_LAYOUT
+
+       IT_SORT                           = GT_SORT
+
+      TABLES
+
+        T_OUTTAB                          = GT_03.
+
+  ENDIF.
+
+ENDFORM.
+
+
+
+FORM FIELD_CATALOG.
+
+  CLEAR : GS_FIELDCAT, GT_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 1.
+
+  GS_FIELDCAT-FIELDNAME = 'ZPERNR'.
+
+  GS_FIELDCAT-SELTEXT_M = '####'.
+
+  GS_FIELDCAT-EMPHASIZE = TRUE.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 2.
+
+  GS_FIELDCAT-FIELDNAME = 'ZPNAME'.
+
+  GS_FIELDCAT-SELTEXT_M = '####'.
+
+  GS_FIELDCAT-EMPHASIZE = TRUE.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 3.
+
+  GS_FIELDCAT-FIELDNAME = 'ZDEPCODE'.
+
+  GS_FIELDCAT-SELTEXT_M = '####'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 4.
+
+  GS_FIELDCAT-FIELDNAME = 'ZDEPCODE_STR'.
+
+  GS_FIELDCAT-SELTEXT_M = '###'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 5 .
+
+  GS_FIELDCAT-FIELDNAME = 'ZDEPRANK_STR'.
+
+  GS_FIELDCAT-SELTEXT_M = '###'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR : GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 6.
+
+  GS_FIELDCAT-FIELDNAME = 'ZEDATE'.
+
+  GS_FIELDCAT-SELTEXT_M = '###'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+""""""
+
+  IF P_R1 EQ TRUE.
+
+    CLEAR : GS_FIELDCAT.
+
+    GS_FIELDCAT-COL_POS = 7.
+
+    GS_FIELDCAT-FIELDNAME = 'ZQFLAG_STR'.
+
+    GS_FIELDCAT-SELTEXT_M = '####'.
+
+    APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+    CLEAR : GS_FIELDCAT.
+
+    GS_FIELDCAT-COL_POS = 8.
+
+    GS_FIELDCAT-FIELDNAME = 'ZGENDER_STR'.
+
+    GS_FIELDCAT-SELTEXT_M = '##'.
+
+    APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+    CLEAR : GS_FIELDCAT.
+
+    GS_FIELDCAT-COL_POS = 9.
+
+    GS_FIELDCAT-FIELDNAME = 'ZADDRESS'.
+
+    GS_FIELDCAT-SELTEXT_M = '##'.
+
+    APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+    CLEAR : GS_FIELDCAT.
+
+    GS_FIELDCAT-COL_POS = 10.
+
+    GS_FIELDCAT-FIELDNAME = 'ZBANKCODE'.
+
+    GS_FIELDCAT-SELTEXT_M = '####'.
+
+    APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+    CLEAR : GS_FIELDCAT.
+
+    GS_FIELDCAT-COL_POS = 11.
+
+    GS_FIELDCAT-FIELDNAME = 'ZBANKCODE_STR'.
+
+    GS_FIELDCAT-SELTEXT_M = '###'.
+
+    APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+    CLEAR : GS_FIELDCAT.
+
+    GS_FIELDCAT-COL_POS = 12.
+
+    GS_FIELDCAT-FIELDNAME = 'ZACCOUNT'.
+
+    GS_FIELDCAT-SELTEXT_M = '####'.
+
+    APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  ELSEIF P_R3 EQ TRUE.
+
+    CLEAR : GS_FIELDCAT.
+
+    GS_FIELDCAT-COL_POS = 7.
+
+    GS_FIELDCAT-FIELDNAME = 'ZSALARY'.
+
+    GS_FIELDCAT-SELTEXT_M = '####'.
+
+    GS_FIELDCAT-CURRENCY = 'KRW'.
+
+    GS_FIELDCAT-DO_SUM = 'X'.
+
+    APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+    CLEAR : GS_FIELDCAT.
+
+    GS_FIELDCAT-COL_POS = 8.
+
+    GS_FIELDCAT-FIELDNAME = 'ZRANK'.
+
+    GS_FIELDCAT-SELTEXT_M = '####'.
+
+    APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+    CLEAR : GS_FIELDCAT.
+
+    GS_FIELDCAT-COL_POS = 9.
+
+    GS_FIELDCAT-FIELDNAME = 'ZMON'.
+
+    GS_FIELDCAT-SELTEXT_M = |{ P_MONTH }####|.
+
+    GS_FIELDCAT-CURRENCY = 'KRW'.
+
+    GS_FIELDCAT-DO_SUM = 'X'.
+
+    APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+  ENDIF.
+
+
+
+ENDFORM.
+
+
+
+
+
+" ####
+
+FORM UPDATE_MONTHLY_FEE.
+
+
+
+    DATA : LV_MONTHLY_FEE TYPE P DECIMALS 0.
+
+    DATA : LV_RESULT TYPE C LENGTH 1.
+
+
+
+    SELECT A~ZPERNR A~ZEDATE A~ZQDATE A~ZQFLAG "102
+
+    B~ZYEAR B~DATBI B~DATAB B~ZRANK "104
+
+    C~ZSALARY "106
+
+    INTO CORRESPONDING FIELDS OF TABLE GT_02
+
+    FROM ZEDT23_102 AS A
+
+    INNER JOIN ZEDT23_104 AS B ON A~ZPERNR EQ B~ZPERNR
+
+    INNER JOIN ZEDT23_106 AS C ON A~ZPERNR EQ C~ZPERNR
+
+    WHERE B~ZYEAR EQ P_YEAR
+
+      AND A~ZPERNR IN S_PERNR.
+
+
+
+
+
+    LOOP AT GT_02 INTO DATA(line).
+
+      LV_RESULT = ''.
+
+
+
+      " ## #
+
+      CHECK line-DATBI+4(2) <= P_MONTH.
+
+
+
+      " ######
+
+      CHECK NOT ( line-ZQFLAG EQ TRUE AND line-ZQDATE+4(2) <= P_MONTH ).
+
+
+
+
+
+      LV_MONTHLY_FEE = line-ZSALARY / 12.
+
+      IF line-ZRANK EQ 'A'.
+
+        LV_MONTHLY_FEE = LV_MONTHLY_FEE + 500.
+
+      ENDIF.
+
+
+
+      PERFORM UPDATE_105_TABLE
+
+      USING line-ZPERNR
+
+            P_MONTH
+
+            LV_MONTHLY_FEE
+
+      CHANGING LV_RESULT.
+
+
+
+
+
+      IF LV_RESULT = TRUE.
+
+        MESSAGE '#### ##.' TYPE 'I'.
+
+        STOP.
+
+      ENDIF.
+
+
+
+    ENDLOOP.
+
+
+
+    MESSAGE '### #######.' TYPE 'I'.
+
+
+
+ENDFORM.
+
+
+
+"105 ### #### (####)
+
+FORM UPDATE_105_TABLE
+
+  USING P_ZPERNR P_MONTH P_MONTHLY_FEE
+
+        CHANGING RESULT_FG.
+
+  DATA : LV_AEDATE TYPE SY-DATUM.
+
+
+
+  CASE P_MONTH.
+
+    WHEN '01'.
+
+      UPDATE ZEDT23_105 SET ZMON01 = P_MONTHLY_FEE
+
+      AEDATE = SY-DATUM
+
+      AEZEIT = SY-UZEIT
+
+      AENAME = SY-UNAME
+
+      WHERE ZPERNR = P_ZPERNR.
+
+    WHEN '02'.
+
+      UPDATE ZEDT23_105 SET ZMON02 = P_MONTHLY_FEE
+
+      AEDATE = SY-DATUM
+
+      AEZEIT = SY-UZEIT
+
+      AENAME = SY-UNAME
+
+      WHERE ZPERNR = P_ZPERNR.
+
+    WHEN '03'.
+
+      UPDATE ZEDT23_105 SET ZMON03 = P_MONTHLY_FEE
+
+      AEDATE = SY-DATUM
+
+      AEZEIT = SY-UZEIT
+
+      AENAME = SY-UNAME
+
+      WHERE ZPERNR = P_ZPERNR.
+
+    WHEN '04'.
+
+      UPDATE ZEDT23_105 SET ZMON04 = P_MONTHLY_FEE
+
+      AEDATE = SY-DATUM
+
+      AEZEIT = SY-UZEIT
+
+      AENAME = SY-UNAME
+
+      WHERE ZPERNR = P_ZPERNR.
+
+    WHEN '05'.
+
+      UPDATE ZEDT23_105 SET ZMON05 = P_MONTHLY_FEE
+
+      AEDATE = SY-DATUM
+
+      AEZEIT = SY-UZEIT
+
+      AENAME = SY-UNAME
+
+      WHERE ZPERNR = P_ZPERNR.
+
+    WHEN '06'.
+
+      UPDATE ZEDT23_105 SET ZMON06 = P_MONTHLY_FEE
+
+      AEDATE = SY-DATUM
+
+      AEZEIT = SY-UZEIT
+
+      AENAME = SY-UNAME
+
+      WHERE ZPERNR = P_ZPERNR.
+
+    WHEN '07'.
+
+      UPDATE ZEDT23_105 SET ZMON07 = P_MONTHLY_FEE
+
+      AEDATE = SY-DATUM
+
+      AEZEIT = SY-UZEIT
+
+      AENAME = SY-UNAME
+
+      WHERE ZPERNR = P_ZPERNR.
+
+    WHEN '08'.
+
+      UPDATE ZEDT23_105 SET ZMON08 = P_MONTHLY_FEE
+
+      AEDATE = SY-DATUM
+
+      AEZEIT = SY-UZEIT
+
+      AENAME = SY-UNAME
+
+      WHERE ZPERNR = P_ZPERNR.
+
+    WHEN '09'.
+
+      UPDATE ZEDT23_105 SET ZMON09 = P_MONTHLY_FEE
+
+      AEDATE = SY-DATUM
+
+      AEZEIT = SY-UZEIT
+
+      AENAME = SY-UNAME
+
+      WHERE ZPERNR = P_ZPERNR.
+
+    WHEN '10'.
+
+      UPDATE ZEDT23_105 SET ZMON10 = P_MONTHLY_FEE
+
+      AEDATE = SY-DATUM
+
+      AEZEIT = SY-UZEIT
+
+      AENAME = SY-UNAME
+
+      WHERE ZPERNR = P_ZPERNR.
+
+    WHEN '11'.
+
+      UPDATE ZEDT23_105 SET ZMON11 = P_MONTHLY_FEE
+
+      AEDATE = SY-DATUM
+
+      AEZEIT = SY-UZEIT
+
+      AENAME = SY-UNAME
+
+      WHERE ZPERNR = P_ZPERNR.
+
+    WHEN '12'.
+
+      UPDATE ZEDT23_105 SET ZMON12 = P_MONTHLY_FEE
+
+      AEDATE = SY-DATUM
+
+      AEZEIT = SY-UZEIT
+
+      AENAME = SY-UNAME
+
+      WHERE ZPERNR = P_ZPERNR.
+
+    WHEN OTHERS.
+
+      RESULT_FG = 'X'.
+
+      RETURN.
+
+  ENDCASE.
+
+
+
+  IF SY-SUBRC NE 0.
+
+    RESULT_FG = 'X'.
+
+    EXIT.
+
+  ENDIF.
+
+
+
+ENDFORM.
+
+
+
+" ### # ## ### ###
+
+FORM GET_SALARY.
+
+  LOOP AT GT_03 INTO DATA(line).
+
+    CASE line-ZDEPCODE.
+
+      WHEN 'SS0001'.
+
+        line-ZDEPCODE_STR = '###'.
+
+      WHEN 'SS0002'.
+
+        line-ZDEPCODE_STR = '###'.
+
+      WHEN 'SS0003'.
+
+        line-ZDEPCODE_STR = '###'.
+
+      WHEN 'SS0004'.
+
+        line-ZDEPCODE_STR = '###'.
+
+      WHEN 'SS0005'.
+
+        line-ZDEPCODE_STR = '###'.
+
+      WHEN 'SS0006'.
+
+        line-ZDEPCODE_STR = '###'.
+
+      WHEN OTHERS.
+
+    ENDCASE.
+
+
+
+    " ###
+
+    CASE line-ZDEPRANK.
+
+      WHEN 'A'.
+
+        line-ZDEPRANK_STR = '##'.
+
+      WHEN 'B'.
+
+        line-ZDEPRANK_STR = '##'.
+
+      WHEN 'C'.
+
+        line-ZDEPRANK_STR = '##'.
+
+      WHEN 'D'.
+
+        line-ZDEPRANK_STR = '##'.
+
+      WHEN 'E'.
+
+        line-ZDEPRANK_STR = '##'.
+
+      WHEN 'F'.
+
+        line-ZDEPRANK_STR = '##'.
+
+      WHEN 'G'.
+
+        line-ZDEPRANK_STR = '##'.
+
+    ENDCASE.
+
+
+
+    CASE P_MONTH.
+
+      WHEN '01'.
+
+        SELECT SINGLE ZMON01
+
+        FROM ZEDT23_105 INTO line-ZMON
+
+        WHERE ZPERNR = line-ZPERNR
+
+        AND ZYEAR = P_YEAR.
+
+      WHEN '02'.
+
+        SELECT SINGLE ZMON02
+
+        FROM ZEDT23_105 INTO line-ZMON
+
+        WHERE ZPERNR = line-ZPERNR
+
+        AND ZYEAR = P_YEAR.
+
+      WHEN '03'.
+
+        SELECT SINGLE ZMON03
+
+        FROM ZEDT23_105 INTO line-ZMON
+
+        WHERE ZPERNR = line-ZPERNR
+
+        AND ZYEAR = P_YEAR.
+
+      WHEN '04'.
+
+        SELECT SINGLE ZMON04
+
+        FROM ZEDT23_105 INTO line-ZMON
+
+        WHERE ZPERNR = line-ZPERNR
+
+        AND ZYEAR = P_YEAR.
+
+      WHEN '05'.
+
+        SELECT SINGLE ZMON05
+
+        FROM ZEDT23_105 INTO line-ZMON
+
+        WHERE ZPERNR = line-ZPERNR
+
+        AND ZYEAR = P_YEAR.
+
+      WHEN '06'.
+
+        SELECT SINGLE ZMON06
+
+        FROM ZEDT23_105 INTO line-ZMON
+
+        WHERE ZPERNR = line-ZPERNR
+
+        AND ZYEAR = P_YEAR.
+
+      WHEN '07'.
+
+        SELECT SINGLE ZMON07
+
+        FROM ZEDT23_105 INTO line-ZMON
+
+        WHERE ZPERNR = line-ZPERNR
+
+        AND ZYEAR = P_YEAR.
+
+      WHEN '08'.
+
+        SELECT SINGLE ZMON08
+
+        FROM ZEDT23_105 INTO line-ZMON
+
+        WHERE ZPERNR = line-ZPERNR
+
+        AND ZYEAR = P_YEAR.
+
+      WHEN '09'.
+
+        SELECT SINGLE ZMON09
+
+        FROM ZEDT23_105 INTO line-ZMON
+
+        WHERE ZPERNR = line-ZPERNR
+
+        AND ZYEAR = P_YEAR.
+
+      WHEN '10'.
+
+        SELECT SINGLE ZMON10
+
+        FROM ZEDT23_105 INTO line-ZMON
+
+        WHERE ZPERNR = line-ZPERNR
+
+        AND ZYEAR = P_YEAR.
+
+      WHEN '11'.
+
+        SELECT SINGLE ZMON11
+
+        FROM ZEDT23_105 INTO line-ZMON
+
+        WHERE ZPERNR = line-ZPERNR
+
+        AND ZYEAR = P_YEAR.
+
+      WHEN '12'.
+
+        SELECT SINGLE ZMON12
+
+        FROM ZEDT23_105 INTO line-ZMON
+
+        WHERE ZPERNR = line-ZPERNR
+
+        AND ZYEAR = P_YEAR.
+
+    ENDCASE.
+
+
+
+    IF line-ZMON EQ 0.
+
+      DELETE GT_03 INDEX SY-TABIX.
+
+      CONTINUE.
+
+    ENDIF.
+
+
+
+    MODIFY GT_03 FROM line
+
+    TRANSPORTING ZDEPCODE_STR ZDEPRANK_STR ZMON
+
+    WHERE ZPERNR = line-ZPERNR.
+
+
+
+  ENDLOOP.
+
+
+
+ENDFORM.
+
+
+
+
+
+
+
+
+*Messages
+
+*----------------------------------------------------------
+
+*
+
+* Message class: Hard coded
+
+*   ### ## #####.

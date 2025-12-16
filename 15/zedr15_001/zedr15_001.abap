@@ -1,0 +1,501 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR15_001
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR15_001.
+
+
+
+"##1
+
+DATA : gv_num1 TYPE P VALUE '1234'.
+
+DATA : gv_num2 TYPE P DECIMALS 2 VALUE '12.34'.
+
+
+
+DATA : gv_num3 TYPE I VALUE 1234.
+
+
+
+DATA : gv_num4 TYPE N VALUE 1234.
+
+DATA : gv_num5 TYPE N LENGTH 2 VALUE 1234.
+
+DATA : gv_num6 TYPE N LENGTH 3 VALUE 1234.
+
+DATA : gv_num7 TYPE N LENGTH 4 VALUE 1234.
+
+
+
+WRITE : gv_num1.
+
+WRITE : / gv_num2.
+
+WRITE : / gv_num3.
+
+WRITE : / gv_num4.
+
+WRITE : / gv_num5.
+
+WRITE : / gv_num6.
+
+WRITE : / gv_num7.
+
+
+
+
+
+WRITE : /.
+
+WRITE : /.
+
+
+
+"##2
+
+DATA : GV_TEXT1 VALUE 'A'.
+
+DATA : GV_TEXT2 LENGTH 3 TYPE C VALUE 'ABC'.
+
+DATA : GV_TEXT3(5) TYPE C VALUE 'ABCDE'.
+
+DATA : GV_TEXT4 TYPE STRING VALUE 'ABCDE'.
+
+DATA : GV_LEN TYPE I.
+
+
+
+DATA : GV_TIME TYPE T.
+
+
+
+DATA : GV_DATE TYPE D.
+
+
+
+GV_TIME = SY-UZEIT.
+
+GV_DATE = SY-DATUM.
+
+GV_LEN = STRLEN( GV_TEXT3 ).
+
+
+
+WRITE : GV_TEXT1.
+
+WRITE : / GV_TEXT2.
+
+WRITE : / GV_TEXT3.
+
+WRITE : / GV_TEXT4.
+
+WRITE : / GV_LEN.
+
+WRITE : / GV_TIME.
+
+WRITE : / GV_DATE.
+
+
+
+WRITE : /.
+
+WRITE : /.
+
+
+
+"##3
+
+DATA : TEXT1 TYPE STRING,
+
+      TEXT2(4) TYPE C.
+
+
+
+TEXT1 = 'ABAP'.
+
+TEXT2 = 'B'.
+
+
+
+FIND TEXT2 IN TEXT1.
+
+
+
+IF SY-SUBRC = 0.
+
+  WRITE TEXT2.
+
+  ENDIF.
+
+
+
+WRITE : /.
+
+WRITE : /.
+
+
+
+"##4
+
+DATA: TEXT3 TYPE STRING,
+
+      TEXT4(4) TYPE C.
+
+
+
+TEXT3 = 'ABAP'.
+
+TEXT4 = 'BBAP'.
+
+
+
+REPLACE TEXT3 IN TEXT3 WITH TEXT4.
+
+WRITE : TEXT3.
+
+
+
+WRITE : /.
+
+WRITE : /.
+
+
+
+"##5
+
+DATA : TEXT5 TYPE STRING,
+
+      TEXT6(4) TYPE C.
+
+
+
+TEXT5 = 'ABAP'.
+
+TEXT6 = 'abap'.
+
+
+
+TRANSLATE TEXT5 TO LOWER CASE.
+
+TRANSLATE TEXT6 TO UPPER CASE.
+
+WRITE : TEXT5.
+
+WRITE : / TEXT6.
+
+
+
+WRITE : /.
+
+WRITE : /.
+
+
+
+"##6
+
+DATA : TEXT7 TYPE STRING,
+
+      TEXT8(5) TYPE C.
+
+
+
+TEXT7 = ' ABAP'.
+
+TEXT8 = ' ABAP'.
+
+
+
+SHIFT TEXT7.
+
+WRITE : TEXT7.
+
+WRITE : / TEXT8.
+
+
+
+WRITE : /.
+
+WRITE : /.
+
+
+
+"##7
+
+DATA : TEXT9 TYPE STRING,
+
+      TEXT10(8) TYPE C,
+
+      TEXT11(8) TYPE C.
+
+
+
+TEXT9 = 'AB    AP'.
+
+TEXT10 = 'AB    AP'.
+
+TEXT11 = 'AB    AP'.
+
+
+
+CONDENSE TEXT9.
+
+CONDENSE TEXT10 NO-GAPS.
+
+
+
+WRITE : TEXT9.
+
+WRITE : / TEXT10.
+
+WRITE : / TEXT11.
+
+
+
+WRITE : /.
+
+WRITE : /.
+
+
+
+"##8
+
+DATA : TEXT12 TYPE STRING,
+
+      TEXT13(8) TYPE C.
+
+
+
+TEXT12 = ' B P'.
+
+TEXT13 = 'AAAA'.
+
+
+
+OVERLAY TEXT12 WITH TEXT13.
+
+
+
+WRITE : TEXT12.
+
+WRITE : / TEXT13.
+
+
+
+WRITE : /.
+
+WRITE : /.
+
+
+
+"##9
+
+DATA : TEXT14 TYPE STRING,
+
+      TEXT15(4) TYPE C,
+
+      TEXT16(4) TYPE C.
+
+
+
+TEXT14 = 'AB'.
+
+TEXT15 = 'AP'.
+
+
+
+CONCATENATE TEXT14 TEXT15 INTO TEXT16.
+
+
+
+WRITE : TEXT14.
+
+WRITE : / TEXT15.
+
+WRITE : / TEXT16.
+
+
+
+WRITE : /.
+
+WRITE : /.
+
+
+
+"##10
+
+DATA : TEXT17 TYPE STRING,
+
+      TEXT18(4) TYPE C,
+
+      TEXT19(4) TYPE C.
+
+
+
+TEXT17 = 'AB+AP'.
+
+SPLIT TEXT17 AT '+' INTO TEXT18 TEXT19.
+
+
+
+WRITE : TEXT17.
+
+WRITE : / TEXT18.
+
+WRITE : / TEXT19.
+
+
+
+WRITE : /.
+
+WRITE : /.
+
+
+
+"##11
+
+
+
+DATA GV_NUMBER1 TYPE I VALUE 5.
+
+DATA GV_NUMBER2 TYPE I VALUE 3.
+
+DATA GV_NUMBER3 TYPE I .
+
+
+
+GV_NUMBER3 = GV_NUMBER1 + GV_NUMBER2.
+
+WRITE : GV_NUMBER3.
+
+
+
+GV_NUMBER3 = GV_NUMBER1 - GV_NUMBER2.
+
+WRITE : GV_NUMBER3.
+
+
+
+GV_NUMBER3 = GV_NUMBER1 * GV_NUMBER2.
+
+WRITE : GV_NUMBER3.
+
+
+
+GV_NUMBER3 = GV_NUMBER1 / GV_NUMBER2.
+
+WRITE : GV_NUMBER3.
+
+
+
+GV_NUMBER3 = GV_NUMBER1 DIV GV_NUMBER2.
+
+WRITE : GV_NUMBER3.
+
+
+
+GV_NUMBER3 = GV_NUMBER1 MOD GV_NUMBER2.
+
+WRITE : GV_NUMBER3.
+
+
+
+GV_NUMBER3 = GV_NUMBER1 ** GV_NUMBER2.
+
+WRITE : GV_NUMBER3.
+
+
+
+WRITE : /.
+
+WRITE : /.
+
+
+
+"##12
+
+TYPES T_HELLO(20) TYPE C.
+
+
+
+DATA GV_T1 TYPE T_HELLO.
+
+DATA GV_T2 LIKE GV_T1.
+
+
+
+GV_T1 = '#####'.
+
+GV_T2 = '#####'.
+
+
+
+WRITE : GV_T1.
+
+WRITE : / GV_T2.
+
+
+
+
+
+WRITE : /.
+
+WRITE : /.
+
+
+
+DATA : BEGIN OF GS_ZEDT15,
+
+  ZCODE TYPE C LENGTH 10,
+
+  ZKNAME TYPE C LENGTH 20,
+
+  ZENAME TYPE C LENGTH 20,
+
+  END OF GS_ZEDT15.
+
+
+
+  DATA: BEGIN OF GS_ZEDT15_2.
+
+    INCLUDE STRUCTURE GS_ZEDT15.
+
+    DATA : TITLE TYPE C LENGTH 10,
+
+          GRADE TYPE C LENGTH 1,
+
+          END OF GS_ZEDT15_2.
+
+
+
+GS_ZEDT15_2-ZCODE = 'SSU-01'.
+
+GS_ZEDT15_2-ZKNAME = '###'.
+
+GS_ZEDT15_2-ZENAME = 'DONG'.
+
+GS_ZEDT15_2-TITLE = '####'.
+
+GS_ZEDT15_2-GRADE = '3'.
+
+
+
+WRITE : / GS_ZEDT15_2-ZCODE.
+
+WRITE : / GS_ZEDT15_2-ZKNAME.
+
+WRITE : / GS_ZEDT15_2-ZENAME.
+
+WRITE : / GS_ZEDT15_2-TITLE.
+
+WRITE : / GS_ZEDT15_2-GRADE.

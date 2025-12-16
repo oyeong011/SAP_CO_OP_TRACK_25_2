@@ -1,0 +1,313 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR08_025
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR08_025.
+
+
+
+DATA: GV_VAR TYPE C VALUE 'A'.
+
+
+
+FIELD-SYMBOLS <FS> TYPE C.
+
+
+
+ASSIGN GV_VAR TO <FS>.
+
+
+
+<FS> = 'B'.
+
+
+
+WRITE :/ GV_VAR.
+
+
+
+"-----------------------------------------------------------------------
+
+
+
+DATA: GV_VAR2 TYPE C VALUE 'A'.
+
+FIELD-SYMBOLS <FS1> TYPE ANY.
+
+
+
+ASSIGN GV_VAR2 TO <FS1>.
+
+
+
+<FS1> = 'B'.
+
+
+
+WRITE :/ GV_VAR2.
+
+
+
+"-----------------------------------------------------------------------
+
+
+
+DATA: GV_1 TYPE C VALUE 'A'.
+
+DATA: GV_2 TYPE C VALUE 'B'.
+
+DATA: GV_3 TYPE C VALUE 'C'.
+
+
+
+DATA: GV_FNAME(10).
+
+DATA: GV_INDEX TYPE N.
+
+
+
+FIELD-SYMBOLS <FS2> TYPE ANY.
+
+
+
+DO 3 TIMES.
+
+  CLEAR GV_FNAME.
+
+  GV_FNAME = 'GV_'.
+
+  GV_INDEX = SY-INDEX.
+
+  CONCATENATE GV_FNAME GV_INDEX INTO GV_FNAME.
+
+
+
+  ASSIGN (GV_FNAME) TO <FS2>.
+
+
+
+  WRITE :/ GV_FNAME , ':', <FS2>.
+
+ENDDO.
+
+
+
+"-----------------------------------------------------------------------
+
+
+
+DATA: GV_VAR3 TYPE C VALUE 'A'.
+
+FIELD-SYMBOLS <FS3> TYPE ANY.
+
+
+
+ASSIGN GV_VAR3 TO <FS3>.
+
+
+
+<FS3> = 'B'.
+
+
+
+WRITE :/ GV_VAR3.
+
+
+
+"-----------------------------------------------------------------------
+
+
+
+DATA: BEGIN OF GS_SUM,
+
+  MON01 TYPE DMBTR VALUE '10.00',
+
+  MON02 TYPE DMBTR VALUE '20.00',
+
+  MON03 TYPE DMBTR VALUE '30.00',
+
+  MON04 TYPE DMBTR VALUE '40.00',
+
+  MON05 TYPE DMBTR VALUE '50.00',
+
+  MON06 TYPE DMBTR VALUE '60.00',
+
+END OF GS_SUM.
+
+
+
+DATA: ZINDEX(2).
+
+DATA: ZMON(6).
+
+
+
+FIELD-SYMBOLS: <FS4> LIKE GS_SUM,
+
+               <FS5> TYPE ANY.
+
+ASSIGN GS_SUM TO <FS4>.
+
+
+
+DO 6 TIMES.
+
+  ZINDEX = SY-INDEX.
+
+  CONCATENATE 'MON0' ZINDEX INTO ZMON.
+
+  ASSIGN COMPONENT ZMON OF STRUCTURE <FS4> TO <FS5>.
+
+
+
+  WRITE :/ <FS5>.
+
+ENDDO.
+
+
+
+"-----------------------------------------------------------------------
+
+
+
+DATA: BEGIN OF GS_STUDENT,
+
+  ZCODE LIKE ZEDT08_001-ZCODE,
+
+  ZKNAME LIKE ZEDT08_001-ZKNAME,
+
+  ZENAME LIKE ZEDT08_001-ZENAME,
+
+  END OF GS_STUDENT.
+
+
+
+DATA: GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+DATA: GV_ZCODE(10) VALUE 'ZCODE'.
+
+
+
+SELECT * FROM ZEDT08_001 INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT.
+
+
+
+FIELD-SYMBOLS <FS6> TYPE ANY TABLE.
+
+ASSIGN GT_STUDENT TO <FS6>.
+
+
+
+READ TABLE <FS6> WITH KEY (GV_ZCODE) = 'SSU-08' INTO GS_STUDENT.
+
+
+
+WRITE :/ GS_STUDENT-ZCODE.
+
+WRITE :/ GS_STUDENT-ZKNAME.
+
+WRITE :/ GS_STUDENT-ZENAME.
+
+
+
+"-----------------------------------------------------------------------
+
+
+
+DATA: BEGIN OF GS_STUDENT01,
+
+  ZCODE LIKE ZEDT08_001-ZCODE,
+
+  ZKNAME LIKE ZEDT08_001-ZKNAME,
+
+  ZENAME LIKE ZEDT08_001-ZENAME,
+
+  END OF GS_STUDENT01.
+
+
+
+DATA: GT_STUDENT01 LIKE TABLE OF GS_STUDENT01.
+
+DATA: GV_ZCODE01(10) VALUE 'ZCODE'.
+
+
+
+SELECT * FROM ZEDT08_001 INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT01.
+
+
+
+FIELD-SYMBOLS <FS7> TYPE ANY TABLE.
+
+ASSIGN GT_STUDENT01 TO <FS7>.
+
+
+
+" FIELD-SYMBOLS: <FS_GS_STUDENT> TYPE ANY.
+
+
+
+" READ TABLE <FS7> WITH KEY (GV_ZCODE01) = 'SSU-08' ASSIGNING <FS_GS_STUDENT>.
+
+READ TABLE <FS7> WITH KEY (GV_ZCODE01) = 'SSU-08' INTO GS_STUDENT01.
+
+
+
+WRITE :/ GS_STUDENT-ZCODE.
+
+WRITE :/ GS_STUDENT-ZKNAME.
+
+WRITE :/ GS_STUDENT-ZENAME.
+
+
+
+"-----------------------------------------------------------------------
+
+
+
+DATA: BEGIN OF GS_STUDENT02,
+
+  ZCODE LIKE ZEDT08_001-ZCODE,
+
+  ZKNAME LIKE ZEDT08_001-ZKNAME,
+
+  ZENAME LIKE ZEDT08_001-ZENAME,
+
+  ZMEMO(10),
+
+  END OF GS_STUDENT02.
+
+
+
+DATA: GT_STUDENT02 LIKE TABLE OF GS_STUDENT02.
+
+DATA: GV_ZCODE02(10) VALUE 'ZCODE'.
+
+
+
+SELECT * FROM ZEDT08_001 INTO CORRESPONDING FIELDS OF TABLE GT_STUDENT02.
+
+
+
+LOOP AT GT_STUDENT02 ASSIGNING FIELD-SYMBOL(<FS_T>).
+
+  IF <FS_T>-ZENAME = 'KANG'.
+
+    <FS_T>-ZMEMO = '####'.
+
+  ENDIF.
+
+ENDLOOP.
+
+
+
+"-----------------------------------------------------------------------

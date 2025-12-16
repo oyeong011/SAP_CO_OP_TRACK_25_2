@@ -1,0 +1,219 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR06_002
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR06_002.
+
+
+
+DATA : GS_ZEDT06 TYPE ZEDT06_001.
+
+
+
+GS_ZEDT06-ZCODE = 'ssu-06'.
+
+GS_ZEDT06-ZKNAME = '##'.
+
+GS_ZEDT06-ZENNAME = 'kwon'.
+
+GS_ZEDT06-ZGENDER = 'M'.
+
+GS_ZEDT06-ZTEL = '0109926861'.
+
+
+
+WRITE :/ GS_ZEDT06-ZCODE.
+
+WRITE :/ GS_ZEDT06-ZKNAME.
+
+WRITE :/ GS_ZEDT06-ZENNAME.
+
+WRITE :/ GS_ZEDT06-ZGENDER.
+
+WRITE :/ GS_ZEDT06-ZTEL.
+
+
+
+"--------------------------------------
+
+
+
+DATA : BEGIN OF GS_ZEDT06_001,
+
+  ZCODE TYPE ZEDT06_001-ZCODE,
+
+  ZKNAME TYPE ZEDT06_001-ZKNAME,
+
+  ZENNAME TYPE ZEDT06_001-ZENNAME,
+
+  ZGENDER TYPE ZEDT06_001-ZGENDER,
+
+  ZTEL TYPE ZEDT06_001-ZTEL,
+
+  END OF GS_ZEDT06_001.
+
+
+
+GS_ZEDT06_001-ZCODE = 'ssu-06'.
+
+GS_ZEDT06_001-ZKNAME = '##'.
+
+GS_ZEDT06_001-ZENNAME = 'kwon'.
+
+GS_ZEDT06_001-ZGENDER = 'M'.
+
+GS_ZEDT06_001-ZTEL = '0109926861'.
+
+
+
+WRITE :/ GS_ZEDT06_001-ZCODE.
+
+WRITE :/ GS_ZEDT06_001-ZKNAME.
+
+WRITE :/ GS_ZEDT06_001-ZENNAME.
+
+WRITE :/ GS_ZEDT06_001-ZGENDER.
+
+WRITE :/ GS_ZEDT06_001-ZTEL.
+
+
+
+"--------------------------------------
+
+
+
+DATA : BEGIN OF GS_ZEDT06_002,
+
+  ZCODE TYPE ZCODE06,
+
+  ZKNAME TYPE ZKNAME06,
+
+  ZENNAME TYPE ZENNAME06,
+
+  ZGENDER TYPE ZGENDER06,
+
+  ZTEL TYPE ZTEL06,
+
+  END OF GS_ZEDT06_002.
+
+
+
+GS_ZEDT06_002-ZCODE = 'ssu-06'.
+
+GS_ZEDT06_002-ZKNAME = '##'.
+
+GS_ZEDT06_002-ZENNAME = 'kwon'.
+
+GS_ZEDT06_002-ZGENDER = 'M'.
+
+GS_ZEDT06_002-ZTEL = '0109926861'.
+
+
+
+WRITE :/ GS_ZEDT06_002-ZCODE.
+
+WRITE :/ GS_ZEDT06_002-ZKNAME.
+
+WRITE :/ GS_ZEDT06_002-ZENNAME.
+
+WRITE :/ GS_ZEDT06_002-ZGENDER.
+
+WRITE :/ GS_ZEDT06_002-ZTEL.
+
+
+
+"--------------------------------------
+
+
+
+DATA : GS_ZEDS06 TYPE ZEDS06_001.
+
+
+
+GS_ZEDS06-ZCODE = 'ssu-06'.
+
+GS_ZEDS06-ZKNAME = '##'.
+
+GS_ZEDS06-ZENNAME = 'kwon'.
+
+GS_ZEDS06-ZGENDER = 'M'.
+
+GS_ZEDS06-ZTEL = '0109926861'.
+
+
+
+WRITE :/ GS_ZEDS06-ZCODE.
+
+WRITE :/ GS_ZEDS06-ZKNAME.
+
+WRITE :/ GS_ZEDS06-ZENNAME.
+
+WRITE :/ GS_ZEDS06-ZGENDER.
+
+WRITE :/ GS_ZEDS06-ZTEL.
+
+
+
+"--------------------------------------
+
+
+
+DATA : GS_ZEDG06 TYPE ZTG06_ZED06.
+
+DATA : GV_ZTITLE TYPE ZTG06_ZTITLE.
+
+
+
+GS_ZEDG06-ZCODE = 'ssu-06'.
+
+GS_ZEDG06-ZKNAME = '##'.
+
+GS_ZEDG06-ZENNAME = 'kwon'.
+
+GS_ZEDG06-ZGENDER = 'M'.
+
+GS_ZEDG06-ZTEL = '01099268961'.
+
+GV_ZTITLE = '#####'.
+
+
+
+WRITE :/ GS_ZEDG06-ZCODE.
+
+WRITE :/ GS_ZEDG06-ZKNAME.
+
+WRITE :/ GS_ZEDG06-ZENNAME.
+
+WRITE :/ GS_ZEDG06-ZGENDER.
+
+WRITE :/ GS_ZEDG06-ZTEL.
+
+WRITE :/ GV_ZTITLE.
+
+
+
+"--------------------------------------
+
+
+
+DATA : GV_ZCODE1 TYPE ZCODE06.
+
+DATA : GV_ZCODE2 TYPE ZEDT06_001-ZCODE.
+
+DATA : GS_ZEDT06_003 TYPE ZEDT06_001.
+
+DATA : GT_ZEDT06 TYPE TABLE OF ZEDT06_001.
+
+
+
+"--------------------------------------

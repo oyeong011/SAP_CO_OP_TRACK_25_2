@@ -1,0 +1,49 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM18_002_SCR
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+" [#### ##] ##
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME TITLE TEXT-T01.
+
+PARAMETERS: P_BUKRS TYPE ZEKKO_18-BUKRS MODIF ID CR, " ####
+
+            P_LIFNR TYPE ZEKKO_18-LIFNR MODIF ID CR, " ###
+
+            P_BEDAT TYPE ZEKKO_18-BEDAT MODIF ID CR DEFAULT SY-DATUM. " ###(###:##)
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+" [#### ##] ##
+
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME TITLE TEXT-T02.
+
+PARAMETERS: P_LIFNR2 TYPE ZEKKO_18-LIFNR MODIF ID DIS, " #####
+
+            P_BUKRS2 TYPE ZEKKO_18-BUKRS MODIF ID DIS, " ####
+
+            P_EBELN  TYPE ZEKKO_18-EBELN MODIF ID DIS. " PO##
+
+SELECTION-SCREEN END OF BLOCK B2.
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B3 WITH FRAME TITLE TEXT-T00.
+
+" ## ## (## vs ##)
+
+PARAMETERS: R_CR RADIOBUTTON GROUP G1 DEFAULT 'X' USER-COMMAND UCOMM,
+
+            R_DIS RADIOBUTTON GROUP G1.
+
+SELECTION-SCREEN END OF BLOCK B3.

@@ -1,0 +1,279 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR00_PRACTICE002
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR00_PRACTICE002.
+
+"1. DATA ##.
+
+"####
+
+CONSTANTS : C_RATE TYPE I VALUE 100.
+
+DATA : GV_MSUM TYPE I.
+
+DATA : GV_FSUM TYPE I.
+
+
+
+"#### ### ### ### ##
+
+DATA : BEGIN OF GS_ZEDT001.
+
+  include structure
+ZEDT00_001
+.
+
+  DATA : ZMAJOR_TRANSPORTED TYPE STRING,
+
+        ZWARNED TYPE STRING.
+
+DATA : END OF GS_ZEDT001.
+
+
+
+DATA : BEGIN OF GS_ZEDT002.
+
+  include structure
+ZEDT00_002
+.
+
+DATA : END OF GS_ZEDT002.
+
+
+
+DATA : BEGIN OF GS_ZEDT004.
+
+  include structure
+ZEDT00_004
+.
+
+DATA : END OF GS_ZEDT004.
+
+
+
+DATA : BEGIN OF GS_WRITE,
+
+  ZCODE LIKE ZEDT00_001-ZCODE,
+
+  ZKNAME LIKE ZEDT00_001-ZKNAME,
+
+  ZMAJOR_TRANSPORT(10),
+
+  ZTEL LIKE ZEDT00_001-ZTEL,
+
+  ZGRADE_MEMO(10),
+
+  END OF GS_WRITE.
+
+
+
+DATA : BEGIN OF GS_SUM,
+
+  ZGENDER TYPE ZEDT00_001-ZGENDER,
+
+  ZSUM TYPE ZEDT00_004-ZSUM,
+
+  END OF GS_SUM.
+
+
+
+"ITAB##
+
+DATA : GT_ZEDT001 LIKE TABLE OF GS_ZEDT001,
+
+      GT_ZEDT002 LIKE TABLE OF GS_ZEDT002,
+
+      GT_ZEDT004 LIKE TABLE OF GS_ZEDT004,
+
+      GT_WRITE LIKE TABLE OF GS_WRITE,
+
+      GT_SUM LIKE TABLE OF GS_SUM.
+
+
+
+"2. ### ####
+
+SELECT * FROM ZEDT00_001
+
+INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT001.
+
+
+
+SELECT * FROM ZEDT00_002
+
+INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT002.
+
+
+
+SELECT * FROM ZEDT00_004
+
+INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT004.
+
+
+
+"3. ### ##
+
+"ITAB SORT
+
+SORT GT_ZEDT001 BY ZCODE.
+
+SORT GT_ZEDT002 BY ZCODE.
+
+SORT GT_ZEDT004 BY ZCODE ZGRADE DESCENDING.
+
+DELETE ADJACENT DUPLICATES FROM GT_ZEDT004 COMPARING ZCODE.
+
+
+
+CLEAR : GS_ZEDT001.
+
+
+
+"MODIFY DATA
+
+LOOP AT GT_ZEDT004 INTO GS_ZEDT004.
+
+  CLEAR : GS_ZEDT001, GS_ZEDT002, GS_WRITE.
+
+
+
+  MOVE-CORRESPONDING GS_ZEDT004 TO GS_ZEDT001.
+
+  MOVE-CORRESPONDING GS_ZEDT004 TO GS_ZEDT002.
+
+
+
+  READ TABLE GT_ZEDT001 WITH KEY ZCODE = GS_ZEDT004-ZCODE INTO GS_ZEDT001.
+
+  READ TABLE GT_ZEDT002 WITH KEY ZCODE = GS_ZEDT004-ZCODE INTO GS_ZEDT002 COMPARING ZMAJOR.
+
+
+
+  IF SY-SUBRC = 2.
+
+    GS_WRITE-ZMAJOR_TRANSPORT = '  ####'. "#### ### ## ### ####
+
+  ENDIF.
+
+
+
+  IF GS_ZEDT004-ZGRADE = ' '.
+
+    CONTINUE.
+
+  ELSE.
+
+    MOVE-CORRESPONDING GS_ZEDT001 TO GS_WRITE.
+
+    MOVE-CORRESPONDING GS_ZEDT001 TO GS_SUM.
+
+    MOVE-CORRESPONDING GS_ZEDT004 TO GS_SUM.
+
+    IF GS_ZEDT004-ZGRADE = 'D' OR GS_ZEDT004-ZGRADE ='F'. "##### D## F### ######
+
+      GS_WRITE-ZGRADE_MEMO = '####'.
+
+    ELSE.
+
+      CLEAR GS_WRITE-ZTEL.
+
+    ENDIF.
+
+  ENDIF.
+
+
+
+  APPEND GS_WRITE TO GT_WRITE.
+
+  COLLECT GS_SUM INTO GT_SUM.
+
+
+
+ENDLOOP.
+
+
+
+"4. ##
+
+LOOP AT GT_WRITE INTO GS_WRITE.
+
+  AT FIRST.
+
+    WRITE :/ '-------------------------------------------------------------------------------------'.
+
+    WRITE :/ '|  ####  |         ##         |   ####    |     ####     |    ##    |'.
+
+    WRITE :/ '-------------------------------------------------------------------------------------'.
+
+  ENDAT.
+
+
+
+  WRITE :/ '|', GS_WRITE-ZCODE, '|', GS_WRITE-ZKNAME,'|',GS_WRITE-ZMAJOR_TRANSPORT,'   |', GS_WRITE-ZTEL, '|',GS_WRITE-ZGRADE_MEMO,'|'.
+
+  WRITE :/ '-------------------------------------------------------------------------------------'.
+
+ENDLOOP.
+
+
+
+
+
+
+*DESCRIBE TABLE GT_SUM LINES LINE_NUM.
+
+
+
+
+CLEAR : GS_SUM, GV_MSUM.
+
+
+
+READ TABLE GT_SUM WITH KEY ZGENDER = 'M' INTO GS_SUM.
+
+
+
+IF SY-SUBRC = 0.
+
+  GV_MSUM = GS_SUM-ZSUM * C_RATE.
+
+  WRITE :/ '###### : ' , GV_MSUM.
+
+ELSE.
+
+  WRITE :/ '### ## ######.'.
+
+ENDIF.
+
+
+
+CLEAR : GS_SUM, GV_FSUM.
+
+
+
+READ TABLE GT_SUM WITH KEY ZGENDER = 'F' INTO GS_SUM.
+
+
+
+IF SY-SUBRC = 0.
+
+  GV_FSUM = GS_SUM-ZSUM * C_RATE.
+
+  WRITE :/ '###### : ' , GV_FSUM.
+
+ELSE.
+
+  WRITE :/ '### ## ######.'.
+
+ENDIF.

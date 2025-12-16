@@ -1,0 +1,115 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR04_061
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR04_061.
+
+
+
+DATA GS_STUDENT TYPE ZEDT04_001.
+
+DATA GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+" ### UPDATE, ### INSERT
+
+" 1. SINGLE LINE MODIFY
+
+GS_STUDENT-MANDT = SY-MANDT.
+
+GS_STUDENT-ZCODE = 'SSU-26'.
+
+GS_STUDENT-ZPERNR = '0000000026'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'DO'.
+
+GS_STUDENT-ZGENDER = 'F'.
+
+GS_STUDENT-ZTEL = '212-6666-6666'.
+
+
+
+MODIFY ZEDT04_001 FROM GS_STUDENT.
+
+
+
+IF SY-SUBRC = 0.
+
+  WRITE / '##'.
+
+ELSE.
+
+  WRITE / '##'.
+
+ENDIF.
+
+
+
+" 2. SEVERAL LINES MODIFY
+
+CLEAR : GS_STUDENT, GT_STUDENT.
+
+GS_STUDENT-MANDT = SY-MANDT.
+
+GS_STUDENT-ZCODE = 'SSU-27'.
+
+GS_STUDENT-ZPERNR = '0000000027'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'DA'.
+
+GS_STUDENT-ZGENDER = 'F'.
+
+GS_STUDENT-ZTEL = '212-7777-7777'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+CLEAR : GS_STUDENT.
+
+GS_STUDENT-MANDT = SY-MANDT.
+
+GS_STUDENT-ZCODE = 'SSU-26'.
+
+GS_STUDENT-ZPERNR = '0000000026'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'DO'.
+
+GS_STUDENT-ZGENDER = 'F'.
+
+GS_STUDENT-ZTEL = '212-6666-6666'.
+
+APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+MODIFY ZEDT04_001 FROM TABLE GT_STUDENT.
+
+
+
+IF SY-SUBRC = 0.
+
+  WRITE / '##'.
+
+ELSE.
+
+  WRITE / '##'.
+
+ENDIF.

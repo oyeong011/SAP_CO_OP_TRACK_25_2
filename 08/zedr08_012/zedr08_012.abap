@@ -1,0 +1,465 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR08_012
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR08_012.
+
+
+
+DATA : BEGIN OF GS_STUDENT.
+
+  include structure
+ZEDT08_001
+.
+
+  DATA : END OF GS_STUDENT.
+
+
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+GS_STUDENT-MANDT = SY-MANDT.
+
+GS_STUDENT-ZCODE = 'SSU-08'.
+
+GS_STUDENT-ZPERNR = '0000000011'.
+
+GS_STUDENT-ZKNAME = '###'.
+
+GS_STUDENT-ZENAME = 'KIM'.
+
+GS_STUDENT-ZGENDER = 'M'.
+
+GS_STUDENT-ZTEL = '01011112222'.
+
+
+
+INSERT INTO ZEDT08_001 VALUES GS_STUDENT.
+
+
+
+IF SY-SUBRC = 0.
+
+  WRITE :/ '##'.
+
+ELSE.
+
+  WRITE :/ '##'.
+
+ENDIF.
+
+
+
+" ------------------------------------------------------------
+
+
+
+
+
+
+*CLEAR : GS_STUDENT, GT_STUDENT.
+
+*GS_STUDENT-ZCODE = 'SSU-20'.
+
+*GS_STUDENT-ZPERNR = '0000000012'.
+
+*GS_STUDENT-ZKNAME = '###'.
+
+*GS_STUDENT-ZENAME = 'KIM'.
+
+*GS_STUDENT-ZGENDER = 'M'.
+
+*GS_STUDENT-ZTEL = '01012345678'.
+
+*
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*CLEAR : GS_STUDENT.
+
+*GS_STUDENT-ZCODE = 'SSU-21'.
+
+*GS_STUDENT-ZPERNR = '0000000013'.
+
+*GS_STUDENT-ZKNAME = '###'.
+
+*GS_STUDENT-ZENAME = 'KWON'.
+
+*GS_STUDENT-ZGENDER = 'M'.
+
+*GS_STUDENT-ZTEL = '01087654321'.
+
+*
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*INSERT ZEDT08_001 FROM TABLE GT_STUDENT.
+
+*
+
+*IF SY-SUBRC = 0.
+
+*  WRITE :/ '##'.
+
+*ELSE.
+
+*  WRITE :/ '##'.
+
+*ENDIF.
+
+
+
+
+
+
+" ------------------------------------------------------------
+
+
+
+DATA : BEGIN OF GS_STUDENT01.
+
+  include structure
+ZEDT08_001
+.
+
+  DATA : END OF GS_STUDENT01.
+
+
+
+DATA : GT_STUDENT01 LIKE TABLE OF GS_STUDENT01.
+
+
+
+GS_STUDENT01-ZCODE = 'SSU-08'.
+
+GS_STUDENT01-ZPERNR = '0000000022'.
+
+GS_STUDENT01-ZKNAME = '###'.
+
+GS_STUDENT01-ZENAME = 'JAE'.
+
+GS_STUDENT01-ZGENDER = 'M'.
+
+GS_STUDENT01-ZTEL = '01022223333'.
+
+
+
+UPDATE ZEDT08_001 FROM GS_STUDENT.
+
+
+
+IF SY-SUBRC = 0.
+
+  WRITE :/ '##### ##'.
+
+ENDIF.
+
+
+
+" ------------------------------------------------------------
+
+
+
+DATA : BEGIN OF GS_STUDENT02.
+
+  include structure
+ZEDT08_001
+.
+
+  DATA : END OF GS_STUDENT02.
+
+
+
+DATA : GT_STUDENT02 LIKE TABLE OF GS_STUDENT02.
+
+
+
+UPDATE ZEDT08_001 SET ZENAME = 'JUNG' WHERE ZCODE = 'SSU-23'.
+
+
+
+IF SY-SUBRC = 0.
+
+  WRITE :/ '##### ##'.
+
+ENDIF.
+
+
+
+" ------------------------------------------------------------
+
+
+
+DATA : BEGIN OF GS_STUDENT03.
+
+  include structure
+ZEDT08_001
+.
+
+  DATA : END OF GS_STUDENT03.
+
+
+
+DATA : GT_STUDENT03 LIKE TABLE OF GS_STUDENT03.
+
+
+
+GS_STUDENT03-ZCODE = 'SSU-20'.
+
+GS_STUDENT03-ZPERNR = '0000000012'.
+
+
+
+DELETE ZEDT08_001 FROM GS_STUDENT03.
+
+
+
+IF SY-SUBRC = 0.
+
+  WRITE :/ '##### ##'.
+
+ENDIF.
+
+
+
+" ------------------------------------------------------------
+
+
+
+DATA : BEGIN OF GS_STUDENT04.
+
+  include structure
+ZEDT08_001
+.
+
+  DATA : END OF GS_STUDENT04.
+
+
+
+DATA : GT_STUDENT04 LIKE TABLE OF GS_STUDENT04.
+
+
+
+DELETE FROM ZEDT08_001 WHERE ZTEL = '01011112222'.
+
+
+
+IF SY-SUBRC = 0.
+
+  WRITE :/ '##### ##'.
+
+ENDIF.
+
+
+
+" ------------------------------------------------------------
+
+
+
+DATA : BEGIN OF GS_STUDENT05.
+
+  include structure
+ZEDT08_001
+.
+
+  DATA : END OF GS_STUDENT05.
+
+
+
+DATA : GT_STUDENT05 LIKE TABLE OF GS_STUDENT05.
+
+
+
+CLEAR : GS_STUDENT05, GT_STUDENT05.
+
+GS_STUDENT05-ZCODE = 'SSU-21'.
+
+GS_STUDENT05-ZPERNR = '0000000013'.
+
+APPEND GS_STUDENT05 TO GT_STUDENT05.
+
+
+
+CLEAR : GS_STUDENT05.
+
+GS_STUDENT05-ZCODE = 'SSU-08'.
+
+GS_STUDENT05-ZCODE = '0000000012'.
+
+APPEND GS_STUDENT05 TO GT_STUDENT05.
+
+
+
+DELETE ZEDT08_001 FROM TABLE GT_STUDENT05.
+
+
+
+IF SY-SUBRC = 0.
+
+  WRITE :/ '##### ##!'.
+
+ENDIF.
+
+
+
+" ------------------------------------------------------------
+
+
+
+DATA : BEGIN OF GS_STUDENT06.
+
+  include structure
+ZEDT08_001
+.
+
+  DATA : END OF GS_STUDENT06.
+
+
+
+DATA : GT_STUDENT06 LIKE TABLE OF GS_STUDENT06.
+
+
+
+GS_STUDENT06-ZCODE = 'SSU-11'.
+
+GS_STUDENT06-ZPERNR = '0000000011'.
+
+GS_STUDENT06-ZKNAME = '##'.
+
+GS_STUDENT06-ZENAME = 'YOON'.
+
+GS_STUDENT06-ZGENDER = 'F'.
+
+GS_STUDENT06-ZTEL = '01000002222'.
+
+
+
+MODIFY ZEDT08_001 FROM GS_STUDENT06.
+
+
+
+IF SY-SUBRC = 0.
+
+  WRITE :/ '##### ##'.
+
+ENDIF.
+
+
+
+" ------------------------------------------------------------
+
+
+
+DATA : BEGIN OF GS_STUDENT07.
+
+  include structure
+ZEDT08_001
+.
+
+  DATA : END OF GS_STUDENT07.
+
+
+
+DATA : GT_STUDENT07 LIKE TABLE OF GS_STUDENT07.
+
+
+
+GS_STUDENT07-ZCODE = 'SSU-11'.
+
+GS_STUDENT07-ZPERNR = '0000000011'.
+
+GS_STUDENT07-ZKNAME = '##'.
+
+GS_STUDENT07-ZENAME = 'AH'.
+
+GS_STUDENT07-ZGENDER = 'F'.
+
+GS_STUDENT07-ZTEL = '01000002222'.
+
+
+
+MODIFY ZEDT08_001 FROM GS_STUDENT07.
+
+
+
+IF SY-SUBRC = 0.
+
+  WRITE :/ '##### ##!'.
+
+ENDIF.
+
+
+
+" ------------------------------------------------------------
+
+
+
+CLEAR : GS_STUDENT07, GT_STUDENT07.
+
+GS_STUDENT07-ZCODE = 'SSU-26'.
+
+GS_STUDENT07-ZPERNR = '0000000010'.
+
+GS_STUDENT07-ZKNAME = '###'.
+
+GS_STUDENT07-ZENAME = 'JOON'.
+
+GS_STUDENT07-ZGENDER = 'M'.
+
+GS_STUDENT07-ZTEL = '01011112222'.
+
+APPEND GS_STUDENT07 TO GT_STUDENT07.
+
+
+
+CLEAR : GS_STUDENT07.
+
+GS_STUDENT07-ZCODE = 'SSU-11'.
+
+GS_STUDENT07-ZPERNR = '0000000011'.
+
+GS_STUDENT07-ZKNAME = '##'.
+
+GS_STUDENT07-ZENAME = 'YOON'.
+
+GS_STUDENT07-ZGENDER = 'F'.
+
+GS_STUDENT07-ZTEL = '01000002222'.
+
+APPEND GS_STUDENT07 TO GT_STUDENT07.
+
+
+
+MODIFY ZEDT08_001 FROM TABLE GT_STUDENT07.
+
+
+
+IF SY-SUBRC = 0.
+
+  WRITE :/ '##### ##'.
+
+ENDIF.
+
+
+
+" ------------------------------------------------------------
+
+
+
+" ------------------------------------------------------------

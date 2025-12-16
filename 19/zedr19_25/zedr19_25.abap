@@ -1,0 +1,75 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR19_25
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR19_25.
+
+
+
+DATA : BEGIN OF GS_ZEDT19,
+
+  ZCODE TYPE ZEDT19_001-ZCODE19,
+
+  ZKNAME TYPE ZEDT19_001-ZKNAME19,
+
+  ZENAME TYPE ZEDT19_001-ZENAME19,
+
+  ZGUBUN TYPE ZEDT19_001-ZGUBUN19,
+
+  ZTEL TYPE ZEDT19_001-ZTEL19,
+
+  END OF GS_ZEDT19.
+
+
+
+DATA : BEGIN OF GS_ZEDT19_2,
+
+  ZCODE TYPE ZEDT19_001-ZCODE19,
+
+  ZKNAME TYPE ZEDT19_001-ZKNAME19,
+
+  ZENAME TYPE ZEDT19_001-ZENAME19,
+
+  ZGUBUN TYPE ZEDT19_001-ZGUBUN19,
+
+  ZTEL TYPE ZEDT19_001-ZTEL19,
+
+  END OF GS_ZEDT19_2.
+
+
+
+GS_ZEDT19-ZCODE = 'SSU-01'.
+
+GS_ZEDT19-ZKNAME = '###'.
+
+GS_ZEDT19-ZENAME = 'MIN'.
+
+GS_ZEDT19-ZGUBUN = 'F'.
+
+GS_ZEDT19-ZTEL = '01020562942'.
+
+
+
+MOVE-CORRESPONDING GS_ZEDT19 TO GS_ZEDT19_2.
+
+
+
+WRITE :/ GS_ZEDT19-ZCODE.
+
+WRITE :/ GS_ZEDT19-ZKNAME.
+
+WRITE :/ GS_ZEDT19-ZENAME.
+
+WRITE :/ GS_ZEDT19-ZGUBUN.
+
+WRITE :/ GS_ZEDT19-ZTEL.

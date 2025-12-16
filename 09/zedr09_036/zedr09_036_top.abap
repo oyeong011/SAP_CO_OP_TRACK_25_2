@@ -1,0 +1,93 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR09_036_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+
+
+TABLES : ZEDT09_001.
+
+
+
+DATA : BEGIN OF GS_STUDENT,
+
+  ZCOLOR TYPE C LENGTH 4,
+
+  ZCODE TYPE ZEDT09_001-ZCODE,
+
+  ZPERNR TYPE ZEDT09_001-ZPERNR,
+
+  ZKNAME TYPE ZEDT09_001-ZKNAME,
+
+  ZENAME TYPE ZEDT09_001-ZENAME,
+
+  ZGENDER TYPE ZEDT09_001-ZGENDER,
+
+END OF GS_STUDENT.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+"docking ####, splitter ####
+
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA : GC_SPLITTER TYPE REF TO CL_GUI_SPLITTER_CONTAINER.
+
+
+
+"CL_GUI_SPLLITER_CONTAINER #### GET_CONTAINER# ###
+
+"CL_GUI_CONTAINER ###
+
+"### ### CL_GUI_SPLITTER_CONTAINER ##### ###, create object# ####!
+
+DATA : GC_CONTAINER1 TYPE REF TO CL_GUI_CONTAINER.
+
+DATA : GC_CONTAINER2 TYPE REF TO CL_GUI_CONTAINER.
+
+
+
+"# 2## # ##### ## 2# grid ##
+
+DATA : GC_GRID1 TYPE REF TO CL_GUI_ALV_GRID.
+
+DATA : GC_GRID2 TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+"# grid #### ######, ####, ## # #### 2## ###
+
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT,
+
+       GT_FIELDCAT1 TYPE LVC_T_FCAT,
+
+       GT_FIELDCAT2 TYPE LVC_T_FCAT.
+
+
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+DATA : GS_SORT TYPE LVC_S_SORT,
+
+       GT_SORT1 TYPE LVC_T_SORT,
+
+       GT_SORT2 TYPE LVC_T_SORT.
+
+
+
+DATA : GS_VARIANT TYPE DISVARIANT. "## ####

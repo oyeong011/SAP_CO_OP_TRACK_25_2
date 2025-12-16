@@ -1,0 +1,607 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR21_003
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR21_003.
+
+
+
+
+
+
+*DATA : GS_ZEDT21 TYPE ZEDT21_001. "Structure Declaration"
+
+*DATA : GT_ZEDT21 TYPE TABLE OF ZEDT21_001. "Internal Table Declaration"
+
+*
+
+*GS_ZEDT21-ZCODE21 = 'SSU-01'.             Header# ### ### ##
+
+*GS_ZEDT21-ZPERNR21 = '0000000001'.
+
+*GS_ZEDT21-ZKNAME21 = '###'.
+
+*GS_ZEDT21-ZENAME21 = 'DONG'.
+
+*GS_ZEDT21-ZGUBUN21 = 'M'.
+
+*GS_ZEDT21-ZTEL21 = '01011112222'.
+
+*
+
+*APPEND GS_ZEDT21 TO GT_ZEDT21.
+
+
+
+
+"=================================================================================
+
+
+
+
+
+
+
+
+*DATA : GS_ZEDT21 TYPE ZEDT21_001. "Structure Declaration"
+
+*DATA : GT_ZEDT21 TYPE TABLE OF ZEDT21_001. "Internal Table Declaration"
+
+*
+
+*GS_ZEDT21-ZCODE21 = 'SSU-01'.
+
+*GS_ZEDT21-ZPERNR21 = '0000000001'.
+
+*GS_ZEDT21-ZKNAME21 = '###'.
+
+*GS_ZEDT21-ZENAME21 = 'DONG'.
+
+*GS_ZEDT21-ZGUBUN21 = 'M'.
+
+*GS_ZEDT21-ZTEL21 = '01011112222'.
+
+*
+
+*BREAK-POINT.   --> ABAP Debugger# ## ##### #### # # ##
+
+*
+
+*APPEND GS_ZEDT21 TO GT_ZEDT21.
+
+
+
+
+
+
+"================================================================================
+
+
+
+
+
+
+*DATA : GS_ZEDT21 TYPE ZEDT21_001. "Structure Declaration"
+
+*DATA : GT_ZEDT21 TYPE TABLE OF ZEDT21_001. "Internal Table Declaration"
+
+*
+
+*GS_ZEDT21-ZCODE21 = 'SSU-01'.
+
+*GS_ZEDT21-ZPERNR21 = '0000000001'.
+
+*GS_ZEDT21-ZKNAME21 = '###'.
+
+*GS_ZEDT21-ZENAME21 = 'DONG'.
+
+*GS_ZEDT21-ZGUBUN21 = 'M'.
+
+*GS_ZEDT21-ZTEL21 = '01011112222'.
+
+*
+
+*APPEND GS_ZEDT21 TO GT_ZEDT21.
+
+*
+
+*GS_ZEDT21-ZCODE21 = 'SSU-02'.
+
+*GS_ZEDT21-ZPERNR21 = '0000000002'.
+
+*GS_ZEDT21-ZKNAME21 = '##'.
+
+*GS_ZEDT21-ZENAME21 = 'JENNY'.
+
+*GS_ZEDT21-ZGUBUN21 = 'F'.
+
+*GS_ZEDT21-ZTEL21 = '01022223333'.
+
+*
+
+*APPEND GS_ZEDT21 TO GT_ZEDT21.
+
+*
+
+*BREAK-POINT.
+
+*
+
+*"-=========================================================================================
+
+
+
+*"Header line# ## ITAB ##
+
+*
+
+*DATA : GS_ZEDT21 TYPE ZEDT21_001. "Structure Declaration
+
+*DATA : GT_ZEDT21 TYPE TABLE OF ZEDT21_001. "Internal Table Declaration
+
+*
+
+*"Header Line# ## ITAB ## (struct + ITAB)
+
+*DATA : GT_ZEDT21 TYPE ZEDT21_001 OCCURS 0 WITH HEADER LINE.
+
+**DATA : GT_ZEDT21 TYPE ZEDT21_001 OCCURS 0 WITH HEADER LINE.
+
+**DATA : GT_ZEDT21 TYPE TABLE OF ZEDT21_001 WITH HEADER LINE.
+
+**DATA : GT_ZEDT21 LIKE TABLE OF ZEDT21_001 WITH HEADER LINE.
+
+*
+
+*GT_ZEDT21-ZCODE21 = 'SSU-01'.   --> HEADER # ### ##
+
+*GT_ZEDT21-ZPERNR21 = '0000000001'.
+
+*GT_ZEDT21-ZKNAME21 = '###'.
+
+*GT_ZEDT21-ZENAME21 = 'DONG'.
+
+*GT_ZEDT21-ZGUBUN21 = 'M'.
+
+*GT_ZEDT21-ZTEL21 = '01011112222'.
+
+*
+
+*BRAEK-POINT. --> HEADER ## +
+
+*
+
+*APPEND GT_ZEDT21 TO GT_ZEDT21.  --> Internal TABLE# ##
+
+*APPEND GT_ZEDT21 --> ### GT_ZEDT21 ## ##
+
+
+
+
+
+
+
+
+"==============================================================
+
+
+
+
+
+
+*DATA : BEGIN OF GS_STUDENT, "### ##
+
+*  ZPERNR21 TYPE ZEDT21_001-ZPERNR21, "####
+
+*  ZCODE21 TYPE ZEDT21_001-ZCODE21, "####
+
+*  ZKNAME21 TYPE ZEDT21_001-ZKNAME21, "##
+
+*  ZENAME21 TYPE ZEDT21_001-ZENAME21, " ####
+
+*  ZGUBUN21 TYPE ZEDT21_001-ZGUBUN21, "##
+
+*  ZTEL21 TYPE ZEDT21_001-ZTEL21, "####
+
+*  ZMNAME TYPE ZEDT21_002-ZMNAME21, "##
+
+*  END OF GS_STUDENT.
+
+*
+
+*DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT. "Internal Table ##
+
+*
+
+*GS_STUDENT-ZCODE21 = 'SSU-01'.
+
+*GS_STUDENT-ZPERNR21 = '0000000001'.
+
+*GS_STUDENT-ZKNAME21 = '###'.
+
+*GS_STUDENT-ZENAME21 = 'DONG'.
+
+*GS_STUDENT-ZGUBUN21 = 'M'.
+
+*GS_STUDENT-ZTEL21 = '01011112222'.
+
+*
+
+* APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+* BREAK-POINT.
+
+
+
+
+"=======================================
+
+"### INTERNAL ### # ##
+
+
+
+
+
+
+*DATA : BEGIN OF GS_STUDENT,
+
+*  ZCODE21 TYPE C LENGTH 10,
+
+*  ZKNAME21 TYPE C LENGTH 10,
+
+*  ZENAME TYPE C LENGTH 10,
+
+*  ZCLASS21 TYPE C,
+
+*  END OF GS_STUDENT.
+
+*
+
+* DATA : BEGIN OF GS_STUDENT2,
+
+*   ZCODE21 TYPE C LENGTH 10,
+
+*   ZKNAME21 TYPE C LENGTH 10,
+
+*   ZENAME21 TYPE C LENGTH 10,
+
+*   ZCLASS TYPE C,
+
+*  END OF GS_STUDENT2.
+
+*
+
+*  DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+*  DATA : GT_STUDENT2 LIKE TABLE OF GS_STUDENT2.
+
+*
+
+*  GS_STUDENT-ZCODE21 = 'SSU-01'.
+
+*  GS_STUDENT-ZKNAME21 = '###'.
+
+*  GS_STUDENT-ZENAME = 'DONG'.
+
+*
+
+*  GS_STUDENT2-ZCODE21 = 'SSU-01'.
+
+*  GS_STUDENT2-ZKNAME21 = '###'.
+
+*  GS_STUDENT2-ZENAME21 = 'DONG'.
+
+*
+
+*  APPEND GS_STUDENT TO GT_STUDENT.
+
+*  APPEND GS_STUDENT2 TO GT_STUDENT2.
+
+
+
+
+
+
+" Internal TABLE# ## ## ## #####
+
+"1. MOVE 2. MOVE Corresponding # ### MOVE## ## ### #### ## Move-Correspondig# ## ## ### # ###
+
+
+
+"1)MOVE # ### ## ### ##
+
+"-header
+
+"MOVE STRUCTURE1 TO STRUCTURE2
+
+
+
+
+*(STRUCTURE2 = STRUCTURE1)
+
+*-BODY
+
+*MOVE ITAB1[] TO ITAB2p[] --> ### ### body
+
+*(ITAB2[] = ITAB1[])
+
+
+
+
+
+
+
+
+"INTERNAL TABLE # ## (##### ## ITAB)
+
+
+
+
+*DATA : BEGIN OF GS_STUDENT,
+
+*  ZCODE21 TYPE C LENGTH 10,
+
+*  ZKNAME21 TYPE C LENGTH 10,
+
+*  ZENAME TYPE C LENGTH 10,
+
+*  END OF GS_STUDENT.
+
+*
+
+* DATA : BEGIN OF GS_STUDENT2,
+
+*   ZCODE21 TYPE C LENGTH 10,
+
+*   ZKNAME21 TYPE C LENGTH 10,
+
+*   ZENAME21 TYPE C LENGTH 10,
+
+*   ZCLASS TYPE C,
+
+*  END OF GS_STUDENT2.
+
+*
+
+*  DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+*  DATA : GT_STUDENT2 LIKE TABLE OF GS_STUDENT.
+
+*
+
+*  GS_STUDENT-ZCODE21 = 'SSU-01'.
+
+*  GS_STUDENT-ZKNAME21 = '###'.
+
+*  GS_STUDENT-ZENAME = 'DONG'.
+
+*
+
+*  APPEND GS_STUDENT TO GT_STUDENT.
+
+*  MOVE GS_STUDENT TO GS_STUDENT2.
+
+*  APPEND GS_STUDENT2 TO GT_STUDENT2.
+
+*  BREAK-POINT.
+
+*========================================================================
+
+
+
+
+
+*DATA : BEGIN OF GS_STUDENT,
+
+*  ZCODE21 TYPE C LENGTH 10,
+
+*  ZKNAME21 TYPE C LENGTH 10,
+
+*  ZENAME TYPE C LENGTH 10,
+
+*  END OF GS_STUDENT.
+
+*
+
+*DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+*DATA : GT_STUDENT2 LIKE TABLE OF GS_STUDENT.
+
+*
+
+*  GS_STUDENT-ZCODE21 = 'SSU-01'.
+
+*  GS_STUDENT-ZKNAME21 = '###'.
+
+*  GS_STUDENT-ZENAME = 'DONG'.
+
+*
+
+*APPEND GS_STUDENT TO GT_STUDENT.
+
+*
+
+*MOVE GT_STUDENT[] TO GT_STUDENT2[]. "--> body copy
+
+
+
+
+
+
+
+
+"==================================================================
+
+
+
+
+
+
+*DATA : BEGIN OF GT_STUDENT OCCURS 0,
+
+*  ZCODE21 TYPE C LENGTH 10,
+
+*  ZKNAME21 TYPE C LENGTH 10,
+
+*  ZENAME21 TYPE C LENGTH 10,
+
+*  END OF GT_STUDENT.
+
+*
+
+*DATA : BEGIN OF GT_STUDENT2 OCCURS 0,
+
+*  ZCODE21 TYPE C LENGTH 10,
+
+*  ZKNAME21 TYPE C LENGTH 10,
+
+*  ZENAME21 TYPE C LENGTH 10,
+
+*  END OF GT_STUDENT2.
+
+*
+
+*  GT_STUDENT-ZCODE21 = 'SSU-01'.
+
+*  GT_STUDENT-ZKNAME21 = '###'.
+
+*  GT_STUDENT-ZENAME21 = 'DONG'.
+
+*
+
+*  APPEND GT_STUDENT.
+
+*
+
+*  MOVE GT_STUDENT[] TO GT_STUDENT2[]. "--> ## # #### ### ## ####
+
+*
+
+*  break-POINT.
+
+
+
+
+
+
+"====================================================================
+
+
+
+
+*
+
+* DATA : BEGIN OF GT_STUDENT OCCURS 0,
+
+*  ZCODE21 TYPE C LENGTH 10,
+
+*  ZKNAME21 TYPE C LENGTH 10,
+
+*  ZENAME21 TYPE C LENGTH 10,
+
+*  END OF GT_STUDENT.
+
+*
+
+*DATA : BEGIN OF GT_STUDENT2 OCCURS 0,
+
+*  ZCLASS21 TYPE C,
+
+*  ZCODE21 TYPE C LENGTH 10,
+
+*  ZKNAME21 TYPE C LENGTH 10,
+
+*  ZENAME21 TYPE C LENGTH 10,
+
+*  END OF GT_STUDENT2.
+
+*
+
+*  GT_STUDENT-ZCODE21 = 'SSU-01'.
+
+*  GT_STUDENT-ZKNAME21 = '###'.
+
+*  GT_STUDENT-ZENAME21 = 'DONG'.
+
+*
+
+*  APPEND GT_STUDENT.
+
+*
+
+*  MOVE GT_STUDENT[] TO GT_STUDENT2[]. "--> copy# ### ## ## CUZ FIELD ### ##
+
+
+
+
+
+
+"========================================================================================
+
+
+
+"## ## ### #### ## MOVE-CORRESPONDING# ##
+
+
+
+
+
+ DATA : BEGIN OF GT_STUDENT OCCURS 0,
+
+  ZCODE21 TYPE C LENGTH 10,
+
+  ZKNAME21 TYPE C LENGTH 10,
+
+  ZENAME21 TYPE C LENGTH 10,
+
+  END OF GT_STUDENT.
+
+
+
+DATA : BEGIN OF GT_STUDENT2 OCCURS 0,
+
+  ZCLASS21 TYPE C,
+
+  ZCODE21 TYPE C LENGTH 10,
+
+  ZKNAME21 TYPE C LENGTH 10,
+
+  ZENAME21 TYPE C LENGTH 10,
+
+  END OF GT_STUDENT2.
+
+
+
+  GT_STUDENT-ZCODE21 = 'SSU-01'.
+
+  GT_STUDENT-ZKNAME21 = '###'.
+
+  GT_STUDENT-ZENAME21 = 'DONG'.
+
+
+
+  APPEND GT_STUDENT.
+
+
+
+  MOVE-CORRESPONDING GT_STUDENT TO GT_STUDENT2. "--> copy# ### ## ## CUZ FIELD ### ##
+
+
+
+  APPEND GT_STUDENT2. " BODY# #### ## APPEND ##
+
+
+
+  BREAK-POINT.

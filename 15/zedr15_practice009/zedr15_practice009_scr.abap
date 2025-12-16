@@ -1,0 +1,29 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZEDR15_PRACTICE009_SCR
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+
+  SELECT-OPTIONS : S_ZPERNR FOR ZEDT15_102-ZPERNR. "####
+
+  SELECT-OPTIONS : S_DATE FOR ZEDT15_102-DATBI NO INTERVALS NO-EXTENSION. "####
+
+  SELECT-OPTIONS : S_ZDEP FOR ZEDT15_102-ZDEPCODE NO INTERVALS NO-EXTENSION. "####
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.
+
+  PARAMETERS : P_CH1 AS CHECKBOX DEFAULT 'X'. "### ##
+
+SELECTION-SCREEN END OF BLOCK B2.

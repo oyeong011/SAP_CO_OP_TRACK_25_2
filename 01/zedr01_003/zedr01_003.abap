@@ -1,0 +1,241 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR01_003
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR01_003.
+
+
+
+
+
+
+*DATA : BEGIN OF GS_NAME,
+
+*  NAME1 TYPE C LENGTH 10,
+
+*  NAME2 TYPE C LENGTH 10,
+
+*  END OF GS_NAME.
+
+*
+
+*GS_NAME-NAME1 = '###'.
+
+*GS_NAME-NAME2 = '##'.
+
+*
+
+*MOVE GS_NAME-NAME2 TO GS_NAME-NAME1.
+
+*
+
+*WRITE : GS_NAME-NAME1.
+
+*WRITE : / GS_NAME-NAME2.
+
+
+
+
+
+*DATA : BEGIN OF GS_NAME,
+
+*  NAME1 TYPE C LENGTH 10,
+
+*  DEGREE1 TYPE P DECIMALS 2,
+
+*  END OF GS_NAME.
+
+*
+
+*  GS_NAME-NAME1 = '##'..
+
+*  GS_NAME-DEGREE1 = '35.12'.
+
+*
+
+*  MOVE GS_NAME-DEGREE1 TO GS_NAME-NAME1.
+
+*
+
+*  CONDENSE GS_NAME-NAME1 NO-GAPS.
+
+*
+
+*  WRITE : GS_NAME-NAME1.
+
+*  WRITE :/ GS_NAME-DEGREE1.
+
+
+
+*DATA : GV_DATA1(8) VALUE 'ABCDEFGH',
+
+*       GV_DATA2(8).
+
+*DATA : GV_START TYPE I VALUE 2,
+
+*       GV_LENGTH TYPE I VALUE 4.
+
+*
+
+*MOVE GV_DATA1+2(3) TO GV_DATA2.
+
+*WRITE : GV_DATA1(3).
+
+*WRITE : / GV_DATA2.
+
+*
+
+*MOVE GV_DATA1+GV_START(GV_LENGTH) TO GV_DATA2.
+
+*WRITE : / GV_DATA2.
+
+
+
+
+
+
+"DATA : BEGIN OF GS_NAME,
+
+"  NAME1 TYPE C LENGTH 10,
+
+"  NAME2 TYPE C LENGTH 10,
+
+"  END OF GS_NAME.
+
+
+
+"GS_NAME-NAME1 = '###'.
+
+"GS_NAME-NAME2 = '##'.
+
+
+
+"WRITE GS_NAME-NAME2 TO GS_NAME-NAME1.
+
+
+
+"WRITE : GS_NAME-NAME1.
+
+"WRITE :/ GS_NAME-NAME2.
+
+
+
+"DATA : BEGIN OF GS_ZEDT01, "#####
+
+"  ZCODE TYPE ZEDT01_001-ZCODE,
+
+"  ZKNAME TYPE ZEDT01_001-ZKNAME,
+
+"  ZENAME TYPE ZEDT01_001-ZENAME,
+
+"  ZGENDER TYPE ZEDT01_001-ZGENDER,
+
+"  ZTEL TYPE ZEDT01_001-ZTEL,
+
+"  END OF GS_ZEDT01.
+
+
+
+"DATA : BEGIN OF GS_ZEDT01_2, "#####
+
+"  ZCODE TYPE ZEDT01_001-ZCODE,
+
+"  ZZKNAME TYPE ZEDT01_001-ZKNAME,
+
+"  ZENAME TYPE ZEDT01_001-ZENAME,
+
+"  ZGENDER TYPE ZEDT01_001-ZGENDER,
+
+"  ZTEL TYPE ZEDT01_001-ZTEL,
+
+"  END OF GS_ZEDT01_2.
+
+
+
+"GS_ZEDT01-ZCODE = 'SSU-01'.
+
+"GS_ZEDT01-ZKNAME = '###'.
+
+"GS_ZEDT01-ZENAME = 'DONG'.
+
+"GS_ZEDT01-ZGENDER = 'M'.
+
+"GS_ZEDT01-ZTEL = '010-1111-2222'.
+
+
+
+"MOVE GS_ZEDT01 TO GS_ZEDT01_2.
+
+
+
+"WRITE :/ GS_ZEDT01_2-ZCODE.
+
+"WRITE :/ GS_ZEDT01_2-ZZKNAME.
+
+"WRITE :/ GS_ZEDT01_2-ZENAME.
+
+"WRITE :/ GS_ZEDT01_2-ZGENDER.
+
+"WRITE :/ GS_ZEDT01_2-ZTEL.
+
+
+
+"CONSTANTS : C_RATE TYPE I VALUE '100'.
+
+
+
+"DATA : GV_SUM1 TYPE I,
+
+"       GV_SUM2 TYPE I,
+
+"       GV_SUM3 TYPE I.
+
+
+
+"GV_SUM1 = '10.00'.
+
+"GV_SUM2 = '20.00'.
+
+"GV_SUM3 = '30.00'.
+
+
+
+"GV_SUM1 = GV_SUM1 * C_RATE.
+
+"GV_SUM2 = GV_SUM2 * C_RATE.
+
+"GV_SUM3 = GV_SUM3 * C_RATE.
+
+
+
+"WRITE :/ GV_SUM1.
+
+"WRITE :/ GV_SUM2.
+
+"WRITE :/ GV_SUM3.
+
+
+
+TABLES : SCARR.
+
+
+
+SELECT * FROM SCARR.
+
+
+
+  WRITE : / SCARR-CARRID, SCARR-CARRNAME.
+
+
+
+ENDSELECT.

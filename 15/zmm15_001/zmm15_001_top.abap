@@ -1,0 +1,247 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM15_001_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+
+
+CONSTANTS : C_X VALUE 'X'.
+
+
+
+"SCREEN 100 #### ##
+
+DATA : GV_APND_MODE TYPE C VALUE ''.
+
+
+
+"#####
+
+DATA : BEGIN OF GS_ZLFA1,
+
+       MANDT TYPE ZLFA1_15-MANDT, "CLIENT
+
+       LIFNR TYPE ZLFA1_15-LIFNR, "#####
+
+       NAME1 TYPE ZLFA1_15-NAME1, "####
+
+       LAND1 TYPE ZLFA1_15-LAND1, "###
+
+       KTOKK TYPE ZLFA1_15-KTOKK, "#####
+
+       STCD1 TYPE ZLFA1_15-STCD1, "####
+
+       STCD2 TYPE ZLFA1_15-STCD2, "#####
+
+       STRAS TYPE ZLFA1_15-STRAS, "##
+
+  END OF GS_ZLFA1.
+
+DATA : GT_ZLFA1 LIKE TABLE OF GS_ZLFA1.
+
+
+
+
+*DATA : GS_ZLFA1 TYPE ZLFA1_15,
+
+*      GV_ZLFA1 TYPE TABLE OF ZLFA1_15.
+
+
+
+
+
+
+"#######
+
+DATA : BEGIN OF GS_ZLFB1,
+
+       MANDT TYPE ZLFB1_15-MANDT, "CLIENT
+
+       LIFNR TYPE ZLFB1_15-LIFNR, "#####
+
+       BUKRS TYPE ZLFB1_15-BUKRS, "####
+
+       LOEVM TYPE ZLFB1_15-LOEVM, "#####
+
+       AKONT TYPE ZLFB1_15-AKONT, "##
+
+       ZTERM TYPE ZLFB1_15-ZTERM, "####
+
+  END OF GS_ZLFB1.
+
+DATA : GT_ZLFB1 LIKE TABLE OF GS_ZLFB1.
+
+
+
+
+*DATA : GS_ZLFB1 TYPE ZLFB1_15,
+
+*      GV_ZLFB1 TYPE TABLE OF ZLFB1_15.
+
+
+
+
+
+
+"#######
+
+DATA : BEGIN OF GS_ZLFM1,
+
+       MANDT TYPE ZLFM1_15-MANDT, "CLIENT
+
+       LIFNR TYPE ZLFM1_15-LIFNR, "#####
+
+       EKORG TYPE ZLFM1_15-EKORG, "####
+
+       EKGRP TYPE ZLFM1_15-EKGRP, "####
+
+       LOEVM TYPE ZLFM1_15-LOEVM, "#####
+
+       WAERS TYPE ZLFM1_15-WAERS, "######
+
+       MWSKZ TYPE ZLFM1_15-MWSKZ, "## ##
+
+  END OF GS_ZLFM1.
+
+DATA : GT_ZLFM1 LIKE TABLE OF GS_ZLFM1.
+
+
+
+
+*DATA : GS_ZLFM1 TYPE ZLFM1_15,
+
+*      GV_ZLFM1 TYPE TABLE OF ZLFM1_15.
+
+
+
+
+
+
+"### #### ##
+
+DATA : GV_LIFNR TYPE ZLFA1_15-LIFNR, "#####(#####)
+
+
+
+       GV_NAME1 TYPE ZLFA1_15-NAME1, "####
+
+       GV_LAND1 TYPE ZLFA1_15-LAND1, "###
+
+       GV_STCD1 TYPE ZLFA1_15-STCD1, "####
+
+       GV_STCD2 TYPE ZLFA1_15-STCD2, "#####
+
+       GV_STRAS TYPE ZLFA1_15-STRAS, "##
+
+
+
+       GV_AKONT TYPE ZLFB1_15-AKONT, "##
+
+       GV_ZTERM TYPE ZLFB1_15-ZTERM, "####
+
+
+
+       GV_EKORG TYPE ZLFM1_15-EKORG, "####
+
+       GV_EKGRP TYPE ZLFM1_15-EKGRP, "####
+
+       GV_WAERS TYPE ZLFM1_15-WAERS, "######
+
+       GV_MWSKZ TYPE ZLFM1_15-MWSKZ. "## ##
+
+
+
+
+
+"alv### ITAB
+
+DATA : BEGIN OF GS_ALV,
+
+       LIFNR TYPE ZLFA1_15-LIFNR, "#####(#####)
+
+
+
+       NAME1 TYPE ZLFA1_15-NAME1, "####
+
+       LAND1 TYPE ZLFA1_15-LAND1, "###
+
+       KTOKK TYPE ZLFA1_15-KTOKK, "#####
+
+       STCD1 TYPE ZLFA1_15-STCD1, "####
+
+       STCD2 TYPE ZLFA1_15-STCD2, "#####
+
+       STRAS TYPE ZLFA1_15-STRAS, "##
+
+
+
+       BUKRS TYPE ZLFB1_15-BUKRS, "####
+
+       LOEVM TYPE ZLFB1_15-LOEVM, "#####
+
+       AKONT TYPE ZLFB1_15-AKONT, "##
+
+       ZTERM TYPE ZLFB1_15-ZTERM, "####
+
+
+
+       EKORG TYPE ZLFM1_15-EKORG, "####
+
+       EKGRP TYPE ZLFM1_15-EKGRP, "####
+
+       WAERS TYPE ZLFM1_15-WAERS, "######
+
+       MWSKZ TYPE ZLFM1_15-MWSKZ, "## ##
+
+       END OF GS_ALV.
+
+DATA : GT_ALV LIKE TABLE OF GS_ALV.
+
+
+
+
+
+"usercommand#
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+"alv### ##
+
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+DATA : GS_VARIANT TYPE DISVARIANT.
+
+
+
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT.
+
+DATA : GT_FIELDCAT TYPE LVC_T_FCAT.
+
+
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+DATA : GS_SORT TYPE LVC_S_SORT.
+
+DATA : GT_SORT TYPE LVC_T_SORT.
+
+
+
+"event#
+
+DATA : GO_EVENT TYPE REF TO EVENT.

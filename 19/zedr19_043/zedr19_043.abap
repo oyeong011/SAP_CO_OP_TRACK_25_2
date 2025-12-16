@@ -1,0 +1,145 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR19_043
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR19_043.
+
+
+
+DATA :GS_FIELDCAT TYPE SLIS_FIELDCAT_ALV,
+
+      GT_FIELDCAT TYPE SLIS_T_FIELDCAT_ALV.
+
+
+
+TYPES : BEGIN OF TY_STUDENT,
+
+        ZCODE TYPE ZEDT19_0001-ZCODE,
+
+        ZKNAME TYPE ZEDT19_0001-ZKNAME,
+
+END OF TY_STUDENT.
+
+
+
+DATA : GT_STUDENT TYPE STANDARD TABLE OF TY_STUDENT WITH DEFAULT KEY.
+
+
+
+DATA : GS_LAYOUT TYPE SLIS_LAYOUT_ALV.
+
+
+
+DATA : GS_SORT TYPE SLIS_SORTINFO_ALV.
+
+DATA : GT_SORT TYPE SLIS_T_SORTINFO_ALV.
+
+
+
+FORM ALV_LAYOUT.
+
+  GS_LAYOUT-NO_COLHEAD = 'X'. "####
+
+  GS_LAYOUT-ZEBRA = 'X'. "### ### ##
+
+  GS_LAYOUT-NO_VLINE = 'X'. "#### ### ## ##
+
+  GS_LAYOUT-NO_HLINE = 'X'. "#### ### ## ##
+
+  GS_LAYOUT-EDIT = 'X'. "## ##
+
+  GS_LAYOUT-TOTALS_BEFORE_ITEMS = 'X'. "#### ### ### ##
+
+ENDFORM.
+
+
+
+"ALV_DISPLAY ### ### ### # ###### ##
+
+FORM ALV_DISPLAY.
+
+  CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+
+  EXPORTING
+
+    IT_FIELDCAT = GT_FIELDCAT
+
+    IS_LAYOUT = GS_LAYOUT
+
+    IT_SORT = GT_SORT
+
+  TABLES
+
+    T_OUTTAB = GT_STUDENT.
+
+ENDFORM.
+
+
+
+"##### ##
+
+
+
+
+
+
+*FORM ALV_DISPLAY.
+
+*  PERFORM FIELD_CATALOG.
+
+*  PERFORM ALV_LAYOUT.
+
+*  PERFORM ALV_SORT.
+
+*  PERFORM CALL_ALV.
+
+*ENDFORM.
+
+
+
+
+
+
+FORM ALV_SORT.
+
+  GS_SORT-SPOS = 1.
+
+  GS_SORT-FIELDNAME = 'ZCODE'.
+
+  GS_SORT-UP = 'X'.
+
+
+
+
+*  GS_SORT-DOWN = 'X'.
+
+
+
+
+  GS_SORT-SUBTOT = 'X'.
+
+  APPEND GS_SORT TO GT_SORT.
+
+ENDFORM.
+
+
+
+"## ##
+
+START-OF-SELECTION.
+
+PERFORM ALV_LAYOUT.
+
+PERFORM ALV_SORT.
+
+PERFORM ALV_DISPLAY.

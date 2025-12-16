@@ -1,0 +1,143 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM22_002_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+"KO : ##, PO : ###, ZLFA1 : #####, ZLFB1 : #### ###, ZLFM1 : ####, ZMARA : #####
+
+TABLES : ZEKPO_22, ZEKKO_22, ZLFA1_22, ZLFB1_22, ZLFM1_22, ZMARA_22.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+DATA : GO_EVENT TYPE REF TO EVENT.
+
+
+
+
+
+
+* ## ##
+
+
+
+
+DATA : BEGIN OF GS_HEADER,
+
+         EBELN TYPE ZEKKO_22-EBELN,
+
+         BUKRS TYPE ZEKKO_22-BUKRS,
+
+         EKGRP TYPE ZEKKO_22-EKGRP,
+
+         EKORG TYPE ZEKKO_22-EKORG,
+
+         LIFNR TYPE ZEKKO_22-LIFNR,
+
+         BEDAT TYPE ZEKKO_22-BEDAT,
+
+         WAERS TYPE ZEKKO_22-WAERS,
+
+       END OF GS_HEADER.
+
+
+
+TYPES: BEGIN OF TY_ITEM,"ALV
+
+         SEL TYPE C LENGTH 1,
+
+         EBELP TYPE ZEKPO_22-EBELP,
+
+         MATNR TYPE ZEKPO_22-MATNR,
+
+         MAKTX TYPE ZEKPO_22-MAKTX,
+
+         MENGE TYPE ZEKPO_22-MENGE,
+
+         "MENGE TYPE MENGE_D,
+
+         MEINS TYPE ZEKPO_22-MEINS,
+
+         STPRS TYPE ZEKPO_22-STPRS,
+
+         BPRME TYPE ZEKPO_22-BPRME,
+
+         MWSKZ TYPE ZEKPO_22-MWSKZ,
+
+         PRDAT TYPE ZEKPO_22-PRDAT,
+
+         WERKS TYPE ZEKPO_22-WERKS,
+
+         LGORT TYPE ZEKPO_22-LGORT,
+
+         WAERS TYPE ZEKKO_22-WAERS,
+
+         CELLTAB TYPE LVC_T_STYL,
+
+       END OF TY_ITEM.
+
+
+
+DATA: GT_ITEM TYPE STANDARD TABLE OF TY_ITEM,
+
+      GS_ITEM TYPE TY_ITEM.
+
+
+
+
+
+
+* ## ALV
+
+
+
+
+DATA : GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER,
+
+       GC_GRID   TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+"## ALV
+
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER,
+
+       GC_GRID_200 TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+
+
+
+* ######, ####
+
+
+
+
+DATA : GT_FCAT   TYPE LVC_T_FCAT,
+
+       GS_FCAT   TYPE LVC_S_FCAT,
+
+       GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+
+
+
+* ## #
+
+
+
+
+DATA : GT_INDEX TYPE LVC_T_ROW,
+
+       GS_INDEX TYPE LVC_S_ROW.

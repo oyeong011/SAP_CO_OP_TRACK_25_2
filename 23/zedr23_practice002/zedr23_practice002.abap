@@ -1,0 +1,303 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZED23_PRACTICE002
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZED23_PRACTICE002.
+
+
+
+
+
+" Itable - READ
+
+" # #  ## ## : ### READ ###
+
+" WITH NON-UNIQUE KEY
+
+
+
+" ##### ## Itable ##
+
+DATA : GS_ZEDT001 TYPE ZEDT23_001.
+
+DATA : GT_ZEDT001 TYPE TABLE OF ZEDT23_001.
+
+SELECT * FROM ZEDT23_001
+
+  INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT001.
+
+
+
+DATA : GS_ZEDT002 TYPE ZEDT23_002.
+
+DATA : GT_ZEDT002 TYPE TABLE OF ZEDT23_002.
+
+SELECT * FROM ZEDT23_002
+
+  INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT002.
+
+
+
+DATA : GT_ZEDT004 TYPE TABLE OF ZEDT23_004.
+
+SELECT * FROM ZEDT23_004
+
+  INTO CORRESPONDING FIELDS OF TABLE GT_ZEDT004.
+
+
+
+"### ## Structur, Itable
+
+DATA : BEGIN OF GS_STUDENT,
+
+  ZCODE TYPE ZEDT23_001-ZCODE,
+
+  ZKNAME TYPE ZEDT23_001-ZKNAME,
+
+  ZCHANGE TYPE C LENGTH 6,
+
+  ZTEL TYPE ZEDT23_001-ZTEL,
+
+  ZWARN TYPE C LENGTH 6,
+
+  END OF GS_STUDENT.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT WITH NON-UNIQUE KEY ZCODE.
+
+
+
+DATA : BEGIN OF GS_ZSUM,
+
+  ZGENDER TYPE ZEDT23_001-ZGENDER,
+
+  ZFSUM TYPE ZEDT23_002-ZSUM, "## ### ##
+
+  ZMSUM TYPE ZEDT23_002-ZSUM, "## ### ##
+
+END OF GS_ZSUM.
+
+DATA : GT_ZSUM LIKE TABLE OF GS_ZSUM WITH NON-UNIQUE KEY ZGENDER.
+
+
+
+
+
+DATA ZEND(6) TYPE C. "True = # ZCODE# #
+
+ZEND = 'FALSE'.
+
+DATA ZFLAG(6) TYPE C. "True = ####
+
+ZFLAG = 'FALSE'.
+
+
+
+SORT GT_ZEDT004 BY ZCODE ASCENDING ZGRADE DESCENDING.
+
+
+
+CLEAR GS_STUDENT.
+
+
+
+LOOP AT GT_ZEDT004 INTO DATA(GS_ZEDT004).
+
+
+
+  AT NEW ZCODE.
+
+    CLEAR GS_STUDENT.
+
+    CLEAR GS_ZSUM.
+
+    ZEND = 'FALSE'.
+
+    ZFLAG = 'FALSE'.
+
+  ENDAT.
+
+
+
+  "## ##### ## #### ### => Continue
+
+  IF ZFLAG EQ 'TRUE'.
+
+    CONTINUE.
+
+  ENDIF.
+
+
+
+  " #### ##### => ZFLAG='TRUE'.
+
+  IF GS_ZEDT004-ZGRADE EQ 'D' OR GS_ZEDT004-ZGRADE EQ 'F'.
+
+    ZFLAG = 'TRUE'.
+
+  ENDIF.
+
+
+
+  AT END OF ZCODE.
+
+    ZEND = 'TRUE'.
+
+  ENDAT.
+
+
+
+  "#### ##### ZCODE # ##
+
+  CHECK ZFLAG EQ 'TRUE' OR ZEND EQ 'TRUE'.
+
+    "## LOOP #### -> ## zcode(004)# ## ZCODE #### 001## ###
+
+    READ TABLE GT_ZEDT001 WITH KEY ZCODE = GS_ZEDT004-ZCODE INTO GS_ZEDT001
+
+    COMPARING ZCODE.
+
+    " ZEDT002 : ## ##
+
+    READ TABLE GT_ZEDT002 WITH KEY ZCODE = GS_ZEDT004-ZCODE INTO GS_ZEDT002
+
+    COMPARING ZCODE.
+
+
+
+    " ZCODE, ZKNAME, ZGENDER, ZTEL ### ###
+
+    MOVE-CORRESPONDING GS_ZEDT001 TO GS_STUDENT.
+
+
+
+    " '####' ##
+
+    IF ZFLAG EQ 'TRUE'.
+
+      GS_STUDENT-ZWARN = '####'.
+
+    ELSE. " #### ## ### ZTEL ### ##.
+
+      GS_STUDENT-ZTEL = ' '.
+
+    ENDIF.
+
+
+
+    " '####' ##
+
+    IF GS_ZEDT002-ZMAJOR NE GS_ZEDT004-ZMAJOR.
+
+      GS_STUDENT-ZCHANGE = '####'.
+
+    ENDIF.
+
+
+
+    GS_ZSUM-ZGENDER = GS_ZEDT001-ZGENDER.
+
+    IF GS_ZSUM-ZGENDER EQ 'M'.
+
+      GS_ZSUM-ZMSUM = GS_ZEDT004-ZSUM.
+
+    ELSEIF GS_ZSUM-ZGENDER EQ 'F'.
+
+      GS_ZSUM-ZFSUM = GS_ZEDT004-ZSUM.
+
+    ENDIF.
+
+
+
+    " ### or ### ### ##
+
+    COLLECT GS_ZSUM INTO GT_ZSUM.
+
+    APPEND GS_STUDENT TO GT_STUDENT.
+
+
+
+    "MODIFY GT_STUDENT FROM GS_STUDENT.
+
+    CLEAR GS_STUDENT.
+
+    CLEAR GS_ZSUM.
+
+ENDLOOP.
+
+
+
+
+
+" ##
+
+ULINE AT /01(71).
+
+WRITE : /01 '|', 02(10) '####' CENTERED,
+
+12 '|', 13(10) '##' CENTERED,
+
+23 '|', 24(15) '####' CENTERED,
+
+39 '|', 40(20) '####' CENTERED,
+
+60 '|', 61(10) '##' CENTERED,
+
+71 '|'.
+
+ULINE AT /01(71).
+
+
+
+LOOP AT GT_STUDENT INTO DATA(line).
+
+  WRITE : /01 '|', 02(10) line-ZCODE CENTERED,
+
+    12 '|', 13(10) line-ZKNAME CENTERED,
+
+    23 '|', 24(15) line-ZCHANGE CENTERED,
+
+    39 '|', 40(20) line-ZTEL CENTERED,
+
+    60 '|', 61(10) line-ZWARN CENTERED,
+
+    71 '|'.
+
+    ULINE AT /01(71).
+
+ENDLOOP.
+
+
+
+
+
+CLEAR : GS_ZSUM.
+
+READ TABLE GT_ZSUM WITH KEY ZGENDER = 'M' INTO GS_ZSUM.
+
+IF SY-SUBRC = 0.
+
+  WRITE :/ '###### :    ' , GS_ZSUM-ZMSUM CURRENCY 'KRW'.
+
+ENDIF.
+
+
+
+CLEAR : GS_ZSUM.
+
+READ TABLE GT_ZSUM WITH KEY ZGENDER = 'F' INTO GS_ZSUM.
+
+IF SY-SUBRC = 0.
+
+  WRITE :/ '###### :    ' , GS_ZSUM-ZFSUM CURRENCY 'KRW'.
+
+ENDIF.

@@ -1,0 +1,479 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZWORK12_002_F01_PDF
+
+*&---------------------------------------------------------------------*
+
+*&---------------------------------------------------------------------*
+
+*&      Form  SAVE_DATA
+
+*&---------------------------------------------------------------------*
+
+
+
+
+FORM SAVE_DATA .
+
+
+
+  DATA: LV_DIR_PATH       TYPE STRING,
+
+        LV_PDF_FILENAME   TYPE STRING VALUE '\#####.pdf',
+
+        LV_EXCEL_FILENAME TYPE STRING VALUE '\#####.xlsx',
+
+        LV_PDF_FULLPATH   TYPE STRING,
+
+        LV_EXCEL_FULLPATH TYPE STRING.
+
+
+
+  " DOWNLOAD_WEB_OBJECT # RLGRAP ##
+
+  DATA: LV_EXCEL_RLGRAP   TYPE RLGRAP-FILENAME.
+
+  DATA: LV_PDF_RLGRAP   TYPE RLGRAP-FILENAME.
+
+
+
+
+
+  DATA: LS_KEY  TYPE WWWDATATAB,
+
+        LV_RC   TYPE I,
+
+        LV_DEST TYPE RLGRAP-FILENAME.
+
+
+
+  "1. ######
+
+  CALL METHOD CL_GUI_FRONTEND_SERVICES=>GET_TEMP_DIRECTORY
+
+    CHANGING
+
+      TEMP_DIR = LV_DIR_PATH.
+
+  IF SY-SUBRC <> 0.
+
+    MESSAGE '## ### #######.' TYPE 'I'.
+
+    RETURN.
+
+  ENDIF.
+
+  "1-1. #### ### #### ### #### ##
+
+  CALL METHOD CL_GUI_FRONTEND_SERVICES=>DIRECTORY_BROWSE
+
+    CHANGING
+
+      SELECTED_FOLDER = LV_DIR_PATH.
+
+  IF SY-SUBRC <> 0.
+
+
+
+
+*   Implement suitable error handling here
+
+
+
+
+  ENDIF.
+
+
+
+  CONCATENATE LV_DIR_PATH LV_PDF_FILENAME INTO LV_PDF_FULLPATH.
+
+  CONCATENATE LV_DIR_PATH LV_EXCEL_FILENAME INTO LV_EXCEL_FULLPATH.
+
+
+
+  LV_EXCEL_RLGRAP = LV_EXCEL_FULLPATH.
+
+  LV_PDF_RLGRAP = LV_PDF_FULLPATH.
+
+
+
+  "2.DOWNLOAD_TEMPLATE
+
+  "2-1)CALL FUNCTION 'WS_FILE_DELETE'
+
+  "## PC# ## ### ### ## ### #### ##
+
+
+
+
+*  CALL FUNCTION 'WS_FILE_DELETE'
+
+*    EXPORTING
+
+*      FILE          = LV_PDF_FULLPATH
+
+
+
+
+  .
+
+
+
+  "2-2)SELECT FROM WWWDATA.--SMW0 #### ## (WWWDATA)
+
+  SELECT SINGLE * INTO CORRESPONDING FIELDS OF LS_KEY
+
+    FROM WWWDATA
+
+    WHERE OBJID = 'ZEDR12_EXCEL'.
+
+
+
+  IF SY-SUBRC <> 0.
+
+    MESSAGE '## ###(ZEDR12_EXCEL)# SMW0# #### ## ####.' TYPE 'E'.
+
+    RETURN.
+
+  ENDIF.
+
+
+
+  "2-3)CALL FUNCTION 'DOWNLOAD_WEB_OBJECT'
+
+  "SMW0(##)# ## ### ### #### ## PC# ###### ##
+
+  CALL FUNCTION 'DOWNLOAD_WEB_OBJECT'
+
+    EXPORTING
+
+      KEY         = LS_KEY
+
+      DESTINATION = LV_EXCEL_RLGRAP.
+
+
+
+  "3.OPEN_EXCEL_TEMPLATE
+
+
+
+  INCLUDE OLE2INCL.
+
+
+
+  DATA: OLE_EXCEL   TYPE OLE2_OBJECT,
+
+        OLE_BOOKS   TYPE OLE2_OBJECT,
+
+        OLE_SHEETS  TYPE OLE2_OBJECT,
+
+        OLE_SHEET   TYPE OLE2_OBJECT,
+
+        LO_WORKBOOK TYPE OLE2_OBJECT,
+
+        CELL        TYPE OLE2_OBJECT.
+
+
+
+  " ## ####### ##### ## #
+
+  CREATE OBJECT OLE_EXCEL 'Excel.Application'.
+
+
+
+  "OLE_EXCEL# OLE_BOOKS# ###.
+
+  CALL METHOD OF OLE_EXCEL 'Workbooks' = OLE_BOOKS.
+
+
+
+
+
+
+* #### #### ### ##. ## ##### ###.
+
+
+
+
+  CALL METHOD OF OLE_BOOKS 'OPEN' = LO_WORKBOOK
+
+  EXPORTING
+
+    #1 = LV_EXCEL_FULLPATH.
+
+
+
+  GET PROPERTY OF OLE_EXCEL 'ACTIVESHEET' = OLE_SHEET.
+
+
+
+
+
+  "4. FILL_EXCEL_LINE
+
+
+
+  DATA: LS_ALV LIKE GS_ZTCURR,
+
+        LT_ALV LIKE TABLE OF GS_ZTCURR.
+
+  DATA: LV_ROW TYPE I VALUE 2.
+
+
+
+  CALL METHOD OF OLE_SHEET 'CELLS' = CELL
+
+  EXPORTING #1 = 1 #2 = 1. "#1 ROW // #2 COL
+
+  SET PROPERTY OF CELL 'VALUE' = '####'.
+
+
+
+  CALL METHOD OF OLE_SHEET 'CELLS' = CELL
+
+  EXPORTING #1 = 1 #2 = 2.
+
+  SET PROPERTY OF CELL 'VALUE' = '####'.
+
+
+
+  CALL METHOD OF OLE_SHEET 'CELLS' = CELL
+
+  EXPORTING #1 = 1 #2 = 3.
+
+  SET PROPERTY OF CELL 'VALUE' = '####'.
+
+
+
+  CALL METHOD OF OLE_SHEET 'CELLS' = CELL
+
+  EXPORTING #1 = 1 #2 = 4.
+
+  SET PROPERTY OF CELL 'VALUE' = '####'.
+
+
+
+  CALL METHOD OF OLE_SHEET 'CELLS' = CELL
+
+  EXPORTING #1 = 1 #2 = 5.
+
+  SET PROPERTY OF CELL 'VALUE' = '##'.
+
+
+
+  CALL METHOD OF OLE_SHEET 'CELLS' = CELL
+
+  EXPORTING #1 = 1 #2 = 6.
+
+  SET PROPERTY OF CELL 'VALUE' = '########'.
+
+
+
+  CALL METHOD OF OLE_SHEET 'CELLS' = CELL
+
+  EXPORTING #1 = 1 #2 = 7.
+
+  SET PROPERTY OF CELL 'VALUE' = '########'.
+
+
+
+  CALL METHOD OF OLE_SHEET 'CELLS' = CELL
+
+  EXPORTING #1 = 1 #2 = 8.
+
+  SET PROPERTY OF CELL 'VALUE' = '###'.
+
+
+
+  CALL METHOD OF OLE_SHEET 'CELLS' = CELL
+
+  EXPORTING #1 = 1 #2 = 9.
+
+  SET PROPERTY OF CELL 'VALUE' = '###'.
+
+
+
+  LOOP AT GT_ZTCURR INTO LS_ALV.
+
+    "EXCEL 1## ####.
+
+    CALL METHOD OF OLE_SHEET 'CELLS' = CELL
+
+    EXPORTING #1 = LV_ROW #2 = 1.
+
+    SET PROPERTY OF CELL 'VALUE' = LS_ALV-KURST.
+
+
+
+    "EXCEL 2## ####.
+
+    CALL METHOD OF OLE_SHEET 'CELLS' = CELL
+
+    EXPORTING #1 = LV_ROW #2 = 2.
+
+    SET PROPERTY OF CELL 'VALUE' = LS_ALV-FCURR.
+
+
+
+    "EXCEL 3## ## ##.
+
+    CALL METHOD OF OLE_SHEET 'CELLS' = CELL
+
+    EXPORTING #1 = LV_ROW #2 = 3.
+
+    SET PROPERTY OF CELL 'VALUE' = LS_ALV-TCURR.
+
+
+
+    "EXCEL 4## ## ###.
+
+    CALL METHOD OF OLE_SHEET 'CELLS' = CELL
+
+    EXPORTING #1 = LV_ROW #2 = 4.
+
+    SET PROPERTY OF CELL 'VALUE' = LS_ALV-GDATU.
+
+
+
+    "EXCEL 5## ##.
+
+    CALL METHOD OF OLE_SHEET 'CELLS' = CELL
+
+    EXPORTING #1 = LV_ROW #2 = 5.
+
+    SET PROPERTY OF CELL 'VALUE' = LS_ALV-UKURS.
+
+
+
+    "EXCEL 6## ###### ##.
+
+    CALL METHOD OF OLE_SHEET 'CELLS' = CELL
+
+    EXPORTING #1 = LV_ROW #2 = 6.
+
+    SET PROPERTY OF CELL 'VALUE' = LS_ALV-FFACT.
+
+
+
+    "EXCEL 7## ###### ##.
+
+    CALL METHOD OF OLE_SHEET 'CELLS' = CELL
+
+    EXPORTING #1 = LV_ROW #2 = 7.
+
+    SET PROPERTY OF CELL 'VALUE' = LS_ALV-TFACT.
+
+
+
+    "EXCEL 8## ###.
+
+    CALL METHOD OF OLE_SHEET 'CELLS' = CELL
+
+    EXPORTING #1 = LV_ROW #2 = 8.
+
+    SET PROPERTY OF CELL 'VALUE' = LS_ALV-CRNAME.
+
+
+
+    "EXCEL 9## ###.
+
+    CALL METHOD OF OLE_SHEET 'CELLS' = CELL
+
+    EXPORTING #1 = LV_ROW #2 = 9.
+
+    SET PROPERTY OF CELL 'VALUE' = LS_ALV-CRDATE.
+
+
+
+    LV_ROW = LV_ROW + 1.
+
+  ENDLOOP.
+
+
+
+  "PDF##
+
+  CALL METHOD OF LO_WORKBOOK 'ExportAsfixedFormat'
+
+    EXPORTING
+
+      #1 = 0 "#### pdf
+
+      #2 = LV_PDF_FULLPATH. "####+###.
+
+
+
+
+
+  "4-1. ## ### / # ##
+
+  SET PROPERTY OF OLE_EXCEL 'DisplayAlerts' = 0.
+
+  CALL METHOD OF LO_WORKBOOK 'Close'.
+
+  CALL METHOD OF OLE_EXCEL 'Quit'.
+
+
+
+  FREE OBJECT CELL.
+
+  FREE OBJECT OLE_SHEET.
+
+  FREE OBJECT OLE_BOOKS.
+
+  FREE OBJECT LO_WORKBOOK.
+
+  FREE OBJECT OLE_EXCEL.
+
+
+
+  "5. DELETE  FILE
+
+  CALL METHOD CL_GUI_FRONTEND_SERVICES=>FILE_DELETE
+
+    EXPORTING
+
+      FILENAME             = LV_EXCEL_FULLPATH
+
+    CHANGING
+
+      RC                   = LV_RC
+
+    EXCEPTIONS
+
+      FILE_DELETE_FAILED   = 1
+
+      CNTL_ERROR           = 2
+
+      ERROR_NO_GUI         = 3
+
+      FILE_NOT_FOUND       = 4
+
+      ACCESS_DENIED        = 5
+
+      UNKNOWN_ERROR        = 6
+
+      NOT_SUPPORTED_BY_GUI = 7
+
+      WRONG_PARAMETER      = 8
+
+      OTHERS               = 9.
+
+  IF SY-SUBRC <> 0.
+
+
+
+
+*    Implement suitable error handling here
+
+
+
+
+  ENDIF.
+
+
+
+
+
+ENDFORM.

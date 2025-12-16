@@ -1,0 +1,165 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM21_001_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+
+
+TABLES :  ZLFA1_21, ZLFB1_21,ZLFM1_21.
+
+
+
+"## ### ## ######
+
+DATA : GS_LFA1 LIKE ZLFA1_21.
+
+DATA : GT_LFA1 LIKE TABLE OF GS_LFA1.
+
+
+
+"#### ### ## ### ###
+
+
+
+DATA : GS_LFB1 LIKE ZLFB1_21.
+
+DATA : GT_LFB1 LIKE TABLE OF GS_LFB1.
+
+
+
+
+
+"#### ### ## ### ###
+
+
+
+DATA : GS_LFM1 LIKE ZLFM1_21.
+
+DATA : GT_LFM1 LIKE TABLE OF GS_LFM1.
+
+
+
+
+
+
+
+"ALV ## ##
+
+DATA : GS_FC TYPE LVC_S_FCAT,
+
+       GT_FC TYPE LVC_T_FCAT.
+
+
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+
+
+"ALV_SORT ## ##
+
+DATA : GS_SORT TYPE LVC_S_SORT.
+
+DATA : GT_SORT TYPE LVC_T_SORT.
+
+
+
+"EVENT ## ##
+
+DATA : LS_MODI TYPE LVC_S_MODI.
+
+DATA : GO_EVENT TYPE REF TO EVENT.
+
+
+
+" VARIANT ## ##
+
+DATA : GS_VARIANT TYPE DISVARIANT.
+
+
+
+"OK CODE
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+"## ### ### ## ### ##
+
+DATA : GV_LIFNR LIKE ZLFA1_21-LIFNR. "#####
+
+DATA : GV_NAME1 LIKE ZLFA1_21-NAME1. "####
+
+DATA : GV_LAND1 LIKE ZLFA1_21-LAND1. "###
+
+DATA : GV_STRAS LIKE ZLFA1_21-STRAS. "##
+
+DATA : GV_KTOKK LIKE ZLFA1_21-KTOKK. "### ##
+
+DATA : GV_STCD1 LIKE ZLFA1_21-STCD1. "####
+
+DATA : GV_STCD2 LIKE ZLFA1_21-STCD2. "#####
+
+
+
+"## ## ### ### ## ### ##
+
+DATA : GV_BUKRS LIKE ZLFB1_21-BUKRS. "####
+
+DATA : GV_LOEVM LIKE ZLFB1_21-LOEVM. "#####
+
+DATA : GV_AKONT LIKE ZLFB1_21-AKONT. "##
+
+DATA : GV_ZTERM LIKE ZLFB1_21-ZTERM. "####
+
+
+
+"####### ### ### ##
+
+DATA : GV_EKORG LIKE ZLFM1_21-EKORG. "####
+
+DATA : GV_EKGRP LIKE ZLFM1_21-EKGRP. "####
+
+DATA : GV_WAERS LIKE ZLFM1_21-WAERS. "##
+
+DATA : GV_MWSKZ LIKE ZLFM1_21-MWSKZ. "####
+
+
+
+
+
+"### ###
+
+DATA : BEGIN OF GS_SEARCH,
+
+  LIFNR TYPE ZLFA1_21-LIFNR, "#####
+
+  NAME1 TYPE ZLFA1_21-NAME1, "####
+
+  BUKRS TYPE ZLFB1_21-BUKRS, "####
+
+  STCD2 TYPE ZLFA1_21-STCD2, "#####
+
+  LAND1 TYPE ZLFA1_21-LAND1, "###
+
+  STRAS TYPE ZLFA1_21-STRAS, "##
+
+  END OF GS_SEARCH.
+
+
+
+
+
+DATA : GV_MODE TYPE C. "## ##
+
+DATA : GT_SEARCH LIKE TABLE OF GS_SEARCH.

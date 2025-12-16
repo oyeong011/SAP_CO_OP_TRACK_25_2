@@ -1,0 +1,117 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZMM14_004_TOP
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+TABLES : ZLFA1_14, ZLFB1_14, ZEKKO_14, ZEKPO_14.
+
+TABLES : ZMKPF_14, ZMSEG_14, ZRBKP_14, ZRSEG_14.
+
+
+
+TYPES : BEGIN OF TY_100.
+
+        include structure
+ZRSEG_14
+.
+
+TYPES : STPRS TYPE ZEKPO_14-STPRS,
+
+        ZCHECK TYPE C LENGTH 1,
+
+        ZTERM TYPE ZLFB1_14-ZTERM,
+
+        BKTXT TYPE ZRBKP_14-BKTXT,
+
+        END OF TY_100.
+
+
+
+TYPES : BEGIN OF TY_200.
+
+        include structure
+ZRSEG_14
+.
+
+TYPES : ZCHECK TYPE C LENGTH 1,
+
+        TOTAL TYPE ZRSEG_14-WRBTR,
+
+        END OF TY_200.
+
+
+
+DATA : BEGIN OF GS_100,
+
+       NAME1 TYPE ZLFA1_14-NAME1,  "####
+
+       EBELN TYPE ZMSEG_14-EBELN,  "######
+
+       WERKS TYPE ZMSEG_14-WERKS,  "###
+
+       BLDAT TYPE ZRBKP_14-BLDAT,  "####
+
+       BUDAT TYPE ZRBKP_14-BUDAT,  "###
+
+       BKTXT TYPE ZRBKP_14-BKTXT,  "#####
+
+       ZTERM TYPE ZLFB1_14-ZTERM.  "####
+
+DATA END OF GS_100.
+
+
+
+DATA : BEGIN OF GS_HEADER,
+
+       RMWWR TYPE ZRBKP_14-RMWWR,  "##
+
+       WMWST TYPE ZRBKP_14-WMWST.  "##
+
+DATA END OF GS_HEADER.
+
+
+
+DATA : GS_CREATE TYPE TY_100,
+
+       GT_CREATE TYPE TABLE OF TY_100.
+
+
+
+DATA : GS_OUT TYPE TY_200,
+
+       GT_OUT TYPE TABLE OF TY_200.
+
+
+
+DATA : OK_CODE TYPE SY-UCOMM.
+
+
+
+DATA : GS_FCAT TYPE LVC_S_FCAT,
+
+       GT_FCAT TYPE LVC_T_FCAT.
+
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+
+
+DATA : GO_CUSTOM_100 TYPE REF TO CL_GUI_CUSTOM_CONTAINER.
+
+DATA : GO_GRID_100 TYPE REF TO CL_GUI_ALV_GRID.
+
+DATA : GO_EVENT_100 TYPE REF TO LCL_EVENT_RECEIVER.
+
+
+
+DATA : GO_CUSTOM_200 TYPE REF TO CL_GUI_CUSTOM_CONTAINER.
+
+DATA : GO_GRID_200 TYPE REF TO CL_GUI_ALV_GRID.
+
+DATA : GO_EVENT_200 TYPE REF TO LCL_EVENT_RECEIVER.

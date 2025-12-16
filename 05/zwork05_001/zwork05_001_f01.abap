@@ -1,0 +1,933 @@
+
+*&---------------------------------------------------------------------*
+
+*&  Include           ZWORK05_001_F01
+
+*&---------------------------------------------------------------------*
+
+*&  Subroutines
+
+*&---------------------------------------------------------------------*
+
+
+
+
+
+
+" Selection Screen ## ##
+
+FORM SELECTION_SCREEN.
+
+  LOOP AT SCREEN.
+
+    IF SCREEN-NAME = 'P_TYPE'.
+
+      SCREEN-INPUT = '0'.
+
+    ENDIF.
+
+    MODIFY SCREEN.
+
+  ENDLOOP.
+
+ENDFORM.
+
+
+
+" ALV ## ## # ### ##
+
+FORM CREATE_OBJECT.
+
+  " ## ## ## ##
+
+  IF GC_DOCKING IS BOUND.
+
+    RETURN.
+
+  ENDIF.
+
+
+
+  " ## #### ##
+
+  CREATE OBJECT GC_DOCKING
+
+    EXPORTING
+
+      REPID     = SY-REPID
+
+      DYNNR     = SY-DYNNR
+
+      EXTENSION = 2000
+
+    EXCEPTIONS
+
+      OTHERS    = 6.
+
+
+
+  IF SY-SUBRC <> 0.
+
+    MESSAGE '## #### ## ##' TYPE 'E'.
+
+  ENDIF.
+
+
+
+  " ALV Grid ##
+
+  CREATE OBJECT GC_GRID
+
+    EXPORTING
+
+      I_PARENT = GC_DOCKING
+
+    EXCEPTIONS
+
+      OTHERS   = 5.
+
+
+
+  IF SY-SUBRC <> 0.
+
+    MESSAGE 'ALV GRID ## ##' TYPE 'E'.
+
+  ENDIF.
+
+
+
+  " ### ### ## # ##
+
+  CREATE OBJECT GO_EVENT_HANDLER.
+
+  SET HANDLER GO_EVENT_HANDLER->HANDLE_TOOLBAR FOR GC_GRID.
+
+  SET HANDLER GO_EVENT_HANDLER->HANDLE_USER_COMMAND FOR GC_GRID.
+
+  SET HANDLER GO_EVENT_HANDLER->HANDLE_DATA_CHANGED FOR GC_GRID.
+
+ENDFORM.
+
+
+
+" ## #### ##
+
+FORM FIELD_CATALOG.
+
+  CLEAR: GS_FIELDCAT, GT_FIELDCAT.
+
+
+
+  GS_FIELDCAT-COL_POS = 1.
+
+  GS_FIELDCAT-FIELDNAME = 'KURST'.
+
+  GS_FIELDCAT-SCRTEXT_M = '####'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 2.
+
+  GS_FIELDCAT-FIELDNAME = 'FCURR'.
+
+  GS_FIELDCAT-SCRTEXT_M = '####'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 3.
+
+  GS_FIELDCAT-FIELDNAME = 'TCURR'.
+
+  GS_FIELDCAT-SCRTEXT_M = '####'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 4.
+
+  GS_FIELDCAT-FIELDNAME = 'GDATU'.
+
+  GS_FIELDCAT-SCRTEXT_M = '####'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 5.
+
+  GS_FIELDCAT-FIELDNAME = 'ZUKURS'.
+
+  GS_FIELDCAT-SCRTEXT_M = '##'.
+
+  GS_FIELDCAT-EDIT = 'X'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 6.
+
+  GS_FIELDCAT-FIELDNAME = 'FFACT'.
+
+  GS_FIELDCAT-SCRTEXT_M = '########'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 7.
+
+  GS_FIELDCAT-FIELDNAME = 'TFACT'.
+
+  GS_FIELDCAT-SCRTEXT_M = '########'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 8.
+
+  GS_FIELDCAT-FIELDNAME = 'ZUNAME'.
+
+  GS_FIELDCAT-SCRTEXT_M = '###'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+
+
+  CLEAR GS_FIELDCAT.
+
+  GS_FIELDCAT-COL_POS = 9.
+
+  GS_FIELDCAT-FIELDNAME = 'ZDATE'.
+
+  GS_FIELDCAT-SCRTEXT_M = '###'.
+
+  APPEND GS_FIELDCAT TO GT_FIELDCAT.
+
+ENDFORM.
+
+
+
+" ALV #### ##
+
+FORM ALV_LAYOUT.
+
+  GS_LAYOUT-ZEBRA      = 'X'. " ###
+
+  GS_LAYOUT-CWIDTH_OPT = 'X'. " ## ## ###
+
+  GS_LAYOUT-SEL_MODE   = 'A'. " # ## ##
+
+ENDFORM.
+
+
+
+" ALV ## # ### ##
+
+FORM CALL_ALV.
+
+  DATA: LS_STABLE TYPE LVC_S_STBL.
+
+
+
+  CALL METHOD GC_GRID->SET_TABLE_FOR_FIRST_DISPLAY
+
+    EXPORTING
+
+      IS_VARIANT                    = GS_VARIANT
+
+      I_SAVE                        = 'A'
+
+      IS_LAYOUT                     = GS_LAYOUT
+
+    CHANGING
+
+      IT_OUTTAB                     = GT_EXCHANGE
+
+      IT_FIELDCATALOG               = GT_FIELDCAT
+
+      IT_SORT                       = GT_SORT
+
+    EXCEPTIONS
+
+      INVALID_PARAMETER_COMBINATION = 1
+
+      PROGRAM_ERROR                 = 2
+
+      TOO_MANY_LINES                = 3
+
+      OTHERS                        = 4.
+
+
+
+  IF SY-SUBRC <> 0.
+
+    MESSAGE 'ALV ## ##' TYPE 'E'.
+
+  ENDIF.
+
+
+
+  " ### ## # ## ### ##
+
+  CALL METHOD GC_GRID->REGISTER_EDIT_EVENT
+
+    EXPORTING
+
+      I_EVENT_ID = CL_GUI_ALV_GRID=>MC_EVT_MODIFIED.
+
+
+
+  CALL METHOD GC_GRID->REGISTER_EDIT_EVENT
+
+    EXPORTING
+
+      I_EVENT_ID = CL_GUI_ALV_GRID=>MC_EVT_ENTER.
+
+ENDFORM.
+
+
+
+" ## ### #### ####
+
+FORM EXCEL_DOWN_METHOD.
+
+  DATA: L_FILENAME   TYPE STRING,
+
+        L_PATH       TYPE STRING,
+
+        L_FULLPATH   TYPE STRING,
+
+        LV_NAME      TYPE RLGRAP-FILENAME,
+
+        L_FILELENGTH TYPE I.
+
+
+
+  PERFORM SET_TEMPLATE.
+
+
+
+  PERFORM FILE_SAVE_DIALOG USING 'TEMPLATE.xls'
+
+                           CHANGING L_FILENAME
+
+                                    L_PATH
+
+                                    L_FULLPATH.
+
+
+
+  PERFORM GUI_DOWNLOAD USING L_FULLPATH
+
+                             L_FILELENGTH
+
+                             GT_TEMPLATE.
+
+
+
+  IF SY-SUBRC = 0.
+
+    MESSAGE '## ##' TYPE 'I'.
+
+  ELSE.
+
+    MESSAGE '## ##' TYPE 'I'.
+
+  ENDIF.
+
+ENDFORM.
+
+
+
+" ## ## ##
+
+FORM HELP_FUNC.
+
+  DATA: LT_FILE TYPE FILETABLE,
+
+        LS_FILE LIKE FILE_INFO,
+
+        LV_RC   TYPE I.
+
+
+
+  CALL METHOD CL_GUI_FRONTEND_SERVICES=>FILE_OPEN_DIALOG
+
+    EXPORTING
+
+      WINDOW_TITLE   = '### #####'
+
+      MULTISELECTION = ABAP_FALSE
+
+    CHANGING
+
+      FILE_TABLE     = LT_FILE
+
+      RC             = LV_RC.
+
+
+
+  IF SY-SUBRC = 0.
+
+    READ TABLE LT_FILE INTO LS_FILE INDEX 1.
+
+    P_FNAME = LS_FILE-FILENAME.
+
+  ENDIF.
+
+ENDFORM.
+
+
+
+" ## ### ##
+
+FORM PRESS_FUNCTION_KEY.
+
+  CASE SY-UCOMM.
+
+    WHEN 'FC01'.
+
+      PERFORM EXCEL_DOWN_METHOD.
+
+  ENDCASE.
+
+ENDFORM.
+
+
+
+" ## ## ##### ##
+
+FORM FILE_SAVE_DIALOG USING P_VALUE
+
+                      CHANGING P_FILENAME
+
+                               P_PATH
+
+                               P_FULLPATH.
+
+  CALL METHOD CL_GUI_FRONTEND_SERVICES=>FILE_SAVE_DIALOG
+
+    EXPORTING
+
+      DEFAULT_EXTENSION = 'XLS'
+
+      DEFAULT_FILE_NAME = P_VALUE
+
+    CHANGING
+
+      FILENAME          = P_FILENAME
+
+      PATH              = P_PATH
+
+      FULLPATH          = P_FULLPATH.
+
+ENDFORM.
+
+
+
+" ## #### ##
+
+FORM GUI_DOWNLOAD USING P_FULLPATH
+
+                        P_FILELENGTH
+
+                        P_FORMAT.
+
+  CALL METHOD CL_GUI_FRONTEND_SERVICES=>GUI_DOWNLOAD
+
+    EXPORTING
+
+      FILENAME              = P_FULLPATH
+
+      FILETYPE              = 'ASC'
+
+      WRITE_FIELD_SEPARATOR = 'X'
+
+    IMPORTING
+
+      FILELENGTH            = P_FILELENGTH
+
+    CHANGING
+
+      DATA_TAB              = P_FORMAT.
+
+ENDFORM.
+
+
+
+" ### ## ##
+
+FORM SAVE_DATA.
+
+  DATA: LT_UPDATE TYPE TABLE OF ZTCURR05,
+
+        LS_UPDATE TYPE ZTCURR05,
+
+        LV_ANSWER TYPE C,
+
+        LV_LINES  TYPE I,
+
+        LS_STABLE TYPE LVC_S_STBL.
+
+
+
+  " ALV ## ### ## ##
+
+  CALL METHOD GC_GRID->CHECK_CHANGED_DATA.
+
+
+
+  IF GT_EXCHANGE IS INITIAL.
+
+    MESSAGE '### ### ##' TYPE 'W'.
+
+    RETURN.
+
+  ENDIF.
+
+
+
+  " #### ### ##
+
+  LOOP AT GT_EXCHANGE INTO GS_EXCHANGE.
+
+    CLEAR LS_UPDATE.
+
+    GS_EXCHANGE-ERDAT = GS_EXCHANGE-ZDATE.
+
+    GS_EXCHANGE-ERNAM = GS_EXCHANGE-ZUNAME.
+
+    MOVE-CORRESPONDING GS_EXCHANGE TO LS_UPDATE.
+
+
+
+    " ## ### ##
+
+    LS_UPDATE-UKURS = GS_EXCHANGE-ZUKURS.
+
+    APPEND LS_UPDATE TO LT_UPDATE.
+
+  ENDLOOP.
+
+
+
+  IF LT_UPDATE IS INITIAL.
+
+    MESSAGE '### ### ##' TYPE 'W'.
+
+    RETURN.
+
+  ENDIF.
+
+
+
+  " ## ## ##
+
+  DESCRIBE TABLE LT_UPDATE LINES LV_LINES.
+
+  CALL FUNCTION 'POPUP_TO_CONFIRM'
+
+    EXPORTING
+
+      TITLEBAR      = '## ##'
+
+      TEXT_QUESTION = '## ### ########?'
+
+      TEXT_BUTTON_1 = 'YES'
+
+      TEXT_BUTTON_2 = 'NO'
+
+      DEFAULT_BUTTON = '2'
+
+    IMPORTING
+
+      ANSWER        = LV_ANSWER.
+
+
+
+  IF LV_ANSWER = '1'.
+
+    " DB ####
+
+    MODIFY ZTCURR05 FROM TABLE LT_UPDATE.
+
+
+
+    IF SY-SUBRC = 0.
+
+      COMMIT WORK.
+
+      MESSAGE |{ LV_LINES }# ## ##| TYPE 'S'.
+
+
+
+      " ALV #### (### ##)
+
+      LS_STABLE-ROW = 'X'.
+
+      LS_STABLE-COL = 'X'.
+
+      CALL METHOD GC_GRID->REFRESH_TABLE_DISPLAY
+
+        EXPORTING
+
+          IS_STABLE = LS_STABLE.
+
+    ELSE.
+
+      ROLLBACK WORK.
+
+      MESSAGE '## ##' TYPE 'E'.
+
+    ENDIF.
+
+  ENDIF.
+
+ENDFORM.
+
+
+
+" ## ### ## ### ##
+
+FORM SET_TEMPLATE.
+
+  CLEAR GT_TEMPLATE.
+
+  APPEND GS_TEMPLATE TO GT_TEMPLATE.
+
+
+
+  CLEAR GS_TEMPLATE.
+
+  GS_TEMPLATE-KURST = 'M'.
+
+  GS_TEMPLATE-FCURR = 'USD'.
+
+  GS_TEMPLATE-TCURR = 'KRW'.
+
+  GS_TEMPLATE-GDATU = '20250401'.
+
+  GS_TEMPLATE-UKURS = '1470.6'.
+
+  GS_TEMPLATE-FFACT = '1'.
+
+  GS_TEMPLATE-TFACT = '1'.
+
+  APPEND GS_TEMPLATE TO GT_TEMPLATE.
+
+
+
+  " ## ## ###
+
+  GS_TEMPLATE-FCURR = 'JPY'. GS_TEMPLATE-UKURS = '980.11'. GS_TEMPLATE-FFACT = '100'. APPEND GS_TEMPLATE TO GT_TEMPLATE.
+
+  GS_TEMPLATE-FCURR = 'EUR'. GS_TEMPLATE-UKURS = '1590.9'. GS_TEMPLATE-FFACT = '1'.   APPEND GS_TEMPLATE TO GT_TEMPLATE.
+
+  GS_TEMPLATE-FCURR = 'CAD'. GS_TEMPLATE-UKURS = '1021.89'. GS_TEMPLATE-FFACT = '1'.   APPEND GS_TEMPLATE TO GT_TEMPLATE.
+
+  GS_TEMPLATE-FCURR = 'CNY'. GS_TEMPLATE-UKURS = '202.68'. GS_TEMPLATE-FFACT = '1'.   APPEND GS_TEMPLATE TO GT_TEMPLATE.
+
+  GS_TEMPLATE-FCURR = 'VND'. GS_TEMPLATE-UKURS = '5.75'. GS_TEMPLATE-FFACT = '100'.   APPEND GS_TEMPLATE TO GT_TEMPLATE.
+
+  GS_TEMPLATE-FCURR = 'HKD'. GS_TEMPLATE-UKURS = '189.03'. GS_TEMPLATE-FFACT = '1'.   APPEND GS_TEMPLATE TO GT_TEMPLATE.
+
+  GS_TEMPLATE-FCURR = 'AUD'. GS_TEMPLATE-UKURS = '918.24'. GS_TEMPLATE-FFACT = '1'.   APPEND GS_TEMPLATE TO GT_TEMPLATE.
+
+ENDFORM.
+
+
+
+" ## ## ##
+
+FORM GET_EXCEL_DATA.
+
+  CALL FUNCTION 'ALSM_EXCEL_TO_INTERNAL_TABLE'
+
+    EXPORTING
+
+      FILENAME                = P_FNAME
+
+      I_BEGIN_COL             = 1
+
+      I_BEGIN_ROW             = 2
+
+      I_END_COL               = 7
+
+      I_END_ROW               = 65536
+
+    TABLES
+
+      INTERN                  = GT_EXCEL_RAW
+
+    EXCEPTIONS
+
+      INCONSISTENT_PARAMETERS = 1
+
+      UPLOAD_OLE              = 2
+
+      OTHERS                  = 3.
+
+
+
+  IF SY-SUBRC <> 0.
+
+    MESSAGE '## ## ## ##' TYPE 'E'.
+
+  ENDIF.
+
+
+
+  IF GT_EXCEL_RAW IS INITIAL.
+
+    MESSAGE '## ### ##' TYPE 'W'.
+
+  ENDIF.
+
+ENDFORM.
+
+
+
+" ## ### ## # ### ##
+
+FORM MODIFY_EXCEL_DATA.
+
+  DATA: LV_PREV_ROW TYPE I VALUE 0.
+
+
+
+  IF GT_EXCEL_RAW IS INITIAL.
+
+    MESSAGE '### ### ##' TYPE 'W'.
+
+    RETURN.
+
+  ENDIF.
+
+
+
+  CLEAR GT_EXCHANGE.
+
+
+
+  LOOP AT GT_EXCEL_RAW INTO GS_EXCEL_RAW.
+
+    " # ## # ## ### ##
+
+    IF GS_EXCEL_RAW-ROW <> LV_PREV_ROW AND LV_PREV_ROW <> 0.
+
+      IF GS_EXCHANGE-FCURR IS NOT INITIAL.
+
+        GS_EXCHANGE-ZUNAME = SY-UNAME.
+
+        GS_EXCHANGE-ZDATE  = SY-DATUM.
+
+        APPEND GS_EXCHANGE TO GT_EXCHANGE.
+
+        CLEAR GS_EXCHANGE.
+
+      ENDIF.
+
+    ENDIF.
+
+
+
+    " ### ### ##
+
+    CASE GS_EXCEL_RAW-COL.
+
+      WHEN 1. GS_EXCHANGE-KURST = GS_EXCEL_RAW-VALUE.
+
+      WHEN 2. GS_EXCHANGE-FCURR = GS_EXCEL_RAW-VALUE.
+
+      WHEN 3. GS_EXCHANGE-TCURR = GS_EXCEL_RAW-VALUE.
+
+      WHEN 4. GS_EXCHANGE-GDATU = P_DATE.
+
+      WHEN 5.
+
+        GS_EXCHANGE-UKURS  = GS_EXCEL_RAW-VALUE.
+
+        GS_EXCHANGE-ZUKURS = GS_EXCHANGE-UKURS.
+
+      WHEN 6. GS_EXCHANGE-FFACT = GS_EXCEL_RAW-VALUE.
+
+      WHEN 7. GS_EXCHANGE-TFACT = GS_EXCEL_RAW-VALUE.
+
+    ENDCASE.
+
+
+
+    LV_PREV_ROW = GS_EXCEL_RAW-ROW.
+
+  ENDLOOP.
+
+
+
+  " ### # ##
+
+  IF GS_EXCHANGE-FCURR IS NOT INITIAL.
+
+    GS_EXCHANGE-ZUNAME = SY-UNAME.
+
+    GS_EXCHANGE-ZDATE  = SY-DATUM.
+
+    APPEND GS_EXCHANGE TO GT_EXCHANGE.
+
+  ENDIF.
+
+
+
+  " ## ###
+
+  IF GT_EXCHANGE IS INITIAL.
+
+    MESSAGE '### ### ##' TYPE 'W'.
+
+  ELSE.
+
+    DATA: LV_LINES TYPE I.
+
+    DESCRIBE TABLE GT_EXCHANGE LINES LV_LINES.
+
+    MESSAGE |{ LV_LINES }# ### ## ##| TYPE 'S'.
+
+  ENDIF.
+
+ENDFORM.
+
+
+
+" ### ## ### ## (## ## # ## ####)
+
+FORM HANDLE_DATA_CHANGE USING P_DATA_CHANGED TYPE REF TO CL_ALV_CHANGED_DATA_PROTOCOL.
+
+  DATA: LS_MODI     TYPE LVC_S_MODI,
+
+        LS_EXCHANGE LIKE LINE OF GT_EXCHANGE.
+
+
+
+  LOOP AT P_DATA_CHANGED->MT_GOOD_CELLS INTO LS_MODI.
+
+    IF LS_MODI-FIELDNAME = 'ZUKURS'.
+
+      READ TABLE GT_EXCHANGE INTO LS_EXCHANGE INDEX LS_MODI-ROW_ID.
+
+      IF SY-SUBRC = 0.
+
+        " ### # ## ##
+
+        LS_EXCHANGE-GDATU  = P_DATE.
+
+        LS_EXCHANGE-ZUNAME = SY-UNAME.
+
+        LS_EXCHANGE-ZDATE  = SY-DATUM.
+
+
+
+        MODIFY GT_EXCHANGE FROM LS_EXCHANGE INDEX LS_MODI-ROW_ID.
+
+
+
+        " ALV # # ## ##
+
+        CALL METHOD P_DATA_CHANGED->MODIFY_CELL
+
+          EXPORTING I_ROW_ID = LS_MODI-ROW_ID I_FIELDNAME = 'GDATU' I_VALUE = P_DATE.
+
+
+
+        CALL METHOD P_DATA_CHANGED->MODIFY_CELL
+
+          EXPORTING I_ROW_ID = LS_MODI-ROW_ID I_FIELDNAME = 'ZUNAME' I_VALUE = SY-UNAME.
+
+
+
+        CALL METHOD P_DATA_CHANGED->MODIFY_CELL
+
+          EXPORTING I_ROW_ID = LS_MODI-ROW_ID I_FIELDNAME = 'ZDATE' I_VALUE = SY-DATUM.
+
+      ENDIF.
+
+    ENDIF.
+
+  ENDLOOP.
+
+ENDFORM.
+
+
+
+" ## ###### (## ## ##)
+
+FORM HANDLE_TOOLBAR USING P_OBJECT TYPE REF TO CL_ALV_EVENT_TOOLBAR_SET
+
+                          P_INTERACTIVE.
+
+  " ###
+
+  CLEAR GS_TOOLBAR.
+
+  GS_TOOLBAR-BUTN_TYPE = 3.
+
+  APPEND GS_TOOLBAR TO P_OBJECT->MT_TOOLBAR.
+
+
+
+  " ## ##
+
+  CLEAR GS_TOOLBAR.
+
+  GS_TOOLBAR-FUNCTION  = 'SAVE'.
+
+  GS_TOOLBAR-ICON      = '@2L@'.
+
+  GS_TOOLBAR-QUICKINFO = '### ##'.
+
+  GS_TOOLBAR-TEXT      = '##'.
+
+  APPEND GS_TOOLBAR TO P_OBJECT->MT_TOOLBAR.
+
+ENDFORM.
+
+
+
+" ### ##
+
+FORM CHECK_P.
+
+  IF P_DATE IS INITIAL.
+
+    MESSAGE '#### ## ##' TYPE 'I'.
+
+    STOP.
+
+  ELSEIF P_FNAME IS INITIAL.
+
+    MESSAGE '#### ## ##' TYPE 'I'.
+
+    STOP.
+
+  ENDIF.
+
+ENDFORM.

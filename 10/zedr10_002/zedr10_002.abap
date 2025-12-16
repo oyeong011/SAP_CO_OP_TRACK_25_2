@@ -1,0 +1,205 @@
+
+*&---------------------------------------------------------------------*
+
+*& Report ZEDR10_002
+
+*&---------------------------------------------------------------------*
+
+*&
+
+*&---------------------------------------------------------------------*
+
+
+
+
+REPORT ZEDR10_002.
+
+
+
+DATA: gs_zedt00 TYPE ZEDT10_001.
+
+
+
+GS_ZEDT00-ZCODE = 'SSU-01'.
+
+GS_ZEDT00-ZKNAME ='###'.
+
+GS_ZEDT00-ZENAME = 'DONG'.
+
+GS_ZEDT00-ZGENDER = 'M'.
+
+GS_ZEDT00-ZTEL = '01011112222'.
+
+
+
+WRITE : GS_ZEDT00-ZCODE.
+
+WRITE :/ GS_ZEDT00-ZKNAME.
+
+WRITE :/ GS_ZEDT00-ZENAME.
+
+WRITE :/ GS_ZEDT00-ZGENDER.
+
+WRITE :/ GS_ZEDT00-ZTEL.
+
+
+
+ULINE /.
+
+
+
+DATA: BEGIN OF gs_zedt01,
+
+  zcode TYPE ZEDT10_001-zcode,
+
+  zkname TYPE ZEDT10_001-zkname,
+
+  zename TYPE ZEDT10_001-zename,
+
+  zgender TYPE ZEDT10_001-zgender,
+
+  ztel TYPE ZEDT10_001-ztel,
+
+  END OF gs_zedt01.
+
+
+
+GS_ZEDT01-ZCODE = 'SSU-02'.
+
+GS_ZEDT01-ZKNAME ='###'.
+
+GS_ZEDT01-ZENAME = 'DONG'.
+
+GS_ZEDT01-ZGENDER = 'M'.
+
+GS_ZEDT01-ZTEL = '01011112222'.
+
+
+
+WRITE : GS_ZEDT01-ZCODE.
+
+WRITE :/ GS_ZEDT01-ZKNAME.
+
+WRITE :/ GS_ZEDT01-ZENAME.
+
+WRITE :/ GS_ZEDT01-ZGENDER.
+
+WRITE :/ GS_ZEDT01-ZTEL.
+
+
+
+ULINE /.
+
+
+
+DATA: BEGIN OF gs_zedt02,
+
+  zcode TYPE ZCODE10,
+
+  zkname TYPE ZKNAME10,
+
+  zename TYPE ZENAME10,
+
+  zgender TYPE ZGENDER10,
+
+  ztel TYPE ZTEL10,
+
+  END OF gs_zedt02.
+
+
+
+GS_ZEDT02-ZCODE = 'SSU-03'.
+
+GS_ZEDT02-ZKNAME ='###'.
+
+GS_ZEDT02-ZENAME = 'DONG'.
+
+GS_ZEDT02-ZGENDER = 'M'.
+
+GS_ZEDT02-ZTEL = '01011112222'.
+
+
+
+WRITE : GS_ZEDT02-ZCODE.
+
+WRITE :/ GS_ZEDT02-ZKNAME.
+
+WRITE :/ GS_ZEDT02-ZENAME.
+
+WRITE :/ GS_ZEDT02-ZGENDER.
+
+WRITE :/ GS_ZEDT02-ZTEL.
+
+
+
+ULINE /.
+
+
+
+DATA: gs_zeds00 TYPE ZEDS10_001.
+
+
+
+GS_ZEDS00-ZCODE = 'SSU-10'.
+
+GS_ZEDS00-ZKNAME ='###'.
+
+GS_ZEDS00-ZENAME = 'DONG'.
+
+GS_ZEDS00-ZGENDER = 'M'.
+
+GS_ZEDS00-ZTEL = '01011112222'.
+
+
+
+WRITE : GS_ZEDS00-ZCODE.
+
+WRITE :/ GS_ZEDS00-ZKNAME.
+
+WRITE :/ GS_ZEDS00-ZENAME.
+
+WRITE :/ GS_ZEDS00-ZGENDER.
+
+WRITE :/ GS_ZEDS00-ZTEL.
+
+
+
+
+
+ULINE /.
+
+
+
+" TYPE-POOLS ZTG10 .
+
+
+
+DATA: gs_zedg10 TYPE ZTG10_ZED10.
+
+DATA: gv_ztitle TYPE ZTG10_ZTITLE.
+
+
+
+GS_ZEDG10-ZCODE = 'SSU-20'.
+
+GS_ZEDG10-ZKNAME ='###'.
+
+GS_ZEDG10-ZENAME = 'DONG'.
+
+GS_ZEDG10-ZGENDER = 'M'.
+
+GS_ZEDG10-ZTEL = '01011112222'.
+
+
+
+WRITE : GS_ZEDG10-ZCODE.
+
+WRITE :/ GS_ZEDG10-ZKNAME.
+
+WRITE :/ GS_ZEDG10-ZENAME.
+
+WRITE :/ GS_ZEDG10-ZGENDER.
+
+WRITE :/ GS_ZEDG10-ZTEL.
+
+WRITE :/ GV_ZTITLE.
